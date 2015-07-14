@@ -3,24 +3,24 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.im.corelib.model.DrawerLayoutMenu;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
+import com.tongban.im.model.BaseEvent;
 
 import java.util.List;
 
 /**
  * Created by zhangleilei on 15/7/5.
  */
-public class LeftMenuAdapter extends QuickAdapter<DrawerLayoutMenu> {
+public class LeftMenuAdapter extends QuickAdapter<BaseEvent.DrawerLayoutMenu> {
 
     public LeftMenuAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, DrawerLayoutMenu item) {
+    protected void convert(BaseAdapterHelper helper, BaseEvent.DrawerLayoutMenu item) {
         helper.setSimpleDraweeView(R.id.sdv_icon, item.getIcon());
         helper.setText(R.id.tv_title, item.getText());
         helper.getConvertView().setBackgroundColor(Color.TRANSPARENT);

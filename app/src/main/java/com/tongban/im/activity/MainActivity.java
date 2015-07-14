@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.im.corelib.model.DrawerLayoutMenu;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -18,6 +17,7 @@ import com.tongban.im.fragment.CircleFragment;
 import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.RecommendFragment;
+import com.tongban.im.model.BaseEvent;
 
 /**
  * 主界面
@@ -142,8 +142,8 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public void onEventMainThread(Object o) {
-        if (o instanceof DrawerLayoutMenu) {
-            DrawerLayoutMenu item = (DrawerLayoutMenu) o;
+        if (o instanceof BaseEvent.DrawerLayoutMenu) {
+            BaseEvent.DrawerLayoutMenu item = (BaseEvent.DrawerLayoutMenu) o;
             LogUtil.d("onEventMainThread:" + item.getText());
             mToolbar.setTitle(item.getText());
             mDrawerLayout.closeDrawer(Gravity.LEFT);

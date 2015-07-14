@@ -5,11 +5,11 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.im.corelib.model.DrawerLayoutMenu;
 import com.tongban.corelib.base.fragment.BaseUIFragment;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.LeftMenuAdapter;
+import com.tongban.im.model.BaseEvent;
 
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import io.rong.imlib.model.Conversation;
 public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnItemClickListener {
 
     private final static int MENU_ITEM_SIZE = 3;
-    private List<DrawerLayoutMenu> mItems = new ArrayList<DrawerLayoutMenu>();
+    private List<BaseEvent.DrawerLayoutMenu> mItems = new ArrayList<BaseEvent.DrawerLayoutMenu>();
     private ListView mListView;
     private LeftMenuAdapter mAdapter;
 
@@ -53,11 +53,11 @@ public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnIt
 
     @Override
     protected void initData() {
-        DrawerLayoutMenu menuItem1 = new DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[0], "android02", Conversation.ConversationType.PRIVATE, R.mipmap.ic_launcher, true);
+        BaseEvent.DrawerLayoutMenu menuItem1 = new BaseEvent.DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[0], "android02", Conversation.ConversationType.PRIVATE, R.mipmap.ic_launcher, true);
         mItems.add(menuItem1);
-        DrawerLayoutMenu menuItem2 = new DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[1], "group1", Conversation.ConversationType.GROUP, R.mipmap.ic_launcher, false);
+        BaseEvent.DrawerLayoutMenu menuItem2 = new BaseEvent.DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[1], "group1", Conversation.ConversationType.GROUP, R.mipmap.ic_launcher, false);
         mItems.add(menuItem2);
-        DrawerLayoutMenu menuItem3 = new DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[2], "group1", Conversation.ConversationType.SYSTEM, R.mipmap.ic_launcher, false);
+        BaseEvent.DrawerLayoutMenu menuItem3 = new BaseEvent.DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[2], "group1", Conversation.ConversationType.SYSTEM, R.mipmap.ic_launcher, false);
         mItems.add(menuItem3);
 
         mAdapter = new LeftMenuAdapter(mContext, R.layout.item_left_menu, mItems);
