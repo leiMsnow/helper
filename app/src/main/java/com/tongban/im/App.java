@@ -17,6 +17,7 @@ public class App extends BaseApplication {
         mApp = this;
 
         RongIM.init(this);
+        RongCloudEvent.init(this);
         /** Log开关 */
         LogUtil.isDebug = true;
     }

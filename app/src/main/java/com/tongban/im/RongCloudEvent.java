@@ -1,19 +1,15 @@
 package com.tongban.im;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.View;
 
 import com.sea_monster.dao.query.QueryBuilder;
 import com.sea_monster.exception.BaseException;
 import com.sea_monster.network.AbstractHttpRequest;
 import com.sea_monster.network.ApiCallback;
-
-import java.util.ArrayList;
-
+import com.tongban.corelib.utils.LogUtil;
 
 import io.rong.imkit.DBManager;
 import io.rong.imkit.PushNotificationManager;
@@ -22,21 +18,13 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.UserInfos;
 import io.rong.imkit.UserInfosDao;
 import io.rong.imkit.model.UIConversation;
-import io.rong.imkit.widget.provider.CameraInputProvider;
-import io.rong.imkit.widget.provider.ImageInputProvider;
-import io.rong.imkit.widget.provider.InputProvider;
-import io.rong.imkit.widget.provider.LocationInputProvider;
-import io.rong.imkit.widget.provider.VoIPInputProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
-import io.rong.message.ContactNotificationMessage;
 import io.rong.message.ImageMessage;
-import io.rong.message.InformationNotificationMessage;
-import io.rong.message.LocationMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
@@ -49,7 +37,7 @@ import io.rong.notification.PushNotificationMessage;
 /**
  * 融云SDK事件监听处理。
  * 把事件统一处理，开发者可直接复制到自己的项目中去使用。
- * <p/>
+ * <p>
  * 该类包含的监听事件有：
  * 1、消息接收器：OnReceiveMessageListener。
  * 2、发出消息接收器：OnSendMessageListener。
@@ -113,6 +101,29 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //        RongIM.setPushMessageBehaviorListener(this);//自定义 push 通知。
     }
 
+    public void connectIM(String token,final RongIMClient.ConnectCallback callback) {
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                LogUtil.d(TAG, "onTokenIncorrect");
+                callback.onTokenIncorrect();
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtil.d(TAG, "连接RongIM成功，当前用户：" + s);
+                setOtherListener();
+                callback.onSuccess(s);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtil.d(TAG, "连接RongIM失败：" + errorCode.toString());
+                callback.onError(errorCode);
+            }
+        });
+    }
+
     /*
      * 连接成功注册。
      * <p/>
@@ -146,7 +157,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public boolean onReceivePushMessage(PushNotificationMessage msg) {
-        Log.d(TAG, "onReceived-onPushMessageArrive:" + msg.getContent());
+        LogUtil.d(TAG, "onReceived-onPushMessageArrive:" + msg.getContent());
 
         PushNotificationManager.getInstance().onReceivePush(msg);
 
@@ -159,7 +170,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //
 //        uri = Uri.parse("rong://" + RongContext.getInstance().getPackageName()).buildUpon().appendPath("conversationlist").build();
 //        intent.setData(uri);
-//        Log.d(TAG, "onPushMessageArrive-url:" + uri.toString());
+//        LogUtil.d(TAG, "onPushMessageArrive-url:" + uri.toString());
 //
 //        Notification notification=null;
 //
@@ -223,9 +234,9 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
         if (messageContent instanceof TextMessage) {//文本消息
             TextMessage textMessage = (TextMessage) messageContent;
-            Log.d(TAG, "onReceived-TextMessage:" + textMessage.getContent());
+            LogUtil.d(TAG, "onReceived-TextMessage:" + textMessage.getContent());
         } else {
-            Log.d(TAG, "onReceived-其他消息，自己来判断处理");
+            LogUtil.d(TAG, "onReceived-其他消息，自己来判断处理");
         }
 
         return false;
@@ -250,18 +261,18 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
         if (messageContent instanceof TextMessage) {//文本消息
             TextMessage textMessage = (TextMessage) messageContent;
-            Log.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
+            LogUtil.d(TAG, "onSent-TextMessage:" + textMessage.getContent());
         } else if (messageContent instanceof ImageMessage) {//图片消息
             ImageMessage imageMessage = (ImageMessage) messageContent;
-            Log.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
+            LogUtil.d(TAG, "onSent-ImageMessage:" + imageMessage.getRemoteUri());
         } else if (messageContent instanceof VoiceMessage) {//语音消息
             VoiceMessage voiceMessage = (VoiceMessage) messageContent;
-            Log.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
+            LogUtil.d(TAG, "onSent-voiceMessage:" + voiceMessage.getUri().toString());
         } else if (messageContent instanceof RichContentMessage) {//图文消息
             RichContentMessage richContentMessage = (RichContentMessage) messageContent;
-            Log.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
+            LogUtil.d(TAG, "onSent-RichContentMessage:" + richContentMessage.getContent());
         } else {
-            Log.d(TAG, "onSent-其他消息，自己来判断处理");
+            LogUtil.d(TAG, "onSent-其他消息，自己来判断处理");
         }
     }
 
@@ -320,13 +331,13 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo user) {
-        Log.d(TAG, "onUserPortraitClick");
+        LogUtil.d(TAG, "onUserPortraitClick");
 
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
 //        if (user != null) {
-//            Log.d("Begavior", conversationType.getName() + ":" + user.getName());
+//            LogUtil.d("Begavior", conversationType.getName() + ":" + user.getName());
 //            Intent in = new Intent(context, DePersonalDetailActivity.class);
 //            in.putExtra("USER", user);
 //            in.putExtra("SEARCH_USERID", user.getUserId());
@@ -349,7 +360,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public boolean onMessageClick(Context context, View view, Message message) {
-        Log.d(TAG, "onMessageClick");
+        LogUtil.d(TAG, "onMessageClick");
 
 //        /**
 //         * demo 代码  开发者需替换成自己的代码。
@@ -360,7 +371,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //            context.startActivity(intent);
 //        } else if (message.getContent() instanceof RichContentMessage) {
 //            RichContentMessage mRichContentMessage = (RichContentMessage) message.getContent();
-//            Log.d("Begavior", "extra:" + mRichContentMessage.getExtra());
+//            LogUtil.d("Begavior", "extra:" + mRichContentMessage.getExtra());
 //
 //        } else if (message.getContent() instanceof ImageMessage) {
 //            ImageMessage imageMessage = (ImageMessage) message.getContent();
@@ -373,7 +384,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //            context.startActivity(intent);
 //        }
 
-        Log.d("Begavior", message.getObjectName() + ":" + message.getMessageId());
+        LogUtil.d("Begavior", message.getObjectName() + ":" + message.getMessageId());
 
         return false;
     }
@@ -390,7 +401,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public void onChanged(ConnectionStatus status) {
-        Log.d(TAG, "onChanged:" + status);
+        LogUtil.d(TAG, "onChanged:" + status);
         if (status.getMessage().equals(ConnectionStatus.DISCONNECTED.getMessage())) {
         }
     }

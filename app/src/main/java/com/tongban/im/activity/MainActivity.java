@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -18,6 +19,8 @@ import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.RecommendFragment;
 import com.tongban.im.model.BaseEvent;
+
+import io.rong.imkit.RongIM;
 
 /**
  * 主界面
@@ -138,6 +141,14 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.action_settings){
+            RongIM.getInstance().startGroupChat(mContext,"group01","");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -5,57 +5,7 @@
     <application>
 
 
-        <!--begin rongcloud-->
 
-        <service
-            android:name="io.rong.push.PushService"
-            android:process="io.rong.push">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="io.rong.push" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="io.rong.push.CommandService"
-            android:process="io.rong.push">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="io.rong.command" />
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push">
-            <intent-filter>
-                <action android:name="io.rong.imlib.action.push.heartbeat" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc" />
-
-        <service
-            android:name="io.rong.imlib.ipc.RongService"
-            android:process=":ipc"></service>
-        <service android:name="io.rong.imlib.ReConnectService" />
-
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
-            <intent-filter>
-                <action android:name="io.rong.push.message" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
-
-        <!--end rongcloud-->
 
     </application>
 
