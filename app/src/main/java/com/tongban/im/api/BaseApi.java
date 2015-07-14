@@ -1,0 +1,152 @@
+package com.tongban.im.api;
+
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.tongban.corelib.base.BaseApplication;
+import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.utils.SPUtils;
+
+import org.json.JSONObject;
+
+import java.util.Collections;
+import java.util.Map;
+
+/**
+ * Created by zhangleilei on 15/7/8.
+ */
+public class BaseApi {
+
+    protected Context mContext;
+    // 服务器地址存储标示 0线上；1st；2test；3+其他开发人员地址
+    private static final String HOST_FLAG = "HOST_FLAG";
+    /**
+     * 接口请求成功
+     */
+    public final static int API_SUCCESS = 0;
+    /**
+     * 接口请求失败
+     */
+    public final static int API_FAILD = -1;
+    /**
+     * 获取Volley请求队列
+     */
+    protected static RequestQueue mRequestQueue;
+    /**
+     * 声明Request请求
+     */
+    private JsonObjectRequest request = null;
+    // 默认服务器地址，实际地址根据getHostUrl来获取；
+    private static String DEFAULT_HOST = "http://10.3.255.204:8080/ddim/";
+    //正式环境
+    private static String MAIN_HOST = "";
+    //测试环境
+    private static String TEST_HOST = "";
+
+    public BaseApi(Context context) {
+        this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();
+        this.mContext = context;
+    }
+
+    /**
+     * 获得服务器地址
+     *
+     * @return 服务器地址
+     */
+    protected String getHostUrl() {
+        String host = SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
+        if (host != null) {
+            return host;
+        }
+        return DEFAULT_HOST;
+    }
+
+    /**
+     * 设置服务器地址
+     *
+     * @param flag 0线上；1st；2test；3+其他开发人员地址
+     */
+    public void setHostUrl(int flag) {
+        String saveUrl = "";
+        switch (flag) {
+            case 0:
+            default:
+                saveUrl = MAIN_HOST;
+                break;
+            case 1:
+                break;
+            case 2:
+                saveUrl = TEST_HOST;
+                break;
+        }
+        SPUtils.put(mContext, saveUrl, flag);
+    }
+
+    /**
+     * 接口请求地址
+     */
+    protected String getRequestUrl(String apiName) {
+        return getHostUrl() + apiName;
+    }
+
+    /**
+     * 封装了JsonObjectRequest的网络请求方法
+     *
+     * @param url      请求地址
+     * @param params   请求参数
+     * @param callback 请求结果的回调
+     * @return request--当前请求对象
+     */
+    protected Request simpleRequest(String url, Map params, final ApiCallback callback) {
+        if (url == null || params == Collections.emptyMap()) {
+            return null;
+        }
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = getRequestUrl(url);
+        }
+        // 创建request
+        request = new JsonObjectRequest(url, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        // 如果当前请求位于失败请求的队列中,则移除
+                        if (BaseApiActivity.getFailedRequest().contains(request)) {
+                            BaseApiActivity.getFailedRequest().remove(request);
+                        }
+                        int apiResult = jsonObject.optInt("statusCode");
+                        if (apiResult == API_SUCCESS) {
+                            // 请求成功,数据回调给调用方
+                            callback.onComplete(jsonObject);
+                        } else {
+                            callback.onFailure(ApiCallback.DisplayType.Toast,
+                                    jsonObject.optString("statusDesc"));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                // 将当前的请求添加到失败队列中
+                if (!BaseApiActivity.getFailedRequest().contains(request)) {
+                    BaseApiActivity.getFailedRequest().add(request);
+                }
+                // 请求失败,错误信息回调给调用方
+                String errorMessage = "";
+                if (volleyError != null) {
+                    errorMessage = volleyError.getMessage().toString();
+                }
+                callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
+            }
+        });
+        // 添加请求到Volley队列
+        mRequestQueue.add(request);
+        // 回调到方法调用方,通知请求已经开始
+        callback.onStartApi();
+
+        return request;
+    }
+}

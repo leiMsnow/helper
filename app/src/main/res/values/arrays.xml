@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="array_left_menu">
+        <item>单聊</item>
+        <item>群聊</item>
+        <item>系统</item>
+    </array>
+</resources>
