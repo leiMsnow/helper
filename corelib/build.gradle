@@ -23,4 +23,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.facebook.fresco:fresco:0.5.3'
     compile 'in.srain.cube:ultra-ptr:1.0.10'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.3'
 }
