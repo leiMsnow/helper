@@ -16,6 +16,9 @@ import com.tongban.im.api.UserApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
+/**
+ * 注册
+ */
 public class RegisterActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
 
     private EditText etUser;
@@ -88,7 +91,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         // 注册成功
         else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-//            UserApi.getInstance().tokenLogin(reg.getFreeauth_token(), this);
+            UserApi.getInstance().tokenLogin(reg.getFreeauth_token(), this);
         }
     }
 
@@ -111,8 +114,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
             }
             // 注册
             else {
-//                UserApi.getInstance().register(mUser, mUser, mPwd, this);
-                UserApi.getInstance().fetch("55a603c35b7db0e40b17058e", mUser, "1", this);
+                UserApi.getInstance().register(mUser, mUser, mPwd, this);
             }
 
 
