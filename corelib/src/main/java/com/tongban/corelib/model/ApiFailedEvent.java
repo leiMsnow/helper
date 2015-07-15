@@ -5,12 +5,16 @@ package com.tongban.corelib.model;
  */
 public class ApiFailedEvent {
 
+    private int errorCode;
     private String errorMessage;
 
-    public ApiFailedEvent(String msg) {
-        this.errorMessage = msg;
+    public int getErrorCode() {
+        return errorCode;
     }
 
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
 
     public String getErrorMessage() {
         return errorMessage;

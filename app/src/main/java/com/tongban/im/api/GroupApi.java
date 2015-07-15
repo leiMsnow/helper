@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.ApiResult;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
@@ -82,7 +82,7 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
         });
@@ -111,7 +111,7 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
         });
@@ -145,7 +145,7 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
         });

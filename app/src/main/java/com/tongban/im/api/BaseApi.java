@@ -2,6 +2,7 @@ package com.tongban.im.api;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -10,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 
@@ -42,6 +44,7 @@ public class BaseApi {
     public RequestQueue getRequestQueue() {
         return mRequestQueue;
     }
+
     protected Map<String, String> mParams;
 
     /**
@@ -127,7 +130,7 @@ public class BaseApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("volley-onResponse:"+jsonObject.toString());
+                        LogUtil.d("volley-onResponse:" + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -137,8 +140,9 @@ public class BaseApi {
                             // 请求成功,数据回调给调用方
                             callback.onComplete(jsonObject);
                         } else {
-                            callback.onFailure(ApiCallback.DisplayType.Toast,
-                                    jsonObject.optString("statusDesc"));
+                            ApiResult apiResponse = JSON.parseObject(jsonObject.toString(),
+                                    ApiResult.class);
+                            callback.onFailure(ApiCallback.DisplayType.Toast,apiResponse);
                         }
                     }
                 }, new Response.ErrorListener() {

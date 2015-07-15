@@ -1,19 +1,21 @@
 package com.tongban.im.api;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiFailedEvent;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.ApiResult;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
+
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -100,7 +102,7 @@ public class UserApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
 
@@ -140,7 +142,7 @@ public class UserApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
 
@@ -177,7 +179,7 @@ public class UserApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
 
@@ -214,7 +216,7 @@ public class UserApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
             }
 
@@ -248,8 +250,15 @@ public class UserApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, String errorMessage) {
+            public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
+                if (errorMessage instanceof ApiResult) {
+                    ApiFailedEvent failedEvent = new ApiFailedEvent();
+                    failedEvent.setErrorCode(((ApiResult) errorMessage).getStatusCode());
+                    failedEvent.setErrorMessage(((ApiResult) errorMessage).getStatusDesc());
+                    EventBus.getDefault().post(failedEvent);
+                }
+
             }
 
         });

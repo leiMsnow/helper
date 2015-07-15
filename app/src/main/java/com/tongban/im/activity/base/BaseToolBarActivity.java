@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.UserApi;
@@ -73,15 +74,22 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     }
 
     @Override
-    public void onFailure(DisplayType displayType, String errorMessage) {
-        super.onFailure(displayType, errorMessage);
-        if (TextUtils.isEmpty(errorMessage) || errorMessage.contains("volley")) {
-            errorMessage = "网络异常，请稍后重试";
+    public void onFailure(DisplayType displayType, Object errorObj) {
+        super.onFailure(displayType, errorObj);
+        String errorMsg = "网络异常，请稍后重试";
+
+        if (errorObj instanceof ApiResult) {
+            errorMsg = ((ApiResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof String) {
+            errorMsg = errorObj.toString();
+        }
+        if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
+            errorMsg = "网络异常，请稍后重试";
         }
         if (displayType == DisplayType.Toast) {
-            ToastUtil.getInstance(mContext).showToast(errorMessage);
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
         } else {
-            createEmptyView(errorMessage);
+            createEmptyView(errorMsg);
         }
     }
 

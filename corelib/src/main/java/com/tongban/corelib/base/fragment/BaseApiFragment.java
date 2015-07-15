@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiResult;
 
 import de.greenrobot.event.EventBus;
 
@@ -15,7 +16,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState);
+        super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mDialog = new ProgressDialog(mContext);
     }
@@ -34,12 +35,17 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
     }
 
     @Override
-    public void onFailure(DisplayType displayType, String errorMessage) {
+    public void onFailure(DisplayType displayType, Object errorObj) {
         if (mDialog != null)
             mDialog.dismiss();
-        if (TextUtils.isEmpty(errorMessage)) {
-            errorMessage = "网络异常，请稍后重试";
+        String errorMsg = "网络异常，请稍后重试";
+
+        if (errorObj instanceof ApiResult) {
+            errorMsg = ((ApiResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof String) {
+            errorMsg = errorObj.toString();
         }
+
     }
 
     public void onEventMainThread(Object obj) {

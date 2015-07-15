@@ -29,8 +29,8 @@ public interface ApiCallback {
      * api调用失败回调
      *
      * @param displayType  错误提示方式
-     * @param errorMessage 错误信息
+     * @param errorObj 错误信息
      */
-    void onFailure(DisplayType displayType, String errorMessage);
+    void onFailure(DisplayType displayType, Object errorObj);
 
 }

@@ -71,10 +71,9 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     }
 
     @Override
-    public void onFailure(DisplayType displayType, String errorMessage) {
+    public void onFailure(DisplayType displayType, Object errorMessage) {
         if (mDialog != null)
             mDialog.dismiss();
-        EventBus.getDefault().post(new ApiFailedEvent(errorMessage));
     }
 
 

@@ -1,4 +1,4 @@
-package com.tongban.im.model;
+package com.tongban.corelib.model;
 
 /**
  * Created by 接口请求结果对象 on 15/7/3.
