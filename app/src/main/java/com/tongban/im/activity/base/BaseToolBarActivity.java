@@ -38,6 +38,9 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
 
     protected void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar == null) {
+            return;
+        }
         mToolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -102,7 +105,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
                 public void onClick(View v) {
                     ToastUtil.getInstance(mContext).showToast(msg);
                     // 将失败请求队列里的请求重新加入Volley队列
-                    if (getFailedRequest().size()>0) {
+                    if (getFailedRequest().size() > 0) {
                         for (Request request : getFailedRequest()) {
                             UserApi.getInstance().getRequestQueue().add(request);
                         }

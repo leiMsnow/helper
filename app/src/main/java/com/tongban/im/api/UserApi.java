@@ -209,11 +209,8 @@ public class UserApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User userInfo = apiResponse.getData();
-                SPUtils.put(mContext, Consts.IM_BIND_TOKEN, userInfo.getIm_bind_token());
-                SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
-                SPUtils.put(mContext, Consts.USER_ID, userInfo.getUser_id());
-                callback.onComplete(userInfo);
+                saveUserInfo(apiResponse.getData());
+                callback.onComplete(apiResponse.getData());
             }
 
             @Override
@@ -239,7 +236,6 @@ public class UserApi extends BaseApi {
         simpleRequest(TOKEN_LOGIN, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
             }
 
             @Override
@@ -247,9 +243,8 @@ public class UserApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User userInfo = apiResponse.getData();
-                SPUtils.put(mContext, "USER_TOKEN", userInfo.getIm_bind_token() + "");
-                callback.onComplete(userInfo);
+                saveUserInfo(apiResponse.getData());
+                callback.onComplete(apiResponse.getData());
             }
 
             @Override
@@ -258,6 +253,17 @@ public class UserApi extends BaseApi {
             }
 
         });
+    }
+
+    /**
+     * 登录成功后，保存用户信息
+     *
+     * @param userInfo
+     */
+    private void saveUserInfo(User userInfo) {
+        SPUtils.put(mContext, Consts.IM_BIND_TOKEN, userInfo.getIm_bind_token());
+        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
+        SPUtils.put(mContext, Consts.USER_ID, userInfo.getUser_id());
     }
 
 
