@@ -37,6 +37,12 @@ public class BaseApi {
      * 获取Volley请求队列
      */
     protected static RequestQueue mRequestQueue;
+
+    public RequestQueue getRequestQueue() {
+        return mRequestQueue;
+    }
+    protected Map<String, String> mParams;
+
     /**
      * 声明Request请求
      */

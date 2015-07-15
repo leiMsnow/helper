@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.api.IMApi;
+import com.tongban.im.api.UserApi;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -104,7 +104,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
                     // 将失败请求队列里的请求重新加入Volley队列
                     if (getFailedRequest().size()>0) {
                         for (Request request : getFailedRequest()) {
-                            IMApi.getInstance().getRequestQueue().add(request);
+                            UserApi.getInstance().getRequestQueue().add(request);
                         }
                     }
                 }

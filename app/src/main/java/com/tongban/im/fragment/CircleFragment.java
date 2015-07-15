@@ -21,7 +21,7 @@ import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CircleListAdapter;
-import com.tongban.im.api.IMApi;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
@@ -74,7 +74,7 @@ public class CircleFragment extends BaseApiFragment {
     @Override
     protected void initData() {
         LogUtil.d("initData", "请求接口");
-        IMApi.getInstance().fetchPersonalGroupList("android02", this);
+        GroupApi.getInstance().fetchPersonalGroupList("android02", this);
     }
 
     public void onEventMainThread(List<Group> list) {
@@ -96,7 +96,7 @@ public class CircleFragment extends BaseApiFragment {
 
     public void onEventMainThread(BaseEvent.JoinGroupEvent event) {
         ToastUtil.getInstance(mContext).showToast("加入群组成功");
-        IMApi.getInstance().fetchPersonalGroupList("android02", this);
+        GroupApi.getInstance().fetchPersonalGroupList("android02", this);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class CircleFragment extends BaseApiFragment {
                                 if (TextUtils.isEmpty(group_id)) {
                                     ToastUtil.getInstance(mContext).showToast("群组id不能为空");
                                 } else {
-                                    IMApi.getInstance().joinGroup(group_id, "android02", CircleFragment.this);
+                                    GroupApi.getInstance().joinGroup(group_id, "android02", CircleFragment.this);
                                     dialog.dismiss();
                                 }
                             }

@@ -16,6 +16,7 @@ import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
 import io.rong.imkit.RongIM;
+import io.rong.imkit.logic.MessageCounterLogic;
 import io.rong.imlib.RongIMClient;
 
 public class LoginActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
@@ -91,7 +92,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
             }
 
             RongCloudEvent.getInstance().connectIM(connectToken);
-
+            startActivity(new Intent(mContext,MainActivity.class));
+            finish();
         }
     }
 
