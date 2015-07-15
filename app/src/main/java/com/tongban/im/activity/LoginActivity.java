@@ -79,7 +79,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -90,24 +90,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
                 connectToken = "Q5CE0ev/gZ3dqpYi0l9Kq6lOBUKc7eU7iEQmFmaXJUnvs0TnNd9FJNYnfETdxt64QDNjPeW16tBwFp0yA4yWxPGRlVIDev9G";
             }
 
-            RongCloudEvent.getInstance().connectIM(connectToken, new RongIMClient.ConnectCallback() {
-                @Override
-                public void onTokenIncorrect() {
-                    LogUtil.d("onTokenIncorrect");
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    LogUtil.d("连接RongIM成功，当前用户：" + s);
-                    ToastUtil.getInstance(mContext).showToast("登录成功");
-                    startActivity(new Intent(mContext, MainActivity.class));
-                }
-
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                }
-            });
+            RongCloudEvent.getInstance().connectIM(connectToken);
 
         }
     }

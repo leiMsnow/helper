@@ -41,5 +41,5 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
-    compile files('libs/Rong_IMLib_v2_2_0.jar')
+    compile files('libs/Rong_IMLib_v2_2_1.jar')
 }

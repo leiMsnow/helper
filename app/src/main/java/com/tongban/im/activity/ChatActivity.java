@@ -5,11 +5,12 @@ import android.view.Menu;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 
 /**
  * 聊天界面
  */
-public class ChatActivity extends BaseApiActivity {
+public class ChatActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
