@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion "22.0.1"
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 19
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -37,9 +37,7 @@ dependencies {
     compile('de.keyboardsurfer.android.widget:crouton:1.8.4@aar') {
         exclude group: 'com.google.android', module: 'support-v4'
     }
-    //    compile project(':ipc')
     compile 'de.greenrobot:eventbus:2.4.0'
-    compile 'com.android.support:support-v4:21.0.3'
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
     compile files('libs/Rong_IMLib_v2_2_1.jar')
 }

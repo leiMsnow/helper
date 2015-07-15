@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CircleListAdapter;
@@ -25,6 +24,7 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public class CircleFragment extends BaseApiFragment {
 
     private CircleListAdapter adapter;
 
-    private AlertDialog dialog_join_group;
+    private AlertDialog dialog_join_group, dialog_create_group;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,16 +73,19 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        LogUtil.d("initData", "请求接口");
-        GroupApi.getInstance().fetchPersonalGroupList("android02", this);
+        GroupApi.getInstance().fetchPersonalGroupList(this);
     }
 
+    /**
+     * 获取圈子(个人群组列表)数据的回调
+     *
+     * @param list List<Group>
+     */
     public void onEventMainThread(List<Group> list) {
-        LogUtil.d("onEventMainThread", "进来了");
         if (list.size() > 0) {
-            LogUtil.d("onEventMainThread", "有数据");
             //设置adapter
             if (adapter == null) {
+                groups = new LinkedList<>();
                 groups.addAll(list);
                 adapter = new CircleListAdapter(mContext, groups);
                 recyclerView.setAdapter(adapter);
@@ -94,37 +97,71 @@ public class CircleFragment extends BaseApiFragment {
         }
     }
 
+    /**
+     * 加入圈子成功的回调
+     *
+     * @param event JoinGroupEvent
+     */
     public void onEventMainThread(BaseEvent.JoinGroupEvent event) {
         ToastUtil.getInstance(mContext).showToast("加入群组成功");
-        GroupApi.getInstance().fetchPersonalGroupList("android02", this);
+        GroupApi.getInstance().fetchPersonalGroupList(this);
+    }
+
+    /**
+     * 创建圈子成功的回调
+     *
+     * @param group
+     */
+    public void onEventMainThread(Group group) {
+        // TODO 创建群组成功
+        ToastUtil.getInstance(mContext).showToast("创建圈子成功");
+        GroupApi.getInstance().fetchPersonalGroupList(this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        LogUtil.d("onCreateOptionsMenu", "Fragment收到menu回调");
         inflater.inflate(R.menu.menu_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        LogUtil.d("onOptionsItemSelected", "CircleFragment收到menu选择回调");
-        if (item.getItemId()==R.id.action_create_group){
-            //RongIM.getInstance().startGroupChat(mContext,"group01","");
-        } else if (item.getItemId()==R.id.action_join_group){
-            LogUtil.d("onOptionsItemSelected", "加入群组");
+        if (item.getItemId() == R.id.action_create_group) {
+            if (dialog_create_group == null) {
+                View layout = LayoutInflater.from(mContext).inflate(R.layout.dialog_input_group, null);
+                final EditText et = (EditText) layout.findViewById(R.id.et_group);
+                et.setHint("请输入圈子名称");
+                dialog_create_group = new AlertDialog.Builder(mContext).setTitle("创建圈子")
+                        .setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String group_name = et.getText().toString().trim();
+                                GroupApi.getInstance().createGroup(group_name, CircleFragment.this);
+                                dialog.dismiss();
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+            }
+            dialog_create_group.show();
+            return true;
+        } else if (item.getItemId() == R.id.action_join_group) {
             if (dialog_join_group == null) {
-                View layout = LayoutInflater.from(mContext).inflate(R.layout.dialog_input_group_id , null);
-                final EditText et = (EditText) layout.findViewById(R.id.et_group_id);
-                dialog_join_group = new AlertDialog.Builder(mContext).setTitle("加入群组")
+                View layout = LayoutInflater.from(mContext).inflate(R.layout.dialog_input_group, null);
+                final EditText et = (EditText) layout.findViewById(R.id.et_group);
+                et.setHint("请输入圈子id");
+                dialog_join_group = new AlertDialog.Builder(mContext).setTitle("加入圈子")
                         .setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String group_id = et.getText().toString().trim();
                                 if (TextUtils.isEmpty(group_id)) {
-                                    ToastUtil.getInstance(mContext).showToast("群组id不能为空");
+                                    ToastUtil.getInstance(mContext).showToast("圈子id不能为空");
                                 } else {
-                                    GroupApi.getInstance().joinGroup(group_id, "android02", CircleFragment.this);
+                                    GroupApi.getInstance().joinGroup(group_id, CircleFragment.this);
                                     dialog.dismiss();
                                 }
                             }
