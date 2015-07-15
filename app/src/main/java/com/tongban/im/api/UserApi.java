@@ -209,7 +209,8 @@ public class UserApi extends BaseApi {
                         new TypeReference<ApiResult<User>>() {
                         });
                 User userInfo = apiResponse.getData();
-                SPUtils.put(mContext, "USER_TOKEN", userInfo.getIm_bind_token() + "");
+                SPUtils.put(mContext, "IM_BIND_TOKEN", userInfo.getIm_bind_token());
+                SPUtils.put(mContext,"USER_ID",userInfo.getUser_id());
                 callback.onComplete(userInfo);
             }
 
