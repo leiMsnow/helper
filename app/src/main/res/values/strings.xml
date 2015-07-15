@@ -2,12 +2,15 @@
     <string name="app_name">同伴IM</string>
 
     <string name="action_settings">设置</string>
-    <string name="title_activity_login">登录</string>
     <string name="open">打开</string>
     <string name="close">关闭</string>
     <string name="title_activity_chat">ChatActivity</string>
-
-    <string name="hello_world">Hello world!</string>
+    <!--登录-->
+    <string name="login">登录</string>
+    <string name="login_success">登录成功</string>
+    <!--注册-->
+    <string name="register">注册</string>
+    <string name="register_success">注册成功</string>
 
 
 </resources>
