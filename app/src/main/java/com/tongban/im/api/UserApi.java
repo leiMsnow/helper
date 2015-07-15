@@ -211,8 +211,9 @@ public class UserApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                saveUserInfo(apiResponse.getData());
-                callback.onComplete(apiResponse.getData());
+                User user = apiResponse.getData();
+                saveUserInfo(user);
+                callback.onComplete(user);
             }
 
             @Override
@@ -245,8 +246,9 @@ public class UserApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                saveUserInfo(apiResponse.getData());
-                callback.onComplete(apiResponse.getData());
+                User user = apiResponse.getData();
+                saveUserInfo(user);
+                callback.onComplete(user);
             }
 
             @Override

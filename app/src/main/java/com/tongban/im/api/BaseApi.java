@@ -140,8 +140,9 @@ public class BaseApi {
                             // 请求成功,数据回调给调用方
                             callback.onComplete(jsonObject);
                         } else {
-                            ApiResult apiResponse = JSON.parseObject(jsonObject.toString(),
-                                    ApiResult.class);
+                            ApiResult apiResponse = new ApiResult();
+                            apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
+                            apiResponse.setStatusCode(apiResult);
                             callback.onFailure(ApiCallback.DisplayType.Toast,apiResponse);
                         }
                     }
