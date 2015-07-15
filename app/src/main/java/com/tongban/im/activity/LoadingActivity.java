@@ -3,16 +3,17 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.model.ApiFailedEvent;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
-public class LoadingActivity extends BaseApiActivity {
+public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,4 +63,8 @@ public class LoadingActivity extends BaseApiActivity {
         finish();
     }
 
+    public void onEventMainThread(ApiFailedEvent obj) {
+        startActivity(new Intent(mContext, LoginActivity.class));
+        finish();
+    }
 }

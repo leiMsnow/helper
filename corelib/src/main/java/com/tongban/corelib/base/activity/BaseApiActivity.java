@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.android.volley.Request;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiFailedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     public void onFailure(DisplayType displayType, String errorMessage) {
         if (mDialog != null)
             mDialog.dismiss();
+        EventBus.getDefault().post(new ApiFailedEvent(errorMessage));
     }
 
 
