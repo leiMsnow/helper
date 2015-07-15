@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.ApiResult;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
@@ -62,8 +64,7 @@ public class GroupApi extends BaseApi {
      */
     public void fetchPersonalGroupList(final ApiCallback callback) {
         mParams = new HashMap<>();
-        // TODO 获取当前用户id
-        mParams.put("user_id", "");
+        mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
 
         simpleRequest(FETCH_PERSONAL_GROUP_LIST, mParams, new ApiCallback() {
             @Override
@@ -96,8 +97,7 @@ public class GroupApi extends BaseApi {
     public void joinGroup(String group_id, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", group_id);
-        // TODO 获取当前用户id
-        mParams.put("user_id", "");
+        mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
 
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
             @Override
@@ -125,8 +125,7 @@ public class GroupApi extends BaseApi {
      */
     public void createGroup(@Nullable String group_name, final ApiCallback callback) {
         mParams = new HashMap<>();
-        // TODO 获取当前用户id
-        mParams.put("user_id", "");
+        mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
         if (group_name != null)
             mParams.put("group_name", group_name);
 
