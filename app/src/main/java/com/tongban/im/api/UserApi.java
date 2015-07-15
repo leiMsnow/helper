@@ -8,6 +8,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.ApiResult;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
@@ -209,8 +210,9 @@ public class UserApi extends BaseApi {
                         new TypeReference<ApiResult<User>>() {
                         });
                 User userInfo = apiResponse.getData();
-                SPUtils.put(mContext, "IM_BIND_TOKEN", userInfo.getIm_bind_token());
-                SPUtils.put(mContext,"USER_ID",userInfo.getUser_id());
+                SPUtils.put(mContext, Consts.IM_BIND_TOKEN, userInfo.getIm_bind_token());
+                SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
+                SPUtils.put(mContext, Consts.USER_ID, userInfo.getUser_id());
                 callback.onComplete(userInfo);
             }
 
