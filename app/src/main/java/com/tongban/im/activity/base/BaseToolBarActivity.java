@@ -40,6 +40,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
