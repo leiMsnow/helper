@@ -4,9 +4,11 @@
              android:layout_height="match_parent"
              tools:context="com.tongban.im.fragment.CircleFragment">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="圈子"/>
+        android:divider="#FFE7E7E7"
+        android:dividerHeight="1dp"/>
 
 </FrameLayout>

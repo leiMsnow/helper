@@ -1,7 +1,5 @@
 package com.tongban.im.model;
 
-import android.support.v4.widget.DrawerLayout;
-
 import io.rong.imlib.model.Conversation;
 
 /**
@@ -63,5 +61,12 @@ public class BaseEvent {
             this.icon = icon;
             this.isSelected = isSelect;
         }
+    }
+
+    /**
+     * 加入群组的Event
+     */
+    public static class JoinGroupEvent {
+
     }
 }

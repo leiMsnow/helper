@@ -136,7 +136,7 @@ public class BaseApi {
                 }
                 // 请求失败,错误信息回调给调用方
                 String errorMessage = "";
-                if (volleyError != null) {
+                if (volleyError.getMessage() != null) {
                     errorMessage = volleyError.getMessage().toString();
                 }
                 callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
