@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
@@ -19,23 +16,27 @@ import com.tongban.im.api.UserApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
-public class LoginActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
+public class RegisterActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
 
     private EditText etUser;
     private EditText etPwd;
+    private EditText etVerifyCode;
     private Button btnLogin;
-    private String mUser, mPwd;
+    private String mUser, mPwd, mVerifyCode;
+
+    BaseEvent.RegisterEvent registerEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getResources().getString(R.string.login));
+        setTitle(getResources().getString(R.string.register));
     }
 
     @Override
     protected void initView() {
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
+        etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
         btnLogin = (Button) findViewById(R.id.btn_login);
     }
 
@@ -46,13 +47,14 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_login;
+        return R.layout.activity_register;
     }
 
     @Override
     protected void initListener() {
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
+        etVerifyCode.addTextChangedListener(this);
         btnLogin.setOnClickListener(this);
     }
 
@@ -70,38 +72,23 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void afterTextChanged(Editable s) {
         mUser = etUser.getText().toString();
         mPwd = etPwd.getText().toString();
+        mVerifyCode = etVerifyCode.getText().toString();
     }
 
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_register) {
-            startActivityForResult(new Intent(mContext, RegisterActivity.class), 0);
+    public void onEventMainThread(BaseEvent.RegisterEvent reg) {
+        registerEvent = reg;
+        // 获取验证码
+        if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
+            UserApi.getInstance().fetch(reg.getUser_id(), mUser, "1", this);
         }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {
-                LogUtil.d("-------注册并且登录成功-------");
-                finish();
-            }
+        // 获取验证码成功
+        else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
+            ToastUtil.getInstance(mContext).showToast("验证码已经发送到手机");
+        }
+        // 注册成功
+        else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
+            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
+//            UserApi.getInstance().tokenLogin(reg.getFreeauth_token(), this);
         }
     }
 
@@ -109,13 +96,26 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.login_success));
         RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
         startActivity(new Intent(mContext, MainActivity.class));
+        setResult(RESULT_OK);
         finish();
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            UserApi.getInstance().login(mUser, mPwd, this);
+            if (registerEvent != null) {
+                //校验手机验证码
+                if (registerEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
+                    UserApi.getInstance().exam(registerEvent.getVerify_id(), mVerifyCode, this);
+                }
+            }
+            // 注册
+            else {
+//                UserApi.getInstance().register(mUser, mUser, mPwd, this);
+                UserApi.getInstance().fetch("55a603c35b7db0e40b17058e", mUser, "1", this);
+            }
+
+
         }
     }
 

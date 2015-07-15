@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:orientation="vertical">
+    android:orientation="vertical">
 
 
     <include
@@ -27,6 +27,15 @@
         android:layout_marginRight="16dp"
         android:hint="密码" />
 
+    <EditText
+        android:id="@+id/et_verify_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_pwd"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="验证码" />
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -34,6 +43,6 @@
         android:layout_below="@+id/et_pwd"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="登录" />
+        android:text="@string/register" />
 
 </LinearLayout>

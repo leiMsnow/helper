@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 
 import org.json.JSONObject;
@@ -48,7 +49,7 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.3.255.204:8080/ddim/";
+    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
     //正式环境
     private static String MAIN_HOST = "";
     //测试环境
@@ -89,6 +90,12 @@ public class BaseApi {
             case 2:
                 saveUrl = TEST_HOST;
                 break;
+            case 3:
+                saveUrl = "http://10.255.209.66:8080/ddim/";
+                break;
+            case 4:
+                saveUrl = "http://10.255.209.67:8080/ddim/";
+                break;
         }
         SPUtils.put(mContext, saveUrl, flag);
     }
@@ -120,6 +127,7 @@ public class BaseApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
+                        LogUtil.d("volley-onResponse:"+jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
