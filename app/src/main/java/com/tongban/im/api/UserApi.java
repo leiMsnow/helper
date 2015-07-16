@@ -5,7 +5,6 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
-import com.tongban.corelib.model.ApiFailedEvent;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
@@ -103,7 +102,10 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                callback.onFailure(DisplayType.None, errorMessage);
+                if (errorMessage instanceof ApiResult) {
+                    EventBus.getDefault().post(errorMessage);
+                }
             }
 
         });
@@ -255,10 +257,7 @@ public class UserApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
                 if (errorMessage instanceof ApiResult) {
-                    ApiFailedEvent failedEvent = new ApiFailedEvent();
-                    failedEvent.setErrorCode(((ApiResult) errorMessage).getStatusCode());
-                    failedEvent.setErrorMessage(((ApiResult) errorMessage).getStatusDesc());
-                    EventBus.getDefault().post(failedEvent);
+                    EventBus.getDefault().post(errorMessage);
                 }
 
             }

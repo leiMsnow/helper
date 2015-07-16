@@ -3,7 +3,7 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tongban.corelib.model.ApiFailedEvent;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -63,7 +63,8 @@ public class LoadingActivity extends BaseToolBarActivity {
         finish();
     }
 
-    public void onEventMainThread(ApiFailedEvent obj) {
+    public void onEventMainThread(ApiResult obj) {
+        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
         startActivity(new Intent(mContext, LoginActivity.class));
         finish();
     }

@@ -2,7 +2,6 @@ package com.tongban.im.api;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.JSON;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -52,7 +51,7 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
+    private static String DEFAULT_HOST = "http://10.255.209.68:8080/ddim/";
     //正式环境
     private static String MAIN_HOST = "";
     //测试环境
@@ -94,10 +93,10 @@ public class BaseApi {
                 saveUrl = TEST_HOST;
                 break;
             case 3:
-                saveUrl = "http://10.255.209.66:8080/ddim/";
+                saveUrl = "http://10.255.209.68:8080/ddim/";
                 break;
             case 4:
-                saveUrl = "http://10.255.209.67:8080/ddim/";
+                saveUrl = "http://10.255.209.68:8080/ddim/";
                 break;
         }
         SPUtils.put(mContext, saveUrl, flag);

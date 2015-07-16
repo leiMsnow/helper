@@ -10,7 +10,7 @@ public interface ApiCallback {
      * View:错误页展示
      */
     public enum DisplayType {
-        Toast, View
+        Toast, View,None,ALL
     }
 
     /**
