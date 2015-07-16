@@ -1,5 +1,6 @@
 package com.tongban.im.fragment;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -7,8 +8,10 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseUIFragment;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.adapter.LeftMenuAdapter;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 
 
@@ -35,8 +38,9 @@ public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogUtil.d("onItemClick:" + mAdapter.getItem(position));
+//        LogUtil.d("onItemClick:" + mAdapter.getItem(position));
         EventBus.getDefault().post(mAdapter.getItem(position));
+        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN,"");
         mAdapter.setSelected(position);
     }
 

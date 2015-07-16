@@ -1,8 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_chat_settings"
         android:orderInCategory="100"
-        android:title="chat"
-        app:showAsAction="never" />
+        android:title="@string/settings"
+        android:icon="@mipmap/ic_menu_group_settings"
+        app:showAsAction="always" />
 </menu>

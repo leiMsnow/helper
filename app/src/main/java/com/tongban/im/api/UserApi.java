@@ -12,6 +12,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import de.greenrobot.event.EventBus;
@@ -77,7 +79,7 @@ public class UserApi extends BaseApi {
      */
     public void register(String nickName, String mobilePhone, String password, final ApiCallback callback) {
 
-        mParams = new HashMap<String, String>();
+        mParams = new HashMap<>();
         mParams.put("nick_name", nickName);
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("password", password);
@@ -90,11 +92,10 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<Object> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<Object>>() {
+                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
                         });
-                BaseEvent.RegisterEvent registerEvent = new BaseEvent.RegisterEvent();
-                registerEvent.setUser_id(apiResponse.getData().toString());
+                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
                 registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.REG);
 
                 callback.onComplete(registerEvent);
@@ -104,6 +105,8 @@ public class UserApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(DisplayType.None, errorMessage);
                 if (errorMessage instanceof ApiResult) {
+                    JSONObject jsonObject = (JSONObject) ((ApiResult) errorMessage).getData();
+                    ((ApiResult) errorMessage).setData(jsonObject.opt("user_id"));
                     EventBus.getDefault().post(errorMessage);
                 }
             }
@@ -134,11 +137,10 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<Object> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<Object>>() {
+                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
                         });
-                BaseEvent.RegisterEvent registerEvent = new BaseEvent.RegisterEvent();
-                registerEvent.setVerify_id(apiResponse.getData().toString());
+                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
                 registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.FETCH);
                 callback.onComplete(registerEvent);
             }

@@ -11,14 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
+/**
+ * 登录
+ *
+ * @author zhangleilei
+ * @createTime 2015/7/16
+ */
 public class LoginActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
 
     private EditText etUser;
@@ -30,6 +38,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getResources().getString(R.string.login));
+
     }
 
     @Override
@@ -41,7 +50,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected void initData() {
-
+        mUser = SPUtils.get(mContext, Consts.USER_ACCOUNT, "").toString();
+        etUser.setText(mUser);
     }
 
     @Override
@@ -88,24 +98,14 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_register) {
-            startActivityForResult(new Intent(mContext, RegisterActivity.class), 0);
+            startActivity(new Intent(mContext, RegisterActivity.class));
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 0) {
-                LogUtil.d("-------注册并且登录成功-------");
-                finish();
-            }
-        }
-    }
-
     public void onEventMainThread(User user) {
+        SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
         ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.login_success));
         RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
         startActivity(new Intent(mContext, MainActivity.class));

@@ -4,22 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 /**
  * 注册
+ * * @author zhangleilei
+ *
+ * @createTime 2015/7/16
  */
 public class RegisterActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
 
@@ -74,6 +80,20 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(mContext, LoginActivity.class));
+        finish();
+    }
+
+    @Override
     public void afterTextChanged(Editable s) {
         mUser = etUser.getText().toString();
         mPwd = etPwd.getText().toString();
@@ -105,10 +125,10 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
             }
         } else if (obj instanceof User) {
             User user = (User) obj;
+            SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
             ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
-            RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
             startActivity(new Intent(mContext, MainActivity.class));
-            setResult(RESULT_OK);
+            RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
             finish();
         } else if (obj instanceof String) {
             ToastUtil.getInstance(mContext).showToast(obj.toString());

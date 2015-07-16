@@ -13,6 +13,12 @@ import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
+/**
+ * 加载界面
+ * * @author zhangleilei
+ *
+ * @createTime 2015/7/16
+ */
 public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
