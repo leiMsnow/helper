@@ -29,7 +29,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     private Button btnLogin;
     private String mUser, mPwd, mVerifyCode;
 
-    BaseEvent.RegisterEvent registerEvent;
+    BaseEvent.RegisterEvent regEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,58 +80,53 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         mVerifyCode = etVerifyCode.getText().toString();
     }
 
-    public void onEventMainThread(BaseEvent.RegisterEvent reg) {
-        // 获取验证码
-        if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
-            registerEvent = reg;
-            UserApi.getInstance().fetch(reg.getUser_id(), mUser, "1", this);
-        }
-        // 获取验证码成功
-        else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
-            registerEvent = reg;
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
-        }
-        // 注册成功
-        else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
-            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-            UserApi.getInstance().tokenLogin(reg.getFreeauth_token(), this);
-        }
-    }
+    public void onEventMainThread(Object obj) {
 
-    public void onEventMainThread(User user) {
-        ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
-        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-        startActivity(new Intent(mContext, MainActivity.class));
-        setResult(RESULT_OK);
-        finish();
-    }
+        if (obj instanceof BaseEvent.RegisterEvent) {
 
-    public void onEventMainThread(Object error) {
-        if (error instanceof ApiResult) {
-            ApiResult result = (ApiResult) error;
+            regEvent = (BaseEvent.RegisterEvent) obj;
+            // 获取验证码
+            if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
+                UserApi.getInstance().fetch(regEvent.getUser_id(), mUser, "1", this);
+            }
+            // 获取验证码成功
+            else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
+                ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
+            }
+            // 注册成功
+            else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
+                ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
+                UserApi.getInstance().tokenLogin(regEvent.getFreeauth_token(), this);
+            }
+        } else if (obj instanceof ApiResult) {
+            ApiResult result = (ApiResult) obj;
             if (result.getStatusCode() == ApiErrorCode.User.USER_REGISTERED) {
                 UserApi.getInstance().fetch(result.getData().toString(), mUser, "1", this);
             }
-        }else{
-            ToastUtil.getInstance(mContext).showToast(error.toString());
+        } else if (obj instanceof User) {
+            User user = (User) obj;
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
+            RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
+            startActivity(new Intent(mContext, MainActivity.class));
+            setResult(RESULT_OK);
+            finish();
+        } else if (obj instanceof String) {
+            ToastUtil.getInstance(mContext).showToast(obj.toString());
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            if (registerEvent != null) {
-                //校验手机验证码
-                if (registerEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
-                    UserApi.getInstance().exam(registerEvent.getVerify_id(), mVerifyCode, this);
-                }
+            //校验手机验证码
+            if (regEvent != null &&
+                    regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
+                UserApi.getInstance().exam(regEvent.getVerify_id(), mVerifyCode, this);
             }
             // 注册
             else {
                 UserApi.getInstance().register(mUser, mUser, mPwd, this);
             }
-
-
         }
     }
 

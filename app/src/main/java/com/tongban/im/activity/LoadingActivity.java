@@ -64,10 +64,10 @@ public class LoadingActivity extends BaseToolBarActivity {
     }
 
     public void onEventMainThread(Object obj) {
-//        if (obj instanceof ApiResult) {
-        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
-        startActivity(new Intent(mContext, LoginActivity.class));
-//        }
+        if (obj instanceof ApiResult) {
+            SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
+            startActivity(new Intent(mContext, LoginActivity.class));
+        }
         finish();
     }
 }
