@@ -163,6 +163,8 @@ public class BaseApi {
                 callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
             }
         });
+        // 禁用缓存
+        request.setShouldCache(false);
         // 添加请求到Volley队列
         mRequestQueue.add(request);
         // 回调到方法调用方,通知请求已经开始
