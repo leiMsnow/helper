@@ -12,4 +12,8 @@
     <string name="verify_send_success">验证码已经发送到手机</string>
     <string name="verify_send_failed">验证码发送失败</string>
 
+
+    <string name="settings">设置</string>
+
+
 </resources>
