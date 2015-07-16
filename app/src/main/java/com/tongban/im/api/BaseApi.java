@@ -141,6 +141,7 @@ public class BaseApi {
                         } else {
                             ApiResult apiResponse = new ApiResult();
                             apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
+                            apiResponse.setData(jsonObject.opt("data"));
                             apiResponse.setStatusCode(apiResult);
                             callback.onFailure(ApiCallback.DisplayType.Toast,apiResponse);
                         }

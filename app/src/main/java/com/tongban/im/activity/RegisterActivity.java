@@ -107,7 +107,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
 
     public void onEventMainThread(ApiResult error) {
         if (error.getStatusCode() == ApiErrorCode.User.USER_REGISTERED){
-
+            UserApi.getInstance().fetch(error.getData().toString(), mUser, "1", this);
         }
     }
 

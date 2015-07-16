@@ -76,7 +76,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     @Override
     public void onFailure(DisplayType displayType, Object errorObj) {
         super.onFailure(displayType, errorObj);
-        String errorMsg = "网络异常，请稍后重试";
+        String errorMsg = "";
 
         if (errorObj instanceof ApiResult) {
             errorMsg = ((ApiResult) errorObj).getStatusDesc();
@@ -88,7 +88,10 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         }
         if (displayType == DisplayType.Toast) {
             ToastUtil.getInstance(mContext).showToast(errorMsg);
-        } else {
+        } else if (displayType == DisplayType.View){
+            createEmptyView(errorMsg);
+        } else if (displayType == DisplayType.ALL){
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
             createEmptyView(errorMsg);
         }
     }
