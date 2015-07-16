@@ -129,7 +129,7 @@ public class BaseApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("volley-onResponse:" + jsonObject.toString());
+                        LogUtil.d("volley-onResponse-success:" + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -149,6 +149,8 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                LogUtil.e("volley-onResponse-error:" + volleyError.toString());
+
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {
                     BaseApiActivity.getFailedRequest().add(request);

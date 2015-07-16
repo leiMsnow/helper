@@ -256,10 +256,7 @@ public class UserApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
-                if (errorMessage instanceof ApiResult) {
-                    EventBus.getDefault().post(errorMessage);
-                }
-
+                EventBus.getDefault().post(errorMessage);
             }
 
         });

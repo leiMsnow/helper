@@ -81,14 +81,15 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     }
 
     public void onEventMainThread(BaseEvent.RegisterEvent reg) {
-        registerEvent = reg;
         // 获取验证码
         if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
+            registerEvent = reg;
             UserApi.getInstance().fetch(reg.getUser_id(), mUser, "1", this);
         }
         // 获取验证码成功
         else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
-            ToastUtil.getInstance(mContext).showToast("验证码已经发送到手机");
+            registerEvent = reg;
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
         // 注册成功
         else if (reg.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
@@ -98,16 +99,21 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     }
 
     public void onEventMainThread(User user) {
-        ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.login_success));
+        ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
         RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
         startActivity(new Intent(mContext, MainActivity.class));
         setResult(RESULT_OK);
         finish();
     }
 
-    public void onEventMainThread(ApiResult error) {
-        if (error.getStatusCode() == ApiErrorCode.User.USER_REGISTERED){
-            UserApi.getInstance().fetch(error.getData().toString(), mUser, "1", this);
+    public void onEventMainThread(Object error) {
+        if (error instanceof ApiResult) {
+            ApiResult result = (ApiResult) error;
+            if (result.getStatusCode() == ApiErrorCode.User.USER_REGISTERED) {
+                UserApi.getInstance().fetch(result.getData().toString(), mUser, "1", this);
+            }
+        }else{
+            ToastUtil.getInstance(mContext).showToast(error.toString());
         }
     }
 
