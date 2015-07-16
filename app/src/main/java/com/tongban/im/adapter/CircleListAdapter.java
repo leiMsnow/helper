@@ -22,6 +22,21 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.Gr
     private Context context;
     private List<Group> groups;
 
+    /**
+     * 点击事件的监听
+     */
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
     public CircleListAdapter(Context context, List<Group> groups) {
         this.context = context;
         this.groups = groups;
@@ -35,9 +50,29 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.Gr
     }
 
     @Override
-    public void onBindViewHolder(GroupViewHolder groupViewHolder, int i) {
+    public void onBindViewHolder(final GroupViewHolder groupViewHolder, final int i) {
         groupViewHolder.imageView.setBackgroundResource(R.mipmap.ic_launcher);
         groupViewHolder.textView.setText(groups.get(i).getGroup_name());
+        if (mOnItemClickLitener != null) {
+            groupViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //int pos = groupViewHolder.getLayoutPosition();
+                    int pos = i;
+                    mOnItemClickLitener.onItemClick(groupViewHolder.itemView, pos);
+                }
+            });
+
+            groupViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //int pos = groupViewHolder.getLayoutPosition();
+                    int pos = i;
+                    mOnItemClickLitener.onItemLongClick(groupViewHolder.itemView, pos);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override

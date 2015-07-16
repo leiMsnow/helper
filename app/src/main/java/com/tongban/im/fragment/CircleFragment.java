@@ -27,6 +27,8 @@ import com.tongban.im.model.Group;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+
 /**
  * 圈子页
  * author: chenenyu 15/7/13
@@ -88,6 +90,20 @@ public class CircleFragment extends BaseApiFragment {
                 groups = new LinkedList<>();
                 groups.addAll(list);
                 adapter = new CircleListAdapter(mContext, groups);
+                // 点击监听
+                adapter.setOnItemClickLitener(new CircleListAdapter.OnItemClickLitener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        String group_id = groups.get(position).getGroup_id();
+                        String group_name = groups.get(position).getGroup_name();
+                        RongIM.getInstance().startGroupChat(mContext, group_id, group_name);
+                    }
+
+                    @Override
+                    public void onItemLongClick(View view, int position) {
+
+                    }
+                });
                 recyclerView.setAdapter(adapter);
             } else {
                 groups.clear();
@@ -103,7 +119,7 @@ public class CircleFragment extends BaseApiFragment {
      * @param event JoinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent event) {
-        ToastUtil.getInstance(mContext).showToast("加入群组成功");
+        ToastUtil.getInstance(mContext).showToast("加入圈子成功");
         GroupApi.getInstance().fetchPersonalGroupList(this);
     }
 
@@ -113,7 +129,6 @@ public class CircleFragment extends BaseApiFragment {
      * @param group
      */
     public void onEventMainThread(Group group) {
-        // TODO 创建群组成功
         ToastUtil.getInstance(mContext).showToast("创建圈子成功");
         GroupApi.getInstance().fetchPersonalGroupList(this);
     }

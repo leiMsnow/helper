@@ -27,7 +27,7 @@ public class GroupApi extends BaseApi {
 
     private Map<String, String> mParams;
 
-    private static final String GROUP_HOST = "http://10.255.209.67:8080/ddim/im/group/";
+    private static final String GROUP_HOST = "http://10.255.209.68:8080/ddim/im/group/";
 
     /**
      * 获取个人群组列表
