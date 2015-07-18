@@ -15,11 +15,18 @@
         android:layout_below="@+id/toolbar"
         android:background="@mipmap/circle_label_insert_image" />
 
-    <View
+    <LinearLayout
         android:id="@+id/show_view"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/iv_insert_image" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/edit_linear"
@@ -49,11 +56,11 @@
     </LinearLayout>
 
     <GridView
-        android:layout_marginTop="10dp"
         android:id="@+id/gv_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_linear"
+        android:layout_marginTop="10dp"
         android:horizontalSpacing="10dp"
         android:numColumns="5"
         android:verticalSpacing="10dp" />
