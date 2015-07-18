@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#937E7E">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_insert_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@mipmap/circle_label_insert_image" />
+
+    <View
+        android:id="@+id/show_view"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/iv_insert_image" />
+
+    <LinearLayout
+        android:id="@+id/edit_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/show_view"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@color/white"
+            android:hint="输入群名称，不超过10个汉字"
+            android:padding="3dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/accent_material_red"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="添加" />
+    </LinearLayout>
+
+    <GridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/gv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_linear"
+        android:horizontalSpacing="10dp"
+        android:numColumns="5"
+        android:verticalSpacing="10dp" />
+
+</RelativeLayout>

@@ -88,9 +88,9 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         }
         if (displayType == DisplayType.Toast) {
             ToastUtil.getInstance(mContext).showToast(errorMsg);
-        } else if (displayType == DisplayType.View){
+        } else if (displayType == DisplayType.View) {
             createEmptyView(errorMsg);
-        } else if (displayType == DisplayType.ALL){
+        } else if (displayType == DisplayType.ALL) {
             ToastUtil.getInstance(mContext).showToast(errorMsg);
             createEmptyView(errorMsg);
         }
