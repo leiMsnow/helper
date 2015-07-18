@@ -1,12 +1,19 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -17,10 +24,15 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class ChatActivity extends BaseToolBarActivity {
+public class ChatActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private String targetId;
     private String title;
+
+    private View topicLayout;
+    private ImageView ivTopic;
+    private TextView tvTopic;
+    private TextView tvTopicDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +47,17 @@ public class ChatActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-
+        topicLayout = findViewById(R.id.fl_topic);
+        ivTopic = (ImageView) findViewById(R.id.iv_topic);
+        tvTopic = (TextView) findViewById(R.id.tv_topic);
+        tvTopicDetails = (TextView) findViewById(R.id.tv_topic_details);
     }
 
     @Override
     protected void initListener() {
-
+        ivTopic.setOnClickListener(this);
+        tvTopic.setOnClickListener(this);
+        tvTopicDetails.setOnClickListener(this);
     }
 
     @Override
@@ -69,5 +86,39 @@ public class ChatActivity extends BaseToolBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == ivTopic) {
+            setTopicInfoAnimator();
+        } else if (v == tvTopic || v == tvTopicDetails) {
+            Intent intent = new Intent(mContext, TopicActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void setTopicInfoAnimator() {
+        float start = tvTopic.getRight();
+        float end = topicLayout.getRight();
+        if (tvTopic.getVisibility() != View.VISIBLE) {
+            start = topicLayout.getRight();
+            end = tvTopic.getRight();
+        }
+        ObjectAnimator topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "x", start, end);
+        topicAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (tvTopic.getVisibility() == View.VISIBLE) {
+                    tvTopic.setVisibility(View.INVISIBLE);
+                    tvTopicDetails.setVisibility(View.VISIBLE);
+                } else {
+                    tvTopic.setVisibility(View.VISIBLE);
+                    tvTopicDetails.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        topicAnimator.setDuration(500);
+        topicAnimator.start();
     }
 }

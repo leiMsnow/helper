@@ -2,15 +2,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
     <fragment
-        android:name="io.rong.imkit.fragment.ConversationFragment"
         android:id="@+id/fl_container"
+        android:name="io.rong.imkit.fragment.ConversationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"/>
+        android:layout_below="@+id/toolbar" />
+
+
+    <RelativeLayout
+        android:id="@+id/fl_topic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="16dp">
+
+
+        <TextView
+            android:id="@+id/tv_topic_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="48dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:paddingRight="8dp"
+            android:textColor="@color/white"
+            android:background="#505d4037"
+            android:visibility="gone"
+            android:text="11111111" />
+
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="48dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:paddingRight="8dp"
+            android:textColor="@color/white"
+            android:background="#505d4037"
+            android:text="话题" />
+
+        <ImageView
+            android:id="@+id/iv_topic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
 
 </RelativeLayout>
