@@ -14,8 +14,10 @@ import io.rong.imkit.R;
 import io.rong.imkit.RLog;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.model.ConversationKey;
+import io.rong.imkit.model.Event;
 import io.rong.imkit.widget.InputView;
 import io.rong.imkit.widget.provider.InputProvider;
+import io.rong.imkit.widget.provider.TextInputProvider;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.PublicServiceInfo;
 
@@ -27,6 +29,18 @@ public class MessageInputFragment extends UriFragment implements View.OnClickLis
     Conversation mConversation;
     InputView mInput;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        RongContext.getInstance().getEventBus().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RongContext.getInstance().getEventBus().unregister(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +68,7 @@ public class MessageInputFragment extends UriFragment implements View.OnClickLis
             RongContext.getInstance().getSecondaryInputProvider().setCurrentConversation(conversation);
         }
 
-        if(RongContext.getInstance().getMenuInputProvider() != null) {
+        if (RongContext.getInstance().getMenuInputProvider() != null) {
             RongContext.getInstance().getMenuInputProvider().setCurrentConversation(conversation);
         }
 
@@ -68,15 +82,15 @@ public class MessageInputFragment extends UriFragment implements View.OnClickLis
             provider.onAttached(this, mInput);
         }
 
-        if(conversation.getConversationType().equals(Conversation.ConversationType.APP_PUBLIC_SERVICE) ||
+        if (conversation.getConversationType().equals(Conversation.ConversationType.APP_PUBLIC_SERVICE) ||
                 conversation.getConversationType().equals(Conversation.ConversationType.PUBLIC_SERVICE)) {
 
             ConversationKey key = ConversationKey.obtain(conversation.getTargetId(), conversation.getConversationType());
             PublicServiceInfo info = RongContext.getInstance().getPublicServiceInfoFromCache(key.getKey());
 
-            if(info != null && info.getMenu() != null &&
-               info.getMenu().getMenuItems() != null &&
-               info.getMenu().getMenuItems().size() > 0) {
+            if (info != null && info.getMenu() != null &&
+                    info.getMenu().getMenuItems() != null &&
+                    info.getMenu().getMenuItems().size() > 0) {
 
                 mInput.setInputProviderEx(RongContext.getInstance().getPrimaryInputProvider(),
                         RongContext.getInstance().getSecondaryInputProvider(),
@@ -88,7 +102,7 @@ public class MessageInputFragment extends UriFragment implements View.OnClickLis
             }
         } else {
             mInput.setInputProvider(RongContext.getInstance().getPrimaryInputProvider(),
-                                    RongContext.getInstance().getSecondaryInputProvider());
+                    RongContext.getInstance().getSecondaryInputProvider());
         }
 
         RongContext.getInstance().getPrimaryInputProvider().onAttached(this, mInput);
@@ -194,6 +208,16 @@ public class MessageInputFragment extends UriFragment implements View.OnClickLis
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onEventMainThread(Event.TopicNameEvent topicNameEvent) {
+        if (!TextUtils.isEmpty(topicNameEvent.getTopicName())) {
+            if (RongContext.getInstance().getPrimaryInputProvider() != null) {
+                if (RongContext.getInstance().getPrimaryInputProvider() instanceof TextInputProvider) {
+                    ((TextInputProvider) RongContext.getInstance().getPrimaryInputProvider()).setEditTextContent(topicNameEvent.getTopicName());
+                }
+            }
+        }
     }
 
 }

@@ -93,6 +93,7 @@ public class BaseEvent {
              */
             EXAM
         }
+
         //注册第一步返回的userid
         private String user_id;
         //注册第二步返回的验证id
@@ -142,6 +143,13 @@ public class BaseEvent {
         public void setFreeauth_token(String freeauth_token) {
             this.freeauth_token = freeauth_token;
         }
+    }
+
+    /**
+     * 话题Event
+     */
+    public static class TopicEvent {
+
     }
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -430,7 +431,7 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
 
     public void onEventMainThread(PublicServiceInfo publicServiceInfo) {
 
-        if (mList != null && isResumed() && mAdapter != null ) {
+        if (mList != null && isResumed() && mAdapter != null) {
             int first = mList.getFirstVisiblePosition() - mList.getHeaderViewsCount();
             int last = mList.getLastVisiblePosition() - mList.getHeaderViewsCount();
 
@@ -477,7 +478,7 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
     public void onEventMainThread(final RongIMClient.ConnectionStatusListener.ConnectionStatus status) {
 
         RLog.d(this, "ConnectionStatus", status.toString() + " " + this.toString());
-        RLog.d(this, "ConnectionStatus", "isResume() = "+ isResumed());
+        RLog.d(this, "ConnectionStatus", "isResume() = " + isResumed());
         if (isResumed())
             getHandler().post(new Runnable() {
                 @Override
@@ -506,6 +507,14 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
             }
         }
     }
+
+    public void onEventMainThread(Event.ImageLoadSuccessEvent success) {
+        if (mAdapter != null) {
+            Log.d("ImageLoadSuccess","图片加载完成");
+            mList.setSelection(mAdapter.getCount());
+        }
+    }
+
 
     public void onEventBackgroundThread(Event.MessageDeleteEvent deleteEvent) {
         if (deleteEvent.getMessageIds() != null) {

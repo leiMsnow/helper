@@ -1,12 +1,16 @@
 package io.rong.imkit.widget.provider;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 
 import io.rong.database.ConversationDatabase;
 import io.rong.database.Draft;
@@ -238,7 +243,7 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
 
     @Override
     public void onActive(Context context) {
-        if(mEdit == null)
+        if (mEdit == null)
             return;
 
         mEdit.requestFocus();
@@ -248,7 +253,7 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
 
     @Override
     public void onInactive(Context context) {
-        if(mEdit == null)
+        if (mEdit == null)
             return;
 
         mEdit.clearFocus();
@@ -295,14 +300,21 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
         if (TextUtils.isEmpty(s)) {
             mButton.setVisibility(View.GONE);
+            if (mInputView.getPlusButton() != null)
+                mInputView.getPlusButton().setVisibility(View.VISIBLE);
         } else {
             mButton.setVisibility(View.VISIBLE);
+            if (mInputView.getPlusButton() != null)
+                mInputView.getPlusButton().setVisibility(View.GONE);
         }
     }
 
@@ -322,6 +334,7 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
         mEdit.addTextChangedListener(this);
 
         mEdit.setSelection(start, end);
+
         RLog.d(this, "afterTextChanged", s.toString());
     }
 
@@ -331,10 +344,18 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
      * @param content
      */
     public void setEditTextContent(CharSequence content) {
-
+        mInputView.onProviderActive(getContext());
         if (mEdit != null && !TextUtils.isEmpty(content)) {
             mEdit.setText(content);
             mEdit.setSelection(content.length());
+        }
+    }
+
+    public void setEditTextContent(CharSequence content, int selection) {
+        mInputView.onProviderActive(getContext());
+        if (mEdit != null && !TextUtils.isEmpty(content)) {
+            mEdit.setText(content);
+            mEdit.setSelection(selection);
         }
     }
 

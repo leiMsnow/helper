@@ -1,6 +1,9 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,9 +19,13 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
  */
 public class ChatActivity extends BaseToolBarActivity {
 
+    private String targetId;
+    private String title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -38,7 +45,14 @@ public class ChatActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            targetId = uri.getQueryParameter("targetId");
+            title = uri.getQueryParameter("title");
+            if (!TextUtils.isEmpty(title)) {
+                setTitle(title);
+            }
+        }
     }
 
     @Override

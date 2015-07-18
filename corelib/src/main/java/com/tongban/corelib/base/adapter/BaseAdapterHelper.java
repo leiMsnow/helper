@@ -16,8 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 
 
 /**
@@ -164,10 +163,9 @@ public class BaseAdapterHelper {
      * @param url
      * @return
      */
-    public BaseAdapterHelper setSimpleDraweeView(int viewId, String url) {
-        SimpleDraweeView view = retrieveView(viewId);
-        Uri uri = Uri.parse(url);
-        view.setImageURI(uri);
+    public BaseAdapterHelper setImageBitmap(int viewId, String url) {
+        ImageView view = retrieveView(viewId);
+        Glide.with(mContext).load(url).into(view);
         return this;
     }
 
@@ -178,10 +176,9 @@ public class BaseAdapterHelper {
      * @param resid
      * @return
      */
-    public BaseAdapterHelper setSimpleDraweeView(int viewId, int resid) {
-        SimpleDraweeView view = retrieveView(viewId);
-        GenericDraweeHierarchy hierarchy = view.getHierarchy();
-        hierarchy.setPlaceholderImage(resid);
+    public BaseAdapterHelper setImageBitmap(int viewId, int resid) {
+        ImageView view = retrieveView(viewId);
+        Glide.with(mContext).load(resid).into(view);
         return this;
     }
 

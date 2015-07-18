@@ -2,45 +2,53 @@ package io.rong.imkit.widget.provider;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import io.rong.imkit.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import io.rong.imkit.RLog;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.Event;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.widget.ArraysDialogFragment;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
-import com.sea_monster.resource.Resource;
-import io.rong.imkit.widget.AsyncImageView;
 
+import io.rong.imkit.R;
 /**
  * Created by DragonJ on 14-8-2.
  */
 @ProviderTag(messageContent = ImageMessage.class, showProgress = false)
 public class ImageMessageItemProvider extends IContainerItemProvider.MessageProvider<ImageMessage> {
 
+    private Context mContext;
     class ViewHolder {
-        AsyncImageView img;
+        ImageView img;
         TextView message;
     }
 
     @Override
     public View newView(Context context, ViewGroup group) {
+        mContext = context;
         View view = LayoutInflater.from(context).inflate(R.layout.rc_item_image_message, null);
 
         ViewHolder holder = new ViewHolder();
 
         holder.message = (TextView) view.findViewById(R.id.rc_msg);
-        holder.img = (AsyncImageView) view.findViewById(R.id.rc_img);
+        holder.img = (ImageView) view.findViewById(R.id.rc_img);
 
         view.setTag(holder);
         return view;
@@ -90,7 +98,20 @@ public class ImageMessageItemProvider extends IContainerItemProvider.MessageProv
             v.setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
         }
 
-        holder.img.setResource(content.getThumUri() == null ? null : new Resource(content.getThumUri()));
+        Glide.with(mContext).load(content.getThumUri()).listener(new RequestListener<Uri, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target,
+                                           boolean isFromMemoryCache, boolean isFirstResource) {
+                RongContext.getInstance().getEventBus().post(new Event.ImageLoadSuccessEvent());
+                return false;
+            }
+        }).into(holder.img);
+//        holder.img.setImageURI(content.getThumUri());
 
         String extra = message.getExtra();
         int progress = 0;

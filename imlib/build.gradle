@@ -41,4 +41,7 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.3'
     compile files('libs/Rong_IMLib_v2_2_1.jar')
     compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+
 }

@@ -10,6 +10,8 @@ import com.sea_monster.exception.BaseException;
 import com.sea_monster.network.AbstractHttpRequest;
 import com.sea_monster.network.ApiCallback;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.im.widget.provider.ContactsProvider;
+import com.tongban.im.widget.provider.TopicProvider;
 
 import io.rong.imkit.DBManager;
 import io.rong.imkit.PushNotificationManager;
@@ -18,6 +20,11 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.UserInfos;
 import io.rong.imkit.UserInfosDao;
 import io.rong.imkit.model.UIConversation;
+import io.rong.imkit.widget.provider.CameraInputProvider;
+import io.rong.imkit.widget.provider.ImageInputProvider;
+import io.rong.imkit.widget.provider.InputProvider;
+import io.rong.imkit.widget.provider.LocationInputProvider;
+import io.rong.imkit.widget.provider.VoIPInputProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
@@ -37,7 +44,7 @@ import io.rong.notification.PushNotificationMessage;
 /**
  * 融云SDK事件监听处理。
  * 把事件统一处理，开发者可直接复制到自己的项目中去使用。
- * <p>
+ * <p/>
  * 该类包含的监听事件有：
  * 1、消息接收器：OnReceiveMessageListener。
  * 2、发出消息接收器：OnSendMessageListener。
@@ -127,23 +134,21 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * 在RongIM-connect-onSuccess后调用。
      */
     public void setOtherListener() {
-        RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(this);//设置消息接收监听器。
         RongIM.getInstance().setSendMessageListener(this);//设置发出消息接收监听器.
+        RongIM.getInstance().getRongIMClient().setOnReceiveMessageListener(this);//设置消息接收监听器。
         RongIM.getInstance().getRongIMClient().setConnectionStatusListener(this);//设置连接状态监听器。
 
-//        //扩展功能自定义
-//        InputProvider.ExtendProvider[] provider = {
-//                new ImageInputProvider(RongContext.getInstance()),//图片
-//                new CameraInputProvider(RongContext.getInstance()),//相机
-//                new LocationInputProvider(RongContext.getInstance()),//地理位置
-//                new VoIPInputProvider(RongContext.getInstance()),// 语音通话
-//                new ContactsProvider(RongContext.getInstance())//通讯录
-//        };
-//        RongIM.getInstance().resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
-
-//        RongIM.getInstance().setPrimaryInputProvider(new InputTestProvider((RongContext) mContext));
-
-
+        //扩展功能自定义
+        InputProvider.ExtendProvider[] provider = {
+                new ImageInputProvider(RongContext.getInstance()),//图片
+                new CameraInputProvider(RongContext.getInstance()),//相机
+                new LocationInputProvider(RongContext.getInstance()),//地理位置
+                new VoIPInputProvider(RongContext.getInstance()),// 语音通话
+                new ContactsProvider(RongContext.getInstance()),// 语音通话
+                new TopicProvider(RongContext.getInstance())//话题
+        };
+        RongIM.getInstance().resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
+        RongIM.getInstance().resetInputExtensionProvider(Conversation.ConversationType.GROUP, provider);
     }
 
     /**
@@ -309,7 +314,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public Group getGroupInfo(String groupId) {
 
-        
+
 //        /**
 //         * demo 代码  开发者需替换成自己的代码。
 //         */

@@ -590,4 +590,22 @@ public class Event {
         }
     }
 
+    public static class ImageLoadSuccessEvent {
+
+    }
+
+    public static class TopicNameEvent{
+        String topicName;
+
+        public String getTopicName() {
+            return topicName;
+        }
+
+        public void setTopicName(String topicName) {
+            this.topicName = topicName;
+        }
+    }
+
+
+
 }

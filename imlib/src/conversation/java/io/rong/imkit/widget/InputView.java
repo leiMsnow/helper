@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,11 @@ public class InputView extends LinearLayout {
 
     int left, center, right;
 
+    public ImageView getPlusButton() {
+        return mIcon2;
+    }
+
+
     public InputView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(VERTICAL);
@@ -116,12 +122,14 @@ public class InputView extends LinearLayout {
 
     class ExtendClickListener implements OnClickListener {
         @Override
-        public void onClick(View v) {
-            if (mPluginsLayout.getVisibility() == View.GONE || mExtendLayout.getVisibility() == View.VISIBLE) {
+        public void onClick(final View v) {
+
+            if (mPluginsLayout.getVisibility() == View.VISIBLE) {
+                onProviderInactive(v.getContext());
+            } else if (mPluginsLayout.getVisibility() == View.GONE
+                    || mExtendLayout.getVisibility() == View.VISIBLE) {
                 onProviderInactive(v.getContext());
                 mPluginsLayout.setVisibility(View.VISIBLE);
-            } else if (mPluginsLayout.getVisibility() == View.VISIBLE) {
-                onProviderInactive(v.getContext());
             }
         }
     }
@@ -138,7 +146,8 @@ public class InputView extends LinearLayout {
         mWidgetLayout.setVisibility(visibility);
     }
 
-    private final void changeMainProvider(View view, InputProvider.MainInputProvider main, InputProvider.MainInputProvider slave) {
+    private final void changeMainProvider(View view, InputProvider.MainInputProvider main,
+                                          InputProvider.MainInputProvider slave) {
         mMainProvider.onSwitch(view.getContext());
 
         mPluginsLayout.setVisibility(View.GONE);
@@ -329,11 +338,12 @@ public class InputView extends LinearLayout {
     }
 
 
-    public void setInputProvider(final InputProvider.MainInputProvider mainProvider, final InputProvider.MainInputProvider slaveProvider) {
+    public void setInputProvider(final InputProvider.MainInputProvider mainProvider,
+                                 final InputProvider.MainInputProvider slaveProvider) {
         mMainProvider = mainProvider;
         mSlaveProvider = slaveProvider;
 
-        if(mMenuProvider == null)
+        if (mMenuProvider == null)
             mInputMenuSwitchLayout.setVisibility(View.GONE);
 
         mCustomLayout.removeAllViews();
@@ -353,7 +363,7 @@ public class InputView extends LinearLayout {
                 setECS();
                 break;
             //CES
-            case(0x231):
+            case (0x231):
                 setCES();
                 break;
             //CSE
@@ -423,7 +433,7 @@ public class InputView extends LinearLayout {
         mMenuProvider = menuProvider;
         setInputProvider(mainProvider, slaveProvider);
 
-        if(menuProvider != null && mMenuSwitcher1 != null) {
+        if (menuProvider != null && mMenuSwitcher1 != null) {
             mInputMenuSwitchLayout.setVisibility(View.VISIBLE);
             menuProvider.onCreateView(LayoutInflater.from(getContext()), mCustomMenuLayout, this);
             mInputMenuSwitchLayout.setOnClickListener(new InputClickListener());
@@ -513,7 +523,7 @@ public class InputView extends LinearLayout {
             holder.icon.setImageDrawable(data.obtainPluginDrawable(v.getContext()));
             holder.title.setText(data.obtainPluginTitle(v.getContext()));
 
-            holder.icon.setOnClickListener(new OnClickListener() {
+            v.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     data.onPluginClick(v);
@@ -537,7 +547,7 @@ public class InputView extends LinearLayout {
         adapter.addCollection(providers);
 
         int i = 1;
-        for(InputProvider.ExtendProvider provider : providers){
+        for (InputProvider.ExtendProvider provider : providers) {
             provider.setIndex(++i);
         }
 
@@ -560,11 +570,13 @@ public class InputView extends LinearLayout {
         if (mSlaveProvider != null)
             mSlaveProvider.onActive(context);
 
-        if (mPluginsLayout.getVisibility() == View.VISIBLE)
+        if (mPluginsLayout.getVisibility() == View.VISIBLE) {
             mPluginsLayout.setVisibility(View.GONE);
+        }
 
-        if (mExtendLayout.getVisibility() == View.VISIBLE)
+        if (mExtendLayout.getVisibility() == View.VISIBLE) {
             mExtendLayout.setVisibility(View.GONE);
+        }
 
         RongContext.getInstance().getEventBus().post(Event.ACTION);
     }
@@ -576,11 +588,14 @@ public class InputView extends LinearLayout {
         if (mSlaveProvider != null)
             mSlaveProvider.onInactive(context);
 
-        if (mPluginsLayout.getVisibility() == View.VISIBLE)
+        if (mPluginsLayout.getVisibility() == View.VISIBLE) {
             mPluginsLayout.setVisibility(View.GONE);
+        }
 
-        if (mExtendLayout.getVisibility() == View.VISIBLE)
+        if (mExtendLayout.getVisibility() == View.VISIBLE) {
             mExtendLayout.setVisibility(View.GONE);
+
+        }
 
         RongContext.getInstance().getEventBus().post(Event.INACTION);
     }

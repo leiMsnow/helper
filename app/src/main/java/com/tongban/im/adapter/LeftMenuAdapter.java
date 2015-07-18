@@ -21,7 +21,7 @@ public class LeftMenuAdapter extends QuickAdapter<BaseEvent.DrawerLayoutMenu> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, BaseEvent.DrawerLayoutMenu item) {
-        helper.setSimpleDraweeView(R.id.sdv_icon, item.getIcon());
+        helper.setImageBitmap(R.id.sdv_icon, item.getIcon());
         helper.setText(R.id.tv_title, item.getText());
         helper.getConvertView().setBackgroundColor(Color.TRANSPARENT);
         if (item.isSelected()) {
