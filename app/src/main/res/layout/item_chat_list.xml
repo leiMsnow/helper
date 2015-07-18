@@ -30,5 +30,5 @@
         android:layout_below="@+id/tv_chat_num"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
-        android:text="张三：聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容" />
+        android:text="张三： 聊天内容聊天内容聊天内容聊天内容聊天内容聊天内容" />
 </RelativeLayout>

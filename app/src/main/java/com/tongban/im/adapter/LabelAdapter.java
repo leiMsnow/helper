@@ -20,5 +20,6 @@ public class LabelAdapter extends QuickAdapter<Label> {
     @Override
     protected void convert(BaseAdapterHelper helper, Label item) {
         helper.setText(R.id.tv_label_name, item.getLabelName());
+
     }
 }

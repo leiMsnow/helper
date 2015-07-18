@@ -40,7 +40,7 @@ public class CircleLabelActivity extends BaseToolBarActivity implements AdapterV
         labelList = new ArrayList<>();
         for (int i = 0; i < 17; i++) {
             Label label = new Label();
-            label.setLabelName("снс╬" + i);
+            label.setLabelName("снс╬ " + i);
             labelList.add(label);
         }
         mAdapter = new LabelAdapter(mContext, R.layout.item_label_list, labelList);

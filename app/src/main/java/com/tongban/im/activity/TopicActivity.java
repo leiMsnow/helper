@@ -64,7 +64,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         List<Chat> listsByHot = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Chat chat = new Chat();
-            chat.setChatContext("这是内容" + i);
+            chat.setChatContext("这是内容 " + i);
             chat.setChatName("name" + i);
             chat.setChatPersonNum(String.valueOf(i));
             listsByHot.add(chat);

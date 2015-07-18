@@ -52,6 +52,7 @@
         <!--android:background="@color/accent_material_red" />-->
 
     <ListView
+        
         android:id="@+id/lv_chat_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
