@@ -18,6 +18,9 @@ import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
+import io.rong.imkit.RongContext;
+import io.rong.imkit.model.Event;
+
 /**
  * 聊天界面
  *
@@ -37,7 +40,6 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -91,7 +93,13 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == ivTopic) {
-            setTopicInfoAnimator();
+            if (tvTopic.getVisibility() == View.VISIBLE) {
+                tvTopic.setVisibility(View.INVISIBLE);
+                tvTopicDetails.setVisibility(View.VISIBLE);
+            } else {
+                tvTopic.setVisibility(View.VISIBLE);
+                tvTopicDetails.setVisibility(View.INVISIBLE);
+            }
         } else if (v == tvTopic || v == tvTopicDetails) {
             Intent intent = new Intent(mContext, TopicActivity.class);
             startActivity(intent);
@@ -101,24 +109,27 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     private void setTopicInfoAnimator() {
         float start = tvTopic.getRight();
         float end = topicLayout.getRight();
+        ObjectAnimator topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "x", start, end);
         if (tvTopic.getVisibility() != View.VISIBLE) {
             start = topicLayout.getRight();
             end = tvTopic.getRight();
+        }else{
+            tvTopicDetails.setVisibility(View.VISIBLE);
+            topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "scaleX", 0.0f, 1.0f);
         }
-        ObjectAnimator topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "x", start, end);
         topicAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (tvTopic.getVisibility() == View.VISIBLE) {
-                    tvTopic.setVisibility(View.INVISIBLE);
-                    tvTopicDetails.setVisibility(View.VISIBLE);
-                } else {
-                    tvTopic.setVisibility(View.VISIBLE);
-                    tvTopicDetails.setVisibility(View.INVISIBLE);
-                }
+
             }
         });
         topicAnimator.setDuration(500);
         topicAnimator.start();
+    }
+
+    public void onEventMainThread(Event.LastTopicNameEvent topicNameEvent){
+        tvTopicDetails.setText(topicNameEvent.getTopicName());
+        tvTopicDetails.setVisibility(View.INVISIBLE);
+        tvTopic.setVisibility(View.VISIBLE);
     }
 }

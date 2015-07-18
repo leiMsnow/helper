@@ -17,12 +17,14 @@ import android.widget.TextView;
 import io.rong.imkit.R;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.model.ConversationKey;
+import io.rong.imkit.model.Event;
 import io.rong.imkit.model.ProviderTag;
 import io.rong.imkit.util.TimeUtils;
 import io.rong.imkit.widget.ProviderContainerView;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.PublicServiceInfo;
 import io.rong.imlib.model.UserInfo;
 
@@ -31,6 +33,7 @@ import com.sea_monster.resource.Resource;
 import org.w3c.dom.Text;
 
 import io.rong.imkit.widget.AsyncImageView;
+import io.rong.message.TextMessage;
 
 
 /**
@@ -363,5 +366,23 @@ public class MessageListAdapter extends BaseAdapter<Message> {
     private final void setGravity(View view, int gravity) {
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
         params.gravity = gravity;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+
+        for (int i = (mList.size()-1); i > 0; i--) {
+            MessageContent messageContent = mList.get(i).getContent();
+            if (messageContent instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) messageContent;
+                // TODO Auto-generated catch block
+                if (textMessage.getContent().toString().contains("#")){
+                    RongContext.getInstance().getEventBus().post(new Event.LastTopicNameEvent(textMessage.getContent()));
+                    break;
+                }
+            }
+        }
+
+        super.notifyDataSetChanged();
     }
 }

@@ -606,6 +606,21 @@ public class Event {
         }
     }
 
+    public static class LastTopicNameEvent {
+        String topicName;
+
+       public  LastTopicNameEvent(String name){
+            this.topicName = name;
+        }
+        public String getTopicName() {
+            return topicName;
+        }
+
+        public void setTopicName(String topicName) {
+            this.topicName = topicName;
+        }
+    }
+
 
 
 }
