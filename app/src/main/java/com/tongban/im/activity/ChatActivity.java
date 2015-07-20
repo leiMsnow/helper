@@ -1,6 +1,8 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,10 +15,13 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.widget.view.RoundImageDrawable;
 
 import io.rong.imkit.RongContext;
 import io.rong.imkit.model.Event;
@@ -29,13 +34,15 @@ import io.rong.imkit.model.Event;
  */
 public class ChatActivity extends BaseToolBarActivity implements View.OnClickListener {
 
-    private String targetId;
-    private String title;
+    private String mTargetId;
+    private String mTitle;
 
     private View topicLayout;
     private ImageView ivTopic;
     private TextView tvTopic;
     private TextView tvTopicDetails;
+    //是否有话题可以展开
+    private boolean isTopicContent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +73,10 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void initData() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
-            targetId = uri.getQueryParameter("targetId");
-            title = uri.getQueryParameter("title");
-            if (!TextUtils.isEmpty(title)) {
-                setTitle(title);
+            mTargetId = uri.getQueryParameter("targetId");
+            mTitle = uri.getQueryParameter("title");
+            if (!TextUtils.isEmpty(mTitle)) {
+                setTitle(mTitle);
             }
         }
     }
@@ -93,41 +100,68 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == ivTopic) {
-            if (tvTopic.getVisibility() == View.VISIBLE) {
-                tvTopic.setVisibility(View.INVISIBLE);
-                tvTopicDetails.setVisibility(View.VISIBLE);
-            } else {
-                tvTopic.setVisibility(View.VISIBLE);
-                tvTopicDetails.setVisibility(View.INVISIBLE);
+            if (isTopicContent) {
+                if (tvTopic.getVisibility() == View.VISIBLE) {
+                    setTopicInfoAnimator(true);
+                } else {
+                    setTopicInfoAnimator(false);
+                }
+            } else if (v == tvTopic || v == tvTopicDetails) {
+                Intent intent = new Intent(mContext, TopicActivity.class);
+                startActivity(intent);
             }
-        } else if (v == tvTopic || v == tvTopicDetails) {
-            Intent intent = new Intent(mContext, TopicActivity.class);
-            startActivity(intent);
         }
     }
 
-    private void setTopicInfoAnimator() {
-        float start = tvTopic.getRight();
-        float end = topicLayout.getRight();
-        ObjectAnimator topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "x", start, end);
-        if (tvTopic.getVisibility() != View.VISIBLE) {
-            start = topicLayout.getRight();
-            end = tvTopic.getRight();
-        }else{
-            tvTopicDetails.setVisibility(View.VISIBLE);
-            topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "scaleX", 0.0f, 1.0f);
+    private void setTopicInfoAnimator(final boolean isOpen) {
+
+        ObjectAnimator rotation1 = ObjectAnimator.ofFloat(ivTopic, "rotation", 90, 0);
+        rotation1.setDuration(300);
+
+        ViewHelper.setPivotX(tvTopic, tvTopic.getLeft());
+        ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(tvTopic, "scaleX", 1.0f, 0.0f);
+        scaleX1.setDuration(300);
+        scaleX1.start();
+
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(ivTopic, "rotation", 0, 90);
+        rotation.setDuration(300).setStartDelay(300);
+
+        ObjectAnimator topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "scaleX", 0.0f, 1.0f);
+        topicAnimator.setDuration(300).setStartDelay(500);
+
+        if (isOpen) {
+            ViewHelper.setPivotX(tvTopicDetails, tvTopicDetails.getLeft());
+        } else {
+            rotation1 = ObjectAnimator.ofFloat(ivTopic, "rotation", 0, 90);
+            rotation1.setStartDelay(300);
+            rotation = ObjectAnimator.ofFloat(ivTopic, "rotation", 90, 0);
+            topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "scaleX", 1.0f, 0.0f);
+
+            ViewHelper.setPivotX(tvTopic, tvTopic.getLeft());
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvTopic, "scaleX", 0.0f, 1.0f);
+            scaleX.setDuration(300).setStartDelay(300);
+            scaleX.start();
         }
-        topicAnimator.addListener(new AnimatorListenerAdapter() {
+        rotation1.start();
+        rotation.start();
+        topicAnimator.start();
+
+        rotation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-
+                if (isOpen) {
+                    tvTopic.setVisibility(View.INVISIBLE);
+                    tvTopicDetails.setVisibility(View.VISIBLE);
+                } else {
+                    tvTopic.setVisibility(View.VISIBLE);
+                    tvTopicDetails.setVisibility(View.INVISIBLE);
+                }
             }
         });
-        topicAnimator.setDuration(500);
-        topicAnimator.start();
     }
 
-    public void onEventMainThread(Event.LastTopicNameEvent topicNameEvent){
+    public void onEventMainThread(Event.LastTopicNameEvent topicNameEvent) {
+        isTopicContent = true;
         tvTopicDetails.setText(topicNameEvent.getTopicName());
         tvTopicDetails.setVisibility(View.INVISIBLE);
         tvTopic.setVisibility(View.VISIBLE);
