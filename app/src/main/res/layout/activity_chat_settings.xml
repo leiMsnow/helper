@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <ScrollView
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/material_brown_200">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.tongban.im.widget.view.ChildGridView
+                android:id="@+id/gv_members"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:horizontalSpacing="4dp"
+                android:numColumns="5"
+                android:verticalSpacing="4dp" />
+
+
+            <TextView
+                android:id="@+id/tv_more_member"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/gv_members"
+                android:gravity="right|center_vertical"
+                android:paddingRight="16dp"
+                android:background="@color/white"
+                android:text="展开全部" />
+
+            <RelativeLayout
+                android:id="@+id/rl_details_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_more_member"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="圈子名称" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="圈子名称" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

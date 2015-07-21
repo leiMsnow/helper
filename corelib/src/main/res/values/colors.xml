@@ -2,6 +2,7 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
     <color name="primary_material_blue">#03a9f4</color>
     <color name="primary_dark_material_blue">#0288d1</color>
     <color name="accent_material_blue">#40c4ff</color>
@@ -9,7 +10,12 @@
     <color name="primary_material_red">#e51c23</color>
     <color name="primary_dark_material_red">#d01716</color>
     <color name="accent_material_red">#ff5177</color>
-    
+
+
+    <color name="primary_material_white">@color/white</color>
+    <color name="primary_dark_material_white">#eeeeee</color>
+    <color name="accent_material_white">#616161</color>
+
     <color name="gray_300">#e0e0e0</color>
 
 </resources>

@@ -1,6 +1,8 @@
 package com.tongban.im.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 群组
@@ -31,6 +33,8 @@ public class Group {
      * 状态 0:表示无效 1:表示有效
      */
     private String status;
+
+    private List<User> members ;
 
     public String getGroup_id() {
         return group_id;
@@ -78,5 +82,13 @@ public class Group {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
     }
 }

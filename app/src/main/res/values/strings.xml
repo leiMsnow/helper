@@ -19,6 +19,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_circle_label">选择圈子标签</string>
+    <string name="title_activity_chat_settings">聊天设置</string>
 
 
 </resources>

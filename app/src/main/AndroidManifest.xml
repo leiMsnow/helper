@@ -119,6 +119,10 @@
             android:name=".activity.CircleLabelActivity"
             android:label="@string/title_activity_circle_label" >
         </activity>
+        <activity
+            android:name=".activity.ChatSettingsActivity"
+            android:label="@string/title_activity_chat_settings" >
+        </activity>
     </application>
 
 </manifest>
