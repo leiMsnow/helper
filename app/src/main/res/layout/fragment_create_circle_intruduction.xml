@@ -16,5 +16,5 @@
         android:layout_height="150dp"
         android:layout_below="@+id/iv_circle_portrait"
         android:background="@color/white"
-        android:hint="@string/hint_toast_circle_introduction" />
+        android:hint="@string/hint_circle_introduction" />
 </RelativeLayout>

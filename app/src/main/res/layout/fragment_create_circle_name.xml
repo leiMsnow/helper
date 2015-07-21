@@ -20,5 +20,5 @@
         android:layout_below="@+id/iv_insert_image"
         android:layout_marginTop="15dp"
         android:background="@color/white"
-        android:hint="@string/hint_toast_label" />
+        android:hint="@string/hint_label" />
 </RelativeLayout>

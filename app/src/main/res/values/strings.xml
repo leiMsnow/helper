@@ -21,11 +21,11 @@
     <string name="title_activity_circle_label">选择圈子标签</string>
     <string name="title_activity_chat_settings">聊天设置</string>
     <!--创建圈子-->
-    <string name="hint_toast_circle_introduction">填写群简介，10到300字。</string>
+    <string name="hint_circle_introduction">填写群简介，10到300字。</string>
     <string name="toast_circle_label">最多可以为圈子选择三个标签</string>
     <string name="add_label">添加</string>
-    <string name="hint_toast_label">输入群名称，不超过10个汉字</string>
-    <string name="cancle">取消</string>
+    <string name="hint_label">输入群名称，不超过10个汉字</string>
+    <string name="cancel">取消</string>
     <string name="create_circle">创建圈子</string>
     <string name="next_step">下一步</string>
 </resources>
