@@ -45,20 +45,26 @@
     </LinearLayout>
 
     <!--<View-->
-        <!--android:id="@+id/move_line"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="2dp"-->
-        <!--android:layout_below="@+id/tab_linear"-->
-        <!--android:background="@color/accent_material_red" />-->
+    <!--android:id="@+id/move_line"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="2dp"-->
+    <!--android:layout_below="@+id/tab_linear"-->
+    <!--android:background="@color/accent_material_red" />-->
 
     <ListView
-        
+
         android:id="@+id/lv_chat_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tab_linear"
         android:layout_marginTop="5dp"
         android:background="@color/white"
-        android:layout_below="@+id/tab_linear"
         android:scrollbars="none" />
 
+    <Button
+        android:id="@+id/btn_create_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_circle"
+        android:layout_below="@+id/lv_chat_list"/>
 </RelativeLayout>

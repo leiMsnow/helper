@@ -26,6 +26,6 @@
     <string name="add_label">添加</string>
     <string name="hint_toast_label">输入群名称，不超过10个汉字</string>
     <string name="cancle">取消</string>
-
-
+    <string name="create_circle">创建圈子</string>
+    <string name="next_step">下一步</string>
 </resources>

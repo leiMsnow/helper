@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +19,11 @@ import com.tongban.im.model.Chat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 璇濋鍒楄〃鐣岄潰
+ *
+ * @author fushudi
+ */
 public class TopicActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private ListView mListView;
@@ -26,6 +32,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
     private TextView tvTopicByMe;
     private View moveLine;
     private int screenWidth;
+    private Button btnCreateCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +49,8 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         mListView = (ListView) findViewById(R.id.lv_chat_list);
         tvTopicByHot = (TextView) findViewById(R.id.tv_topic_by_hot);
         tvTopicByMe = (TextView) findViewById(R.id.tv_topic_by_me);
-       // moveLine = findViewById(R.id.move_line);
+        btnCreateCircle = (Button) findViewById(R.id.btn_create_circle);
+        // moveLine = findViewById(R.id.move_line);
     }
 
     @Override
@@ -50,6 +58,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         mListView.setOnItemClickListener(this);
         tvTopicByMe.setOnClickListener(this);
         tvTopicByHot.setOnClickListener(this);
+        btnCreateCircle.setOnClickListener(this);
     }
 
     @Override
@@ -64,7 +73,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         List<Chat> listsByHot = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Chat chat = new Chat();
-            chat.setChatContext("这是内容 " + i);
+            chat.setChatContext("youyong" + i);
             chat.setChatName("name" + i);
             chat.setChatPersonNum(String.valueOf(i));
             listsByHot.add(chat);
@@ -91,7 +100,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_topic_settings) {
-            startActivity(new Intent(mContext,CircleLabelActivity.class));
+            startActivity(new Intent(mContext, CircleLabelActivity.class));
 
             return super.onOptionsItemSelected(item);
         }
@@ -111,7 +120,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 mAdapter.clear();
                 for (int i = 0; i < 10; i++) {
                     Chat chat = new Chat();
-                    chat.setChatContext("这是内容" + i);
+                    chat.setChatContext("youyong" + i);
                     chat.setChatName("name" + i);
                     chat.setChatPersonNum(String.valueOf(i));
                     mAdapter.add(chat);
@@ -123,13 +132,16 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 mAdapter.clear();
                 for (int i = 0; i < 4; i++) {
                     Chat chat = new Chat();
-                    chat.setChatContext("这是内容" + i);
+                    chat.setChatContext("youyong" + i);
                     chat.setChatName("name" + i);
                     chat.setChatPersonNum(String.valueOf(i));
                     mAdapter.add(chat);
                 }
                 tvTopicByHot.setSelected(false);
                 tvTopicByMe.setSelected(true);
+                break;
+            case R.id.btn_create_circle:
+                startActivity(new Intent(mContext, CreateCircleActivity.class));
                 break;
         }
     }
