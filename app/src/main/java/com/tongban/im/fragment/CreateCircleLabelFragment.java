@@ -42,10 +42,10 @@ public class CreateCircleLabelFragment extends BaseApiFragment implements View.O
 
     @Override
     protected void initView() {
-        mGridView = (GridView) getActivity().findViewById(R.id.gv_label);
-        mShowLabel = (LinearLayout) getActivity().findViewById(R.id.show_view);
-        mAddLabel = (TextView) getActivity().findViewById(R.id.tv_add);
-        etLabel = (EditText) getActivity().findViewById(R.id.et_label_name);
+        mGridView = (GridView) mView.findViewById(R.id.gv_label);
+        mShowLabel = (LinearLayout)mView.findViewById(R.id.show_view);
+        mAddLabel = (TextView) mView.findViewById(R.id.tv_add);
+        etLabel = (EditText) mView.findViewById(R.id.et_label_name);
     }
 
     @Override
