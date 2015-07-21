@@ -7,16 +7,17 @@
         layout="@layout/include_toolbar" />
 
     <ScrollView
-        android:layout_marginTop="1dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="1dp"
         android:background="@color/material_brown_200">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--圈子成员view-->
             <com.tongban.im.widget.view.ChildGridView
                 android:id="@+id/gv_members"
                 android:layout_width="match_parent"
@@ -31,37 +32,177 @@
                 android:id="@+id/tv_more_member"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_below="@+id/gv_members"
+                android:background="@color/white"
                 android:gravity="right|center_vertical"
                 android:paddingRight="16dp"
-                android:background="@color/white"
                 android:text="展开全部" />
+            <!--圈子名称-->
+            <LinearLayout
+                android:id="@+id/ll_name"
+                style="@style/ChatSettingLayout"
+                android:layout_marginTop="8dp">
 
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="圈子名称" />
+
+                <TextView
+                    android:id="@+id/tv_group_name"
+                    style="@style/ChatSettingRightText"
+                    android:text="圈子名称" />
+
+            </LinearLayout>
+            <!--地点-->
+            <LinearLayout
+                android:id="@+id/ll_address"
+                style="@style/ChatSettingLayout">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="地点" />
+
+                <TextView
+                    android:id="@+id/tv_group_address"
+                    style="@style/ChatSettingRightText"
+                    android:text="地点" />
+
+            </LinearLayout>
+            <!--创建人-->
             <RelativeLayout
-                android:id="@+id/rl_details_parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_more_member"
-                android:layout_marginTop="16dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:minHeight="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:id="@+id/ll_creator"
+                style="@style/ChatSettingLayout">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="圈子名称" />
+                    android:id="@+id/tv_creator_label"
+                    style="@style/ChatSettingLeftText"
+                    android:layout_centerVertical="true"
+                    android:text="创建人" />
+
+                <ImageView
+                    android:id="@+id/iv_group_creator"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="4dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_group_creator"
+                    android:src="@mipmap/ic_launcher" />
 
                 <TextView
+                    android:id="@+id/tv_group_creator"
+                    style="@style/ChatSettingRightText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:text="圈子名称" />
+                    android:gravity="center_vertical"
+                    android:text="创建人" />
 
             </RelativeLayout>
+            <!--圈子属性-->
+            <LinearLayout
+                android:id="@+id/ll_attrs"
+                style="@style/ChatSettingLayout">
 
-        </RelativeLayout>
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="圈子属性" />
+
+                <TextView
+                    android:id="@+id/tv_group_attrs"
+                    style="@style/ChatSettingRightText"
+                    android:text="圈子属性" />
+
+            </LinearLayout>
+            <!--圈子简介-->
+            <LinearLayout
+                android:id="@+id/ll_desc"
+                style="@style/ChatSettingLayout">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="圈子简介" />
+
+                <TextView
+                    android:id="@+id/tv_group_desc"
+                    style="@style/ChatSettingRightText"
+                    android:singleLine="false"
+                    android:text="圈子简介" />
+
+            </LinearLayout>
+            <!--圈子设置-->
+            <LinearLayout
+                style="@style/ChatSettingLayout"
+                android:background="@android:color/transparent"
+                android:gravity="left|bottom">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:layout_marginBottom="4dp"
+                    android:text="圈子设置" />
+
+            </LinearLayout>
+
+            <!--消息免打扰-->
+            <RelativeLayout style="@style/ChatSettingLayout">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:layout_centerVertical="true"
+                    android:text="消息免打扰" />
+
+                <CheckBox
+                    android:id="@+id/chb_remind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+            <!-- 置顶聊天 -->
+            <RelativeLayout style="@style/ChatSettingLayout">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:layout_centerVertical="true"
+                    android:text="置顶聊天" />
+
+                <CheckBox
+                    android:id="@+id/chb_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
+            <!--清空聊天记录-->
+            <LinearLayout
+                android:id="@+id/ll_clear"
+                style="@style/ChatSettingLayout"
+                android:gravity="left|center_vertical">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="清空聊天记录" />
+
+            </LinearLayout>
+            <!--举报-->
+            <LinearLayout
+                android:id="@+id/ll_inform"
+                style="@style/ChatSettingLayout"
+                android:gravity="left|center_vertical">
+
+                <TextView
+                    style="@style/ChatSettingLeftText"
+                    android:text="举报" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_quit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/selector_btn_red"
+                android:text="退出并删除"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>

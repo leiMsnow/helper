@@ -3,5 +3,11 @@
     <color name="material_gray_300">#e0e0e0</color>
     <color name="material_brown_200">#efebe9</color>
     <color name="material_brown_700">#5d4037</color>
+    <color name="primary_text_material_brown">#928460</color>
+
     <color name="material_brown_700_a50">#505d4037</color>
+
+    <color name="material_red_500">#e51c23</color>
+    <color name="material_red_700">#d01716</color>
+
 </resources>

@@ -4,7 +4,6 @@
     <style name="AppTheme.Base" parent="AppTheme">
 
 
-
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -15,7 +14,36 @@
         <item name="colorPrimary">@color/primary_material_white</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_white</item>
         <item name="colorAccent">@color/accent_material_white</item>
+        <item name="android:textColorPrimary">@color/primary_text_material_brown</item>
+    </style>
 
+    <!-- 聊天设置父容器样式-->
+    <style name="ChatSettingLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:background">@drawable/selector_white_to_gray</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+    <!--聊天设置左侧文本样式-->
+    <style name="ChatSettingLeftText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/primary_text_material_brown</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--聊天设置右侧文本样式-->
+    <style name="ChatSettingRightText">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
 </resources>
