@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class CreateCircleLabelFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener, TextWatcher {
+public class CreateGroupLabelFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener, TextWatcher {
     private LabelAdapter mAdapter;
     private GridView mGridView;
     private List<Label> labelList;
@@ -37,7 +37,7 @@ public class CreateCircleLabelFragment extends BaseApiFragment implements View.O
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_create_circle_label;
+        return R.layout.fragment_create_group_label;
     }
 
     @Override

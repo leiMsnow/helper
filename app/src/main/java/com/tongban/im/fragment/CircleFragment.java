@@ -19,7 +19,7 @@ import android.widget.EditText;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.adapter.CircleListAdapter;
+import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
@@ -44,7 +44,7 @@ public class CircleFragment extends BaseApiFragment {
      */
     private List<Group> groups;
 
-    private CircleListAdapter adapter;
+    private GroupListAdapter adapter;
 
     private AlertDialog dialog_join_group, dialog_create_group;
 
@@ -89,9 +89,9 @@ public class CircleFragment extends BaseApiFragment {
             if (adapter == null) {
                 groups = new LinkedList<>();
                 groups.addAll(list);
-                adapter = new CircleListAdapter(mContext, groups);
+                adapter = new GroupListAdapter(mContext, groups);
                 // 点击监听
-                adapter.setOnItemClickLitener(new CircleListAdapter.OnItemClickLitener() {
+                adapter.setOnItemClickLitener(new GroupListAdapter.OnItemClickLitener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         String group_id = groups.get(position).getGroup_id();

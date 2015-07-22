@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class CircleLabelActivity extends BaseToolBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextWatcher {
+public class GroupLabelActivity extends BaseToolBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextWatcher {
     private LabelAdapter mAdapter;
     private GridView mGridView;
     private List<Label> labelList;
@@ -39,7 +39,7 @@ public class CircleLabelActivity extends BaseToolBarActivity implements AdapterV
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_circle_label;
+        return R.layout.activity_group_label;
     }
 
     @Override

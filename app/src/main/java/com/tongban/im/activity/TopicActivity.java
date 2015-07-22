@@ -100,7 +100,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_topic_settings) {
-            startActivity(new Intent(mContext, CircleLabelActivity.class));
+            startActivity(new Intent(mContext, GroupLabelActivity.class));
 
             return super.onOptionsItemSelected(item);
         }
@@ -141,7 +141,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 tvTopicByMe.setSelected(true);
                 break;
             case R.id.btn_create_circle:
-                startActivity(new Intent(mContext, CreateCircleActivity.class));
+                startActivity(new Intent(mContext, CreateGroupActivity.class));
                 break;
         }
     }

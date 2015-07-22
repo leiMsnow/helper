@@ -1,11 +1,7 @@
 package com.tongban.im.fragment;
 
 
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,13 +13,13 @@ import com.tongban.im.R;
  *
  * @author fushudi
  */
-public class CreateCircleLocationFragment extends BaseApiFragment implements View.OnClickListener {
+public class CreateGroupLocationFragment extends BaseApiFragment implements View.OnClickListener {
     private ImageView ivSearch;
     private TextView tvCancel;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_create_circle_location;
+        return R.layout.fragment_create_group_location;
     }
 
     @Override

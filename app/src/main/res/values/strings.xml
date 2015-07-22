@@ -22,6 +22,8 @@
 
     <string name="title_activity_circle_label">选择圈子标签</string>
     <string name="title_activity_chat_settings">聊天设置</string>
+
+
     <!--创建圈子-->
     <string name="hint_circle_introduction">填写群简介，10到300字。</string>
     <string name="toast_circle_label">最多可以为圈子选择三个标签</string>
@@ -29,6 +31,7 @@
     <string name="hint_label">输入群名称，不超过10个汉字</string>
     <string name="create_circle">创建圈子</string>
     <string name="next_step">下一步</string>
+    <string name="create_circle_name">填写圈子名称</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

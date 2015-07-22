@@ -17,7 +17,7 @@ import java.util.List;
  * 圈子列表的Adapter
  * author: chenenyu 15/7/14
  */
-public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.GroupViewHolder> {
+public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.GroupViewHolder> {
 
     private Context context;
     private List<Group> groups;
@@ -37,7 +37,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.Gr
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
-    public CircleListAdapter(Context context, List<Group> groups) {
+    public GroupListAdapter(Context context, List<Group> groups) {
         this.context = context;
         this.groups = groups;
     }
@@ -45,7 +45,7 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.Gr
     @Override
     public GroupViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         GroupViewHolder holder = new GroupViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.item_circle_list, viewGroup, false));
+                .inflate(R.layout.item_group_list, viewGroup, false));
         return holder;
     }
 
