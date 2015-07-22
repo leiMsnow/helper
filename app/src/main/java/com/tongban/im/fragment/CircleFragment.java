@@ -107,6 +107,7 @@ public class CircleFragment extends BaseApiFragment {
                     }
                 });
                 recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             } else {
                 groups.clear();
                 groups.addAll(list);

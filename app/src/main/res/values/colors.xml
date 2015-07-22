@@ -9,5 +9,10 @@
 
     <color name="material_red_500">#e51c23</color>
     <color name="material_red_700">#d01716</color>
+    <!-- 首页Fragment的背景色 -->
+    <color name="main_fragment_bg">#fff1eff5</color>
+    <!-- 圈子页消息提醒的字体颜色 -->
+    <color name="remind_msg_pink">#fff8685c</color>
+    <color name="light_gray">#ffa5a5a5</color>
 
 </resources>

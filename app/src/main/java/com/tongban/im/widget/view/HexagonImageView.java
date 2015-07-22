@@ -9,7 +9,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -129,10 +131,10 @@ public class HexagonImageView extends ImageView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
-        if (bitmapDrawable != null)
-            mBitmap = bitmapDrawable.getBitmap();
+        if (getDrawable() == null)
+            return;
 
+        mBitmap = drawable2Bitmap(getDrawable());
         if (mBitmap != null) {
             canvas.drawColor(Color.WHITE);
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(mBitmap, canvas.getWidth(),
@@ -177,5 +179,31 @@ public class HexagonImageView extends ImageView {
         return result;
     }
 
+    /**
+     * Drawable转Bitmap
+     *
+     * @param drawable Drawable
+     * @return Bitmap
+     */
+    private Bitmap drawable2Bitmap(Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() > 0 && drawable.getIntrinsicHeight() > 0) {
+            Log.d("" + drawable.getIntrinsicWidth(), "" + drawable.getIntrinsicHeight());
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+        }
+        return bitmap;
+    }
 
 }

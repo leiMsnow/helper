@@ -8,9 +8,8 @@
         android:id="@+id/rv_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#FFE7E7E7"
-        android:dividerHeight="1dp"
-        android:padding="10dp"
+        android:background="@color/main_fragment_bg"
+        android:padding="8dp"
         android:scrollbars="none"/>
 
 </FrameLayout>

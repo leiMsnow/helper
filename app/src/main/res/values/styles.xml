@@ -3,7 +3,6 @@
 
     <style name="AppTheme.Base" parent="AppTheme">
 
-
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -36,7 +35,6 @@
     </style>
     <!--聊天设置右侧文本样式-->
     <style name="ChatSettingRightText">
-
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">right</item>

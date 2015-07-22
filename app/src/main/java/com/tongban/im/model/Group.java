@@ -33,7 +33,9 @@ public class Group {
      * 状态 0:表示无效 1:表示有效
      */
     private String status;
-
+    /**
+     * 群成员
+     */
     private List<User> members ;
 
     public String getGroup_id() {

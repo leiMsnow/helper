@@ -2,14 +2,22 @@ package com.tongban.im.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.tongban.im.R;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.User;
+import com.tongban.im.widget.view.HexagonImageView;
+import com.tongban.im.widget.view.HexagonLayout;
 
 import java.util.List;
 
@@ -50,15 +58,28 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     }
 
     @Override
-    public void onBindViewHolder(final GroupViewHolder groupViewHolder, final int i) {
-        groupViewHolder.imageView.setBackgroundResource(R.mipmap.ic_launcher);
-        groupViewHolder.textView.setText(groups.get(i).getGroup_name());
+    public void onBindViewHolder(final GroupViewHolder groupViewHolder, final int pos) {
+        // TODO 现在是模拟用户,待接口完善之后改为真实数据
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        List<User> members = groups.get(pos).getMembers();
+        for (int i = 0; i < 4; i++) {
+            if (i > 3)
+                break;
+            final HexagonImageView portrait = new HexagonImageView(context);
+            portrait.setLayoutParams(layoutParams);
+//            portrait.setImageResource(R.mipmap.ic_launcher);
+            groupViewHolder.hl_group_portrait.addView(portrait);
+            Glide.with(context).load("http://img5.imgtn.bdimg.com/it/u=3017210771,879699792&fm=11&gp=0.jpg")
+                    .into(portrait);
+        }
+        groupViewHolder.tv_group_name.setText(groups.get(pos).getGroup_name());
+
         if (mOnItemClickLitener != null) {
             groupViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //int pos = groupViewHolder.getLayoutPosition();
-                    int pos = i;
                     mOnItemClickLitener.onItemClick(groupViewHolder.itemView, pos);
                 }
             });
@@ -67,7 +88,6 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
                 @Override
                 public boolean onLongClick(View v) {
                     //int pos = groupViewHolder.getLayoutPosition();
-                    int pos = i;
                     mOnItemClickLitener.onItemLongClick(groupViewHolder.itemView, pos);
                     return false;
                 }
@@ -81,13 +101,16 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     }
 
     class GroupViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
+        HexagonLayout hl_group_portrait;
+        TextView tv_group_name, tv_unread_msg, tv_remind_at, tv_latest_msg_time;
 
         public GroupViewHolder(View itemView) {
             super(itemView);
-            this.imageView = (ImageView) itemView.findViewById(R.id.iv);
-            this.textView = (TextView) itemView.findViewById(R.id.tv);
+            this.hl_group_portrait = (HexagonLayout) itemView.findViewById(R.id.hl_group_portrait);
+            this.tv_group_name = (TextView) itemView.findViewById(R.id.tv_group_name);
+            this.tv_unread_msg = (TextView) itemView.findViewById(R.id.tv_unread_msg);
+            this.tv_remind_at = (TextView) itemView.findViewById(R.id.tv_remind_at);
+            this.tv_latest_msg_time = (TextView) itemView.findViewById(R.id.tv_latest_msg_time);
         }
     }
 }
