@@ -1,9 +1,12 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.im.R;
@@ -20,7 +23,7 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class ChoiceGroupTypeActivity extends BaseToolBarActivity {
+public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener {
 
     private ListView lvGroupType;
     private View vHeader;
@@ -47,7 +50,7 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
-
+        lvGroupType.setOnItemClickListener(this);
     }
 
     @Override
@@ -58,4 +61,11 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity {
         lvGroupType.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (parent == lvGroupType) {
+            Intent intent = new Intent(mContext,CreateGroupActivity.class);
+            startActivity(intent);
+        }
+    }
 }
