@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/material_brown_200">
 
     <include
@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/tv_topic_by_hot"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:focusable="true"
             android:gravity="center"
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/tv_topic_by_me"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="8dp"
@@ -43,18 +43,18 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!--<View-->
-    <!--android:id="@+id/move_line"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:layout_below="@+id/tab_linear"-->
-    <!--android:background="@color/accent_material_red" />-->
+    <View
+        android:id="@+id/move_line"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tab_linear"
+        android:background="@color/accent_material_red" />
 
     <ListView
         android:id="@+id/lv_chat_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tab_linear"
+        android:layout_below="@+id/move_line"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:paddingBottom="8dp"
