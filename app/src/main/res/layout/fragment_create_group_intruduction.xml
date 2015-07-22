@@ -7,8 +7,7 @@
         android:id="@+id/iv_circle_portrait"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/circle_portrait" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/et_circle_introduction"

@@ -57,6 +57,7 @@
         android:gravity="center"
         android:hint="@string/set_group_introduction"
         android:textSize="12sp" />
+
     <View
         android:id="@+id/divide_line_two"
         android:layout_width="match_parent"
