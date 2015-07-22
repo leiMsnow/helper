@@ -48,20 +48,13 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     private FragmentManager fm;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
     }
 
     @Override
     protected void initView() {
-        setTitle("单聊");
+        setTitle("推荐");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_panel);
 
         fm = getSupportFragmentManager();
@@ -100,6 +93,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                         fm.beginTransaction().show(fragments[0]).
                                 hide(fragments[currentPage]).commit();
                         currentPage = 0;
+                        setTitle("推荐");
                         break;
                     case R.id.rb_circle:
                         if (fragments[1].isAdded()) {
@@ -110,6 +104,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                     .hide(fragments[currentPage]).commit();
                         }
                         currentPage = 1;
+                        setTitle("圈子");
                         break;
                     case R.id.rb_discover:
                         if (fragments[2].isAdded()) {
@@ -120,6 +115,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                     .hide(fragments[currentPage]).commit();
                         }
                         currentPage = 2;
+                        setTitle("发现");
                         break;
                 }
             }
@@ -157,7 +153,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         if (o instanceof BaseEvent.DrawerLayoutMenu) {
             BaseEvent.DrawerLayoutMenu item = (BaseEvent.DrawerLayoutMenu) o;
             LogUtil.d("onEventMainThread:" + item.getText());
-            mToolbar.setTitle(item.getText());
+            //mToolbar.setTitle(item.getText());
             mDrawerLayout.closeDrawer(Gravity.LEFT);
         }
     }

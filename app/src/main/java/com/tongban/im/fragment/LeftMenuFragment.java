@@ -40,7 +40,7 @@ public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        LogUtil.d("onItemClick:" + mAdapter.getItem(position));
         EventBus.getDefault().post(mAdapter.getItem(position));
-        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN,"");
+//        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN,"");
         mAdapter.setSelected(position);
     }
 
