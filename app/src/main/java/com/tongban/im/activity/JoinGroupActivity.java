@@ -1,11 +1,19 @@
 package com.tongban.im.activity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.JoinGroupAdapter;
+import com.tongban.im.model.Group;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 加入圈子
@@ -14,6 +22,11 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
  * @createTime 2015/07/22
  */
 public class JoinGroupActivity extends BaseToolBarActivity {
+
+    private ListView lvGroups;
+    private View vHeader;
+
+    private JoinGroupAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +40,11 @@ public class JoinGroupActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-
+        lvGroups = (ListView) findViewById(R.id.lv_groups);
+        vHeader = LayoutInflater.from(mContext).inflate(R.layout.header_search, null);
+        if (vHeader != null) {
+            lvGroups.addHeaderView(vHeader);
+        }
     }
 
     @Override
@@ -37,28 +54,29 @@ public class JoinGroupActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-
+        List<Group> groups = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            Group group = new Group();
+            group.setGroup_name("半岛国际" + i + "岁宝宝圈");
+            groups.add(group);
+        }
+        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
+        lvGroups.setAdapter(mAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.action_create_group) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
