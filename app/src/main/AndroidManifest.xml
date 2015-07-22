@@ -113,7 +113,7 @@
 
         <activity
             android:name=".activity.TopicActivity"
-            android:label="@string/title_activity_topic" />
+            android:label="@string/topic" />
         <activity
             android:name=".activity.CircleLabelActivity"
             android:label="@string/title_activity_circle_label" />
@@ -123,7 +123,7 @@
         <activity android:name=".activity.CreateCircleActivity" />
         <activity
             android:name=".activity.JoinGroupActivity"
-            android:label="@string/title_activity_join_group" >
+            android:label="@string/join_group" >
         </activity>
     </application>
 
