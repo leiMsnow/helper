@@ -12,6 +12,7 @@ public class CreateGroupActivity extends BaseToolBarActivity {
 
     @Override
     protected int getLayoutRes() {
+        setTheme(R.style.AppTheme_Blue);
         return R.layout.activity_create_group;
     }
 

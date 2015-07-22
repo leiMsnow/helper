@@ -7,65 +7,164 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <ImageView
-        android:id="@+id/iv_add_group_icon"
-        android:layout_width="112dp"
-        android:layout_height="112dp"
+    <ScrollView
+        android:scrollbars="none"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:src="@mipmap/ic_group_icon" />
-
-    <TextView
-        android:id="@+id/tv_add_group_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_add_group_icon"
-        android:layout_alignTop="@+id/iv_add_group_icon"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical"
-        android:text="@string/add_group_icon" />
-
-    <EditText
-        android:id="@+id/et_set_group_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_add_group_icon"
-        android:layout_marginTop="48dp"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/set_group_name"
-        android:textSize="14sp" />
+        android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/divide_line_one"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/et_set_group_name"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/black" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_set_group_introduction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/divide_line_one"
-        android:layout_marginTop="8dp"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/set_group_introduction"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_add_group_icon"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/shape_set_group_icon_normal"
+                android:gravity="center"
+                android:text="@string/add_group_icon" />
+            <!--圈子名称-->
+            <EditText
+                android:id="@+id/et_set_group_name"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv_add_group_icon"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="48dp"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/set_group_name"
+                android:textSize="14sp" />
 
-    <View
-        android:id="@+id/divide_line_two"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/et_set_group_introduction"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/black" />
+            <View
+                android:id="@+id/divide_line_one"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_set_group_name"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/gray_300" />
+            <!--圈子简介-->
+            <EditText
+                android:id="@+id/et_set_group_introduction"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/divide_line_one"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                android:gravity="center"
+                android:textColor="@color/gray_300"
+                android:hint="@string/set_group_introduction"
+                android:textSize="12sp" />
 
+            <View
+                android:id="@+id/divide_line_two"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_set_group_introduction"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_300" />
+            <!--圈子标签-->
+            <EditText
+                android:id="@+id/et_set_group_label"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/divide_line_two"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/gray_300"
+                android:background="@null"
+                android:drawableLeft="@mipmap/ic_group_label"
+                android:gravity="center"
+                android:hint="@string/set_group_label"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/divide_line_three"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_set_group_label"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_300" />
+            <!--圈子位置-->
+            <EditText
+                android:id="@+id/et_set_group_location"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/divide_line_three"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                android:textColor="@color/gray_300"
+                android:drawableLeft="@mipmap/ic_group_location"
+                android:gravity="center"
+                android:hint="@string/set_group_location"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/divide_line_four"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_set_group_location"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_300" />
+
+            <TextView
+                android:id="@+id/tv_group_secret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/divide_line_four"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/group_secret" />
+
+            <TextView
+                android:id="@+id/tv_group_secret_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_group_secret"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/group_secret_detail" />
+
+            <TextView
+                android:id="@+id/tv_group_secret_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_group_secret_detail"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/tv_group_secret_detail"
+                android:text="@string/group_secret_update"
+                android:textColor="@color/accent_material_blue" />
+
+            <Button
+                android:id="@+id/btn_finish_create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_group_secret_detail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="72dp"
+                android:background="@color/primary_material_blue"
+                android:text="@string/finish_create_group"
+                android:textColor="@color/white"
+                android:layout_marginBottom="72dp"/>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
