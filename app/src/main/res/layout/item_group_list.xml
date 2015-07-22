@@ -11,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <com.tongban.im.widget.view.HexagonLayout
             android:id="@+id/hl_group_portrait"
@@ -25,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -34,9 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:background="@color/remind_msg_pink"
+                android:background="@drawable/shape_corners_pink_bg"
                 android:padding="5dp"
-                android:text="101"
+                android:text="11"
                 android:textColor="@color/white"
                 android:textSize="12sp"/>
 
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/ll_bottom_msg"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:singleLine="true"
             android:text="崔玉涛现身说法零距离"
             android:textSize="16sp"/>
