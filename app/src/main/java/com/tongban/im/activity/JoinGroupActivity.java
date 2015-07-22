@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
@@ -21,10 +23,11 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity {
+public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
     private ListView lvGroups;
     private View vHeader;
+    private EditText etSearch;
 
     private JoinGroupAdapter mAdapter;
 
@@ -44,12 +47,16 @@ public class JoinGroupActivity extends BaseToolBarActivity {
         vHeader = LayoutInflater.from(mContext).inflate(R.layout.header_search, null);
         if (vHeader != null) {
             lvGroups.addHeaderView(vHeader);
+            etSearch = (EditText) vHeader.findViewById(R.id.et_search);
+            etSearch.setEnabled(true);
         }
     }
 
     @Override
     protected void initListener() {
-
+        if (etSearch != null)
+            etSearch.setOnFocusChangeListener(this);
+            etSearch.setOnClickListener(this);
     }
 
     @Override
@@ -78,5 +85,19 @@ public class JoinGroupActivity extends BaseToolBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == etSearch) {
+            ToastUtil.getInstance(mContext).showToast("搜索");
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (v == etSearch) {
+            ToastUtil.getInstance(mContext).showToast("搜索");
+        }
     }
 }
