@@ -32,6 +32,11 @@
     <string name="add_group_icon">添加圈子头像</string>
     <string name="set_group_name">圈子名称（必填，如标题、人物、地点等）</string>
     <string name="set_group_introduction">圈子简介，200字以内</string>
+    <string name="set_group_label">圈子标签</string>
+    <string name="set_group_location">宝贝学校、班级</string>
+    <string name="group_secret">圈子隐私</string>
+    <string name="group_secret_detail">允许所有人按条件搜索到此圈子，认证后可加入</string>
+    <string name="group_secret_update">更改</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>
