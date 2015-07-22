@@ -40,6 +40,7 @@
     <string name="more_group_type">还可以创建</string>
     <string name="add_group_icon">添加圈子头像</string>
     <string name="set_group_name">圈子名称（必填，如标题、人物、地点等）</string>
+    <string name="set_group_introduction">圈子简介，200字以内</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

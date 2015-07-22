@@ -14,7 +14,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
-        android:src="@mipmap/group_icon" />
+        android:src="@mipmap/ic_group_icon.png" />
 
     <TextView
         android:id="@+id/tv_add_group_icon"
@@ -34,7 +34,8 @@
         android:layout_marginTop="48dp"
         android:background="@null"
         android:gravity="center"
-        android:hint="@string/set_group_name" />
+        android:hint="@string/set_group_name"
+        android:textSize="14sp" />
 
     <View
         android:id="@+id/divide_line_one"
@@ -51,5 +52,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divide_line_one"
-        android:hint="@string/add_group_icon"/>
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/set_group_introduction"
+        android:textSize="12sp" />
+    <View
+        android:id="@+id/divide_line_two"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_set_group_introduction"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/black" />
+
 </RelativeLayout>
