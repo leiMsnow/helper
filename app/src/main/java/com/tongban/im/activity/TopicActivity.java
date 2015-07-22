@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.ChatAdapter;
-import com.tongban.im.model.Chat;
+import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +70,13 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 //        params.height=4;
 //        moveLine.setLayoutParams(params);
 
-        List<Chat> listsByHot = new ArrayList<>();
+        List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Chat chat = new Chat();
-            chat.setChatContext("youyong" + i);
-            chat.setChatName("name" + i);
-            chat.setChatPersonNum(String.valueOf(i));
-            listsByHot.add(chat);
+            Topic topic = new Topic();
+            topic.setTopicContext("youyong" + i);
+            topic.setTopicName("name" + i);
+            topic.setTopicPersonNum(String.valueOf(i));
+            listsByHot.add(topic);
         }
         mAdapter = new ChatAdapter(mContext, R.layout.item_chat_list, listsByHot);
         mListView.setAdapter(mAdapter);
@@ -119,11 +119,11 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
             case R.id.tv_topic_by_hot:
                 mAdapter.clear();
                 for (int i = 0; i < 10; i++) {
-                    Chat chat = new Chat();
-                    chat.setChatContext("youyong" + i);
-                    chat.setChatName("name" + i);
-                    chat.setChatPersonNum(String.valueOf(i));
-                    mAdapter.add(chat);
+                    Topic topic = new Topic();
+                    topic.setTopicContext("youyong" + i);
+                    topic.setTopicName("name" + i);
+                    topic.setTopicPersonNum(String.valueOf(i));
+                    mAdapter.add(topic);
                 }
                 tvTopicByHot.setSelected(true);
                 tvTopicByMe.setSelected(false);
@@ -131,11 +131,11 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
             case R.id.tv_topic_by_me:
                 mAdapter.clear();
                 for (int i = 0; i < 4; i++) {
-                    Chat chat = new Chat();
-                    chat.setChatContext("youyong" + i);
-                    chat.setChatName("name" + i);
-                    chat.setChatPersonNum(String.valueOf(i));
-                    mAdapter.add(chat);
+                    Topic topic = new Topic();
+                    topic.setTopicContext("youyong" + i);
+                    topic.setTopicName("name" + i);
+                    topic.setTopicPersonNum(String.valueOf(i));
+                    mAdapter.add(topic);
                 }
                 tvTopicByHot.setSelected(false);
                 tvTopicByMe.setSelected(true);

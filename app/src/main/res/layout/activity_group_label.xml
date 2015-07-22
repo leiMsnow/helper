@@ -66,6 +66,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/gv_label"
         android:layout_marginTop="15dp"
-        android:text="@string/toast_circle_label"
+        android:text="@string/toast_group_label"
         android:textColor="@color/accent_material_red" />
 </RelativeLayout>

@@ -102,7 +102,7 @@ public class CreateGroupLabelFragment extends BaseApiFragment implements View.On
             }
         });
         if (mShowLabel.getChildCount() == 3) {
-            Toast.makeText(mContext, getResources().getString(R.string.toast_circle_label), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getResources().getString(R.string.toast_group_label), Toast.LENGTH_LONG).show();
             return;
         } else {
             mShowLabel.addView(tvLabel);

@@ -1,9 +1,6 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,15 +12,11 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
-import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.widget.view.RoundImageDrawable;
 
-import io.rong.imkit.RongContext;
 import io.rong.imkit.model.Event;
 
 /**
@@ -90,7 +83,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.action_chat_settings) {
+        if (itemId == R.id.next_step) {
             Intent intent = new Intent(mContext,ChatSettingsActivity.class);
             startActivity(intent);
         }

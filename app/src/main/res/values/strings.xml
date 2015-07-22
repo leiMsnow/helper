@@ -19,19 +19,21 @@
     <string name="verify_send_failed">验证码发送失败</string>
     <!--话题-->
     <string name="topic">话题</string>
-
-    <string name="title_activity_circle_label">选择圈子标签</string>
-    <string name="title_activity_chat_settings">聊天设置</string>
+    <string name="group_settings">聊天设置</string>
 
 
     <!--创建圈子-->
-    <string name="hint_circle_introduction">填写群简介，10到300字。</string>
-    <string name="toast_circle_label">最多可以为圈子选择三个标签</string>
+    <string name="group_label">选择圈子标签</string>
+    <string name="hint_group_introduction">填写群简介，10到300字。</string>
+    <string name="toast_group_label">最多可以为圈子选择三个标签</string>
     <string name="add_label">添加</string>
     <string name="hint_label">输入群名称，不超过10个汉字</string>
-    <string name="create_circle">创建圈子</string>
+    <string name="create_group">创建圈子</string>
     <string name="next_step">下一步</string>
-    <string name="create_circle_name">填写圈子名称</string>
+    <string name="create_group_name">填写圈子名称</string>
+    <string name="create_group_label">选择圈子标签</string>
+    <string name="create_group_location">选择圈子位置</string>
+    <string name="create_group_introduction">填写圈子介绍</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

@@ -65,6 +65,6 @@
         android:id="@+id/btn_create_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_circle"
+        android:text="@string/create_group"
         android:layout_below="@+id/lv_chat_list"/>
 </RelativeLayout>

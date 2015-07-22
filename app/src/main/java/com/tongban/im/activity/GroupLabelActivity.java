@@ -78,7 +78,7 @@ public class GroupLabelActivity extends BaseToolBarActivity implements AdapterVi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.action_chat_settings) {
+        if (itemId == R.id.next_step) {
 
         }
 
@@ -105,7 +105,7 @@ public class GroupLabelActivity extends BaseToolBarActivity implements AdapterVi
             }
         });
         if (mShowLabel.getChildCount() == 3) {
-            Toast.makeText(mContext, getResources().getString(R.string.toast_circle_label), Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, getResources().getString(R.string.toast_group_label), Toast.LENGTH_LONG).show();
             return;
         } else {
             mShowLabel.addView(tvLabel);
