@@ -20,8 +20,6 @@ import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.RecommendFragment;
 import com.tongban.im.model.BaseEvent;
 
-import io.rong.imkit.RongIM;
-
 /**
  * 主界面
  */

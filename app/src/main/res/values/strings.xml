@@ -26,16 +26,7 @@
 
     <!--创建圈子-->
     <string name="group_label">选择圈子标签</string>
-    <string name="hint_group_introduction">填写群简介，10到300字。</string>
-    <string name="toast_group_label">最多可以为圈子选择三个标签</string>
-    <string name="add_label">添加</string>
-    <string name="hint_label">输入群名称，不超过10个汉字</string>
     <string name="create_group">创建圈子</string>
-    <string name="next_step">下一步</string>
-    <string name="create_group_name">填写圈子名称</string>
-    <string name="create_group_label">选择圈子标签</string>
-    <string name="create_group_location">选择圈子位置</string>
-    <string name="create_group_introduction">填写圈子介绍</string>
     <string name="choice_group_type">选择圈子类型</string>
     <string name="more_group_type">还可以创建</string>
     <string name="add_group_icon">添加圈子头像</string>
