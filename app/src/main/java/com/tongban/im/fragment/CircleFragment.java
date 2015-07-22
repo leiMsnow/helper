@@ -2,6 +2,7 @@ package com.tongban.im.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
+import com.tongban.im.activity.JoinGroupActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
@@ -164,30 +166,32 @@ public class CircleFragment extends BaseApiFragment {
             dialog_create_group.show();
             return true;
         } else if (item.getItemId() == R.id.action_join_group) {
-            if (dialog_join_group == null) {
-                View layout = LayoutInflater.from(mContext).inflate(R.layout.dialog_input_group, null);
-                final EditText et = (EditText) layout.findViewById(R.id.et_group);
-                et.setHint("请输入圈子id");
-                dialog_join_group = new AlertDialog.Builder(mContext).setTitle("加入圈子")
-                        .setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String group_id = et.getText().toString().trim();
-                                if (TextUtils.isEmpty(group_id)) {
-                                    ToastUtil.getInstance(mContext).showToast("圈子id不能为空");
-                                } else {
-                                    GroupApi.getInstance().joinGroup(group_id, CircleFragment.this);
-                                    dialog.dismiss();
-                                }
-                            }
-                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-            }
-            dialog_join_group.show();
+//            if (dialog_join_group == null) {
+//                View layout = LayoutInflater.from(mContext).inflate(R.layout.dialog_input_group, null);
+//                final EditText et = (EditText) layout.findViewById(R.id.et_group);
+//                et.setHint("请输入圈子id");
+//                dialog_join_group = new AlertDialog.Builder(mContext).setTitle("加入圈子")
+//                        .setView(layout).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                String group_id = et.getText().toString().trim();
+//                                if (TextUtils.isEmpty(group_id)) {
+//                                    ToastUtil.getInstance(mContext).showToast("圈子id不能为空");
+//                                } else {
+//                                    GroupApi.getInstance().joinGroup(group_id, CircleFragment.this);
+//                                    dialog.dismiss();
+//                                }
+//                            }
+//                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        }).create();
+//            }
+//            dialog_join_group.show();
+            Intent intent = new Intent(mContext, JoinGroupActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
