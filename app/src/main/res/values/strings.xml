@@ -21,7 +21,8 @@
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
-
+    <string name="by_hot">按热度</string>
+    <string name="join_by_me">我参加的</string>
 
     <!--创建圈子-->
     <string name="group_label">选择圈子标签</string>

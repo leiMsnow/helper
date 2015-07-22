@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/material_brown_200">
 
     <include
         android:id="@+id/toolbar"
@@ -10,8 +10,9 @@
     <LinearLayout
         android:id="@+id/tab_linear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/actionBarSize"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="1dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -20,27 +21,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_topic_tab_color"
             android:focusable="true"
             android:gravity="center"
             android:padding="8dp"
-            android:text="按热度"
+            android:text="@string/by_hot"
             android:textSize="16sp" />
 
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/black" />
+            android:background="@color/material_brown_200" />
 
         <TextView
             android:id="@+id/tv_topic_by_me"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_topic_tab_color"
             android:gravity="center"
             android:padding="8dp"
-            android:text="我参加的"
+            android:text="@string/join_by_me"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -52,19 +51,12 @@
     <!--android:background="@color/accent_material_red" />-->
 
     <ListView
-
         android:id="@+id/lv_chat_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tab_linear"
-        android:layout_marginTop="5dp"
-        android:background="@color/white"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:paddingBottom="8dp"
         android:scrollbars="none" />
-
-    <Button
-        android:id="@+id/btn_create_circle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/create_group"
-        android:layout_below="@+id/lv_chat_list"/>
 </RelativeLayout>

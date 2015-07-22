@@ -6,30 +6,30 @@ package com.tongban.im.model;
  */
 public class Topic {
     private String topicName;
-    private String topicPersonNum;
-    private String topicContext;
+    private String topicReplyNum;
+    private String topicContent;
 
     public String getTopicName() {
         return topicName;
     }
 
-    public String getTopicPersonNum() {
-        return topicPersonNum;
+    public String getTopicReplyNum() {
+        return topicReplyNum;
     }
 
-    public String getTopicContext() {
-        return topicContext;
+    public String getTopicContent() {
+        return topicContent;
     }
 
     public void setTopicName(String topicName) {
         this.topicName = topicName;
     }
 
-    public void setTopicPersonNum(String topicPersonNum) {
-        this.topicPersonNum = topicPersonNum;
+    public void setTopicReplyNum(String topicReplyNum) {
+        this.topicReplyNum = topicReplyNum;
     }
 
-    public void setTopicContext(String topicContext) {
-        this.topicContext = topicContext;
+    public void setTopicContent(String topicContent) {
+        this.topicContent = topicContent;
     }
 }

@@ -9,7 +9,7 @@ import com.tongban.im.R;
  * 填写圈子介绍界面
  *
  * @author fushudi
- */
+ */@Deprecated
 public class CreateGroupIntroductionFragment extends BaseApiFragment {
 
 

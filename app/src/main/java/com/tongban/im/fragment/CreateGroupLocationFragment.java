@@ -12,7 +12,7 @@ import com.tongban.im.R;
  * 选择圈子位置界面
  *
  * @author fushudi
- */
+ */@Deprecated
 public class CreateGroupLocationFragment extends BaseApiFragment implements View.OnClickListener {
     private ImageView ivSearch;
     private TextView tvCancel;

@@ -25,7 +25,7 @@ import java.util.List;
  * 选择圈子标签界面
  *
  * @author fushudi
- */
+ */@Deprecated
 public class CreateGroupLabelFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener, TextWatcher {
     private LabelAdapter mAdapter;
     private GridView mGridView;

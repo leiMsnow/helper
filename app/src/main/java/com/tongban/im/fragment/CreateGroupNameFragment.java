@@ -8,7 +8,7 @@ import com.tongban.im.R;
  * 填写圈子名称界面
  *
  * @author fushudi
- */
+ */@Deprecated
 public class CreateGroupNameFragment extends BaseApiFragment {
     @Override
     protected int getLayoutRes() {

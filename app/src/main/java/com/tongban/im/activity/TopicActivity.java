@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.ChatAdapter;
+import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
@@ -27,12 +27,11 @@ import java.util.List;
 public class TopicActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private ListView mListView;
-    private ChatAdapter mAdapter;
+    private TopicAdapter mAdapter;
     private TextView tvTopicByHot;
     private TextView tvTopicByMe;
     private View moveLine;
     private int screenWidth;
-    private Button btnCreateCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         mListView = (ListView) findViewById(R.id.lv_chat_list);
         tvTopicByHot = (TextView) findViewById(R.id.tv_topic_by_hot);
         tvTopicByMe = (TextView) findViewById(R.id.tv_topic_by_me);
-        btnCreateCircle = (Button) findViewById(R.id.btn_create_circle);
         // moveLine = findViewById(R.id.move_line);
     }
 
@@ -58,7 +56,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         mListView.setOnItemClickListener(this);
         tvTopicByMe.setOnClickListener(this);
         tvTopicByHot.setOnClickListener(this);
-        btnCreateCircle.setOnClickListener(this);
     }
 
     @Override
@@ -73,12 +70,12 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Topic topic = new Topic();
-            topic.setTopicContext("youyong" + i);
-            topic.setTopicName("name" + i);
-            topic.setTopicPersonNum(String.valueOf(i));
+            topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
+            topic.setTopicName("什么食物中含有硫酸锌？" + i);
+            topic.setTopicReplyNum(String.valueOf(i));
             listsByHot.add(topic);
         }
-        mAdapter = new ChatAdapter(mContext, R.layout.item_chat_list, listsByHot);
+        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, listsByHot);
         mListView.setAdapter(mAdapter);
         tvTopicByHot.setSelected(true);
         tvTopicByMe.setSelected(false);
@@ -100,7 +97,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_topic_settings) {
-            startActivity(new Intent(mContext, GroupLabelActivity.class));
 
             return super.onOptionsItemSelected(item);
         }
@@ -120,9 +116,9 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 mAdapter.clear();
                 for (int i = 0; i < 10; i++) {
                     Topic topic = new Topic();
-                    topic.setTopicContext("youyong" + i);
-                    topic.setTopicName("name" + i);
-                    topic.setTopicPersonNum(String.valueOf(i));
+                    topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
+                    topic.setTopicName("什么食物中含有硫酸锌？" + i);
+                    topic.setTopicReplyNum(String.valueOf(i));
                     mAdapter.add(topic);
                 }
                 tvTopicByHot.setSelected(true);
@@ -132,16 +128,13 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 mAdapter.clear();
                 for (int i = 0; i < 4; i++) {
                     Topic topic = new Topic();
-                    topic.setTopicContext("youyong" + i);
-                    topic.setTopicName("name" + i);
-                    topic.setTopicPersonNum(String.valueOf(i));
+                    topic.setTopicContent("大家的宝宝都是几个月会说话的" + i);
+                    topic.setTopicName("飞飞的妈妈：#大家的宝宝都是几个月会说话的？#" + i);
+                    topic.setTopicReplyNum(String.valueOf(i));
                     mAdapter.add(topic);
                 }
                 tvTopicByHot.setSelected(false);
                 tvTopicByMe.setSelected(true);
-                break;
-            case R.id.btn_create_circle:
-                startActivity(new Intent(mContext, CreateGroupActivity.class));
                 break;
         }
     }
