@@ -1,39 +1,61 @@
 package com.tongban.im.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ListView;
 
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.ChoiceGroupTypeAdapter;
+import com.tongban.im.model.GroupType;
 
-public class ChoiceGroupTypeActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 选择圈子类型
+ *
+ * @author zhangleilei
+ * @createTime 2015/07/22
+ */
+public class ChoiceGroupTypeActivity extends BaseToolBarActivity {
+
+    private ListView lvGroupType;
+    private View vHeader;
+    private ChoiceGroupTypeAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choice_group_type);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_choice_group_type, menu);
-        return true;
+    protected int getLayoutRes() {
+        return R.layout.activity_choice_group_type;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    protected void initView() {
+        lvGroupType = (ListView) findViewById(R.id.lv_group_type);
+        vHeader = LayoutInflater.from(mContext).inflate(R.layout.header_group_type, null);
+        if (vHeader != null) {
+            lvGroupType.addHeaderView(vHeader);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void initData() {
+        List<GroupType> groupTypes = GroupType.createGroupType();
+        mAdapter = new ChoiceGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
+
+        lvGroupType.setAdapter(mAdapter);
+    }
+
 }

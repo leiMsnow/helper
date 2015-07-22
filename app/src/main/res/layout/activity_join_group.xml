@@ -14,5 +14,6 @@
         android:layout_below="@+id/toolbar"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
+        android:layoutAnimation="@anim/list_alpha_layout"
         android:dividerHeight="0dp" />
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,7 +45,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     protected void initView() {
         lvGroups = (ListView) findViewById(R.id.lv_groups);
-        vHeader = LayoutInflater.from(mContext).inflate(R.layout.header_search, null);
+        vHeader = LayoutInflater.from(mContext).inflate(R.layout.include_search, null);
         if (vHeader != null) {
             lvGroups.addHeaderView(vHeader);
             etSearch = (EditText) vHeader.findViewById(R.id.et_search);
@@ -54,9 +55,10 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initListener() {
-        if (etSearch != null)
+        if (etSearch != null) {
             etSearch.setOnFocusChangeListener(this);
             etSearch.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -81,7 +83,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_create_group) {
-
+            Intent intent = new Intent(mContext, ChoiceGroupTypeActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
