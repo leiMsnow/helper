@@ -38,6 +38,8 @@
     <string name="create_group_introduction">填写圈子介绍</string>
     <string name="choice_group_type">选择圈子类型</string>
     <string name="more_group_type">还可以创建</string>
+    <string name="add_group_icon">添加圈子头像</string>
+    <string name="set_group_name">圈子名称（必填，如标题、人物、地点等）</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

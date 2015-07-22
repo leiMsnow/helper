@@ -1,15 +1,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <FrameLayout
-        android:id="@+id/replaced_fragment"
+    <ImageView
+        android:id="@+id/iv_add_group_icon"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:src="@mipmap/group_icon" />
+
+    <TextView
+        android:id="@+id/tv_add_group_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar" />
+        android:layout_alignBottom="@+id/iv_add_group_icon"
+        android:layout_alignTop="@+id/iv_add_group_icon"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:text="@string/add_group_icon" />
 
+    <EditText
+        android:id="@+id/et_set_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_add_group_icon"
+        android:layout_marginTop="48dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/set_group_name" />
+
+    <View
+        android:id="@+id/divide_line_one"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/et_set_group_name"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/black" />
+
+    <EditText
+        android:id="@+id/et_set_group_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divide_line_one"
+        android:hint="@string/add_group_icon"/>
 </RelativeLayout>
