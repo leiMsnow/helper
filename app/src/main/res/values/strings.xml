@@ -36,6 +36,7 @@
     <string name="create_group_label">选择圈子标签</string>
     <string name="create_group_location">选择圈子位置</string>
     <string name="create_group_introduction">填写圈子介绍</string>
+    <string name="choice_group_type">选择圈子类型</string>
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

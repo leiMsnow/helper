@@ -122,6 +122,10 @@
             android:name=".activity.JoinGroupActivity"
             android:label="@string/join_group" >
         </activity>
+        <activity
+            android:name=".activity.ChoiceGroupTypeActivity"
+            android:label="@string/choice_group_type" >
+        </activity>
     </application>
 
 </manifest>
