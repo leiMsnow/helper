@@ -69,6 +69,7 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
             Bundle bundle = new Bundle();
             int index = position - 1 == -1 ? 0 : position - 1;
             bundle.putInt(Consts.KEY_GROUP_TYPE, mAdapter.getItem(index).getGroupType());
+            bundle.putString(Consts.KEY_GROUP_TYPE_NAME, mAdapter.getItem(index).getGroupTypeName());
             intent.putExtras(bundle);
             startActivity(intent);
         }
