@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * Created by zhangleilei on 15/7/8.
@@ -15,10 +17,13 @@ public class BaseApplication extends Application {
      */
     private RequestQueue mRequestQueue;
 
+    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
         mApp = this;
+
+        refWatcher = LeakCanary.install(this);
         /** Volley队列 */
         mRequestQueue = Volley.newRequestQueue(this);
     }
@@ -39,5 +44,9 @@ public class BaseApplication extends Application {
      */
     public RequestQueue getRequestQueue() {
         return mRequestQueue;
+    }
+
+    public static RefWatcher getRefWatcher() {
+        return getInstance().refWatcher;
     }
 }

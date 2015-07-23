@@ -7,11 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Region;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -51,7 +51,6 @@ public class HexagonImageView extends ImageView {
         paint.setAntiAlias(true);
 
         paintBorder = new Paint();
-        //setBorderColor(Color.WHITE);
         paintBorder.setColor(Color.WHITE);
         paintBorder.setAntiAlias(true);
         // 禁用硬件加速,在api>=14的版本不支持加速
@@ -64,13 +63,13 @@ public class HexagonImageView extends ImageView {
 
     }
 
-    public void setBorderWidth(int borderWidth) {
+    private void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
         calculatePath();
         this.invalidate();
     }
 
-    public void setBorderColor(int borderColor) {
+    private void setBorderColor(int borderColor) {
         if (paintBorder != null)
             paintBorder.setColor(borderColor);
         this.invalidate();
@@ -112,29 +111,32 @@ public class HexagonImageView extends ImageView {
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (getDrawable() == null) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        } else {
+            int width = measureWidth(widthMeasureSpec);
+            int height = measureHeight(heightMeasureSpec);
+            w = width;
+            h = height;
+            radius1 = height / 2;
+            radius2 = radius1 - borderWidth;
 
-        int width = measureWidth(widthMeasureSpec);
-        int height = measureHeight(heightMeasureSpec);
+            calculatePath();
 
-        w = width;
-        h = height;
-        radius1 = height / 2;
-        radius2 = radius1 - borderWidth;
+            setMeasuredDimension(width, height);
+        }
 
-        calculatePath();
-
-        setMeasuredDimension(width, height);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-        if (getDrawable() == null)
+        Drawable drawable = getDrawable();
+        if (drawable == null) {
             return;
+        }
 
-        mBitmap = drawable2Bitmap(getDrawable());
+        mBitmap = drawable2Bitmap(drawable);
         if (mBitmap != null) {
             canvas.drawColor(Color.WHITE);
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(mBitmap, canvas.getWidth(),
@@ -196,7 +198,6 @@ public class HexagonImageView extends ImageView {
         }
 
         if (drawable.getIntrinsicWidth() > 0 && drawable.getIntrinsicHeight() > 0) {
-            Log.d("" + drawable.getIntrinsicWidth(), "" + drawable.getIntrinsicHeight());
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                     drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
@@ -206,4 +207,9 @@ public class HexagonImageView extends ImageView {
         return bitmap;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        setImageDrawable(null);
+        super.onDetachedFromWindow();
+    }
 }

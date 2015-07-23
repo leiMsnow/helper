@@ -19,6 +19,7 @@ import com.tongban.im.model.User;
 import com.tongban.im.widget.view.HexagonImageView;
 import com.tongban.im.widget.view.HexagonLayout;
 
+import java.lang.ref.SoftReference;
 import java.util.List;
 
 /**
@@ -60,13 +61,12 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     @Override
     public void onBindViewHolder(final GroupViewHolder groupViewHolder, final int pos) {
         // TODO 现在是模拟用户,待接口完善之后改为真实数据
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(100, 100);
         List<User> members = groups.get(pos).getMembers();
         for (int i = 0; i < 4; i++) {
             if (i > 3)
                 break;
-            final HexagonImageView portrait = new HexagonImageView(context);
+            HexagonImageView portrait = new HexagonImageView(context);
             portrait.setLayoutParams(layoutParams);
 //            portrait.setImageResource(R.mipmap.ic_launcher);
             groupViewHolder.hl_group_portrait.addView(portrait);
