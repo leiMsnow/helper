@@ -8,10 +8,10 @@
         layout="@layout/include_toolbar" />
 
     <ScrollView
-        android:scrollbars="none"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,12 +26,12 @@
                 android:background="@drawable/selector_set_group_icon"
                 android:gravity="center"
                 android:text="@string/add_group_icon"
-                android:textColor="@drawable/selector_set_group_icon_text_color"/>
+                android:textColor="@drawable/selector_set_group_icon_text_color" />
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_set_group_name"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_add_group_icon"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
@@ -39,6 +39,8 @@
                 android:background="@null"
                 android:gravity="center"
                 android:hint="@string/set_group_name"
+                android:minHeight="40dp"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <View
@@ -54,15 +56,17 @@
             <EditText
                 android:id="@+id/et_set_group_introduction"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/divide_line_one"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
                 android:background="@null"
                 android:gravity="center"
-                android:textColorHint="@color/gray_300"
                 android:hint="@string/set_group_introduction"
+                android:minHeight="40dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
             <View
@@ -78,16 +82,18 @@
             <EditText
                 android:id="@+id/et_set_group_label"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/divide_line_two"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
-                android:textColorHint="@color/gray_300"
                 android:background="@null"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:gravity="center"
                 android:hint="@string/set_group_label"
+                android:minHeight="40dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
             <View
@@ -103,16 +109,18 @@
             <EditText
                 android:id="@+id/et_set_group_location"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
                 android:layout_below="@+id/divide_line_three"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
                 android:background="@null"
-                android:textColorHint="@color/gray_300"
                 android:drawableLeft="@mipmap/ic_group_location"
                 android:gravity="center"
                 android:hint="@string/set_group_location"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
             <View
@@ -141,8 +149,8 @@
                 android:layout_below="@+id/tv_group_secret"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/gray_300"
-                android:text="@string/group_secret_detail" />
+                android:text="@string/group_secret_detail"
+                android:textColor="@color/gray_300" />
 
             <TextView
                 android:id="@+id/tv_group_secret_update"
@@ -160,13 +168,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_group_secret_detail"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="72dp"
                 android:background="@color/primary_material_blue"
                 android:text="@string/finish_create_group"
-                android:textColor="@color/white"
-                android:layout_marginBottom="72dp"/>
+                android:textColor="@color/white" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
