@@ -174,12 +174,12 @@ public class HexagonLayout extends ViewGroup {
                             float2Int(2 * default_width), float2Int(default_height * 3 / 2));
 
                     // 左下方的child
-                    childB.layout(float2Int(default_width / 2), float2Int(default_height * 3 / 2),
-                            float2Int(default_width * 3 / 2), float2Int(default_height * 5 / 2));
+                    childB.layout(float2Int(default_width * 2 / 5), float2Int(default_height * 3 / 2),
+                            float2Int(default_width * 7 / 5), float2Int(default_height * 5 / 2));
 
                     // 右下方的child
-                    childC.layout(float2Int(default_width * 3 / 2), float2Int(default_height * 3 / 2),
-                            float2Int(default_width * 5 / 2), float2Int(default_height * 5 / 2));
+                    childC.layout(float2Int(default_width * 8 / 5), float2Int(default_height * 3 / 2),
+                            float2Int(default_width * 13 / 5), float2Int(default_height * 5 / 2));
                 } else {
                     throw new IllegalArgumentException("Child view's visibility should not be GONE," +
                             "try to use INVISIBLE instead.");
@@ -193,20 +193,20 @@ public class HexagonLayout extends ViewGroup {
                 if (childM.getVisibility() != GONE && childT.getVisibility() != GONE &&
                         childLB.getVisibility() != GONE && childRB.getVisibility() != GONE) {
                     // 中间的child
-                    childM.layout(float2Int(four_width * 5 / 4), float2Int(four_height * 5 / 4),
-                            float2Int(four_width * 9 / 4), float2Int(four_height * 9 / 4));
+                    childM.layout(float2Int(four_width * 5 / 4), float2Int(four_height * 17 / 12),
+                            float2Int(four_width * 9 / 4), float2Int(four_height * 29 / 12));
 
                     // 上方的child
-                    childT.layout(float2Int(four_width * 5 / 4), float2Int(four_height*3 / 20),
-                            float2Int(four_width * 9 / 4), float2Int(four_height * 23 / 20));
+                    childT.layout(float2Int(four_width * 5 / 4), float2Int(four_height * 19 / 60),
+                            float2Int(four_width * 9 / 4), float2Int(four_height * 79 / 60));
 
                     // 左下方的child
-                    childLB.layout(float2Int(four_width / 5), float2Int(four_height * 2),
-                            float2Int(four_width * 6 / 5), float2Int(four_height * 3));
+                    childLB.layout(float2Int(four_width / 5), float2Int(four_height * 13 / 6),
+                            float2Int(four_width * 6 / 5), float2Int(four_height * 19 / 6));
 
                     // 右下方的child
-                    childRB.layout(float2Int(four_width * 23 / 10), float2Int(four_height * 2),
-                            float2Int(four_width * 33 / 10), float2Int(four_height * 3));
+                    childRB.layout(float2Int(four_width * 23 / 10), float2Int(four_height * 13 / 6),
+                            float2Int(four_width * 33 / 10), float2Int(four_height * 19 / 6));
                 } else {
                     throw new IllegalArgumentException("Child view's visibility should not be GONE," +
                             "try to use INVISIBLE instead.");

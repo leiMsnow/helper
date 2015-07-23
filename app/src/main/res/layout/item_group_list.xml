@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="220dp"
     android:layout_margin="8dp"
+    android:padding="8dp"
     card_view:cardBackgroundColor="@color/white"
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
         <com.tongban.im.widget.view.HexagonLayout
             android:id="@+id/hl_group_portrait"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"/>
 
         <LinearLayout
@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="4dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/shape_corners_pink_bg"
-                android:padding="5dp"
+                android:gravity="center"
                 android:text="11"
                 android:textColor="@color/white"
                 android:textSize="12sp"/>
@@ -66,7 +67,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="4dp"
             android:singleLine="true"
-            android:text="崔玉涛现身说法零距离"
             android:textSize="16sp"/>
     </RelativeLayout>
 
