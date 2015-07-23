@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -31,10 +30,10 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE,0);
         switch (mGroupType) {
             case GroupType.CITY:
-                setTheme(R.style.AppTheme_Blue);
+                setTheme(R.style.AppTheme_Blue_Base);
                 break;
             case GroupType.AGE:
-                setTheme(R.style.AppTheme_Red);
+                setTheme(R.style.AppTheme_Red_Base);
                 break;
         }
         return R.layout.activity_create_group;
