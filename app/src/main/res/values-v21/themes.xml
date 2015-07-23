@@ -1,13 +1,20 @@
 <resources>
 
-    <style name="AppTheme.Base" >
+    <style name="AppTheme.White.Base" >
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/accent_material_white</item>
     </style>
 
-    <style name="AppTheme.Blue" >
+    <style name="AppTheme.Blue.Base" >
         <item name="android:statusBarColor">@color/primary_dark_material_blue</item>
         <item name="android:navigationBarColor">@color/accent_material_blue</item>
+        <item name="createGroupBtn">@color/primary_material_blue</item>
+    </style>
+
+    <style name="AppTheme.Red.Base" >
+        <item name="android:statusBarColor">@color/primary_dark_material_red</item>
+        <item name="android:navigationBarColor">@color/accent_material_red</item>
+        <item name="createGroupBtn">@color/primary_material_red</item>
     </style>
 
 </resources>
