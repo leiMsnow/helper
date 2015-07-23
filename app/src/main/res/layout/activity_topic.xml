@@ -25,7 +25,8 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/by_hot"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@drawable/selector_topic_text_color"/>
 
         <View
             android:layout_width="0.5dp"
@@ -40,7 +41,8 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/join_by_me"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@drawable/selector_topic_text_color"/>
     </LinearLayout>
 
     <View
