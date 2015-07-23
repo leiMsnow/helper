@@ -65,9 +65,10 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == lvGroupType) {
-            Intent intent = new Intent(mContext,CreateGroupActivity.class);
+            Intent intent = new Intent(mContext, CreateGroupActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putInt(Consts.KEY_GROUP_TYPE, mAdapter.getItem(position).getGroupType());
+            int index = position - 1 == -1 ? 0 : position - 1;
+            bundle.putInt(Consts.KEY_GROUP_TYPE, mAdapter.getItem(index).getGroupType());
             intent.putExtras(bundle);
             startActivity(intent);
         }

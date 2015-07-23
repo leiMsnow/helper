@@ -18,21 +18,21 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_add_group_icon"
+                android:id="@+id/tv_group_icon"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="48dp"
-                android:background="@drawable/selector_set_group_icon"
+                android:background="@drawable/selector_group_icon"
                 android:gravity="center"
                 android:text="@string/add_group_icon"
-                android:textColor="@drawable/selector_set_group_icon_text_color" />
+                android:textColor="@drawable/selector_group_icon_text_color" />
             <!--圈子名称-->
             <EditText
-                android:id="@+id/et_set_group_name"
+                android:id="@+id/et_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_add_group_icon"
+                android:layout_below="@+id/tv_group_icon"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="48dp"
@@ -47,14 +47,14 @@
                 android:id="@+id/divide_line_one"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/et_set_group_name"
+                android:layout_below="@+id/et_group_name"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="4dp"
                 android:background="@color/gray_300" />
             <!--圈子简介-->
             <EditText
-                android:id="@+id/et_set_group_introduction"
+                android:id="@+id/et_group_introduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divide_line_one"
@@ -73,14 +73,14 @@
                 android:id="@+id/divide_line_two"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/et_set_group_introduction"
+                android:layout_below="@+id/et_group_introduction"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/gray_300" />
             <!--圈子标签-->
             <EditText
-                android:id="@+id/et_set_group_label"
+                android:id="@+id/et_group_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divide_line_two"
@@ -100,14 +100,14 @@
                 android:id="@+id/divide_line_three"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/et_set_group_label"
+                android:layout_below="@+id/et_group_label"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/gray_300" />
             <!--圈子位置-->
             <EditText
-                android:id="@+id/et_set_group_location"
+                android:id="@+id/et_group_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="40dp"
@@ -127,7 +127,7 @@
                 android:id="@+id/divide_line_four"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@+id/et_set_group_location"
+                android:layout_below="@+id/et_group_location"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
@@ -163,7 +163,7 @@
                 android:textColor="@color/accent_material_blue" />
 
             <Button
-                android:id="@+id/btn_finish_create"
+                android:id="@+id/btn_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_group_secret_detail"
@@ -172,7 +172,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="72dp"
-                android:background="@color/primary_material_blue"
+                android:background="?attr/createGroupBtn"
                 android:text="@string/finish_create_group"
                 android:textColor="@color/white" />
         </RelativeLayout>
