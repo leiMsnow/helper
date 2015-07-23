@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.ChoiceGroupTypeAdapter;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.GroupType;
 
 import java.util.ArrayList;
@@ -65,6 +66,9 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == lvGroupType) {
             Intent intent = new Intent(mContext,CreateGroupActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(Consts.KEY_GROUP_TYPE, mAdapter.getItem(position).getGroupType());
+            intent.putExtras(bundle);
             startActivity(intent);
         }
     }

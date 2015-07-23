@@ -15,6 +15,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.GroupType;
 
 import java.util.ArrayList;
 import java.util.List;

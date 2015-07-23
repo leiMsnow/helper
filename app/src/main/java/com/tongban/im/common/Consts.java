@@ -21,4 +21,8 @@ public class Consts {
      * 用户账号
      */
     public static final String USER_ACCOUNT = "USER_ACCOUNT";
+
+
+    //------------------------------bundle-key------------------------------------------------------
+    public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
 }
