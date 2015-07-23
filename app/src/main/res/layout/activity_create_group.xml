@@ -38,7 +38,7 @@
                 android:layout_marginTop="48dp"
                 android:background="@null"
                 android:gravity="center"
-                android:hint="@string/set_group_name"
+                android:hint="@string/hint_group_name"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -63,7 +63,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@null"
                 android:gravity="center"
-                android:hint="@string/set_group_introduction"
+                android:hint="@string/hint_group_introduction"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
@@ -90,7 +90,7 @@
                 android:background="@null"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:gravity="center"
-                android:hint="@string/set_group_label"
+                android:hint="@string/hint_group_label"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
@@ -118,7 +118,7 @@
                 android:background="@null"
                 android:drawableLeft="@mipmap/ic_group_location"
                 android:gravity="center"
-                android:hint="@string/set_group_location"
+                android:hint="@string/hint_group_location"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
@@ -173,7 +173,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="72dp"
                 android:background="?attr/createGroupBtn"
-                android:text="@string/finish_create_group"
+                android:text="@string/finish_create"
                 android:textColor="@color/white" />
         </RelativeLayout>
     </ScrollView>

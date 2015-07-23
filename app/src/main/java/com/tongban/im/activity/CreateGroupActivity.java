@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -24,10 +25,19 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private EditText etGroupName;
 
     private int mGroupType;
+    private String titleName;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle(titleName==getString(R.string.create_group)?getString(R.string.create_group):
+                getString(R.string.create)+titleName);
+    }
 
     @Override
     protected int getLayoutRes() {
         mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE,0);
+        titleName=getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME,"");
         switch (mGroupType) {
             case GroupType.CITY:
                 setTheme(R.style.AppTheme_Blue_Base);
