@@ -133,18 +133,12 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_circle_fragment, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId()==R.id.action_create_group){
-//            //RongIM.getInstance().startGroupChat(mContext,"group01","");
-//        } else if (item.getItemId()==R.id.action_join_group){
-//
-//        }
-        LogUtil.d("onOptionsItemSelected", "MainActivity收到menu回调");
         return false;
     }
 
