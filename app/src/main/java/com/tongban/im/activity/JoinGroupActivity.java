@@ -13,6 +13,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.Group;
 
 import java.util.ArrayList;
@@ -63,13 +64,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initData() {
-        List<Group> groups = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            Group group = new Group();
-            group.setGroup_name("半岛国际" + i + "岁宝宝圈");
-            groups.add(group);
-        }
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
+        GroupApi.getInstance().searchGroupByName("hel", 0, 10, this);
+        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, null);
         lvGroups.setAdapter(mAdapter);
     }
 
@@ -101,6 +97,12 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     public void onFocusChange(View v, boolean hasFocus) {
         if (v == etSearch) {
             ToastUtil.getInstance(mContext).showToast("搜索");
+        }
+    }
+
+    public void onEventMainThread(List<Group> groups) {
+        if (groups != null && groups.size() > 0) {
+            mAdapter.replaceAll(groups);
         }
     }
 }

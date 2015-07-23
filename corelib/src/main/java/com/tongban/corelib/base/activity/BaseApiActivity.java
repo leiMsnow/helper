@@ -19,13 +19,11 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     private static List<Request> failedRequest = null;
 
-    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        mDialog = new ProgressDialog(mContext);
     }
 
     @Override

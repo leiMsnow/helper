@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/include_toolbar"/>
+        layout="@layout/include_toolbar" />
 
     <EditText
         android:id="@+id/et_user"
@@ -23,18 +23,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_user"
         android:layout_marginLeft="16dp"
-        android:inputType="textPassword"
         android:layout_marginRight="16dp"
-        android:hint="密码" />
+        android:hint="密码"
+        android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/et_verify_code"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_pwd"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="验证码" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_verify_code"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_pwd"
+            android:layout_marginLeft="16dp"
+            android:hint="验证码" />
+
+        <Button
+            android:id="@+id/btn_verify_code"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_pwd"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/get_verify_code" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_login"

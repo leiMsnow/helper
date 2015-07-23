@@ -25,6 +25,7 @@ import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.GroupType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -154,7 +155,7 @@ public class CircleFragment extends BaseApiFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String group_name = et.getText().toString().trim();
-                                GroupApi.getInstance().createGroup(group_name, CircleFragment.this);
+                                GroupApi.getInstance().createGroup(group_name, GroupType.CITY,CircleFragment.this);
                                 dialog.dismiss();
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {

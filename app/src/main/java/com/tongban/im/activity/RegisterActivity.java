@@ -32,6 +32,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     private EditText etUser;
     private EditText etPwd;
     private EditText etVerifyCode;
+    private Button btnVerifyCode;
     private Button btnLogin;
     private String mUser, mPwd, mVerifyCode;
 
@@ -48,6 +49,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
+        btnVerifyCode = (Button) findViewById(R.id.btn_verify_code);
         btnLogin = (Button) findViewById(R.id.btn_login);
     }
 
@@ -66,6 +68,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         etVerifyCode.addTextChangedListener(this);
+        btnVerifyCode.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
     }
 
@@ -100,52 +103,52 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         mVerifyCode = etVerifyCode.getText().toString();
     }
 
-    public void onEventMainThread(Object obj) {
-
-        if (obj instanceof BaseEvent.RegisterEvent) {
-
-            regEvent = (BaseEvent.RegisterEvent) obj;
-            // 获取验证码
-            if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
-                UserApi.getInstance().fetch(regEvent.getUser_id(), mUser, "1", this);
-            }
-            // 获取验证码成功
-            else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
-                ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
-            }
-            // 注册成功
-            else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
-                ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-                UserApi.getInstance().tokenLogin(regEvent.getFreeauth_token(), this);
-            }
-        } else if (obj instanceof ApiResult) {
-            ApiResult result = (ApiResult) obj;
-            if (result.getStatusCode() == ApiErrorCode.User.USER_REGISTERED) {
-                UserApi.getInstance().fetch(result.getData().toString(), mUser, "1", this);
-            }
-        } else if (obj instanceof User) {
-            User user = (User) obj;
-            SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
-            startActivity(new Intent(mContext, MainActivity.class));
-            RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-            finish();
-        } else if (obj instanceof String) {
-            ToastUtil.getInstance(mContext).showToast(obj.toString());
+    public void onEventMainThread(BaseEvent.RegisterEvent obj) {
+        regEvent = obj;
+        // 获取验证码
+        if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REG) {
+            UserApi.getInstance().fetch(regEvent.getUser_id(), mUser, "1", this);
         }
+        // 获取验证码成功
+        else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
+        }
+        // 注册成功
+        else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.EXAM) {
+            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
+            UserApi.getInstance().tokenLogin(regEvent.getFreeauth_token(), this);
+        }
+
+    }
+
+    public void onEventMainThread(String result) {
+        ToastUtil.getInstance(mContext).showToast(result.toString());
+    }
+
+    public void onEventMainThread(ApiResult result) {
+        if (result.getStatusCode() == ApiErrorCode.User.USER_REGISTERED) {
+            UserApi.getInstance().fetch(result.getData().toString(), mUser, "1", this);
+        }
+    }
+
+    public void onEventMainThread(User user) {
+        SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
+        ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
+        startActivity(new Intent(mContext, MainActivity.class));
+        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
+        finish();
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnLogin) {
+        if (v == btnVerifyCode) {
+            // 注册
+            UserApi.getInstance().register(mUser, mUser, mPwd, this);
+        } else if (v == btnLogin) {
             //校验手机验证码
             if (regEvent != null &&
                     regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
                 UserApi.getInstance().exam(regEvent.getVerify_id(), mVerifyCode, this);
-            }
-            // 注册
-            else {
-                UserApi.getInstance().register(mUser, mUser, mPwd, this);
             }
         }
     }

@@ -27,20 +27,22 @@ public class GroupApi extends BaseApi {
 
     private Map<String, String> mParams;
 
-    private static final String GROUP_HOST = "http://10.255.209.68:8080/ddim/im/group/";
-
     /**
      * 获取个人群组列表
      */
-    public static final String FETCH_PERSONAL_GROUP_LIST = GROUP_HOST + "fetch/1";
+    public static final String FETCH_PERSONAL_GROUP_LIST = "im/group/fetch/1";
     /**
      * 加入群组
      */
-    public static final String JOIN_GROUP = GROUP_HOST + "join";
+    public static final String JOIN_GROUP = "im/group/join";
     /**
      * 创建群组
      */
-    public static final String CREATE_GROUP = GROUP_HOST + "create";
+    public static final String CREATE_GROUP = "im/group/create";
+    /**
+     * 搜索群组-关键字
+     */
+    public static final String SEARCH_GROUP_BY_NAME = "im/group/fetch/2";
 
     private GroupApi(Context context) {
         super(context);
@@ -91,12 +93,12 @@ public class GroupApi extends BaseApi {
     /**
      * 加入群组
      *
-     * @param group_id 群组id
+     * @param groupId  群组id
      * @param callback 结果回调
      */
-    public void joinGroup(String group_id, final ApiCallback callback) {
+    public void joinGroup(String groupId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("group_id", group_id);
+        mParams.put("group_id", groupId);
         mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
 
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
@@ -120,14 +122,15 @@ public class GroupApi extends BaseApi {
     /**
      * 创建群组
      *
-     * @param group_name 群组名字
-     * @param callback   回调
+     * @param groupName 群组名字
+     * @param callback  回调
      */
-    public void createGroup(@Nullable String group_name, final ApiCallback callback) {
+    public void createGroup(@Nullable String groupName, int groupType, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
-        if (group_name != null)
-            mParams.put("group_name", group_name);
+        if (groupName != null)
+            mParams.put("group_name", groupName);
+        mParams.put("group_ype", String.valueOf(groupType));
 
         simpleRequest(CREATE_GROUP, mParams, new ApiCallback() {
             @Override
@@ -142,6 +145,44 @@ public class GroupApi extends BaseApi {
                         });
                 Group group = result.getData();
                 callback.onComplete(group);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 搜索群组-根据群名称
+     *
+     * @param groupName 群名称
+     * @param cursor    第几页，从0开始
+     * @param pageSize  每页数量 默认10条
+     * @param callback
+     */
+    public void searchGroupByName(String groupName, int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("group_name", groupName);
+        mParams.put("cursor", String.valueOf(cursor));
+        mParams.put("page_size", String.valueOf(pageSize));
+
+        simpleRequest(SEARCH_GROUP_BY_NAME, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<List<Group>>>() {
+                        });
+                List<Group> groups = apiResponse.getData();
+                callback.onComplete(groups);
             }
 
             @Override

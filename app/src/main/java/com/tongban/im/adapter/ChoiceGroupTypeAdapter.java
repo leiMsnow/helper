@@ -23,7 +23,7 @@ public class ChoiceGroupTypeAdapter extends QuickAdapter<GroupType> {
     protected void convert(BaseAdapterHelper helper, GroupType item) {
 
         helper.setImageBitmap(R.id.iv_group_icon,item.getIcon());
-        helper.setText(R.id.tv_group_type,item.getGroupType());
+        helper.setText(R.id.tv_group_type,item.getGroupTypeName());
         helper.setText(R.id.tv_group_desc,item.getGroupDesc());
 
     }

@@ -1,5 +1,6 @@
 package com.tongban.corelib.base.activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 /**
@@ -8,11 +9,13 @@ import android.os.Bundle;
  */
 public abstract class BaseTemplateActivity extends BaseActivity {
 
+    protected ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
+        mDialog = new ProgressDialog(mContext);
         initView();
         initData();
         initListener();
