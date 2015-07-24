@@ -2,12 +2,14 @@ package com.tongban.im.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -28,11 +30,12 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener, View.OnFocusChangeListener {
+public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private ListView lvGroups;
     private View vHeader;
     private EditText etSearch;
+    private TextView tvSearch;
 
     private JoinGroupAdapter mAdapter;
 
@@ -50,10 +53,11 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     protected void initView() {
         lvGroups = (ListView) findViewById(R.id.lv_groups);
         vHeader = LayoutInflater.from(mContext).inflate(R.layout.include_search, null);
+//        SearchView searchView = new SearchView(mContext);
         if (vHeader != null) {
             lvGroups.addHeaderView(vHeader);
             etSearch = (EditText) vHeader.findViewById(R.id.et_search);
-            etSearch.setEnabled(true);
+            tvSearch = (TextView) vHeader.findViewById(R.id.tv_search);
         }
     }
 
@@ -61,9 +65,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     protected void initListener() {
         mAdapter.setOnClickListener(this);
 
-        if (etSearch != null) {
-            etSearch.setOnFocusChangeListener(this);
-            etSearch.setOnClickListener(this);
+        if (tvSearch != null) {
+            tvSearch.setOnClickListener(this);
         }
     }
 
@@ -76,7 +79,6 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 //            group.setGroup_name("半岛国际" + i + "岁宝宝圈");
 //            groups.add(group);
 //        }
-        GroupApi.getInstance().searchGroupByName("madan_free", 0, 10, this);
         mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
         lvGroups.setAdapter(mAdapter);
     }
@@ -100,8 +102,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v == etSearch) {
-            ToastUtil.getInstance(mContext).showToast("搜索");
+        if (v == tvSearch) {
+            GroupApi.getInstance().searchGroupByName(etSearch.getText().toString().trim(), 0, 10, this);
         } else {
             int viewId = v.getId();
             switch (viewId) {
@@ -113,19 +115,12 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         }
     }
 
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (v == etSearch) {
-            ToastUtil.getInstance(mContext).showToast("搜索");
-        }
-    }
-
     public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
         mAdapter.replaceAll(searchGroupEvent.getGroups());
     }
 
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        ToastUtil.getInstance(mContext).showToast("加入成功");
+        ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
     }
 
 }

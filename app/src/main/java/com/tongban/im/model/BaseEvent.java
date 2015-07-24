@@ -86,7 +86,15 @@ public class BaseEvent {
      * 加入群组的Event
      */
     public static class JoinGroupEvent {
+        String message;
 
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 
     /**
