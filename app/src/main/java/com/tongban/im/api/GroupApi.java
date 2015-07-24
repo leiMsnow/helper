@@ -128,7 +128,7 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
         if (groupName != null)
             mParams.put("group_name", groupName);
-        mParams.put("group_ype", String.valueOf(groupType));
+        mParams.put("group_type", String.valueOf(groupType));
 
         simpleRequest(CREATE_GROUP, mParams, new ApiCallback() {
             @Override

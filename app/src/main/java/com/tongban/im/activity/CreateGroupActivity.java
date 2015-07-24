@@ -20,6 +20,7 @@ import com.tongban.im.Utils.Utils;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.widget.view.AlertView;
 
@@ -158,5 +159,12 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         });
 
         dialog.show();
+    }
+
+    public void onEventMainThread(Object obj) {
+        if (obj instanceof Group) {
+            ToastUtil.getInstance(mContext).showToast("创建成功");
+            finish();
+        }
     }
 }
