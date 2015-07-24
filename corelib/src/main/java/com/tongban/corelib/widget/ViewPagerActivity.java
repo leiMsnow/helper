@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
 import com.tongban.corelib.R;
+import com.tongban.corelib.widget.view.HackyViewPager;
 
 /**
  * Lock/Unlock button is added to the ActionBar.

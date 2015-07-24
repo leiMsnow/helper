@@ -1,4 +1,4 @@
-package com.tongban.corelib.widget;
+package com.tongban.corelib.widget.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

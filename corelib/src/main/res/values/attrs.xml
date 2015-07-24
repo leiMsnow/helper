@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChangeColorView">
+        <attr name="changeIcon" format="reference" />
+        <attr name="changeColor" format="color" />
+        <attr name="defaultColor" format="color" />
+        <attr name="changeText" format="string" />
+        <attr name="changeTextSize" format="dimension" />
+    </declare-styleable>
+</resources>

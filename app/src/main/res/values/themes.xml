@@ -3,6 +3,7 @@
 
     <style name="AppTheme.White.Base">
 
+
     </style>
 
     <style name="AppTheme.Blue.Base">
@@ -18,6 +19,7 @@
     </style>
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
+
 
         <item name="colorPrimary">@color/primary_material_white</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_white</item>
