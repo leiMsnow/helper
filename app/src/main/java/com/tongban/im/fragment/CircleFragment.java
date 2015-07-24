@@ -35,7 +35,7 @@ public class CircleFragment extends BaseApiFragment {
     private RecyclerView recyclerView;
 
     /**
-     * 圈子数据
+     * 用户加入的群组数据
      */
     private List<Group> groups;
 
