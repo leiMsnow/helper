@@ -26,7 +26,7 @@
         <item name="colorAccent">@color/accent_material_white</item>
         <item name="android:textColorPrimary">@color/primary_text_material_brown</item>
         <item name="createGroupBtn">@color/primary_material_blue</item>
-
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
     <style name="AppTheme.Blue">
@@ -35,6 +35,7 @@
         <item name="colorAccent">@color/accent_material_blue</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@drawable/selector_blue_btn_bg</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
     <style name="AppTheme.Red">
@@ -43,6 +44,7 @@
         <item name="colorAccent">@color/accent_material_red</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@drawable/selector_red_btn_bg</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
     </style>
 
 </resources>
