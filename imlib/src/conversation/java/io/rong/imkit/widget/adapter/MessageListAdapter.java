@@ -28,6 +28,7 @@ import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.PublicServiceInfo;
 import io.rong.imlib.model.UserInfo;
 
+import com.bumptech.glide.Glide;
 import com.sea_monster.resource.Resource;
 
 import org.w3c.dom.Text;
@@ -46,8 +47,9 @@ public class MessageListAdapter extends BaseAdapter<Message> {
     OnItemHandlerListener mOnItemHandlerListener;
 
     class ViewHolder {
-        AsyncImageView leftIconView;
-        AsyncImageView rightIconView;
+        // TODO 修改头像样式
+        ImageView leftIconView;
+        ImageView rightIconView;
         TextView nameView;
         ProviderContainerView contentView;
         ProgressBar progressBar;
@@ -264,21 +266,24 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 ConversationKey mKey = ConversationKey.obtain(data.getTargetId(), data.getConversationType());
                 PublicServiceInfo publicServiceInfo = RongContext.getInstance().getPublicServiceInfoFromCache(mKey.getKey());
                 if ((publicServiceInfo != null) && publicServiceInfo.getPortraitUri() != null) {
-                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
-                    holder.rightIconView.setResource(resource);
+//                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
+//                    holder.rightIconView.setResource(resource);
+                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).into(holder.rightIconView);
                 } else {
-                    holder.rightIconView.setResource(null);
+//                    holder.rightIconView.setResource(null);
                 }
             } else if (!TextUtils.isEmpty(data.getSenderUserId())) {
                 UserInfo userInfo = RongContext.getInstance().getUserInfoFromCache(data.getSenderUserId());
                 if (userInfo != null && userInfo.getPortraitUri() != null) {
-                    Resource resource = new Resource(userInfo.getPortraitUri());
-                    holder.rightIconView.setResource(resource);
+//                    Resource resource = new Resource(userInfo.getPortraitUri());
+//                    holder.rightIconView.setResource(resource);
+                    Glide.with(mContext).load(userInfo.getPortraitUri()).into(holder.rightIconView);
+
                 } else {
-                    holder.rightIconView.setResource(null);
+//                    holder.rightIconView.setResource(null);
                 }
             } else {
-                holder.rightIconView.setResource(null);
+//                holder.rightIconView.setResource(null);
             }
         } else if (holder.leftIconView.getVisibility() == View.VISIBLE) {
             if ((data.getConversationType().equals(Conversation.ConversationType.PUBLIC_SERVICE)
@@ -287,21 +292,25 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 ConversationKey mKey = ConversationKey.obtain(data.getTargetId(), data.getConversationType());
                 PublicServiceInfo publicServiceInfo = RongContext.getInstance().getPublicServiceInfoFromCache(mKey.getKey());
                 if ((publicServiceInfo != null) && publicServiceInfo.getPortraitUri() != null) {
-                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
-                    holder.leftIconView.setResource(resource);
+//                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
+//                    holder.leftIconView.setResource(resource);
+                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).into(holder.leftIconView);
+
                 } else {
-                    holder.leftIconView.setResource(null);
+//                    holder.leftIconView.setResource(null);
                 }
             } else if (!TextUtils.isEmpty(data.getSenderUserId())) {
                 UserInfo userInfo = RongContext.getInstance().getUserInfoFromCache(data.getSenderUserId());
                 if (userInfo != null && userInfo.getPortraitUri() != null) {
-                    Resource resource = new Resource(userInfo.getPortraitUri());
-                    holder.leftIconView.setResource(resource);
+//                    Resource resource = new Resource(userInfo.getPortraitUri());
+//                    holder.leftIconView.setResource(resource);
+                    Glide.with(mContext).load(userInfo.getPortraitUri()).into(holder.leftIconView);
+
                 } else {
-                    holder.leftIconView.setResource(null);
+//                    holder.leftIconView.setResource(null);
                 }
             } else {
-                holder.leftIconView.setResource(null);
+//                holder.leftIconView.setResource(null);
             }
         }
 

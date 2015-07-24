@@ -14,6 +14,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 
@@ -57,6 +58,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initListener() {
+        mAdapter.setOnClickListener(this);
+
         if (etSearch != null) {
             etSearch.setOnFocusChangeListener(this);
             etSearch.setOnClickListener(this);
@@ -65,8 +68,15 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initData() {
-        GroupApi.getInstance().searchGroupByName("hel", 0, 10, this);
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, null);
+        List<Group> groups = new ArrayList<>();
+//        for (int i = 1; i < 10; i++) {
+//            Group group = new Group();
+//            group.setGroup_id("55b1ed4ed7bdb0e4a1a23292");
+//            group.setGroup_name("半岛国际" + i + "岁宝宝圈");
+//            groups.add(group);
+//        }
+        GroupApi.getInstance().searchGroupByName("madan_free", 0, 10, this);
+        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
         lvGroups.setAdapter(mAdapter);
     }
 
@@ -91,6 +101,14 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     public void onClick(View v) {
         if (v == etSearch) {
             ToastUtil.getInstance(mContext).showToast("搜索");
+        } else {
+            int viewId = v.getId();
+            switch (viewId) {
+                case R.id.btn_join:
+                    String groupId = v.getTag().toString();
+                    GroupApi.getInstance().joinGroup(groupId, this);
+                    break;
+            }
         }
     }
 
@@ -101,9 +119,12 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         }
     }
 
-    public void onEventMainThread(List<Group> groups) {
-        if (groups != null && groups.size() > 0) {
-            mAdapter.replaceAll(groups);
-        }
+    public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
+        mAdapter.replaceAll(searchGroupEvent.getGroups());
     }
+
+    public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
+        ToastUtil.getInstance(mContext).showToast("加入成功");
+    }
+
 }

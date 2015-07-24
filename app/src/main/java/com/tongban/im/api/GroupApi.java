@@ -181,8 +181,9 @@ public class GroupApi extends BaseApi {
                 ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<List<Group>>>() {
                         });
-                List<Group> groups = apiResponse.getData();
-                callback.onComplete(groups);
+                BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
+                searchGroupEvent.setGroups(apiResponse.getData());
+                callback.onComplete(searchGroupEvent);
             }
 
             @Override

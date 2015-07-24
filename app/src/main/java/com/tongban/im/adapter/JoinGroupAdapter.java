@@ -1,6 +1,7 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -15,6 +16,13 @@ import java.util.List;
  */
 public class JoinGroupAdapter extends QuickAdapter<Group> {
 
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    private View.OnClickListener onClickListener;
+
     public JoinGroupAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
@@ -22,6 +30,8 @@ public class JoinGroupAdapter extends QuickAdapter<Group> {
     @Override
     protected void convert(BaseAdapterHelper helper, Group item) {
         helper.setText(R.id.tv_group_name, item.getGroup_name());
-        helper.setImageBitmap(R.id.iv_group_icon,"http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
+        helper.setImageBitmap(R.id.iv_group_icon, "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
+        helper.setTag(R.id.btn_join,item.getGroup_id());
+        helper.setOnClickListener(R.id.btn_join,onClickListener);
     }
 }

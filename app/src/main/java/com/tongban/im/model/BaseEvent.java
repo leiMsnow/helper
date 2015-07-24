@@ -1,5 +1,8 @@
 package com.tongban.im.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.rong.imlib.model.Conversation;
 
 /**
@@ -60,6 +63,22 @@ public class BaseEvent {
             this.chatType = type;
             this.icon = icon;
             this.isSelected = isSelect;
+        }
+    }
+
+
+    /**
+     * 加入群组的Event
+     */
+    public static class SearchGroupEvent {
+        List<Group> groups = new ArrayList<>();
+
+        public List<Group> getGroups() {
+            return groups;
+        }
+
+        public void setGroups(List<Group> groups) {
+            this.groups = groups;
         }
     }
 

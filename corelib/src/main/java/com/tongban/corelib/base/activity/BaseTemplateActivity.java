@@ -32,16 +32,14 @@ public abstract class BaseTemplateActivity extends BaseActivity {
      * 初始化视图，findviewbyid等
      */
     protected abstract void initView();
-
-    /**
-     * 初始化事件监听，onclickLister等
-     */
-    protected abstract void initListener();
-
     /**
      * 初始化数据；访问接口等
      */
     protected abstract void initData();
+    /**
+     * 初始化事件监听，onclickLister等
+     */
+    protected abstract void initListener();
 }
 
 

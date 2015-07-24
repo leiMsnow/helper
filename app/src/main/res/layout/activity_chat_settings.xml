@@ -78,7 +78,7 @@
                     android:layout_centerVertical="true"
                     android:text="创建人" />
 
-                <com.tongban.im.widget.view.HexagonImageView
+                <com.tongban.corelib.widget.view.HexagonImageView
                     android:id="@+id/iv_group_creator"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
