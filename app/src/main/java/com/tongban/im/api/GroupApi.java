@@ -25,8 +25,6 @@ public class GroupApi extends BaseApi {
 
     private static GroupApi mApi;
 
-    private Map<String, String> mParams;
-
     /**
      * 获取个人群组列表
      */

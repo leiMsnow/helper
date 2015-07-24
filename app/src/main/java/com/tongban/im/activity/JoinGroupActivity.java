@@ -14,6 +14,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.MessageApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -106,7 +107,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
             switch (viewId) {
                 case R.id.btn_join:
                     String groupId = v.getTag().toString();
-                    GroupApi.getInstance().joinGroup(groupId, this);
+                    MessageApi.getInstance().joinGroup(new String[]{groupId}, "新人报道", this);
                     break;
             }
         }

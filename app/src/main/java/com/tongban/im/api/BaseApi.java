@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
@@ -44,7 +45,7 @@ public class BaseApi {
         return mRequestQueue;
     }
 
-    protected Map<String, String> mParams;
+    protected Map<String, Object> mParams;
 
     /**
      * 声明Request请求
@@ -124,6 +125,8 @@ public class BaseApi {
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = getRequestUrl(url);
         }
+        LogUtil.d("JsonObjectRequest-url:",url);
+        LogUtil.d("JsonObjectRequest-JSONObject:",new JSONObject(params).toString());
         // 创建request
         request = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
