@@ -91,13 +91,15 @@ public class GroupApi extends BaseApi {
     /**
      * 加入群组
      *
-     * @param groupId  群组id
+     * @param groupId  群组ID
+     * @param masterId 群主ID
      * @param callback 结果回调
      */
-    public void joinGroup(String groupId, final ApiCallback callback) {
+    public void joinGroup(String groupId,String masterId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("group_owner_id", masterId);
 
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
             @Override
@@ -107,7 +109,9 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(new BaseEvent.JoinGroupEvent());
+                BaseEvent.JoinGroupEvent joinGroupEvent = new BaseEvent.JoinGroupEvent();
+                joinGroupEvent.setMessage("加入成功");
+                callback.onComplete(joinGroupEvent);
             }
 
             @Override
