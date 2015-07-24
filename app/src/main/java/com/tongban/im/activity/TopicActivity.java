@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
@@ -63,12 +65,11 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
     @Override
     protected void initData() {
-
+        tvTopicByHot.setEnabled(false);
         screenWidth = ScreenUtils.getScreenWidth(mContext);
         ViewGroup.LayoutParams params = moveLine.getLayoutParams();
         params.width = screenWidth / 2;
         params.height = 4;
-
         moveLine.setLayoutParams(params);
 
 
@@ -122,6 +123,14 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
             ObjectAnimator moveLeftLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
             moveLeftLineAnim.setDuration(300);
             moveLeftLineAnim.start();
+            moveLeftLineAnim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    tvTopicByHot.setEnabled(false);
+                    tvTopicByMe.setEnabled(true);
+                }
+            });
 
             mAdapter.clear();
             for (int i = 0; i < 10; i++) {
@@ -131,14 +140,21 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 topic.setTopicReplyNum(String.valueOf(i));
                 mAdapter.add(topic);
             }
-            tvTopicByHot.setEnabled(false);
-            tvTopicByMe.setEnabled(true);
+
         } else if (v == tvTopicByMe) {
             moveLineFrom = moveLine.getX();
             moveLineTo = moveLineFrom + moveLine.getWidth();
             ObjectAnimator moveRightLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
             moveRightLineAnim.setDuration(300);
             moveRightLineAnim.start();
+            moveRightLineAnim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    tvTopicByMe.setEnabled(false);
+                    tvTopicByHot.setEnabled(true);
+                }
+            });
 
             mAdapter.clear();
             for (int i = 0; i < 4; i++) {
@@ -148,8 +164,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 topic.setTopicReplyNum(String.valueOf(i));
                 mAdapter.add(topic);
             }
-            tvTopicByMe.setEnabled(false);
-            tvTopicByHot.setEnabled(true);
+
         }
     }
 }
