@@ -15,7 +15,6 @@ import com.tongban.im.model.Group;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 群组操作api
@@ -26,9 +25,9 @@ public class GroupApi extends BaseApi {
     private static GroupApi mApi;
 
     /**
-     * 获取个人群组列表
+     * 获取用户已加入的群组列表
      */
-    public static final String FETCH_PERSONAL_GROUP_LIST = "im/group/fetch/1";
+    public static final String FETCH_PERSONAL_GROUP_LIST = "im/group/fetch/4";
     /**
      * 加入群组
      */
@@ -64,7 +63,7 @@ public class GroupApi extends BaseApi {
      */
     public void fetchPersonalGroupList(final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", (String) SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
         simpleRequest(FETCH_PERSONAL_GROUP_LIST, mParams, new ApiCallback() {
             @Override
