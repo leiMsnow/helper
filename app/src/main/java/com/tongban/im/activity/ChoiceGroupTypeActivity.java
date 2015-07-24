@@ -1,13 +1,16 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -29,6 +32,8 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
     private ListView lvGroupType;
     private View vHeader;
     private ChoiceGroupTypeAdapter mAdapter;
+    private TextView tvGroupTypeName;
+    private ImageView ivGroupIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
         vHeader = LayoutInflater.from(mContext).inflate(R.layout.header_group_type, null);
         if (vHeader != null) {
             lvGroupType.addHeaderView(vHeader);
+            tvGroupTypeName = (TextView) findViewById(R.id.tv_group_name);
+            ivGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
         }
     }
 
@@ -57,8 +64,10 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
     @Override
     protected void initData() {
         List<GroupType> groupTypes = GroupType.createGroupType();
-        mAdapter = new ChoiceGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
 
+        tvGroupTypeName.setText("创建一个附件的圈子");
+
+        mAdapter = new ChoiceGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
         lvGroupType.setAdapter(mAdapter);
     }
 
@@ -67,9 +76,14 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
         if (parent == lvGroupType) {
             Intent intent = new Intent(mContext, CreateGroupActivity.class);
             Bundle bundle = new Bundle();
-            int index = position - 1 == -1 ? 0 : position - 1;
-            bundle.putInt(Consts.KEY_GROUP_TYPE, mAdapter.getItem(index).getGroupType());
-            bundle.putString(Consts.KEY_GROUP_TYPE_NAME, mAdapter.getItem(index).getGroupTypeName());
+            int type = position;
+            String typeName = getString(R.string.create_group);
+            if (position > 0) {
+                type = mAdapter.getItem(position - 1).getGroupType();
+                typeName = mAdapter.getItem(position - 1).getGroupTypeName();
+            }
+            bundle.putInt(Consts.KEY_GROUP_TYPE, type);
+            bundle.putString(Consts.KEY_GROUP_TYPE_NAME, typeName);
             intent.putExtras(bundle);
             startActivity(intent);
         }

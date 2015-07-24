@@ -30,7 +30,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(titleName==getString(R.string.create_group)?getString(R.string.create_group):
+        setTitle(titleName.equals(getString(R.string.create_group))?getString(R.string.create_group):
                 getString(R.string.create)+titleName);
     }
 
