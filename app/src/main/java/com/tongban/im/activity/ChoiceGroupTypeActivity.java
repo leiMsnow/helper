@@ -65,7 +65,7 @@ public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsL
     protected void initData() {
         List<GroupType> groupTypes = GroupType.createGroupType();
 
-        tvGroupTypeName.setText("创建一个附件的圈子");
+        tvGroupTypeName.setText("创建一个附近的圈子");
 
         mAdapter = new ChoiceGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
         lvGroupType.setAdapter(mAdapter);
