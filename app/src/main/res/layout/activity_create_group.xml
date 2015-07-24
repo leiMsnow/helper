@@ -13,154 +13,112 @@
         android:layout_below="@+id/toolbar"
         android:scrollbars="none">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_group_icon"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/selector_group_icon"
-                android:src="@mipmap/ic_menu_camera"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@mipmap/ic_menu_camera" />
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_group_icon"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="48dp"
-                android:background="@null"
-                android:gravity="center"
                 android:hint="@string/hint_group_name"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="14sp" />
 
-            <View
-                android:id="@+id/divide_line_one"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/et_group_name"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/gray_300" />
             <!--圈子简介-->
             <EditText
                 android:id="@+id/et_group_introduction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divide_line_one"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
-                android:background="@null"
-                android:gravity="center"
                 android:hint="@string/hint_group_introduction"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
-            <View
-                android:id="@+id/divide_line_two"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/et_group_introduction"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/gray_300" />
             <!--圈子标签-->
             <EditText
                 android:id="@+id/et_group_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divide_line_two"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
-                android:background="@null"
                 android:drawableLeft="@mipmap/ic_group_label"
-                android:gravity="center"
                 android:hint="@string/hint_group_label"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
-            <View
-                android:id="@+id/divide_line_three"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/et_group_label"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/gray_300" />
             <!--圈子位置-->
             <EditText
                 android:id="@+id/et_group_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divide_line_three"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
-                android:background="@null"
                 android:drawableLeft="@mipmap/ic_group_location"
-                android:gravity="center"
                 android:hint="@string/hint_group_location"
                 android:minHeight="40dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
 
-            <View
-                android:id="@+id/divide_line_four"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/et_group_location"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/gray_300" />
 
             <TextView
                 android:id="@+id/tv_group_secret"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divide_line_four"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/group_secret" />
+                android:text="@string/group_secret"
+                android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/tv_group_secret_detail"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_group_secret"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/group_secret_detail"
-                android:textColor="@color/gray_300" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_group_secret_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tv_group_secret_detail"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@+id/tv_group_secret_detail"
-                android:text="@string/group_secret_update"
-                android:textColor="@color/accent_material_blue" />
+                <TextView
+                    android:id="@+id/tv_group_secret_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/group_secret_detail"
+                    android:textColor="@color/gray_300" />
+
+                <TextView
+                    android:id="@+id/tv_group_secret_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_group_secret_detail"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/group_secret_update"
+                    android:textColor="@color/accent_material_blue" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_create"
@@ -175,6 +133,6 @@
                 android:background="?attr/createGroupBtn"
                 android:text="@string/finish_create"
                 android:textColor="@color/white" />
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
