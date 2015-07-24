@@ -28,16 +28,16 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
     /**
      * 点击事件的监听
      */
-    public interface OnItemClickLitener {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
 
         void onItemLongClick(View view, int position);
     }
 
-    private OnItemClickLitener mOnItemClickLitener;
+    private OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     public GroupListAdapter(Context context, List<Group> groups) {
@@ -69,12 +69,12 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
         }
         groupViewHolder.tv_group_name.setText(groups.get(pos).getGroup_name());
 
-        if (mOnItemClickLitener != null) {
+        if (mOnItemClickListener != null) {
             groupViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //int pos = groupViewHolder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(groupViewHolder.itemView, pos);
+                    mOnItemClickListener.onItemClick(groupViewHolder.itemView, pos);
                 }
             });
 
@@ -82,7 +82,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
                 @Override
                 public boolean onLongClick(View v) {
                     //int pos = groupViewHolder.getLayoutPosition();
-                    mOnItemClickLitener.onItemLongClick(groupViewHolder.itemView, pos);
+                    mOnItemClickListener.onItemLongClick(groupViewHolder.itemView, pos);
                     return false;
                 }
             });

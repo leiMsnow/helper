@@ -84,7 +84,7 @@ public class CircleFragment extends BaseApiFragment {
                 groups.addAll(list);
                 adapter = new GroupListAdapter(mContext, groups);
                 // 点击监听
-                adapter.setOnItemClickLitener(new GroupListAdapter.OnItemClickLitener() {
+                adapter.setOnItemClickListener(new GroupListAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         String group_id = groups.get(position).getGroup_id();
