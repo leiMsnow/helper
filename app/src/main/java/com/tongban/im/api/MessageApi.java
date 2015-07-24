@@ -67,7 +67,9 @@ public class MessageApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(obj);
+                BaseEvent.JoinGroupEvent joinGroupEvent = new BaseEvent.JoinGroupEvent();
+                joinGroupEvent.setMessage("已经向该圈子发送申请");
+                callback.onComplete(joinGroupEvent);
             }
 
             @Override
