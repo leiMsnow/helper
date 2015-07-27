@@ -44,4 +44,5 @@
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>
+    <string name="title_activity_pass_reset">PassResetActivity</string>
 </resources>

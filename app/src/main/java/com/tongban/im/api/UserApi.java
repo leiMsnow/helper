@@ -270,32 +270,28 @@ public class UserApi extends BaseApi {
     /**
      * 密码重置
      *
-     * @param userId         注册时的userID
      * @param oldPass        旧密码
      * @param newPass        新密码
      * @param confirmNewPass 确认新密码
      * @param callback
      */
-    public void passReset(String userId, String oldPass, String newPass, String confirmNewPass, final ApiCallback callback) {
+    public void passReset( String oldPass, String newPass, String confirmNewPass, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", userId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("old_pass", oldPass);
         mParams.put("new_pass", newPass);
+        // TODO 使用新接口，删除此字段
         mParams.put("confirm_new_pass", confirmNewPass);
 
         simpleRequest(PASS_RESET, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
+                callback.onStartApi();
             }
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                User user = apiResponse.getData();
-                saveUserInfo(user);
-                callback.onComplete(user);
+                callback.onComplete(obj);
             }
 
             @Override
@@ -303,6 +299,7 @@ public class UserApi extends BaseApi {
                 callback.onFailure(displayType, errorMessage);
                 EventBus.getDefault().post(errorMessage);
             }
+
 
         });
 
