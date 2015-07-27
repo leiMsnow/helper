@@ -43,16 +43,14 @@ public class UserApi extends BaseApi {
      * 校验手机验证码
      */
     public final static String EXAM = "sms/exam";
-
     /**
-     * 登录
+     * 账户密码登录
      */
     public final static String LOGIN = "user/login/1";
     /**
-     * token登录
+     * 免密码用户登录
      */
     public final static String TOKEN_LOGIN = "user/login/2";
-
 
     private UserApi(Context context) {
         super(context);
