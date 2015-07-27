@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <EditText
+        android:id="@+id/et_old_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_user"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="旧密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/et_new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_user"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="新密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/et_confirm_new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_user"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="确认新密码"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btn_pass_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_pwd"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="重置密码" />
+
+</LinearLayout>
