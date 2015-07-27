@@ -39,7 +39,7 @@
                     android:layout_weight="1"
                     android:button="@null"
                     android:checked="true"
-                    android:drawableTop="@mipmap/ic_create_group"
+                    android:drawableTop="@drawable/selector_menu_recommend"
                     android:gravity="center"
                     android:text="推荐"
                     android:textColor="@drawable/selector_main_tab_text_color" />
@@ -50,7 +50,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:button="@null"
-                    android:drawableTop="@mipmap/ic_menu_group_settings"
+                    android:drawableTop="@drawable/selector_menu_circle"
                     android:gravity="center"
                     android:text="圈子"
                     android:textColor="@drawable/selector_main_tab_text_color" />
@@ -61,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:button="@null"
-                    android:drawableTop="@mipmap/ic_menu_compass"
+                    android:drawableTop="@drawable/selector_menu_discover"
                     android:gravity="center"
                     android:text="发现"
                     android:textColor="@drawable/selector_main_tab_text_color" />
