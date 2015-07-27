@@ -12,6 +12,7 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,10 @@ public class GroupApi extends BaseApi {
      * 获取群组详情
      */
     public static final String FETCH_MY_JOIN_GROUP_INFO = "im/group/info";
+    /**
+     * 获取群组成员信息
+     */
+    public static final String FETCH_MY_JOIN_GROUP_MEMBER = "im/group/members";
 
 
     private GroupApi(Context context) {
@@ -286,7 +291,8 @@ public class GroupApi extends BaseApi {
 
     /**
      * 获取群组详情
-     *  member_amount-获取数量，默认15条用户信息
+     * member_amount-获取数量，默认15条用户信息
+     *
      * @param callback
      */
     public void fetchMyGroupInfo(final ApiCallback callback) {
@@ -307,6 +313,43 @@ public class GroupApi extends BaseApi {
                         });
                 BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
                 groupInfoEvent.setGroup(apiResponse.getData());
+                callback.onComplete(groupInfoEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取群组成员信息
+     *
+     * @param groupId  群组ID
+     * @param cursor   第几页，默认0开始
+     * @param pageSize 每页数量 默认15条
+     * @param callback
+     */
+    public void fetchMyGroupMember(String groupId, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("group_id", groupId);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 15 ? 15 : pageSize);
+
+        simpleRequest(FETCH_MY_JOIN_GROUP_MEMBER, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<List<User>> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<List<User>>>() {
+                        });
+                BaseEvent.GroupMemberEvent groupInfoEvent = new BaseEvent.GroupMemberEvent();
+                groupInfoEvent.setUsers(apiResponse.getData());
                 callback.onComplete(groupInfoEvent);
             }
 

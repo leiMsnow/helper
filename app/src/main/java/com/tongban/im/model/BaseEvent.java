@@ -193,6 +193,21 @@ public class BaseEvent {
         }
     }
 
+    /**
+     * 群成员Event
+     */
+    public static class GroupMemberEvent {
+        List<User> users;
+
+        public List<User> getUsers() {
+            return users;
+        }
+
+        public void setUsers(List<User> users) {
+            this.users = users;
+        }
+    }
+
 
 
 }
