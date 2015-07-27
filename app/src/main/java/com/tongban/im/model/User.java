@@ -2,7 +2,7 @@ package com.tongban.im.model;
 
 /**
  * 用户信息表
- * Created by dangdang on 15/7/3.
+ * Created by zhangleilei on 15/7/3.
  */
 public class User {
 
@@ -28,6 +28,8 @@ public class User {
     private String personal_sign;
     // 用户头像
     private String portrait_url;
+    //用户标签
+    private String tags;
 
     public String getUser_id() {
         return user_id;
@@ -115,5 +117,13 @@ public class User {
 
     public void setPortrait_url(String portrait_url) {
         this.portrait_url = portrait_url;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

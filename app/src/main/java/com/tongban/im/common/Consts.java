@@ -24,6 +24,7 @@ public class Consts {
 
 
     //------------------------------bundle-key------------------------------------------------------
+    public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
     public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
 }

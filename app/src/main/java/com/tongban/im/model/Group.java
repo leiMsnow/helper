@@ -112,4 +112,44 @@ public class Group {
     public void setMembers(List<User> members) {
         this.members = members;
     }
+
+    public String getGroup_type() {
+        return group_type;
+    }
+
+    public void setGroup_type(String group_type) {
+        this.group_type = group_type;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getGroup_avatar() {
+        return group_avatar;
+    }
+
+    public void setGroup_avatar(String group_avatar) {
+        this.group_avatar = group_avatar;
+    }
+
+    public String getVerify_user() {
+        return verify_user;
+    }
+
+    public void setVerify_user(String verify_user) {
+        this.verify_user = verify_user;
+    }
+
+    public User getOwner_info() {
+        return owner_info;
+    }
+
+    public void setOwner_info(User owner_info) {
+        this.owner_info = owner_info;
+    }
 }

@@ -291,13 +291,14 @@ public class GroupApi extends BaseApi {
 
     /**
      * 获取群组详情
-     * member_amount-获取数量，默认15条用户信息
      *
+     * @param groupId  群组ID
      * @param callback
      */
-    public void fetchMyGroupInfo(final ApiCallback callback) {
+    public void fetchMyGroupInfo(String groupId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("group_id", groupId);
+        //获取数量，默认15条用户信息
         mParams.put("member_amount", 15);
 
         simpleRequest(FETCH_MY_JOIN_GROUP_INFO, mParams, new ApiCallback() {

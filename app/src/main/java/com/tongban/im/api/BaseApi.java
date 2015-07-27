@@ -124,14 +124,14 @@ public class BaseApi {
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = getRequestUrl(url);
         }
-        LogUtil.d("JsonObjectRequest-url:",url);
-        LogUtil.d("JsonObjectRequest-JSONObject:",new JSONObject(params).toString());
+        LogUtil.d("request-url:",url);
+        LogUtil.d("request-params:",new JSONObject(params).toString());
         // 创建request
         request = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("volley-onResponse-success:" + jsonObject.toString());
+                        LogUtil.d("response-success:" + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -151,7 +151,7 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.e("volley-onResponse-error:" + volleyError.toString());
+                LogUtil.e("response-error:" + volleyError.toString());
 
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {

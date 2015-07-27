@@ -16,6 +16,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.User;
@@ -111,7 +112,10 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
             users.add(user);
             i++;
         }
-        GroupApi.getInstance().fetchMyGroupInfo(this);
+        if (getIntent().getExtras() != null) {
+            String groupId = getIntent().getExtras().getString(Consts.KEY_GROUP_ID, "");
+            GroupApi.getInstance().fetchMyGroupInfo(groupId, this);
+        }
         mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, users);
         gvMembers.setAdapter(mMemberGridAdapter);
     }
@@ -130,5 +134,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.getGroup();
+        tvGroupName.setText(mGroup.getGroup_name());
+        tvCreator.setText(mGroup.getOwner_info().getNick_name());
+
     }
 }

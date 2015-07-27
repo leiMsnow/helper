@@ -16,6 +16,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 
 import io.rong.imkit.model.Event;
 
@@ -85,6 +86,9 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
         int itemId = item.getItemId();
         if (itemId == R.id.next_step) {
             Intent intent = new Intent(mContext,GroupInfoActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Consts.KEY_GROUP_ID,mTargetId);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
