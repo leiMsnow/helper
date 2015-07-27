@@ -118,6 +118,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
     @Override
     public void onClick(View v) {
         if (v == tvTopicByHot) {
+            tvTopicByHot.setEnabled(false);
             moveLineFrom = moveLine.getX();
             moveLineTo = moveLineFrom - moveLine.getWidth();
             ObjectAnimator moveLeftLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
@@ -127,7 +128,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    tvTopicByHot.setEnabled(false);
                     tvTopicByMe.setEnabled(true);
                 }
             });
@@ -142,6 +142,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
             }
 
         } else if (v == tvTopicByMe) {
+            tvTopicByMe.setEnabled(false);
             moveLineFrom = moveLine.getX();
             moveLineTo = moveLineFrom + moveLine.getWidth();
             ObjectAnimator moveRightLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
@@ -151,7 +152,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    tvTopicByMe.setEnabled(false);
                     tvTopicByHot.setEnabled(true);
                 }
             });
