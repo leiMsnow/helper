@@ -30,8 +30,18 @@ public class JoinGroupAdapter extends QuickAdapter<Group> {
     @Override
     protected void convert(BaseAdapterHelper helper, Group item) {
         helper.setText(R.id.tv_group_name, item.getGroup_name());
-        helper.setImageBitmap(R.id.iv_group_icon, "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
-        helper.setTag(R.id.btn_join,item);
-        helper.setOnClickListener(R.id.btn_join,onClickListener);
+        helper.setImageBitmap(R.id.iv_group_icon,
+                "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
+        //是否已经加入过
+        if (item.is_joined()) {
+            helper.setVisible(R.id.iv_join, View.VISIBLE);
+            helper.setVisible(R.id.btn_join, View.GONE);
+        } else {
+            helper.setVisible(R.id.iv_join, View.GONE);
+            helper.setVisible(R.id.btn_join, View.VISIBLE);
+
+            helper.setTag(R.id.btn_join, item);
+            helper.setOnClickListener(R.id.btn_join, onClickListener);
+        }
     }
 }

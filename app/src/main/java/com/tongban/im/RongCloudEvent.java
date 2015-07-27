@@ -26,6 +26,7 @@ import io.rong.imkit.widget.provider.InputProvider;
 import io.rong.imkit.widget.provider.LocationInputProvider;
 import io.rong.imkit.widget.provider.VoIPInputProvider;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.ConnectionStatusListener;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
@@ -59,8 +60,7 @@ import io.rong.notification.PushNotificationMessage;
  */
 public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListener, RongIM.OnSendMessageListener,
         RongIM.UserInfoProvider, RongIM.GroupInfoProvider, RongIM.ConversationBehaviorListener,
-        RongIMClient.ConnectionStatusListener, RongIM.LocationProvider, RongIMClient.OnReceivePushMessageListener, RongIM.ConversationListBehaviorListener,
-        ApiCallback {
+        ConnectionStatusListener, RongIM.LocationProvider, RongIMClient.OnReceivePushMessageListener, RongIM.ConversationListBehaviorListener {
 
     private static final String TAG = RongCloudEvent.class.getSimpleName();
 
@@ -407,7 +407,11 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     public void onChanged(ConnectionStatus status) {
         LogUtil.d(TAG, "onChanged:" + status);
         if (status.getMessage().equals(ConnectionStatus.DISCONNECTED.getMessage())) {
+
+        } else if (status.equals(RongIMClient.ConnectionStatusListener.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT)) {
+
         }
+
     }
 
 
@@ -450,28 +454,5 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public boolean onConversationLongClick(Context context, View view, UIConversation conversation) {
         return false;
-    }
-
-
-    @Override
-    public void onComplete(AbstractHttpRequest abstractHttpRequest, Object obj) {
-//        if (getUserInfoByUserIdHttpRequest != null && getUserInfoByUserIdHttpRequest.equals(abstractHttpRequest)) {
-//            if (obj instanceof User) {
-//                final User user = (User) obj;
-//                if (user.getCode() == 200) {
-//                    UserInfos addFriend = new UserInfos();
-//                    addFriend.setUsername(user.getResult().getUsername());
-//                    addFriend.setUserid(user.getResult().getId());
-//                    addFriend.setPortrait(user.getResult().getPortrait());
-//                    addFriend.setStatus("0");
-//                    mUserInfosDao.insertOrReplace(addFriend);
-//                }
-//            }
-//        }
-    }
-
-    @Override
-    public void onFailure(AbstractHttpRequest abstractHttpRequest, BaseException e) {
-
     }
 }
