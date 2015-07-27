@@ -1,6 +1,7 @@
 package com.tongban.im.activity;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
+import com.tongban.im.api.GroupApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.User;
 
@@ -21,9 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 聊天设置
+ * 群组信息/设置
  */
-public class ChatSettingsActivity extends BaseToolBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class GroupInfoActivity extends BaseToolBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private GridView gvMembers;
     //圈子信息
@@ -36,7 +39,7 @@ public class ChatSettingsActivity extends BaseToolBarActivity implements View.On
     private Button btnQuit;
 
     private MemberGridAdapter mMemberGridAdapter;
-    private Group group;
+    private Group mGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,7 @@ public class ChatSettingsActivity extends BaseToolBarActivity implements View.On
     @Override
     protected void initData() {
 
-        Glide.with(ChatSettingsActivity.this).
+        Glide.with(GroupInfoActivity.this).
                 load("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg").into(ivCreator);
 
         List<User> users = new ArrayList<>();
@@ -108,6 +111,7 @@ public class ChatSettingsActivity extends BaseToolBarActivity implements View.On
             users.add(user);
             i++;
         }
+        GroupApi.getInstance().fetchMyGroupInfo(this);
         mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, users);
         gvMembers.setAdapter(mMemberGridAdapter);
     }
@@ -122,5 +126,9 @@ public class ChatSettingsActivity extends BaseToolBarActivity implements View.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
+        mGroup = groupInfo.getGroup();
     }
 }

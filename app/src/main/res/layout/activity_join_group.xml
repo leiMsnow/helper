@@ -7,14 +7,22 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
+    <include
+        android:id="@+id/search_view"
+        layout="@layout/include_search"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar" />
+
+
     <ListView
         android:id="@+id/lv_groups"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/search_view"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:scrollbars="none"
+        android:dividerHeight="0dp"
         android:layoutAnimation="@anim/list_alpha_layout"
-        android:dividerHeight="0dp" />
+        android:scrollbars="none" />
 </RelativeLayout>

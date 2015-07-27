@@ -3,23 +3,19 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.JoinGroupAdapter;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.MessageApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
-import com.tongban.im.model.GroupType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +26,10 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
 
     private ListView lvGroups;
-    private View vHeader;
-    private EditText etSearch;
-    private TextView tvSearch;
-
+    private SearchView mSearchView;
     private JoinGroupAdapter mAdapter;
 
     @Override
@@ -52,33 +45,18 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     protected void initView() {
         lvGroups = (ListView) findViewById(R.id.lv_groups);
-        vHeader = LayoutInflater.from(mContext).inflate(R.layout.include_search, null);
-//        SearchView searchView = new SearchView(mContext);
-        if (vHeader != null) {
-            lvGroups.addHeaderView(vHeader);
-            etSearch = (EditText) vHeader.findViewById(R.id.et_search);
-            tvSearch = (TextView) vHeader.findViewById(R.id.tv_search);
-        }
+        mSearchView = (SearchView) findViewById(R.id.id_search_view);
     }
 
     @Override
     protected void initListener() {
         mAdapter.setOnClickListener(this);
-
-        if (tvSearch != null) {
-            tvSearch.setOnClickListener(this);
-        }
+        mSearchView.setOnQueryTextListener(this);
     }
 
     @Override
     protected void initData() {
         List<Group> groups = new ArrayList<>();
-//        for (int i = 1; i < 10; i++) {
-//            Group group = new Group();
-//            group.setGroup_id("55b1ed4ed7bdb0e4a1a23292");
-//            group.setGroup_name("半岛国际" + i + "岁宝宝圈");
-//            groups.add(group);
-//        }
         mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
         lvGroups.setAdapter(mAdapter);
     }
@@ -102,19 +80,15 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v == tvSearch) {
-            GroupApi.getInstance().searchGroupByName(etSearch.getText().toString().trim(), 0, 10, this);
-        } else {
-            int viewId = v.getId();
-            switch (viewId) {
-                case R.id.btn_join:
-                    Group group = (Group) v.getTag();
-                    // TODO 加入群，不需要验证
-//                    MessageApi.getInstance().joinGroup(new String[]{groupId}, "新人报道", this);
-                    GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getUser_id(), this);
-                    break;
-            }
+        int viewId = v.getId();
+        switch (viewId) {
+            case R.id.btn_join:
+                Group group = (Group) v.getTag();
+                // TODO 加入群，不需要验证
+                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getUser_id(), this);
+                break;
         }
+
     }
 
     public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
@@ -125,4 +99,16 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        if (!TextUtils.isEmpty(query)) {
+            GroupApi.getInstance().searchGroupByName(query, 0, 10, this);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
 }

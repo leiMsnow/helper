@@ -115,7 +115,7 @@
             android:name=".activity.TopicActivity"
             android:label="@string/topic" />
         <activity
-            android:name=".activity.ChatSettingsActivity"
+            android:name=".activity.GroupInfoActivity"
             android:label="@string/group_settings" />
         <activity android:name=".activity.CreateGroupActivity" />
         <activity

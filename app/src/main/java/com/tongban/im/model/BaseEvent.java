@@ -178,5 +178,21 @@ public class BaseEvent {
     public static class TopicEvent {
 
     }
+    /**
+     * 群信息Event
+     */
+    public static class GroupInfoEvent {
+        Group group;
+
+        public Group getGroup() {
+            return group;
+        }
+
+        public void setGroup(Group group) {
+            this.group = group;
+        }
+    }
+
+
 
 }

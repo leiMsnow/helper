@@ -68,7 +68,7 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        GroupApi.getInstance().fetchPersonalGroupList(this);
+        GroupApi.getInstance().fetchMyAllGroupList(this);
     }
 
     /**
