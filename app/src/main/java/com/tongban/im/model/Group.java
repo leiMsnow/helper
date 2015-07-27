@@ -1,6 +1,5 @@
 package com.tongban.im.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +17,25 @@ public class Group {
      */
     private String group_name;
     /**
+     * 群组类型
+     */
+    private String group_type;
+    /**
+     * 地址
+     */
+    private String address;
+    /**
      * 群组介绍
      */
     private String declaration;
+    /**
+     * 群头像
+     */
+    private String group_avatar;
+    /**
+     * 是否需要验证 0:无需验证；1需要验证
+     */
+    private String verify_user;
     /**
      * 群主的用户ID
      */
@@ -34,9 +49,13 @@ public class Group {
      */
     private String status;
     /**
-     * 群成员
+     * 群主信息
      */
-    private List<User> members ;
+    private User owner_info;
+    /**
+     * 群成员信息
+     */
+    private List<User> members;
 
     public String getGroup_id() {
         return group_id;
