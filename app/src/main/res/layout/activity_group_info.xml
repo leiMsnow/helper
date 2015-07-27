@@ -85,7 +85,7 @@
                     android:layout_margin="4dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tv_group_creator"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_contact_picture" />
 
                 <TextView
                     android:id="@+id/tv_group_creator"

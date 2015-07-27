@@ -1,7 +1,6 @@
 package com.tongban.im.activity;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -49,7 +48,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_chat_settings;
+        return R.layout.activity_group_info;
     }
 
     @Override
@@ -135,6 +134,9 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.getGroup();
         tvGroupName.setText(mGroup.getGroup_name());
+        tvAddress.setText(mGroup.getAddress());
+        Glide.with(GroupInfoActivity.this).load(mGroup.getOwner_info().getPortrait_url())
+                .into(ivCreator);
         tvCreator.setText(mGroup.getOwner_info().getNick_name());
 
     }
