@@ -43,14 +43,19 @@ public class UserApi extends BaseApi {
      * 校验手机验证码
      */
     public final static String EXAM = "sms/exam";
+
     /**
-     * 账户密码登录
+     * 登录
      */
     public final static String LOGIN = "user/login/1";
     /**
-     * 免密码用户登录
+     * token登录
      */
     public final static String TOKEN_LOGIN = "user/login/2";
+    /**
+     * 密码重置
+     */
+    public final static String PASS_RESET = "user/password/reset";
 
     private UserApi(Context context) {
         super(context);
@@ -260,6 +265,44 @@ public class UserApi extends BaseApi {
             }
 
         });
+    }
+
+    /**
+     * 密码重置
+     *
+     * @param oldPass        旧密码
+     * @param newPass        新密码
+     * @param confirmNewPass 确认新密码
+     * @param callback
+     */
+    public void passReset( String oldPass, String newPass, String confirmNewPass, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("old_pass", oldPass);
+        mParams.put("new_pass", newPass);
+        // TODO 使用新接口，删除此字段
+        mParams.put("confirm_new_pass", confirmNewPass);
+
+        simpleRequest(PASS_RESET, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+                EventBus.getDefault().post(errorMessage);
+            }
+
+
+        });
+
     }
 
     /**

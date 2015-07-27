@@ -10,6 +10,7 @@ import com.tongban.corelib.base.fragment.BaseUIFragment;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
+import com.tongban.im.activity.PassResetActivity;
 import com.tongban.im.adapter.LeftMenuAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -26,7 +27,7 @@ import io.rong.imlib.model.Conversation;
  */
 public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnItemClickListener {
 
-    private final static int MENU_ITEM_SIZE = 3;
+    private final static int MENU_ITEM_SIZE = 4;
     private List<BaseEvent.DrawerLayoutMenu> mItems = new ArrayList<BaseEvent.DrawerLayoutMenu>();
     private ListView mListView;
     private LeftMenuAdapter mAdapter;
@@ -42,6 +43,9 @@ public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnIt
         EventBus.getDefault().post(mAdapter.getItem(position));
 //        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN,"");
         mAdapter.setSelected(position);
+        if (mAdapter.getItem(position).getText().equals("重置密码")) {
+            startActivity(new Intent(mContext, PassResetActivity.class));
+        }
     }
 
 
@@ -63,6 +67,8 @@ public class LeftMenuFragment extends BaseUIFragment implements AbsListView.OnIt
         mItems.add(menuItem2);
         BaseEvent.DrawerLayoutMenu menuItem3 = new BaseEvent.DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[2], "group1", Conversation.ConversationType.SYSTEM, R.mipmap.ic_launcher, false);
         mItems.add(menuItem3);
+        BaseEvent.DrawerLayoutMenu menuItem4 = new BaseEvent.DrawerLayoutMenu(getResources().getStringArray(R.array.array_left_menu)[3], "android02", Conversation.ConversationType.PRIVATE, R.mipmap.ic_launcher, false);
+        mItems.add(menuItem4);
 
         mAdapter = new LeftMenuAdapter(mContext, R.layout.item_left_menu, mItems);
         mListView.setAdapter(mAdapter);
