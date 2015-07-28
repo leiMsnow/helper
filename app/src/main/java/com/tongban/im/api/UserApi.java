@@ -55,7 +55,7 @@ public class UserApi extends BaseApi {
     /**
      * 密码重置
      */
-    public final static String PASS_RESET = "user/password/reset";
+    public final static String PWD_RESET = "user/password/reset";
 
     private UserApi(Context context) {
         super(context);
@@ -270,20 +270,19 @@ public class UserApi extends BaseApi {
     /**
      * 密码重置
      *
-     * @param oldPass        旧密码
-     * @param newPass        新密码
-     * @param confirmNewPass 确认新密码
+     * @param oldPwd        旧密码
+     * @param newPwd        新密码
      * @param callback
      */
-    public void passReset( String oldPass, String newPass, String confirmNewPass, final ApiCallback callback) {
+    public void pwdReset(String oldPwd, String newPwd, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("old_pass", oldPass);
-        mParams.put("new_pass", newPass);
+        mParams.put("old_pass", oldPwd);
+        mParams.put("new_pass", newPwd);
         // TODO 使用新接口，删除此字段
-        mParams.put("confirm_new_pass", confirmNewPass);
+        mParams.put("confirm_new_pass", newPwd);
 
-        simpleRequest(PASS_RESET, mParams, new ApiCallback() {
+        simpleRequest(PWD_RESET, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -291,7 +290,9 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(obj);
+                BaseEvent.PwdResetEvent pwdResetEvent=new BaseEvent.PwdResetEvent();
+                pwdResetEvent.setResult("重置密码成功");
+                callback.onComplete(pwdResetEvent);
             }
 
             @Override

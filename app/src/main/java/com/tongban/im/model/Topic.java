@@ -5,8 +5,11 @@ package com.tongban.im.model;
  * Created by fushudi on 2015/7/16.
  */
 public class Topic {
+    // 话题名称
     private String topicName;
+    // 话题回应人数
     private String topicReplyNum;
+    // 话题内容
     private String topicContent;
 
     public String getTopicName() {

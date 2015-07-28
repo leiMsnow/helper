@@ -127,7 +127,7 @@
             android:label="@string/choice_group_type" >
         </activity>
         <activity
-            android:name=".activity.PassResetActivity"
+            android:name=".activity.PwdResetActivity"
             android:label="@string/title_activity_pass_reset" >
         </activity>
     </application>
