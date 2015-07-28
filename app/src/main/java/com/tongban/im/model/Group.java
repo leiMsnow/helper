@@ -57,6 +57,8 @@ public class Group {
      */
     private List<User> members;
 
+   private boolean is_joined;
+
     public String getGroup_id() {
         return group_id;
     }
@@ -151,5 +153,13 @@ public class Group {
 
     public void setOwner_info(User owner_info) {
         this.owner_info = owner_info;
+    }
+
+    public boolean is_joined() {
+        return is_joined;
+    }
+
+    public void setIs_joined(boolean is_joined) {
+        this.is_joined = is_joined;
     }
 }
