@@ -189,6 +189,10 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
+                ApiResult apiResult = (ApiResult) errorMessage;
+                if (apiResult.getStatusCode() == ApiErrorCode.User.VCODE_NOT_SAME_OR_OUT_OF_DATE) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.verify_code_illegal));
+                }
                 callback.onFailure(displayType, errorMessage);
             }
 

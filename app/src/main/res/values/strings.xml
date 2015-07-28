@@ -25,6 +25,7 @@
     <string name="register_success">注册成功</string>
     <string name="verify_send_success">验证码已经发送到手机</string>
     <string name="verify_send_failed">验证码发送失败</string>
+    <string name="verify_code_illegal">该验证码无效</string>
     <!-- 重置密码-->
     <string name="pwd_reset">重置密码</string>
     <string name="old_pwd_empty">旧密码不能为空</string>

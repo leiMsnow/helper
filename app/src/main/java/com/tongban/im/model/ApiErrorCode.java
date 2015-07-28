@@ -48,6 +48,11 @@ public class ApiErrorCode {
          * 手机号码不正确
          */
         public static int  PHONE_ERROR= 10004;
+        /**
+         * 手机验证码不一致或失效
+         */
+        public static int  VCODE_NOT_SAME_OR_OUT_OF_DATE= 10014;
+
     }
 
 }
