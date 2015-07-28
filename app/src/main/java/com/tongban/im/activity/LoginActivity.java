@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -18,7 +17,6 @@ import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 /**
@@ -45,7 +43,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void initView() {
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin = (Button) findViewById(R.id.btn_register);
     }
 
     @Override
