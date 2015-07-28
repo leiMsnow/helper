@@ -1,4 +1,4 @@
-package com.tongban.im.utils;
+package com.tongban.im.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,9 +15,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
-
-import com.tongban.im.utils.*;
-import com.tongban.im.utils.ImageUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
