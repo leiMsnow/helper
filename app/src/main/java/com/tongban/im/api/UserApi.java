@@ -8,6 +8,7 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
@@ -300,7 +301,7 @@ public class UserApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 ApiResult apiResult = (ApiResult) errorMessage;
                 if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_OLD_PWD_ERROR) {
-                    apiResult.setStatusDesc("旧密码输入错误");
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.old_pwd_error));
                 }
                 callback.onFailure(displayType, apiResult);
             }

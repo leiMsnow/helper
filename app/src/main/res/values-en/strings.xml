@@ -21,7 +21,8 @@
     <string name="verify_send_success">验证码已经发送到手机</string>
     <string name="verify_send_failed">验证码发送失败</string>
     <!-- 重置密码-->
-    <string name="old_pwd_error">旧密码输入错误</string>
+    <string name="old_pwd_error">old pwd error</string>
+
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
