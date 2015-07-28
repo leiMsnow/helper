@@ -9,6 +9,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -290,15 +291,18 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                BaseEvent.PwdResetEvent pwdResetEvent=new BaseEvent.PwdResetEvent();
+                BaseEvent.PwdResetEvent pwdResetEvent = new BaseEvent.PwdResetEvent();
                 pwdResetEvent.setResult("重置密码成功");
                 callback.onComplete(pwdResetEvent);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-                EventBus.getDefault().post(errorMessage);
+                ApiResult apiResult = (ApiResult) errorMessage;
+                if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_OLD_PWD_ERROR) {
+                    apiResult.setStatusDesc("旧密码输入错误");
+                }
+                callback.onFailure(displayType, apiResult);
             }
 
 

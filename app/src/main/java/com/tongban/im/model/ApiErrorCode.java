@@ -12,6 +12,11 @@ public class ApiErrorCode {
          */
         public static int USER_REGISTERED = 10001;
 
+        /**
+         * 重置密码老密码错误
+         */
+        public static int RESET_OLD_PWD_ERROR = 10030;
+
 
 
     }
