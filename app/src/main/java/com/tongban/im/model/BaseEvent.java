@@ -178,6 +178,7 @@ public class BaseEvent {
     public static class TopicEvent {
 
     }
+
     /**
      * 群信息Event
      */
@@ -207,10 +208,11 @@ public class BaseEvent {
             this.users = users;
         }
     }
+
     /**
-     *
+     * 重置密码Event
      */
-    public static class PwdResetEvent{
+    public static class PwdResetEvent {
         String result;
 
         public String getResult() {
