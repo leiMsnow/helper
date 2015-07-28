@@ -53,10 +53,18 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == btnPwdReset) {
-            if (mNewPwd.equals(mConfirmNewPwd)) {
-                UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
+            if (mOldPwd.equals(mNewPwd)) {
+                ToastUtil.getInstance(mContext).showToast("新密码语原密码相同，请重新输入");
             } else {
-                ToastUtil.getInstance(mContext).showToast("两次输入的密码不一致，请重新输入");
+                if (mNewPwd.length() >= 6) {
+                    if (mNewPwd.equals(mConfirmNewPwd)) {
+                        UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
+                    } else {
+                        ToastUtil.getInstance(mContext).showToast("两次输入的密码不一致，请重新输入");
+                    }
+                } else {
+                    ToastUtil.getInstance(mContext).showToast("密码格式不正确，请重新输入");
+                }
             }
         }
     }
@@ -79,7 +87,7 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
     }
 
     public void onEventMainThread(BaseEvent.PwdResetEvent result) {
-            ToastUtil.getInstance(mContext).showToast(result.getResult());
-            finish();
+        ToastUtil.getInstance(mContext).showToast(result.getResult());
+        finish();
     }
 }
