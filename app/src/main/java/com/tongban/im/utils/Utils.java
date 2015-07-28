@@ -1,4 +1,4 @@
-package com.tongban.im.util;
+package com.tongban.im.utils;
 
 import android.app.Activity;
 import android.content.Context;

@@ -18,8 +18,8 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
-import com.tongban.im.util.ImageUtils;
-import com.tongban.im.util.Utils;
+import com.tongban.im.utils.ImageUtils;
+import com.tongban.im.utils.Utils;
 import com.tongban.im.widget.view.AlertView;
 
 import java.io.File;
