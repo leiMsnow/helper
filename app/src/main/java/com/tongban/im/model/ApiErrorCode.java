@@ -32,6 +32,22 @@ public class ApiErrorCode {
          * 重置密码获取用户旧密码失败
          */
         public static int  OBTAIN_OLD_PWD_FAIL= 10038;
+        /**
+         * 用户登录密码或账户名为空
+         */
+        public static int  USERNAME_OR_PWD_EMPTY= 10025;
+        /**
+         * 用户登录包含非法参数
+         */
+        public static int  CONTAIN_ILLEGAL_PARAMETER= 10024;
+        /**
+         * 使用手机号和密码登录失败
+         */
+        public static int  USE_PHONE_OR_PWD_FAIL= 10029;
+        /**
+         * 手机号码不正确
+         */
+        public static int  PHONE_ERROR= 10004;
     }
 
 }

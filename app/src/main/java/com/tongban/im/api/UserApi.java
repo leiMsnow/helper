@@ -227,6 +227,16 @@ public class UserApi extends BaseApi {
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
+                ApiResult apiResult = (ApiResult) errorMessage;
+                if (apiResult.getStatusCode() == ApiErrorCode.User.USERNAME_OR_PWD_EMPTY) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.username_or_pwd_empty));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.CONTAIN_ILLEGAL_PARAMETER) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.contain_illegal_parameter));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.USE_PHONE_OR_PWD_FAIL) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.use_phone_pwd_fail));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.PHONE_ERROR) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.phone_error));
+                }
                 callback.onFailure(displayType, errorMessage);
             }
 

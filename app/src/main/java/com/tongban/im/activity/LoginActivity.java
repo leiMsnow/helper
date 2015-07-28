@@ -78,6 +78,11 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void afterTextChanged(Editable s) {
         mUser = etUser.getText().toString();
         mPwd = etPwd.getText().toString();
+        if (mUser.length() == 0 || mPwd.length() < 6) {
+            btnLogin.setEnabled(false);
+        } else {
+            btnLogin.setEnabled(true);
+        }
     }
 
     @Override

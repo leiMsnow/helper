@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:layout_marginLeft="16dp"
+        android:digits="@string/digits"
         android:layout_marginRight="16dp"
         android:hint="账号" />
 
@@ -34,6 +35,7 @@
         android:layout_below="@+id/et_pwd"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:enabled="false"
         android:text="登录" />
 
 </LinearLayout>
