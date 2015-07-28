@@ -33,7 +33,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     private EditText etPwd;
     private EditText etVerifyCode;
     private Button btnVerifyCode;
-    private Button btnLogin;
+    private Button btnRegister;
     private String mUser, mPwd, mVerifyCode;
 
     BaseEvent.RegisterEvent regEvent;
@@ -50,7 +50,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etPwd = (EditText) findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
         btnVerifyCode = (Button) findViewById(R.id.btn_verify_code);
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnRegister = (Button) findViewById(R.id.btn_register);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etPwd.addTextChangedListener(this);
         etVerifyCode.addTextChangedListener(this);
         btnVerifyCode.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         if (v == btnVerifyCode) {
             // 注册
             UserApi.getInstance().register(mUser, mUser, mPwd, this);
-        } else if (v == btnLogin) {
+        } else if (v == btnRegister) {
             //校验手机验证码
             if (regEvent != null &&
                     regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.FETCH) {
