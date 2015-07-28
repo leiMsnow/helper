@@ -21,8 +21,11 @@
     <string name="verify_send_success">验证码已经发送到手机</string>
     <string name="verify_send_failed">验证码发送失败</string>
     <!-- 重置密码-->
-    <string name="old_pwd_error">old pwd error</string>
-
+    <string name="old_pwd_error">old password error</string>
+    <string name="pwd_reset_success">reset password success</string>
+    <string name="old_pwd_equals_new_pwd">new password equals old password,please input again</string>
+    <string name="twice_pwd_same">the twice password are same,please input again</string>
+    <string name="pwd_least">the password at least 6,please input again</string>
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>

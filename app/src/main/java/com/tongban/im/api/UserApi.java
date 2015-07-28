@@ -272,8 +272,8 @@ public class UserApi extends BaseApi {
     /**
      * 密码重置
      *
-     * @param oldPwd        旧密码
-     * @param newPwd        新密码
+     * @param oldPwd   旧密码
+     * @param newPwd   新密码
      * @param callback
      */
     public void pwdReset(String oldPwd, String newPwd, final ApiCallback callback) {
@@ -293,7 +293,7 @@ public class UserApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 BaseEvent.PwdResetEvent pwdResetEvent = new BaseEvent.PwdResetEvent();
-                pwdResetEvent.setResult("重置密码成功");
+                pwdResetEvent.setResult(mContext.getResources().getString(R.string.pwd_reset_success));
                 callback.onComplete(pwdResetEvent);
             }
 
@@ -302,6 +302,14 @@ public class UserApi extends BaseApi {
                 ApiResult apiResult = (ApiResult) errorMessage;
                 if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_OLD_PWD_ERROR) {
                     apiResult.setStatusDesc(mContext.getResources().getString(R.string.old_pwd_error));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_PWD_CONTAIN_EMPTY) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.pwd_contain_empty));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_PWD_FAIL) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.pwd_reset_fail));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.NEW_PWD_NOT_SANME_CONFIRM_PWD) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.twice_pwd_same));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.OBTAIN_OLD_PWD_FAIL) {
+                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.obtain_old_pwd_fail));
                 }
                 callback.onFailure(displayType, apiResult);
             }

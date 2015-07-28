@@ -44,6 +44,7 @@
         android:layout_below="@+id/et_pwd"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:enabled="false"
         android:text="重置密码" />
 
 </LinearLayout>

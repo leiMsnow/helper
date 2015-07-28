@@ -6,7 +6,7 @@ package com.tongban.im.model;
  */
 public class ApiErrorCode {
 
-    public static class User{
+    public static class User {
         /**
          * 用户已经注册
          */
@@ -16,9 +16,22 @@ public class ApiErrorCode {
          * 重置密码老密码错误
          */
         public static int RESET_OLD_PWD_ERROR = 10030;
-
-
-
+        /**
+         * 重置密码包含空参数
+         */
+        public static int RESET_PWD_CONTAIN_EMPTY = 10031;
+        /**
+         * 重置密码失败
+         */
+        public static int RESET_PWD_FAIL = 10032;
+        /**
+         * 新密码和确认新密码不一致
+         */
+        public static int NEW_PWD_NOT_SANME_CONFIRM_PWD = 10033;
+        /**
+         * 重置密码获取用户旧密码失败
+         */
+        public static int  OBTAIN_OLD_PWD_FAIL= 10038;
     }
 
 }

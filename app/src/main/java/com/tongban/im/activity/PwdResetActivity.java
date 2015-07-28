@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -22,7 +23,13 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
     private EditText etOldPwd, etNewPwd, etConfirmNewPwd, etUserId;
     private Button btnPwdReset;
 
-    private String mOldPwd, mNewPwd, mConfirmNewPwd;
+    private String mOldPwd = "", mNewPwd = "", mConfirmNewPwd = "";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.pwd_reset));
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -53,17 +60,31 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == btnPwdReset) {
-            if (mOldPwd.equals(mNewPwd)) {
-                ToastUtil.getInstance(mContext).showToast("新密码语原密码相同，请重新输入");
-            } else {
-                if (mNewPwd.length() >= 6) {
-                    if (mNewPwd.equals(mConfirmNewPwd)) {
-                        UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
-                    } else {
-                        ToastUtil.getInstance(mContext).showToast("两次输入的密码不一致，请重新输入");
-                    }
+            if (mOldPwd.length() >= 6) {
+                if (mNewPwd.length() == 0) {
+                    ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.new_pwd_empty));
+                } else if (mConfirmNewPwd.length() == 0) {
+                    ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.confirm_new_pwd_empty));
                 } else {
-                    ToastUtil.getInstance(mContext).showToast("密码格式不正确，请重新输入");
+                    if (mOldPwd.equals(mNewPwd)) {
+                        ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.old_pwd_equals_new_pwd));
+                    } else {
+                        if (mNewPwd.length() >= 6) {
+                            if (mNewPwd.equals(mConfirmNewPwd)) {
+                                UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
+                            } else {
+                                ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.twice_pwd_same));
+                            }
+                        } else {
+                            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.pwd_least));
+                        }
+                    }
+                }
+            } else {
+                if (mOldPwd.length() == 0) {
+                    ToastUtil.getInstance(mContext).showToast(getString(R.string.old_pwd_empty));
+                } else {
+                    ToastUtil.getInstance(mContext).showToast(getString(R.string.pwd_least));
                 }
             }
         }
@@ -84,6 +105,11 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
         mOldPwd = etOldPwd.getText().toString().trim();
         mNewPwd = etNewPwd.getText().toString().trim();
         mConfirmNewPwd = etConfirmNewPwd.getText().toString().trim();
+        if (mOldPwd.length() == 0 || mNewPwd.length() == 0 || mConfirmNewPwd.length() == 0) {
+            btnPwdReset.setEnabled(false);
+        } else {
+            btnPwdReset.setEnabled(true);
+        }
     }
 
     public void onEventMainThread(BaseEvent.PwdResetEvent result) {

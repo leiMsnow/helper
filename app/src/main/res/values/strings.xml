@@ -21,7 +21,18 @@
     <string name="verify_send_success">验证码已经发送到手机</string>
     <string name="verify_send_failed">验证码发送失败</string>
     <!-- 重置密码-->
+    <string name="pwd_reset">重置密码</string>
+    <string name="old_pwd_empty">旧密码不能为空</string>
+    <string name="new_pwd_empty">新密码不能为空</string>
+    <string name="confirm_new_pwd_empty">确认新密码不能为空</string>
     <string name="old_pwd_error">旧密码输入错误</string>
+    <string name="pwd_reset_success">密码重置成功</string>
+    <string name="old_pwd_equals_new_pwd">新密码和旧密码相同，请重新输入</string>
+    <string name="twice_pwd_same">新密码和确认新密码不一致，请重新输入</string>
+    <string name="pwd_least">密码最少为6位，请重新输入</string>
+    <string name="pwd_contain_empty">密码包含空参数</string>
+    <string name="pwd_reset_fail">重置密码失败</string>
+    <string name="obtain_old_pwd_fail">获取用户旧密码失败</string>
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
