@@ -1,16 +1,12 @@
-package com.tongban.im.Utils;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.List;
+package com.tongban.im.utils;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,6 +15,13 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
+
+import com.tongban.im.utils.*;
+import com.tongban.im.utils.ImageUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.util.List;
 
 public class Utils {
 	public static final int OPEN_ALBUM = 100;
