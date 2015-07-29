@@ -45,7 +45,8 @@ import io.rong.imlib.model.PublicServiceInfo;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.VoiceMessage;
 
-public class ConversationListFragment extends UriFragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class ConversationListFragment extends UriFragment implements AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener {
     static final int REORDER_LIST = 1;
     static final int REFRESH_LIST = 2;
     static final int REFRESH_ITEM = 3;
@@ -54,7 +55,7 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     private ConversationListAdapter mAdapter;
     private ListView mList;
-    private ArrayList<ConversationType> mSupportConversationList = new ArrayList<ConversationType>();
+    private ArrayList<ConversationType> mSupportConversationList = new ArrayList<>();
     private ArrayList<Message> mMessageCache = new ArrayList<Message>();
 
     public static ConversationListFragment getInstance() {

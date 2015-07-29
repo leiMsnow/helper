@@ -1,6 +1,7 @@
 package com.tongban.im.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,11 +15,13 @@ import android.widget.RadioGroup;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.fragment.CircleFragment;
 import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.RecommendFragment;
 import com.tongban.im.model.BaseEvent;
+
+import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imlib.model.Conversation;
 
 /**
  * 主界面
@@ -69,7 +72,18 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         /** 推荐页 */
         fragments[0] = new RecommendFragment();
         /** 圈子页 */
-        fragments[1] = new CircleFragment();
+        if (fragments[1] == null) {
+            ConversationListFragment listFragment = ConversationListFragment.getInstance();
+            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+                    .appendPath("conversationlist")
+                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
+                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false") //群组
+                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
+                    .build();
+            listFragment.setUri(uri);
+            fragments[1] = listFragment;
+        }
+//        fragments[1] = new CircleFragment();
         /** 发现页 */
         fragments[2] = new DiscoverFragment();
 
@@ -133,13 +147,18 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_circle_fragment, menu);
+        getMenuInflater().inflate(R.menu.menu_circle_fragment, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return false;
+        if (item.getItemId() == R.id.action_join_group) {
+            Intent intent = new Intent(mContext, JoinGroupActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -147,7 +166,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         if (o instanceof BaseEvent.DrawerLayoutMenu) {
             BaseEvent.DrawerLayoutMenu item = (BaseEvent.DrawerLayoutMenu) o;
             LogUtil.d("onEventMainThread:" + item.getText());
-            //mToolbar.setTitle(item.getText());
             mDrawerLayout.closeDrawer(Gravity.LEFT);
         }
     }
