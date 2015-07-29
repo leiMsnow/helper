@@ -60,29 +60,30 @@ public class LocationApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("longitude", longitude);
         mParams.put("latitude", latitude);
-        if (TextUtils.isEmpty(province))
+        if (!TextUtils.isEmpty(province))
             mParams.put("province", province);
-        if (TextUtils.isEmpty(city))
+        if (!TextUtils.isEmpty(city))
             mParams.put("city", city);
-        mParams.put("county", county);
+        if (!TextUtils.isEmpty(city))
+            mParams.put("county", county);
         mParams.put("location", location);
         mParams.put("address_type", addressType);
 
         simpleRequest(LOCATION_CREATE, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+//                callback.onStartApi();
             }
 
             @Override
             public void onComplete(Object obj) {
 
-                callback.onComplete(obj);
+//                callback.onComplete(obj);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+//                callback.onFailure(displayType, errorMessage);
             }
         });
     }
