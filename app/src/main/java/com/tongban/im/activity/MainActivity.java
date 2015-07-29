@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.fragment.CircleFragment;
 import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.RecommendFragment;
@@ -70,7 +71,8 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
         fragments = new Fragment[3];
         /** 推荐页 */
-        fragments[0] = new RecommendFragment();
+//        fragments[0] = new RecommendFragment();
+        fragments[0] = new CircleFragment();
         /** 圈子页 */
         if (fragments[1] == null) {
             ConversationListFragment listFragment = ConversationListFragment.getInstance();
