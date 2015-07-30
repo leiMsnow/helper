@@ -6,6 +6,7 @@ import java.util.List;
 import io.rong.imlib.model.Conversation;
 
 /**
+ * EventBus事件回调类，主要是将参数封装
  * Created by zhangleilei on 15/7/14.
  */
 public class BaseEvent {
@@ -221,6 +222,21 @@ public class BaseEvent {
 
         public void setResult(String result) {
             this.result = result;
+        }
+    }
+
+    /**
+     * 用户信息Event
+     */
+    public static class UserInfoEvent {
+        User user;
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
         }
     }
 

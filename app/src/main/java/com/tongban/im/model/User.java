@@ -30,6 +30,9 @@ public class User {
     private String portrait_url;
     //用户标签
     private String tags;
+    //
+    private String declaration;
+
 
     public String getUser_id() {
         return user_id;
@@ -126,4 +129,13 @@ public class User {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
+    public String getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(String declaration) {
+        this.declaration = declaration;
+    }
+
 }

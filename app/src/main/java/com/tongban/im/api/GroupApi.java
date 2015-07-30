@@ -10,7 +10,9 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.adapter.MTTAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -309,6 +311,9 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiResult<List<Group>>>() {
                         });
                 List<Group> groups = apiResponse.getData();
+                //将数据保存在本地数据库
+                GroupDaoHelper.get(mContext).addAllData(
+                        MTTAdapter.groupToTable(apiResponse.getData()));
                 callback.onComplete(groups);
             }
 
@@ -344,6 +349,8 @@ public class GroupApi extends BaseApi {
                         });
                 BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
                 groupInfoEvent.setGroup(apiResponse.getData());
+                //将数据保存在本地数据库
+                GroupDaoHelper.get(mContext).addData(MTTAdapter.groupToTable(apiResponse.getData()));
                 callback.onComplete(groupInfoEvent);
             }
 

@@ -9,7 +9,9 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
+import com.tongban.im.adapter.MTTAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
@@ -58,6 +60,11 @@ public class UserApi extends BaseApi {
      * 密码重置
      */
     public final static String PWD_RESET = "user/password/reset";
+
+    /**
+     * 获取用户信息
+     */
+    public final static String GET_USER_INFO = "user/info";
 
     private UserApi(Context context) {
         super(context);
@@ -328,6 +335,47 @@ public class UserApi extends BaseApi {
                 callback.onFailure(displayType, apiResult);
             }
 
+
+        });
+
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId   用户ID
+     * @param callback 回调
+     */
+    public void getUserInfoByUserId(final String userId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("user_id", userId);
+
+        simpleRequest(GET_USER_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                BaseEvent.UserInfoEvent userInfoEvent = new BaseEvent.UserInfoEvent();
+                userInfoEvent.setUser(apiResponse.getData());
+                userInfoEvent.getUser().setUser_id(userId);
+                //将用户信息保存到本地数据库
+                UserDaoHelper.get(mContext).addData(MTTAdapter.userToTable(userInfoEvent.getUser()));
+                if (callback != null)
+                    callback.onComplete(userInfoEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
 
         });
 

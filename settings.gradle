@@ -1,1 +1,1 @@
-include ':app', ':corelib', ':imlib'
+include ':app', ':corelib', ':imlib', ':MyDaoGenerator'

@@ -3,22 +3,20 @@ package com.tongban.im;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.view.View;
 
-import com.sea_monster.dao.query.QueryBuilder;
-import com.sea_monster.exception.BaseException;
-import com.sea_monster.network.AbstractHttpRequest;
-import com.sea_monster.network.ApiCallback;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.im.db.bean.GroupTable;
+import com.tongban.im.db.bean.UserTable;
+import com.tongban.im.db.helper.GroupDaoHelper;
+import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.widget.provider.ContactsProvider;
 import com.tongban.im.widget.provider.TopicProvider;
 
-import io.rong.imkit.DBManager;
 import io.rong.imkit.PushNotificationManager;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.UserInfos;
-import io.rong.imkit.UserInfosDao;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.widget.provider.CameraInputProvider;
 import io.rong.imkit.widget.provider.ImageInputProvider;
@@ -46,7 +44,7 @@ import io.rong.notification.PushNotificationMessage;
 /**
  * 融云SDK事件监听处理。
  * 把事件统一处理，开发者可直接复制到自己的项目中去使用。
- * <p/>
+ * <p>
  * 该类包含的监听事件有：
  * 1、消息接收器：OnReceiveMessageListener。
  * 2、发出消息接收器：OnSendMessageListener。
@@ -68,7 +66,6 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     private static RongCloudEvent mRongCloudInstance;
 
     private Context mContext;
-    private UserInfosDao mUserInfosDao;
 
     /**
      * 初始化 RongCloud.
@@ -288,22 +285,12 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public UserInfo getUserInfo(String userId) {
 
-        /**
-         * demo 代码  开发者需替换成自己的代码。
-         */
-//        mUserInfosDao = DBManager.getInstance(mContext).getDaoSession().getUserInfosDao();
-//
-//        QueryBuilder qb = mUserInfosDao.queryBuilder();
-//        qb.where(UserInfosDao.Properties.Userid.eq(userId));
-//        UserInfos userInfo = mUserInfosDao.queryBuilder().where(UserInfosDao.Properties.Userid.eq(userId)).unique();
-
-//        if (userInfo == null && DemoContext.getInstance() != null) {
-//            getUserInfoByUserIdHttpRequest = DemoContext.getInstance().getDemoApi().getUserInfoByUserId(userId, (ApiCallback<User>) this);
-//        }
-
-//        return DemoContext.getInstance().getUserInfoById(userId);
-        UserInfo userInfo = new UserInfo(userId, userId, null);
-        return userInfo;
+        UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
+        if (userTable != null) {
+            return new UserInfo(userId, userTable.getNick_name(),
+                    Uri.parse(userTable.getPortrait_url()));
+        }
+        return null;
     }
 
 
@@ -316,17 +303,12 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public Group getGroupInfo(String groupId) {
 
-
-//        /**
-//         * demo 代码  开发者需替换成自己的代码。
-//         */
-//        if (DemoContext.getInstance().getGroupMap() == null)
-//            return null;
-//
-//        return DemoContext.getInstance().getGroupMap().get(groupId);
-        Group group = new Group(groupId, "群组", null);
-
-        return group;
+        GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
+        if (groupTable != null) {
+            return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
+                    Uri.parse(groupTable.getGroup_avatar()));
+        }
+        return null;
     }
 
     /**
@@ -338,7 +320,8 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
     @Override
-    public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo user) {
+    public boolean onUserPortraitClick(Context context, Conversation.ConversationType
+            conversationType, UserInfo user) {
         LogUtil.d(TAG, "onUserPortraitClick: " + user.getUserId());
 
         /**
@@ -355,7 +338,8 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     }
 
     @Override
-    public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+    public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType
+            conversationType, UserInfo userInfo) {
         LogUtil.d(TAG, "onUserPortraitLongClick: " + userInfo.getUserId());
         if (conversationType == Conversation.ConversationType.GROUP) {
             TextInputProvider textInputProvider = (TextInputProvider) RongContext.getInstance().getPrimaryInputProvider();
@@ -464,7 +448,8 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      * @return 返回 true 不再执行融云 SDK 逻辑，返回 false 先执行融云 SDK 逻辑再执行该方法。
      */
     @Override
-    public boolean onConversationLongClick(Context context, View view, UIConversation conversation) {
+    public boolean onConversationLongClick(Context context, View view, UIConversation
+            conversation) {
         return false;
     }
 }
