@@ -9,7 +9,8 @@
         android:id="@android:id/input"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:background="@android:color/white">
 
         <LinearLayout

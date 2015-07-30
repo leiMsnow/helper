@@ -24,6 +24,7 @@ import io.rong.imkit.widget.provider.CameraInputProvider;
 import io.rong.imkit.widget.provider.ImageInputProvider;
 import io.rong.imkit.widget.provider.InputProvider;
 import io.rong.imkit.widget.provider.LocationInputProvider;
+import io.rong.imkit.widget.provider.TextInputProvider;
 import io.rong.imkit.widget.provider.VoIPInputProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.RongIMClient.ConnectionStatusListener;
@@ -290,18 +291,19 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-        mUserInfosDao = DBManager.getInstance(mContext).getDaoSession().getUserInfosDao();
-
-        QueryBuilder qb = mUserInfosDao.queryBuilder();
-        qb.where(UserInfosDao.Properties.Userid.eq(userId));
-        UserInfos userInfo = mUserInfosDao.queryBuilder().where(UserInfosDao.Properties.Userid.eq(userId)).unique();
+//        mUserInfosDao = DBManager.getInstance(mContext).getDaoSession().getUserInfosDao();
+//
+//        QueryBuilder qb = mUserInfosDao.queryBuilder();
+//        qb.where(UserInfosDao.Properties.Userid.eq(userId));
+//        UserInfos userInfo = mUserInfosDao.queryBuilder().where(UserInfosDao.Properties.Userid.eq(userId)).unique();
 
 //        if (userInfo == null && DemoContext.getInstance() != null) {
 //            getUserInfoByUserIdHttpRequest = DemoContext.getInstance().getDemoApi().getUserInfoByUserId(userId, (ApiCallback<User>) this);
 //        }
 
 //        return DemoContext.getInstance().getUserInfoById(userId);
-        return null;
+        UserInfo userInfo = new UserInfo(userId, userId, null);
+        return userInfo;
     }
 
 
@@ -322,7 +324,9 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //            return null;
 //
 //        return DemoContext.getInstance().getGroupMap().get(groupId);
-        return null;
+        Group group = new Group(groupId, "群组", null);
+
+        return group;
     }
 
     /**
@@ -335,7 +339,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo user) {
-        LogUtil.d(TAG, "onUserPortraitClick");
+        LogUtil.d(TAG, "onUserPortraitClick: " + user.getUserId());
 
         /**
          * demo 代码  开发者需替换成自己的代码。
@@ -352,6 +356,14 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
     @Override
     public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+        LogUtil.d(TAG, "onUserPortraitLongClick: " + userInfo.getUserId());
+        if (conversationType == Conversation.ConversationType.GROUP) {
+            TextInputProvider textInputProvider = (TextInputProvider) RongContext.getInstance().getPrimaryInputProvider();
+            //重置文本框数据
+            textInputProvider.setCallContent("@" + userInfo.getUserId(), userInfo.getUserId());
+            return false;
+        }
+
         return false;
     }
 

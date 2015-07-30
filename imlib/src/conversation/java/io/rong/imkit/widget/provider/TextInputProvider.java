@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 
+import com.tongban.corelib.utils.LogUtil;
+
 import io.rong.database.ConversationDatabase;
 import io.rong.database.Draft;
 import io.rong.database.DraftDao;
@@ -43,7 +45,7 @@ import io.rong.message.TextMessage;
 /**
  * Created by DragonJ on 15/2/11.
  */
-public class TextInputProvider extends InputProvider.MainInputProvider implements TextWatcher, View.OnClickListener, View.OnFocusChangeListener, EmojiPagerAdapter.OnEmojiItemClickListener {
+public class TextInputProvider extends InputProvider.MainInputProvider implements TextWatcher, View.OnClickListener, View.OnFocusChangeListener, EmojiPagerAdapter.OnEmojiItemClickListener, View.OnKeyListener {
 
     EditText mEdit;
     ImageView mSmile;
@@ -55,7 +57,11 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
     Context mContext;
     Handler mHandler;
     TextWatcher mExtraTextWatcher;
-
+    //被@用户的昵称、ID
+    String mCallUserName;
+    String mCallUserId;
+    //删除@的位置
+    int delCallLength = 0;
 
     public TextInputProvider(RongContext context) {
         super(context);
@@ -130,6 +136,14 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
     public void setCurrentConversation(Conversation conversation) {
         super.setCurrentConversation(conversation);
         RongContext.getInstance().executorBackground(new DraftRenderRunnable(conversation));
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (v == mEdit) {
+            LogUtil.d("onKey-----删除");
+        }
+        return false;
     }
 
     class DraftRenderRunnable implements Runnable {
@@ -308,6 +322,7 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
 
 
         if (TextUtils.isEmpty(s)) {
+            mCallUserId = "";
             mButton.setVisibility(View.GONE);
             if (mInputView.getPlusButton() != null)
                 mInputView.getPlusButton().setVisibility(View.VISIBLE);
@@ -348,6 +363,23 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
         if (mEdit != null && !TextUtils.isEmpty(content)) {
             mEdit.setText(content);
             mEdit.setSelection(content.length());
+        }
+    }
+
+    /**
+     * 设置@用户信息
+     *
+     * @param content 用户昵称
+     * @param userId  用户ID
+     */
+    public void setCallContent(String content, String userId) {
+        mInputView.onProviderActive(getContext());
+        if (mEdit != null && !TextUtils.isEmpty(content)) {
+            mEdit.setText(content);
+            mEdit.setSelection(content.length());
+            mCallUserName = content;
+            mCallUserId = userId;
+            delCallLength = mEdit.getText().length();
         }
     }
 
