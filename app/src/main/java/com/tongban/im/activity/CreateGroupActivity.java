@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.baidu.location.BDLocation;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -19,6 +21,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.ImageUtils;
+import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.utils.Utils;
 import com.tongban.im.widget.view.AlertView;
 
@@ -43,11 +46,21 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private int mGroupType;
     private String titleName;
 
+    /**
+     * 经纬度
+     */
+    private double longitude, latitude;
+    /**
+     * 位置信息
+     */
+    private String province, city, county, address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(titleName.equals(getString(R.string.create_group)) ? getString(R.string.create_group) :
                 getString(R.string.create) + titleName);
+        LocationUtils.get(mContext).start();
     }
 
     @Override
@@ -93,7 +106,20 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
                 return;
             }
-            GroupApi.getInstance().createGroup(groupName, mGroupType, this);
+            if (longitude == 0.0)
+                longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
+            if (latitude == 0.0)
+                latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
+            if (address == null || "".equals(address))
+                address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+            if (county == null || "".equals(county))
+                county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
+            if (city == null || "".equals(city))
+                city = (String) SPUtils.get(mContext, Consts.CITY, "");
+            if (province == null || "".equals(province))
+                province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
+            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+                    null, null, null, province, city, county, this);
         }
     }
 
@@ -123,8 +149,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     }
 
     private Bitmap getLocalBitmap(String url) {
+        FileInputStream fis = null;
         try {
-            FileInputStream fis = new FileInputStream(url);
+            fis = new FileInputStream(url);
             return BitmapFactory.decodeStream(fis);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -139,16 +166,13 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
 
         mCamera.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 Utils.takePhoto(mContext, null);
                 dialog.cancel();
             }
         });
         mGallery.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Utils.openPhotoAlbum(mContext, null);
@@ -161,8 +185,19 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     public void onEventMainThread(Object obj) {
         if (obj instanceof Group) {
+            // 创建成功
             ToastUtil.getInstance(mContext).showToast("创建成功");
             finish();
+        } else if (obj instanceof BDLocation) {
+            // 定位成功
+            BDLocation dbLocation = (BDLocation) obj;
+            longitude = dbLocation.getLongitude();
+            latitude = dbLocation.getLatitude();
+            province = dbLocation.getProvince();
+            city = dbLocation.getCity();
+            county = dbLocation.getDistrict();
+            address = dbLocation.getAddrStr();
+            LocationUtils.get(mContext).stop();
         }
     }
 }

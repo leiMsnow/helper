@@ -15,6 +15,7 @@ public class SPUtils {
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     * Append methods of putting Double values by chen.
      *
      * @param context
      * @param key
@@ -38,6 +39,8 @@ public class SPUtils {
             editor.putFloat(key, (Float) object);
         } else if (object instanceof Long) {
             editor.putLong(key, (Long) object);
+        } else if (object instanceof Double) {
+            editor.putLong(key, Double.doubleToRawLongBits((Double) object));
         } else {
             editor.putString(key, object.toString());
         }
@@ -47,6 +50,7 @@ public class SPUtils {
 
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     * Append methods of getting Double values by chen.
      *
      * @param context
      * @param key
@@ -67,10 +71,13 @@ public class SPUtils {
             return sp.getFloat(key, (Float) defaultObject);
         } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
+        } else if (defaultObject instanceof Double) {
+            return Double.longBitsToDouble(sp.getLong(key, Double.doubleToRawLongBits((Double) defaultObject)));
         }
 
         return null;
     }
+
 
     /**
      * 移除某个key值已经对应的值
@@ -125,7 +132,7 @@ public class SPUtils {
     }
 
     /**
-     * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
+     * 创建一个SharedPreferencesCompat解决apply方法的一个兼容类
      *
      * @author zhy
      */
@@ -135,16 +142,14 @@ public class SPUtils {
         /**
          * 反射查找apply的方法
          *
-         * @return
+         * @return Method
          */
-        @SuppressWarnings({"unchecked", "rawtypes"})
         private static Method findApplyMethod() {
             try {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
             } catch (NoSuchMethodException e) {
             }
-
             return null;
         }
 

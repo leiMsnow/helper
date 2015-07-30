@@ -80,20 +80,47 @@ public class GroupApi extends BaseApi {
         return mApi;
     }
 
-
     /**
      * 创建群组
+     * modified by chen
      *
-     * @param groupName 群组名字
-     * @param callback  回调
+     * @param groupName   群组名字
+     * @param groupType   群组类型,参见{@link GroupType}
+     * @param longitude   经度
+     * @param latitude    纬度
+     * @param address     详细地址
+     * @param birthday    出生日期(y-m-d H:i:s)
+     * @param tags        群组的标签,多个用逗号分隔
+     * @param declaration 群简介
+     * @param province    省份
+     * @param city        城市
+     * @param county      县/区
+     * @param callback    回调
      */
-    public void createGroup(@NonNull String groupName, @NonNull int groupType, final ApiCallback callback) {
+    public void createGroup(@NonNull String groupName, @NonNull int groupType, @NonNull double longitude,
+                            @NonNull double latitude, @NonNull String address, @Nullable String birthday,
+                            @Nullable String tags, @Nullable String declaration, @Nullable String province,
+                            @Nullable String city, @NonNull String county, @NonNull final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         if (groupName != null)
             mParams.put("group_name", groupName);
         mParams.put("group_type", String.valueOf(groupType));
         mParams.put("address_type", groupType == GroupType.CLASSMATE ? 1 : 0); // 学校1,其他0
+        mParams.put("longitude", longitude);
+        mParams.put("latitude", latitude);
+        mParams.put("address", address);
+        if (birthday != null)
+            mParams.put("birthday", birthday);
+        if (tags != null)
+            mParams.put("tags", tags);
+        if (declaration != null)
+            mParams.put("declaration", declaration);
+        if (province != null)
+            mParams.put("province", province);
+        if (city != null)
+            mParams.put("city", city);
+        mParams.put("county", county);
 
         simpleRequest(CREATE_GROUP, mParams, new ApiCallback() {
             @Override
