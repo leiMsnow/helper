@@ -44,7 +44,7 @@ import io.rong.notification.PushNotificationMessage;
 /**
  * 融云SDK事件监听处理。
  * 把事件统一处理，开发者可直接复制到自己的项目中去使用。
- * <p>
+ * <p/>
  * 该类包含的监听事件有：
  * 1、消息接收器：OnReceiveMessageListener。
  * 2、发出消息接收器：OnSendMessageListener。
@@ -287,8 +287,14 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
+            LogUtil.d("userTable-----"+userTable.getUser_id());
+            String url = userTable.getPortrait_url();
+            Uri uri = null;
+            if (url != null) {
+                uri = Uri.parse(url);
+            }
             return new UserInfo(userId, userTable.getNick_name(),
-                    Uri.parse(userTable.getPortrait_url()));
+                    uri);
         }
         return null;
     }
@@ -305,8 +311,14 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
         GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
         if (groupTable != null) {
+            LogUtil.d("groupTable-----" + groupTable.getGroup_id());
+            String url = groupTable.getGroup_avatar();
+            Uri uri = null;
+            if (url != null) {
+                uri = Uri.parse(url);
+            }
             return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
-                    Uri.parse(groupTable.getGroup_avatar()));
+                    uri);
         }
         return null;
     }
