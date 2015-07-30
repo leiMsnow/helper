@@ -2,14 +2,12 @@ package com.tongban.im.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
@@ -120,37 +118,7 @@ public class LoadingActivity extends BaseToolBarActivity {
 
         @Override
         public void onReceiveLocation(BDLocation dbLocation) {
-            //Receive Location
-            StringBuffer sb = new StringBuffer();
 
-            sb.append("time : ");
-            sb.append(dbLocation.getTime());
-
-            sb.append("\nlatitude : ");
-            sb.append(dbLocation.getLatitude());
-
-            sb.append("\nlongitude : ");
-            sb.append(dbLocation.getLongitude());
-
-            sb.append("\ncounty : ");
-            sb.append(dbLocation.getCountry());
-
-            sb.append("\nprovince : ");
-            sb.append(dbLocation.getProvince());
-
-            sb.append("\ncity : ");
-            sb.append(dbLocation.getCity());
-
-            sb.append("\ndistrict : ");
-            sb.append(dbLocation.getDistrict());
-
-            sb.append("\naddress : ");
-            sb.append(dbLocation.getAddrStr());
-
-            sb.append("\nstreet : ");
-            sb.append(dbLocation.getStreet());
-
-            LogUtil.d("-----location-success:-----", sb.toString());
             double longitude = dbLocation.getLongitude();
             double latitude = dbLocation.getLatitude();
             String province = dbLocation.getProvince();
@@ -160,7 +128,6 @@ public class LoadingActivity extends BaseToolBarActivity {
             int addressType = 0;
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
-
         }
 
     }

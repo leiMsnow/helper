@@ -177,4 +177,10 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     }
 
+    @Override
+    public void onBackPressed() {
+        // 按返回键时后台运行
+        moveTaskToBack(true);
+    }
+
 }
