@@ -128,7 +128,6 @@ public class LoadingActivity extends BaseToolBarActivity {
             int addressType = 0;
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
-            mLocationClient.stop();
         }
 
     }
