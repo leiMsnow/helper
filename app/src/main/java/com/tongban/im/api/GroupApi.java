@@ -1,6 +1,7 @@
 package com.tongban.im.api;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.GroupType;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
@@ -85,12 +87,13 @@ public class GroupApi extends BaseApi {
      * @param groupName 群组名字
      * @param callback  回调
      */
-    public void createGroup(@Nullable String groupName, int groupType, final ApiCallback callback) {
+    public void createGroup(@NonNull String groupName, @NonNull int groupType, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         if (groupName != null)
             mParams.put("group_name", groupName);
         mParams.put("group_type", String.valueOf(groupType));
+        mParams.put("address_type", groupType == GroupType.CLASSMATE ? 1 : 0); // 学校1,其他0
 
         simpleRequest(CREATE_GROUP, mParams, new ApiCallback() {
             @Override
