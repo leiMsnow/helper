@@ -3,7 +3,6 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,12 +21,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.utils.ImageUtils;
 import com.tongban.im.utils.LocationUtils;
-import com.tongban.im.utils.Utils;
 import com.tongban.im.widget.view.AlertView;
-import com.tongban.im.widget.view.ClipImageBorderView;
-import com.tongban.im.widget.view.ClipImageLayout;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -143,7 +138,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                             .getAbsolutePath());
                     Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
                     intent.putExtra("newFile", newFile);
-                    startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
+                    startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
@@ -154,45 +149,14 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             String newFile = CameraUtils.saveToSD(picturePath);
             Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
             intent.putExtra("newFile", newFile);
-            startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
-        } else if (requestCode == Utils.PHOTO_REQUEST_CUT) {
+            startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
+        } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
             if (resultCode == RESULT_OK) {
                 byte[] b = data.getByteArrayExtra("bitmap");
                 Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
                 ivSetGroupIcon.setImageBitmap(bitmap);
             }
         }
-////        if (11 != resultCode) {
-////            return;
-////        }
-//        if (requestCode == Utils.OPEN_CAMERA) {
-//            File file = Utils.getImageFile();
-//            if (file.exists()) {
-//                if (file.length() > 100) {
-//                    String newFile = ImageUtils.saveToSD(file
-//                            .getAbsolutePath());
-//                    Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-//                    intent.putExtra("newFile", newFile);
-//                    startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
-//                }
-//            }
-//        } else if (requestCode == Utils.OPEN_ALBUM) {
-//            String picturePath = ImageUtils.searchUriFile(mContext, data);
-//            if (picturePath != null) {
-//                String newFile = ImageUtils.saveToSD(picturePath);
-//                Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-//                intent.putExtra("newFile", newFile);
-//                startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
-//
-//            }
-//        } else if (requestCode == Utils.PHOTO_REQUEST_CUT) {
-//            if (resultCode == RESULT_OK) {
-//                byte[] b = data.getByteArrayExtra("bitmap");
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-//                ivSetGroupIcon.setImageBitmap(bitmap);
-//            }
-//
-//        }
     }
 
     private Bitmap getLocalBitmap(String url) {

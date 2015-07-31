@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +15,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * 图片裁剪界面
+ *
+ * @author fushudi
+ */
 public class ClipImageBorderViewActivity extends BaseToolBarActivity {
     private ClipImageLayout mClipImageLayout;
 
