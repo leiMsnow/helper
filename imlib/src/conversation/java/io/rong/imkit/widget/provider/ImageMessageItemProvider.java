@@ -98,7 +98,7 @@ public class ImageMessageItemProvider extends IContainerItemProvider.MessageProv
             v.setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
         }
 
-        Glide.with(mContext).load(content.getThumUri()).listener(new RequestListener<Uri, GlideDrawable>() {
+        Glide.with(mContext).load(content.getThumUri()).placeholder(R.drawable.rc_ic_picture).listener(new RequestListener<Uri, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
                 return false;

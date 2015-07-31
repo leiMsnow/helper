@@ -149,14 +149,17 @@ public class GroupApi extends BaseApi {
     /**
      * 加入群组
      *
-     * @param groupId  群组ID
-     * @param masterId 群主ID
-     * @param callback 结果回调
+     * @param groupId   群组ID
+     * @param masterId  群主ID
+     * @param groupName 群名称
+     * @param callback  结果回调
      */
-    public void joinGroup(String groupId, String masterId, final ApiCallback callback) {
+    public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("group_name", groupName);
+
         mParams.put("group_owner_id", masterId);
 
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
@@ -295,6 +298,7 @@ public class GroupApi extends BaseApi {
      *
      * @param callback 回调
      */
+    @Deprecated
     public void fetchMyAllGroupList(final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -311,9 +315,6 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiResult<List<Group>>>() {
                         });
                 List<Group> groups = apiResponse.getData();
-                //将数据保存在本地数据库
-                GroupDaoHelper.get(mContext).addAllData(
-                        MTTAdapter.groupToTable(apiResponse.getData()));
                 callback.onComplete(groups);
             }
 

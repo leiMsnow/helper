@@ -85,7 +85,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
             case R.id.btn_join:
                 Group group = (Group) v.getTag();
                 // TODO 加入群，不需要验证
-                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getUser_id(), this);
+                GroupApi.getInstance().joinGroup(group.getGroup_id(),group.getGroup_name(), group.getUser_id(), this);
                 break;
         }
 

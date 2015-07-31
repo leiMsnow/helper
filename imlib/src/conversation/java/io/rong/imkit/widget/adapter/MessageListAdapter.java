@@ -268,7 +268,8 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 if ((publicServiceInfo != null) && publicServiceInfo.getPortraitUri() != null) {
 //                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
 //                    holder.rightIconView.setResource(resource);
-                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).into(holder.rightIconView);
+                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).placeholder(R.drawable.rc_default_portrait)
+                            .into(holder.rightIconView);
                 } else {
 //                    holder.rightIconView.setResource(null);
                 }
@@ -277,7 +278,7 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 if (userInfo != null && userInfo.getPortraitUri() != null) {
 //                    Resource resource = new Resource(userInfo.getPortraitUri());
 //                    holder.rightIconView.setResource(resource);
-                    Glide.with(mContext).load(userInfo.getPortraitUri()).into(holder.rightIconView);
+                    Glide.with(mContext).load(userInfo.getPortraitUri()).placeholder(R.drawable.rc_default_portrait).into(holder.rightIconView);
 
                 } else {
 //                    holder.rightIconView.setResource(null);
@@ -294,7 +295,7 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 if ((publicServiceInfo != null) && publicServiceInfo.getPortraitUri() != null) {
 //                    Resource resource = new Resource(publicServiceInfo.getPortraitUri());
 //                    holder.leftIconView.setResource(resource);
-                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).into(holder.leftIconView);
+                    Glide.with(mContext).load(publicServiceInfo.getPortraitUri()).placeholder(R.drawable.rc_default_portrait).into(holder.leftIconView);
 
                 } else {
 //                    holder.leftIconView.setResource(null);
@@ -304,7 +305,7 @@ public class MessageListAdapter extends BaseAdapter<Message> {
                 if (userInfo != null && userInfo.getPortraitUri() != null) {
 //                    Resource resource = new Resource(userInfo.getPortraitUri());
 //                    holder.leftIconView.setResource(resource);
-                    Glide.with(mContext).load(userInfo.getPortraitUri()).into(holder.leftIconView);
+                    Glide.with(mContext).load(userInfo.getPortraitUri()).placeholder(R.drawable.rc_default_portrait).into(holder.leftIconView);
 
                 } else {
 //                    holder.leftIconView.setResource(null);

@@ -65,7 +65,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.Grou
 //            portrait.setImageResource(R.mipmap.ic_launcher);
             groupViewHolder.hl_group_portrait.addView(portrait);
             Glide.with(context).load("http://img5.imgtn.bdimg.com/it/u=3017210771,879699792&fm=11&gp=0.jpg")
-                    .into(portrait);
+                    .placeholder(io.rong.imkit.R.drawable.rc_default_group_portrait).into(portrait);
         }
         groupViewHolder.tv_group_name.setText(groups.get(pos).getGroup_name());
 

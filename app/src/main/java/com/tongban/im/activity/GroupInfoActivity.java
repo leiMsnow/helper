@@ -94,7 +94,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     protected void initData() {
 
         Glide.with(GroupInfoActivity.this).
-                load("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg").into(ivCreator);
+                load("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg").
+                placeholder(io.rong.imkit.R.drawable.rc_default_portrait).into(ivCreator);
 
         List<User> users = new ArrayList<>();
         int i = 0;
@@ -135,7 +136,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         mGroup = groupInfo.getGroup();
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
-        Glide.with(GroupInfoActivity.this).load(mGroup.getOwner_info().getPortrait_url())
+        Glide.with(GroupInfoActivity.this).load(mGroup.getOwner_info().getPortrait_url()).
+                placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
                 .into(ivCreator);
         tvCreator.setText(mGroup.getOwner_info().getNick_name());
 

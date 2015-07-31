@@ -287,13 +287,12 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public UserInfo getUserInfo(String userId) {
 
+        UserApi.getInstance().getUserInfoByUserId(userId, null);
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
             LogUtil.d("userTable-----" + userTable.getUser_id());
             return new UserInfo(userId, userTable.getNick_name(),
                     userTable.getPortrait_url() == null ? null : Uri.parse(userTable.getPortrait_url()));
-        } else {
-            UserApi.getInstance().getUserInfoByUserId(userId, null);
         }
         return null;
     }
@@ -308,13 +307,12 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public Group getGroupInfo(String groupId) {
 
+        GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
         GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
         if (groupTable != null) {
             LogUtil.d("groupTable-----" + groupTable.getGroup_id());
             return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
                     groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
-        } else {
-            GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
         }
         return null;
     }
