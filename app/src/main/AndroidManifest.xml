@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.tongban.im"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tongban.im">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 获取机型信息权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <!-- 查看 Wi-Fi 状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 查看网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- 录音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- 控制振动器 -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 防止设备休眠 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <!-- 获取联系人信息 -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".App"
@@ -36,33 +38,33 @@
         android:theme="@style/AppTheme.White.Base">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/conversationlist"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"/>
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.ChatActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/conversation/"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -72,18 +74,18 @@
             android:name="io.rong.push.PushService"
             android:process="io.rong.push">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <action android:name="io.rong.push"/>
+                <action android:name="io.rong.push" />
             </intent-filter>
         </service>
         <service
             android:name="io.rong.push.CommandService"
             android:process="io.rong.push">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <action android:name="io.rong.command"/>
+                <action android:name="io.rong.command" />
             </intent-filter>
         </service>
 
@@ -91,55 +93,55 @@
             android:name="io.rong.push.PushReceiver"
             android:process="io.rong.push">
             <intent-filter>
-                <action android:name="io.rong.imlib.action.push.heartbeat"/>
+                <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc"/>
+            android:process=":ipc" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"
-            android:process=":ipc"/>
-        <service android:name="io.rong.imlib.ReConnectService"/>
+            android:process=":ipc" />
+        <service android:name="io.rong.imlib.ReConnectService" />
 
         <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
-                <action android:name="io.rong.push.message"/>
+                <action android:name="io.rong.push.message" />
             </intent-filter>
         </receiver>
-        <receiver android:name="io.rong.imlib.ConnectChangeReceiver"/>
+        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
 
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="3argexb6r9wse"/>
+            android:value="3argexb6r9wse" />
         <!-- end rongcloud -->
 
         <activity
             android:name=".activity.TopicActivity"
-            android:label="@string/topic"/>
+            android:label="@string/topic" />
         <activity
             android:name=".activity.GroupInfoActivity"
-            android:label="@string/group_settings"/>
-        <activity android:name=".activity.CreateGroupActivity"/>
+            android:label="@string/group_settings" />
+        <activity android:name=".activity.CreateGroupActivity" />
         <activity
             android:name=".activity.JoinGroupActivity"
-            android:label="@string/join_group">
-        </activity>
+            android:label="@string/join_group"></activity>
         <activity
             android:name=".activity.ChoiceGroupTypeActivity"
-            android:label="@string/choice_group_type">
-        </activity>
+            android:label="@string/choice_group_type"></activity>
         <activity
             android:name=".activity.PwdResetActivity"
-            android:label="@string/title_activity_pass_reset">
-        </activity>
+            android:label="@string/title_activity_pass_reset"></activity>
+        <activity
+            android:name=".activity.ClipImageBorderViewActivity"
+            android:label="@string/title_activity_pass_reset"></activity>
     </application>
 
 </manifest>

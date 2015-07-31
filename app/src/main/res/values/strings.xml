@@ -59,6 +59,7 @@
     <string name="group_secret_detail">允许所有人按条件搜索到此圈子，认证后可加入</string>
     <string name="group_secret_update">更改</string>
     <string name="finish_create">完成创建</string>
+    <string name="icon_clip">头像裁剪</string>
 
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>

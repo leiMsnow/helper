@@ -16,6 +16,8 @@ import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.tongban.corelib.utils.ToastUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
@@ -79,6 +81,7 @@ public class Utils {
 					OPEN_ALBUM);
 			return;
 		}
+
 		((Activity) context).startActivityForResult(intent, OPEN_ALBUM);
 	}
 

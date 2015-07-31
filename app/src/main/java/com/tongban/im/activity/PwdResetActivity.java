@@ -81,7 +81,8 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
                     }
                 }
 //                }
-            } else {
+            }
+            else {
                 if (mOldPwd.length() == 0) {
                     ToastUtil.getInstance(mContext).showToast(getString(R.string.old_pwd_empty));
                 } else {
