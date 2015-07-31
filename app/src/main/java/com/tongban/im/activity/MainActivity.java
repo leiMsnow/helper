@@ -18,7 +18,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.CircleFragment;
 import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
-import com.tongban.im.fragment.RecommendFragment;
+import com.tongban.im.fragment.PostBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -58,7 +58,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     protected void initView() {
-        setTitle("推荐");
+        setTitle("发现");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_panel);
 
         fm = getSupportFragmentManager();
@@ -70,24 +70,24 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         }
 
         fragments = new Fragment[3];
-        /** 推荐页 */
-//        fragments[0] = new RecommendFragment();
-        fragments[0] = new CircleFragment();
-        /** 圈子页 */
-        if (fragments[1] == null) {
-            ConversationListFragment listFragment = ConversationListFragment.getInstance();
-            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-                    .appendPath("conversationlist")
-                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
-                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false") //群组
-                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
-                    .build();
-            listFragment.setUri(uri);
-            fragments[1] = listFragment;
-        }
-//        fragments[1] = new CircleFragment();
         /** 发现页 */
-        fragments[2] = new DiscoverFragment();
+        fragments[0] = new DiscoverFragment();
+        /** 话题/动态页 */
+        fragments[1] = new PostBarFragment();
+        /** 圈子页 */
+        fragments[2] = new CircleFragment();
+//        if (fragments[2] == null) {
+//            ConversationListFragment listFragment = ConversationListFragment.getInstance();
+//            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
+//                    .appendPath("conversationlist")
+//                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
+//                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false") //群组
+//                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
+//                    .build();
+//            listFragment.setUri(uri);
+//            fragments[1] = listFragment;
+//        }
+
 
         fm.beginTransaction().add(R.id.fl_container, fragments[0]).commit();
 
@@ -105,13 +105,13 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.rb_recommend:
+                    case R.id.rb_discover:
                         fm.beginTransaction().show(fragments[0]).
                                 hide(fragments[currentPage]).commit();
                         currentPage = 0;
-                        setTitle("推荐");
+                        setTitle("发现");
                         break;
-                    case R.id.rb_circle:
+                    case R.id.rb_post_bar:
                         if (fragments[1].isAdded()) {
                             fm.beginTransaction().show(fragments[1]).
                                     hide(fragments[currentPage]).commit();
@@ -120,9 +120,9 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                     .hide(fragments[currentPage]).commit();
                         }
                         currentPage = 1;
-                        setTitle("圈子");
+                        setTitle("话题");
                         break;
-                    case R.id.rb_discover:
+                    case R.id.rb_circle:
                         if (fragments[2].isAdded()) {
                             fm.beginTransaction().show(fragments[2]).
                                     hide(fragments[currentPage]).commit();
@@ -131,7 +131,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                     .hide(fragments[currentPage]).commit();
                         }
                         currentPage = 2;
-                        setTitle("发现");
+                        setTitle("圈子");
                         break;
                 }
             }

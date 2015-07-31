@@ -5,14 +5,14 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 
 /**
- * 推荐页
+ * 话题/动态页
  * author: chenenyu 15/7/13
  */
-public class RecommendFragment extends BaseApiFragment {
+public class PostBarFragment extends BaseApiFragment {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_recommend;
+        return R.layout.fragment_postbar;
     }
 
     @Override
