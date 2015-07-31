@@ -14,11 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.tongban.im.widget.view.HexagonLayout
-            android:id="@+id/hl_group_portrait"
+        <ImageView
+            android:id="@+id/iv_group_icon"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_centerHorizontal="true"/>
+            android:src="@drawable/rc_default_group_portrait"
+            android:layout_centerInParent="true"/>
 
         <LinearLayout
             android:id="@+id/ll_bottom_msg"
