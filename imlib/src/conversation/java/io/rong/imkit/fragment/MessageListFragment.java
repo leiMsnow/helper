@@ -14,12 +14,15 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.tongban.corelib.utils.SPUtils;
+
 import org.w3c.dom.UserDataHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 import io.rong.imkit.ConversationConst;
 import io.rong.imkit.R;
 import io.rong.imkit.RLog;
@@ -364,8 +367,17 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
             MessageContent mc = message.getContent();
             if (mc instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) mc;
-                if (textMessage.getExtra() != null){
+                if (textMessage.getExtra() != null && textMessage.getExtra().equals(
+                        SPUtils.get(getActivity(), "USER_ID", "").toString())) {
                     showNotification("有人@你了");
+
+                    getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            hiddenNotification();
+                        }
+                    },3 * 1000);
                 }
             }
             int position = mAdapter.findPosition(message);
