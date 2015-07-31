@@ -142,6 +142,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
+            // 将Uri转化成File
             String picturePath = CameraUtils.searchUriFile(mContext, data);
             if (picturePath == null) {
                 picturePath = data.getData().getPath();
@@ -180,7 +181,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //     Utils.takePhoto(mContext, null);
                     CameraUtils.takePhoto(mContext);
                     dialog.cancel();
                 }
@@ -188,7 +188,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //     Utils.openPhotoAlbum(mContext, null);
                     CameraUtils.openPhotoAlbum(mContext);
                     dialog.cancel();
                 }
