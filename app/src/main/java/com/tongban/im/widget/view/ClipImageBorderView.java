@@ -10,9 +10,13 @@ import android.util.TypedValue;
 import android.view.View;
 
 public class ClipImageBorderView extends View {
-
+    /**
+     * 水平方向与View的间距
+     */
     private int mHorizontalPadding;
-
+    /**
+     * 垂直方向与View的间距
+     */
     private int mVerticalPadding;
 
     private int mWidth;
