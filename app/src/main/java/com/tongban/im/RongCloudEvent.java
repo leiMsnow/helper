@@ -322,38 +322,30 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      *
      * @param context          应用当前上下文。
      * @param conversationType 会话类型。
-     * @param user             被点击的用户的信息。
+     * @param userInfo             被点击的用户的信息。
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType
-            conversationType, UserInfo user) {
-        LogUtil.d(TAG, "onUserPortraitClick: " + user.getUserId());
+            conversationType, UserInfo userInfo) {
+        if (userInfo != null) {
+            LogUtil.d(TAG, "onUserPortraitClick: " + userInfo.getUserId());
+        }
 
-        /**
-         * demo 代码  开发者需替换成自己的代码。
-         */
-//        if (user != null) {
-//            LogUtil.d("Begavior", conversationType.getName() + ":" + user.getName());
-//            Intent in = new Intent(context, DePersonalDetailActivity.class);
-//            in.putExtra("USER", user);
-//            in.putExtra("SEARCH_USERID", user.getUserId());
-//            context.startActivity(in);
-//        }
         return false;
     }
 
     @Override
     public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType
             conversationType, UserInfo userInfo) {
-        LogUtil.d(TAG, "onUserPortraitLongClick: " + userInfo.getUserId());
-        if (conversationType == Conversation.ConversationType.GROUP) {
-            TextInputProvider textInputProvider = (TextInputProvider) RongContext.getInstance().getPrimaryInputProvider();
-            //重置文本框数据
-            textInputProvider.setCallContent("@" + userInfo.getUserId(), userInfo.getUserId());
-            return false;
+        if (userInfo != null) {
+            LogUtil.d(TAG, "onUserPortraitLongClick: " + userInfo.getUserId());
+            if (conversationType == Conversation.ConversationType.GROUP) {
+                TextInputProvider textInputProvider = (TextInputProvider) RongContext.getInstance().getPrimaryInputProvider();
+                //重置文本框数据
+                textInputProvider.setCallContent("@" + userInfo.getName(), userInfo.getUserId());
+            }
         }
-
         return false;
     }
 

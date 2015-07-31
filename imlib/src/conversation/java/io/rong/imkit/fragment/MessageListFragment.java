@@ -14,6 +14,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.w3c.dom.UserDataHandler;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,7 @@ import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.PublicServiceInfo;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
+import io.rong.message.TextMessage;
 
 /**
  * Created by DragonJ on 14/10/23.
@@ -358,6 +361,13 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
         RLog.d(this, "onEventBackgroundThread", "message : " + message.toString());
 
         if (mConversation != null && mConversation.getTargetId().equals(message.getTargetId()) && mConversation.getConversationType() == message.getConversationType()) {
+            MessageContent mc = message.getContent();
+            if (mc instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) mc;
+                if (textMessage.getExtra() != null){
+                    showNotification("有人@你了");
+                }
+            }
             int position = mAdapter.findPosition(message);
             if (position == -1) {
                 RLog.d(this, "onEventBackgroundThread", "REFRESH_LIST : ");
@@ -510,7 +520,7 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
 
     public void onEventMainThread(Event.ImageLoadSuccessEvent success) {
         if (mAdapter != null) {
-            Log.d("ImageLoadSuccess","图片加载完成");
+            Log.d("ImageLoadSuccess", "图片加载完成");
             mList.setSelection(mAdapter.getCount());
         }
     }

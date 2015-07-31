@@ -45,7 +45,7 @@ import io.rong.message.TextMessage;
 /**
  * Created by DragonJ on 15/2/11.
  */
-public class TextInputProvider extends InputProvider.MainInputProvider implements TextWatcher, View.OnClickListener, View.OnFocusChangeListener, EmojiPagerAdapter.OnEmojiItemClickListener, View.OnKeyListener {
+public class TextInputProvider extends InputProvider.MainInputProvider implements TextWatcher, View.OnClickListener, View.OnFocusChangeListener, EmojiPagerAdapter.OnEmojiItemClickListener {
 
     EditText mEdit;
     ImageView mSmile;
@@ -136,14 +136,6 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
     public void setCurrentConversation(Conversation conversation) {
         super.setCurrentConversation(conversation);
         RongContext.getInstance().executorBackground(new DraftRenderRunnable(conversation));
-    }
-
-    @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (v == mEdit) {
-            LogUtil.d("onKey-----删除");
-        }
-        return false;
     }
 
     class DraftRenderRunnable implements Runnable {
@@ -247,7 +239,10 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
                 return;
             }
 
-            publish(TextMessage.obtain(mEdit.getText().toString()));
+            TextMessage textMessage = TextMessage.obtain(mEdit.getText().toString());
+            if (mCallUserId != null)
+                textMessage.setExtra(mCallUserId);
+            publish(textMessage);
             mEdit.getText().clear();
         } else if (mEdit.equals(v)) {
             mInputView.onProviderActive(getContext());
@@ -327,6 +322,12 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
             if (mInputView.getPlusButton() != null)
                 mInputView.getPlusButton().setVisibility(View.VISIBLE);
         } else {
+            if (mCallUserName != null) {
+                if (!s.toString().contains(mCallUserName)) {
+                    mCallUserId = "";
+                    LogUtil.d("onTextChanged", s.toString() + "被更改");
+                }
+            }
             mButton.setVisibility(View.VISIBLE);
             if (mInputView.getPlusButton() != null)
                 mInputView.getPlusButton().setVisibility(View.GONE);
@@ -375,7 +376,7 @@ public class TextInputProvider extends InputProvider.MainInputProvider implement
     public void setCallContent(String content, String userId) {
         mInputView.onProviderActive(getContext());
         if (mEdit != null && !TextUtils.isEmpty(content)) {
-            mEdit.setText(content);
+            mEdit.setText(content + " ");
             mEdit.setSelection(content.length());
             mCallUserName = content;
             mCallUserId = userId;
