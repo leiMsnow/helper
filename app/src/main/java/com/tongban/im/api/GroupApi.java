@@ -339,7 +339,8 @@ public class GroupApi extends BaseApi {
         simpleRequest(FETCH_MY_JOIN_GROUP_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -351,12 +352,14 @@ public class GroupApi extends BaseApi {
                 groupInfoEvent.setGroup(apiResponse.getData());
                 //将数据保存在本地数据库
                 GroupDaoHelper.get(mContext).addData(MTTAdapter.groupToTable(apiResponse.getData()));
-                callback.onComplete(groupInfoEvent);
+                if (callback != null)
+                    callback.onComplete(groupInfoEvent);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
         });
     }

@@ -17,6 +17,7 @@ import de.greenrobot.dao.query.QueryBuilder;
 public class UserDaoHelper extends BaseDaoHelper<UserTableDao, UserTable> {
 
     private static UserDaoHelper helper;
+
     private UserDaoHelper(Context context) {
         super(IMDBManager.getInstance(context).getDaoSession().getUserTableDao());
     }
@@ -35,12 +36,9 @@ public class UserDaoHelper extends BaseDaoHelper<UserTableDao, UserTable> {
     @Override
     protected UserTable getDataInfoById(String id) {
         if (tableDao != null && !TextUtils.isEmpty(id)) {
-            if (tableDao.load(id) == null) {
-                //获取网络数据
-                UserApi.getInstance().getUserInfoByUserId(id, null);
-            }
+            return tableDao.load(id);
         }
-        return tableDao.load(id);
+        return null;
     }
 
     @Override

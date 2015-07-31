@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.view.View;
 
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.UserApi;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
@@ -287,14 +289,11 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
-            LogUtil.d("userTable-----"+userTable.getUser_id());
-            String url = userTable.getPortrait_url();
-            Uri uri = null;
-            if (url != null) {
-                uri = Uri.parse(url);
-            }
+            LogUtil.d("userTable-----" + userTable.getUser_id());
             return new UserInfo(userId, userTable.getNick_name(),
-                    uri);
+                    userTable.getPortrait_url() == null ? null : Uri.parse(userTable.getPortrait_url()));
+        } else {
+            UserApi.getInstance().getUserInfoByUserId(userId, null);
         }
         return null;
     }
@@ -312,13 +311,10 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
         if (groupTable != null) {
             LogUtil.d("groupTable-----" + groupTable.getGroup_id());
-            String url = groupTable.getGroup_avatar();
-            Uri uri = null;
-            if (url != null) {
-                uri = Uri.parse(url);
-            }
             return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
-                    uri);
+                    groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
+        } else {
+            GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
         }
         return null;
     }

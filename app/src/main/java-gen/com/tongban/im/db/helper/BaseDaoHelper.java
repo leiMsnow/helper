@@ -14,8 +14,6 @@ import de.greenrobot.dao.query.QueryBuilder;
 public abstract class BaseDaoHelper<D extends AbstractDao, T extends Object> implements IDaoHelper<T> {
 
     protected D tableDao;
-    private static BaseDaoHelper helper;
-
 
     protected abstract T getDataInfoById(String id);
 

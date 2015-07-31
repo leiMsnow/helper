@@ -3,6 +3,7 @@ package com.tongban.im.db.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.db.IMDBManager;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.dao.GroupTableDao;
@@ -36,12 +37,9 @@ public class GroupDaoHelper extends BaseDaoHelper<GroupTableDao, GroupTable> {
     @Override
     protected GroupTable getDataInfoById(String id) {
         if (tableDao != null && !TextUtils.isEmpty(id)) {
-            if (tableDao.load(id) == null) {
-                //获取网络数据
-//                GroupApi.getInstance().getUserInfoByUserId(id, null);
-            }
+            return tableDao.load(id);
         }
-        return tableDao.load(id);
+        return null;
     }
 
     @Override
