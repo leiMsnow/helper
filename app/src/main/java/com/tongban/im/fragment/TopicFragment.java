@@ -8,11 +8,11 @@ import com.tongban.im.R;
  * 话题/动态页
  * author: chenenyu 15/7/13
  */
-public class PostBarFragment extends BaseApiFragment {
+public class TopicFragment extends BaseApiFragment {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_postbar;
+        return R.layout.fragment_topic;
     }
 
     @Override

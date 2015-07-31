@@ -1,7 +1,6 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,11 +17,8 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.CircleFragment;
 import com.tongban.im.fragment.DiscoverFragment;
 import com.tongban.im.fragment.LeftMenuFragment;
-import com.tongban.im.fragment.PostBarFragment;
+import com.tongban.im.fragment.TopicFragment;
 import com.tongban.im.model.BaseEvent;
-
-import io.rong.imkit.fragment.ConversationListFragment;
-import io.rong.imlib.model.Conversation;
 
 /**
  * 主界面
@@ -73,7 +69,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         /** 发现页 */
         fragments[0] = new DiscoverFragment();
         /** 话题/动态页 */
-        fragments[1] = new PostBarFragment();
+        fragments[1] = new TopicFragment();
         /** 圈子页 */
         fragments[2] = new CircleFragment();
 //        if (fragments[2] == null) {
@@ -111,7 +107,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                         currentPage = 0;
                         setTitle("发现");
                         break;
-                    case R.id.rb_post_bar:
+                    case R.id.rb_topic:
                         if (fragments[1].isAdded()) {
                             fm.beginTransaction().show(fragments[1]).
                                     hide(fragments[currentPage]).commit();
@@ -149,18 +145,12 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_circle_fragment, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_join_group) {
-            Intent intent = new Intent(mContext, JoinGroupActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     @Override

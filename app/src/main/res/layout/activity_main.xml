@@ -45,7 +45,7 @@
                     android:textColor="@drawable/selector_main_tab_text_color" />
 
                 <RadioButton
-                    android:id="@+id/rb_post_bar"
+                    android:id="@+id/rb_topic"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

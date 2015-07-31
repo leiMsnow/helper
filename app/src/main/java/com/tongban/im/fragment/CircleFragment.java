@@ -1,15 +1,20 @@
 package com.tongban.im.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.JoinGroupActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.Group;
@@ -39,7 +44,7 @@ public class CircleFragment extends BaseApiFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -64,6 +69,22 @@ public class CircleFragment extends BaseApiFragment {
     @Override
     protected void initData() {
         GroupApi.getInstance().fetchMyAllGroupList(this);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_circle_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_join_group) {
+            Intent intent = new Intent(mContext, JoinGroupActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
