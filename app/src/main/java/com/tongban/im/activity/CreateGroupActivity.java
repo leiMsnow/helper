@@ -147,13 +147,14 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-//            String picturePath = CameraUtils.searchUriFile(mContext, data);
-//            if (picturePath != null) {
-                String newFile = CameraUtils.saveToSD(data.getData().getPath());
-                Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-                intent.putExtra("newFile", newFile);
-                startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
-//            }
+            String picturePath = CameraUtils.searchUriFile(mContext, data);
+            if (picturePath == null) {
+                picturePath = data.getData().getPath();
+            }
+            String newFile = CameraUtils.saveToSD(picturePath);
+            Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
+            intent.putExtra("newFile", newFile);
+            startActivityForResult(intent, Utils.PHOTO_REQUEST_CUT);
         } else if (requestCode == Utils.PHOTO_REQUEST_CUT) {
             if (resultCode == RESULT_OK) {
                 byte[] b = data.getByteArrayExtra("bitmap");

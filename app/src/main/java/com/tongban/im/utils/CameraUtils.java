@@ -35,7 +35,7 @@ public class CameraUtils {
 	public static int OPEN_CAMERA = 21;
 
 	public static String saveToSD(String filePath) {
-		Bitmap bitmap = decodeFile(new File(filePath), 720, 1280);
+		Bitmap bitmap = decodeFile(new File(filePath), 320, 640);
 		return saveToSD(bitmap, filePath);
 	}
 
