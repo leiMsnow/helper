@@ -39,7 +39,9 @@
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/conversationlist"
@@ -132,16 +134,19 @@
         <activity android:name=".activity.CreateGroupActivity" />
         <activity
             android:name=".activity.JoinGroupActivity"
-            android:label="@string/join_group"></activity>
+            android:label="@string/join_group" />
         <activity
             android:name=".activity.ChoiceGroupTypeActivity"
-            android:label="@string/choice_group_type"></activity>
+            android:label="@string/choice_group_type" />
         <activity
             android:name=".activity.PwdResetActivity"
-            android:label="@string/title_activity_pass_reset"></activity>
+            android:label="@string/title_activity_pass_reset" />
         <activity
             android:name=".activity.ClipImageBorderViewActivity"
-            android:label="@string/title_activity_pass_reset"></activity>
+            android:label="@string/title_activity_pass_reset" />
+        <activity
+            android:name=".activity.TopicDetailActivity"
+            android:label="@string/topic_name"></activity>
     </application>
 
 </manifest>

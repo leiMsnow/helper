@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
     private TextView tvTopicByHot;
     private TextView tvTopicByMe;
     private View moveLine;
+
     private int screenWidth;
     private float moveLineFrom;
     private float moveLineTo;
@@ -112,7 +114,7 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        startActivity(new Intent(mContext, TopicDetailActivity.class));
     }
 
     @Override

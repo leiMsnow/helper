@@ -44,7 +44,7 @@
     <string name="group_settings">聊天设置</string>
     <string name="by_hot">按热度</string>
     <string name="join_by_me">我参加的</string>
-
+    <string name="topic_name">话题名称</string>
     <!--创建圈子-->
     <string name="group_label">选择圈子标签</string>
     <string name="create_group">创建圈子</string>
@@ -65,4 +65,5 @@
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>
     <string name="title_activity_pass_reset">PassResetActivity</string>
+
 </resources>

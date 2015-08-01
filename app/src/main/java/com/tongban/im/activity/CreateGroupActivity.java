@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,13 +36,8 @@ import java.io.FileNotFoundException;
  * @author fushudi
  */
 public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
-    private ImageView ivSetGroupIcon;
     private Button btnSubmit;
     private EditText etGroupName;
-
-    private AlertView dialog;
-    private LinearLayout mCamera;
-    private LinearLayout mGallery;
 
     private int mGroupType;
     private String titleName;
@@ -81,14 +78,12 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initView() {
-        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
         btnSubmit = (Button) findViewById(R.id.btn_create);
         etGroupName = (EditText) findViewById(R.id.et_group_name);
     }
 
     @Override
     protected void initListener() {
-        ivSetGroupIcon.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
     }
 
@@ -99,9 +94,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v == ivSetGroupIcon) {
-            createDialog();
-        } else if (v == btnSubmit) {
+        if (v == btnSubmit) {
             String groupName = etGroupName.getText().toString().trim();
             if (TextUtils.isEmpty(groupName)) {
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
@@ -124,42 +117,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (RESULT_OK != resultCode) {
-            return;
-        }
-        if (requestCode == CameraUtils.OPEN_CAMERA) {
-            File file = CameraUtils.getImageFile();
-            if (file.exists()) {
-                if (file.length() > 100) {
-                    String newFile = CameraUtils.saveToSD(file
-                            .getAbsolutePath());
-                    Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-                    intent.putExtra("newFile", newFile);
-                    startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
-                }
-            }
-        } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            // 将Uri转化成File
-            String picturePath = CameraUtils.searchUriFile(mContext, data);
-            if (picturePath == null) {
-                picturePath = data.getData().getPath();
-            }
-            String newFile = CameraUtils.saveToSD(picturePath);
-            Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-            intent.putExtra("newFile", newFile);
-            startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
-        } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
-            if (resultCode == RESULT_OK) {
-                byte[] b = data.getByteArrayExtra("bitmap");
-                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-                ivSetGroupIcon.setImageBitmap(bitmap);
-            }
-        }
-    }
-
     private Bitmap getLocalBitmap(String url) {
         FileInputStream fis = null;
         try {
@@ -169,31 +126,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             e.printStackTrace();
             return null;
         }
-    }
-
-    // 打开相机的提示框
-    private void createDialog() {
-        if (dialog == null) {
-            dialog = new AlertView(this);
-            mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
-            mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
-
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.takePhoto(mContext);
-                    dialog.cancel();
-                }
-            });
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.openPhotoAlbum(mContext);
-                    dialog.cancel();
-                }
-            });
-        }
-        dialog.show();
     }
 
     public void onEventMainThread(Object obj) {
@@ -212,5 +144,21 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             address = dbLocation.getAddrStr();
             LocationUtils.get(mContext).stop();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.topic_detail) {
+            startActivity(new Intent(mContext, TopicActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
