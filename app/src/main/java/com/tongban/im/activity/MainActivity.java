@@ -125,7 +125,28 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.open, R.string.close);
         mActionBarDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                mActionBarDrawerToggle.onDrawerSlide(drawerView,slideOffset);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                mActionBarDrawerToggle.onDrawerOpened(drawerView);
+                startActivity(new Intent(mContext,UserCenterActivity.class));
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                mActionBarDrawerToggle.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                mActionBarDrawerToggle.onDrawerStateChanged(newState);
+            }
+        });
     }
 
     @Override
