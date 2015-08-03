@@ -64,6 +64,9 @@
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>
-    <string name="title_activity_pass_reset">PassResetActivity</string>
+    <!-- 重置密码-->
+    <string name="pass_reset">重置密码</string>
+    <!-- 用户中心-->
+    <string name="user_center">用户中心</string>
 
 </resources>
