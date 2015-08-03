@@ -71,7 +71,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_create_group) {
-            Intent intent = new Intent(mContext, ChoiceGroupTypeActivity.class);
+            Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
             startActivity(intent);
             return true;
         }

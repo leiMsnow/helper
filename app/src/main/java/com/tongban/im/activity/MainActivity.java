@@ -1,6 +1,5 @@
 package com.tongban.im.activity;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -72,21 +71,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         fragments[1] = new TopicFragment();
         /** 圈子页 */
         fragments[2] = new CircleFragment();
-//        if (fragments[2] == null) {
-//            ConversationListFragment listFragment = ConversationListFragment.getInstance();
-//            Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
-//                    .appendPath("conversationlist")
-//                    .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
-//                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false") //群组
-//                    .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
-//                    .build();
-//            listFragment.setUri(uri);
-//            fragments[1] = listFragment;
-//        }
-
-
         fm.beginTransaction().add(R.id.fl_container, fragments[0]).commit();
-
         rg_tab = (RadioGroup) findViewById(R.id.rg_tab);
     }
 

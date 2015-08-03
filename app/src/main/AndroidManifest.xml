@@ -36,7 +36,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme.White.Base">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -136,7 +138,7 @@
             android:name=".activity.JoinGroupActivity"
             android:label="@string/join_group" />
         <activity
-            android:name=".activity.ChoiceGroupTypeActivity"
+            android:name=".activity.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
         <activity
             android:name=".activity.PwdResetActivity"

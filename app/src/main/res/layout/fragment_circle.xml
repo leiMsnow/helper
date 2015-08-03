@@ -1,15 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.tongban.im.fragment.CircleFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tongban.im.fragment.CircleFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_group"
+    <RadioGroup
+        android:id="@+id/rg_circle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_fragment_bg"
-        android:padding="8dp"
-        android:scrollbars="none"/>
+        android:layout_height="48dp"
+        android:background="#a9a8aa"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <RadioButton
+            android:id="@+id/rb_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="聊天"
+            android:textColor="@drawable/selector_main_tab_text_color" />
+
+        <RadioButton
+            android:id="@+id/rb_recommend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="推荐"
+            android:textColor="@drawable/selector_main_tab_text_color" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -27,7 +27,7 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class ChoiceGroupTypeActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener {
+public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener {
 
     private ListView lvGroupType;
     private View vHeader;
