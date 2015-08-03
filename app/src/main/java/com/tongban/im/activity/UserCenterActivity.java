@@ -1,39 +1,72 @@
 package com.tongban.im.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
+import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 
-public class UserCenterActivity extends AppCompatActivity {
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.header.StoreHouseHeader;
+
+/**
+ * 用户中心
+ */
+public class UserCenterActivity extends BaseToolBarActivity {
+
+    private ListView lvUserCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_center);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_center, menu);
-        return true;
+    protected int getLayoutRes() {
+        return R.layout.activity_user_center;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initView() {
+        lvUserCenter = (ListView) findViewById(R.id.lv_user_center);
+        final PtrFrameLayout ptrFrameLayout = (PtrFrameLayout) findViewById(R.id.ptr_frame);
+        StoreHouseHeader header = new StoreHouseHeader(mContext);
+        header.setPadding(0, DensityUtils.dp2px(mContext,20), 0, DensityUtils.dp2px(mContext,20));
+        header.initWithString("Ultra PTR");
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        ptrFrameLayout.setDurationToCloseHeader(1500);
+        ptrFrameLayout.setHeaderView(header);
+        ptrFrameLayout.addPtrUIHandler(header);
+        ptrFrameLayout.setPtrHandler(new PtrHandler() {
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
 
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                ptrFrameLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ptrFrameLayout.refreshComplete();
+                    }
+                }, 1500);
+            }
+        });
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
 }

@@ -140,16 +140,16 @@
             android:label="@string/choice_group_type" />
         <activity
             android:name=".activity.PwdResetActivity"
-            android:label="@string/title_activity_pass_reset" />
+            android:label="@string/pass_reset" />
         <activity
             android:name=".activity.ClipImageBorderViewActivity"
-            android:label="@string/title_activity_pass_reset" />
+            android:label="@string/pass_reset" />
         <activity
             android:name=".activity.TopicDetailActivity"
             android:label="@string/topic_name" />
         <activity
             android:name=".activity.UserCenterActivity"
-            android:label="@string/title_activity_user_center" >
+            android:label="@string/user_center" >
         </activity>
     </application>
 
