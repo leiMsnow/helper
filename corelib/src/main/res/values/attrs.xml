@@ -7,4 +7,11 @@
         <attr name="changeText" format="string" />
         <attr name="changeTextSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="PullToZoomView">
+        <attr name="headerView" format="reference" />
+        <attr name="contentView" format="reference" />
+        <attr name="zoomView" format="reference" />
+        <attr name="isHeaderParallax" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -1,29 +1,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/include_toolbar" />
-
-    <in.srain.cube.views.ptr.PtrFrameLayout xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ptr_frame"
+    <com.tongban.corelib.widget.view.ptz.PullToZoomListViewEx
+        android:id="@+id/lv_user_center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        custom:headerView="@layout/profile_head_view"
+        custom:zoomView="@layout/profile_zoom_view" />
 
-        cube_ptr:ptr_duration_to_close="300"
-        cube_ptr:ptr_duration_to_close_header="2000"
-        cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false"
-        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">
+    <!-- 标题栏-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@android:color/transparent">
 
-        <ListView
-            android:id="@+id/lv_user_center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:src="@mipmap/ic_create_group" />
 
-    </in.srain.cube.views.ptr.PtrFrameLayout>
+        <TextView
+            android:id="@+id/tv_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_weather"
+            android:text="18-29°c\n北京市朝阳区"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="用户名称"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/ic_menu_close" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
