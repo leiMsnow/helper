@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,10 +11,44 @@
         android:id="@+id/lv_reply_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_above="@+id/rl_reply"
+        android:layout_below="@+id/toolbar"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
         android:scrollbars="none" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black">
+
+        <EditText
+            android:id="@+id/et_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/tv_page"
+            android:background="@drawable/shape_topic_reply_normal"
+            android:gravity="center_horizontal"
+            android:hint="发表评论" />
+
+        <TextView
+            android:id="@+id/tv_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_reply"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/et_reply"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="1/5页"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

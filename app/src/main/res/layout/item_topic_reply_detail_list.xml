@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_reply_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@mipmap/ic_launcher" />
-
-    <TextView
-        android:id="@+id/tv_reply_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/iv_reply_icon"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/iv_reply_icon"
-        android:text="昵称"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tv_reply_sex"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_reply_nickname"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_reply_nickname"
-        android:text="男"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tv_reply_age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_reply_sex"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_reply_sex"
-        android:text="3岁"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tv_reply_content"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_reply_nickname"
-        android:layout_below="@+id/tv_reply_nickname"
-        android:layout_marginTop="8dp"
-        android:textColor="#ADAAAA"
-        android:text="评论内容评论内容评论内容评论内容评论内容评论内容" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/tv_reply_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_reply_content"
-        android:layout_below="@+id/tv_reply_content"
-        android:layout_marginTop="16dp"
-        android:text="08-01 13：07" />
+        <ImageView
+            android:id="@+id/iv_reply_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/tv_reply_praise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_reply_time"
-        android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/tv_reply"
-        android:text="赞 10" />
+        <TextView
+            android:id="@+id/tv_reply_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_reply_icon"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/iv_reply_icon"
+            android:text="昵称"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_reply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_reply_time"
-        android:layout_alignParentRight="true"
-        android:text="回复" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_reply_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_reply_nickname"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/tv_reply_nickname"
+            android:text="男"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_reply_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_reply_sex"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/tv_reply_sex"
+            android:text="3岁"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_reply_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_reply_nickname"
+            android:layout_below="@+id/tv_reply_nickname"
+            android:layout_marginTop="8dp"
+            android:text="评论内容评论内容评论内容评论内容评论内容评论内容"
+            android:textColor="#ADAAAA" />
+
+        <TextView
+            android:id="@+id/tv_reply_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_reply_content"
+            android:layout_below="@+id/tv_reply_content"
+            android:layout_marginTop="16dp"
+            android:text="08-01 13：07" />
+
+        <TextView
+            android:id="@+id/tv_reply_praise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_reply_time"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/tv_reply"
+            android:text="赞 10" />
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_reply_time"
+            android:layout_alignParentRight="true"
+            android:text="回复" />
+    </RelativeLayout>
+</FrameLayout>
