@@ -138,7 +138,7 @@
             android:name=".activity.JoinGroupActivity"
             android:label="@string/join_group" />
         <activity
-            android:name=".activity.ChoiceGroupTypeActivity"
+            android:name=".activity.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
         <activity
             android:name=".activity.PwdResetActivity"
@@ -148,7 +148,7 @@
             android:label="@string/title_activity_pass_reset" />
         <activity
             android:name=".activity.TopicDetailActivity"
-            android:label="@string/topic_name"></activity>
+            android:label="@string/topic_name" />
     </application>
 
 </manifest>
