@@ -13,6 +13,10 @@ import com.tongban.im.model.TopicReply;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 话题详情界面
+ * @author fushudi
+ */
 public class TopicDetailActivity extends BaseToolBarActivity {
     private ListView lvReplyList;
     private TopicReplyAdapter mAdapter;

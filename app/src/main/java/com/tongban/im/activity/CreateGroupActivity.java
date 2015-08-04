@@ -38,6 +38,11 @@ import java.io.FileNotFoundException;
 public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
     private Button btnSubmit;
     private EditText etGroupName;
+    private ImageView ivSetGroupIcon;
+
+    private AlertView dialog;
+    private LinearLayout mCamera;
+    private LinearLayout mGallery;
 
     private int mGroupType;
     private String titleName;
@@ -78,12 +83,14 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initView() {
+        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
         btnSubmit = (Button) findViewById(R.id.btn_create);
         etGroupName = (EditText) findViewById(R.id.et_group_name);
     }
 
     @Override
     protected void initListener() {
+        ivSetGroupIcon.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
     }
 
@@ -94,7 +101,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        if (v == btnSubmit) {
+        if (v == ivSetGroupIcon) {
+            createDialog();
+        } else if (v == btnSubmit) {
             String groupName = etGroupName.getText().toString().trim();
             if (TextUtils.isEmpty(groupName)) {
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
@@ -116,7 +125,66 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                     null, null, null, province, city, county, this);
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (RESULT_OK != resultCode) {
+            return;
+        }
+        if (requestCode == CameraUtils.OPEN_CAMERA) {
+            File file = CameraUtils.getImageFile();
+            if (file.exists()) {
+                if (file.length() > 100) {
+                    String newFile = CameraUtils.saveToSD(file
+                            .getAbsolutePath());
+                    Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
+                    intent.putExtra("newFile", newFile);
+                    startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
+                }
+            }
+        } else if (requestCode == CameraUtils.OPEN_ALBUM) {
+            String picturePath = CameraUtils.searchUriFile(mContext, data);
+            if (picturePath == null) {
+                picturePath = data.getData().getPath();
+            }
+            String newFile = CameraUtils.saveToSD(picturePath);
+            Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
+            intent.putExtra("newFile", newFile);
+            startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
+        } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
+            if (resultCode == RESULT_OK) {
+                byte[] b = data.getByteArrayExtra("bitmap");
+                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+                ivSetGroupIcon.setImageBitmap(bitmap);
+            }
+        }
+    }
+    // 打开相机的提示框
+    private void createDialog() {
+        if (dialog == null) {
+            dialog = new AlertView(this);
+            mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
+            mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
 
+            mCamera.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //     Utils.takePhoto(mContext, null);
+                    CameraUtils.takePhoto(mContext);
+                    dialog.cancel();
+                }
+            });
+            mGallery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //     Utils.openPhotoAlbum(mContext, null);
+                    CameraUtils.openPhotoAlbum(mContext);
+                    dialog.cancel();
+                }
+            });
+        }
+        dialog.show();
+    }
     private Bitmap getLocalBitmap(String url) {
         FileInputStream fis = null;
         try {

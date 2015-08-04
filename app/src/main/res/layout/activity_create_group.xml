@@ -8,7 +8,6 @@
         layout="@layout/include_toolbar" />
 
     <ScrollView
-        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
@@ -18,6 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_group_icon"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/selector_group_icon"
+                android:scaleType="center"
+                android:src="@mipmap/ic_menu_camera" />
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_group_name"
