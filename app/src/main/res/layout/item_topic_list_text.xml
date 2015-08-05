@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <include layout="@layout/include_user_info" />
+    <include
+        android:id="@+id/user_info"
+        layout="@layout/include_user_info" />
 
     <TextView
         android:id="@+id/tv_topic_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/user_info"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
@@ -19,33 +21,30 @@
         android:id="@+id/tv_topic_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_topic_name"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文话题正文"
         android:textColor="#ADAAAA" />
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tv_praise_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_below="@+id/tv_topic_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/tv_reply_num"
+        android:text="赞 100" />
 
-        <Button
-            android:id="@+id/btn_praise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"
-            android:text="赞" />
-
-        <Button
-            android:id="@+id/btn_reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/btn_praise"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"
-            android:text="回复" />
-    </RelativeLayout>
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_reply_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:text="评论 100" />
+</RelativeLayout>

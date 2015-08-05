@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
 import android.widget.Checkable;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -254,6 +257,12 @@ public class BaseAdapterHelper {
 
     //--------------------------提供view便捷的设置监听的方法-start---------------------------------------
 
+
+    public BaseAdapterHelper setAdapter(int viewId,BaseAdapter adapter){
+        AbsListView view = (AbsListView) retrieveView(viewId);
+        view.setAdapter(adapter);
+        return this;
+    }
     public BaseAdapterHelper setChecked(int viewId, boolean checked) {
         Checkable view = (Checkable) retrieveView(viewId);
         view.setChecked(checked);

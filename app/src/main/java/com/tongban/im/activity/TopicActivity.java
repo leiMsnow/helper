@@ -5,20 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.model.Topic;
+import com.tongban.im.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +27,12 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
     private ListView mListView;
     private TopicAdapter mAdapter;
-    private TextView tvTopicByHot;
-    private TextView tvTopicByMe;
-    private View moveLine;
 
-    private int screenWidth;
-    private float moveLineFrom;
-    private float moveLineTo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.topic_list);
     }
 
     @Override
@@ -52,47 +42,46 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
     @Override
     protected void initView() {
-        mListView = (ListView) findViewById(R.id.lv_chat_list);
-        tvTopicByHot = (TextView) findViewById(R.id.tv_topic_by_hot);
-        tvTopicByMe = (TextView) findViewById(R.id.tv_topic_by_me);
-        moveLine = findViewById(R.id.move_line);
+        mListView = (ListView) findViewById(R.id.lv_topic_list);
     }
 
     @Override
     protected void initListener() {
         mListView.setOnItemClickListener(this);
-        tvTopicByMe.setOnClickListener(this);
-        tvTopicByHot.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        tvTopicByHot.setEnabled(false);
-        screenWidth = ScreenUtils.getScreenWidth(mContext);
-        ViewGroup.LayoutParams params = moveLine.getLayoutParams();
-        params.width = screenWidth / 2;
-        params.height = 4;
-        moveLine.setLayoutParams(params);
-
-
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Topic topic = new Topic();
+            topic.setContentType(Topic.TEXT);
+            if (i % 2 == 0) {
+                topic.setContentType(Topic.IMAGE);
+                List<String> smallUrls = new ArrayList<>();
+                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+                topic.setSmallUrl(smallUrls);
+            }
+//            List<String> bigUrls = new ArrayList<>();
+//            bigUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//            topic.setBigUrl(bigUrls);
             topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
             topic.setTopicName("什么食物中含有硫酸锌？" + i);
             topic.setTopicReplyNum(String.valueOf(i));
+            User user = new User();
+            user.setNick_name("小明" + i);
+            topic.setUser(user);
             listsByHot.add(topic);
         }
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, listsByHot);
+        mAdapter = new TopicAdapter(mContext, listsByHot);
         mListView.setAdapter(mAdapter);
-        tvTopicByHot.setSelected(true);
-        tvTopicByMe.setSelected(false);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_topic, menu);
+
         return true;
     }
 
@@ -119,54 +108,6 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 
     @Override
     public void onClick(View v) {
-        if (v == tvTopicByHot) {
-            tvTopicByHot.setEnabled(false);
-            moveLineFrom = moveLine.getX();
-            moveLineTo = moveLineFrom - moveLine.getWidth();
-            ObjectAnimator moveLeftLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
-            moveLeftLineAnim.setDuration(300);
-            moveLeftLineAnim.start();
-            moveLeftLineAnim.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    tvTopicByMe.setEnabled(true);
-                }
-            });
 
-            mAdapter.clear();
-            for (int i = 0; i < 10; i++) {
-                Topic topic = new Topic();
-                topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
-                topic.setTopicName("什么食物中含有硫酸锌？" + i);
-                topic.setTopicReplyNum(String.valueOf(i));
-                mAdapter.add(topic);
-            }
-
-        } else if (v == tvTopicByMe) {
-            tvTopicByMe.setEnabled(false);
-            moveLineFrom = moveLine.getX();
-            moveLineTo = moveLineFrom + moveLine.getWidth();
-            ObjectAnimator moveRightLineAnim = ObjectAnimator.ofFloat(moveLine, "translationX", moveLineFrom, moveLineTo);
-            moveRightLineAnim.setDuration(300);
-            moveRightLineAnim.start();
-            moveRightLineAnim.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    tvTopicByHot.setEnabled(true);
-                }
-            });
-
-            mAdapter.clear();
-            for (int i = 0; i < 4; i++) {
-                Topic topic = new Topic();
-                topic.setTopicContent("飞飞的妈妈：#大家的宝宝都是几个月会说话的？#" + i);
-                topic.setTopicName("大家的宝宝都是几个月会说话的" + i);
-                topic.setTopicReplyNum(String.valueOf(i));
-                mAdapter.add(topic);
-            }
-
-        }
     }
 }

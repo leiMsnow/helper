@@ -45,6 +45,7 @@
     <string name="by_hot">按热度</string>
     <string name="join_by_me">我参加的</string>
     <string name="topic_name">话题名称</string>
+    <string name="topic_list">话题列表</string>
     <!--创建圈子-->
     <string name="group_label">选择圈子标签</string>
     <string name="create_group">创建圈子</string>

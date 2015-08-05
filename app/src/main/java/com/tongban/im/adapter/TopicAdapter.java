@@ -1,28 +1,116 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
+import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
 /**
  * Created by fushudi on 2015/7/16.
  */
-public class TopicAdapter extends QuickAdapter<Topic> {
+public class TopicAdapter extends BaseAdapter {
 
-    public TopicAdapter(Context context, int layoutResId, List data) {
-        super(context, layoutResId, data);
+    private LayoutInflater inflate;
+    private Context context;
+    private List<Topic> topicList;
+    private ViewHolder viewHolder;
+    private TopicImgAdapter adapter;
+
+    public TopicAdapter(Context context, List<Topic> topicList) {
+        this.context = context;
+        this.topicList = topicList;
+        inflate = LayoutInflater.from(context);
+        adapter = new TopicImgAdapter(context, R.layout.item_topic_grid_img, null);
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, Topic item) {
-        helper.setText(R.id.tv_topic_name, item.getTopicName());
-        helper.setText(R.id.tv_topic_num, item.getTopicReplyNum());
-        helper.setText(R.id.tv_topic_content, item.getTopicContent());
-        helper.setImageBitmap(R.id.iv_user_icon, "http://b.hiphotos.baidu.com/image/pic/item/023b5bb5c9ea15ce7f13d886b4003af33b87b2bb.jpg");
+    public int getCount() {
+        return topicList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return topicList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (topicList.get(position).getContentType() == Topic.TEXT) {
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Topic topic = topicList.get(position);
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            if (topic.getContentType() == Topic.TEXT) {
+                convertView = inflate.inflate(R.layout.item_topic_list_text, parent, false);
+                viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_topic_content);
+            } else if (topic.getContentType() == Topic.IMAGE) {
+                convertView = inflate.inflate(R.layout.item_topic_list_img, parent, false);
+                viewHolder.gvContent = (GridView) convertView.findViewById(R.id.gv_content);
+            }
+            viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_topic_icon);
+            viewHolder.tvNickName = (TextView) convertView.findViewById(R.id.tv_nickname);
+            viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_address);
+            viewHolder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
+            viewHolder.tvSex = (TextView) convertView.findViewById(R.id.tv_sex);
+            viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_num);
+            viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_num);
+            viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tv_time);
+            viewHolder.tvTopicName = (TextView) convertView.findViewById(R.id.tv_topic_name);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        viewHolder.ivIcon.setImageResource(R.drawable.rc_default_portrait);
+        //viewHolder.ivIcon.setImageBitmap(topic.getUser().getPortrait_url());
+        viewHolder.tvTopicName.setText(topic.getUser().getNick_name());
+        viewHolder.tvPraiseNum.setText(topic.getTopicPraiseNum());
+        viewHolder.tvSex.setText(topic.getUser().getSex());
+        viewHolder.tvTime.setText(topic.getTopicTime());
+        viewHolder.tvAge.setText(topic.getUser().getAge());
+        viewHolder.tvAddress.setText("地址");
+        viewHolder.tvReplyNum.setText(topic.getTopicReplyNum());
+
+        if (topic.getContentType() == Topic.TEXT) {
+            viewHolder.tvContent.setText(topic.getTopicContent());
+        } else {
+            viewHolder.gvContent.setAdapter(adapter);
+        }
+        return convertView;
+    }
+
+    class ViewHolder {
+        public ImageView ivIcon;
+        public TextView tvNickName, tvSex, tvAge, tvAddress, tvTime, tvTopicName, tvPraiseNum, tvReplyNum, tvContent;
+        public GridView gvContent;
     }
 }
