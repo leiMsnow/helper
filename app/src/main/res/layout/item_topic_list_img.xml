@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/user_info"
+        layout="@layout/include_user_info" />
+
+    <TextView
+        android:id="@+id/tv_topic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_info"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="话题名称" />
+
+    <GridView
+        android:layout_below="@+id/tv_topic_name"
+        android:id="@+id/gv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="80dp"
+        android:horizontalSpacing="4dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="4dp" />
+
+
+    <TextView
+        android:id="@+id/tv_praise_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gv_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/tv_reply_num"
+        android:text="赞 100" />
+
+    <TextView
+        android:id="@+id/tv_reply_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gv_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:text="评论 100" />
+</RelativeLayout>
