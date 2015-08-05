@@ -1,28 +1,26 @@
 package com.tongban.im.activity;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ScreenUtils;
-import com.tongban.corelib.widget.view.ptz.PullToZoomListViewEx;
+import com.tongban.corelib.widget.view.BadgeView;
+import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
  * 用户中心
  */
 public class UserCenterActivity extends BaseToolBarActivity {
 
-    private PullToZoomListViewEx lvUserCenter;
+    private PullToZoomScrollViewEx lvUserCenter;
+    private BadgeView fansBadgeView;
+    private TextView tvFans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +35,38 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-        lvUserCenter = (PullToZoomListViewEx) findViewById(R.id.lv_user_center);
+        lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
+        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view, null, false);
+        View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+        lvUserCenter.setHeaderView(headView);
+        lvUserCenter.setZoomView(zoomView);
+        lvUserCenter.setScrollContentView(contentView);
+
+        tvFans = (TextView) headView.findViewById(R.id.tv_fans);
+
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
+                (int) (3.0F * (mScreenWidth / 4.0F)));
+        lvUserCenter.setHeaderLayoutParams(localObject);
+
+//        fansBadgeView = new BadgeView(mContext, tvFans);
+//        ViewGroup.LayoutParams layoutParams = fansBadgeView.getLayoutParams();
+//        layoutParams.height = 16;
+//        layoutParams.width = 16;
+//        fansBadgeView.setLayoutParams(layoutParams);
+//        fansBadgeView.setBackgroundResource((R.mipmap.ic_overlay));
+//        fansBadgeView.show();
     }
 
     @Override
     protected void initData() {
-        String[] adapterData = new String[]{"Activity", "Service", "Content Provider", "Intent", "BroadcastReceiver", "ADT", "Sqlite3", "HttpClient",
-                "DDMS", "Android Studio", "Fragment", "Loader", "Activity", "Service", "Content Provider", "Intent",
-                "BroadcastReceiver", "ADT", "Sqlite3", "HttpClient", "Activity", "Service", "Content Provider", "Intent",
-                "BroadcastReceiver", "ADT", "Sqlite3", "HttpClient"};
 
-        lvUserCenter.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, adapterData));
-        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
-        AbsListView.LayoutParams localObject = new AbsListView.LayoutParams(mScreenWidth, (int) (9.0F * (mScreenWidth / 16.0F)));
-        lvUserCenter.setHeaderLayoutParams(localObject);
     }
 
     @Override
     protected void initListener() {
-
     }
+
 
 }

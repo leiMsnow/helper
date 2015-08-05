@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 头像-->
+    <ImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="72dp"
+        android:src="@mipmap/ic_img_user_default" />
+
+    <!-- 用户信息布局-->
+    <LinearLayout
+        android:id="@+id/ll_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_user_head"
+        android:layout_alignTop="@+id/iv_user_head"
+        android:layout_marginRight="48dp"
+        android:layout_toRightOf="@+id/iv_user_head"
+        android:orientation="vertical">
+        <!-- 用户名称、年龄、星座-->
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="小王子  1岁23天  狮子座"
+            android:textColor="@color/white" />
+        <!-- 用户标签-->
+        <TextView
+            android:id="@+id/tv_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="独立行走|淘气包|吃固体食物"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <!--底部粉丝、关注、话题布局-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="32dp"
+        android:background="#50ffffff"
+        android:orientation="vertical">
+
+        <!-- 粉丝、关注、话题数量布局-->
+        <LinearLayout
+            style="@style/UserInfoAttrParent"
+            android:layout_marginTop="8dp">
+            <!-- 粉丝数量布局-->
+            <RelativeLayout style="@style/UserInfoAttrLayout">
+                <!-- 粉丝数量文本-->
+                <TextView
+                    android:id="@+id/tv_fans"
+                    style="@style/UserInfoAttrTopText"
+                    android:text="300" />
+                <!-- 粉丝badge-->
+                <View
+                    android:id="@+id/badge_fans"
+                    style="@style/UserInfoBadge"
+                    android:layout_toRightOf="@+id/tv_fans"
+                    android:visibility="gone" />
+            </RelativeLayout>
+            <!-- 关注数量布局-->
+            <RelativeLayout style="@style/UserInfoAttrLayout">
+                <!-- 关注数量-->
+                <TextView
+                    android:id="@+id/tv_follow"
+                    style="@style/UserInfoAttrTopText"
+                    android:text="300" />
+                <!-- 关注badge-->
+                <View
+                    android:id="@+id/badge_follow"
+                    style="@style/UserInfoBadge"
+                    android:layout_toRightOf="@+id/tv_follow"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <!-- 话题数量布局-->
+            <RelativeLayout style="@style/UserInfoAttrLayout">
+                <!-- 话题数量-->
+                <TextView
+                    android:id="@+id/tv_topic"
+                    style="@style/UserInfoAttrTopText"
+                    android:text="300" />
+                <!-- 话题badge-->
+                <View
+                    android:id="@+id/badge_topic"
+                    style="@style/UserInfoBadge"
+                    android:layout_toRightOf="@+id/tv_topic" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/UserInfoAttrParent"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                style="@style/UserInfoAttrBottomText"
+                android:text="粉丝" />
+
+
+            <TextView
+                style="@style/UserInfoAttrBottomText"
+                android:text="关注" />
+
+            <TextView
+                style="@style/UserInfoAttrBottomText"
+                android:text="@string/topic" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

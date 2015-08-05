@@ -5,5 +5,4 @@
     android:layout_height="match_parent"
     android:src="@mipmap/ic_img_profile_bg"
     android:scaleType="centerCrop"
-    android:layout_gravity="center_horizontal"
-    android:contentDescription="@string/app_name" />
+    android:layout_gravity="center_horizontal" />

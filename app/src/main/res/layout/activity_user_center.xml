@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.tongban.corelib.widget.view.ptz.PullToZoomListViewEx
-        android:id="@+id/lv_user_center"
+
+    <com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx
+        android:id="@+id/sv_user_center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        custom:headerView="@layout/profile_head_view"
-        custom:zoomView="@layout/profile_zoom_view" />
+        android:layout_height="match_parent" />
 
     <!-- 标题栏-->
     <RelativeLayout
+        android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@android:color/transparent">
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:singleLine="true"
-            android:text="用户名称"
+            android:text="@string/user_center"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
