@@ -69,5 +69,10 @@
     <string name="pass_reset">重置密码</string>
     <!-- 用户中心-->
     <string name="user_center">用户中心</string>
+    <string name="fans">粉丝</string>
+    <string name="follow">关注</string>
+    <string name="my_group">我的圈子</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="feedback">意见反馈</string>
 
 </resources>

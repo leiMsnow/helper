@@ -14,7 +14,7 @@
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:text="我的圈子" />
+        android:text="@string/my_group" />
 
     <TextView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:text="我的收藏" />
+        android:text="@string/my_collect" />
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:text="意见反馈" />
+        android:text="@string/feedback" />
 
     <TextView
         android:layout_width="match_parent"

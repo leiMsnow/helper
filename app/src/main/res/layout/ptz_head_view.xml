@@ -108,12 +108,11 @@
 
             <TextView
                 style="@style/UserInfoAttrBottomText"
-                android:text="粉丝" />
-
+                android:text="@string/fans" />
 
             <TextView
                 style="@style/UserInfoAttrBottomText"
-                android:text="关注" />
+                android:text="@string/follow" />
 
             <TextView
                 style="@style/UserInfoAttrBottomText"
