@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.tongban.corelib.utils.SPUtils;
@@ -39,6 +40,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private Button btnSubmit;
     private EditText etGroupName;
     private ImageView ivSetGroupIcon;
+    private EditText etMap;
 
     private AlertView dialog;
     private LinearLayout mCamera;
@@ -86,12 +88,15 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
         btnSubmit = (Button) findViewById(R.id.btn_create);
         etGroupName = (EditText) findViewById(R.id.et_group_name);
+        etMap = (EditText) findViewById(R.id.et_group_location);
+
     }
 
     @Override
     protected void initListener() {
         ivSetGroupIcon.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        etMap.setOnClickListener(this);
     }
 
     @Override
@@ -123,6 +128,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
+        }else if(v == etMap){
+            startActivity(new Intent(mContext,PoiSearchActivity.class));
         }
     }
     @Override

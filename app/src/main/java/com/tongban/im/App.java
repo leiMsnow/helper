@@ -1,5 +1,6 @@
 package com.tongban.im;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
 
@@ -20,6 +21,8 @@ public class App extends BaseApplication {
         RongCloudEvent.init(this);
         /** Log开关 */
         LogUtil.isDebug = true;
+        // 百度地图初始化
+        SDKInitializer.initialize(getApplicationContext());
     }
 
     /**

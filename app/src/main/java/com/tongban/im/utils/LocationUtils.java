@@ -6,6 +6,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.tongban.corelib.utils.SPUtils;
+import com.tongban.im.common.Consts;
 
 import de.greenrobot.event.EventBus;
 
@@ -18,8 +20,9 @@ public class LocationUtils {
     private static LocationUtils mLocationUtils = null;
     private LocationClient mLocationClient = null;
     private BDLocationListener myListener = null;
-
+    private Context mContext;
     LocationUtils(Context context) {
+        this.mContext = context;
         mLocationClient = new LocationClient(context.getApplicationContext());
         myListener = new MyLocationListener();
         //注册监听函数
@@ -64,6 +67,21 @@ public class LocationUtils {
 
         @Override
         public void onReceiveLocation(BDLocation dbLocation) {
+
+            double longitude = dbLocation.getLongitude();
+            double latitude = dbLocation.getLatitude();
+            String province = dbLocation.getProvince();
+            String city = dbLocation.getCity();
+            String county = dbLocation.getDistrict();
+            String address = dbLocation.getAddrStr();
+
+            SPUtils.put(mContext, Consts.LATITUDE,latitude);
+            SPUtils.put(mContext, Consts.LONGITUDE,longitude);
+            SPUtils.put(mContext, Consts.PROVINCE,province);
+            SPUtils.put(mContext, Consts.CITY,city);
+            SPUtils.put(mContext, Consts.COUNTY,county);
+            SPUtils.put(mContext, Consts.ADDRESS,address);
+
             EventBus.getDefault().post(dbLocation);
         }
 
