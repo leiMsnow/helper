@@ -41,6 +41,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private EditText etGroupName;
     private ImageView ivSetGroupIcon;
     private EditText etMap;
+    private TextView tvGroupLabel;
 
     private AlertView dialog;
     private LinearLayout mCamera;
@@ -89,6 +90,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         btnSubmit = (Button) findViewById(R.id.btn_create);
         etGroupName = (EditText) findViewById(R.id.et_group_name);
         etMap = (EditText) findViewById(R.id.et_group_location);
+        tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
 
     }
 
@@ -97,6 +99,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         ivSetGroupIcon.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         etMap.setOnClickListener(this);
+        tvGroupLabel.setOnClickListener(this);
     }
 
     @Override
@@ -128,10 +131,13 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
-        }else if(v == etMap){
-            startActivity(new Intent(mContext,PoiSearchActivity.class));
+        } else if (v == etMap) {
+            startActivity(new Intent(mContext, PoiSearchActivity.class));
+        } else if (v == tvGroupLabel) {
+            startActivity(new Intent(mContext, LabelListActivity.class));
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -166,6 +172,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             }
         }
     }
+
     // 打开相机的提示框
     private void createDialog() {
         if (dialog == null) {
@@ -192,6 +199,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         }
         dialog.show();
     }
+
     private Bitmap getLocalBitmap(String url) {
         FileInputStream fis = null;
         try {

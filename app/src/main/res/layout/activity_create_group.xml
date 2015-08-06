@@ -56,16 +56,16 @@
                 android:textSize="12sp" />
 
             <!--圈子标签-->
-            <EditText
-                android:id="@+id/et_group_label"
+            <TextView
+                android:id="@+id/tv_group_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@mipmap/ic_group_label"
-                android:hint="@string/hint_group_label"
                 android:minHeight="40dp"
+                android:text="@string/group_label"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_300"
                 android:textSize="12sp" />
