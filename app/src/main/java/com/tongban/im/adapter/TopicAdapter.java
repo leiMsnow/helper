@@ -1,6 +1,7 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -90,14 +92,15 @@ public class TopicAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.ivIcon.setImageResource(R.drawable.rc_default_portrait);
-        //viewHolder.ivIcon.setImageBitmap(topic.getUser().getPortrait_url());
-        viewHolder.tvTopicName.setText(topic.getUser().getNick_name());
+        Glide.with(context).load(topic.getUser().getPortrait_url()).
+                placeholder(R.drawable.rc_default_portrait).into(viewHolder.ivIcon);
+        viewHolder.tvTopicName.setText(topic.getTopicName());
         viewHolder.tvPraiseNum.setText(topic.getTopicPraiseNum());
         viewHolder.tvSex.setText(topic.getUser().getSex());
         viewHolder.tvTime.setText(topic.getTopicTime());
         viewHolder.tvAge.setText(topic.getUser().getAge());
-        viewHolder.tvAddress.setText("地址");
+        viewHolder.tvAddress.setText(topic.getUser().getAddress());
+        viewHolder.tvNickName.setText(topic.getUser().getNick_name());
         viewHolder.tvReplyNum.setText(topic.getTopicReplyNum());
 
         if (topic.getContentType() == Topic.TEXT) {
@@ -110,7 +113,8 @@ public class TopicAdapter extends BaseAdapter {
 
     class ViewHolder {
         public ImageView ivIcon;
-        public TextView tvNickName, tvSex, tvAge, tvAddress, tvTime, tvTopicName, tvPraiseNum, tvReplyNum, tvContent;
+        public TextView tvNickName, tvSex, tvAge, tvAddress, tvTime, tvTopicName,
+                tvPraiseNum, tvReplyNum, tvContent;
         public GridView gvContent;
     }
 }

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
         android:paddingBottom="8dp"
+        android:dividerHeight="2dp"
         android:scrollbars="none" />
 </RelativeLayout>

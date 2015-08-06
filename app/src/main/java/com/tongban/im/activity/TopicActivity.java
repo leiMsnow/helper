@@ -67,8 +67,14 @@ public class TopicActivity extends BaseToolBarActivity implements AbsListView.On
 //            topic.setBigUrl(bigUrls);
             topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
             topic.setTopicName("什么食物中含有硫酸锌？" + i);
-            topic.setTopicReplyNum(String.valueOf(i));
+            topic.setTopicReplyNum("评论" + i);
+            topic.setTopicPraiseNum("赞" + i);
+            topic.setTopicTime("2015-08-05");
             User user = new User();
+            user.setSex("男");
+            user.setAddress("北京");
+            user.setAge(i + "岁");
+            user.setPortrait_url("http://b.hiphotos.baidu.com/image/pic/item/dbb44aed2e738bd4a244792ca38b87d6277ff942.jpg");
             user.setNick_name("小明" + i);
             topic.setUser(user);
             listsByHot.add(topic);

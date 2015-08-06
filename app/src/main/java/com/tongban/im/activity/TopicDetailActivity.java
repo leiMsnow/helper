@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 话题详情界面
+ *
  * @author fushudi
  */
 public class TopicDetailActivity extends BaseToolBarActivity {
@@ -38,14 +39,15 @@ public class TopicDetailActivity extends BaseToolBarActivity {
             TopicReply topicReply = new TopicReply();
             topicReply.setReplyAge("1" + i);
             topicReply.setReplyContent("说的很有道理，讲的很有道理，写的很有道理" + i);
-            topicReply.setReplyNickName("打不死的小强" + i);
+            topicReply.setReplyNickName("打不死的小强");
             topicReply.setReplyNum("赞" + i);
             topicReply.setReplySex("男");
             topicReply.setReplyTime("08-01 14:28");
             replyList.add(topicReply);
         }
         mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_detail_list, replyList);
-        lvReplyList.addHeaderView(LayoutInflater.from(mContext).inflate(R.layout.item_topic_reply_detail_list_header, null));
+        lvReplyList.addHeaderView(LayoutInflater.from(mContext).
+                inflate(R.layout.item_topic_reply_detail_list_header, null));
         lvReplyList.setAdapter(mAdapter);
     }
 

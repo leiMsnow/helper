@@ -32,7 +32,16 @@ public class User {
     private String tags;
     //
     private String declaration;
+    //用户地址
+    private String address;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getUser_id() {
         return user_id;
