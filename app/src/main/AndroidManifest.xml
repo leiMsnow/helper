@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tongban.im" >
+    package="com.tongban.im">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -35,10 +35,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.White.Base" >
+        android:theme="@style/AppTheme.White.Base">
         <activity
             android:name=".activity.MainActivity"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.ChatActivity" >
+        <activity android:name=".activity.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoadingActivity" >
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +76,7 @@
 
         <service
             android:name="io.rong.push.PushService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -85,7 +85,7 @@
         </service>
         <service
             android:name="io.rong.push.CommandService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -95,7 +95,7 @@
 
         <receiver
             android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
@@ -115,7 +115,7 @@
             android:process=":ipc" />
         <service android:name="io.rong.imlib.ReConnectService" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
                 <action android:name="io.rong.push.message" />
             </intent-filter>
@@ -155,11 +155,16 @@
         <activity android:name=".activity.PoiSearchActivity" />
         <activity
             android:name=".activity.LabelListActivity"
-            android:label="@string/title_activity_lable_list" >
-        </activity>
+            android:label="@string/title_activity_lable_list"></activity>
         <activity
             android:name=".activity.SearchResultActivity"
-            android:label="@string/title_activity_search_result_actvity" >
+            android:label="@string/search_result">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable_poi" />
         </activity>
     </application>
 
