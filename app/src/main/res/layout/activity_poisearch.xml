@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/search_key"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="餐厅" />
 
+    <RelativeLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#d9d3cd"
+        android:padding="8dp">
+
+        <include
+            android:id="@+id/search_view"
+            layout="@layout/include_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_location"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/search_key"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_search"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="null" />
 
 
-</LinearLayout>
+</RelativeLayout>

@@ -157,6 +157,10 @@
             android:name=".activity.LabelListActivity"
             android:label="@string/title_activity_lable_list" >
         </activity>
+        <activity
+            android:name=".activity.SearchResultActvity"
+            android:label="@string/title_activity_search_result_actvity" >
+        </activity>
     </application>
 
 </manifest>
