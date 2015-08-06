@@ -74,5 +74,6 @@
     <string name="my_group">我的圈子</string>
     <string name="my_collect">我的收藏</string>
     <string name="feedback">意见反馈</string>
+    <string name="title_activity_lable_list">LableListActivity</string>
 
 </resources>
