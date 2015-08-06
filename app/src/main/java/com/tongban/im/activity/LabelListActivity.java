@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.tongban.im.R;
 
-public class LableListActivity extends AppCompatActivity {
+public class LabelListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

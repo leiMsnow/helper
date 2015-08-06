@@ -154,7 +154,7 @@
             android:label="@string/user_center" />
         <activity android:name=".activity.PoiSearchActivity" />
         <activity
-            android:name=".activity.LableListActivity"
+            android:name=".activity.LabelListActivity"
             android:label="@string/title_activity_lable_list" >
         </activity>
     </application>
