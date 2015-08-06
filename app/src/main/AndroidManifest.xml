@@ -153,9 +153,7 @@
             android:name=".activity.UserCenterActivity"
             android:label="@string/user_center" />
         <activity android:name=".activity.PoiSearchActivity" />
-        <activity
-            android:name=".activity.LabelListActivity"
-            android:label="@string/title_activity_lable_list"></activity>
+        <activity android:name=".activity.LabelListActivity"></activity>
         <activity
             android:name=".activity.SearchResultActivity"
             android:label="@string/search_result">
