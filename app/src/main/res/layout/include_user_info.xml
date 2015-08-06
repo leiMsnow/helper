@@ -10,6 +10,7 @@
         android:id="@+id/iv_topic_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:scaleType="fitXY"
         android:src="@drawable/rc_default_portrait" />
 
     <TextView
@@ -27,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tv_nickname"
         android:layout_below="@+id/tv_nickname"
-        android:text="男" />
+        android:text="男"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_age"
@@ -36,7 +38,8 @@
         android:layout_alignTop="@+id/tv_sex"
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/tv_sex"
-        android:text="3岁" />
+        android:text="3岁"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -44,7 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/tv_nickname"
-        android:text="北京" />
+        android:text="北京"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_time"
