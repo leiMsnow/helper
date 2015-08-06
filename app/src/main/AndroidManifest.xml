@@ -151,6 +151,7 @@
             android:label="@string/topic_name" />
         <activity android:name=".activity.UserCenterActivity"
             android:label="@string/user_center"/>
+        <activity android:name=".activity.PoiSearchActivity" />
     </application>
 
 </manifest>
