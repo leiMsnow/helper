@@ -7,26 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.ChooseGroupTypeActivity;
-import com.tongban.im.activity.MainActivity;
-import com.tongban.im.adapter.GroupListAdapter;
-import com.tongban.im.model.Group;
+import com.tongban.im.model.BaseEvent;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
 
@@ -35,22 +24,6 @@ import io.rong.imlib.model.Conversation;
  * author: chenenyu 15/7/13
  */
 public class CircleFragment extends BaseApiFragment {
-    /**
-     * 圈子列表
-     */
-    private RecyclerView recyclerView;
-
-    /**
-     * 用户加入的群组数据
-     */
-    private List<Group> groups;
-    private GroupListAdapter adapter;
-
-    private RadioGroup rg_circle;
-    // 聊天,推荐
-    private RadioButton rb_chat, rb_recommend;
-    private FrameLayout fl_container;
-
     private FragmentManager fm;
     private ConversationListFragment chatFragment;
     private Fragment recommendFragment;
@@ -68,17 +41,6 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
-//        recyclerView = (RecyclerView) mView.findViewById(R.id.rv_group);
-//        //设置布局管理器
-//        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-//        //设置Item增加、移除动画
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        rg_circle = (RadioGroup) mView.findViewById(R.id.rg_circle); // RadioGroup
-//        rb_chat = (RadioButton) mView.findViewById(R.id.rb_chat);
-//        rb_recommend = (RadioButton) mView.findViewById(R.id.rb_recommend);
-//        fl_container = (FrameLayout) mView.findViewById(R.id.fl_container);
-
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()
@@ -91,24 +53,10 @@ public class CircleFragment extends BaseApiFragment {
         recommendFragment = new RecommendCircleFragment();
         fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
-
     }
 
     @Override
     protected void initListener() {
-        rg_circle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_chat:
-                        fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
-                        break;
-                    case R.id.rb_recommend:
-                        fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -132,39 +80,15 @@ public class CircleFragment extends BaseApiFragment {
     }
 
     /**
-     * 获取圈子(个人群组列表)数据的回调
+     * 切换顶部tab的Event
      *
-     * @param list List<Group>
+     * @param type see{@link BaseEvent.SwitchCircleTabEvent}
      */
-    @Deprecated
-    public void onEventMainThread(List<Group> list) {
-        if (list.size() > 0) {
-            //设置adapter
-            if (adapter == null) {
-                groups = new LinkedList<>();
-                groups.addAll(list);
-                adapter = new GroupListAdapter(mContext, groups);
-                // 点击监听
-                adapter.setOnItemClickListener(new GroupListAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        String group_id = groups.get(position).getGroup_id();
-                        String group_name = groups.get(position).getGroup_name();
-                        RongIM.getInstance().startGroupChat(mContext, group_id, group_name);
-                    }
-
-                    @Override
-                    public void onItemLongClick(View view, int position) {
-
-                    }
-                });
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            } else {
-                groups.clear();
-                groups.addAll(list);
-                adapter.notifyDataSetChanged();
-            }
+    public void onEventMainThread(BaseEvent.SwitchCircleTabEvent type) {
+        if (type == BaseEvent.SwitchCircleTabEvent.CHAT) {
+            fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
+        } else if (type == BaseEvent.SwitchCircleTabEvent.RECOMMEND) {
+            fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
         }
     }
 

@@ -5,13 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.tongban.corelib.utils.LogUtil;
@@ -23,6 +20,8 @@ import com.tongban.im.fragment.LeftMenuFragment;
 import com.tongban.im.fragment.TopicFragment;
 import com.tongban.im.model.BaseEvent;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * 主界面
  */
@@ -31,21 +30,13 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private DrawerLayout mDrawerLayout;
 
-    /**
-     * 底部Tab
-     */
-    private RadioGroup rg_tab;
-    /**
-     * 当前页
-     */
+    // 底部tab和圈子页顶部的tab
+    private RadioGroup rg_tab, rg_circle;
+    // 当前页
     private int currentPage = 0;
-    /**
-     * 存放Fragment的数组
-     */
+    // 存放Fragment的数组
     private Fragment[] fragments;
-    /**
-     * 侧滑页
-     */
+    // 侧滑页
     private LeftMenuFragment leftMenuFragment;
 
     private FragmentManager fm;
@@ -76,7 +67,10 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         /** 圈子页 */
         fragments[2] = new CircleFragment();
         fm.beginTransaction().add(R.id.fl_container, fragments[0]).commit();
+        // 底部tab
         rg_tab = (RadioGroup) findViewById(R.id.rg_tab);
+        // 圈子页的顶部tab
+        rg_circle = (RadioGroup) findViewById(R.id.rg_circle);
     }
 
     @Override
@@ -94,6 +88,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                 hide(fragments[currentPage]).commit();
                         currentPage = 0;
                         setTitle("发现");
+                        rg_circle.setVisibility(View.GONE);
                         break;
                     case R.id.rb_topic:
                         if (fragments[1].isAdded()) {
@@ -105,6 +100,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                         }
                         currentPage = 1;
                         setTitle("话题");
+                        rg_circle.setVisibility(View.GONE);
                         break;
                     case R.id.rb_circle:
                         if (fragments[2].isAdded()) {
@@ -115,8 +111,21 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                                     .hide(fragments[currentPage]).commit();
                         }
                         currentPage = 2;
-                        setTitle("圈子");
+                        setTitle(null);
+                        rg_circle.setVisibility(View.VISIBLE);
                         break;
+                }
+            }
+        });
+        rg_circle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_chat:
+                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.CHAT);
+                        break;
+                    case R.id.rb_recommend:
+                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.RECOMMEND);
                 }
             }
         });
