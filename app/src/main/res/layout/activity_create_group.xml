@@ -109,15 +109,6 @@
                     android:text="@string/group_secret_detail"
                     android:textColor="@color/material_gray_300" />
 
-                <TextView
-                    android:id="@+id/tv_group_secret_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_group_secret_detail"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/group_secret_update"
-                    android:textColor="@color/accent_material_blue" />
             </LinearLayout>
 
             <Button

@@ -9,10 +9,6 @@
     <style name="AppTheme.LightBlue.Base">
 
     </style>
-
-    <style name="AppTheme.Red.Base">
-
-    </style>
     <style name="AppTheme.DeepPurple.Base">
 
     </style>
@@ -27,7 +23,6 @@
     </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@color/material_gray_300</item>
     </style>
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
@@ -35,44 +30,34 @@
         <item name="colorPrimaryDark">@color/primary_dark_material_white</item>
         <item name="colorAccent">@color/accent_material_white</item>
         <item name="android:textColorPrimary">@color/primary_text_material_brown</item>
-        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupBtn">@color/light_blue</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
-    <style name="AppTheme.LightBlue">
-        <item name="colorPrimary">@color/primary_material_blue</item>
-        <item name="colorPrimaryDark">@color/primary_dark_material_blue</item>
-        <item name="colorAccent">@color/accent_material_blue</item>
+    <style name="AppTheme.LightBlue" >
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryDark">@color/light_blue</item>
+        <item name="colorAccent">@color/light_blue</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@drawable/selector_blue_btn_bg</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
-    <style name="AppTheme.Red">
-        <item name="colorPrimary">@color/primary_material_red</item>
-        <item name="colorPrimaryDark">@color/primary_dark_material_red</item>
-        <item name="colorAccent">@color/accent_material_red</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@drawable/selector_red_btn_bg</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
-    </style>
-
-
-    <style name="AppTheme.DeepPurple">
+    <style name="AppTheme.DeepPurple" >
         <item name="colorPrimary">@color/deep_purple</item>
         <item name="colorPrimaryDark">@color/deep_purple</item>
         <item name="colorAccent">@color/deep_purple</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupBtn">@color/deep_purple</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
-    <style name="AppTheme.LightGreen">
+    <style name="AppTheme.LightGreen" >
         <item name="colorPrimary">@color/light_green</item>
         <item name="colorPrimaryDark">@color/light_green</item>
         <item name="colorAccent">@color/light_green</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupBtn">@color/light_green</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
@@ -82,17 +67,17 @@
         <item name="colorPrimaryDark">@color/pink</item>
         <item name="colorAccent">@color/pink</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupBtn">@color/pink</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
 
-    <style name="AppTheme.Yellow">
+    <style name="AppTheme.Yellow" parent="AppTheme">
         <item name="colorPrimary">@color/yellow</item>
         <item name="colorPrimaryDark">@color/yellow</item>
         <item name="colorAccent">@color/yellow</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupBtn">@color/yellow</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
