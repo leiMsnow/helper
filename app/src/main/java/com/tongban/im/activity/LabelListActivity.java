@@ -44,7 +44,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initListener() {
-        flLabelList.setOnClickListener(this);
+        tvLabelName.setOnClickListener(this);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v==flLabelList){
-            ToastUtil.getInstance(mContext).showToast("");
+        if (v==tvLabelName){
+            ToastUtil.getInstance(mContext).showToast(tvLabelName.getText()+"");
         }
     }
 }
