@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 
@@ -87,6 +88,8 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_poi_search, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewCollapsed();
         return true;
@@ -106,6 +109,9 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
+            if (mLoadIndex == 0)
+                mAdapter.clear();
+
             mAdapter.addAll(result.getAllPoi());
             mLoadIndex++;
             return;
@@ -139,7 +145,6 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     public void onLoadMore() {
         startPoiSearch();
     }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {
