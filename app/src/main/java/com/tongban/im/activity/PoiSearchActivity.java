@@ -1,12 +1,12 @@
 package com.tongban.im.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.SearchView;
 
-import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
@@ -36,6 +36,7 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     private int mLoadIndex = 0;
     private int mPageSize = 10;
+    private String mSelected;
     private String mCity;
     private String mKey;
 
@@ -59,15 +60,20 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
+        if (getIntent().getExtras() != null)
+            mSelected = getIntent().getExtras().getString(Consts.KEY_SELECTED_POI_NAME, "");
+
         mCity = SPUtils.get(mContext, Consts.CITY, "北京").toString();
         if (mCity.contains("市")) {
             mCity = mCity.replace("市", "");
         }
         mKey = SPUtils.get(mContext, Consts.ADDRESS, "").toString();
         mAdapter = new PoiSearchAdapter(mContext,
-                android.R.layout.simple_list_item_2, null);
+                R.layout.item_poi_search_list, null);
+        mAdapter.setCurrentSelected(mSelected);
         lvLocation.setAdapter(mAdapter);
         lvLocation.setPageSize(mPageSize);
+        startPoiSearch();
     }
 
     @Override
@@ -75,7 +81,15 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
         mPoiSearch.setOnGetPoiSearchResultListener(this);
         lvLocation.setOnItemClickListener(this);
         lvLocation.setOnLoadMoreListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_poi_search, menu);
+        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setOnQueryTextListener(this);
+        searchView.onActionViewCollapsed();
+        return true;
     }
 
     protected void onDestroy() {
@@ -85,16 +99,14 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     public void onGetPoiResult(PoiResult result) {
         lvLocation.onLoadComplete();
-        lvLocation.setResultSize(result.getTotalPoiNum());
+        lvLocation.setResultSize(result.getCurrentPageCapacity());
         if (result == null
                 || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
             ToastUtil.getInstance(mContext).showToast("未找到您当前的位置");
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            for (PoiInfo info : result.getAllPoi()) {
-//                mAdapter.add(info);
-            }
+            mAdapter.addAll(result.getAllPoi());
             mLoadIndex++;
             return;
         }
@@ -132,6 +144,7 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
+            mLoadIndex = 0;
             mKey = query;
             startPoiSearch();
         }

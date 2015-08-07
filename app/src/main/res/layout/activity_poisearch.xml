@@ -5,28 +5,17 @@
     android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:id="@+id/ll_search"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#d9d3cd"
-        android:padding="8dp">
-
-        <include
-            android:id="@+id/search_view"
-            layout="@layout/include_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
 
     <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_location"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_search"
+        android:layout_below="@+id/toolbar"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="null" />
+        android:divider="@null" />
 
 
 </RelativeLayout>

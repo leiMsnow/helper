@@ -26,6 +26,7 @@ public class Consts {
     public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
     public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
+    public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
 
     /**
      * 经度

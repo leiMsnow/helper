@@ -36,7 +36,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:src="@mipmap/ic_poi_selected" />
+        android:src="@mipmap/ic_poi_selected"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"

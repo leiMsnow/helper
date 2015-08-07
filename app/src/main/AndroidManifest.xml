@@ -156,16 +156,6 @@
         <activity
             android:name=".activity.LabelListActivity"
             android:label="@string/title_activity_lable_list"></activity>
-        <activity
-            android:name=".activity.SearchResultActivity"
-            android:label="@string/search_result">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable_poi" />
-        </activity>
     </application>
 
 </manifest>

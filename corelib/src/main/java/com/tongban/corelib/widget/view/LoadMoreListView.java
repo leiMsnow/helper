@@ -14,7 +14,7 @@ import com.tongban.corelib.R;
 /**
  * 自动加载更多-listView
  */
-public class LoadMoreListView extends ListView implements OnScrollListener{
+public class LoadMoreListView extends ListView implements OnScrollListener {
 
     private View footer;
     private TextView tvMore;
@@ -93,9 +93,11 @@ public class LoadMoreListView extends ListView implements OnScrollListener{
         if (resultSize == 0) {
             isLoadFull = true;
             tvMore.setText("没有更多数据");
+            tvMore.setVisibility(View.VISIBLE);
         } else if (resultSize > 0 && resultSize < pageSize) {
             isLoadFull = true;
             tvMore.setText("数据已经全部加载");
+            tvMore.setVisibility(View.VISIBLE);
         } else if (resultSize == pageSize) {
             isLoadFull = false;
             tvMore.setVisibility(View.GONE);
