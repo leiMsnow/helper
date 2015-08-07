@@ -154,16 +154,7 @@
             android:label="@string/user_center" />
         <activity android:name=".activity.PoiSearchActivity" />
         <activity android:name=".activity.LabelListActivity"></activity>
-        <activity
-            android:name=".activity.SearchResultActivity"
-            android:label="@string/search_result">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable_poi" />
-        </activity>
+
     </application>
 
 </manifest>
