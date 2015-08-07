@@ -17,44 +17,36 @@
         android:id="@+id/tv_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_group_icon"
         android:layout_alignTop="@+id/iv_topic_icon"
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/iv_topic_icon"
+        android:gravity="center_vertical"
         android:text="昵称" />
 
     <TextView
-        android:id="@+id/tv_sex"
+        android:id="@+id/tv_initiate_topic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_nickname"
-        android:layout_below="@+id/tv_nickname"
-        android:text="男"
+        android:layout_toRightOf="@+id/tv_nickname"
+        android:text="发起了一个话题"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/tv_age"
+    <ImageView
+        android:id="@+id/iv_topic_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tv_sex"
+        android:layout_alignTop="@+id/tv_initiate_topic"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_sex"
-        android:text="3岁"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/tv_nickname"
-        android:text="北京"
+        android:layout_toRightOf="@+id/tv_initiate_topic"
+        android:src="@drawable/rc_default_portrait"
         android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tv_address"
-        android:layout_alignTop="@id/tv_age"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/iv_topic_label"
         android:text="08-01-11:15" />
 </RelativeLayout>

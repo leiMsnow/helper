@@ -1,7 +1,6 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.base.adapter.BaseAdapterHelper;
-import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
-import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -81,9 +75,8 @@ public class TopicAdapter extends BaseAdapter {
             }
             viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_topic_icon);
             viewHolder.tvNickName = (TextView) convertView.findViewById(R.id.tv_nickname);
-            viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_address);
-            viewHolder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
-            viewHolder.tvSex = (TextView) convertView.findViewById(R.id.tv_sex);
+            viewHolder.ivTopicLabel = (ImageView) convertView.findViewById(R.id.iv_topic_label);
+            viewHolder.tvSex = (TextView) convertView.findViewById(R.id.tv_initiate_topic);
             viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_num);
             viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_num);
             viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tv_time);
@@ -98,8 +91,7 @@ public class TopicAdapter extends BaseAdapter {
         viewHolder.tvPraiseNum.setText(topic.getTopicPraiseNum());
         viewHolder.tvSex.setText(topic.getUser().getSex());
         viewHolder.tvTime.setText(topic.getTopicTime());
-        viewHolder.tvAge.setText(topic.getUser().getAge());
-        viewHolder.tvAddress.setText(topic.getUser().getAddress());
+        viewHolder.ivTopicLabel.setImageResource(R.drawable.rc_default_portrait);
         viewHolder.tvNickName.setText(topic.getUser().getNick_name());
         viewHolder.tvReplyNum.setText(topic.getTopicReplyNum());
 
@@ -112,8 +104,8 @@ public class TopicAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        public ImageView ivIcon;
-        public TextView tvNickName, tvSex, tvAge, tvAddress, tvTime, tvTopicName,
+        public ImageView ivIcon, ivTopicLabel;
+        public TextView tvNickName, tvSex, tvTime, tvTopicName,
                 tvPraiseNum, tvReplyNum, tvContent;
         public GridView gvContent;
     }
