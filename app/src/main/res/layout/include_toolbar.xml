@@ -3,36 +3,4 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize">
-
-    <RadioGroup
-        android:id="@+id/rg_circle"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:background="#a9a8aa"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_chat"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:text="@string/chat"
-            android:textColor="@drawable/selector_main_tab_text_color" />
-
-        <RadioButton
-            android:id="@+id/rb_recommend"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:button="@null"
-            android:gravity="center"
-            android:text="@string/recommend"
-            android:textColor="@drawable/selector_main_tab_text_color" />
-    </RadioGroup>
-
-</android.support.v7.widget.Toolbar>
+    android:minHeight="?attr/actionBarSize" />

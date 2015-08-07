@@ -5,7 +5,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/include_toolbar" />
+        layout="@layout/include_main_toolbar" />
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/dl_panel"
