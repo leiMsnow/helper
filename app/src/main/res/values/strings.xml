@@ -10,6 +10,7 @@
     <string name="settings">设置</string>
     <string name="search">搜索</string>
     <string name="join">加入</string>
+    <string name="recommend">推荐</string>
     <string name="digits">1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM._-@#$%^*()?~</string>
 
     <!--登录-->
@@ -46,6 +47,8 @@
     <string name="join_by_me">我参加的</string>
     <string name="topic_name">话题名称</string>
     <string name="topic_list">话题列表</string>
+    <!-- 圈子 -->
+    <string name="chat">聊天</string>
     <!--创建圈子-->
     <string name="group_label">选择圈子标签</string>
     <string name="create_group">创建圈子</string>
@@ -61,7 +64,6 @@
     <string name="group_secret_update">更改</string>
     <string name="finish_create">完成创建</string>
     <string name="icon_clip">头像裁剪</string>
-
     <!-- 加入圈子-->
     <string name="join_group">加入圈子</string>
     <string name="search_group_name">搜索圈子名称</string>

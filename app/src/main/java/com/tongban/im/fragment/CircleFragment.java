@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.ChooseGroupTypeActivity;
+import com.tongban.im.activity.MainActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.model.Group;
 
@@ -72,10 +73,11 @@ public class CircleFragment extends BaseApiFragment {
 //        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
 //        //设置Item增加、移除动画
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        rg_circle = (RadioGroup) mView.findViewById(R.id.rg_circle);
-        rb_chat = (RadioButton) mView.findViewById(R.id.rb_chat);
-        rb_recommend = (RadioButton) mView.findViewById(R.id.rb_recommend);
-        fl_container = (FrameLayout) mView.findViewById(R.id.fl_container);
+
+        rg_circle = (RadioGroup) mView.findViewById(R.id.rg_circle); // RadioGroup
+//        rb_chat = (RadioButton) mView.findViewById(R.id.rb_chat);
+//        rb_recommend = (RadioButton) mView.findViewById(R.id.rb_recommend);
+//        fl_container = (FrameLayout) mView.findViewById(R.id.fl_container);
 
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
@@ -89,6 +91,7 @@ public class CircleFragment extends BaseApiFragment {
         recommendFragment = new RecommendCircleFragment();
         fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
+
     }
 
     @Override
@@ -110,7 +113,6 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-//        GroupApi.getInstance().fetchMyAllGroupList(this);
     }
 
     @Override
@@ -134,6 +136,7 @@ public class CircleFragment extends BaseApiFragment {
      *
      * @param list List<Group>
      */
+    @Deprecated
     public void onEventMainThread(List<Group> list) {
         if (list.size() > 0) {
             //设置adapter

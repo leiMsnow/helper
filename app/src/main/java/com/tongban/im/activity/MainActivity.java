@@ -5,10 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 import com.tongban.corelib.utils.LogUtil;
@@ -78,7 +81,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -129,13 +131,13 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                mActionBarDrawerToggle.onDrawerSlide(drawerView,slideOffset);
+                mActionBarDrawerToggle.onDrawerSlide(drawerView, slideOffset);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 mActionBarDrawerToggle.onDrawerOpened(drawerView);
-                startActivity(new Intent(mContext,UserCenterActivity.class));
+                startActivity(new Intent(mContext, UserCenterActivity.class));
             }
 
             @Override
@@ -171,7 +173,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
     }
 
     @Override
