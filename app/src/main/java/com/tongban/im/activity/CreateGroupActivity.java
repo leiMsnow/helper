@@ -132,7 +132,11 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
         } else if (v == etMap) {
-            startActivity(new Intent(mContext, PoiSearchActivity.class));
+            Intent intent = new Intent(mContext,PoiSearchActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(Consts.KEY_GROUP_TYPE,mGroupType);
+            intent.putExtras(bundle);
+            startActivity(intent);
         } else if (v == tvGroupLabel) {
             startActivity(new Intent(mContext, LabelListActivity.class));
         }

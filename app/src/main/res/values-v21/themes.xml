@@ -17,4 +17,10 @@
         <item name="createGroupBtn">@color/primary_material_red</item>
     </style>
 
+    <style name="AppTheme.DeepPurple.Base" >
+        <item name="android:statusBarColor">@color/primary_dark_material_deep_purple</item>
+        <item name="android:navigationBarColor">@color/accent_material_deep_purple</item>
+        <item name="createGroupBtn">@color/primary_material_deep_purple</item>
+    </style>
+
 </resources>

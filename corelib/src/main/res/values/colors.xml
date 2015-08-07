@@ -33,6 +33,9 @@
     <color name="remind_msg_pink">#fff8685c</color>
     <color name="light_gray">#ffa5a5a5</color>
     <!-- deep purple-->
-    <color name="mater_deep_purple_100">#d1c4e9</color>
-    
+    <color name="primary_material_deep_purple">@color/material_deep_purple_100</color>
+    <color name="primary_dark_material_deep_purple">@color/material_deep_purple_100</color>
+    <color name="accent_material_deep_purple">@color/material_deep_purple_100</color>
+    <color name="material_deep_purple_100">#d1c4e9</color>
+
 </resources>

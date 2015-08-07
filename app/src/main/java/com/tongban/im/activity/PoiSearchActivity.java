@@ -53,7 +53,7 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
         mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
         switch (mGroupType) {
             case GroupType.CITY:
-                setTheme(R.style.AppTheme_Blue_Base);
+                setTheme(R.style.AppTheme_DeepPurple_Base);
                 break;
             case GroupType.AGE:
                 setTheme(R.style.AppTheme_Red_Base);

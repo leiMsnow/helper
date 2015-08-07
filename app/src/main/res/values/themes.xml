@@ -13,6 +13,9 @@
     <style name="AppTheme.Red.Base">
 
     </style>
+    <style name="AppTheme.DeepPurple.Base">
+
+    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
@@ -49,9 +52,9 @@
 
 
     <style name="AppTheme.DeepPurple">
-        <item name="colorPrimary">@color/primary_material_red</item>
-        <item name="colorPrimaryDark">@color/primary_dark_material_red</item>
-        <item name="colorAccent">@color/accent_material_red</item>
+        <item name="colorPrimary">@color/primary_material_deep_purple</item>
+        <item name="colorPrimaryDark">@color/primary_dark_material_deep_purple</item>
+        <item name="colorAccent">@color/accent_material_deep_purple</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@drawable/selector_red_btn_bg</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
