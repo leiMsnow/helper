@@ -6,7 +6,7 @@
 
     </style>
 
-    <style name="AppTheme.Blue.Base">
+    <style name="AppTheme.LightBlue.Base">
 
     </style>
 
@@ -16,14 +16,21 @@
     <style name="AppTheme.DeepPurple.Base">
 
     </style>
+    <style name="AppTheme.LightGreen.Base">
+
+    </style>
+    <style name="AppTheme.Pink.Base">
+
+    </style>
+    <style name="AppTheme.Yellow.Base">
+
+    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/material_gray_300</item>
     </style>
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
-
-
         <item name="colorPrimary">@color/primary_material_white</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_white</item>
         <item name="colorAccent">@color/accent_material_white</item>
@@ -32,7 +39,7 @@
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
-    <style name="AppTheme.Blue">
+    <style name="AppTheme.LightBlue">
         <item name="colorPrimary">@color/primary_material_blue</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_blue</item>
         <item name="colorAccent">@color/accent_material_blue</item>
@@ -52,12 +59,41 @@
 
 
     <style name="AppTheme.DeepPurple">
-        <item name="colorPrimary">@color/primary_material_deep_purple</item>
-        <item name="colorPrimaryDark">@color/primary_dark_material_deep_purple</item>
-        <item name="colorAccent">@color/accent_material_deep_purple</item>
+        <item name="colorPrimary">@color/deep_purple</item>
+        <item name="colorPrimaryDark">@color/deep_purple</item>
+        <item name="colorAccent">@color/deep_purple</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@drawable/selector_red_btn_bg</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
+        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+    </style>
+
+    <style name="AppTheme.LightGreen">
+        <item name="colorPrimary">@color/light_green</item>
+        <item name="colorPrimaryDark">@color/light_green</item>
+        <item name="colorAccent">@color/light_green</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+    </style>
+
+
+    <style name="AppTheme.Pink">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/pink</item>
+        <item name="colorAccent">@color/pink</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+    </style>
+
+
+    <style name="AppTheme.Yellow">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/yellow</item>
+        <item name="colorAccent">@color/yellow</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="createGroupBtn">@color/primary_material_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
     </style>
 
 </resources>

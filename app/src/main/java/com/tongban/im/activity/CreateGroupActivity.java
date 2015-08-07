@@ -62,8 +62,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocationUtils.get(mContext).start();
-
         setTitle(titleName.equals(getString(R.string.create_group)) ? getString(R.string.create_group) :
                 getString(R.string.create) + titleName);
 
@@ -71,16 +69,12 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected int getLayoutRes() {
-        mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
-        titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
-        switch (mGroupType) {
-            case GroupType.CITY:
-                setTheme(R.style.AppTheme_Blue_Base);
-                break;
-            case GroupType.AGE:
-                setTheme(R.style.AppTheme_Red_Base);
-                break;
+        if (getIntent().getExtras() != null) {
+            mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
+            titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
         }
+
+        setToolbarTheme(mGroupType);
         return R.layout.activity_create_group;
     }
 
@@ -132,9 +126,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
         } else if (v == etMap) {
-            Intent intent = new Intent(mContext,PoiSearchActivity.class);
+            Intent intent = new Intent(mContext, PoiSearchActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putInt(Consts.KEY_GROUP_TYPE,mGroupType);
+            bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
             intent.putExtras(bundle);
             startActivity(intent);
         } else if (v == tvGroupLabel) {
@@ -220,16 +214,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             // 创建成功
             ToastUtil.getInstance(mContext).showToast("创建成功");
             finish();
-        } else if (obj instanceof BDLocation) {
-            // 定位成功
-            BDLocation dbLocation = (BDLocation) obj;
-            longitude = dbLocation.getLongitude();
-            latitude = dbLocation.getLatitude();
-            province = dbLocation.getProvince();
-            city = dbLocation.getCity();
-            county = dbLocation.getDistrict();
-            address = dbLocation.getAddrStr();
-            LocationUtils.get(mContext).stop();
         }
     }
 

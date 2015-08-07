@@ -30,12 +30,16 @@
     <color name="material_blue_700">#0288d1</color>
     <color name="material_blue_500">#03a9f4</color>
     <!-- 圈子页消息提醒的字体颜色 -->
-    <color name="remind_msg_pink">#fff8685c</color>
     <color name="light_gray">#ffa5a5a5</color>
     <!-- deep purple-->
-    <color name="primary_material_deep_purple">@color/material_deep_purple_100</color>
-    <color name="primary_dark_material_deep_purple">@color/material_deep_purple_100</color>
-    <color name="accent_material_deep_purple">@color/material_deep_purple_100</color>
-    <color name="material_deep_purple_100">#d1c4e9</color>
+    <color name="deep_purple">#FF9F88BE</color>
+    <!-- light green-->
+    <color name="light_green">#FF82D259</color>
+    <!-- pink-->
+    <color name="pink">#FFBE6087</color>
+    <!-- light blue-->
+    <color name="light_blue">#4fc3f7</color>
+    <!-- yellow-->
+    <color name="yellow">#FFF7D116</color>
 
 </resources>

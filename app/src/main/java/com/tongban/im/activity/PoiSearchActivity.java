@@ -21,7 +21,6 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.GroupType;
 
 /**
  * poi搜索功能
@@ -42,7 +41,7 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     private String mCity;
     private String mKey;
 
-    private int mGroupType;
+    private int mGroupType = 0;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +49,10 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     protected int getLayoutRes() {
-        mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
-        switch (mGroupType) {
-            case GroupType.CITY:
-                setTheme(R.style.AppTheme_DeepPurple_Base);
-                break;
-            case GroupType.AGE:
-                setTheme(R.style.AppTheme_Red_Base);
-                break;
-        }
+        if (getIntent().getExtras() != null)
+            mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
+
+        setToolbarTheme(mGroupType);
         return R.layout.activity_poisearch;
     }
 

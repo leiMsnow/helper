@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:text="[有人@你]"
-                android:textColor="@color/remind_msg_pink"
+                android:textColor="@color/pink"
                 android:textSize="12sp"/>
 
             <TextView

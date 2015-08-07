@@ -5,7 +5,7 @@
         <item name="android:navigationBarColor">@color/accent_material_white</item>
     </style>
 
-    <style name="AppTheme.Blue.Base" >
+    <style name="AppTheme.LightBlue.Base" >
         <item name="android:statusBarColor">@color/primary_dark_material_blue</item>
         <item name="android:navigationBarColor">@color/accent_material_blue</item>
         <item name="createGroupBtn">@color/primary_material_blue</item>
@@ -18,9 +18,29 @@
     </style>
 
     <style name="AppTheme.DeepPurple.Base" >
-        <item name="android:statusBarColor">@color/primary_dark_material_deep_purple</item>
-        <item name="android:navigationBarColor">@color/accent_material_deep_purple</item>
-        <item name="createGroupBtn">@color/primary_material_deep_purple</item>
+        <item name="android:statusBarColor">@color/deep_purple</item>
+        <item name="android:navigationBarColor">@color/deep_purple</item>
+        <item name="createGroupBtn">@color/deep_purple</item>
     </style>
+
+    <style name="AppTheme.LightGreen.Base" >
+        <item name="android:statusBarColor">@color/light_green</item>
+        <item name="android:navigationBarColor">@color/light_green</item>
+        <item name="createGroupBtn">@color/light_green</item>
+    </style>
+
+    <style name="AppTheme.Pink.Base" >
+        <item name="android:statusBarColor">@color/pink</item>
+        <item name="android:navigationBarColor">@color/pink</item>
+        <item name="createGroupBtn">@color/pink</item>
+    </style>
+
+    <style name="AppTheme.Yellow.Base" >
+        <item name="android:statusBarColor">@color/yellow</item>
+        <item name="android:navigationBarColor">@color/yellow</item>
+        <item name="createGroupBtn">@color/yellow</item>
+    </style>
+
+
 
 </resources>

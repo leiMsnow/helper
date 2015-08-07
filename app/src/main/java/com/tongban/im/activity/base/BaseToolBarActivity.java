@@ -18,6 +18,8 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.UserApi;
+import com.tongban.im.common.Consts;
+import com.tongban.im.model.GroupType;
 
 /**
  * Created by zhangleilei on 15/7/8.
@@ -129,6 +131,27 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
             objectAnimator.start();
             this.addContentView(mEmptyView, layoutParams);
+        }
+    }
+
+
+    protected void setToolbarTheme(int type) {
+        switch (type) {
+            case GroupType.CITY:
+                setTheme(R.style.AppTheme_DeepPurple_Base);
+                break;
+            case GroupType.AGE:
+                setTheme(R.style.AppTheme_Pink_Base);
+                break;
+            case GroupType.LIFE:
+                setTheme(R.style.AppTheme_LightGreen_Base);
+                break;
+            case GroupType.CLASSMATE:
+                setTheme(R.style.AppTheme_LightBlue_Base);
+                break;
+            case GroupType.ACTIVITY:
+                setTheme(R.style.AppTheme_Yellow_Base);
+                break;
         }
     }
 
