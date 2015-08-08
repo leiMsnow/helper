@@ -54,6 +54,8 @@
                 style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_age"
+                android:background="@drawable/selector_edit_text"
+
                 android:visibility="gone" />
 
             <!-- 同学 - 选择学校-->
@@ -62,6 +64,7 @@
                 style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_school"
+                android:background="@drawable/selector_edit_text"
                 android:visibility="gone" />
 
             <!-- 生活 - 选择类型-->
@@ -70,6 +73,7 @@
                 style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_life"
+                android:background="@drawable/selector_edit_text"
                 android:visibility="gone" />
 
             <!--圈子标签-->
@@ -77,6 +81,7 @@
                 android:id="@+id/tv_group_label"
                 style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
+                android:background="@drawable/selector_edit_text"
                 android:hint="@string/group_label" />
 
             <!--圈子位置-->
@@ -84,6 +89,7 @@
                 android:id="@+id/tv_group_location"
                 style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
+                android:background="@drawable/selector_edit_text"
                 android:hint="@string/hint_group_location" />
 
             <!--圈子简介-->
