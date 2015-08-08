@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,12 +38,14 @@ import java.io.FileNotFoundException;
  *
  * @author fushudi
  */
-public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
-    private Button btnSubmit;
-    private EditText etGroupName;
+public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
+
     private ImageView ivSetGroupIcon;
-    private EditText etMap;
-    private TextView tvGroupLabel;
+    private EditText etGroupName, etDesc;
+    private TextView tvGroupLabel, tvLocation, tvAge, tvSchool, tvLife;
+    private CheckBox chbSecret, chbAgree;
+    private Button btnSubmit;
 
     private AlertView dialog;
     private LinearLayout mCamera;
@@ -62,6 +66,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocationUtils.get(mContext).start();
         setTitle(titleName.equals(getString(R.string.create_group)) ? getString(R.string.create_group) :
                 getString(R.string.create) + titleName);
 
@@ -80,20 +85,56 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initView() {
-        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
-        btnSubmit = (Button) findViewById(R.id.btn_create);
-        etGroupName = (EditText) findViewById(R.id.et_group_name);
-        etMap = (EditText) findViewById(R.id.et_group_location);
-        tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
 
+        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
+
+        etGroupName = (EditText) findViewById(R.id.et_group_name);
+        etDesc = (EditText) findViewById(R.id.et_group_desc);
+
+        tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
+        tvLocation = (TextView) findViewById(R.id.tv_group_location);
+
+        tvAge = (TextView) findViewById(R.id.tv_age);
+        tvSchool = (TextView) findViewById(R.id.tv_school);
+        tvLife = (TextView) findViewById(R.id.tv_life);
+
+        chbSecret = (CheckBox) findViewById(R.id.chb_secret);
+        chbAgree = (CheckBox) findViewById(R.id.chb_agreement);
+
+        btnSubmit = (Button) findViewById(R.id.btn_create);
+
+        setTextVisible();
+    }
+
+    //设置文本的可见度
+    private void setTextVisible() {
+        switch (mGroupType) {
+            case GroupType.AGE:
+                tvAge.setVisibility(View.VISIBLE);
+                break;
+            case GroupType.LIFE:
+                tvLife.setVisibility(View.VISIBLE);
+                break;
+            case GroupType.CLASSMATE:
+                tvSchool.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     @Override
     protected void initListener() {
         ivSetGroupIcon.setOnClickListener(this);
-        btnSubmit.setOnClickListener(this);
-        etMap.setOnClickListener(this);
+
+        tvLocation.setOnClickListener(this);
         tvGroupLabel.setOnClickListener(this);
+        tvAge.setOnClickListener(this);
+        tvLife.setOnClickListener(this);
+        tvSchool.setOnClickListener(this);
+
+        chbAgree.setOnCheckedChangeListener(this);
+        chbSecret.setOnCheckedChangeListener(this);
+
+        btnSubmit.setOnClickListener(this);
     }
 
     @Override
@@ -111,21 +152,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
                 return;
             }
-            if (longitude == 0.0)
-                longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
-            if (latitude == 0.0)
-                latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
-            if (address == null || "".equals(address))
-                address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
-            if (county == null || "".equals(county))
-                county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
-            if (city == null || "".equals(city))
-                city = (String) SPUtils.get(mContext, Consts.CITY, "");
-            if (province == null || "".equals(province))
-                province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
-        } else if (v == etMap) {
+        } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, PoiSearchActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
@@ -181,7 +210,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             mCamera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //     Utils.takePhoto(mContext, null);
                     CameraUtils.takePhoto(mContext);
                     dialog.cancel();
                 }
@@ -189,7 +217,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             mGallery.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //     Utils.openPhotoAlbum(mContext, null);
                     CameraUtils.openPhotoAlbum(mContext);
                     dialog.cancel();
                 }
@@ -198,22 +225,19 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         dialog.show();
     }
 
-    private Bitmap getLocalBitmap(String url) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(url);
-            return BitmapFactory.decodeStream(fis);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public void onEventMainThread(Object obj) {
         if (obj instanceof Group) {
             // 创建成功
             ToastUtil.getInstance(mContext).showToast("创建成功");
             finish();
+        } else if (obj instanceof BDLocation) {
+            longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
+            latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
+            address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+            county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
+            city = (String) SPUtils.get(mContext, Consts.CITY, "");
+            province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
+            tvLocation.setText(address);
         }
     }
 
@@ -231,5 +255,14 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             startActivity(new Intent(mContext, TopicActivity.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (buttonView == chbSecret) {
+
+        } else if (buttonView == chbAgree) {
+
+        }
     }
 }

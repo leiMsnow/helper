@@ -90,4 +90,18 @@
         <item name="android:background">@drawable/shape_corners_white_bg</item>
     </style>
 
+    <!-- 创建圈子文本的样式-->
+    <style name="CreateGroupTextStyle">
+        <item name="android:background">@drawable/selector_edit_text</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/material_gray_300</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
 </resources>

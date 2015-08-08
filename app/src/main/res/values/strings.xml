@@ -50,18 +50,20 @@
     <!-- 圈子 -->
     <string name="chat">聊天</string>
     <!--创建圈子-->
-    <string name="group_label">选择圈子标签</string>
+    <string name="group_label">圈子标签</string>
     <string name="create_group">创建圈子</string>
+    <string name="create_age">出生年月(请选择宝宝出生日期)</string>
+    <string name="create_school">所在学校(请选择宝宝所在学校)</string>
+    <string name="create_life">圈子分类(请选择圈子类型)</string>
     <string name="choice_group_type">选择圈子类型</string>
     <string name="more_group_type">还可以创建</string>
     <string name="add_group_icon">添加圈子头像</string>
     <string name="hint_group_name">圈子名称（如标题、人物、地点等）</string>
     <string name="hint_group_introduction">圈子简介，200字以内</string>
     <string name="hint_group_label">圈子标签</string>
-    <string name="hint_group_location">宝贝学校、班级</string>
-    <string name="group_secret">圈子隐私</string>
-    <string name="group_secret_detail">允许所有人按条件搜索到此圈子，认证后可加入</string>
-    <string name="group_secret_update">更改</string>
+    <string name="hint_group_location">圈子位置</string>
+    <string name="group_secret">允许搜索到本群</string>
+    <string name="group_agreement">我同意《同伴圈子服务协议》</string>
     <string name="finish_create">完成创建</string>
     <string name="icon_clip">头像裁剪</string>
     <!-- 加入圈子-->

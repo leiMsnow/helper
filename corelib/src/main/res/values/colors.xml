@@ -35,5 +35,7 @@
     <color name="light_blue">#4fc3f7</color>
     <!-- yellow-->
     <color name="yellow">#FFF7D116</color>
+    <!-- red-->
+    <color name="red">#FFF76D5F</color>
 
 </resources>

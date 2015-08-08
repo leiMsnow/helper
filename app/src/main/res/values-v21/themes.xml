@@ -5,6 +5,12 @@
         <item name="android:navigationBarColor">@color/accent_material_white</item>
     </style>
 
+    <style name="AppTheme.Red.Base" >
+        <item name="android:statusBarColor">@color/red</item>
+        <item name="android:navigationBarColor">@color/red</item>
+        <item name="createGroupBtn">@color/red</item>
+    </style>
+
     <style name="AppTheme.LightBlue.Base" >
         <item name="android:statusBarColor">@color/light_blue</item>
         <item name="android:navigationBarColor">@color/light_blue</item>

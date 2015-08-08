@@ -16,7 +16,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <ImageView
                 android:id="@+id/iv_group_icon"
@@ -25,104 +27,117 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="48dp"
                 android:background="?attr/createGroupIcon"
-                android:scaleType="fitXY"
+                android:scaleType="center"
                 android:src="@mipmap/ic_menu_camera" />
+
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_group_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
+                style="@style/CreateGroupTextStyle"
                 android:layout_marginTop="48dp"
-                android:hint="@string/hint_group_name"
-                android:minHeight="40dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_gray_300"
-                android:textSize="14sp" />
+                android:focusable="true"
+                android:hint="@string/hint_group_name" />
 
-            <!--圈子简介-->
-            <EditText
-                android:id="@+id/et_group_introduction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="8dp"
-                android:hint="@string/hint_group_introduction"
-                android:minHeight="40dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_gray_300"
-                android:textSize="12sp" />
+            <!-- 同龄 - 选择年龄-->
+            <TextView
+                android:id="@+id/tv_age"
+                style="@style/CreateGroupTextStyle"
+                android:drawableLeft="@mipmap/ic_group_label"
+                android:hint="@string/create_age"
+                android:visibility="gone" />
+
+            <!-- 同学 - 选择学校-->
+            <TextView
+                android:id="@+id/tv_school"
+                style="@style/CreateGroupTextStyle"
+                android:drawableLeft="@mipmap/ic_group_label"
+                android:hint="@string/create_school"
+                android:visibility="gone" />
+
+            <!-- 生活 - 选择类型-->
+            <TextView
+                android:id="@+id/tv_life"
+                style="@style/CreateGroupTextStyle"
+                android:drawableLeft="@mipmap/ic_group_label"
+                android:hint="@string/create_life"
+                android:visibility="gone" />
 
             <!--圈子标签-->
             <TextView
                 android:id="@+id/tv_group_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="8dp"
+                style="@style/CreateGroupTextStyle"
                 android:drawableLeft="@mipmap/ic_group_label"
-                android:minHeight="40dp"
-                android:text="@string/group_label"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_gray_300"
-                android:textSize="12sp" />
+                android:hint="@string/group_label" />
 
             <!--圈子位置-->
-            <EditText
-                android:id="@+id/et_group_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="8dp"
-                android:drawableLeft="@mipmap/ic_group_location"
-                android:hint="@string/hint_group_location"
-                android:minHeight="40dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/material_gray_300"
-                android:textSize="12sp" />
-
-
             <TextView
-                android:id="@+id/tv_group_secret"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/group_secret"
-                android:textColor="@color/black" />
+                android:id="@+id/tv_group_location"
+                style="@style/CreateGroupTextStyle"
+                android:drawableLeft="@mipmap/ic_group_label"
+                android:hint="@string/hint_group_location" />
 
-            <LinearLayout
+            <!--圈子简介-->
+            <EditText
+                android:id="@+id/et_group_desc"
+                style="@style/CreateGroupTextStyle"
+                android:hint="@string/hint_group_introduction"
+                android:maxLength="4"
+                android:singleLine="false" />
+
+            <!-- 圈子隐私-->
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:minHeight="48dp">
 
                 <TextView
-                    android:id="@+id/tv_group_secret_detail"
+                    style="@style/CreateGroupTextStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/group_secret_detail"
-                    android:textColor="@color/material_gray_300" />
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/group_secret" />
+                <!-- 隐私开关-->
+                <CheckBox
+                    android:id="@+id/chb_secret"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
+            <!--同意协议-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp">
+
+                <CheckBox
+                    android:id="@+id/chb_agreement"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:checked="true" />
+
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    style="@style/CreateGroupTextStyle"
+                    android:background="@null"
+                    android:layout_toRightOf="@+id/chb_agreement"
+                    android:gravity="center_vertical"
+                    android:hint="@string/group_agreement" />
+
+            </RelativeLayout>
+            <!-- 完成创建-->
             <Button
                 android:id="@+id/btn_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_group_secret_detail"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="72dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="72dp"
                 android:background="?attr/createGroupBtn"
                 android:text="@string/finish_create"
+                android:layout_marginBottom="16dp"
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>

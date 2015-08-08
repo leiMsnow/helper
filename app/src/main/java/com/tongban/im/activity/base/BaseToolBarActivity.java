@@ -152,6 +152,9 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
             case GroupType.ACTIVITY:
                 setTheme(R.style.AppTheme_Yellow_Base);
                 break;
+            default:
+                setTheme(R.style.AppTheme_Red_Base);
+                break;
         }
     }
 
