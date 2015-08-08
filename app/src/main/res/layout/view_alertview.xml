@@ -23,7 +23,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
-        android:background="@color/material_gray_300" />
+        android:background="@color/grey_300" />
 
     <LinearLayout
         android:id="@+id/gallery"

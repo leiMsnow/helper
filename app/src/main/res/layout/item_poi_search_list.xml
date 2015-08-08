@@ -26,7 +26,7 @@
         android:layout_toLeftOf="@+id/iv_poi_selected"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textColor="@color/material_gray_500"
+        android:textColor="@color/grey_500"
         android:textSize="12sp" />
 
     <ImageView
@@ -44,6 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/tv_poi_address"
-        android:background="@color/material_gray_300" />
+        android:background="@color/grey_300" />
 
 </RelativeLayout>
