@@ -55,7 +55,7 @@
     <string name="choice_group_type">选择圈子类型</string>
     <string name="more_group_type">还可以创建</string>
     <string name="add_group_icon">添加圈子头像</string>
-    <string name="hint_group_name">圈子名称（必填，如标题、人物、地点等）</string>
+    <string name="hint_group_name">圈子名称（如标题、人物、地点等）</string>
     <string name="hint_group_introduction">圈子简介，200字以内</string>
     <string name="hint_group_label">圈子标签</string>
     <string name="hint_group_location">宝贝学校、班级</string>
