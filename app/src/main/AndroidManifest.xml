@@ -155,7 +155,8 @@
             android:label="@string/user_center" />
         <activity android:name=".activity.PoiSearchActivity"
             android:label="@string/select_location"/>
-        <activity android:name=".activity.LabelListActivity"></activity>
+        <activity android:name=".activity.LabelListActivity"
+            android:label="@string/group_label"></activity>
 
     </application>
 

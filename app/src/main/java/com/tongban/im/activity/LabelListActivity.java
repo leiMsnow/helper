@@ -12,6 +12,9 @@ import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
+/**
+ * 圈子标签页
+ */
 public class LabelListActivity extends BaseToolBarActivity implements View.OnClickListener {
     private FlowLayout flLabelList;
     private String labelNameList[] = {"同龄圈1", "达人圈2", "生活圈3", "男宝宝4", "女宝宝5",
@@ -20,7 +23,6 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected int getLayoutRes() {
-        setTitle("圈子标签");
         return R.layout.activity_lable_list;
     }
 
