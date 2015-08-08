@@ -20,22 +20,32 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
-                android:id="@+id/iv_group_icon"
+            <FrameLayout
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dp"
-                android:background="?attr/createGroupIcon"
-                android:scaleType="center"
-                android:src="@mipmap/ic_menu_camera" />
+                android:layout_marginTop="48dp">
+
+                <com.tongban.corelib.widget.view.RoundImageView
+                    android:id="@+id/iv_group_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/createGroupIcon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/material_gray_300"
+                    android:text="@string/create_group_icon" />
+
+            </FrameLayout>
 
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_group_name"
                 style="@style/CreateGroupTextStyle"
                 android:layout_marginTop="48dp"
-                android:focusable="true"
                 android:hint="@string/hint_group_name" />
 
             <!-- 同龄 - 选择年龄-->
@@ -124,8 +134,8 @@
                 <TextView
                     android:id="@+id/tv_agreement"
                     style="@style/CreateGroupTextStyle"
-                    android:background="@null"
                     android:layout_toRightOf="@+id/chb_agreement"
+                    android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="@string/group_agreement" />
 
@@ -135,9 +145,9 @@
                 android:id="@+id/btn_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:background="?attr/createGroupBtn"
                 android:text="@string/finish_create"
-                android:layout_marginBottom="16dp"
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>

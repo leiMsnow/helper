@@ -64,7 +64,7 @@ public class ClipImageBorderViewActivity extends BaseToolBarActivity {
                 Bitmap bitmap = mClipImageLayout.clip();
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
                 byte[] datas = baos.toByteArray();
 
                 Intent intent = new Intent();

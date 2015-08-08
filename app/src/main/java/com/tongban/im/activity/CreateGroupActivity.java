@@ -87,8 +87,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     protected void initView() {
 
         ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
-
         etGroupName = (EditText) findViewById(R.id.et_group_name);
+        etGroupName.requestFocus();
         etDesc = (EditText) findViewById(R.id.et_group_desc);
 
         tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
@@ -158,8 +158,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             Intent intent = new Intent(mContext, PoiSearchActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
+            bundle.putString(Consts.KEY_SELECTED_POI_NAME, address);
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivityForResult(intent, PoiSearchActivity.SELECT_LOCATION);
         } else if (v == tvGroupLabel) {
             startActivity(new Intent(mContext, LabelListActivity.class));
         }
@@ -197,6 +198,11 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
                 ivSetGroupIcon.setImageBitmap(bitmap);
             }
+        }else if(requestCode == PoiSearchActivity.SELECT_LOCATION){
+            address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE,0.0);
+            latitude = data.getDoubleExtra(Consts.LATITUDE,0.0);
+            tvLocation.setText(address);
         }
     }
 
