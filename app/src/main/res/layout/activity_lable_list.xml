@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include
@@ -19,15 +20,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标签选择"
-            android:textColor="@color/light_gray" />
+            android:text="@string/select_label"
+            android:textColor="@color/material_gray_500" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="最多选择三个标签"
-            android:textColor="@color/light_gray" />
+            android:text="@string/select_label_max"
+            android:textColor="@color/material_gray_500" />
     </RelativeLayout>
 
     <com.tongban.corelib.widget.view.FlowLayout

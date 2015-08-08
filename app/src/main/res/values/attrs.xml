@@ -2,4 +2,6 @@
 <resources>
     <attr name="createGroupBtn" format="reference|color"></attr>
     <attr name="createGroupIcon" format="reference|color"></attr>
+    <!-- 圈子标签背景选择属性-->
+    <attr name="labelSelectBG" format="reference|color"></attr>
 </resources>

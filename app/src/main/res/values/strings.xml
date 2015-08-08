@@ -50,7 +50,6 @@
     <!-- 圈子 -->
     <string name="chat">聊天</string>
     <!--创建圈子-->
-    <string name="group_label">圈子标签</string>
     <string name="create_group">创建圈子</string>
     <string name="create_group_icon">添加圈子头像</string>
     <string name="create_age">出生年月(请选择宝宝出生日期)</string>
@@ -81,8 +80,12 @@
     <string name="feedback">意见反馈</string>
     <string name="title_activity_lable_list">LableListActivity</string>
     <string name="search_result">搜索结果</string>
+    <!-- 位置-->
     <string name="select_location">选择位置</string>
-
+    <!--标签-->
+    <string name="group_label">圈子标签</string>
+    <string name="select_label">标签选择</string>
+    <string name="select_label_max">最多选择三个标签</string>
 
 
 </resources>
