@@ -1,7 +1,6 @@
 package com.tongban.im.fragment;
 
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,8 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.ChooseGroupTypeActivity;
 import com.tongban.im.model.BaseEvent;
 
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -71,9 +70,8 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_create_group) {
-            Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
-            startActivity(intent);
+        if (item.getItemId() == R.id.action_search) {
+            ToastUtil.getInstance(mContext).showToast("搜索");
             return true;
         }
         return super.onOptionsItemSelected(item);
