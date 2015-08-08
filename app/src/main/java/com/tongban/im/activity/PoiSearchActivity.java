@@ -30,8 +30,6 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
         OnGetPoiSearchResultListener, AdapterView.OnItemClickListener,
         LoadMoreListView.OnLoadMoreListener, SearchView.OnQueryTextListener {
 
-    public static int SELECT_LOCATION = 310;
-
     private LoadMoreListView lvLocation;
     private SearchView searchView;
 
@@ -55,8 +53,8 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             mSelected = getIntent().getExtras().getString(Consts.KEY_SELECTED_POI_NAME, "");
+            setToolbarTheme(mGroupType);
         }
-        setToolbarTheme(mGroupType);
         return R.layout.activity_poisearch;
     }
 

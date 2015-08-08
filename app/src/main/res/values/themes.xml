@@ -55,6 +55,7 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@drawable/selector_blue_btn_bg</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
     </style>
 
     <style name="AppTheme.DeepPurple" >
@@ -64,6 +65,8 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@color/theme_deep_purple</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_deep_purple</item>
+
     </style>
 
     <style name="AppTheme.LightGreen" >
@@ -73,6 +76,8 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@color/theme_light_green</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_light_green</item>
+
     </style>
 
 
@@ -83,6 +88,8 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@color/theme_pink</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_pink</item>
+
     </style>
 
 
@@ -93,6 +100,8 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="createGroupBtn">@color/theme_yellow</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
+
     </style>
 
 </resources>

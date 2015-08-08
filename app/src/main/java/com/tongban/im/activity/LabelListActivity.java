@@ -30,8 +30,8 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     protected int getLayoutRes() {
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
+            setToolbarTheme(mGroupType);
         }
-        setToolbarTheme(mGroupType);
         return R.layout.activity_lable_list;
     }
 

@@ -41,6 +41,10 @@ import java.io.FileNotFoundException;
 public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
 
+    public static int SELECT_LOCATION = 310;
+    public static int SELECT_LABEL = 320;
+
+
     private ImageView ivSetGroupIcon;
     private EditText etGroupName, etDesc;
     private TextView tvGroupLabel, tvLocation, tvAge, tvSchool, tvLife;
@@ -77,9 +81,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
+            setToolbarTheme(mGroupType);
         }
 
-        setToolbarTheme(mGroupType);
         return R.layout.activity_create_group;
     }
 
@@ -160,9 +164,13 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
             bundle.putString(Consts.KEY_SELECTED_POI_NAME, address);
             intent.putExtras(bundle);
-            startActivityForResult(intent, PoiSearchActivity.SELECT_LOCATION);
+            startActivityForResult(intent, SELECT_LOCATION);
         } else if (v == tvGroupLabel) {
-            startActivity(new Intent(mContext, LabelListActivity.class));
+            Intent intent = new Intent(mContext, LabelListActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, SELECT_LABEL);
         }
     }
 
@@ -198,10 +206,10 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
                 ivSetGroupIcon.setImageBitmap(bitmap);
             }
-        }else if(requestCode == PoiSearchActivity.SELECT_LOCATION){
+        } else if (requestCode == SELECT_LOCATION) {
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
-            longitude = data.getDoubleExtra(Consts.LONGITUDE,0.0);
-            latitude = data.getDoubleExtra(Consts.LATITUDE,0.0);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
+            latitude = data.getDoubleExtra(Consts.LATITUDE, 0.0);
             tvLocation.setText(address);
         }
     }
