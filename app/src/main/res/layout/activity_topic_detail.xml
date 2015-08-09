@@ -29,15 +29,18 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="4dp"
+            android:layout_alignBottom="@+id/et_reply"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
             android:src="@drawable/rc_ic_smiley" />
 
         <EditText
             android:id="@+id/et_reply"
-            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
             android:layout_toLeftOf="@+id/btn_reply"
             android:layout_toRightOf="@+id/iv_emoj" />
 
@@ -46,6 +49,9 @@
             android:layout_width="48dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
+            android:layout_alignBottom="@+id/et_reply"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/ic_menu_send" />
 
     </RelativeLayout>

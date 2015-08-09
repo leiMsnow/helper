@@ -17,7 +17,7 @@
         android:layout_height="32dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_contact_picture" />
+        android:src="@drawable/rc_default_portrait" />
 
     <View
         android:layout_width="2dp"
