@@ -62,7 +62,6 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     protected void initView() {
         // 初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
-        searchView = (SearchView) findViewById(R.id.id_search_view);
         lvLocation = (LoadMoreListView) findViewById(R.id.lv_location);
 
     }

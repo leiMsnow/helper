@@ -1,7 +1,6 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.base.adapter.BaseAdapterHelper;
-import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
-import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -72,22 +66,22 @@ public class TopicAdapter extends BaseAdapter {
         Topic topic = topicList.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            if (topic.getContentType() == Topic.TEXT) {
-                convertView = inflate.inflate(R.layout.item_topic_list_text, parent, false);
-                viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_topic_content);
-            } else if (topic.getContentType() == Topic.IMAGE) {
-                convertView = inflate.inflate(R.layout.item_topic_list_img, parent, false);
-                viewHolder.gvContent = (GridView) convertView.findViewById(R.id.gv_content);
-            }
+            convertView = inflate.inflate(R.layout.item_topic_list, parent, false);
+            //用户信息
             viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_topic_icon);
             viewHolder.tvNickName = (TextView) convertView.findViewById(R.id.tv_nickname);
-            viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_address);
             viewHolder.tvAge = (TextView) convertView.findViewById(R.id.tv_age);
-            viewHolder.tvSex = (TextView) convertView.findViewById(R.id.tv_sex);
-            viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_num);
-            viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_num);
             viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tv_time);
+            //话题内容
             viewHolder.tvTopicName = (TextView) convertView.findViewById(R.id.tv_topic_name);
+            viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_topic_content);
+            viewHolder.gvContent = (GridView) convertView.findViewById(R.id.gv_content);
+            viewHolder.gvContent.setAdapter(adapter);
+            //点赞、评论、地址
+            viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_count);
+            viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_replay_count);
+            viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_location);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -96,7 +90,6 @@ public class TopicAdapter extends BaseAdapter {
                 placeholder(R.drawable.rc_default_portrait).into(viewHolder.ivIcon);
         viewHolder.tvTopicName.setText(topic.getTopicName());
         viewHolder.tvPraiseNum.setText(topic.getTopicPraiseNum());
-        viewHolder.tvSex.setText(topic.getUser().getSex());
         viewHolder.tvTime.setText(topic.getTopicTime());
         viewHolder.tvAge.setText(topic.getUser().getAge());
         viewHolder.tvAddress.setText(topic.getUser().getAddress());
@@ -104,16 +97,23 @@ public class TopicAdapter extends BaseAdapter {
         viewHolder.tvReplyNum.setText(topic.getTopicReplyNum());
 
         if (topic.getContentType() == Topic.TEXT) {
+
             viewHolder.tvContent.setText(topic.getTopicContent());
+            viewHolder.tvContent.setVisibility(View.VISIBLE);
+            viewHolder.gvContent.setVisibility(View.GONE);
+
         } else {
-            viewHolder.gvContent.setAdapter(adapter);
+
+            viewHolder.tvContent.setVisibility(View.GONE);
+            viewHolder.gvContent.setVisibility(View.VISIBLE);
+            adapter.replaceAll(topic.getSmallUrl());
         }
         return convertView;
     }
 
     class ViewHolder {
         public ImageView ivIcon;
-        public TextView tvNickName, tvSex, tvAge, tvAddress, tvTime, tvTopicName,
+        public TextView tvNickName, tvAge, tvAddress, tvTime, tvTopicName,
                 tvPraiseNum, tvReplyNum, tvContent;
         public GridView gvContent;
     }

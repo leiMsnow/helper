@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:minHeight="?attr/actionBarSize">
+    app:cardElevation="1px">
 
-    <RadioGroup
-        android:id="@+id/rg_circle"
-        android:layout_width="wrap_content"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/in_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize">
 
-        <RadioButton
-            android:id="@+id/rb_chat"
+        <RadioGroup
+            android:id="@+id/rg_circle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:layout_gravity="center"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/chat"
-            android:textColor="@drawable/selector_main_tab_text_color"
-            android:textSize="16dp" />
+            android:orientation="horizontal"
+            android:visibility="gone">
 
-        <RadioButton
-            android:id="@+id/rb_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:button="@null"
-            android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/recommend"
-            android:textColor="@drawable/selector_main_tab_text_color"
-            android:textSize="16dp" />
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rb_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/chat"
+                android:textColor="@drawable/selector_main_tab_text_color"
+                android:textSize="16dp" />
 
-</android.support.v7.widget.Toolbar>
+            <RadioButton
+                android:id="@+id/rb_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="@string/recommend"
+                android:textColor="@drawable/selector_main_tab_text_color"
+                android:textSize="16dp" />
+        </RadioGroup>
+
+    </android.support.v7.widget.Toolbar>
+</android.support.v7.widget.CardView>

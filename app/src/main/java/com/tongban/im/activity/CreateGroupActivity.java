@@ -266,7 +266,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.topic_detail) {
-            startActivity(new Intent(mContext, TopicActivity.class));
+//            startActivity(new Intent(mContext, TopicActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

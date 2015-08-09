@@ -105,8 +105,8 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
                 }
             }
         }else if (v == tvTopic || v == tvTopicDetails) {
-            Intent intent = new Intent(mContext, TopicActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(mContext, TopicActivity.class);
+//            startActivity(intent);
         }
     }
 

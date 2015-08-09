@@ -3,7 +3,6 @@ package com.tongban.im.activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,13 +49,6 @@ public class UserCenterActivity extends BaseToolBarActivity {
                 (int) (3.0F * (mScreenWidth / 4.0F)));
         lvUserCenter.setHeaderLayoutParams(localObject);
 
-//        fansBadgeView = new BadgeView(mContext, tvFans);
-//        ViewGroup.LayoutParams layoutParams = fansBadgeView.getLayoutParams();
-//        layoutParams.height = 16;
-//        layoutParams.width = 16;
-//        fansBadgeView.setLayoutParams(layoutParams);
-//        fansBadgeView.setBackgroundResource((R.mipmap.ic_overlay));
-//        fansBadgeView.show();
     }
 
     @Override

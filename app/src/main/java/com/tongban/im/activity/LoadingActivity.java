@@ -59,7 +59,6 @@ public class LoadingActivity extends BaseToolBarActivity {
             finish();
         } else {
             UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
-
             LocationUtils.get(mContext).start();
         }
     }
@@ -86,6 +85,9 @@ public class LoadingActivity extends BaseToolBarActivity {
             int addressType = 0;
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
+        }else if(obj instanceof String){
+            startActivity(new Intent(mContext, MainActivity.class));
+            finish();
         }
     }
 }
