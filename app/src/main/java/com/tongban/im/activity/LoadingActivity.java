@@ -86,6 +86,8 @@ public class LoadingActivity extends BaseToolBarActivity {
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
         }else if(obj instanceof String){
+            RongCloudEvent.getInstance().
+                    connectIM(SPUtils.get(mContext,Consts.IM_BIND_TOKEN,"").toString());
             startActivity(new Intent(mContext, MainActivity.class));
             finish();
         }

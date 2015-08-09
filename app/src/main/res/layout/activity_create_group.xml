@@ -55,7 +55,6 @@
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_age"
                 android:background="@drawable/selector_edit_text"
-
                 android:visibility="gone" />
 
             <!-- 同学 - 选择学校-->

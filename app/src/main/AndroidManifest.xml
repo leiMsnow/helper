@@ -147,7 +147,7 @@
             android:label="@string/pass_reset" />
         <activity
             android:name=".activity.TopicDetailActivity"
-            android:label="@string/topic_name" />
+            android:label="@string/topic" />
         <activity
             android:name=".activity.UserCenterActivity"
             android:label="@string/user_center" />

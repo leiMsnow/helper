@@ -133,6 +133,9 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (mAdapter.getItem(position) == null) {
+            return;
+        }
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString(Consts.KEY_SELECTED_POI_NAME, mAdapter.getItem(position).name);

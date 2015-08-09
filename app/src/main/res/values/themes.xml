@@ -1,42 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.White.Base">
-
-
-    </style>
-
-    <style name="AppTheme.LightBlue.Base">
-
-    </style>
-
-    <style name="AppTheme.DeepPurple.Base">
-
-    </style>
-
-    <style name="AppTheme.LightGreen.Base">
-
-    </style>
-
-    <style name="AppTheme.Pink.Base">
-
-    </style>
-
-    <style name="AppTheme.Yellow.Base">
-
-    </style>
-
-    <style name="AppTheme.Red.Base">
-        <item name="actionMenuTextColor">@color/white</item>
-    </style>
-
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="actionMenuTextColor">@color/white</item>
-        <item name="navigationIcon">@mipmap/abc_ic_ab_back_mtrl_am_alpha</item>
-        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
-        <item name="android:textColorPrimary">@color/white</item>
-    </style>
-
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="actionMenuTextColor">@color/grey_200</item>
@@ -48,65 +12,46 @@
         <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
     </style>
 
-    <style name="AppTheme.LightBlue" >
-        <item name="colorPrimary">@color/theme_light_blue</item>
-        <item name="colorPrimaryDark">@color/theme_light_blue</item>
-        <item name="colorAccent">@color/theme_light_blue</item>
+    <style name="AppTheme.White.Base">
+
+    </style>
+
+    <style name="AppTheme.LightBlue.Base">
         <item name="buttonBackground">@drawable/selector_btn_bg_light_blue</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
     </style>
 
-    <style name="AppTheme.Red">
-        <item name="colorPrimary">@color/theme_red</item>
-        <item name="colorPrimaryDark">@color/theme_red</item>
-        <item name="colorAccent">@color/theme_red</item>
+    <style name="AppTheme.Red.Base">
         <item name="buttonBackground">@color/theme_red</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_red</item>
     </style>
 
-
-    <style name="AppTheme.DeepPurple">
-        <item name="colorPrimary">@color/theme_deep_purple</item>
-        <item name="colorPrimaryDark">@color/theme_deep_purple</item>
-        <item name="colorAccent">@color/theme_deep_purple</item>
+    <style name="AppTheme.DeepPurple.Base">
         <item name="buttonBackground">@color/theme_deep_purple</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_deep_purple</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_deep_purple</item>
-
     </style>
 
-    <style name="AppTheme.LightGreen">
-        <item name="colorPrimary">@color/theme_light_green</item>
-        <item name="colorPrimaryDark">@color/theme_light_green</item>
-        <item name="colorAccent">@color/theme_light_green</item>
+    <style name="AppTheme.LightGreen.Base">
         <item name="buttonBackground">@color/theme_light_green</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_green</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_light_green</item>
-
     </style>
 
-
-    <style name="AppTheme.Pink">
-        <item name="colorPrimary">@color/theme_pink</item>
-        <item name="colorPrimaryDark">@color/theme_pink</item>
-        <item name="colorAccent">@color/theme_pink</item>
+    <style name="AppTheme.Pink.Base">
         <item name="buttonBackground">@color/theme_pink</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_pink</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_pink</item>
-
     </style>
 
-
-    <style name="AppTheme.Yellow">
-        <item name="colorPrimary">@color/theme_yellow</item>
-        <item name="colorPrimaryDark">@color/theme_yellow</item>
-        <item name="colorAccent">@color/theme_yellow</item>
+    <style name="AppTheme.Yellow.Base">
         <item name="buttonBackground">@color/theme_yellow</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_yellow</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
-
     </style>
+
+
 
 </resources>

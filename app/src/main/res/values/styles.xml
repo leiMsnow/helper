@@ -40,17 +40,6 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
     </style>
-    <!--搜索框样式-->
-    <style name="SearchView.Light" parent="Base.Widget.AppCompat.SearchView">
-        <item name="layout">@layout/abc_search_view</item>
-        <item name="queryBackground">@null</item>
-        <item name="submitBackground">@null</item>
-    </style>
-    <!-- actionbar的overflow-->
-    <style name="ActionButton.Overflow.Light" parent="Base.Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:src">@mipmap/abc_ic_menu_moreoverflow_mtrl_alpha</item>
-
-    </style>
 
     <!-- 用户信息父容器-->
     <style name="UserInfoAttrParent">

@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!-- 颜色的定义使用material_design,每种色值完全按照官网提供的来定义，
-    命名规则：material_color_int[_alpha],material_color_int_颜色_饱和度_透明度
-    颜色定义地址:http://design.1sters.com/material_design/style/color.html-->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- transparent-->
+    <color name="transparent">#00000000</color>
     <!-- black-->
     <color name="black">#000000</color>
     <!-- white-->
     <color name="white">#ffffff</color>
-
+    <!-- grey-->
+    <color name="grey">#9e9e9e</color>
     <!-- deep purple-->
     <color name="theme_deep_purple">#FF9F88BE</color>
     <!-- light green-->

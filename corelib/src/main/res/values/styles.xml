@@ -16,4 +16,10 @@
         <item name="android:windowFrame">@null</item>
     </style>
 
+    <!-- actionbar的overflow-->
+    <style name="ActionButton.Overflow.Light" parent="Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@mipmap/abc_ic_menu_moreoverflow_mtrl_alpha</item>
+
+    </style>
+
 </resources>
