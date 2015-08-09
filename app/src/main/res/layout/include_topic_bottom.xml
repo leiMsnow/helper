@@ -5,7 +5,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tv_replay_count"
+        android:id="@+id/tv_reply_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_replay_count"
+        android:layout_toRightOf="@+id/tv_reply_count"
         android:drawableLeft="@mipmap/ic_reply_count"
         android:gravity="bottom"
         android:paddingBottom="4dp"

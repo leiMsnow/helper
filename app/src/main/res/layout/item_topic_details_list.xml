@@ -1,87 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/grey_100">
+
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="30dp"
+        android:background="@color/white" />
+
+    <ImageView
+        android:id="@+id/iv_user_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_contact_picture" />
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/rl_reply_right"
+        android:layout_below="@+id/iv_user_icon"
+        android:layout_marginLeft="30dp"
+        android:background="@color/white" />
+
 
     <RelativeLayout
+        android:id="@+id/rl_reply_right"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rc_ic_bubble_left">
 
-        <ImageView
-            android:id="@+id/iv_reply_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/tv_reply_nickname"
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/iv_reply_icon"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/iv_reply_icon"
-            android:text="昵称"
-            android:textSize="16sp" />
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:text="小鹿妈妈" />
 
         <TextView
-            android:id="@+id/tv_reply_sex"
+            android:id="@+id/tv_reply_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_reply_nickname"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/tv_reply_nickname"
-            android:text="男"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/tv_user_name"
+            android:singleLine="true"
+            android:text="回复大象妈妈"
+            android:textColor="@color/grey_500"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_reply_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_reply_sex"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/tv_reply_sex"
-            android:text="3岁"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_reply_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_reply_nickname"
-            android:layout_below="@+id/tv_reply_nickname"
-            android:layout_marginTop="8dp"
-            android:text="评论内容评论内容评论内容评论内容评论内容评论内容"
-            android:textColor="#ADAAAA" />
 
         <TextView
             android:id="@+id/tv_reply_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_reply_content"
-            android:layout_below="@+id/tv_reply_content"
-            android:layout_marginTop="16dp"
-            android:text="08-01 13：07" />
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:text="11:50 AM" />
 
         <TextView
-            android:id="@+id/tv_reply_praise"
+            android:id="@+id/tv_reply_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_reply_time"
-            android:layout_marginRight="8dp"
-            android:layout_toLeftOf="@+id/tv_reply"
-            android:text="赞 10" />
+            android:layout_below="@+id/tv_user_name"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容" />
 
         <TextView
             android:id="@+id/tv_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_reply_time"
-            android:layout_alignParentRight="true"
-            android:text="回复" />
+            android:layout_below="@+id/tv_reply_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:drawableLeft="@mipmap/ic_reply_count"
+            android:gravity="bottom"
+            android:text="回复"
+            android:textColor="@color/red_500"
+            android:textSize="12sp" />
     </RelativeLayout>
-</FrameLayout>
+
+</RelativeLayout>

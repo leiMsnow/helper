@@ -79,7 +79,7 @@ public class TopicAdapter extends BaseAdapter {
             viewHolder.gvContent.setAdapter(adapter);
             //点赞、评论、地址
             viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_count);
-            viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_replay_count);
+            viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_count);
             viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_location);
 
             convertView.setTag(viewHolder);

@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
@@ -13,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_reply"
         android:layout_below="@+id/toolbar"
-        android:cacheColorHint="@android:color/transparent"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
         android:scrollbars="none" />
 
     <RelativeLayout
@@ -21,34 +21,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/black">
+        android:background="@color/white"
+        android:minHeight="48dp">
+
+        <ImageView
+            android:id="@+id/iv_emoj"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:padding="8dp"
+            android:src="@drawable/rc_ic_smiley" />
 
         <EditText
             android:id="@+id/et_reply"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_toLeftOf="@+id/tv_page"
-            android:background="@drawable/shape_topic_reply_normal"
-            android:gravity="center"
-            android:hint="发表评论" />
-
-        <TextView
-            android:id="@+id/tv_page"
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/et_reply"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_toLeftOf="@+id/btn_reply"
+            android:layout_toRightOf="@+id/iv_emoj" />
+
+        <ImageView
+            android:id="@+id/btn_reply"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/et_reply"
-            android:layout_marginRight="16dp"
-            android:gravity="center_vertical"
-            android:text="1/5页"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:src="@mipmap/ic_menu_send" />
+
     </RelativeLayout>
 
 
