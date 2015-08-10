@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 话题详情界面
+ * 话题评论界面
  *
  * @author fushudi
  */

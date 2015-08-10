@@ -7,6 +7,7 @@
         android:id="@+id/iv_topic_img"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:scaleType="fitXY"
         android:src="@drawable/rc_default_group_portrait" />
 
 </FrameLayout>
