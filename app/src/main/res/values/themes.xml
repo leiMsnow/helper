@@ -3,7 +3,7 @@
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="actionMenuTextColor">@color/grey_200</item>
+        <item name="actionMenuTextColor">@color/brown_300</item>
         <item name="colorPrimaryDark">@color/grey_200</item>
         <item name="colorAccent">@color/grey_700</item>
         <item name="android:textColorPrimary">@color/brown_300</item>
