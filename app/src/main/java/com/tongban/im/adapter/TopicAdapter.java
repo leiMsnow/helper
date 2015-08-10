@@ -16,6 +16,7 @@ import com.tongban.im.model.Topic;
 import java.util.List;
 
 /**
+ *  话题适配器
  * Created by fushudi on 2015/7/16.
  */
 public class TopicAdapter extends BaseAdapter {
