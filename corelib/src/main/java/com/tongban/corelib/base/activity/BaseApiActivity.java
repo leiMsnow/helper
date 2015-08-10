@@ -137,7 +137,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     private void createEmptyView(final String msg) {
         mEmptyView = this.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
-            mEmptyView.setVisibility(mEmptyView.VISIBLE);
+            mEmptyView.setVisibility(View.VISIBLE);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
             objectAnimator.start();
         } else {
@@ -147,7 +147,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             tvMsg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.getInstance(mContext).showToast(msg);
                     // 将失败请求队列里的请求重新加入Volley队列
                     if (getFailedRequest().size() > 0) {
                         for (Request request : getFailedRequest()) {
