@@ -3,7 +3,7 @@
     命名规则：color_int[_alpha],颜色_饱和度_透明度
     颜色定义地址:http://design.1sters.com/material_design/style/color.html-->
 <resources>
-    <!-- gray -->
+    <!-- grey -->
     <color name="grey_100">#f5f5f5</color>
     <color name="grey_200">#eeeeee</color>
     <color name="grey_300">#e0e0e0</color>
@@ -17,8 +17,13 @@
     <!-- red-->
     <color name="red_300">#f36c60</color>
     <color name="red_500">#e51c23</color>
-    <color name="red_700">#d01716</color>
-    <!-- blue-->
+    <!-- light blue-->
     <color name="light_blue_300">#4fc3f7</color>
     <color name="light_blue_500">#03a9f4</color>
+    <!-- deep purple-->
+
+    <!-- light green-->
+
+    <!-- yellow-->
+
 </resources>

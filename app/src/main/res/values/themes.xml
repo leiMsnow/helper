@@ -29,25 +29,25 @@
     </style>
 
     <style name="AppTheme.DeepPurple.Base">
-        <item name="buttonBackground">@color/theme_deep_purple</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_deep_purple</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_deep_purple</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_deep_purple</item>
     </style>
 
     <style name="AppTheme.LightGreen.Base">
-        <item name="buttonBackground">@color/theme_light_green</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_light_green</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_light_green</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_light_green</item>
     </style>
 
     <style name="AppTheme.Pink.Base">
-        <item name="buttonBackground">@color/theme_pink</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_pink</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_pink</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_pink</item>
     </style>
 
     <style name="AppTheme.Yellow.Base">
-        <item name="buttonBackground">@color/theme_yellow</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_yellow</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_yellow</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
     </style>

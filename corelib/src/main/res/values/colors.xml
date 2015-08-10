@@ -7,18 +7,25 @@
     <!-- white-->
     <color name="white">#ffffff</color>
     <!-- grey-->
-    <color name="grey">#9e9e9e</color>
+    <color name="theme_grey_500">#9e9e9e</color>
     <!-- deep purple-->
     <color name="theme_deep_purple">#FF9F88BE</color>
+    <color name="theme_deep_purple_700">#512da8</color>
     <!-- light green-->
     <color name="theme_light_green">#FF82D259</color>
+    <color name="theme_light_green_700">#689f38</color>
     <!-- pink-->
     <color name="theme_pink">#FFBE6087</color>
+    <color name="theme_pink_700">#c2185b</color>
     <!-- light blue-->
     <color name="theme_light_blue">#4fc3f7</color>
+    <color name="theme_light_blue_700">#0288d1</color>
     <!-- yellow-->
     <color name="theme_yellow">#FFF7D116</color>
+    <color name="theme_yellow_700">#fbc02d</color>
+
     <!-- red-->
     <color name="theme_red">#FFF76D5F</color>
+    <color name="theme_red_700">#d01716</color>
 
 </resources>

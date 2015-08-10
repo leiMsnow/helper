@@ -71,7 +71,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LocationUtils.get(mContext).start();
-        setTitle(titleName.equals(getString(R.string.create_group)) ? getString(R.string.create_group) :
+        setTitle(titleName.equals("") ? getString(R.string.create_group) :
                 getString(R.string.create) + titleName);
 
     }
@@ -253,22 +253,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
             tvLocation.setText(address);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
-        return true;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.topic_detail) {
-//            startActivity(new Intent(mContext, TopicActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

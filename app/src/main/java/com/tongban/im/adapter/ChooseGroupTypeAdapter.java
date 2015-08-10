@@ -22,9 +22,10 @@ public class ChooseGroupTypeAdapter extends QuickAdapter<GroupType> {
     @Override
     protected void convert(BaseAdapterHelper helper, GroupType item) {
 
-        helper.setImageBitmap(R.id.iv_group_icon,item.getIcon());
-        helper.setText(R.id.tv_group_type,item.getGroupTypeName());
-        helper.setText(R.id.tv_group_desc,item.getGroupDesc());
+        helper.setImageBitmap(R.id.iv_group_icon, R.mipmap.ic_create_group);
+        helper.setBackgroundRes(R.id.iv_group_icon, item.getIcon());
+        helper.setText(R.id.tv_group_type, item.getGroupTypeName());
+        helper.setText(R.id.tv_group_desc, item.getGroupDesc());
 
     }
 }
