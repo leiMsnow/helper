@@ -161,7 +161,8 @@
         <activity
             android:name=".activity.CreateTopicActivity"
             android:label="@string/create_topic"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.AuthorityTopicDetailActivity"></activity>
     </application>
 
 </manifest>

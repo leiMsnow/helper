@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
@@ -64,6 +65,9 @@ public class CreateTopicActivity extends BaseToolBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId=item.getItemId();
+        if (itemId==R.id.publish)
+            startActivity(new Intent(mContext, AuthorityTopicDetailActivity.class));
         return super.onOptionsItemSelected(item);
     }
 }
