@@ -1,12 +1,12 @@
 package com.tongban.im.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.utils.ToastUtil;
@@ -26,8 +26,9 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
-
+public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
+        SearchView.OnQueryTextListener {
+    private SearchView searchView;
     private ListView lvGroups;
     private JoinGroupAdapter mAdapter;
 
@@ -61,17 +62,15 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
+        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+        searchView.onActionViewCollapsed();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_create_group) {
-            Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
-            startActivity(intent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -82,18 +81,43 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
             case R.id.btn_join:
                 Group group = (Group) v.getTag();
                 // TODO 加入群，不需要验证
-                GroupApi.getInstance().joinGroup(group.getGroup_id(),group.getGroup_name(), group.getUser_id(), this);
+                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(), group.getUser_id(), this);
                 break;
         }
 
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        // todo 根据名字搜索群组
+        if (TextUtils.isEmpty(query)) {
+            ToastUtil.getInstance(mContext).showToast("无效的圈子名称");
+        } else {
+            GroupApi.getInstance().searchGroupByName(query, 0, 0, this);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    /**
+     * 搜索群组成功的事件
+     *
+     * @param searchGroupEvent
+     */
     public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
         mAdapter.replaceAll(searchGroupEvent.getGroups());
     }
 
+    /**
+     * 加入群组成功的事件
+     *
+     * @param joinGroupEvent
+     */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
         ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
     }
-
 }

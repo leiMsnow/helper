@@ -1,10 +1,21 @@
 package com.tongban.corelib.base.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.Request;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiListResult;
+import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +30,20 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     private static List<Request> failedRequest = null;
 
+    private View mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 清空失败请求的队列
+        if (failedRequest != null)
+            failedRequest.clear();
     }
 
     @Override
@@ -33,9 +53,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         EventBus.getDefault().unregister(this);
         // 销毁Dialog
         mDialog = null;
-        // 清空失败请求的队列
-        if (failedRequest != null)
-            failedRequest.clear();
     }
 
     public void onEventMainThread(Object obj) {
@@ -44,6 +61,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     /**
      * 获取失败请求的队列
+     *
      * @return
      */
     public static List<Request> getFailedRequest() {
@@ -57,7 +75,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     public void onStartApi() {
         mDialog.show();
         mDialog.setMessage("请稍后...");
-
     }
 
     @Override
@@ -65,13 +82,87 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         if (mDialog != null)
             mDialog.dismiss();
         EventBus.getDefault().post(obj);
+
+        if (mEmptyView != null) {
+            if (mEmptyView.getVisibility() == View.VISIBLE) {
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(getEmptyView(), "alpha", 1.0f, 0.0f).setDuration(500);
+                objectAnimator.start();
+                objectAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        getEmptyView().setVisibility(View.GONE);
+                    }
+                });
+            }
+        }
+    }
+
+    public View getEmptyView() {
+        return mEmptyView;
     }
 
     @Override
-    public void onFailure(DisplayType displayType, Object errorMessage) {
+    public void onFailure(DisplayType displayType, Object errorObj) {
         if (mDialog != null)
             mDialog.dismiss();
+
+        String errorMsg = "";
+
+        if (errorObj instanceof ApiResult) {
+            errorMsg = ((ApiResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof ApiListResult) {
+            errorMsg = ((ApiListResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof String) {
+            errorMsg = errorObj.toString();
+        }
+        if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
+            errorMsg = "网络异常，请稍后重试";
+        }
+        if (displayType == DisplayType.Toast) {
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
+        } else if (displayType == DisplayType.View) {
+            createEmptyView(errorMsg);
+        } else if (displayType == DisplayType.ALL) {
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
+            createEmptyView(errorMsg);
+        }
     }
 
+    /**
+     * 创建空数据布局
+     *
+     * @param msg 提示信息
+     */
+    private void createEmptyView(final String msg) {
+        mEmptyView = this.findViewById(com.tongban.corelib.R.id.rl_empty_view);
+        if (mEmptyView != null) {
+            mEmptyView.setVisibility(mEmptyView.VISIBLE);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
+            objectAnimator.start();
+        } else {
+            mEmptyView = LayoutInflater.from(mContext).inflate(com.tongban.corelib.R.layout.view_empty, null);
+            TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
+            tvMsg.setText(msg);
+            tvMsg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.getInstance(mContext).showToast(msg);
+                    // 将失败请求队列里的请求重新加入Volley队列
+                    if (getFailedRequest().size() > 0) {
+                        for (Request request : getFailedRequest()) {
+                            BaseApplication.getInstance().getRequestQueue().add(request);
+                        }
+                    }
+                }
+            });
+
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
+            objectAnimator.start();
+            this.addContentView(mEmptyView, layoutParams);
+        }
+    }
 
 }

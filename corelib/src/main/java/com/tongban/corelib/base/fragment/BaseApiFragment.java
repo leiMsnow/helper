@@ -3,9 +3,9 @@ package com.tongban.corelib.base.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 
 import de.greenrobot.event.EventBus;
@@ -42,6 +42,8 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
 
         if (errorObj instanceof ApiResult) {
             errorMsg = ((ApiResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof ApiListResult) {
+            errorMsg = ((ApiListResult) errorObj).getStatusDesc();
         } else if (errorObj instanceof String) {
             errorMsg = errorObj.toString();
         }

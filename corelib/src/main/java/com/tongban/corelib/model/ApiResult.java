@@ -1,9 +1,9 @@
 package com.tongban.corelib.model;
 
 /**
- * Created by 接口请求结果对象 on 15/7/3.
+ * 非列表数据接口的model
  */
-public class ApiResult<T extends Object> {
+public class ApiResult<T> {
 
     protected int statusCode;
     protected String statusDesc;

@@ -171,7 +171,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         return false;
     }
 
-    @Override
     public void onEventMainThread(Object o) {
         if (o instanceof BaseEvent.DrawerLayoutMenu) {
             BaseEvent.DrawerLayoutMenu item = (BaseEvent.DrawerLayoutMenu) o;
