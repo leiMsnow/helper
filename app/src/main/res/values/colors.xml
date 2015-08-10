@@ -15,9 +15,10 @@
     <color name="brown_700">#5d4037</color>
     <color name="brown_700_a50">#505d4037</color>
     <!-- red-->
+    <color name="red_300">#f36c60</color>
     <color name="red_500">#e51c23</color>
     <color name="red_700">#d01716</color>
     <!-- blue-->
+    <color name="light_blue_300">#4fc3f7</color>
     <color name="light_blue_500">#03a9f4</color>
-    <color name="light_blue_700">#0288d1</color>
 </resources>
