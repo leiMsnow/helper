@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="8dp">
+
 
     <TextView
         android:id="@+id/tv_topic_name"
@@ -15,10 +15,21 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btn_collect"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_btn_bg_red"
+        android:gravity="center"
+        android:text="收藏" />
+
     <TextView
         android:id="@+id/tv_topic_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_topic_name"
         android:layout_marginBottom="8dp"
         android:text="话题内容"
         android:textColor="@color/grey_500" />
@@ -27,6 +38,7 @@
         android:id="@+id/gv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tv_topic_name"
         android:layout_marginBottom="8dp"
         android:columnWidth="80dp"
         android:horizontalSpacing="4dp"
@@ -35,4 +47,4 @@
         android:stretchMode="columnWidth"
         android:verticalSpacing="4dp"
         android:visibility="gone" />
-</LinearLayout>
+</RelativeLayout>

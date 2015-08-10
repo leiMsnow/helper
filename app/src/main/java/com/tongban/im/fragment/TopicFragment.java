@@ -15,7 +15,7 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.CreateTopicActivity;
-import com.tongban.im.activity.TopicDetailActivity;
+import com.tongban.im.activity.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
@@ -119,7 +119,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(mContext, TopicDetailActivity.class));
+        startActivity(new Intent(mContext, TopicDetailsActivity.class));
 
     }
 }
