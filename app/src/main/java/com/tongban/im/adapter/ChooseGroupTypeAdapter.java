@@ -13,9 +13,9 @@ import java.util.List;
  * 选择圈子类型adapter
  * Created by zhangleilei on 15/7/22.
  */
-public class ChoiceGroupTypeAdapter extends QuickAdapter<GroupType> {
+public class ChooseGroupTypeAdapter extends QuickAdapter<GroupType> {
 
-    public ChoiceGroupTypeAdapter(Context context, int layoutResId, List data) {
+    public ChooseGroupTypeAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 
