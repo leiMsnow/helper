@@ -7,6 +7,9 @@
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="searchViewStyle">@style/SearchView.Light</item>
+        <!-- 禁止多点触摸 -->
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
     </style>
 
     <style name="AppTheme.LightBlue">
