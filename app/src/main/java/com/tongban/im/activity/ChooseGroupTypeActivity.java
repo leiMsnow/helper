@@ -1,9 +1,7 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -14,11 +12,10 @@ import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.ChoiceGroupTypeAdapter;
+import com.tongban.im.adapter.ChooseGroupTypeAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.GroupType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +28,7 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
 
     private ListView lvGroupType;
     private View vHeader;
-    private ChoiceGroupTypeAdapter mAdapter;
+    private ChooseGroupTypeAdapter mAdapter;
     private TextView tvGroupTypeName;
     private ImageView ivGroupIcon;
 
@@ -67,7 +64,7 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
 
         tvGroupTypeName.setText("创建一个附近的圈子");
 
-        mAdapter = new ChoiceGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
+        mAdapter = new ChooseGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
         lvGroupType.setAdapter(mAdapter);
     }
 
