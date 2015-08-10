@@ -22,7 +22,7 @@
             android:layout_marginTop="16dp"
             android:maxHeight="144dp"
             android:maxWidth="144dp"
-            android:src="@drawable/bg_empty_data" />
+            android:src="@mipmap/bg_empty_data" />
 
         <TextView
             android:id="@+id/tv_empty_msg"

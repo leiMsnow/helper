@@ -32,6 +32,8 @@ public class PoiSearchAdapter extends QuickAdapter<PoiInfo> {
     protected void convert(BaseAdapterHelper helper, PoiInfo item) {
         if (item.name.equals(currentSelected)){
             helper.setVisible(R.id.iv_poi_selected,View.VISIBLE);
+        }else{
+            helper.setVisible(R.id.iv_poi_selected,View.GONE);
         }
         helper.setText(R.id.tv_poi_name, item.name);
         helper.setText(R.id.tv_poi_address, item.address);

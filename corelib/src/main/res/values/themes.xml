@@ -3,9 +3,10 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="navigationIcon">@mipmap/abc_ic_ab_back_mtrl_am_alpha</item>
+        <item name="navigationIcon">@mipmap/ic_ab_back_mtrl_am_alpha</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="searchViewStyle">@style/SearchView.Light</item>
     </style>
 
     <style name="AppTheme.LightBlue">

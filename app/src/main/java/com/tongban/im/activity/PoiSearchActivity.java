@@ -2,12 +2,12 @@ package com.tongban.im.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.SearchView;
 
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
@@ -92,7 +92,6 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_poi_search, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewCollapsed();
