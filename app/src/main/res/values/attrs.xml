@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="createGroupBtn" format="reference|color"></attr>
+    <!-- button属性-->
+    <attr name="buttonBackground" format="reference|color"></attr>
+    <!-- 创建圈子头像属性-->
     <attr name="createGroupIcon" format="reference|color"></attr>
+    <!-- 圈子标签背景选择属性-->
+    <attr name="labelSelectBG" format="reference|color"></attr>
 </resources>

@@ -14,4 +14,11 @@
         <attr name="zoomView" format="reference" />
         <attr name="isHeaderParallax" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="border_outside_color" format="color" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_thickness" format="dimension" />
+    </declare-styleable>
+
 </resources>

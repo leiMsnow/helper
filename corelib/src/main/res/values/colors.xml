@@ -6,34 +6,18 @@
     <color name="black">#000000</color>
     <!-- white-->
     <color name="white">#ffffff</color>
-    <color name="primary_material_white">@color/white</color>
-    <color name="primary_dark_material_white">#eeeeee</color>
-    <color name="accent_material_white">#616161</color>
-    <!-- gray -->
-    <color name="material_gray_300">#e0e0e0</color>
-    <color name="material_gray_500">#9e9e9e</color>
-    <!-- brown -->
-    <color name="material_brown_200">#efebe9</color>
-    <color name="material_brown_700">#5d4037</color>
-    <color name="primary_text_material_brown">#928460</color>
-    <color name="material_brown_700_a50">#505d4037</color>
-    <!-- red-->
-    <color name="material_red_500">#e51c23</color>
-    <color name="material_red_700">#d01716</color>
-    <!-- blue-->
-    <color name="material_blue_700">#0288d1</color>
-    <color name="material_blue_500">#03a9f4</color>
-    <!-- 圈子页消息提醒的字体颜色 -->
-    <color name="light_gray">#ffa5a5a5</color>
+
     <!-- deep purple-->
-    <color name="deep_purple">#FF9F88BE</color>
+    <color name="theme_deep_purple">#FF9F88BE</color>
     <!-- light green-->
-    <color name="light_green">#FF82D259</color>
+    <color name="theme_light_green">#FF82D259</color>
     <!-- pink-->
-    <color name="pink">#FFBE6087</color>
+    <color name="theme_pink">#FFBE6087</color>
     <!-- light blue-->
-    <color name="light_blue">#4fc3f7</color>
+    <color name="theme_light_blue">#4fc3f7</color>
     <!-- yellow-->
-    <color name="yellow">#FFF7D116</color>
+    <color name="theme_yellow">#FFF7D116</color>
+    <!-- red-->
+    <color name="theme_red">#FFF76D5F</color>
 
 </resources>

@@ -13,7 +13,7 @@
     <!--聊天设置左侧文本样式-->
     <style name="ChatSettingLeftText">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textColor">@color/primary_text_material_brown</item>
+        <item name="android:textColor">@color/brown_300</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!--聊天设置右侧文本样式-->
@@ -41,10 +41,15 @@
         <!-- 模糊 -->
     </style>
     <!--搜索框样式-->
-    <style name="Widget.AppCompat.SearchView.White" parent="Base.Widget.AppCompat.SearchView">
+    <style name="SearchView.Light" parent="Base.Widget.AppCompat.SearchView">
         <item name="layout">@layout/abc_search_view</item>
         <item name="queryBackground">@null</item>
         <item name="submitBackground">@null</item>
+    </style>
+    <!-- actionbar的overflow-->
+    <style name="ActionButton.Overflow.Light" parent="Base.Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@mipmap/abc_ic_menu_moreoverflow_mtrl_alpha</item>
+
     </style>
 
     <!-- 用户信息父容器-->
@@ -88,6 +93,20 @@
         <item name="android:layout_width">8dp</item>
         <item name="android:layout_height">8dp</item>
         <item name="android:background">@drawable/shape_corners_white_bg</item>
+    </style>
+
+    <!-- 创建圈子文本的样式-->
+    <style name="CreateGroupTextStyle">
+        <!--<item name="android:background">@drawable/selector_edit_text</item>-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/grey_500</item>
+        <item name="android:textSize">14sp</item>
+
     </style>
 
 </resources>

@@ -133,7 +133,8 @@
         <activity
             android:name=".activity.GroupInfoActivity"
             android:label="@string/group_settings" />
-        <activity android:name=".activity.CreateGroupActivity" />
+        <activity android:name=".activity.CreateGroupActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.JoinGroupActivity"
             android:label="@string/join_group" />
@@ -152,8 +153,10 @@
         <activity
             android:name=".activity.UserCenterActivity"
             android:label="@string/user_center" />
-        <activity android:name=".activity.PoiSearchActivity" />
-        <activity android:name=".activity.LabelListActivity"></activity>
+        <activity android:name=".activity.PoiSearchActivity"
+            android:label="@string/select_location"/>
+        <activity android:name=".activity.LabelListActivity"
+            android:label="@string/group_label"></activity>
 
     </application>
 

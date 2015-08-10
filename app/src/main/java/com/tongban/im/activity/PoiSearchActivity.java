@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -49,10 +50,11 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     protected int getLayoutRes() {
-        if (getIntent().getExtras() != null)
+        if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
-
-        setToolbarTheme(mGroupType);
+            mSelected = getIntent().getExtras().getString(Consts.KEY_SELECTED_POI_NAME, "");
+            setToolbarTheme(mGroupType);
+        }
         return R.layout.activity_poisearch;
     }
 
@@ -67,9 +69,6 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
-        if (getIntent().getExtras() != null)
-            mSelected = getIntent().getExtras().getString(Consts.KEY_SELECTED_POI_NAME, "");
-
         mCity = SPUtils.get(mContext, Consts.CITY, "北京").toString();
         if (mCity.contains("市")) {
             mCity = mCity.replace("市", "");
@@ -135,7 +134,14 @@ public class PoiSearchActivity extends BaseToolBarActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString(Consts.KEY_SELECTED_POI_NAME, mAdapter.getItem(position).name);
+        bundle.putDouble(Consts.LONGITUDE, mAdapter.getItem(position).location.longitude);
+        bundle.putDouble(Consts.LATITUDE, mAdapter.getItem(position).location.latitude);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void startPoiSearch() {

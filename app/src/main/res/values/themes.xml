@@ -9,76 +9,104 @@
     <style name="AppTheme.LightBlue.Base">
 
     </style>
+
     <style name="AppTheme.DeepPurple.Base">
 
     </style>
+
     <style name="AppTheme.LightGreen.Base">
 
     </style>
+
     <style name="AppTheme.Pink.Base">
 
     </style>
+
     <style name="AppTheme.Yellow.Base">
 
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Red.Base">
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="navigationIcon">@mipmap/abc_ic_ab_back_mtrl_am_alpha</item>
+        <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/primary_material_white</item>
-        <item name="colorPrimaryDark">@color/primary_dark_material_white</item>
-        <item name="colorAccent">@color/accent_material_white</item>
-        <item name="android:textColorPrimary">@color/primary_text_material_brown</item>
-        <item name="createGroupBtn">@color/light_blue</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="actionMenuTextColor">@color/grey_200</item>
+        <item name="colorPrimaryDark">@color/grey_200</item>
+        <item name="colorAccent">@color/grey_700</item>
+        <item name="android:textColorPrimary">@color/brown_300</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
     </style>
 
     <style name="AppTheme.LightBlue" >
-        <item name="colorPrimary">@color/light_blue</item>
-        <item name="colorPrimaryDark">@color/light_blue</item>
-        <item name="colorAccent">@color/light_blue</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@drawable/selector_blue_btn_bg</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="colorPrimary">@color/theme_light_blue</item>
+        <item name="colorPrimaryDark">@color/theme_light_blue</item>
+        <item name="colorAccent">@color/theme_light_blue</item>
+        <item name="buttonBackground">@drawable/selector_btn_bg_light_blue</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
     </style>
 
-    <style name="AppTheme.DeepPurple" >
-        <item name="colorPrimary">@color/deep_purple</item>
-        <item name="colorPrimaryDark">@color/deep_purple</item>
-        <item name="colorAccent">@color/deep_purple</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/deep_purple</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+    <style name="AppTheme.Red">
+        <item name="colorPrimary">@color/theme_red</item>
+        <item name="colorPrimaryDark">@color/theme_red</item>
+        <item name="colorAccent">@color/theme_red</item>
+        <item name="buttonBackground">@color/theme_red</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_red</item>
     </style>
 
-    <style name="AppTheme.LightGreen" >
-        <item name="colorPrimary">@color/light_green</item>
-        <item name="colorPrimaryDark">@color/light_green</item>
-        <item name="colorAccent">@color/light_green</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/light_green</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+
+    <style name="AppTheme.DeepPurple">
+        <item name="colorPrimary">@color/theme_deep_purple</item>
+        <item name="colorPrimaryDark">@color/theme_deep_purple</item>
+        <item name="colorAccent">@color/theme_deep_purple</item>
+        <item name="buttonBackground">@color/theme_deep_purple</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_deep_purple</item>
+
+    </style>
+
+    <style name="AppTheme.LightGreen">
+        <item name="colorPrimary">@color/theme_light_green</item>
+        <item name="colorPrimaryDark">@color/theme_light_green</item>
+        <item name="colorAccent">@color/theme_light_green</item>
+        <item name="buttonBackground">@color/theme_light_green</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_light_green</item>
+
     </style>
 
 
     <style name="AppTheme.Pink">
-        <item name="colorPrimary">@color/pink</item>
-        <item name="colorPrimaryDark">@color/pink</item>
-        <item name="colorAccent">@color/pink</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/pink</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+        <item name="colorPrimary">@color/theme_pink</item>
+        <item name="colorPrimaryDark">@color/theme_pink</item>
+        <item name="colorAccent">@color/theme_pink</item>
+        <item name="buttonBackground">@color/theme_pink</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_pink</item>
+
     </style>
 
 
-    <style name="AppTheme.Yellow" parent="AppTheme">
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/yellow</item>
-        <item name="colorAccent">@color/yellow</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="createGroupBtn">@color/yellow</item>
-        <item name="createGroupIcon">@drawable/selector_group_icon_blue</item>
+    <style name="AppTheme.Yellow">
+        <item name="colorPrimary">@color/theme_yellow</item>
+        <item name="colorPrimaryDark">@color/theme_yellow</item>
+        <item name="colorAccent">@color/theme_yellow</item>
+        <item name="buttonBackground">@color/theme_yellow</item>
+        <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
+        <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
+
     </style>
 
 </resources>

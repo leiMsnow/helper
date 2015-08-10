@@ -1,6 +1,5 @@
 package com.tongban.im.activity;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,16 +10,28 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 
+/**
+ * 圈子标签页
+ */
 public class LabelListActivity extends BaseToolBarActivity implements View.OnClickListener {
+
     private FlowLayout flLabelList;
     private String labelNameList[] = {"同龄圈1", "达人圈2", "生活圈3", "男宝宝4", "女宝宝5",
             "混血宝宝6", "宝宝知识圈7", "你说什么圈8", "同龄圈9", "给你什么圈10",
             "达人圈11", "生活圈12", "混血宝宝13", "同龄圈14", "达人圈15"};
 
+    //最大选择数量
+    private int mMaxCount = 0;
+    private int mGroupType = 0;
+
     @Override
     protected int getLayoutRes() {
-        setTitle("圈子标签");
+        if (getIntent().getExtras() != null) {
+            mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
+            setToolbarTheme(mGroupType);
+        }
         return R.layout.activity_lable_list;
     }
 
@@ -59,16 +70,16 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_label_name) {
-            ToastUtil.getInstance(mContext).showToast(v.getTag().toString());
-        }
-        for (int i = 0; i < labelNameList.length; i++) {
-            if (v.getTag().equals(labelNameList[i]) && !v.isSelected()) {
-                Log.d("onClick", "!isSelected");
-                v.setSelected(true);
-
-            } else if (v.getTag().equals(labelNameList[i]) && v.isSelected()) {
-                Log.d("onClick", "isSelected");
+            if (v.isSelected()) {
                 v.setSelected(false);
+                mMaxCount--;
+            } else {
+                if (mMaxCount == 3) {
+                    ToastUtil.getInstance(mContext).showToast(R.string.select_label_max);
+                    return;
+                }
+                v.setSelected(true);
+                mMaxCount++;
             }
         }
     }

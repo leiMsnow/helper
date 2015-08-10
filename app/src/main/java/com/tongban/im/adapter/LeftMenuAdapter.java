@@ -25,7 +25,7 @@ public class LeftMenuAdapter extends QuickAdapter<BaseEvent.DrawerLayoutMenu> {
         helper.setText(R.id.tv_title, item.getText());
         helper.getConvertView().setBackgroundColor(Color.TRANSPARENT);
         if (item.isSelected()) {
-            helper.getConvertView().setBackgroundResource(R.color.material_gray_300);
+            helper.getConvertView().setBackgroundResource(R.color.grey_300);
         }
     }
 

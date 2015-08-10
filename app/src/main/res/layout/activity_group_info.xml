@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="1dp"
-        android:background="@color/material_brown_200">
+        android:background="@color/brown_200">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,7 +200,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/selector_red_btn_bg"
+                android:background="@drawable/selector_btn_bg_red"
                 android:text="退出并删除"
                 android:textColor="@color/white" />
         </LinearLayout>
