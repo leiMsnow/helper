@@ -77,7 +77,6 @@
 
     <!-- 发表话题-->
     <string name="create_topic">发表话题</string>
-    <string name="title_activity_authority_topic_detail">AuthorityTopicDetailActivity</string>
-
+    <string name="topic_search">话题搜索</string>
 
 </resources>
