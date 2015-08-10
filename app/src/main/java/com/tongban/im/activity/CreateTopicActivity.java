@@ -38,17 +38,17 @@ public class CreateTopicActivity extends BaseToolBarActivity {
     protected void initData() {
         Topic topic = new Topic();
         List<String> smallUrls = new ArrayList<>();
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+         smallUrls.add("");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
         topic.setSmallUrl(smallUrls);
-        adapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        adapter.replaceAll(topic.getSmallUrl());
+        adapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, smallUrls);
         gvTopicImg.setAdapter(adapter);
     }
 
