@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailActivity extends BaseToolBarActivity {
+public class TopicDetailsActivity extends BaseToolBarActivity {
     private ListView lvReplyList;
     private TopicReplyAdapter mAdapter;
 
