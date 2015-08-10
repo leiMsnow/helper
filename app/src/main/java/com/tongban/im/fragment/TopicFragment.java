@@ -16,6 +16,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.CreateTopicActivity;
 import com.tongban.im.activity.TopicDetailsActivity;
+import com.tongban.im.activity.SearchTopicActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
@@ -107,7 +108,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_search) {
-
+            Intent intent = new Intent(mContext, SearchTopicActivity.class);
+            startActivity(intent);
         }
         return true;
     }

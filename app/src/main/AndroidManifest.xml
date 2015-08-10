@@ -155,7 +155,7 @@
             android:name=".activity.UserCenterActivity"
             android:label="@string/user_center" />
         <activity
-            android:name=".activity.PoiSearchActivity"
+            android:name=".activity.SearchPoiActivity"
             android:label="@string/select_location" />
         <activity
             android:name=".activity.LabelListActivity"
@@ -166,7 +166,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.AuthorityTopicDetailActivity" />
         <activity
-            android:name=".activity.TopicSearchActivity"
+            android:name=".activity.SearchTopicActivity"
             android:label="@string/topic_search" >
         </activity>
     </application>

@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,8 +28,6 @@ import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.AlertView;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 /**
  * 创建圈子界面
@@ -159,7 +155,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
                     null, null, null, province, city, county, this);
         } else if (v == tvLocation) {
-            Intent intent = new Intent(mContext, PoiSearchActivity.class);
+            Intent intent = new Intent(mContext, SearchPoiActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
             bundle.putString(Consts.KEY_SELECTED_POI_NAME, address);
