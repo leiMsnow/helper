@@ -7,15 +7,35 @@ import android.text.TextUtils;
 import android.view.Menu;
 
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 
-public class SearchTopicActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class SearchTopicActivity extends BaseToolBarActivity implements SearchView.OnQueryTextListener {
 
     private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic_search);
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_topic_search;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
     }
 
     @Override

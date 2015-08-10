@@ -107,7 +107,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_search) {
+        if (item.getItemId() == R.id.action_search) {
             Intent intent = new Intent(mContext, SearchTopicActivity.class);
             startActivity(intent);
         }
