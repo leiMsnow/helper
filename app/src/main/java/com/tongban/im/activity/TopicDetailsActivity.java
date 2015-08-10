@@ -3,6 +3,8 @@ package com.tongban.im.activity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.tongban.im.R;
@@ -18,8 +20,9 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends BaseToolBarActivity {
+public class TopicDetailsActivity extends BaseToolBarActivity implements View.OnClickListener{
     private ListView lvReplyList;
+    private Button btnCollect;
     private TopicReplyAdapter mAdapter;
 
     @Override
@@ -49,11 +52,13 @@ public class TopicDetailsActivity extends BaseToolBarActivity {
         lvReplyList.addHeaderView(LayoutInflater.from(mContext).
                 inflate(R.layout.header_topic_details, null));
         lvReplyList.setAdapter(mAdapter);
+        btnCollect= (Button) findViewById(R.id.btn_collect);
+        btnCollect.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initListener() {
-
+        btnCollect.setOnClickListener(this);
     }
 
     @Override
@@ -75,5 +80,10 @@ public class TopicDetailsActivity extends BaseToolBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
