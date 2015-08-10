@@ -50,19 +50,6 @@ public class TopicAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (topicList.get(position).getContentType() == Topic.TEXT) {
-            return 0;
-        }
-        return 1;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 2;
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Topic topic = topicList.get(position);
         if (convertView == null) {

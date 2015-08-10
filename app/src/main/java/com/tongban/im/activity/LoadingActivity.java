@@ -53,18 +53,14 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        RongCloudEvent.getInstance().
-                connectIM(SPUtils.get(mContext,Consts.IM_BIND_TOKEN,"").toString());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-//        mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
-//        if (mToken.equals("")) {
-//            startActivity(new Intent(mContext, LoginActivity.class));
-//            finish();
-//        } else {
-//            UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
-//            LocationUtils.get(mContext).start();
-//        }
+        mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+        if (mToken.equals("")) {
+            startActivity(new Intent(mContext, LoginActivity.class));
+            finish();
+        } else {
+            UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
+            LocationUtils.get(mContext).start();
+        }
     }
 
     public void onEventMainThread(User user) {
@@ -89,7 +85,8 @@ public class LoadingActivity extends BaseToolBarActivity {
             int addressType = 0;
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
-        }else if(obj instanceof String){
+        }
+        else if(obj instanceof String){
             RongCloudEvent.getInstance().
                     connectIM(SPUtils.get(mContext,Consts.IM_BIND_TOKEN,"").toString());
             startActivity(new Intent(mContext, MainActivity.class));
