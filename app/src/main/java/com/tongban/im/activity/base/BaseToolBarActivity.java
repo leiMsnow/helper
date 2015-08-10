@@ -15,8 +15,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
 
     protected Toolbar mToolbar;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +48,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     public void onFailure(DisplayType displayType, Object errorObj) {
         super.onFailure(displayType, errorObj);
     }
-
-
 
     protected void setToolbarTheme(int type) {
         switch (type) {
