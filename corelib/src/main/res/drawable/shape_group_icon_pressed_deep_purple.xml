@@ -2,12 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <solid android:color="@color/white" />
-    />
-
     <!-- 描边 -->
     <stroke
         android:width="1dp"
-        android:color="@color/theme_light_blue"
+        android:color="@color/theme_deep_purple"
         android:dashGap="2dp"
         android:dashWidth="4dp" />
 </shape>

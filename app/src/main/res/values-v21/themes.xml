@@ -5,36 +5,4 @@
         <item name="android:navigationBarColor">@color/grey_700</item>
     </style>
 
-    <style name="AppTheme.Red.Base" >
-        <item name="android:statusBarColor">@color/theme_red</item>
-        <item name="android:navigationBarColor">@color/theme_red</item>
-    </style>
-
-    <style name="AppTheme.LightBlue.Base" >
-        <item name="android:statusBarColor">@color/theme_light_blue</item>
-        <item name="android:navigationBarColor">@color/theme_light_blue</item>
-    </style>
-
-    <style name="AppTheme.DeepPurple.Base" >
-        <item name="android:statusBarColor">@color/theme_deep_purple</item>
-        <item name="android:navigationBarColor">@color/theme_deep_purple</item>
-    </style>
-
-    <style name="AppTheme.LightGreen.Base" >
-        <item name="android:statusBarColor">@color/theme_light_green</item>
-        <item name="android:navigationBarColor">@color/theme_light_green</item>
-    </style>
-
-    <style name="AppTheme.Pink.Base" >
-        <item name="android:statusBarColor">@color/theme_pink</item>
-        <item name="android:navigationBarColor">@color/theme_pink</item>
-    </style>
-
-    <style name="AppTheme.Yellow.Base" >
-        <item name="android:statusBarColor">@color/theme_yellow</item>
-        <item name="android:navigationBarColor">@color/theme_yellow</item>
-    </style>
-
-
-
 </resources>

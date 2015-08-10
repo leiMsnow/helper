@@ -26,10 +26,9 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
+public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private ListView lvGroups;
-    private SearchView mSearchView;
     private JoinGroupAdapter mAdapter;
 
     @Override
@@ -45,13 +44,11 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     protected void initView() {
         lvGroups = (ListView) findViewById(R.id.lv_groups);
-        mSearchView = (SearchView) findViewById(R.id.id_search_view);
     }
 
     @Override
     protected void initListener() {
         mAdapter.setOnClickListener(this);
-        mSearchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -99,16 +96,4 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        if (!TextUtils.isEmpty(query)) {
-            GroupApi.getInstance().searchGroupByName(query, 0, 10, this);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
 }

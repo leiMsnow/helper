@@ -20,12 +20,9 @@ public class TopicReplyAdapter extends QuickAdapter<TopicReply> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, TopicReply item) {
-        helper.setImageBitmap(R.id.iv_reply_icon, "http://b.hiphotos.baidu.com/image/pic/item/dbb44aed2e738bd4a244792ca38b87d6277ff942.jpg");
-        helper.setText(R.id.tv_reply_nickname, item.getReplyNickName());
-        helper.setText(R.id.tv_reply_age, item.getReplyAge());
-        helper.setText(R.id.tv_reply_sex, item.getReplySex());
-        helper.setText(R.id.tv_reply_time, item.getReplyTime());
-        helper.setText(R.id.tv_reply_content, item.getReplyContent());
-        helper.setText(R.id.tv_reply_praise, item.getReplyNum());
+//        helper.setImageBitmap(R.id.iv_user_icon, "http://b.hiphotos.baidu.com/image/pic/item/dbb44aed2e738bd4a244792ca38b87d6277ff942.jpg");
+//        helper.setText(R.id.tv_user_name, item.getReplyNickName());
+//        helper.setText(R.id.tv_reply_time, item.getReplyTime());
+//        helper.setText(R.id.tv_reply_content, item.getReplyContent());
     }
 }

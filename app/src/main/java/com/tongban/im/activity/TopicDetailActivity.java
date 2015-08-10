@@ -45,9 +45,9 @@ public class TopicDetailActivity extends BaseToolBarActivity {
             topicReply.setReplyTime("08-01 14:28");
             replyList.add(topicReply);
         }
-        mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_detail_list, replyList);
+        mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_details_list, replyList);
         lvReplyList.addHeaderView(LayoutInflater.from(mContext).
-                inflate(R.layout.item_topic_reply_detail_list_header, null));
+                inflate(R.layout.header_topic_details, null));
         lvReplyList.setAdapter(mAdapter);
     }
 

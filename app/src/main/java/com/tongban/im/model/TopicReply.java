@@ -5,6 +5,8 @@ package com.tongban.im.model;
  * Created by fushudi on 2015/8/1.
  */
 public class TopicReply {
+
+//    private String replyId;
     /**
      * 评论者昵称
      */
