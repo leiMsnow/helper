@@ -13,10 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.CreateTopicActivity;
-import com.tongban.im.activity.TopicDetailsActivity;
+import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.SearchTopicActivity;
+import com.tongban.im.activity.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
@@ -95,6 +97,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             listsByHot.add(topic);
         }
         mAdapter = new TopicAdapter(mContext, listsByHot);
+        mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
     }
 
@@ -116,6 +119,14 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.iv_topic_img) {
+            ArrayList<String> urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
+            Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
 
     }
 

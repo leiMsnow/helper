@@ -16,7 +16,7 @@ import com.tongban.im.model.Topic;
 import java.util.List;
 
 /**
- *  话题适配器
+ * 话题适配器
  * Created by fushudi on 2015/7/16.
  */
 public class TopicAdapter extends BaseAdapter {
@@ -26,6 +26,12 @@ public class TopicAdapter extends BaseAdapter {
     private List<Topic> topicList;
     private ViewHolder viewHolder;
     private TopicImgAdapter adapter;
+
+    private View.OnClickListener onClickListener;
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public TopicAdapter(Context context, List<Topic> topicList) {
         this.context = context;
@@ -65,6 +71,7 @@ public class TopicAdapter extends BaseAdapter {
             viewHolder.tvContent = (TextView) convertView.findViewById(R.id.tv_topic_content);
             viewHolder.gvContent = (GridView) convertView.findViewById(R.id.gv_content);
             viewHolder.gvContent.setAdapter(adapter);
+            adapter.setImgClickListener(onClickListener);
             //点赞、评论、地址
             viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_count);
             viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_count);
@@ -95,6 +102,7 @@ public class TopicAdapter extends BaseAdapter {
             viewHolder.tvContent.setVisibility(View.GONE);
             viewHolder.gvContent.setVisibility(View.VISIBLE);
             adapter.replaceAll(topic.getSmallUrl());
+            notifyDataSetChanged();
         }
         return convertView;
     }

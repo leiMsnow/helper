@@ -7,6 +7,7 @@
     <!-- white-->
     <color name="white">#ffffff</color>
     <!-- grey-->
+    <color name="theme_grey_300_alpha_80">#33e0e0e0</color>
     <color name="theme_grey_500">#9e9e9e</color>
     <!-- deep purple-->
     <color name="theme_deep_purple">#FF9F88BE</color>

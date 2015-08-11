@@ -169,6 +169,9 @@
             android:name=".activity.SearchTopicActivity"
             android:label="@string/topic_search" >
         </activity>
+        <activity
+            android:name=".activity.PhotoViewPagerActivity"
+            android:label="@string/image_display" />
     </application>
 
 </manifest>

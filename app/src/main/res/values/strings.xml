@@ -12,6 +12,7 @@
     <string name="join">加入</string>
     <string name="recommend">推荐</string>
     <string name="digits">1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM._-@#$%^*()?~</string>
+    <string name="image_display">图片浏览</string>
 
     <!--登录-->
     <string name="login">登录</string>
