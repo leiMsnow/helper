@@ -2,6 +2,7 @@ package com.tongban.im.api;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -13,10 +14,13 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.im.common.Consts;
+import com.tongban.im.utils.CheckID;
 
 import org.json.JSONObject;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -125,8 +129,8 @@ public class BaseApi {
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = getRequestUrl(url);
         }
-        LogUtil.d("request-url:",url);
-        LogUtil.d("request-params:",new JSONObject(params).toString());
+        LogUtil.d("request-url:", url);
+        LogUtil.d("request-params:", new JSONObject(params).toString());
         // 创建request
         request = new JsonObjectRequest(url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
@@ -146,7 +150,7 @@ public class BaseApi {
                             apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
                             apiResponse.setData(jsonObject.opt("data"));
                             apiResponse.setStatusCode(apiResult);
-                            callback.onFailure(ApiCallback.DisplayType.Toast,apiResponse);
+                            callback.onFailure(ApiCallback.DisplayType.Toast, apiResponse);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -165,7 +169,14 @@ public class BaseApi {
                 }
                 callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("_R_C", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)));
+                return headers;
+            }
+        };
         // 禁用缓存
         request.setShouldCache(false);
         // 添加请求到Volley队列
