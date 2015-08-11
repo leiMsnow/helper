@@ -1,10 +1,10 @@
 package com.tongban.corelib.utils;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.view.View;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * 动画效果工具类
@@ -24,7 +24,7 @@ public class AnimatorUtils {
         if (visible == View.VISIBLE) {
             obj.setVisibility(visible);
         }
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(obj, "alpha",  end,start);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(obj, "alpha", end, start);
         objectAnimator.setDuration(500);
         objectAnimator.start();
         objectAnimator.addListener(new AnimatorListenerAdapter() {

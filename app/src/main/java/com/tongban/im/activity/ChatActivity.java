@@ -1,5 +1,8 @@
 package com.tongban.im.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,10 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
@@ -115,7 +114,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
         ObjectAnimator rotation1 = ObjectAnimator.ofFloat(ivTopic, "rotation", 90, 0);
         rotation1.setDuration(300);
 
-        ViewHelper.setPivotX(tvTopic, tvTopic.getLeft());
+        tvTopic.setPivotX(tvTopic.getLeft());
         ObjectAnimator scaleX1 = ObjectAnimator.ofFloat(tvTopic, "scaleX", 1.0f, 0.0f);
         scaleX1.setDuration(300);
         scaleX1.start();
@@ -127,14 +126,14 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
         topicAnimator.setDuration(300).setStartDelay(500);
 
         if (isOpen) {
-            ViewHelper.setPivotX(tvTopicDetails, tvTopicDetails.getLeft());
+            tvTopic.setPivotX(tvTopicDetails.getLeft());
         } else {
             rotation1 = ObjectAnimator.ofFloat(ivTopic, "rotation", 0, 90);
             rotation1.setStartDelay(300);
             rotation = ObjectAnimator.ofFloat(ivTopic, "rotation", 90, 0);
             topicAnimator = ObjectAnimator.ofFloat(tvTopicDetails, "scaleX", 1.0f, 0.0f);
 
-            ViewHelper.setPivotX(tvTopic, tvTopic.getLeft());
+            tvTopic.setPivotX(tvTopic.getLeft());
             ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvTopic, "scaleX", 0.0f, 1.0f);
             scaleX.setDuration(300).setStartDelay(300);
             scaleX.start();
