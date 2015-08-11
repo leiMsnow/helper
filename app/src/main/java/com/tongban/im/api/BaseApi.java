@@ -111,6 +111,7 @@ public class BaseApi {
 
     /**
      * 封装了JsonObjectRequest的网络请求方法
+     * cey:目前失败的请求都存到BaseApiActivity中,暂未考虑BaseApiFragment~~~
      *
      * @param url      请求地址
      * @param params   请求参数

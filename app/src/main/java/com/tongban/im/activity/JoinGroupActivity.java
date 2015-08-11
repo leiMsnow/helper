@@ -1,12 +1,10 @@
 package com.tongban.im.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.utils.ToastUtil;
@@ -31,11 +29,6 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
     private SearchView searchView;
     private ListView lvGroups;
     private JoinGroupAdapter mAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -81,7 +74,8 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
             case R.id.btn_join:
                 Group group = (Group) v.getTag();
                 // TODO 加入群，不需要验证
-                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(), group.getUser_id(), this);
+                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
+                        group.getUser_id(), this);
                 break;
         }
 

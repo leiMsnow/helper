@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
@@ -23,6 +21,7 @@ import com.tongban.im.model.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 群组操作api
@@ -223,17 +222,23 @@ public class GroupApi extends BaseApi {
      * cey:接口还在修改中
      *
      * @param groupName 群名称
-     * @param cursor    第几页，默认0开始
-     * @param pageSize  每页数量 默认10条
+     * @param num       第几页,从0开始计数
+     * @param pageSize  每页数量,默认15条
      * @param callback  回调
      */
-    public void searchGroupByName(String groupName, int cursor, int pageSize, final ApiCallback callback) {
+    public void searchGroupByName(String groupName, int num, int pageSize, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         //mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("keyword", groupName);
-        //mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        //mParams.put("page_size", pageSize < 10 ? 10 : pageSize);
+        if (num < 0)
+            num = 0;
+        if (pageSize <= 0)
+            pageSize = 15;
+        Map page = new HashMap();
+        page.put("page_num", num);
+        page.put("page_size", pageSize);
+        mParams.put("pagination", page);
 
         simpleRequest(SEARCH_GROUP_BY_NAME, mParams, new ApiCallback() {
             @Override
@@ -243,10 +248,9 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                Gson gson = new Gson();
-                ApiListResult<Group> apiResponse = gson.fromJson(obj.toString(),
-                        new TypeToken<ApiListResult<Group>>() {
-                        }.getType());
+                ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Group>>() {
+                        });
                 BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
                 searchGroupEvent.setGroups(apiResponse.getData().getSearchResult());
                 callback.onComplete(searchGroupEvent);
