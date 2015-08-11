@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
