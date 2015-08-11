@@ -19,6 +19,17 @@ public class Topic {
     private String topicPraiseNum;
     //话题生成时间
     private String topicTime;
+    //话题生成地点
+    private String topicAddress;
+
+    public String getTopicAddress() {
+        return topicAddress;
+    }
+
+    public void setTopicAddress(String topicAddress) {
+        this.topicAddress = topicAddress;
+    }
+
     // 话题内容
     private String topicContent;
     //用户

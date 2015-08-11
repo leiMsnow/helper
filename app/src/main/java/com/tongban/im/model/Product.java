@@ -4,8 +4,12 @@ package com.tongban.im.model;
  * Created by fushudi on 2015/8/10.
  */
 public class Product {
+    //产品头像
+    private String product_icon_url;
     //产品名称
     private String productName;
+    //产品内容（图片）
+    private String product_img_url;
     //产品介绍
     private String productIntroduction;
     //产品参数
@@ -63,5 +67,21 @@ public class Product {
 
     public void setProductCollectNum(String productCollectNum) {
         this.productCollectNum = productCollectNum;
+    }
+
+    public String getProduct_icon_url() {
+        return product_icon_url;
+    }
+
+    public void setProduct_icon_url(String product_icon_url) {
+        this.product_icon_url = product_icon_url;
+    }
+
+    public String getProduct_img_url() {
+        return product_img_url;
+    }
+
+    public void setProduct_img_url(String product_img_url) {
+        this.product_img_url = product_img_url;
     }
 }

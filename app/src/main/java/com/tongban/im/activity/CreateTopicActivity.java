@@ -8,7 +8,6 @@ import android.widget.GridView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
-import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class CreateTopicActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.publish)
-            startActivity(new Intent(mContext, AuthorityTopicDetailActivity.class));
+            startActivity(new Intent(mContext, AuthorityTopicDetailsActivity.class));
         return super.onOptionsItemSelected(item);
     }
 }

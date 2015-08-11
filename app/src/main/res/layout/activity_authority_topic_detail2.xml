@@ -6,14 +6,34 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <ListView
-        android:id="@+id/lv_authority_topic_details"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:cacheColorHint="@color/transparent"
-        android:divider="@null"
-        android:scrollbars="none" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_reply"
+        android:scrollbars="none"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/fra_authority_topic_reply"
+                android:name="com.tongban.im.fragment.AuthorityTopicReplyFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ListView
+                android:id="@+id/lv_reply_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/fra_authority_topic_reply"
+                android:cacheColorHint="@color/transparent"
+                android:divider="@null"
+                android:scrollbars="none" />
+
+        </RelativeLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/rl_reply"
