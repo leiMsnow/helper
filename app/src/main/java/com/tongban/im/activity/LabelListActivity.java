@@ -69,7 +69,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_label_name) {
+        if (v.getId() == R.id.tv_label_name) {
             if (v.isSelected()) {
                 v.setSelected(false);
                 mMaxCount--;

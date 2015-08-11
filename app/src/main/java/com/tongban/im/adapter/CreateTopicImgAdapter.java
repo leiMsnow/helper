@@ -34,6 +34,8 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
                     add(0, "http://img2.3lian.com/2014/f7/5/d/22.jpg");
                 } else {
                     //替换
+                    set("http://img2.3lian.com/2014/f7/5/d/22.jpg", "http://www.touxiang.cn/uploads/20120723/23-033215_282.jpg");
+
                 }
                 notifyDataSetChanged();
             }
