@@ -87,7 +87,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         if (TextUtils.isEmpty(query)) {
             ToastUtil.getInstance(mContext).showToast("无效的圈子名称");
         } else {
-            GroupApi.getInstance().searchGroupByName(query, 0, 0, this);
+            GroupApi.getInstance().searchGroupByName(query, 0, 15, this);
         }
         return true;
     }
