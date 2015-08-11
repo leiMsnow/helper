@@ -31,6 +31,7 @@ public class TopicReply {
      * 评论数量
      */
     private String replyNum;
+    private String portrait_url;
 
     public String getReplyNickName() {
         return replyNickName;
@@ -78,5 +79,13 @@ public class TopicReply {
 
     public void setReplyNum(String replyNum) {
         this.replyNum = replyNum;
+    }
+
+    public String getPortrait_url() {
+        return portrait_url;
+    }
+
+    public void setPortrait_url(String portrait_url) {
+        this.portrait_url = portrait_url;
     }
 }
