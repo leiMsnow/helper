@@ -30,18 +30,15 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         helper.setOnClickListener(R.id.iv_topic_img, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(item)) {
+
+                if (TextUtils.isEmpty(item) && mData.size() <= 2) {
                     add(0, "http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                } else {
+
+                } else if (TextUtils.isEmpty(item) && mData.indexOf(item) == 2) {
                     //替换
-                    set(item, "http://www.touxiang.cn/uploads/20120723/23-033215_282.jpg");
+                    set(mData.indexOf(item), "http://www.touxiang.cn/uploads/20120723/23-033215_282.jpg");
                 }
             }
         });
-        if (mData.size() >= 4 && mData.indexOf(item) == 3) {
-            helper.setVisible(R.id.iv_topic_img, View.GONE);
-        } else if (mData.size() < 4) {
-            helper.setVisible(R.id.iv_topic_img, View.VISIBLE);
-        }
     }
 }

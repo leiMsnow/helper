@@ -9,6 +9,7 @@ import com.tongban.im.adapter.AuthorityTopicDetailAdapter;
 import com.tongban.im.adapter.TopicReplyAdapter;
 import com.tongban.im.model.Product;
 import com.tongban.im.model.TopicReply;
+import com.tongban.im.utils.ListViewMeasureUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +53,22 @@ public class AuthorityTopicDetailActivity extends BaseToolBarActivity {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Product product = new Product();
-            product.setProductAdvantage("好看的回复客户身份" + i);
+            product.setProductAdvantage("该产品的优势是舒适、环保，该产品的优势是舒适、环保该产品的" +
+                    "优势是舒适、环保，该产品的优势是舒适、环保该产品的优势是舒适、环保" + i);
             product.setProductCollectNum("3" + i);
-            product.setProductDisAdvantage("斯蒂芬斯蒂芬森防" + i);
-            product.setProductIntroduction("据了解基金基金基金");
-            product.setProductName("似懂非懂是");
-            product.setProductParameter("大范甘迪郭德纲");
+            product.setProductDisAdvantage("无明显不足" + i);
+            product.setProductIntroduction("该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
+                    "产于1987年，该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
+                    "产于1987年该产品属于当当的产品，产于1987年。");
+            product.setProductName("澳大利亚品牌");
+            product.setProductParameter("175ml；产地：澳大利亚");
             productList.add(product);
         }
         mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_details_list, replyList);
-        mAuthorityTopicDetailAdapter = new AuthorityTopicDetailAdapter(mContext, R.layout.item_authority_topic_detail, productList);
+        mAuthorityTopicDetailAdapter = new AuthorityTopicDetailAdapter(mContext,
+                R.layout.item_authority_topic_detail, productList);
         lvProductList.setAdapter(mAuthorityTopicDetailAdapter);
+        ListViewMeasureUtils.setListViewHeightBasedOnChildren(lvProductList);
         lvReplyList.setAdapter(mAdapter);
 
     }
