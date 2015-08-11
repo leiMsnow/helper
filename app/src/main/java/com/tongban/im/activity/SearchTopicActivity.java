@@ -57,6 +57,12 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initData() {
+        mKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
+        if (TextUtils.isEmpty(mKeys)) {
+            tvHistory.setVisibility(View.GONE);
+            flHistorySearch.setVisibility(View.GONE);
+            return;
+        }
         setSearchKeyView();
     }
 
@@ -94,9 +100,16 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     public void onClick(View v) {
+        //点击搜索历史
         if (v.getId() == R.id.tv_history_key) {
             String key = v.getTag().toString();
             searchView.setQuery(key, true);
+        }
+        //清除搜索记录
+        else if (v.getId() == R.id.tv_key_clear) {
+            tvHistory.setVisibility(View.GONE);
+            flHistorySearch.setVisibility(View.GONE);
+            SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, "");
         }
     }
 
@@ -121,15 +134,10 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     //设置历史搜索key和控件
     private void setSearchKeyView() {
-        mKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
-        if (TextUtils.isEmpty(mKeys)) {
-            tvHistory.setVisibility(View.GONE);
-            flHistorySearch.setVisibility(View.GONE);
-            return;
-        }
-        if (mKeys.split(";").length > 0) {
-            for (int i = 0; i < mKeys.split(";").length; i++) {
-                String key = mKeys.split(";")[i];
+        String[] keyList = mKeys.split(";");
+        if (keyList.length > 0) {
+            for (int i = 0; i < keyList.length; i++) {
+                String key = keyList[i];
                 TextView keyView = (TextView) LayoutInflater.from(mContext).
                         inflate(R.layout.item_history_topic, flHistorySearch, false);
                 flHistorySearch.addView(keyView);
@@ -137,6 +145,10 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
                 keyView.setText(key);
                 keyView.setOnClickListener(this);
             }
+            TextView keyView = (TextView) LayoutInflater.from(mContext).
+                    inflate(R.layout.item_history_topic_clear, flHistorySearch, false);
+            flHistorySearch.addView(keyView);
+            keyView.setOnClickListener(this);
         }
     }
 }
