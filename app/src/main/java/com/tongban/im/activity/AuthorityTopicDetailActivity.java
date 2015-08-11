@@ -31,6 +31,8 @@ public class AuthorityTopicDetailActivity extends BaseToolBarActivity {
     @Override
     protected void initView() {
         lvReplyList = (ListView) findViewById(R.id.lv_reply_list);
+        lvReplyList.addHeaderView(LayoutInflater.from(mContext).
+                inflate(R.layout.activity_authority_topic_reply_header, null));
         lvProductList = (ListView) findViewById(R.id.lv_authority_topic_detail);
     }
 
@@ -59,8 +61,6 @@ public class AuthorityTopicDetailActivity extends BaseToolBarActivity {
             productList.add(product);
         }
         mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_details_list, replyList);
-        lvReplyList.addHeaderView(LayoutInflater.from(mContext).
-                inflate(R.layout.activity_authority_topic_reply_header, null));
         mAuthorityTopicDetailAdapter = new AuthorityTopicDetailAdapter(mContext, R.layout.item_authority_topic_detail, productList);
         lvProductList.setAdapter(mAuthorityTopicDetailAdapter);
         lvReplyList.setAdapter(mAdapter);

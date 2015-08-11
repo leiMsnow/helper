@@ -10,6 +10,7 @@ import com.tongban.im.model.Product;
 import java.util.List;
 
 /**
+ *
  * Created by fushudi on 2015/8/10.
  */
 public class AuthorityTopicDetailAdapter extends QuickAdapter<Product> {

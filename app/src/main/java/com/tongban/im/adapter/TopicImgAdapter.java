@@ -15,7 +15,7 @@ import com.tongban.im.model.Topic;
 
 import java.util.List;
 
-/**
+/**话题列表--图片展示Adapter
  * Created by fushudi on 2015/7/16.
  */
 public class TopicImgAdapter extends QuickAdapter<String> {
@@ -26,27 +26,6 @@ public class TopicImgAdapter extends QuickAdapter<String> {
 
     @Override
     protected void convert(final BaseAdapterHelper helper, final String item) {
-        if (TextUtils.isEmpty(item)) {
-            helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_menu_add);
-        } else {
-            helper.setImageBitmap(R.id.iv_topic_img, item);
-        }
-        helper.setOnClickListener(R.id.iv_topic_img, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(item)) {
-                    add(0, "http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                } else {
-                    //替换
-                }
-                notifyDataSetChanged();
-            }
-        });
-        if (mData.size() >= 4) {
-            helper.setVisible(R.id.iv_topic_img, View.GONE);
-
-        } else if (mData.size() < 4) {
-            helper.setVisible(R.id.iv_topic_img, View.VISIBLE);
-        }
+        helper.setImageBitmap(R.id.iv_topic_img, item);
     }
 }
