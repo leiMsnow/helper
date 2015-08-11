@@ -38,10 +38,13 @@
     <string name="pwd_contain_empty">密码包含空参数</string>
     <string name="pwd_reset_fail">重置密码失败</string>
     <string name="obtain_old_pwd_fail">获取用户旧密码失败</string>
+    <!-- 发现-->
+    <string name="discover">发现</string>
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
     <!-- 圈子 -->
+    <string name="circle">圈子</string>
     <string name="chat">聊天</string>
     <!--创建圈子-->
     <string name="create_group">创建圈子</string>
