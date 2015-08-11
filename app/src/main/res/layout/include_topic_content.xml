@@ -23,6 +23,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/selector_btn_bg_red"
         android:gravity="center"
+        android:textColor="@color/white"
         android:text="收藏" />
 
     <TextView

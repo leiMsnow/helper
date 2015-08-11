@@ -4,12 +4,12 @@
     android:layout_height="48dp"
     android:padding="8dp">
 
-    <ImageView
+    <com.tongban.corelib.widget.view.RoundImageView
         android:id="@+id/iv_topic_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_centerVertical="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:src="@drawable/rc_default_portrait" />
 
     <TextView

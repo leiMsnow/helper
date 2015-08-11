@@ -2,13 +2,18 @@ package com.tongban.im.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
 import java.util.ArrayList;
 
+/**
+ * 图片浏览
+ *
+ * @author zhangleilei
+ * @createTime 2015/8/11
+ */
 public class PhotoViewPagerActivity extends BaseToolBarActivity {
 
     private ArrayList<String> resList;
