@@ -139,6 +139,10 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends B
         mData.clear();
         notifyDataSetChanged();
     }
+
+    public List<T> getDataAll(){
+        return mData;
+    }
     //-------------------------------用与操作data-end-----------------------------------
 
     @Override

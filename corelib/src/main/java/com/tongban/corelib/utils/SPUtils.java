@@ -1,11 +1,11 @@
 package com.tongban.corelib.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 
 public class SPUtils {
     /**
@@ -22,10 +22,13 @@ public class SPUtils {
      * @param object
      */
     public static void put(Context context, String key, Object object) {
+        put(context, FILE_NAME, key, object);
+    }
 
+    public static void put(Context context, String fileName, String key, Object object) {
         if (object == null)
             return;
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
@@ -44,7 +47,6 @@ public class SPUtils {
         } else {
             editor.putString(key, object.toString());
         }
-
         SharedPreferencesCompat.apply(editor);
     }
 
@@ -57,8 +59,8 @@ public class SPUtils {
      * @param defaultObject
      * @return
      */
-    public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static Object get(Context context, String fileName, String key, Object defaultObject) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
@@ -74,8 +76,11 @@ public class SPUtils {
         } else if (defaultObject instanceof Double) {
             return Double.longBitsToDouble(sp.getLong(key, Double.doubleToRawLongBits((Double) defaultObject)));
         }
-
         return null;
+    }
+
+    public static Object get(Context context, String key, Object defaultObject) {
+        return get(context, FILE_NAME, key, defaultObject);
     }
 
 
@@ -85,12 +90,16 @@ public class SPUtils {
      * @param context
      * @param key
      */
-    public static void remove(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static void remove(Context context, String fileName, String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
+    }
+
+    public static void remove(Context context, String key) {
+        remove(context, FILE_NAME, key);
     }
 
     /**
@@ -98,12 +107,16 @@ public class SPUtils {
      *
      * @param context
      */
-    public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static void clear(Context context, String fileName) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
+    }
+
+    public static void clear(Context context) {
+        clear(context, FILE_NAME);
     }
 
     /**
@@ -113,10 +126,14 @@ public class SPUtils {
      * @param key
      * @return
      */
-    public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static boolean contains(Context context, String fileName, String key) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
+    }
+
+    public static boolean contains(Context context, String key) {
+        return contains(context, FILE_NAME, key);
     }
 
     /**
@@ -125,17 +142,22 @@ public class SPUtils {
      * @param context
      * @return
      */
-    public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+    public static Map<String, ?> getAll(Context context,String fileName) {
+        SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.getAll();
     }
 
-    /**
-     * 创建一个SharedPreferencesCompat解决apply方法的一个兼容类
-     *
-     * @author zhy
-     */
+    public static Map<String, ?> getAll(Context context) {
+        return getAll(context,FILE_NAME);
+    }
+
+
+        /**
+         * 创建一个SharedPreferencesCompat解决apply方法的一个兼容类
+         *
+         * @author zhy
+         */
     private static class SharedPreferencesCompat {
         private static final Method sApplyMethod = findApplyMethod();
 

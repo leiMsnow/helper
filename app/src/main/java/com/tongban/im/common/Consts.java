@@ -43,4 +43,8 @@ public class Consts {
     public static final String CITY = "CITY";
     public static final String COUNTY = "COUNTY";
     public static final String ADDRESS = "ADDRESS";
+    /**
+     * 历史搜索-话题
+     */
+    public static final String HISTORY_SEARCH_TOPIC = "HISTORY_SEARCH_TOPIC";
 }

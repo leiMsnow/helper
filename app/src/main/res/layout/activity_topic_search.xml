@@ -19,14 +19,12 @@
         android:text="最近搜索"
         android:textColor="@color/grey_500" />
 
-    <GridView
-        android:id="@+id/gv_history_search"
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_history_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_history"
-        android:horizontalSpacing="4dp"
-        android:numColumns="3"
-        android:verticalSpacing="4dp" />
+        android:padding="8dp" />
 
     <ListView
         android:id="@+id/lv_topic_list"
