@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.ToastUtil;
 
 import de.greenrobot.event.EventBus;
 
@@ -47,7 +48,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
         } else if (errorObj instanceof String) {
             errorMsg = errorObj.toString();
         }
-
+        ToastUtil.getInstance(mContext).showToast(errorMsg);
     }
 
     public void onEventMainThread(Object obj) {
