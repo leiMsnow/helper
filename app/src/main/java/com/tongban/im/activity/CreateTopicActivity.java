@@ -7,6 +7,7 @@ import android.widget.GridView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.model.Topic;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public class CreateTopicActivity extends BaseToolBarActivity {
 
     private GridView gvTopicImg;
-    private TopicImgAdapter adapter;
+    private CreateTopicImgAdapter adapter;
 
     @Override
     protected int getLayoutRes() {
@@ -38,17 +39,17 @@ public class CreateTopicActivity extends BaseToolBarActivity {
     protected void initData() {
         Topic topic = new Topic();
         List<String> smallUrls = new ArrayList<>();
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+        smallUrls.add("");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+//        smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
         topic.setSmallUrl(smallUrls);
-        adapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        adapter.replaceAll(topic.getSmallUrl());
+        adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, smallUrls);
         gvTopicImg.setAdapter(adapter);
     }
 
@@ -65,8 +66,8 @@ public class CreateTopicActivity extends BaseToolBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId=item.getItemId();
-        if (itemId==R.id.publish)
+        int itemId = item.getItemId();
+        if (itemId == R.id.publish)
             startActivity(new Intent(mContext, AuthorityTopicDetailActivity.class));
         return super.onOptionsItemSelected(item);
     }

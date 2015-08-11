@@ -1,16 +1,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.tongban.im.activity.AuthorityTopicDetailActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+
+    <ListView
+        android:id="@+id/lv_reply_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_reply"
+        android:layout_below="@+id/toolbar"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:id="@+id/rl_reply"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:minHeight="48dp">
+
+        <ImageView
+            android:id="@+id/iv_emoj"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/et_reply"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:src="@drawable/rc_ic_smiley" />
+
+        <EditText
+            android:id="@+id/et_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toLeftOf="@+id/btn_reply"
+            android:layout_toRightOf="@+id/iv_emoj" />
+
+        <ImageView
+            android:id="@+id/btn_reply"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/et_reply"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_menu_send" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
