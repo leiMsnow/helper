@@ -1,87 +1,69 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_main_toolbar" />
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/dl_panel"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom_menu"
+        android:layout_below="@+id/toolbar" />
 
-        <!-- 主页面 -->
-        <LinearLayout
-            android:layout_width="match_parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/ll_bottom_menu"
+        android:background="@color/grey_300" />
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+
+        <com.tongban.corelib.widget.view.ChangeColorView
+            android:id="@+id/ccv_discover"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!-- Fragment容器 -->
-            <FrameLayout
-                android:id="@+id/fl_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <!-- 底部Tab栏 -->
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:changeColor="@color/theme_red"
+            app:changeIcon="@mipmap/ic_menu_discover_normal"
+            app:changeText="@string/discover"
+            app:changeTextSize="12sp"
+            app:defaultColor="@color/brown_300" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey_300" />
-
-            <RadioGroup
-                android:id="@+id/rg_tab"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rb_discover"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableTop="@drawable/selector_menu_discover"
-                    android:gravity="center"
-                    android:text="发现"
-                    android:textColor="@drawable/selector_main_tab_text_color" />
-
-                <RadioButton
-                    android:id="@+id/rb_topic"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableTop="@drawable/selector_menu_recommend"
-                    android:gravity="center"
-                    android:text="话题"
-                    android:textColor="@drawable/selector_main_tab_text_color" />
-
-                <RadioButton
-                    android:id="@+id/rb_circle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableTop="@drawable/selector_menu_circle"
-                    android:gravity="center"
-                    android:text="圈子"
-                    android:textColor="@drawable/selector_main_tab_text_color" />
-            </RadioGroup>
-        </LinearLayout>
-        <!--侧滑界面-->
-        <FrameLayout
-            android:id="@+id/id_menu_container"
-            android:layout_width="match_parent"
+        <com.tongban.corelib.widget.view.ChangeColorView
+            android:id="@+id/ccv_topic"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:background="@color/white" />
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:changeColor="@color/theme_red"
+            app:changeIcon="@mipmap/ic_menu_circle_normal"
+            app:changeText="@string/topic"
+            app:changeTextSize="12sp"
+            app:defaultColor="@color/brown_300" />
+
+        <com.tongban.corelib.widget.view.ChangeColorView
+            android:id="@+id/ccv_circle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="4dp"
+            app:changeColor="@color/theme_red"
+            app:changeIcon="@mipmap/ic_menu_recommend_normal"
+            app:changeText="@string/circle"
+            app:changeTextSize="12sp"
+            app:defaultColor="@color/brown_300" />
+    </LinearLayout>
 
 
-    </android.support.v4.widget.DrawerLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -102,7 +102,6 @@ public class TopicAdapter extends BaseAdapter {
             viewHolder.tvContent.setVisibility(View.GONE);
             viewHolder.gvContent.setVisibility(View.VISIBLE);
             adapter.replaceAll(topic.getSmallUrl());
-            notifyDataSetChanged();
         }
         return convertView;
     }

@@ -77,6 +77,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("搜索话题关键字");
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
