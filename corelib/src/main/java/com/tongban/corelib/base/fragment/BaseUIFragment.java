@@ -17,15 +17,16 @@ public abstract class BaseUIFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(getLayoutRes(), container, false);
+            initView();
+            initListener();
+            initData();
         }
-        initView();
-        initListener();
-        initData();
         return mView;
     }
 
     /**
      * 获取Fragment的布局文件
+     *
      * @return Layout
      */
     protected abstract int getLayoutRes();
@@ -47,6 +48,7 @@ public abstract class BaseUIFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
+        ((ViewGroup) mView.getParent()).removeView(mView);
         super.onDestroyView();
     }
 }

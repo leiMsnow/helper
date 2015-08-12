@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -27,7 +26,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MainActivity extends BaseToolBarActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    // 底部tab和圈子页顶部的tab
+    // 圈子页顶部的tab
     private RadioGroup rgCircle;
     private ViewPager mViewPager;
     private List<Fragment> mTabs = new ArrayList<>();
@@ -88,6 +87,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
             }
         };
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(3);
     }
 
     @Override
@@ -100,14 +100,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                LogUtil.d("onCheckedChanged");
                 switch (checkedId) {
                     case R.id.rb_chat:
-                        LogUtil.d("checked:rb_chat");
                         EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.CHAT);
                         break;
                     case R.id.rb_recommend:
-                        LogUtil.d("checked:rb_recommend");
                         EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.RECOMMEND);
                         break;
                 }
