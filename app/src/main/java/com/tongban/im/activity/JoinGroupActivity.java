@@ -58,7 +58,7 @@ public class JoinGroupActivity extends BaseToolBarActivity implements View.OnCli
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
-        searchView.onActionViewCollapsed();
+        searchView.onActionViewExpanded();
         return true;
     }
 
