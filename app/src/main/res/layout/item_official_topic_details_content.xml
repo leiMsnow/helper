@@ -122,12 +122,11 @@
             android:id="@+id/tv_collect_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btn_check_detail"
-            android:layout_alignTop="@+id/btn_check_detail"
+            android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/iv_share"
             android:drawableLeft="@mipmap/ic_reply_count"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="233" />
 
         <ImageView
@@ -135,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_menu_share" />
     </RelativeLayout>
 </LinearLayout>
