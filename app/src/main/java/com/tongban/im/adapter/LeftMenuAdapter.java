@@ -22,7 +22,7 @@ public class LeftMenuAdapter extends QuickAdapter<BaseEvent.DrawerLayoutMenu> {
     @Override
     protected void convert(BaseAdapterHelper helper, BaseEvent.DrawerLayoutMenu item) {
         helper.setImageBitmap(R.id.sdv_icon, item.getIcon());
-        helper.setText(R.id.tv_title, item.getText());
+        helper.setText(R.id.tv_user_name, item.getText());
         helper.getConvertView().setBackgroundColor(Color.TRANSPARENT);
         if (item.isSelected()) {
             helper.getConvertView().setBackgroundResource(R.color.grey_300);

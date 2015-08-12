@@ -6,40 +6,73 @@
     <RelativeLayout
         android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="64dp"
         android:background="?attr/colorPrimary">
 
         <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/riv_user_icon"
+            android:id="@+id/iv_user_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/rc_default_portrait" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/riv_user_icon"
+            android:layout_alignTop="@+id/iv_user_icon"
             android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/riv_user_icon"
+            android:layout_toRightOf="@+id/iv_user_icon"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="小鹿妈妈"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_user_name"
+            android:layout_alignTop="@+id/tv_user_name"
+            android:layout_toLeftOf="@+id/iv_search_all"
+            android:layout_toRightOf="@+id/tv_user_name"
+            android:gravity="center_vertical"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:text="宝宝5岁零1个月，1年纪预备生，伊顿国际小学"
+            android:textColor="@color/theme_red"
+            android:textSize="12sp" />
 
 
         <TextView
-            android:id="@+id/tv_subtitle"
+            android:id="@+id/tv_user_more_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/riv_user_icon"
-            android:layout_below="@+id/tv_title"
+            android:layout_alignBottom="@+id/iv_user_icon"
+            android:layout_below="@+id/tv_user_name"
             android:layout_marginLeft="8dp"
-            android:textSize="12sp"
-            android:layout_toRightOf="@+id/riv_user_icon"
-            android:text="依然淘气|体能发育快"
-            android:textColor="@color/grey_500" />
+            android:layout_toLeftOf="@+id/iv_search_all"
+            android:layout_toRightOf="@+id/iv_user_icon"
+            android:gravity="center_vertical"
+            android:text="依然淘气 | 体能发育快"
+            android:textColor="@color/grey_500"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_search_all"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/selector_white_to_gray"
+            android:scaleType="center"
+            android:src="@mipmap/ic_menu_search" />
 
     </RelativeLayout>
 
