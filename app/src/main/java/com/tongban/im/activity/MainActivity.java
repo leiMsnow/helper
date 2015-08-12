@@ -41,7 +41,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     protected void initView() {
-        setTitle("发现");
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
 
         ccvDiscover = (ChangeColorView) findViewById(R.id.ccv_discover);
@@ -138,6 +137,12 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         for (int i = 0; i < mTabIndicator.size(); i++) {
             mTabIndicator.get(i).setIconAlpha(0.0f);
         }
+        if (index == 2) {
+            rgCircle.setVisibility(View.VISIBLE);
+        } else {
+            rgCircle.setVisibility(View.GONE);
+        }
+
         mTabIndicator.get(index).setIconAlpha(1.0f);
         mViewPager.setCurrentItem(index, false);
 
