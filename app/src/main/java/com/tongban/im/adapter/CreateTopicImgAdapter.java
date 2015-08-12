@@ -31,7 +31,12 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         if (TextUtils.isEmpty(item)) {
             helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_menu_add);
         } else {
-            helper.setImageBitmap(R.id.iv_topic_img, item);
+            //TODO
+            if (mData.size() < 3) {
+                helper.setImageBitmap(R.id.iv_topic_img, item);
+            } else if (mData.size() == 3) {
+                set(0, item);
+            }
         }
         helper.setOnClickListener(R.id.iv_topic_img, new View.OnClickListener() {
             @Override
@@ -64,7 +69,6 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
                 dialog.show();
             }
         });
-
     }
 
 }

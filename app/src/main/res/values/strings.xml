@@ -82,5 +82,5 @@
     <!-- 发表话题-->
     <string name="create_topic">发表话题</string>
     <string name="topic_search">话题搜索</string>
-
+    <string name="create_reply">发表评论</string>
 </resources>

@@ -113,10 +113,12 @@
 
         <Button
             android:id="@+id/btn_check_detail"
-            android:layout_width="64dp"
-            android:layout_height="32dp"
-            android:background="@color/red_500"
-            android:text="查看详情" />
+            android:layout_width="88dp"
+            android:gravity="center"
+            android:layout_height="48dp"
+            android:background="@drawable/selector_btn_bg_check_detail"
+            android:text="查看详情"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_collect_num"
