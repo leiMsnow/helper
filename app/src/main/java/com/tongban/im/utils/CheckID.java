@@ -6,8 +6,8 @@ import java.util.UUID;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import android.util.Base64;
 
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * 产生用于判断用户是否登录以及防刷的检查ID
@@ -71,7 +71,7 @@ public class CheckID {
             Cipher c1 = Cipher.getInstance(Algorithm);
             c1.init(Cipher.ENCRYPT_MODE, deskey);
             byte[] result = c1.doFinal(sb.toString().getBytes());
-            return Base64.encodeBase64String(result);
+            return Base64.encodeToString(result, 0);
         } catch (java.security.NoSuchAlgorithmException e1) {
             return null;
         } catch (javax.crypto.NoSuchPaddingException e2) {
@@ -81,37 +81,37 @@ public class CheckID {
         }
     }
 
-    /**
-     * 检查ID
-     *
-     * @param id
-     * @param secs
-     * @return
-     */
-    public static CheckResult check(String id, long secs) {
-        long now = System.currentTimeMillis();
-        try {
-            byte[] sourceBytes = Base64.decodeBase64(id);
-            SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
-            Cipher c1 = Cipher.getInstance(Algorithm);
-            c1.init(Cipher.DECRYPT_MODE, deskey);
-            byte[] result = c1.doFinal(sourceBytes);
-            String source = new String(result);
-            String[] parts = source.split(",");
-            if (parts.length != 3) {
-                return null;
-            }
-            boolean logined = parts[1].equals("1") ? true : false;
-            boolean expired = Math.abs(now - Long.parseLong(parts[2])) > secs * 1000 ? true : false;
-            return new CheckResult(logined, expired);
-        } catch (java.security.NoSuchAlgorithmException e1) {
-            return null;
-        } catch (javax.crypto.NoSuchPaddingException e2) {
-            return null;
-        } catch (java.lang.Exception e3) {
-            return null;
-        }
-    }
+//    /**
+//     * 检查ID
+//     *
+//     * @param id
+//     * @param secs
+//     * @return
+//     */
+//    public static CheckResult check(String id, long secs) {
+//        long now = System.currentTimeMillis();
+//        try {
+//            byte[] sourceBytes = Base64.decodeBase64(id);
+//            SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
+//            Cipher c1 = Cipher.getInstance(Algorithm);
+//            c1.init(Cipher.DECRYPT_MODE, deskey);
+//            byte[] result = c1.doFinal(sourceBytes);
+//            String source = new String(result);
+//            String[] parts = source.split(",");
+//            if (parts.length != 3) {
+//                return null;
+//            }
+//            boolean logined = parts[1].equals("1") ? true : false;
+//            boolean expired = Math.abs(now - Long.parseLong(parts[2])) > secs * 1000 ? true : false;
+//            return new CheckResult(logined, expired);
+//        } catch (java.security.NoSuchAlgorithmException e1) {
+//            return null;
+//        } catch (javax.crypto.NoSuchPaddingException e2) {
+//            return null;
+//        } catch (java.lang.Exception e3) {
+//            return null;
+//        }
+//    }
 
 
 }

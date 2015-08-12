@@ -173,7 +173,7 @@ public class BaseApi {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                //headers.put("_R_C", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)));
+                headers.put("_R_C", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)));
                 return headers;
             }
         };
