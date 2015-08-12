@@ -1,6 +1,7 @@
 package com.tongban.im.model;
 
 /**
+ * 官方话题详情
  * Created by fushudi on 2015/8/11.
  */
 public class AuthorityTopic {

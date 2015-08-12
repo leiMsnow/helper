@@ -50,13 +50,16 @@ public class AuthorityTopicDetailsAdapter extends BaseAdapter {
     public int getViewTypeCount() {
         return 3;
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         AuthorityTopic authorityTopic = authorityTopicList.get(position);
         if (convertView == null) {
             viewHolder = new ViewHolder();
+
+            //产品相关
             if (authorityTopic.getContentType() == AuthorityTopic.CONTENT) {
-                convertView = inflate.inflate(R.layout.item_authority_topic_detail_content, parent, false);
+                convertView = inflate.inflate(R.layout.item_authority_topic_details_content, parent, false);
                 viewHolder.ivProductIcon = (ImageView) convertView.findViewById(R.id.iv_product_icon);
                 viewHolder.ivProductImg = (ImageView) convertView.findViewById(R.id.iv_product_img);
                 viewHolder.tvProductName = (TextView) convertView.findViewById(R.id.tv_product_name);
@@ -65,12 +68,16 @@ public class AuthorityTopicDetailsAdapter extends BaseAdapter {
                 viewHolder.tvProductParameter = (TextView) convertView.findViewById(R.id.tv_product_parameters_content);
                 viewHolder.tvProductIntroduction = (TextView) convertView.findViewById(R.id.tv_product_introduce_content);
                 viewHolder.tvProductCollectNum = (TextView) convertView.findViewById(R.id.tv_collect_num);
-            } else if (authorityTopic.getContentType() == AuthorityTopic.REPLY_NUM) {
-                convertView = inflate.inflate(R.layout.item_authority_topic_detail_reply_num, parent, false);
+            }
+            //数量（评论、点赞）相关
+            else if (authorityTopic.getContentType() == AuthorityTopic.REPLY_NUM) {
+                convertView = inflate.inflate(R.layout.item_authority_topic_details_reply_num, parent, false);
                 viewHolder.tvPraiseNum = (TextView) convertView.findViewById(R.id.tv_praise_count);
                 viewHolder.tvReplyNum = (TextView) convertView.findViewById(R.id.tv_reply_count);
                 viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tv_location);
-            } else if (authorityTopic.getContentType() == AuthorityTopic.REPLY) {
+            }
+            //评论相关
+            else if (authorityTopic.getContentType() == AuthorityTopic.REPLY) {
                 convertView = inflate.inflate(R.layout.item_topic_reply_list, parent, false);
                 viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.iv_user_icon);
                 viewHolder.tvReplyTime = (TextView) convertView.findViewById(R.id.tv_reply_time);
@@ -82,6 +89,7 @@ public class AuthorityTopicDetailsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        //产品相关
         if (authorityTopic.getContentType() == AuthorityTopic.CONTENT) {
 
             Glide.with(context).load(authorityTopic.getProduct().getProduct_icon_url()).
@@ -95,16 +103,20 @@ public class AuthorityTopicDetailsAdapter extends BaseAdapter {
             viewHolder.tvProductDisAdvantage.setText(authorityTopic.getProduct().getProductDisAdvantage());
             viewHolder.tvProductCollectNum.setText(authorityTopic.getProduct().getProductCollectNum());
 
-        } else if (authorityTopic.getContentType() == AuthorityTopic.REPLY_NUM) {
+        }
+        //数量（评论、点赞）相关
+        else if (authorityTopic.getContentType() == AuthorityTopic.REPLY_NUM) {
 
             viewHolder.tvPraiseNum.setText(authorityTopic.getTopic().getTopicPraiseNum());
             viewHolder.tvReplyNum.setText(authorityTopic.getTopic().getTopicReplyNum());
             viewHolder.tvAddress.setText(authorityTopic.getTopic().getTopicAddress());
 
-        } else if (authorityTopic.getContentType() == AuthorityTopic.REPLY) {
+        }
+        //评论相关
+        else if (authorityTopic.getContentType() == AuthorityTopic.REPLY) {
 
-//            Glide.with(context).load(authorityTopic.getTopicReply().getPortrait_url()).
-//                    placeholder(R.drawable.rc_default_portrait).into(viewHolder.ivIcon);
+            Glide.with(context).load(authorityTopic.getTopicReply().getPortrait_url()).
+                    placeholder(R.drawable.rc_default_portrait).into(viewHolder.ivIcon);
             viewHolder.tvReplyTime.setText(authorityTopic.getTopicReply().getReplyTime());
             viewHolder.tvReplyContent.setText(authorityTopic.getTopicReply().getReplyContent());
             viewHolder.tvNickName.setText(authorityTopic.getTopicReply().getReplyNickName());

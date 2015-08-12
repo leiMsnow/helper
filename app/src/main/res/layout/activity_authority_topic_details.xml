@@ -7,7 +7,7 @@
         layout="@layout/include_toolbar" />
 
     <ListView
-        android:id="@+id/lv_reply_list"
+        android:id="@+id/lv_authority_topic_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/include_reply"

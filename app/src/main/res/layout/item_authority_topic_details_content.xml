@@ -31,11 +31,12 @@
 
     <ImageView
         android:id="@+id/iv_product_img"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rc_default_group_portrait" />
+        android:background="@drawable/rc_default_group_portrait"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_product_introduce"
