@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -99,12 +100,16 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                LogUtil.d("onCheckedChanged");
                 switch (checkedId) {
                     case R.id.rb_chat:
+                        LogUtil.d("checked:rb_chat");
                         EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.CHAT);
                         break;
                     case R.id.rb_recommend:
+                        LogUtil.d("checked:rb_recommend");
                         EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.RECOMMEND);
+                        break;
                 }
             }
         });
@@ -164,12 +169,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public void onPageSelected(int position) {
-
+        resetTabs(position);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
 }
