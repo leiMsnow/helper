@@ -59,11 +59,10 @@ public class SemicircleImageView extends ImageView {
         if (getWidth() == 0 || getHeight() == 0) {
             return;
         }
-//        this.measure(0, 0);  
 
         mWidth = getWidth();
         mHeight = getHeight();
-        Bitmap outBit = null;
+        Bitmap outBit;
         if (drawable.getClass() == NinePatchDrawable.class) {
             outBit = drawOneSideOval((NinePatchDrawable) drawable);
         } else {
@@ -78,7 +77,7 @@ public class SemicircleImageView extends ImageView {
 
         canvas.save();
         mPath.reset();
-        mRectF.set(-1.0f * mWidth, -mHeight, 2.0f * mWidth, mHeight);
+        mRectF.set(-mWidth, -mHeight * 6.0f, 2.0f * mWidth, mHeight);
         mPath.addOval(mRectF, Path.Direction.CCW);
         canvas.clipPath(mPath, Op.REPLACE);
         canvas.drawBitmap(outBit, 0, 0, mPaint);

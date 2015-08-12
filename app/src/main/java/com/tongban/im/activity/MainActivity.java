@@ -27,7 +27,7 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends BaseToolBarActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     // 圈子页顶部的tab
-    private RadioGroup rgCircle;
+//    private RadioGroup rgCircle;
     private ViewPager mViewPager;
     private List<Fragment> mTabs = new ArrayList<>();
     private FragmentPagerAdapter mAdapter;
@@ -47,15 +47,9 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         ccvCircle = (ChangeColorView) findViewById(R.id.ccv_circle);
         ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
         // 圈子页的顶部tab
-        rgCircle = (RadioGroup) findViewById(R.id.rg_circle);
+//        rgCircle = (RadioGroup) findViewById(R.id.rg_circle);
 
         ccvDiscover.setIconAlpha(1.0f);
-    }
-
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -97,19 +91,19 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         ccvTopic.setOnClickListener(this);
         ccvCircle.setOnClickListener(this);
 
-        rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_chat:
-                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.CHAT);
-                        break;
-                    case R.id.rb_recommend:
-                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.RECOMMEND);
-                        break;
-                }
-            }
-        });
+//        rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.rb_chat:
+//                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.CHAT);
+//                        break;
+//                    case R.id.rb_recommend:
+//                        EventBus.getDefault().post(BaseEvent.SwitchCircleTabEvent.RECOMMEND);
+//                        break;
+//                }
+//            }
+//        });
     }
 
 
@@ -139,11 +133,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         for (int i = 0; i < mTabIndicator.size(); i++) {
             mTabIndicator.get(i).setIconAlpha(0.0f);
         }
-        if (index == 2) {
-            rgCircle.setVisibility(View.VISIBLE);
-        } else {
-            rgCircle.setVisibility(View.GONE);
-        }
+//        if (index == 2) {
+//            rgCircle.setVisibility(View.VISIBLE);
+//        } else {
+//            rgCircle.setVisibility(View.GONE);
+//        }
 
         mTabIndicator.get(index).setIconAlpha(1.0f);
         mViewPager.setCurrentItem(index, false);

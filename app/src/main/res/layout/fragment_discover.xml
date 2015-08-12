@@ -1,12 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.tongban.im.fragment.DiscoverFragment">
+    android:background="@color/grey_300">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="发现" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_discover_toolbar" />
 
-</FrameLayout>
+
+
+</RelativeLayout>
