@@ -37,13 +37,6 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
             @Override
             public void onClick(View v) {
                 createDialog();
-//                if (TextUtils.isEmpty(item) && mData.size() <= 2) {
-//                    add(0, "http://img2.3lian.com/2014/f7/5/d/22.jpg");
-//
-//                } else if (TextUtils.isEmpty(item) && mData.indexOf(item) == 2) {
-//                    //替换
-//                    set(mData.indexOf(item), "http://www.touxiang.cn/uploads/20120723/23-033215_282.jpg");
-//                }
             }
 
             // 打开相机的提示框
@@ -71,5 +64,7 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
                 dialog.show();
             }
         });
+
     }
+
 }

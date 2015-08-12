@@ -176,7 +176,7 @@
             android:label="@string/create_topic"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.AuthorityTopicDetailsActivity"
+            android:name=".activity.OfficialTopicDetailsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.SearchTopicActivity"

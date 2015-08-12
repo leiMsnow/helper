@@ -3,9 +3,10 @@ package com.tongban.im.activity;
 import android.view.LayoutInflater;
 import android.widget.ListView;
 
+import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.AuthorityTopicDetailsAdapter;
+import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.model.AuthorityTopic;
 import com.tongban.im.model.Product;
 import com.tongban.im.model.Topic;
@@ -16,18 +17,18 @@ import java.util.List;
 
 
 /**
- * 官方话题评论界面
+ * 官方话题评论界面official
  *
  * @author fushudi
  */
-public class AuthorityTopicDetailsActivity extends BaseToolBarActivity {
+public class OfficialTopicDetailsActivity extends BaseToolBarActivity {
     private ListView lvAuthorityTopicDetails;
-    private AuthorityTopicDetailsAdapter mAdapter;
+    private OfficialTopicDetailsAdapter mAdapter;
 
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_authority_topic_details;
+        return R.layout.activity_official_topic_details;
     }
 
     @Override
@@ -67,6 +68,7 @@ public class AuthorityTopicDetailsActivity extends BaseToolBarActivity {
         topic.setTopicReplyNum("100");
         authorityTopic.setTopic(topic);
         authorityTopicList.add(authorityTopic);
+        //mAdapter = new OfficialTopicDetailsAdapter(mContext, R.layout.item_official_topic_details_reply_num, authorityTopicList);
 
 
         //评论相关
@@ -89,10 +91,31 @@ public class AuthorityTopicDetailsActivity extends BaseToolBarActivity {
         topicReply.setReplyTime("19:13");
         authorityTopic.setTopicReply(topicReply);
         authorityTopicList.add(authorityTopic);
+        mAdapter = new OfficialTopicDetailsAdapter(mContext, authorityTopicList, new IMultiItemTypeSupport<AuthorityTopic>() {
+            @Override
+            public int getLayoutId(int position, AuthorityTopic o) {
+                if (o.getContentType() == AuthorityTopic.CONTENT) {
+                    return R.layout.item_official_topic_details_content;
+                } else if (o.getContentType() == AuthorityTopic.REPLY_NUM) {
+                    return R.layout.item_official_topic_details_reply_num;
+                } else if (o.getContentType() == AuthorityTopic.REPLY) {
+                    return R.layout.item_topic_reply_list;
+                }
+                return 0;
+            }
 
-        mAdapter = new AuthorityTopicDetailsAdapter(mContext, authorityTopicList);
+            @Override
+            public int getViewTypeCount() {
+                return 3;
+            }
+
+            @Override
+            public int getItemViewType(int position, AuthorityTopic o) {
+                return o.getContentType();
+            }
+        });
         lvAuthorityTopicDetails.addHeaderView(LayoutInflater.from(mContext).
-                inflate(R.layout.activity_authority_topic_details_header, null));
+                inflate(R.layout.activity_official_topic_details_header, null));
         lvAuthorityTopicDetails.setAdapter(mAdapter);
 
     }
