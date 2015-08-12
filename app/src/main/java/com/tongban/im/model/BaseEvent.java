@@ -240,12 +240,4 @@ public class BaseEvent {
         }
     }
 
-    /**
-     * 切换圈子页顶部tab的Event
-     */
-    public enum SwitchCircleTabEvent {
-        CHAT,     // 聊天
-        RECOMMEND // 推荐
-    }
-
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 import android.util.Base64;
 
 
@@ -18,6 +19,7 @@ public class CheckID {
 
     private static final byte[] keyBytes = "x1!a0u=+~@v9%^%@io)~7ff*".getBytes();
     private static final String Algorithm = "DESede";
+    private static final String Ciper_Algorithm = "DESede/ECB/PKCS5Padding";
 
     static public class CheckResult {
         private boolean logined = false;
@@ -68,9 +70,9 @@ public class CheckID {
         sb.append(System.currentTimeMillis());
         try {
             SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
-            Cipher c1 = Cipher.getInstance(Algorithm);
+            Cipher c1 = Cipher.getInstance(Ciper_Algorithm);
             c1.init(Cipher.ENCRYPT_MODE, deskey);
-            byte[] result = c1.doFinal(sb.toString().getBytes());
+            byte[] result = c1.doFinal(sb.toString().getBytes("UTF-8"));
             return Base64.encodeToString(result, 0);
         } catch (java.security.NoSuchAlgorithmException e1) {
             return null;
@@ -79,6 +81,7 @@ public class CheckID {
         } catch (java.lang.Exception e3) {
             return null;
         }
+
     }
 
 //    /**

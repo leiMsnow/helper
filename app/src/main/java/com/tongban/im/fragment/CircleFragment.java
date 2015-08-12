@@ -3,18 +3,15 @@ package com.tongban.im.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.RadioGroup;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.JoinGroupActivity;
-import com.tongban.im.model.BaseEvent;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -24,15 +21,14 @@ import io.rong.imlib.model.Conversation;
  * author: chenenyu 15/7/13
  */
 public class CircleFragment extends BaseApiFragment {
+    // 圈子页顶部的tab
+    private RadioGroup rgCircle;
+    // 圈子页顶部的搜索按钮
+    private ImageButton ibSearch;
+
     private FragmentManager fm;
     private ConversationListFragment chatFragment;
     private Fragment recommendFragment;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -41,6 +37,10 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
+        // 圈子页的顶部tab
+        rgCircle = (RadioGroup) mView.findViewById(R.id.rg_circle);
+        ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
+
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()
@@ -57,38 +57,30 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
+        rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_chat:
+                        fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
+                        break;
+                    case R.id.rb_recommend:
+                        fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
+                        break;
+                }
+            }
+        });
+
+        ibSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, JoinGroupActivity.class));
+            }
+        });
     }
 
     @Override
     protected void initData() {
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_circle_fragment, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            startActivity(new Intent(mContext, JoinGroupActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * 切换顶部tab的Event
-     *
-     * @param type see{@link BaseEvent.SwitchCircleTabEvent}
-     */
-    public void onEventMainThread(BaseEvent.SwitchCircleTabEvent type) {
-        if (type == BaseEvent.SwitchCircleTabEvent.CHAT) {
-            fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
-        } else if (type == BaseEvent.SwitchCircleTabEvent.RECOMMEND) {
-            fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
-        }
     }
 
 }
