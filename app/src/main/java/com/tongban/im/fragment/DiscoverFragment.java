@@ -4,7 +4,6 @@ package com.tongban.im.fragment;
 import android.widget.ImageView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.widget.view.CircleImageDrawable;
 import com.tongban.im.R;
 
 /**
