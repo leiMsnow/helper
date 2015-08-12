@@ -3,10 +3,52 @@
     android:layout_height="match_parent"
     android:background="@color/grey_300">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/include_discover_toolbar" />
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary">
+
+        <com.tongban.corelib.widget.view.CircleImageView
+            android:id="@+id/riv_user_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rc_default_portrait" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/riv_user_icon"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/riv_user_icon"
+            android:text="小鹿妈妈"
+            android:textColor="@color/black" />
 
 
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/riv_user_icon"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="8dp"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/riv_user_icon"
+            android:text="依然淘气|体能发育快"
+            android:textColor="@color/grey_500" />
+
+    </RelativeLayout>
+
+
+    <com.tongban.corelib.widget.view.SemicircleImageView
+        android:id="@+id/siv_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_below="@+id/rl_toolbar"
+        android:src="@drawable/bg_light" />
 
 </RelativeLayout>

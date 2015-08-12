@@ -4,7 +4,7 @@
     android:layout_height="48dp"
     android:padding="8dp">
 
-    <com.tongban.corelib.widget.view.RoundImageView
+    <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_topic_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"

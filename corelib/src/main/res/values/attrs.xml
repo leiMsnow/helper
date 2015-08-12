@@ -15,10 +15,4 @@
         <attr name="isHeaderParallax" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="RoundImageView">
-        <attr name="borderRadius" format="dimension" />
-        <attr name="type" format="integer" />
-    </declare-styleable>
-
-
 </resources>
