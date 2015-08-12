@@ -184,6 +184,9 @@
         <activity
             android:name=".activity.PhotoViewPagerActivity"
             android:label="@string/image_display" />
+        <activity
+            android:name=".activity.SearchDiscoverActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"  />
     </application>
 
 </manifest>

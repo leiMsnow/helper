@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_history"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar"
+        android:drawableLeft="@mipmap/ic_topic_location"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="最近搜索"
+        android:textColor="@color/grey_500" />
+
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_history_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_history"
+        android:padding="8dp" />
+
+    <ListView
+        android:id="@+id/lv_topic_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+</RelativeLayout>

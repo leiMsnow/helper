@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.SearchDiscoverActivity;
 import com.tongban.im.activity.UserCenterActivity;
 
 /**
@@ -45,6 +46,8 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     public void onClick(View v) {
         if (v == ivUserIcon) {
             mContext.startActivity(new Intent(mContext, UserCenterActivity.class));
+        } else if (v == ivSearchAll) {
+            mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }
     }
 }
