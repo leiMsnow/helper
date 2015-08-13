@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
@@ -39,8 +41,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private ListView mListView;
     private TopicAdapter mAdapter;
     private FloatingActionButton mFab;
-    private Toolbar toolbar;
-
+    private ImageView ivSearch;
+    private TextView tvTitle;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +56,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
-        toolbar = (Toolbar) mView.findViewById(R.id.in_toolbar);
-        toolbar.setTitle(R.string.topic);
+
+        tvTitle = (TextView) mView.findViewById(R.id.tv_title);
+        ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         mListView = (ListView) mView.findViewById(R.id.lv_topic_list);
         mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
 
@@ -63,6 +66,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initListener() {
+        ivSearch.setOnClickListener(this);
         mListView.setOnItemClickListener(this);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +79,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
+        tvTitle.setText(getResources().getString(R.string.topic));
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Topic topic = new Topic();
@@ -106,22 +111,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         mListView.setAdapter(mAdapter);
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_topic, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            Intent intent = new Intent(mContext, SearchTopicActivity.class);
-            startActivity(intent);
-        }
-        return true;
-    }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_topic_img) {
@@ -130,6 +119,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             Bundle bundle = new Bundle();
             bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
             intent.putExtras(bundle);
+            startActivity(intent);
+        }else if(v == ivSearch){
+            Intent intent = new Intent(mContext, SearchTopicActivity.class);
             startActivity(intent);
         }
 

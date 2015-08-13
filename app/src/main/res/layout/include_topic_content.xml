@@ -39,7 +39,7 @@
         android:id="@+id/gv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_topic_name"
+        android:layout_below="@+id/tv_topic_content"
         android:layout_marginBottom="8dp"
         android:columnWidth="80dp"
         android:horizontalSpacing="4dp"

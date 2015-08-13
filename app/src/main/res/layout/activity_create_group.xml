@@ -26,7 +26,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="48dp">
 
-                <com.tongban.corelib.widget.view.RoundImageView
+                <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_group_icon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
