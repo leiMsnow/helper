@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.model.AuthorityTopic;
@@ -17,6 +17,7 @@ import com.tongban.im.model.Product;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
 import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.widget.view.AlertView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,15 +29,11 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class OfficialTopicDetailsActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class OfficialTopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener {
     private ImageView ivAddImg;
     private GridView gvReplyImg;
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
-    private CreateTopicImgAdapter mCreateTopicImgAdapter;
-    private Topic topic;
-    private List<String> smallUrls;
-
 
     @Override
     protected int getLayoutRes() {
@@ -80,7 +77,6 @@ public class OfficialTopicDetailsActivity extends BaseToolBarActivity implements
         topic.setTopicReplyNum("100");
         authorityTopic.setTopic(topic);
         authorityTopicList.add(authorityTopic);
-        //mAdapter = new OfficialTopicDetailsAdapter(mContext, R.layout.item_official_topic_details_reply_num, authorityTopicList);
 
 
         //评论相关
@@ -130,40 +126,16 @@ public class OfficialTopicDetailsActivity extends BaseToolBarActivity implements
                 inflate(R.layout.activity_official_topic_details_header, null));
         lvAuthorityTopicDetails.setAdapter(mAdapter);
 
+        adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
+        adapter.setImgCount(3);
+        gvReplyImg.setAdapter(adapter);
+
     }
 
     @Override
     protected void initListener() {
         ivAddImg.setOnClickListener(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (RESULT_OK != resultCode) {
-            return;
-        }
-        if (requestCode == CameraUtils.OPEN_CAMERA) {
-            File file = CameraUtils.getImageFile();
-            if (file.exists()) {
-                if (file.length() > 100) {
-                    String newFile = CameraUtils.saveToSD(file
-                            .getAbsolutePath());
-                    smallUrls.add(newFile);
-                    mCreateTopicImgAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, smallUrls);
-                    gvReplyImg.setAdapter(mCreateTopicImgAdapter);
-                }
-            }
-        } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            String picturePath = CameraUtils.searchUriFile(mContext, data);
-            if (picturePath == null) {
-                picturePath = data.getData().getPath();
-            }
-            String newFile = CameraUtils.saveToSD(picturePath);
-            smallUrls.add(newFile);
-            mCreateTopicImgAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, smallUrls);
-            gvReplyImg.setAdapter(mCreateTopicImgAdapter);
-        }
+        adapter.setOnClickListener(this);
     }
 
     @Override
@@ -173,13 +145,15 @@ public class OfficialTopicDetailsActivity extends BaseToolBarActivity implements
                 gvReplyImg.setVisibility(View.GONE);
             } else {
                 gvReplyImg.setVisibility(View.VISIBLE);
+                adapter.add("");
             }
-            topic = new Topic();
-            smallUrls = new ArrayList<>();
-            smallUrls.add("");
-            topic.setSmallUrl(smallUrls);
-            mCreateTopicImgAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, smallUrls);
-            gvReplyImg.setAdapter(mCreateTopicImgAdapter);
+        } else {
+            int viewId = v.getId();
+            switch (viewId) {
+                case R.id.iv_topic_img:
+                    createDialog();
+                    break;
+            }
         }
     }
 }

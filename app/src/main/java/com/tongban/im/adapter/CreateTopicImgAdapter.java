@@ -22,6 +22,21 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
     private LinearLayout mCamera;
     private LinearLayout mGallery;
 
+    public int getImgCount() {
+        return imgCount;
+    }
+
+    private int imgCount = 3;
+    private View.OnClickListener onClickListener;
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public void setImgCount(int imgCount) {
+        this.imgCount = imgCount;
+    }
+
     public CreateTopicImgAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
@@ -31,44 +46,11 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         if (TextUtils.isEmpty(item)) {
             helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_menu_add);
         } else {
-            //TODO
-            if (mData.size() < 3) {
-                helper.setImageBitmap(R.id.iv_topic_img, item);
-            } else if (mData.size() == 3) {
-                set(0, item);
-            }
+            helper.setImageBitmap(R.id.iv_topic_img, item);
         }
-        helper.setOnClickListener(R.id.iv_topic_img, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createDialog();
-            }
+        helper.setOnClickListener(R.id.iv_topic_img, onClickListener);
 
-            // 打开相机的提示框
-            private void createDialog() {
-                if (dialog == null) {
-                    dialog = new AlertView(mContext);
-                    mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
-                    mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
 
-                    mCamera.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            CameraUtils.takePhoto(mContext);
-                            dialog.cancel();
-                        }
-                    });
-                    mGallery.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            CameraUtils.openPhotoAlbum(mContext);
-                            dialog.cancel();
-                        }
-                    });
-                }
-                dialog.show();
-            }
-        });
     }
 
 }
