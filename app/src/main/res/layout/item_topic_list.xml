@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/selector_topic_item_bg"
+        android:background="@drawable/selector_corner_bg"
         android:orientation="vertical">
 
         <include layout="@layout/include_topic_top" />
