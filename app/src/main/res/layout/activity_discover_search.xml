@@ -16,26 +16,15 @@
         android:drawableLeft="@mipmap/ic_topic_location"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:text="最近搜索"
+        android:text="热门分类"
         android:textColor="@color/grey_500" />
 
-    <com.tongban.corelib.widget.view.FlowLayout
-        android:id="@+id/fl_history_search"
+    <GridView
+        android:id="@+id/gv_hot_type"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_history"
         android:padding="8dp" />
 
-    <ListView
-        android:id="@+id/lv_topic_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@null"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:scrollbars="none"
-        android:visibility="gone" />
 
 </RelativeLayout>
