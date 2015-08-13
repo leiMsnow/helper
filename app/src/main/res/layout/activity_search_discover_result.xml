@@ -12,34 +12,36 @@
         android:id="@+id/ll_tab_result"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView
-            android:id="@+id/ccv_project"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/ccv_multiple_product"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
             app:changeColor="@color/theme_red"
-            app:changeIcon="@mipmap/ic_menu_discover_normal"
             app:changeText="@string/multiple_product"
-            app:changeTextSize="12sp"
-            app:defaultColor="@color/brown_300" />
+            app:defaultColor="@color/grey_500" />
 
 
         <com.tongban.corelib.widget.view.ChangeColorView
-            android:id="@+id/ccv_product"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:id="@+id/ccv_single_product"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
             app:changeColor="@color/theme_red"
-            app:changeIcon="@mipmap/ic_menu_discover_normal"
             app:changeText="@string/single_product"
-            app:changeTextSize="12sp"
-            app:defaultColor="@color/brown_300" />
+            app:defaultColor="@color/grey_500" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/v_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/theme_red" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_search_result"

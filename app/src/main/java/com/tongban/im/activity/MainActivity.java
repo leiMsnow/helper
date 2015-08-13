@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.tongban.corelib.widget.view.ChangeColorView;
+import com.tongban.corelib.widget.view.DepthPageTransformer;
+import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.CircleFragment;
@@ -70,6 +72,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         };
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @Override
