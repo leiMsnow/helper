@@ -78,9 +78,14 @@
     <string name="group_label">圈子标签</string>
     <string name="select_label">标签选择</string>
     <string name="select_label_max">最多选择三个标签</string>
-
     <!-- 发表话题-->
     <string name="create_topic">发表话题</string>
     <string name="topic_search">话题搜索</string>
     <string name="create_reply">发表评论</string>
+    <!-- 首页搜索-->
+    <string name="hot_type">热门分类</string>
+    <string name="all_type">全部分类</string>
+    <string name="multiple_product">专题</string>
+    <string name="single_product">单品</string>
+
 </resources>
