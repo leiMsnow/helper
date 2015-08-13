@@ -2,15 +2,18 @@ package com.tongban.im.fragment;
 
 
 import android.app.Fragment;
+import android.widget.GridView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.adapter.SingleProductAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SingleProductFragment extends BaseApiFragment {
-
+    private SingleProductAdapter mAdapter;
+    private GridView gvSingleProductList;
 
     @Override
     protected int getLayoutRes() {
@@ -19,7 +22,7 @@ public class SingleProductFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
-
+        gvSingleProductList = (GridView) mView.findViewById(R.id.gv_single_product);
     }
 
     @Override
@@ -29,7 +32,8 @@ public class SingleProductFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-
+        mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, null);
+        gvSingleProductList.setAdapter(mAdapter);
     }
 
 

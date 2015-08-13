@@ -8,6 +8,4 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:scrollbars="none">
-
-
 </ListView>
