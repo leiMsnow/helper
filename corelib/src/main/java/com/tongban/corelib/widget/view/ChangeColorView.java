@@ -23,6 +23,7 @@ public class ChangeColorView extends View {
 
     private int mDefaultColor = 0xff333333;//0xff55555;
     private int mChangeColor = 0xff45c01a;
+
     private Bitmap mIconBitmap;
     private String mText = "";
     private int mTextSize = (int) TypedValue.applyDimension(
@@ -40,10 +41,34 @@ public class ChangeColorView extends View {
 
     public void setIconAlpha(float alpha) {
         this.mAlpha = alpha;
-        invalidaeView();
+        invalidateView();
+    }
+    public void setUnSelectColor(int mDefaultColor) {
+        this.mDefaultColor = mDefaultColor;
+        setIconAlpha(1.0f);
     }
 
-    private void invalidaeView() {
+    public void setSelectedColor(int mChangeColor) {
+        this.mChangeColor = mChangeColor;
+        setIconAlpha(1.0f);
+    }
+
+    public void setIconBitmap(Bitmap mIconBitmap) {
+        this.mIconBitmap = mIconBitmap;
+        setIconAlpha(1.0f);
+    }
+
+    public void setmText(String mText) {
+        this.mText = mText;
+        setIconAlpha(1.0f);
+    }
+
+    public void setmTextSize(int mTextSize) {
+        this.mTextSize = mTextSize;
+        setIconAlpha(1.0f);
+    }
+
+    private void invalidateView() {
         if (Looper.getMainLooper() == Looper.myLooper()) {
             invalidate();
         } else {

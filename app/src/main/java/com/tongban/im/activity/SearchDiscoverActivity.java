@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     private SearchView searchView;
     private TextView tvHotType;
     private TextView tvAllType;
+    private View vIndiccator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-
+            startActivity(new Intent(mContext, SearchDiscoverResultActivity.class));
         }
         return false;
     }

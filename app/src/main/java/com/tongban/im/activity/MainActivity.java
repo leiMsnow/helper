@@ -50,14 +50,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         mTabIndicator.add(ccvTopic);
         mTabIndicator.add(ccvCircle);
         /** 发现 */
-        Fragment fragment = new DiscoverFragment();
-        mTabs.add(fragment);
+        mTabs.add(new DiscoverFragment());
         /** 话题 */
-        fragment = new TopicFragment();
-        mTabs.add(fragment);
+        mTabs.add(new TopicFragment());
         /** 圈子 */
-        fragment = new CircleFragment();
-        mTabs.add(fragment);
+        mTabs.add(new CircleFragment());
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -12,6 +12,7 @@
         android:id="@+id/ll_tab_result"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView
