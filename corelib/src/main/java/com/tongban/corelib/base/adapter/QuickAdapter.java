@@ -17,8 +17,7 @@ import static com.tongban.corelib.base.adapter.BaseAdapterHelper.get;
  * 所以该类，对于getAdapterHelper直接返回了BaseAdapterHelper。
  * Created by zhangleilei on 15/6/8.
  */
-public abstract class QuickAdapter<T> extends BaseQuickAdapter<T, BaseAdapterHelper>
-        implements BaseAdapterHelper.OnCreateViewListener {
+public abstract class QuickAdapter<T> extends BaseQuickAdapter<T, BaseAdapterHelper>  {
 
     public QuickAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
@@ -32,13 +31,13 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T, BaseAdapterHel
     protected BaseAdapterHelper getAdapterHelper(int position, View view, ViewGroup viewGroup) {
         if (mMultiItemTypeSupport != null) {
             return get(mContext, view, viewGroup,
-                    mMultiItemTypeSupport.getLayoutId(position, mData.get(position)), this);
+                    mMultiItemTypeSupport.getLayoutId(position, mData.get(position)));
         }
-        return get(mContext, view, viewGroup, mLayoutResId, this);
+        return get(mContext, view, viewGroup, mLayoutResId);
     }
 
     @Override
-    public void onCreated() {
-        LogUtil.d("baseAdapterHelper-onCreated");
+    protected void onFirstCreateView(BaseAdapterHelper helper) {
+        LogUtil.d("QuickAdapter-"+"createdView");
     }
 }

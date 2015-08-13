@@ -46,5 +46,4 @@ public class MultipleProductAdapter extends QuickAdapter<MultipleProduct> {
         helper.getView(R.id.iv_product).setLayoutParams(localObject);
     }
 
-
 }

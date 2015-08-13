@@ -5,8 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.tongban.corelib.utils.LogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +74,9 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends B
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         final H helper = getAdapterHelper(i, view, viewGroup);
+        if (helper.isFirstCreate()) {
+            onFirstCreateView(helper);
+        }
         T item = getItem(i);
         //对外公布的convert抽象方法
         convert(helper, item);
@@ -169,5 +170,11 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends B
 
 
     protected abstract H getAdapterHelper(int position, View view, ViewGroup viewGroup);
+
+    /**
+     * 是否第一次创建view，可以用此方法来创建嵌套adapter的布局
+     * @param helper
+     */
+    protected abstract void onFirstCreateView(H helper);
 
 }

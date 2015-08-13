@@ -36,6 +36,15 @@ public class BaseAdapterHelper {
     private View mConvertView;
     private int mLayoutId;
 
+    private static boolean isFirstCreate = true;
+
+    /**
+     * 是否第一次创建view
+     */
+    public static boolean isFirstCreate() {
+        return isFirstCreate;
+    }
+
     public int getLayoutId() {
         return mLayoutId;
     }
@@ -49,6 +58,7 @@ public class BaseAdapterHelper {
         this.mViews = new SparseArray<View>();
         this.mConvertView = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         mConvertView.setTag(this);
+        isFirstCreate = true;
     }
 
     /**
@@ -60,9 +70,8 @@ public class BaseAdapterHelper {
      * @param layoutId    布局资源ID
      * @return
      */
-    public static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId,
-                                        OnCreateViewListener onCreateViewListener) {
-        return get(context, convertView, parent, layoutId, -1,onCreateViewListener);
+    public static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId) {
+        return get(context, convertView, parent, layoutId, -1);
     }
 
     /**
@@ -79,24 +88,19 @@ public class BaseAdapterHelper {
      * @return
      */
     static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId,
-                                 int position,OnCreateViewListener onCreateViewListener) {
+                                 int position) {
 
         if (convertView == null) {
-            if (onCreateViewListener!=null){
-                onCreateViewListener.onCreated();
-            }
             return new BaseAdapterHelper(context, parent, layoutId, position);
         }
         //获取现有的viewHolder并且更新position
         BaseAdapterHelper existingHolder = (BaseAdapterHelper) convertView.getTag();
 
         if (existingHolder.mLayoutId != layoutId) {
-            if (onCreateViewListener!=null){
-                onCreateViewListener.onCreated();
-            }
             return new BaseAdapterHelper(context, parent, layoutId, position);
         }
         existingHolder.mPosition = position;
+        isFirstCreate = false;
         return existingHolder;
     }
 
@@ -310,11 +314,6 @@ public class BaseAdapterHelper {
         if (mPosition == -1)
             throw new IllegalStateException("当前viewHolder尚未初始化。");
         return mPosition;
-    }
-
-
-    public interface OnCreateViewListener {
-        public void onCreated();
     }
 
 }
