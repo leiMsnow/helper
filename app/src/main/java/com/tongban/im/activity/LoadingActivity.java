@@ -8,6 +8,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
@@ -53,18 +54,18 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        RongCloudEvent.getInstance().
-                connectIM(SPUtils.get(mContext,Consts.IM_BIND_TOKEN,"").toString());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-//        mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
-//        if (mToken.equals("")) {
-//            startActivity(new Intent(mContext, LoginActivity.class));
-//            finish();
-//        } else {
-//            UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
-//            LocationUtils.get(mContext).start();
-//        }
+//        RongCloudEvent.getInstance().
+//                connectIM("lyS2WqphPm3WxQ4b3HSBqpfvs6iY4hdfHmjaBXqoM0uZm5Omq/97zX7GG7CiHr1l34GaS+C+U15Wz8IEWh/ST9vZVNrAnQHVjpmzZkfb11n7rZgLoyeYvg==");
+//        startActivity(new Intent(mContext, MainActivity.class));
+//        finish();
+        mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+        if (mToken.equals("")) {
+            startActivity(new Intent(mContext, LoginActivity.class));
+            finish();
+        } else {
+            UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
+            LocationUtils.get(mContext).start();
+        }
     }
 
     public void onEventMainThread(User user) {
