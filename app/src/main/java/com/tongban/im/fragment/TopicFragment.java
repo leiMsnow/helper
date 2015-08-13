@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -36,6 +39,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private ListView mListView;
     private TopicAdapter mAdapter;
     private FloatingActionButton mFab;
+    private Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +54,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
-
+        toolbar = (Toolbar) mView.findViewById(R.id.in_toolbar);
+        toolbar.setTitle(R.string.topic);
         mListView = (ListView) mView.findViewById(R.id.lv_topic_list);
         mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
 
