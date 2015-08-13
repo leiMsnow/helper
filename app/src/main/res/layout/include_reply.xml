@@ -13,8 +13,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="4dp"
+        android:layout_toLeftOf="@+id/btn_reply"
         android:hint="@string/create_reply"
-        android:layout_toLeftOf="@+id/btn_reply" />
+        android:textColorHint="@color/grey_500"
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/btn_reply"
