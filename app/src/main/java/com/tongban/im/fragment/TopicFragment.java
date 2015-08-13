@@ -76,7 +76,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initData() {
         List<Topic> listsByHot = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             Topic topic = new Topic();
             topic.setContentType(Topic.TEXT);
             if (i % 2 == 0) {
@@ -101,7 +101,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             topic.setUser(user);
             listsByHot.add(topic);
         }
-        mAdapter = new TopicAdapter(mContext, listsByHot);
+        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, listsByHot);
         mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
     }
