@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.Topic;
 
 import java.util.List;
@@ -72,7 +73,11 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            startActivity(new Intent(mContext, SearchDiscoverResultActivity.class));
+            Intent intent = new Intent(mContext, SearchDiscoverResultActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Consts.KEY_SEARCH_VALUE, query);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         return false;
     }

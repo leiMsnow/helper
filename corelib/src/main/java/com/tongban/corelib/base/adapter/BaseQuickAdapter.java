@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.tongban.corelib.utils.LogUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,8 @@ import java.util.List;
  * 该类声明了两个泛型，一个是我们的Bean（T），一个是BaseAdapterHelper(H)主要用于扩展BaseAdapterHelper时使用。
  * Created by zhangleilei on 15/6/4.
  */
-public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends BaseAdapter {
+public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends BaseAdapter
+         {
 
     protected Context mContext;
     //资源布局
@@ -160,4 +163,5 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends B
 
 
     protected abstract H getAdapterHelper(int position, View view, ViewGroup viewGroup);
+
 }

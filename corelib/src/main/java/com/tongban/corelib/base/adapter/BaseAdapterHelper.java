@@ -60,8 +60,9 @@ public class BaseAdapterHelper {
      * @param layoutId    布局资源ID
      * @return
      */
-    public static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId) {
-        return get(context, convertView, parent, layoutId, -1);
+    public static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId,
+                                        OnCreateViewListener onCreateViewListener) {
+        return get(context, convertView, parent, layoutId, -1,onCreateViewListener);
     }
 
     /**
@@ -77,15 +78,22 @@ public class BaseAdapterHelper {
      * @param position
      * @return
      */
-    static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId, int position) {
+    static BaseAdapterHelper get(Context context, View convertView, ViewGroup parent, int layoutId,
+                                 int position,OnCreateViewListener onCreateViewListener) {
 
         if (convertView == null) {
+            if (onCreateViewListener!=null){
+                onCreateViewListener.onCreated();
+            }
             return new BaseAdapterHelper(context, parent, layoutId, position);
         }
         //获取现有的viewHolder并且更新position
         BaseAdapterHelper existingHolder = (BaseAdapterHelper) convertView.getTag();
 
         if (existingHolder.mLayoutId != layoutId) {
+            if (onCreateViewListener!=null){
+                onCreateViewListener.onCreated();
+            }
             return new BaseAdapterHelper(context, parent, layoutId, position);
         }
         existingHolder.mPosition = position;
@@ -258,11 +266,12 @@ public class BaseAdapterHelper {
     //--------------------------提供view便捷的设置监听的方法-start---------------------------------------
 
 
-    public BaseAdapterHelper setAdapter(int viewId,BaseAdapter adapter){
+    public BaseAdapterHelper setAdapter(int viewId, BaseAdapter adapter) {
         AbsListView view = (AbsListView) retrieveView(viewId);
         view.setAdapter(adapter);
         return this;
     }
+
     public BaseAdapterHelper setChecked(int viewId, boolean checked) {
         Checkable view = (Checkable) retrieveView(viewId);
         view.setChecked(checked);
@@ -301,6 +310,11 @@ public class BaseAdapterHelper {
         if (mPosition == -1)
             throw new IllegalStateException("当前viewHolder尚未初始化。");
         return mPosition;
+    }
+
+
+    public interface OnCreateViewListener {
+        public void onCreated();
     }
 
 }

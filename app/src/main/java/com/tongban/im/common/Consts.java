@@ -27,6 +27,7 @@ public class Consts {
     public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
     public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
+    public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
 
     /**
      * 经度

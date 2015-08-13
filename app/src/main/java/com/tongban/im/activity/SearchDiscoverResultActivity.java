@@ -15,7 +15,8 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.fragment.MutipleProductFragment;
+import com.tongban.im.common.Consts;
+import com.tongban.im.fragment.MultipleProductFragment;
 import com.tongban.im.fragment.SingleProductFragment;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.List;
  * @createTime 2015/8/13
  */
 public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
-        SearchView.OnQueryTextListener,ViewPager.OnPageChangeListener, View.OnClickListener {
+        SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private SearchView searchView;
     private ViewPager vpResult;
@@ -41,7 +42,7 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();
 
     private int mIndicatorWidth;
-
+    private String mSearchKey;
 
     @Override
     protected int getLayoutRes() {
@@ -55,6 +56,7 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
         ccvSingle = (ChangeColorView) findViewById(R.id.ccv_single_product);
         mIndicator = findViewById(R.id.v_indicator);
         vpResult = (ViewPager) findViewById(R.id.vp_search_result);
+        ccvMultiple.setIconAlpha(1.0f);
         initIndicator(2);
     }
 
@@ -72,11 +74,13 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
-
+        if (getIntent().getExtras() != null) {
+            mSearchKey = getIntent().getExtras().getString(Consts.KEY_SEARCH_VALUE,"");
+        }
         mTabIndicator.add(ccvMultiple);
         mTabIndicator.add(ccvSingle);
         //专题搜索结果
-        mTabs.add(new MutipleProductFragment());
+        mTabs.add(new MultipleProductFragment());
         //单品搜索结果
         mTabs.add(new SingleProductFragment());
 
@@ -106,7 +110,7 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("搜索关键字");
+        searchView.setQuery(mSearchKey, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
@@ -158,6 +162,10 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
 
     @Override
     public void onClick(View v) {
-
+        if (v == ccvMultiple) {
+            resetTabs(0);
+        } else if (v == ccvSingle) {
+            resetTabs(1);
+        }
     }
 }
