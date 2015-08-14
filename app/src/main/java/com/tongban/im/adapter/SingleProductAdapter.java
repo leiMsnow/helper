@@ -20,7 +20,7 @@ public class SingleProductAdapter extends QuickAdapter<SingleProduct> {
     @Override
     protected void convert(BaseAdapterHelper helper, SingleProduct item) {
         helper.setImageBitmap(R.id.iv_product,
-                "http://d.hiphotos.baidu.com/image/pic/item/7acb0a46f21fbe096830b61569600c338744ad40.jpg");
+                "http://b.hiphotos.baidu.com/image/w%3D310/sign=7e618bd474c6a7efb926ae27cdfbafe9/fc1f4134970a304ebc6f8ef1d3c8a786c9175c6f.jpg");
     }
 
     @Override
