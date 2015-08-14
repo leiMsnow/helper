@@ -4,6 +4,7 @@ package com.tongban.im.fragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
@@ -18,6 +19,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     private ImageView ivUserIcon;
     private ImageView ivSearchAll;
+    private ListView mListView;
 
     @Override
     protected int getLayoutRes() {
@@ -28,6 +30,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     protected void initView() {
         ivUserIcon = (ImageView) mView.findViewById(R.id.iv_user_portrait);
         ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
+        mListView = (ListView) mView.findViewById(R.id.lv_discover);
     }
 
     @Override
