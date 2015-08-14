@@ -23,12 +23,15 @@ public class Consts {
     public static final String USER_ACCOUNT = "USER_ACCOUNT";
 
     //------------------------------bundle-key------------------------------------------------------
+    //圈子相关key
     public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
     public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
+
     public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
-
+    //话题相关key
+    public static final String KEY_TOPIC_TYPE = "KEY_TOPIC_TYPE";
     /**
      * 经度
      */

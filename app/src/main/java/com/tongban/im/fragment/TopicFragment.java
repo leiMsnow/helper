@@ -25,6 +25,7 @@ import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.SearchTopicActivity;
 import com.tongban.im.activity.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
@@ -147,7 +148,10 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(mContext, TopicDetailsActivity.class));
-
+        Intent intent = new Intent(mContext,TopicDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Consts.KEY_TOPIC_TYPE,mAdapter.getItem(position).getContentType());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
