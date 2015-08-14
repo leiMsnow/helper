@@ -4,7 +4,7 @@ package com.tongban.im.model;
  * 官方话题详情
  * Created by fushudi on 2015/8/11.
  */
-public class AuthorityTopic {
+public class OfficialTopic {
     //官方话题内容
     public final static int CONTENT = 0;
     //官方话题回复

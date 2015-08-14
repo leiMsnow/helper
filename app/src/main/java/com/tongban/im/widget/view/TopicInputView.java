@@ -13,6 +13,7 @@ import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.utils.CameraUtils;
 
 /**
+ * 话题评论自定义控件
  * Created by fushudi on 2015/8/14.
  */
 public class TopicInputView extends LinearLayout implements View.OnClickListener {

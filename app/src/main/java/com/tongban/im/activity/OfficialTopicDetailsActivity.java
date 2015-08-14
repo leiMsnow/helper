@@ -1,26 +1,18 @@
 package com.tongban.im.activity;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
-import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
-import com.tongban.im.model.AuthorityTopic;
+import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.Product;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
-import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.AlertView;
 import com.tongban.im.widget.view.TopicInputView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +40,12 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
 
     @Override
     protected void initData() {
-        List<AuthorityTopic> authorityTopicList = new ArrayList<>();
+        List<OfficialTopic> officialTopicList = new ArrayList<>();
 
         //产品相关
-        AuthorityTopic authorityTopic = new AuthorityTopic();
+        OfficialTopic officialTopic = new OfficialTopic();
         Product product = new Product();
-        authorityTopic.setContentType(AuthorityTopic.CONTENT);
+        officialTopic.setContentType(OfficialTopic.CONTENT);
         product.setProductAdvantage("该产品的优势是舒适、环保，该产品的优势是舒适、环保该产品的" +
                 "优势是舒适、环保，该产品的优势是舒适、环保该产品的优势是舒适、环保");
         product.setProductCollectNum("3");
@@ -65,47 +57,47 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         product.setProductParameter("175ml；产地：澳大利亚");
         product.setProduct_img_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         product.setProduct_icon_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
-        authorityTopic.setProduct(product);
-        authorityTopicList.add(authorityTopic);
+        officialTopic.setProduct(product);
+        officialTopicList.add(officialTopic);
 
         //数量（评论、点赞）相关
-        authorityTopic = new AuthorityTopic();
+        officialTopic = new OfficialTopic();
         Topic topic = new Topic();
-        authorityTopic.setContentType(AuthorityTopic.REPLY_NUM);
+        officialTopic.setContentType(OfficialTopic.REPLY_NUM);
         topic.setTopicPraiseNum("90");
         topic.setTopicReplyNum("100");
-        authorityTopic.setTopic(topic);
-        authorityTopicList.add(authorityTopic);
+        officialTopic.setTopic(topic);
+        officialTopicList.add(officialTopic);
 
 
         //评论相关
-        authorityTopic = new AuthorityTopic();
+        officialTopic = new OfficialTopic();
         TopicReply topicReply = new TopicReply();
-        authorityTopic.setContentType(AuthorityTopic.REPLY);
+        officialTopic.setContentType(OfficialTopic.REPLY);
         topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         topicReply.setReplyNickName("小鹿妈妈");
         topicReply.setReplyContent("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
         topicReply.setReplyTime("19:13");
-        authorityTopic.setTopicReply(topicReply);
-        authorityTopicList.add(authorityTopic);
+        officialTopic.setTopicReply(topicReply);
+        officialTopicList.add(officialTopic);
 
-        authorityTopic = new AuthorityTopic();
+        officialTopic = new OfficialTopic();
         topicReply = new TopicReply();
-        authorityTopic.setContentType(AuthorityTopic.REPLY);
+        officialTopic.setContentType(OfficialTopic.REPLY);
         topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         topicReply.setReplyNickName("小鹿妈妈");
         topicReply.setReplyContent("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
         topicReply.setReplyTime("19:13");
-        authorityTopic.setTopicReply(topicReply);
-        authorityTopicList.add(authorityTopic);
-        mAdapter = new OfficialTopicDetailsAdapter(mContext, authorityTopicList, new IMultiItemTypeSupport<AuthorityTopic>() {
+        officialTopic.setTopicReply(topicReply);
+        officialTopicList.add(officialTopic);
+        mAdapter = new OfficialTopicDetailsAdapter(mContext, officialTopicList, new IMultiItemTypeSupport<OfficialTopic>() {
             @Override
-            public int getLayoutId(int position, AuthorityTopic o) {
-                if (o.getContentType() == AuthorityTopic.CONTENT) {
+            public int getLayoutId(int position, OfficialTopic o) {
+                if (o.getContentType() == OfficialTopic.CONTENT) {
                     return R.layout.item_official_topic_details_content;
-                } else if (o.getContentType() == AuthorityTopic.REPLY_NUM) {
+                } else if (o.getContentType() == OfficialTopic.REPLY_NUM) {
                     return R.layout.item_official_topic_details_reply_num;
-                } else if (o.getContentType() == AuthorityTopic.REPLY) {
+                } else if (o.getContentType() == OfficialTopic.REPLY) {
                     return R.layout.item_topic_reply_list;
                 }
                 return 0;
@@ -117,7 +109,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
             }
 
             @Override
-            public int getItemViewType(int position, AuthorityTopic o) {
+            public int getItemViewType(int position, OfficialTopic o) {
                 return o.getContentType();
             }
         });

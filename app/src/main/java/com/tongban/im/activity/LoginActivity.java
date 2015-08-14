@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
@@ -29,7 +30,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     private EditText etUser;
     private EditText etPwd;
-    private Button btnLogin;
+    private TextView tvLogin;
     private String mUser, mPwd;
 
     @Override
@@ -43,7 +44,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void initView() {
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
-        btnLogin = (Button) findViewById(R.id.btn_register);
+        tvLogin = (TextView) findViewById(R.id.tv_login);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void initListener() {
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
-        btnLogin.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
     }
 
     @Override
@@ -79,9 +80,9 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         mUser = etUser.getText().toString();
         mPwd = etPwd.getText().toString();
         if (mUser.length() == 0 || mPwd.length() < 6) {
-            btnLogin.setEnabled(false);
+            tvLogin.setEnabled(false);
         } else {
-            btnLogin.setEnabled(true);
+            tvLogin.setEnabled(true);
         }
     }
 
@@ -117,7 +118,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     public void onClick(View v) {
-        if (v == btnLogin) {
+        if (v == tvLogin) {
             UserApi.getInstance().login(mUser, mPwd, this);
         }
     }
