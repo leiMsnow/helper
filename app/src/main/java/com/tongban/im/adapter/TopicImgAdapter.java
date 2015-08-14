@@ -39,7 +39,7 @@ public class TopicImgAdapter extends QuickAdapter<String> {
 
     @Override
     protected void convert(final BaseAdapterHelper helper, final String item) {
-        helper.setImageBitmap(R.id.iv_topic_img, item);
+        helper.setImageBitmap(R.id.iv_topic_img, item,R.drawable.rc_ic_def_rich_content);
         helper.setTag(R.id.iv_topic_img,tagKey, getDataAll());
         helper.setOnClickListener(R.id.iv_topic_img, imgClickListener);
     }

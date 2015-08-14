@@ -97,6 +97,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                 smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
                 smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
                 smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
                 topic.setSmallUrl(smallUrls);
             }
             topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
