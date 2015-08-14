@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">同伴IM</string>
+    <string name="app_name">同伴</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <!--common-->
@@ -44,7 +44,7 @@
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
     <!-- 圈子 -->
-    <string name="circle">圈子</string>
+    <string name="group">圈子</string>
     <string name="chat">聊天</string>
     <!-- 圈子搜索-->
     <string name="search_group">圈子搜索</string>

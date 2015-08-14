@@ -55,7 +55,7 @@
             android:padding="4dp"
             app:changeColor="@color/theme_red"
             app:changeIcon="@mipmap/ic_menu_recommend_normal"
-            app:changeText="@string/circle"
+            app:changeText="@string/group"
             app:changeTextSize="12sp"
             app:defaultColor="@color/brown_300" />
     </LinearLayout>
