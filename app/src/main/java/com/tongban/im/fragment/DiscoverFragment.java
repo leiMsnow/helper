@@ -26,7 +26,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initView() {
-        ivUserIcon = (ImageView) mView.findViewById(R.id.iv_user_icon);
+        ivUserIcon = (ImageView) mView.findViewById(R.id.iv_user_portrait);
         ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
     }
 

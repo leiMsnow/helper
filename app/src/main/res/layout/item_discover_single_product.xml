@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:background="@drawable/selector_corner_bg"
+    android:clickable="true"
+    android:orientation="vertical">
+    <!-- title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Baby护肤油"
+        android:textSize="16sp" />
+    <!-- img -->
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_img_profile_bg" />
+    <!-- 收藏数量 -->
+    <TextView
+        android:id="@+id/tv_collect_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawableLeft="@mipmap/ic_reply_count"
+        android:gravity="center_vertical"
+        android:text="123" />
+</LinearLayout>
