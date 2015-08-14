@@ -18,6 +18,7 @@ import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.AlertView;
+import com.tongban.im.widget.view.TopicInputView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,8 +31,6 @@ import java.util.List;
  * @author fushudi
  */
 public class OfficialTopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener {
-    private ImageView ivAddImg;
-    private GridView gvReplyImg;
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
 
@@ -43,8 +42,8 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     @Override
     protected void initView() {
         lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_authority_topic_details);
-        ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
-        gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
+        topicInputView = (TopicInputView) findViewById(R.id.topic_input);
+        topicInputView.setAdapterImgCount(3);
     }
 
     @Override
@@ -125,35 +124,13 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         lvAuthorityTopicDetails.addHeaderView(LayoutInflater.from(mContext).
                 inflate(R.layout.activity_official_topic_details_header, null));
         lvAuthorityTopicDetails.setAdapter(mAdapter);
-
-        adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        adapter.setImgCount(3);
-        gvReplyImg.setAdapter(adapter);
-
     }
 
     @Override
     protected void initListener() {
-        ivAddImg.setOnClickListener(this);
-        adapter.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == ivAddImg) {
-            if (gvReplyImg.getVisibility() == View.VISIBLE) {
-                gvReplyImg.setVisibility(View.GONE);
-            } else {
-                gvReplyImg.setVisibility(View.VISIBLE);
-                adapter.add("");
-            }
-        } else {
-            int viewId = v.getId();
-            switch (viewId) {
-                case R.id.iv_topic_img:
-                    createDialog();
-                    break;
-            }
-        }
     }
 }

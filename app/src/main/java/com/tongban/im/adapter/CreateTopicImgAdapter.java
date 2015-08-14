@@ -18,9 +18,6 @@ import java.util.List;
  * Created by fushudi on 2015/7/16.
  */
 public class CreateTopicImgAdapter extends QuickAdapter<String> {
-    private AlertView dialog;
-    private LinearLayout mCamera;
-    private LinearLayout mGallery;
 
     public int getImgCount() {
         return imgCount;

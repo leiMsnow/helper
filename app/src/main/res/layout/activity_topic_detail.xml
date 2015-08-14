@@ -10,15 +10,14 @@
         android:id="@+id/lv_reply_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/include_reply"
+        android:layout_above="@+id/topic_input"
         android:layout_below="@+id/toolbar"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
         android:scrollbars="none" />
 
-    <include
-        android:id="@+id/include_reply"
-        layout="@layout/include_reply"
+    <com.tongban.im.widget.view.TopicInputView
+        android:id="@+id/topic_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
