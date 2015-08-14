@@ -9,6 +9,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.AlertView;
+import com.tongban.im.widget.view.TopicInputView;
 
 import java.io.File;
 
@@ -17,11 +18,7 @@ import java.io.File;
  * Created by fushudi on 2015/8/13.
  */
 public class CommonImageResultActivity extends BaseToolBarActivity {
-
-    protected CreateTopicImgAdapter adapter;
-    protected AlertView dialog;
-    protected LinearLayout mCamera;
-    protected LinearLayout mGallery;
+    protected TopicInputView topicInputView;
 
     @Override
     protected int getLayoutRes() {
@@ -43,16 +40,6 @@ public class CommonImageResultActivity extends BaseToolBarActivity {
 
     }
 
-    //刷新图片Adapter
-    private void notifyChange(String picturePath) {
-        if (adapter == null)
-            return;
-        if (adapter.getCount() == adapter.getImgCount()) {
-            adapter.remove(adapter.getCount() - 1, false);
-        }
-        adapter.add(0, picturePath);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (RESULT_OK != resultCode) {
@@ -64,7 +51,7 @@ public class CommonImageResultActivity extends BaseToolBarActivity {
                 if (file.length() > 100) {
                     String newFile = CameraUtils.saveToSD(file
                             .getAbsolutePath());
-                    notifyChange(newFile);
+                    topicInputView.notifyChange(newFile);
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
@@ -73,32 +60,8 @@ public class CommonImageResultActivity extends BaseToolBarActivity {
                 picturePath = data.getData().getPath();
             }
             String newFile = CameraUtils.saveToSD(picturePath);
-            notifyChange(newFile);
+            topicInputView.notifyChange(newFile);
         }
     }
 
-    // 打开相机的提示框
-    protected void createDialog() {
-        if (dialog == null) {
-            dialog = new AlertView(mContext);
-            mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
-            mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
-
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.takePhoto(mContext);
-                    dialog.cancel();
-                }
-            });
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.openPhotoAlbum(mContext);
-                    dialog.cancel();
-                }
-            });
-        }
-        dialog.show();
-    }
 }

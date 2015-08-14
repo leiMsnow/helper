@@ -11,6 +11,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.TopicReplyAdapter;
 import com.tongban.im.model.TopicReply;
+import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends BaseToolBarActivity implements View.OnClickListener{
+public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener{
     private ListView lvReplyList;
     private Button btnCollect;
     private TopicReplyAdapter mAdapter;
@@ -33,6 +34,8 @@ public class TopicDetailsActivity extends BaseToolBarActivity implements View.On
     @Override
     protected void initView() {
         lvReplyList = (ListView) findViewById(R.id.lv_reply_list);
+        topicInputView = (TopicInputView) findViewById(R.id.topic_input);
+        topicInputView.setAdapterImgCount(3);
     }
 
     @Override

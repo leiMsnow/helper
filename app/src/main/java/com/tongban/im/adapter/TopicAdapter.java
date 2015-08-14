@@ -1,17 +1,17 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
 
@@ -24,7 +24,8 @@ import java.util.List;
 public class TopicAdapter extends QuickAdapter<Topic> {
 
     private View.OnClickListener onClickListener;
-    private TopicImgAdapter mAdapter;
+
+    private int[] images = new int[]{R.id.iv_small_img_1, R.id.iv_small_img_2, R.id.iv_small_img_3};
 
     public TopicAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
@@ -44,22 +45,25 @@ public class TopicAdapter extends QuickAdapter<Topic> {
         //话题内容
         helper.setText(R.id.tv_topic_name, item.getTopicName());
         helper.setText(R.id.tv_topic_content, item.getTopicContent());
-        if (item.getContentType() == Topic.TEXT) {
-            helper.setVisible(R.id.gv_content, View.GONE);
-        } else {
-            helper.setVisible(R.id.gv_content, View.VISIBLE);
-            mAdapter.replaceAll(item.getSmallUrl());
-        }
+
+        setImagesVisibleAndUrl(helper, item);
         //点赞、评论、地址
         helper.setText(R.id.tv_praise_count, item.getTopicPraiseNum());
         helper.setText(R.id.tv_reply_count, item.getTopicReplyNum());
         helper.setText(R.id.tv_location, item.getTopicAddress());
     }
 
-    @Override
-    protected void onFirstCreateView(BaseAdapterHelper helper) {
-        mAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        helper.setAdapter(R.id.gv_content, mAdapter);
-        mAdapter.setImgClickListener(onClickListener);
+    //设置图片的显示/隐藏和src
+    private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
+        for (int i = 0; i < images.length; i++) {
+            if (item.getContentType() == Topic.TEXT) {
+                helper.setVisible(images[i], View.GONE);
+            } else {
+                helper.setVisible(images[i], View.VISIBLE);
+                helper.setImageBitmap(images[i], item.getSmallUrl().get(i));
+                helper.setTag(images[i], Integer.MAX_VALUE, item.getSmallUrl());
+                helper.setOnClickListener(images[i], onClickListener);
+            }
+        }
     }
 }

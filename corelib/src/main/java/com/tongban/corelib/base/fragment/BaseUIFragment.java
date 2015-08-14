@@ -18,8 +18,8 @@ public abstract class BaseUIFragment extends BaseFragment {
         if (mView == null) {
             mView = inflater.inflate(getLayoutRes(), container, false);
             initView();
-            initListener();
             initData();
+            initListener();
         }
         return mView;
     }
@@ -35,16 +35,14 @@ public abstract class BaseUIFragment extends BaseFragment {
      * 初始化界面View
      */
     protected abstract void initView();
-
-    /**
-     * 初始化监听器
-     */
-    protected abstract void initListener();
-
     /**
      * 初始化数据
      */
     protected abstract void initData();
+    /**
+     * 初始化监听器
+     */
+    protected abstract void initListener();
 
     @Override
     public void onDestroyView() {
