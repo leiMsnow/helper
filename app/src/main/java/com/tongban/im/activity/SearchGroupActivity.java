@@ -24,7 +24,7 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class JoinGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
+public class SearchGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
         SearchView.OnQueryTextListener {
     private SearchView searchView;
     private ListView lvGroups;

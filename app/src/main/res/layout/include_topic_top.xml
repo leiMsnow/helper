@@ -1,38 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
     android:padding="8dp">
 
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_topic_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:src="@drawable/rc_default_portrait" />
-
-    <TextView
-        android:id="@+id/tv_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/iv_topic_icon"
-        android:text="昵称"
-        android:textColor="@color/black" />
-
-
-    <TextView
-        android:id="@+id/tv_topic_tips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_nickname"
-        android:text="发起了一个话题"
-        android:textColor="@color/grey_500"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_age"
@@ -40,12 +19,23 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_topic_tips"
-        android:text="5岁宝宝"
-        android:textColor="@color/red_500"
+        android:layout_toRightOf="@+id/iv_topic_icon"
         android:padding="4dp"
-        android:background="@drawable/selector_join_btn_bg"
+        android:text="5岁宝宝"
+        android:textColor="@color/grey_500"
         android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="4dp"
+        android:layout_toLeftOf="@+id/tv_time"
+        android:layout_toRightOf="@+id/tv_age"
+        android:text="昵称"
+        android:textColor="@color/black" />
+
 
     <TextView
         android:id="@+id/tv_time"

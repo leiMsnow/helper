@@ -46,6 +46,8 @@
     <!-- 圈子 -->
     <string name="circle">圈子</string>
     <string name="chat">聊天</string>
+    <!-- 圈子搜索-->
+    <string name="search_group">圈子搜索</string>
     <!--创建圈子-->
     <string name="create_group">创建圈子</string>
     <string name="create_group_icon">添加圈子头像</string>

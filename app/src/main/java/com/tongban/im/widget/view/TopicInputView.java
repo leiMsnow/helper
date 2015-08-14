@@ -18,12 +18,12 @@ import com.tongban.im.adapter.CreateTopicImgAdapter;
 public class TopicInputView extends LinearLayout implements View.OnClickListener {
     private ImageView ivAddImg;
     private GridView gvReplyImg;
-    private CreateTopicImgAdapter adapter;
+    private CreateTopicImgAdapter mAdapter;
     private CameraView mCameraView;
     private Context mContext;
 
     public void setAdapterImgCount(int imgCount) {
-        this.adapter.setImgCount(imgCount);
+        this.mAdapter.setImgCount(imgCount);
     }
 
     public TopicInputView(Context context) {
@@ -42,16 +42,16 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private void initView() {
         ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
         gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
-        adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
+        mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
     }
 
     private void initListener() {
         ivAddImg.setOnClickListener(this);
-        adapter.setOnClickListener(this);
+        mAdapter.setOnClickListener(this);
     }
 
     private void initData() {
-        gvReplyImg.setAdapter(adapter);
+        gvReplyImg.setAdapter(mAdapter);
     }
 
     @Override
@@ -60,8 +60,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
             if (gvReplyImg.getVisibility() == View.VISIBLE) {
                 gvReplyImg.setVisibility(View.GONE);
             } else {
+                if (mAdapter.getCount() == 0) {
+                    mAdapter.add("");
+                }
                 gvReplyImg.setVisibility(View.VISIBLE);
-                adapter.add("");
             }
         } else {
             int viewId = v.getId();
@@ -76,13 +78,13 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
-        if (adapter == null) {
+        if (mAdapter == null) {
             return;
         }
-        if (adapter.getCount() == adapter.getImgCount()) {
-            adapter.remove(adapter.getCount() - 1, false);
+        if (mAdapter.getCount() == mAdapter.getImgCount()) {
+            mAdapter.remove(mAdapter.getCount() - 1, false);
         }
-        adapter.add(0, picturePath);
+        mAdapter.add(0, picturePath);
     }
 
     // 打开相机的提示框

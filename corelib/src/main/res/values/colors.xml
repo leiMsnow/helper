@@ -2,6 +2,7 @@
 <resources>
     <!-- transparent-->
     <color name="transparent">#00000000</color>
+    <color name="translucent_a80">#64000000</color>
     <!-- black-->
     <color name="black">#000000</color>
     <!-- white-->

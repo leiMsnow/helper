@@ -57,5 +57,10 @@
         <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
     </style>
 
+    <style name="AppTheme.White.Base.Translucent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/translucent_a80</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
 
 </resources>

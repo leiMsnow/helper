@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
-import com.tongban.im.activity.JoinGroupActivity;
+import com.tongban.im.activity.SearchGroupActivity;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -74,7 +74,7 @@ public class CircleFragment extends BaseApiFragment {
         ibSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(mContext, JoinGroupActivity.class));
+                startActivity(new Intent(mContext, SearchGroupActivity.class));
             }
         });
     }

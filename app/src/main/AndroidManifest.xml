@@ -136,8 +136,9 @@
             android:name=".activity.CreateGroupActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.JoinGroupActivity"
-            android:label="@string/join_group" />
+            android:name=".activity.SearchGroupActivity"
+            android:theme="@style/AppTheme.White.Base.Translucent"
+            android:label="@string/search_group" />
         <activity
             android:name=".activity.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
@@ -154,16 +155,6 @@
         <activity
             android:name=".activity.UserCenterActivity"
             android:label="@string/user_center" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/usercenter"
-                    android:scheme="tongban" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.SearchPoiActivity"

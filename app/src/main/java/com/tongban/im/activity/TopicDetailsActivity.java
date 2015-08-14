@@ -39,11 +39,10 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private TextView tvAge;
     private TextView tvTime;
     private TextView tvTopicTitle;
-    private Button btnCollect;
     private TextView tvTopicContent;
     private GridView gvContent;
-    private TextView tvPraise;
     private TextView tvCollect;
+    private TextView tvReply;
 
     private ListView lvReplyList;
 
@@ -60,7 +59,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     protected void initView() {
 
         lvReplyList = (ListView) findViewById(R.id.lv_reply_list);
-        btnCollect = (Button) findViewById(R.id.btn_collect);
 
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
         topicInputView.setAdapterImgCount(3);
