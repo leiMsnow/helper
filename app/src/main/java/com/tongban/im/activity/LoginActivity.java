@@ -31,6 +31,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private EditText etUser;
     private EditText etPwd;
     private TextView tvLogin;
+    private TextView tvRegister;
+
     private String mUser, mPwd;
 
     @Override
@@ -45,6 +47,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
         tvLogin = (TextView) findViewById(R.id.tv_login);
+        tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
     }
 
     @Override
@@ -63,6 +66,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         tvLogin.setOnClickListener(this);
+        tvRegister.setOnClickListener(this);
     }
 
     @Override
@@ -102,8 +106,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_register) {
-            startActivity(new Intent(mContext, RegisterActivity.class));
-            finish();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -120,6 +123,9 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void onClick(View v) {
         if (v == tvLogin) {
             UserApi.getInstance().login(mUser, mPwd, this);
+        }
+        else if (v == tvRegister) {
+            startActivity(new Intent(mContext, RegisterActivity.class));
         }
     }
 
