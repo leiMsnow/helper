@@ -1,12 +1,15 @@
 package com.tongban.im.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * 话题信息表
  * Created by fushudi on 2015/7/16.
  */
-public class Topic {
+public class Topic implements Parcelable {
     //话题内容为文本
     public final static int TEXT = 0;
     //话题内容为图片
@@ -112,5 +115,15 @@ public class Topic {
 
     public void setTopicContent(String topicContent) {
         this.topicContent = topicContent;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

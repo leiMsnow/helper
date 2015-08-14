@@ -16,15 +16,15 @@
         android:textSize="16sp" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_collect"
         android:layout_width="48dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:background="@drawable/selector_btn_bg_red"
         android:gravity="center"
+        android:text="收藏"
         android:textColor="@color/white"
-        android:text="收藏" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_topic_content"

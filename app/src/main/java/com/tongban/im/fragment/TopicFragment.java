@@ -26,11 +26,14 @@ import com.tongban.im.activity.SearchTopicActivity;
 import com.tongban.im.activity.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 话题/动态页
@@ -44,6 +47,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
+
+    private BaseEvent.TopicEvent topicEvent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -148,10 +153,19 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext,TopicDetailsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt(Consts.KEY_TOPIC_TYPE,mAdapter.getItem(position).getContentType());
-        intent.putExtras(bundle);
+        Intent intent = new Intent(mContext, TopicDetailsActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable(Consts.KEY_TOPIC_INFO,mAdapter.getItem(position));
+//        intent.putExtras(bundle);
         startActivity(intent);
+
+        topicEvent = new BaseEvent.TopicEvent();
+        topicEvent.setTopic(mAdapter.getItem(position));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().post(topicEvent);
     }
 }
