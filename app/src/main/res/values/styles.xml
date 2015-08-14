@@ -27,7 +27,7 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
     <!--提示框样式-->
-    <style name="process_dialog" parent="@android:style/Theme.Dialog">
+    <style name="ProcessDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsTranslucent">false</item>

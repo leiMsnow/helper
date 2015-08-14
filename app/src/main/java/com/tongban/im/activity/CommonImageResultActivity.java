@@ -1,14 +1,9 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.LinearLayout;
 
-import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.AlertView;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.io.File;
