@@ -43,6 +43,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,25 +107,42 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             topic.setUser(user);
             listsByHot.add(topic);
         }
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, listsByHot);
+        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, listsByHot);
         mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.iv_topic_img) {
-            ArrayList<String> urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
-            Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }else if(v == ivSearch){
+        if (v == ivSearch) {
             Intent intent = new Intent(mContext, SearchTopicActivity.class);
             startActivity(intent);
+        } else {
+            switch (v.getId()) {
+                case R.id.iv_small_img_1:
+                    ArrayList<String> urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(urls, 0);
+                    break;
+                case R.id.iv_small_img_2:
+                    urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(urls, 1);
+                    break;
+                case R.id.iv_small_img_3:
+                    urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(urls, 2);
+                    break;
+            }
         }
 
+    }
+
+    private void startPhotoView(ArrayList<String> urls, int currentIndex) {
+        Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
+        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, currentIndex);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override
