@@ -282,13 +282,13 @@ public class LinePageIndicator extends View implements PageIndicator {
         }
         if (mViewPager != null) {
             //Clear us from the old pager.
-            mViewPager.setOnPageChangeListener(null);
+            mViewPager.addOnPageChangeListener(null);
         }
         if (viewPager.getAdapter() == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
         mViewPager = viewPager;
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
         invalidate();
     }
 
