@@ -20,7 +20,7 @@ import io.rong.imlib.model.Conversation;
  * 圈子页
  * author: chenenyu 15/7/13
  */
-public class CircleFragment extends BaseApiFragment {
+public class GroupFragment extends BaseApiFragment {
     // 圈子页顶部的tab
     private RadioGroup rgCircle;
     // 圈子页顶部的搜索按钮
@@ -32,7 +32,7 @@ public class CircleFragment extends BaseApiFragment {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_circle;
+        return R.layout.fragment_group;
     }
 
     @Override
