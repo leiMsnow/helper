@@ -24,7 +24,7 @@
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dp">
+                android:layout_marginTop="16dp">
 
                 <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_group_icon"
@@ -36,8 +36,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textColor="@color/grey_500"
-                    android:text="@string/create_group_icon" />
+                    android:text="@string/create_group_icon"
+                    android:textColor="@color/grey_500" />
 
             </FrameLayout>
 
@@ -45,50 +45,50 @@
             <EditText
                 android:id="@+id/et_group_name"
                 style="@style/CreateGroupTextStyle"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/hint_group_name" />
 
             <!-- 同龄 - 选择年龄-->
             <TextView
                 android:id="@+id/tv_age"
                 style="@style/CreateGroupTextStyle"
+                android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_age"
-                android:background="@drawable/selector_edit_text"
                 android:visibility="gone" />
 
             <!-- 同学 - 选择学校-->
             <TextView
                 android:id="@+id/tv_school"
                 style="@style/CreateGroupTextStyle"
+                android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_school"
-                android:background="@drawable/selector_edit_text"
                 android:visibility="gone" />
 
             <!-- 生活 - 选择类型-->
             <TextView
                 android:id="@+id/tv_life"
                 style="@style/CreateGroupTextStyle"
+                android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_life"
-                android:background="@drawable/selector_edit_text"
                 android:visibility="gone" />
 
             <!--圈子标签-->
             <TextView
                 android:id="@+id/tv_group_label"
                 style="@style/CreateGroupTextStyle"
-                android:drawableLeft="@mipmap/ic_group_label"
                 android:background="@drawable/selector_edit_text"
+                android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/group_label" />
 
             <!--圈子位置-->
             <TextView
                 android:id="@+id/tv_group_location"
                 style="@style/CreateGroupTextStyle"
-                android:drawableLeft="@mipmap/ic_group_label"
                 android:background="@drawable/selector_edit_text"
+                android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/hint_group_location" />
 
             <!--圈子简介-->
@@ -145,15 +145,15 @@
                     android:hint="@string/group_agreement" />
 
             </RelativeLayout>
-            <!-- 完成创建-->
-            <Button
-                android:id="@+id/btn_create"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:background="?attr/buttonBackground"
-                android:text="@string/finish_create"
-                android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
+    <!-- 完成创建-->
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/buttonBackground"
+        android:text="@string/finish_create"
+        android:textColor="@color/white" />
 </RelativeLayout>

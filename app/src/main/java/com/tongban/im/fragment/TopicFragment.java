@@ -168,6 +168,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().post(topicEvent);
+        if (topicEvent != null)
+            EventBus.getDefault().post(topicEvent);
     }
 }

@@ -197,11 +197,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             intent.putExtra("newFile", newFile);
             startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
         } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
-            if (resultCode == RESULT_OK) {
-                byte[] b = data.getByteArrayExtra("bitmap");
-                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-                ivSetGroupIcon.setImageBitmap(bitmap);
-            }
+            byte[] b = data.getByteArrayExtra("bitmap");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            ivSetGroupIcon.setImageBitmap(bitmap);
         } else if (requestCode == SELECT_LOCATION) {
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
