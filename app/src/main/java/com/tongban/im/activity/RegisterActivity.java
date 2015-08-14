@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
@@ -32,7 +33,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     private EditText etUser;
     private EditText etPwd;
     private EditText etVerifyCode;
-    private Button btnVerifyCode;
+    private TextView tvVerifyCode;
     private Button btnRegister;
     private String mUser, mPwd, mVerifyCode;
 
@@ -49,8 +50,8 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
-        btnVerifyCode = (Button) findViewById(R.id.btn_verify_code);
-        btnRegister = (Button) findViewById(R.id.tv_login);
+        tvVerifyCode = (TextView) findViewById(R.id.tv_verify_code);
+        btnRegister = (Button) findViewById(R.id.btn_register);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         etVerifyCode.addTextChangedListener(this);
-        btnVerifyCode.setOnClickListener(this);
+        tvVerifyCode.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
     }
 
@@ -141,7 +142,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
 
     @Override
     public void onClick(View v) {
-        if (v == btnVerifyCode) {
+        if (v == tvVerifyCode) {
             // 注册
             UserApi.getInstance().register(mUser, mUser, mPwd, this);
         } else if (v == btnRegister) {

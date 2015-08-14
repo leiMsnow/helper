@@ -30,8 +30,9 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     private EditText etUser;
     private EditText etPwd;
-    private TextView tvLogin;
+    private TextView tvFindPwd;
     private TextView tvRegister;
+    private Button tvLogin;
 
     private String mUser, mPwd;
 
@@ -46,8 +47,9 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void initView() {
         etUser = (EditText) findViewById(R.id.et_user);
         etPwd = (EditText) findViewById(R.id.et_pwd);
-        tvLogin = (TextView) findViewById(R.id.tv_login);
+        tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
+        tvLogin = (Button) findViewById(R.id.btn_login);
     }
 
     @Override
@@ -66,6 +68,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         tvLogin.setOnClickListener(this);
+        tvFindPwd.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
     }
 
@@ -123,9 +126,10 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void onClick(View v) {
         if (v == tvLogin) {
             UserApi.getInstance().login(mUser, mPwd, this);
-        }
-        else if (v == tvRegister) {
+        } else if (v == tvRegister) {
             startActivity(new Intent(mContext, RegisterActivity.class));
+        } else if (v == tvFindPwd) {
+            startActivity(new Intent(mContext, PwdResetActivity.class));
         }
     }
 

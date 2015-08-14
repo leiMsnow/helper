@@ -1,64 +1,109 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <EditText
+    <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_below="@+id/toolbar"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="账号" />
+        android:background="@drawable/selector_edit_text"
+        android:digits="@string/digits"
+        android:hint="手机号"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textSize="14sp" />
 
-    <EditText
+    <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_below="@+id/et_user"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="密码"
-        android:inputType="textPassword" />
+        android:background="@drawable/selector_edit_text"
+        android:hint="密 码"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textSize="14sp" />
 
     <LinearLayout
+        android:id="@+id/ll_verify_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/et_pwd"
+        android:background="@drawable/selector_edit_text"
         android:orientation="horizontal">
 
-        <EditText
+        <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_pwd"
-            android:layout_marginLeft="16dp"
-            android:hint="验证码" />
-
-        <Button
-            android:id="@+id/btn_verify_code"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_below="@+id/et_user"
             android:layout_weight="1"
+            android:background="@null"
+            android:hint="验证码"
+            android:inputType="textPassword"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_verify_code"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_pwd"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="16dp"
-            android:text="@string/get_verify_code" />
+            android:text="@string/get_verify_code"
+            android:textColor="@color/selector_text_color" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/tv_login"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/cb_agree"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_pwd"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/register" />
+        android:layout_below="@+id/ll_verify_code"
+        android:background="@drawable/selector_cb_bg"
+        android:button="@null" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/cb_agree"
+        android:layout_alignTop="@+id/cb_agree"
+        android:layout_below="@+id/ll_verify_code"
+        android:layout_toRightOf="@+id/cb_agree"
+        android:gravity="center"
+        android:text="阅读并同意"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_agree"
+        android:layout_alignTop="@+id/tv_agree"
+        android:layout_below="@+id/ll_verify_code"
+        android:layout_toRightOf="@+id/tv_agree"
+        android:gravity="center"
+        android:text="《用户协议》"
+        android:textColor="@color/light_blue_300"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_btn_bg_orange"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

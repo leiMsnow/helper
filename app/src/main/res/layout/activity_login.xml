@@ -13,8 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_below="@+id/toolbar"
+        android:background="@drawable/selector_edit_text"
         android:digits="@string/digits"
         android:hint="手机号"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:textSize="14sp" />
 
     <com.tongban.im.widget.view.ClearEditText
@@ -22,8 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_below="@+id/et_user"
+        android:background="@drawable/selector_edit_text"
         android:hint="密 码"
+        android:paddingRight="8dp"
         android:inputType="textPassword"
+        android:paddingLeft="8dp"
         android:textSize="14sp" />
 
     <TextView
@@ -34,7 +40,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="忘记密码？"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/selector_text_color"
         android:textSize="12sp" />
 
     <TextView
@@ -46,19 +52,19 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="新用户注册"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/selector_text_color"
         android:textSize="12sp" />
 
-    <TextView
-        android:id="@+id/tv_login"
+    <Button
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/selector_btn_bg_orange"
         android:enabled="false"
         android:gravity="center"
         android:text="登录"
         android:textColor="@color/white"
-        android:textSize="16sp"
-        android:background="?attr/buttonBackground"/>
+        android:textSize="16sp" />
 
 </RelativeLayout>
