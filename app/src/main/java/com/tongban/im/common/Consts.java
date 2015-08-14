@@ -31,7 +31,7 @@ public class Consts {
     public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
     //话题相关key
-    public static final String KEY_TOPIC_TYPE = "KEY_TOPIC_TYPE";
+    public static final String KEY_TOPIC_INFO = "KEY_TOPIC_INFO";
     /**
      * 经度
      */

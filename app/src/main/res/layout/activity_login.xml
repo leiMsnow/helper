@@ -1,41 +1,64 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:orientation="vertical">
+    android:orientation="vertical">
 
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/include_toolbar"/>
+        layout="@layout/include_toolbar" />
 
-    <EditText
+    <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_user"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_below="@+id/toolbar"
-        android:layout_marginLeft="16dp"
         android:digits="@string/digits"
-        android:layout_marginRight="16dp"
-        android:hint="账号" />
+        android:hint="手机号"
+        android:textSize="14sp" />
 
-    <EditText
+    <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_below="@+id/et_user"
-        android:layout_marginLeft="16dp"
+        android:hint="密 码"
         android:inputType="textPassword"
-        android:layout_marginRight="16dp"
-        android:hint="密码" />
+        android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_forget_pwd"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_pwd"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:enabled="false"
-        android:text="登录" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="忘记密码？"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="12sp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_new_user_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/et_pwd"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="新用户注册"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="?attr/buttonBackground"/>
+
+</RelativeLayout>

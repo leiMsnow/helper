@@ -5,13 +5,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.adapter.TopicReplyAdapter;
+import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
 import com.tongban.im.widget.view.TopicInputView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +30,25 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener{
+public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener {
+
+    //头布局控件
+    private View mHeader;
+    private ImageView ivUserIcon;
+    private TextView tvUserName;
+    private TextView tvAge;
+    private TextView tvTime;
+    private TextView tvTopicTitle;
+    private TextView tvTopicContent;
+    private GridView gvContent;
+    private TextView tvCollect;
+    private TextView tvReply;
+
     private ListView lvReplyList;
-    private Button btnCollect;
+
+    private TopicImgAdapter mTopicImgAdapter;
     private TopicReplyAdapter mAdapter;
+    private Topic mTopicInfo;
 
     @Override
     protected int getLayoutRes() {
@@ -33,13 +57,23 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     protected void initView() {
+
         lvReplyList = (ListView) findViewById(R.id.lv_reply_list);
+
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
         topicInputView.setAdapterImgCount(3);
+
+        //添加头布局
+        mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
+        gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
+        gvContent.setVisibility(View.VISIBLE);
+        lvReplyList.addHeaderView(mHeader);
+
     }
 
     @Override
     protected void initData() {
+
         List<TopicReply> replyList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             TopicReply topicReply = new TopicReply();
@@ -51,38 +85,27 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             topicReply.setReplyTime("08-01 14:28");
             replyList.add(topicReply);
         }
+
         mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_list, replyList);
-        lvReplyList.addHeaderView(LayoutInflater.from(mContext).
-                inflate(R.layout.header_topic_details, null));
         lvReplyList.setAdapter(mAdapter);
-        btnCollect= (Button) findViewById(R.id.btn_collect);
-        btnCollect.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initListener() {
-        btnCollect.setOnClickListener(this);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onEventMainThread(BaseEvent.TopicEvent topicEvent) {
+        mTopicInfo = topicEvent.getTopic();
+        if (mTopicInfo != null) {
+            if (mTopicInfo.getContentType() == Topic.IMAGE) {
+                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+                        mTopicInfo.getSmallUrl());
+                gvContent.setAdapter(mTopicImgAdapter);
+            }
+        } else {
+            lvReplyList.removeHeaderView(mHeader);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         etPwd = (EditText) findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
         btnVerifyCode = (Button) findViewById(R.id.btn_verify_code);
-        btnRegister = (Button) findViewById(R.id.btn_register);
+        btnRegister = (Button) findViewById(R.id.tv_login);
     }
 
     @Override

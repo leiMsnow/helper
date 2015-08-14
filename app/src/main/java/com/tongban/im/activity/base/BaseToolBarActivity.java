@@ -50,6 +50,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     }
 
     protected void setToolbarTheme(int type) {
+        type = -1;
         switch (type) {
             case GroupType.CITY:
                 setTheme(R.style.AppTheme_DeepPurple_Base);
@@ -67,7 +68,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
                 setTheme(R.style.AppTheme_Yellow_Base);
                 break;
             default:
-                setTheme(R.style.AppTheme_Red_Base);
+                setTheme(R.style.AppTheme_White_Base);
                 break;
         }
     }

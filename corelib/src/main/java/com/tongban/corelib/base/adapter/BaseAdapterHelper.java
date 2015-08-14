@@ -184,6 +184,12 @@ public class BaseAdapterHelper {
         return this;
     }
 
+    public BaseAdapterHelper setImageBitmap(int viewId, String url,int defaultResId) {
+        ImageView view = retrieveView(viewId);
+        Glide.with(mContext).load(url).placeholder(defaultResId).into(view);
+        return this;
+    }
+
     /**
      * 图片展示-用于展示res中的图片
      *

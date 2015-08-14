@@ -5,13 +5,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.AlertView;
+import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
 
@@ -24,9 +23,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     private GridView gvTopicImg;
     private CreateTopicImgAdapter adapter;
-    private AlertView dialog;
-    private LinearLayout mCamera;
-    private LinearLayout mGallery;
+    private CameraView mCameraView;
 
     @Override
     protected int getLayoutRes() {
@@ -78,27 +75,10 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     // 打开相机的提示框
     protected void createDialog() {
-        if (dialog == null) {
-            dialog = new AlertView(mContext);
-            mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
-            mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
-
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.takePhoto(mContext);
-                    dialog.cancel();
-                }
-            });
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.openPhotoAlbum(mContext);
-                    dialog.cancel();
-                }
-            });
+        if (mCameraView == null) {
+            mCameraView = new CameraView(mContext);
         }
-        dialog.show();
+        mCameraView.show();
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -25,7 +24,7 @@ import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
-import com.tongban.im.widget.view.AlertView;
+import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
 
@@ -47,9 +46,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private CheckBox chbSecret, chbAgree;
     private Button btnSubmit;
 
-    private AlertView dialog;
-    private LinearLayout mCamera;
-    private LinearLayout mGallery;
+    private CameraView mCameraView;
 
     private int mGroupType;
     private String titleName;
@@ -197,11 +194,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             intent.putExtra("newFile", newFile);
             startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
         } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
-            if (resultCode == RESULT_OK) {
-                byte[] b = data.getByteArrayExtra("bitmap");
-                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-                ivSetGroupIcon.setImageBitmap(bitmap);
-            }
+            byte[] b = data.getByteArrayExtra("bitmap");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            ivSetGroupIcon.setImageBitmap(bitmap);
         } else if (requestCode == SELECT_LOCATION) {
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
@@ -212,27 +207,10 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     // 打开相机的提示框
     private void createDialog() {
-        if (dialog == null) {
-            dialog = new AlertView(this);
-            mCamera = (LinearLayout) dialog.findViewById(R.id.camera);
-            mGallery = (LinearLayout) dialog.findViewById(R.id.gallery);
-
-            mCamera.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.takePhoto(mContext);
-                    dialog.cancel();
-                }
-            });
-            mGallery.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CameraUtils.openPhotoAlbum(mContext);
-                    dialog.cancel();
-                }
-            });
+        if (mCameraView == null) {
+            mCameraView = new CameraView(this);
         }
-        dialog.show();
+        mCameraView.show();
     }
 
     public void onEventMainThread(Object obj) {

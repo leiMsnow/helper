@@ -3,13 +3,10 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.AlertView;
 
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
     @Override
     protected void convert(final BaseAdapterHelper helper, final String item) {
         if (TextUtils.isEmpty(item)) {
-            helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_menu_add);
+            helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_add_img);
         } else {
             helper.setImageBitmap(R.id.iv_topic_img, item);
         }
