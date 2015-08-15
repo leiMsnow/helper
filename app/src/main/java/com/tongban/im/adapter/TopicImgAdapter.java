@@ -5,11 +5,13 @@ import android.text.TextUtils;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
 
@@ -24,6 +26,7 @@ public class TopicImgAdapter extends QuickAdapter<String> {
 
     private View.OnClickListener imgClickListener;
     private int tagKey = Integer.MAX_VALUE;
+
     /**
      * 图片点击监听
      *
@@ -39,8 +42,17 @@ public class TopicImgAdapter extends QuickAdapter<String> {
 
     @Override
     protected void convert(final BaseAdapterHelper helper, final String item) {
-        helper.setImageBitmap(R.id.iv_topic_img, item,R.drawable.rc_ic_def_rich_content);
-        helper.setTag(R.id.iv_topic_img,tagKey, getDataAll());
+        helper.setImageBitmap(R.id.iv_topic_img, item, R.drawable.rc_ic_def_rich_content);
+        helper.setTag(R.id.iv_topic_img, tagKey, getDataAll());
         helper.setOnClickListener(R.id.iv_topic_img, imgClickListener);
+    }
+
+    @Override
+    protected void onFirstCreateView(BaseAdapterHelper helper) {
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)
+                helper.getView(R.id.iv_topic_img).getLayoutParams();
+        lp.height = mScreenWidth;
+        helper.getView(R.id.iv_topic_img).setLayoutParams(lp);
     }
 }
