@@ -15,11 +15,11 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="手机号"
+            android:text="@string/phone_num"
             android:textSize="16sp" />
 
         <com.tongban.im.widget.view.ClearEditText
-            android:id="@+id/et_user"
+            android:id="@+id/et_input_phone"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_below="@+id/toolbar"
@@ -27,7 +27,7 @@
             android:layout_toRightOf="@+id/tv_phone"
             android:background="@null"
             android:digits="@string/digits"
-            android:hint="请输入注册时的手机号"
+            android:hint="@string/input_register_phone_num"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textColorHint="@color/grey_500"
@@ -35,13 +35,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_pwd_reset"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/selector_btn_bg_orange"
         android:enabled="false"
-        android:text="提交"
+        android:text="@string/submit"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

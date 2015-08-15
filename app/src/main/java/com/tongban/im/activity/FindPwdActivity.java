@@ -1,39 +1,42 @@
 package com.tongban.im.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.fragment.InputPhoneFragment;
+import com.tongban.im.fragment.ReSetPwdFragment;
 
-public class FindPwdActivity extends AppCompatActivity {
+/**
+ * 找回密码界面
+ *
+ * @author fushudi
+ */
+public class FindPwdActivity extends BaseToolBarActivity {
+    private FrameLayout flReplasedFragment;
+
+    private InputPhoneFragment mInputPhoneFragment;
+    private ReSetPwdFragment mReSetPwdFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_pwd);
+    protected int getLayoutRes() {
+        return R.layout.activity_find_pwd;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_find_pwd, menu);
-        return true;
+    protected void initView() {
+        setTitle(R.string.find_pwd);
+        flReplasedFragment = (FrameLayout) findViewById(R.id.fl_container);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initData() {
+        mInputPhoneFragment = new InputPhoneFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mInputPhoneFragment).commit();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    @Override
+    protected void initListener() {
 
-        return super.onOptionsItemSelected(item);
     }
 }

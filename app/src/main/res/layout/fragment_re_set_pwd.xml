@@ -16,7 +16,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="您的手机号是:"
+            android:text="@string/your_phone_num"
             android:textSize="16sp" />
 
         <TextView
@@ -26,7 +26,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="15910662995"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -45,7 +44,7 @@
             android:layout_below="@+id/et_user"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="验证码"
+            android:hint="@string/verify_code"
             android:inputType="textPassword"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -76,7 +75,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
-            android:text="重设密码"
+            android:text="@string/re_set_pwd"
             android:textSize="16sp" />
 
         <com.tongban.im.widget.view.ClearEditText
@@ -88,7 +87,7 @@
             android:layout_toRightOf="@+id/tv_phone"
             android:background="@null"
             android:digits="@string/digits"
-            android:hint="6-24位字母或数字"
+            android:hint="@string/hint_pwd"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textColorHint="@color/grey_500"
@@ -96,13 +95,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_pwd_reset"
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/selector_btn_bg_orange"
         android:enabled="false"
-        android:text="提交"
+        android:text="@string/submit"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

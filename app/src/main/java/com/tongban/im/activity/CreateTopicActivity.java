@@ -32,7 +32,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initView() {
-        setTitle("发表话题");
+        setTitle(R.string.create_topic);
         gvTopicImg = (GridView) findViewById(R.id.gv_add_img);
     }
 

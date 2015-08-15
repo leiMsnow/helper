@@ -1,11 +1,25 @@
 package com.tongban.im.fragment;
 
 
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 
-public class InputPhoneFragment extends BaseApiFragment {
+public class InputPhoneFragment extends BaseApiFragment implements View.OnClickListener, TextWatcher {
+    private EditText etInputPhone;
+    private Button btnSubmit;
 
+    private ReSetPwdFragment mReSetPwdFragment;
+
+    private String mInputPhone;
 
     @Override
     protected int getLayoutRes() {
@@ -14,7 +28,8 @@ public class InputPhoneFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
-
+        etInputPhone = (EditText) mView.findViewById(R.id.et_input_phone);
+        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }
 
     @Override
@@ -24,6 +39,41 @@ public class InputPhoneFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
+        etInputPhone.addTextChangedListener(this);
+        btnSubmit.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v == btnSubmit) {
+            mReSetPwdFragment = new ReSetPwdFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            Bundle bundle=new Bundle();
+            bundle.putString("mInputPhone",mInputPhone);
+            mReSetPwdFragment.setArguments(bundle);
+            transaction.replace(R.id.fl_container, mReSetPwdFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        mInputPhone = etInputPhone.getText().toString().trim();
+        if (!TextUtils.isEmpty(mInputPhone)) {
+            btnSubmit.setEnabled(true);
+        } else {
+            btnSubmit.setEnabled(false);
+        }
     }
 }

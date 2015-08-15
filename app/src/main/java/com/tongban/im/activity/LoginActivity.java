@@ -129,7 +129,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         } else if (v == tvRegister) {
             startActivity(new Intent(mContext, RegisterActivity.class));
         } else if (v == tvFindPwd) {
-            startActivity(new Intent(mContext, PwdResetActivity.class));
+            startActivity(new Intent(mContext, FindPwdActivity.class));
         }
     }
 
