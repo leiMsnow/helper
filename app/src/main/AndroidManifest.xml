@@ -178,6 +178,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.FindPwdActivity" />
         <activity android:name=".activity.PersonalDataActivity" />
+        <activity android:name=".activity.MyInfoActivity"></activity>
     </application>
 
 </manifest>
