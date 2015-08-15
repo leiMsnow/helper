@@ -10,27 +10,18 @@
 
     <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_user"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
+        style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
-        android:background="@drawable/selector_edit_text"
         android:digits="@string/digits"
-        android:hint="@string/phone_num"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textSize="14sp" />
+        android:hint="@string/phone_num" />
 
     <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
+        style="@style/ClearEditTextStyle"
         android:layout_below="@+id/et_user"
         android:background="@drawable/selector_edit_text"
         android:hint="@string/pwd"
-        android:inputType="textPassword"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textSize="14sp" />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/tv_forget_pwd"

@@ -12,17 +12,17 @@
         <TextView
             android:id="@+id/tv_phone_text"
             android:layout_width="wrap_content"
-            android:layout_height="64dp"
+            android:layout_height="56dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
             android:text="@string/your_phone_num"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_phone_num"
             android:layout_width="wrap_content"
-            android:layout_height="64dp"
+            android:layout_height="56dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
@@ -39,16 +39,12 @@
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
+            style="@style/ClearEditTextStyle"
             android:layout_below="@+id/et_user"
             android:layout_weight="1"
             android:background="@null"
             android:hint="@string/verify_code"
-            android:inputType="textPassword"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textSize="16sp" />
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/tv_verify_code"
@@ -71,27 +67,23 @@
         <TextView
             android:id="@+id/tv_reset_pwd"
             android:layout_width="wrap_content"
-            android:layout_height="64dp"
+            android:layout_height="56dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
             android:gravity="center"
             android:text="@string/re_set_pwd"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_set_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
+            style="@style/ClearEditTextStyle"
             android:layout_below="@+id/toolbar"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/tv_phone"
             android:background="@null"
             android:digits="@string/digits"
             android:hint="@string/hint_pwd"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textColorHint="@color/grey_500"
-            android:textSize="14sp" />
+            android:textColorHint="@color/grey_500" />
     </LinearLayout>
 
     <Button
