@@ -59,6 +59,11 @@ public class GroupApi extends BaseApi {
      * 获取用户加入的群组-全部的群
      */
     public static final String FETCH_MY_All_GROUP_LIST = "group/fetch/4";
+
+    /**
+     * 根据地理位置获取推荐群组(附近的群)
+     */
+    public static final String FETCH_RECOMMEND_GROUP_LIST = "group/fetch/5";
     /**
      * 获取群组详情
      */

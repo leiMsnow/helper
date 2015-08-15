@@ -18,6 +18,10 @@ public class Consts {
      */
     public static final String USER_ID = "USER_ID";
     /**
+     * 用户昵称
+     */
+    public static final String NICK_NAME = "NICK_NAME";
+    /**
      * 用户账号
      */
     public static final String USER_ACCOUNT = "USER_ACCOUNT";
