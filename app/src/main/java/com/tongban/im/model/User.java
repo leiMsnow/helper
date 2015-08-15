@@ -1,7 +1,7 @@
 package com.tongban.im.model;
 
 /**
- * 用户信息表
+ * 用户信息model
  * Created by zhangleilei on 15/7/3.
  */
 public class User {
@@ -14,16 +14,18 @@ public class User {
     private String freeauth_token;
     // 第三方账号类型：默认为0，1QQ 2微信 3淘宝 4微博 5当当 6京东 7美丽说
     private String thirdparty_access_type;
-    // 昵称
-    private String nick_name;
     // im绑定token串，用于聊天
     private String im_bind_token;
-    // 账户状态：默认0，0已经注册未验证；1短信验证成功未绑定；2绑定IM成功并生效
-    private String status;
+    // 昵称
+    private String nick_name;
+    //出生日期
+    private String birthday;
     // 年龄
     private String age;
     // 性别
     private String sex;
+    // 账户状态：默认0，0已经注册未验证；1短信验证成功未绑定；2绑定IM成功并生效
+    private String status;
     // 个性签名
     private String personal_sign;
     // 用户头像
@@ -34,6 +36,14 @@ public class User {
     private String declaration;
     //用户地址
     private String address;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public String getAddress() {
         return address;

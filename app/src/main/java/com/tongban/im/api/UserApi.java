@@ -390,7 +390,7 @@ public class UserApi extends BaseApi {
         SPUtils.put(mContext, Consts.IM_BIND_TOKEN, userInfo.getIm_bind_token());
         SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
         SPUtils.put(mContext, Consts.USER_ID, userInfo.getUser_id());
+        SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
     }
-
 
 }
