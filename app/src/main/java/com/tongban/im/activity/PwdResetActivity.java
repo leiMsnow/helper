@@ -20,10 +20,6 @@ import com.tongban.im.model.BaseEvent;
  * @createTime 2015/07/27
  */
 public class PwdResetActivity extends BaseToolBarActivity implements View.OnClickListener, TextWatcher {
-    private EditText etOldPwd, etNewPwd, etConfirmNewPwd, etUserId;
-    private Button btnPwdReset;
-
-    private String mOldPwd, mNewPwd, mConfirmNewPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +34,6 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
 
     @Override
     protected void initView() {
-        etOldPwd = (EditText) findViewById(R.id.et_old_pwd);
-        etNewPwd = (EditText) findViewById(R.id.et_new_pwd);
-        etConfirmNewPwd = (EditText) findViewById(R.id.et_confirm_new_pwd);
-        btnPwdReset = (Button) findViewById(R.id.btn_pwd_reset);
     }
 
     @Override
@@ -51,45 +43,10 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
 
     @Override
     protected void initListener() {
-        btnPwdReset.setOnClickListener(this);
-        etOldPwd.addTextChangedListener(this);
-        etNewPwd.addTextChangedListener(this);
-        etConfirmNewPwd.addTextChangedListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnPwdReset) {
-            if (mOldPwd.length() >= 6) {
-//                if (mNewPwd.length() == 0) {
-//                    ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.new_pwd_empty));
-//                } else if (mConfirmNewPwd.length() == 0) {
-//                    ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.confirm_new_pwd_empty));
-//                }
-//                else {
-                if (mOldPwd.equals(mNewPwd)) {
-                    ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.old_pwd_equals_new_pwd));
-                } else {
-                    if (mNewPwd.length() >= 6) {
-                        if (mNewPwd.equals(mConfirmNewPwd)) {
-                            UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
-                        } else {
-                            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.twice_pwd_same));
-                        }
-                    } else {
-                        ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.pwd_least));
-                    }
-                }
-//                }
-            }
-            else {
-                if (mOldPwd.length() == 0) {
-                    ToastUtil.getInstance(mContext).showToast(getString(R.string.old_pwd_empty));
-                } else {
-                    ToastUtil.getInstance(mContext).showToast(getString(R.string.pwd_least));
-                }
-            }
-        }
     }
 
     @Override
@@ -104,14 +61,7 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
 
     @Override
     public void afterTextChanged(Editable s) {
-        mOldPwd = etOldPwd.getText().toString().trim();
-        mNewPwd = etNewPwd.getText().toString().trim();
-        mConfirmNewPwd = etConfirmNewPwd.getText().toString().trim();
-        if (mOldPwd.length() < 6 || mNewPwd.length() < 6 || mConfirmNewPwd.length() < 6) {
-            btnPwdReset.setEnabled(false);
-        } else {
-            btnPwdReset.setEnabled(true);
-        }
+
     }
 
     public void onEventMainThread(BaseEvent.PwdResetEvent result) {
