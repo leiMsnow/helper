@@ -26,11 +26,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp">
 
-                <com.tongban.corelib.widget.view.CircleImageView
-                    android:id="@+id/iv_group_icon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/createGroupIcon" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -38,6 +33,13 @@
                     android:gravity="center"
                     android:text="@string/create_group_icon"
                     android:textColor="@color/grey_500" />
+
+                <com.tongban.corelib.widget.view.CircleImageView
+                    android:id="@+id/iv_group_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/createGroupIcon" />
+
 
             </FrameLayout>
 
@@ -50,7 +52,7 @@
 
             <!-- 同龄 - 选择年龄-->
             <TextView
-                android:id="@+id/tv_age"
+                android:id="@+id/tv_birthday"
                 style="@style/CreateGroupTextStyle"
                 android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"

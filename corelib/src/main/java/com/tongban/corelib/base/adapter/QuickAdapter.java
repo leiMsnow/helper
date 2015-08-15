@@ -38,6 +38,5 @@ public abstract class QuickAdapter<T> extends BaseQuickAdapter<T, BaseAdapterHel
 
     @Override
     protected void onFirstCreateView(BaseAdapterHelper helper) {
-        LogUtil.d("QuickAdapter-"+"createdView");
     }
 }

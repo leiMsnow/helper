@@ -29,7 +29,7 @@ import java.util.Map;
 public class BaseApi {
 
     protected Context mContext;
-    // 服务器地址存储标示 0线上；1st；2test；3+其他开发人员地址
+    // 服务器地址存储标示
     private static final String HOST_FLAG = "HOST_FLAG";
     /**
      * 接口请求成功
@@ -55,7 +55,7 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
+    private static String DEFAULT_HOST = "http://10.255.209.67:8080/ddim/";
     //正式环境
     private static String MAIN_HOST = "";
     //测试环境
@@ -72,38 +72,26 @@ public class BaseApi {
      * @return 服务器地址
      */
     protected String getHostUrl() {
-        String host = SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
-        if (host != null) {
-            return host;
-        }
-        return DEFAULT_HOST;
+        return SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
     /**
      * 设置服务器地址
      *
-     * @param flag 0线上；1st；2test；3+其他开发人员地址
+     * @param flag 0线上；1test；2+其他开发人员地址
      */
     public void setHostUrl(int flag) {
-        String saveUrl = "";
+        String saveUrl;
         switch (flag) {
             case 0:
             default:
                 saveUrl = MAIN_HOST;
                 break;
             case 1:
-                break;
-            case 2:
                 saveUrl = TEST_HOST;
                 break;
-            case 3:
-                saveUrl = "http://10.255.209.67:8080/ddim/";
-                break;
-            case 4:
-                saveUrl = "http://10.255.209.67:8080/ddim/";
-                break;
         }
-        SPUtils.put(mContext, saveUrl, flag);
+        SPUtils.put(mContext, HOST_FLAG, saveUrl);
     }
 
     /**
@@ -136,7 +124,7 @@ public class BaseApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("response-success:" + jsonObject.toString());
+                        LogUtil.d("onResponse:",jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -156,7 +144,7 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.e("response-error:" + volleyError.toString());
+                LogUtil.e("onErrorResponse",volleyError.toString());
 
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {

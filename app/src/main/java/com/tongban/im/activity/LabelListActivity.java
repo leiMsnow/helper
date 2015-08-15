@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,12 @@ import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 圈子标签页
@@ -25,6 +32,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     //最大选择数量
     private int mMaxCount = 0;
     private int mGroupType = 0;
+    private List<String> selectedLabel = new ArrayList<>();
 
     @Override
     protected int getLayoutRes() {
@@ -64,6 +72,13 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_finish) {
+            BaseEvent.LabelEvent labelEvent = new BaseEvent.LabelEvent();
+            labelEvent.setLabel(getSelectedLabel());
+            EventBus.getDefault().post(labelEvent);
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -73,14 +88,29 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
             if (v.isSelected()) {
                 v.setSelected(false);
                 mMaxCount--;
+                selectedLabel.remove(mMaxCount);
             } else {
                 if (mMaxCount == 3) {
                     ToastUtil.getInstance(mContext).showToast(R.string.select_label_max);
                     return;
                 }
                 v.setSelected(true);
+                selectedLabel.add(v.getTag().toString());
                 mMaxCount++;
             }
         }
     }
+
+    private String getSelectedLabel() {
+        String selected = "";
+        if (selectedLabel.size() > 0) {
+            for (int i = 0; i < selectedLabel.size(); i++) {
+                selected += "," + selectedLabel.get(i);
+            }
+            if (!TextUtils.isEmpty(selected))
+                selected = selected.substring(1);
+        }
+        return selected;
+    }
+
 }

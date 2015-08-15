@@ -21,6 +21,7 @@ public class LocationUtils {
     private LocationClient mLocationClient = null;
     private BDLocationListener myListener = null;
     private Context mContext;
+
     LocationUtils(Context context) {
         this.mContext = context;
         mLocationClient = new LocationClient(context.getApplicationContext());
@@ -74,13 +75,25 @@ public class LocationUtils {
             String city = dbLocation.getCity();
             String county = dbLocation.getDistrict();
             String address = dbLocation.getAddrStr();
+            //地址去掉省
+            if (address.contains(province)) {
+                address = address.replace(province, "");
+            }
+            //地址去掉市
+            if (address.contains(city)) {
+                address = address.replace(city, "");
+            }
+            //地址去掉区
+            if (address.contains(county)) {
+                address = address.replace(county, "");
+            }
 
-            SPUtils.put(mContext, Consts.LATITUDE,latitude);
-            SPUtils.put(mContext, Consts.LONGITUDE,longitude);
-            SPUtils.put(mContext, Consts.PROVINCE,province);
-            SPUtils.put(mContext, Consts.CITY,city);
-            SPUtils.put(mContext, Consts.COUNTY,county);
-            SPUtils.put(mContext, Consts.ADDRESS,address);
+            SPUtils.put(mContext, Consts.LATITUDE, latitude);
+            SPUtils.put(mContext, Consts.LONGITUDE, longitude);
+            SPUtils.put(mContext, Consts.PROVINCE, province);
+            SPUtils.put(mContext, Consts.CITY, city);
+            SPUtils.put(mContext, Consts.COUNTY, county);
+            SPUtils.put(mContext, Consts.ADDRESS, address);
 
             EventBus.getDefault().post(dbLocation);
         }

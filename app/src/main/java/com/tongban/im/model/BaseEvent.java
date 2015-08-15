@@ -248,4 +248,20 @@ public class BaseEvent {
         }
     }
 
+    /**
+     * 选择标签Event
+     */
+    public static class LabelEvent{
+        String label;
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+    }
+
+
 }

@@ -34,16 +34,16 @@ public class GroupApi extends BaseApi {
     /**
      * 创建群组
      */
-    public static final String CREATE_GROUP = "im/group/create";
+    public static final String CREATE_GROUP = "group/create";
     /**
      * 加入群组
      */
-    public static final String JOIN_GROUP = "im/group/join";
+    public static final String JOIN_GROUP = "group/join";
 
     /**
      * 获取个人群组列表-创建的群
      */
-    public static final String FETCH_MY_CREATE_GROUP_LIST = "im/group/fetch/1";
+    public static final String FETCH_MY_CREATE_GROUP_LIST = "group/fetch/1";
 
     /**
      * 根据群组名获取搜索群组
@@ -53,20 +53,20 @@ public class GroupApi extends BaseApi {
     /**
      * 根据群组类型获取搜索群组
      */
-    public static final String SEARCH_GROUP_BY_TYPE = "im/group/fetch/3";
+    public static final String SEARCH_GROUP_BY_TYPE = "group/fetch/3";
 
     /**
      * 获取用户加入的群组-全部的群
      */
-    public static final String FETCH_MY_All_GROUP_LIST = "im/group/fetch/4";
+    public static final String FETCH_MY_All_GROUP_LIST = "group/fetch/4";
     /**
      * 获取群组详情
      */
-    public static final String FETCH_MY_JOIN_GROUP_INFO = "im/group/info";
+    public static final String FETCH_MY_JOIN_GROUP_INFO = "group/info";
     /**
      * 获取群组成员信息
      */
-    public static final String FETCH_MY_JOIN_GROUP_MEMBER = "im/group/members";
+    public static final String FETCH_MY_JOIN_GROUP_MEMBER = "group/members";
 
 
     private GroupApi(Context context) {
@@ -89,44 +89,43 @@ public class GroupApi extends BaseApi {
      * modified by chen
      *
      * @param groupName   群组名字
-     * @param groupType   群组类型,参见{@link GroupType}
+     * @param groupType   群组类型
      * @param longitude   经度
      * @param latitude    纬度
      * @param address     详细地址
      * @param birthday    出生日期(y-m-d H:i:s)
      * @param tags        群组的标签,多个用逗号分隔
      * @param declaration 群简介
-     * @param province    省份
-     * @param city        城市
-     * @param county      县/区
+     * @param groupAvatar 群头像
+     * @param isSearch    (true-1:允许搜索;false-0：不允许搜索)
      * @param callback    回调
      */
-    public void createGroup(@NonNull String groupName, @NonNull int groupType, @NonNull double longitude,
-                            @NonNull double latitude, @NonNull String address, @Nullable String birthday,
-                            @Nullable String tags, @Nullable String declaration, @Nullable String province,
-                            @Nullable String city, @NonNull String county, @NonNull final ApiCallback callback) {
+    public void createGroup(String groupName, int groupType, double longitude,
+                            double latitude, String address, @Nullable String birthday,
+                            @Nullable String tags, @Nullable String declaration,
+                            Map<String, String> groupAvatar, boolean isSearch,
+                            final ApiCallback callback) {
+
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        if (groupName != null)
-            mParams.put("group_name", groupName);
-        mParams.put("group_type", String.valueOf(groupType));
-        mParams.put("address_type", groupType == GroupType.CLASSMATE ? 1 : 0); // 学校1,其他0
+        mParams.put("group_name", groupName);
+        //(默认0，1：学校)
+        mParams.put("address_type", groupType == GroupType.CLASSMATE ? 1 : 0);
         mParams.put("longitude", longitude);
         mParams.put("latitude", latitude);
         mParams.put("address", address);
+
         if (birthday != null)
             mParams.put("birthday", birthday);
         if (tags != null)
             mParams.put("tags", tags);
         if (declaration != null)
             mParams.put("declaration", declaration);
-        if (province != null)
-            mParams.put("province", province);
-        if (city != null)
-            mParams.put("city", city);
-        mParams.put("county", county);
 
-        simpleRequest(CREATE_GROUP, mParams, new ApiCallback() {
+        mParams.put("group_avatar", groupAvatar);
+        mParams.put("is_search", isSearch ? 1 : 0);
+        //此处接口名称根据groupType变化
+        simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();

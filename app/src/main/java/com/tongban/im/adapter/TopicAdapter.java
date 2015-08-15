@@ -1,17 +1,10 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.model.Topic;
 
@@ -40,7 +33,7 @@ public class TopicAdapter extends QuickAdapter<Topic> {
         //用户信息
         helper.setImageBitmap(R.id.iv_topic_icon, item.getUser().getPortrait_url());
         helper.setText(R.id.tv_nickname, item.getUser().getNick_name());
-        helper.setText(R.id.tv_age, item.getUser().getAge());
+        helper.setText(R.id.tv_birthday, item.getUser().getAge());
         helper.setText(R.id.tv_time, item.getTopicTime());
         //话题内容
         helper.setText(R.id.tv_topic_name, item.getTopicName());

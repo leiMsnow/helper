@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,17 +10,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CameraUtils;
@@ -27,6 +31,9 @@ import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 创建圈子界面
@@ -42,7 +49,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     private ImageView ivSetGroupIcon;
     private EditText etGroupName, etDesc;
-    private TextView tvGroupLabel, tvLocation, tvAge, tvSchool, tvLife;
+    private TextView tvGroupLabel, tvLocation, tvBirthday, tvSchool, tvLife;
     private CheckBox chbSecret, chbAgree;
     private Button btnSubmit;
 
@@ -51,6 +58,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private int mGroupType;
     private String titleName;
 
+    private DatePickerDialog mDatePickerDialog;
+
     /**
      * 经纬度
      */
@@ -58,7 +67,11 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     /**
      * 位置信息
      */
-    private String province, city, county, address;
+    private String province, city, county, address, birthday, tags, declaration;
+    private Map<String, String> groupAvatar = new HashMap<>();
+    //(1:允许搜索;0：不允许搜索)
+    private boolean isSearch = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +104,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
         tvLocation = (TextView) findViewById(R.id.tv_group_location);
 
-        tvAge = (TextView) findViewById(R.id.tv_age);
+        tvBirthday = (TextView) findViewById(R.id.tv_birthday);
         tvSchool = (TextView) findViewById(R.id.tv_school);
         tvLife = (TextView) findViewById(R.id.tv_life);
 
@@ -107,7 +120,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private void setTextVisible() {
         switch (mGroupType) {
             case GroupType.AGE:
-                tvAge.setVisibility(View.VISIBLE);
+                tvBirthday.setVisibility(View.VISIBLE);
                 break;
             case GroupType.LIFE:
                 tvLife.setVisibility(View.VISIBLE);
@@ -124,7 +137,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
         tvLocation.setOnClickListener(this);
         tvGroupLabel.setOnClickListener(this);
-        tvAge.setOnClickListener(this);
+        tvBirthday.setOnClickListener(this);
         tvLife.setOnClickListener(this);
         tvSchool.setOnClickListener(this);
 
@@ -149,8 +162,12 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
                 return;
             }
+            declaration = etDesc.getText().toString().trim();
+            groupAvatar.put("max", "");
+            groupAvatar.put("min", "");
+            groupAvatar.put("mid", "");
             GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-                    null, null, null, province, city, county, this);
+                    birthday, tags, declaration, groupAvatar, isSearch, this);
         } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, SearchPoiActivity.class);
             Bundle bundle = new Bundle();
@@ -164,8 +181,11 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
             intent.putExtras(bundle);
             startActivityForResult(intent, SELECT_LABEL);
+        } else if (v == tvBirthday) {
+            openDatePicker();
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -198,10 +218,10 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
             ivSetGroupIcon.setImageBitmap(bitmap);
         } else if (requestCode == SELECT_LOCATION) {
-            address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
             latitude = data.getDoubleExtra(Consts.LATITUDE, 0.0);
-            tvLocation.setText(address);
+            address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
+            setLocationInfo();
         }
     }
 
@@ -213,6 +233,29 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         mCameraView.show();
     }
 
+    //打开时间选择器
+    private void openDatePicker() {
+        if (mDatePickerDialog == null) {
+            Calendar c = Calendar.getInstance();
+            mDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    String month = String.valueOf(monthOfYear + 1);
+                    String day = String.valueOf(dayOfMonth);
+
+                    if (month.length() == 1) month = "0" + month;
+                    if (day.length() == 1) day = "0" + day;
+
+                    birthday = year + "-" + month + "-" + day;
+                    tvBirthday.setText(birthday);
+                }
+            }, c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DAY_OF_MONTH));
+        }
+        mDatePickerDialog.show();
+    }
+
     public void onEventMainThread(Object obj) {
         if (obj instanceof Group) {
             // 创建成功
@@ -221,12 +264,21 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         } else if (obj instanceof BDLocation) {
             longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
             latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
-            address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
-            county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
-            city = (String) SPUtils.get(mContext, Consts.CITY, "");
             province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
-            tvLocation.setText(address);
+            city = (String) SPUtils.get(mContext, Consts.CITY, "");
+            county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
+            address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+            setLocationInfo();
+        } else if (obj instanceof BaseEvent.LabelEvent) {
+            tags = ((BaseEvent.LabelEvent) obj).getLabel();
+            tvGroupLabel.setText(tags);
         }
+    }
+
+    //设置当前位置
+    private void setLocationInfo() {
+        tvLocation.setText(address);
+        address = province + "," + city + "," + county + "," + address;
     }
 
     @Override
