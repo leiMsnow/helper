@@ -86,7 +86,6 @@
 
     <!-- 创建圈子文本的样式-->
     <style name="CreateGroupTextStyle">
-        <!--<item name="android:background">@drawable/selector_edit_text</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">48dp</item>
@@ -98,4 +97,12 @@
 
     </style>
 
+    <style name="ClearEditTextStyle">
+        <item name="android:background">@drawable/selector_edit_text</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
 </resources>

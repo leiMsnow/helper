@@ -108,8 +108,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_register) {
-
+        if (item.getItemId() == R.id.action_personal_data) {
+            startActivity(new Intent(this, PersonalDataActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
