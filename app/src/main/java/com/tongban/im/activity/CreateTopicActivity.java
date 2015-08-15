@@ -1,13 +1,14 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
@@ -29,6 +30,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     private GridView gvTopicImg;
     private EditText tvTitle;
     private EditText tvContent;
+    private ImageView ivSend;
 
     private CreateTopicImgAdapter adapter;
     private CameraView mCameraView;
@@ -63,29 +65,33 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_topic_publish, menu);
-        return true;
+    protected void initToolbar() {
+        super.initToolbar();
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.view_create_button);
+        Toolbar.LayoutParams lp = (Toolbar.LayoutParams)
+                getSupportActionBar().getCustomView().getLayoutParams();
+        lp.gravity = Gravity.RIGHT;
+        int margins = DensityUtils.dp2px(mContext, 8);
+        lp.setMargins(margins, margins, margins, margins);
+        getSupportActionBar().getCustomView().setLayoutParams(lp);
+        ivSend = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.iv_send);
+        ivSend.setOnClickListener(this);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.publish) {
-            TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                    tvContent.getText().toString().trim(), mUrls, this);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
-        int viewId = v.getId();
-        switch (viewId) {
-            case R.id.iv_topic_img:
-                createDialog();
-                break;
+        if (v == ivSend) {
+            TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                    tvContent.getText().toString().trim(), mUrls, this);
+        } else {
+            int viewId = v.getId();
+            switch (viewId) {
+                case R.id.iv_topic_img:
+                    createDialog();
+                    break;
+            }
         }
     }
 
