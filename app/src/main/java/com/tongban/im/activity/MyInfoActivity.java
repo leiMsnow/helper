@@ -1,39 +1,38 @@
 package com.tongban.im.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import android.support.v4.app.FragmentTransaction;
+import android.widget.FrameLayout;
 
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.fragment.FansFragment;
 
-public class MyInfoActivity extends AppCompatActivity {
+public class MyInfoActivity extends BaseToolBarActivity {
+    private FrameLayout flReplasedFragment;
+    private FansFragment mFansFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_info);
+    protected int getLayoutRes() {
+        return R.layout.activity_my_info;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_info, menu);
-        return true;
+    protected void initView() {
+        flReplasedFragment = (FrameLayout) findViewById(R.id.fl_container);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initData() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        mFansFragment = new FansFragment();
+        transaction.replace(R.id.fl_container, mFansFragment);
+        transaction.commit();
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    protected void initListener() {
+
     }
 }
