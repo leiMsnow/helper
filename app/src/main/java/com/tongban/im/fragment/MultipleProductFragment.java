@@ -1,12 +1,15 @@
 package com.tongban.im.fragment;
 
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.OfficialTopicDetailsActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 
 /**
@@ -15,7 +18,8 @@ import com.tongban.im.adapter.MultipleProductAdapter;
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class MultipleProductFragment extends BaseApiFragment implements AdapterView.OnItemClickListener {
+public class MultipleProductFragment extends BaseApiFragment implements View.OnClickListener
+,AdapterView.OnItemClickListener{
 
 
     private ListView lvMultipleProduct;
@@ -38,6 +42,7 @@ public class MultipleProductFragment extends BaseApiFragment implements AdapterV
 
     @Override
     protected void initListener() {
+        mAdapter.setOnClickListener(this);
         lvMultipleProduct.setOnItemClickListener(this);
     }
 
@@ -46,9 +51,14 @@ public class MultipleProductFragment extends BaseApiFragment implements AdapterV
 
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.iv_product){
+        }
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        mContext.startActivity(new Intent(mContext, OfficialTopicDetailsActivity.class));
     }
 }

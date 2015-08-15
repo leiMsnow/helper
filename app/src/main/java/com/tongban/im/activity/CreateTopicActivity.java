@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -26,8 +27,8 @@ import java.util.Map;
 public class CreateTopicActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private GridView gvTopicImg;
-    private TextView tvTitle;
-    private TextView tvContent;
+    private EditText tvTitle;
+    private EditText tvContent;
 
     private CreateTopicImgAdapter adapter;
     private CameraView mCameraView;
@@ -43,8 +44,8 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initView() {
         setTitle(R.string.create_topic);
-        tvTitle = (TextView) findViewById(R.id.tv_topic_name);
-        tvContent = (TextView) findViewById(R.id.tv_topic_content);
+        tvTitle = (EditText) findViewById(R.id.et_topic_name);
+        tvContent = (EditText) findViewById(R.id.et_topic_content);
         gvTopicImg = (GridView) findViewById(R.id.gv_add_img);
     }
 

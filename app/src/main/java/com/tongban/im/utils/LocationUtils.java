@@ -1,6 +1,7 @@
 package com.tongban.im.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -75,19 +76,20 @@ public class LocationUtils {
             String city = dbLocation.getCity();
             String county = dbLocation.getDistrict();
             String address = dbLocation.getAddrStr();
-            //地址去掉省
-            if (address.contains(province)) {
-                address = address.replace(province, "");
+            if (!TextUtils.isEmpty(address)) {
+                //地址去掉省
+                if (address.contains(province)) {
+                    address = address.replace(province, "");
+                }
+                //地址去掉市
+                if (address.contains(city)) {
+                    address = address.replace(city, "");
+                }
+                //地址去掉区
+                if (address.contains(county)) {
+                    address = address.replace(county, "");
+                }
             }
-            //地址去掉市
-            if (address.contains(city)) {
-                address = address.replace(city, "");
-            }
-            //地址去掉区
-            if (address.contains(county)) {
-                address = address.replace(county, "");
-            }
-
             SPUtils.put(mContext, Consts.LATITUDE, latitude);
             SPUtils.put(mContext, Consts.LONGITUDE, longitude);
             SPUtils.put(mContext, Consts.PROVINCE, province);
