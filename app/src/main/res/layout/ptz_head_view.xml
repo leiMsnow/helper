@@ -58,7 +58,8 @@
             style="@style/UserInfoAttrParent"
             android:layout_marginTop="8dp">
             <!-- 粉丝数量布局-->
-            <RelativeLayout style="@style/UserInfoAttrLayout">
+            <RelativeLayout style="@style/UserInfoAttrLayout"
+                android:id="@+id/rl_fans">
                 <!-- 粉丝数量文本-->
                 <TextView
                     android:id="@+id/tv_fans"
@@ -72,7 +73,9 @@
                     android:visibility="gone" />
             </RelativeLayout>
             <!-- 关注数量布局-->
-            <RelativeLayout style="@style/UserInfoAttrLayout">
+            <RelativeLayout
+                android:id="@+id/rl_follow"
+                style="@style/UserInfoAttrLayout">
                 <!-- 关注数量-->
                 <TextView
                     android:id="@+id/tv_follow"
@@ -87,7 +90,9 @@
             </RelativeLayout>
 
             <!-- 话题数量布局-->
-            <RelativeLayout style="@style/UserInfoAttrLayout">
+            <RelativeLayout
+                android:id="@+id/rl_topic"
+                style="@style/UserInfoAttrLayout">
                 <!-- 话题数量-->
                 <TextView
                     android:id="@+id/tv_topic"

@@ -99,21 +99,6 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_personal_data) {
-            startActivity(new Intent(this, PersonalDataActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void onEventMainThread(User user) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
         ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.login_success));

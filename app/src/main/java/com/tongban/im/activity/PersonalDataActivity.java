@@ -31,18 +31,4 @@ public class PersonalDataActivity extends BaseToolBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_personal, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.fans) {
-            startActivity(new Intent(this,MyInfoActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
