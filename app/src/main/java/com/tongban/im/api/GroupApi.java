@@ -74,6 +74,16 @@ public class GroupApi extends BaseApi {
     public static final String FETCH_MY_JOIN_GROUP_MEMBER = "group/members";
 
 
+    /**
+     * 圈子推荐接口
+     */
+    public static final String RECOMMEND_GROUP_LIST = "group/recommend/list";
+    /**
+     * 圈子搜索接口
+     */
+    public static final String SEARCH_GROUP_LIST = "group/search/listt";
+
+
     private GroupApi(Context context) {
         super(context);
     }
@@ -414,5 +424,78 @@ public class GroupApi extends BaseApi {
             }
         });
     }
+
+    /**
+     * 获取圈子推荐列表
+     *
+     * @param cursor   第几页，默认0开始
+     * @param pageSize 每页数量 最少1条
+     * @param callback
+     */
+    public void recommendGroupList(int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(RECOMMEND_GROUP_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 搜索圈子
+     *
+     * @param keyword  关键字
+     * @param cursor   第几页，默认0开始
+     * @param pageSize 每页数量 最少1条
+     * @param callback
+     */
+    public void searchGroupList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("keyword", keyword);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(SEARCH_GROUP_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
 
 }

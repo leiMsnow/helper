@@ -90,6 +90,11 @@ public class LocationUtils {
                     address = address.replace(county, "");
                 }
             }
+            //获取不到经纬度，将值设置为-1
+            if (longitude == Double.MIN_VALUE || latitude == Double.MIN_VALUE) {
+                latitude = -1.0D;
+                longitude = -1.0D;
+            }
             SPUtils.put(mContext, Consts.LATITUDE, latitude);
             SPUtils.put(mContext, Consts.LONGITUDE, longitude);
             SPUtils.put(mContext, Consts.PROVINCE, province);
