@@ -38,7 +38,7 @@ public class FollowFragment extends BaseApiFragment {
         for (int i = 0; i < 17; i++) {
             User user = new User();
             user.setPortrait_url("http://h.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e511857c31640a7d933c9950dd2.jpg");
-            user.setNick_name("小狗");
+            user.setNick_name("小猪");
             mFollowList.add(user);
         }
         mAdapter = new FansAdapter(mContext, R.layout.item_my_info_list, mFollowList);

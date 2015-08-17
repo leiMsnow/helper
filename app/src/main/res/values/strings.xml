@@ -84,6 +84,7 @@
     <string name="my_group">我的圈子</string>
     <string name="my_collect">我的收藏</string>
     <string name="feedback">意见反馈</string>
+    <string name="my_topic">我的话题</string>
     <!-- 位置-->
     <string name="select_location">选择位置</string>
     <!--标签-->
