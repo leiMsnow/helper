@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:singleLine="true"
         android:text="话题标题"
-        android:textColor="@color/black"
+        android:textColor="@color/main_black"
         android:textSize="16sp" />
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:text="话题内容"
-        android:textColor="@color/grey_500" />
+        android:textColor="@color/normal_dark_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"

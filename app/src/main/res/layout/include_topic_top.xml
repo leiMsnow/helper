@@ -22,7 +22,7 @@
         android:layout_toRightOf="@+id/iv_topic_icon"
         android:padding="4dp"
         android:text="5岁宝宝"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_toLeftOf="@+id/tv_time"
         android:layout_toRightOf="@+id/tv_birthday"
         android:text="昵称"
-        android:textColor="@color/black" />
+        android:textColor="@color/main_black" />
 
 
     <TextView
@@ -43,5 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="08-01-11:15" />
+        android:textColor="@color/normal_grey"
+        android:text="09:45 AM" />
 </RelativeLayout>

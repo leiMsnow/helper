@@ -10,10 +10,8 @@
         android:layout_above="@+id/ll_bottom_menu" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/ll_bottom_menu"
-        android:background="@color/grey_300" />
+        style="@style/HorizontalLine"
+        android:layout_above="@+id/ll_bottom_menu" />
 
     <LinearLayout
         android:id="@+id/ll_bottom_menu"
@@ -21,6 +19,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="4dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView
@@ -29,11 +28,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            app:changeColor="@color/theme_red"
+            app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_discover_normal"
             app:changeText="@string/discover"
             app:changeTextSize="12sp"
-            app:defaultColor="@color/brown_300" />
+            app:defaultColor="@color/main_brown" />
 
         <com.tongban.corelib.widget.view.ChangeColorView
             android:id="@+id/ccv_topic"
@@ -41,11 +40,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            app:changeColor="@color/theme_red"
+            app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_circle_normal"
             app:changeText="@string/topic"
             app:changeTextSize="12sp"
-            app:defaultColor="@color/brown_300" />
+            app:defaultColor="@color/main_brown" />
 
         <com.tongban.corelib.widget.view.ChangeColorView
             android:id="@+id/ccv_circle"
@@ -53,11 +52,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            app:changeColor="@color/theme_red"
+            app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_recommend_normal"
             app:changeText="@string/group"
             app:changeTextSize="12sp"
-            app:defaultColor="@color/brown_300" />
+            app:defaultColor="@color/main_brown" />
     </LinearLayout>
 
 

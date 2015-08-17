@@ -12,7 +12,7 @@
         android:layout_marginBottom="8dp"
         android:singleLine="true"
         android:text="话题标题"
-        android:textColor="@color/black"
+        android:textColor="@color/main_black"
         android:textSize="16sp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_below="@+id/tv_topic_name"
         android:layout_marginBottom="8dp"
         android:text="话题内容"
-        android:textColor="@color/grey_500" />
+        android:textColor="@color/normal_dark_grey" />
 
     <com.tongban.im.widget.view.ChildGridView
         android:id="@+id/gv_content"
