@@ -95,10 +95,20 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                 topic.setContentType(Topic.IMAGE);
                 List<String> smallUrls = new ArrayList<>();
                 smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
+                smallUrls.add("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
+                smallUrls.add("http://pic2.nipic.com/20090427/2390580_091546018_2.jpg");
+                smallUrls.add("http://pic2.nipic.com/20090413/406638_125424003_2.jpg");
+                smallUrls.add("http://pic25.nipic.com/20121115/6357173_141620329300_2.jpg");
+                smallUrls.add("http://image.tianjimedia.com/uploadImages/2012/236/5UADNJV31013.jpg");
+                smallUrls.add("http://pic31.nipic.com/20130708/12246968_161410243000_2.jpg");
+                smallUrls.add("http://pic.58pic.com/58pic/11/10/80/20X58PICzs8.jpg");
+                smallUrls.add("http://img3.3lian.com/2013/s1/20/d/56.jpg");
+                smallUrls.add("http://image.tianjimedia.com/uploadImages/2013/022/66DHZ1AXR1IT.jpg");
+                smallUrls.add("http://img3.3lian.com/2013/s1/20/d/57.jpg");
+                smallUrls.add("http://f0.topit.me/0/9b/cd/11438440895facd9b0o.jpg");
+                smallUrls.add("http://www.loveq.cn/store/photo/423/796/423796/328954/1235287844929077825.jpg");
+                smallUrls.add("http://pic.58pic.com/58pic/13/87/82/27Q58PICYje_1024.jpg");
+                smallUrls.add("http://img.taopic.com/uploads/allimg/110915/15-1109150Q30812.jpg");
                 topic.setSmallUrl(smallUrls);
             }
             topic.setTopicContent("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
