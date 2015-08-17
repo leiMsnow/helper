@@ -13,7 +13,7 @@
     <!--聊天设置左侧文本样式-->
     <style name="ChatSettingLeftText">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textColor">@color/brown_300</item>
+        <item name="android:textColor">@color/main_brown</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!--聊天设置右侧文本样式-->

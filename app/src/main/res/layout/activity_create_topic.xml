@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_200">
+    android:background="@color/weak_grey">
 
     <include
         android:id="@+id/toolbar"
@@ -17,7 +17,7 @@
         android:gravity="center"
         android:hint="@string/input_topic"
         android:minHeight="80dp"
-        android:textColorHint="@color/grey_300"
+        android:textColorHint="@color/normal_light_grey"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -39,7 +39,7 @@
             android:minHeight="80dp"
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
-            android:textColorHint="@color/grey_300"
+            android:textColorHint="@color/normal_light_grey"
             android:textSize="16sp" />
 
         <GridView

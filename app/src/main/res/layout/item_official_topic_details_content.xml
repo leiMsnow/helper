@@ -45,14 +45,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:text="【产品介绍】"
-        android:textColor="@color/red_500" />
+        android:textColor="@color/main_deep_orange" />
 
     <TextView
         android:id="@+id/tv_product_introduce_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_dark_grey"
         android:textSize="14sp" />
 
     <TextView
@@ -62,14 +62,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:text="【产品参数】"
-        android:textColor="@color/red_500" />
+        android:textColor="@color/main_deep_orange" />
 
     <TextView
         android:id="@+id/tv_product_parameters_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_dark_grey"
         android:textSize="14sp" />
 
     <TextView
@@ -79,14 +79,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:text="【产品优势】"
-        android:textColor="@color/red_500" />
+        android:textColor="@color/main_deep_orange" />
 
     <TextView
         android:id="@+id/tv_product_advantage_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_dark_grey"
         android:textSize="14sp" />
 
     <TextView
@@ -96,14 +96,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:text="【产品不足】"
-        android:textColor="@color/red_500" />
+        android:textColor="@color/main_deep_orange" />
 
     <TextView
         android:id="@+id/tv_product_disadvantage_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_dark_grey"
         android:textSize="14sp" />
 
     <RelativeLayout

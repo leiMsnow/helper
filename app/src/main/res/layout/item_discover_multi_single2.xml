@@ -16,10 +16,7 @@
         android:text="Oh~my baby!Baby 防晒品"
         android:textSize="16sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_200" />
+    <View style="@style/HorizontalLine" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,11 +33,9 @@
             android:src="@mipmap/ic_img_profile_bg" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
+            style="@style/VerticalLine"
             android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="@color/grey_200" />
+            android:layout_marginRight="4dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -56,12 +51,11 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_img_profile_bg" />
 
+
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                style="@style/HorizontalLine"
                 android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/grey_200" />
+                android:layout_marginTop="4dp" />
             <!-- 右下方单品图 -->
             <ImageView
                 android:id="@+id/iv_single_bottom"
@@ -75,10 +69,7 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_200" />
+    <View style="@style/HorizontalLine" />
     <!-- 收藏数量 -->
     <TextView
         android:id="@+id/tv_collect_no"

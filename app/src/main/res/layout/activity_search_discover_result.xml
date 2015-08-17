@@ -21,9 +21,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            app:changeColor="@color/theme_red"
+            app:changeColor="@color/main_deep_orange"
             app:changeText="@string/multiple_product"
-            app:defaultColor="@color/grey_500" />
+            app:defaultColor="@color/normal_dark_grey" />
 
 
         <com.tongban.corelib.widget.view.ChangeColorView
@@ -32,9 +32,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="4dp"
-            app:changeColor="@color/theme_red"
+            app:changeColor="@color/main_deep_orange"
             app:changeText="@string/single_product"
-            app:defaultColor="@color/grey_500" />
+            app:defaultColor="@color/normal_dark_grey" />
 
     </LinearLayout>
 
@@ -42,7 +42,7 @@
         android:id="@+id/v_indicator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/theme_red" />
+        android:background="@color/main_deep_orange" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_search_result"

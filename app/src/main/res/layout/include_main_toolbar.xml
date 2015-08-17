@@ -49,8 +49,5 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_300" />
+    <View style="@style/HorizontalLine" />
 </LinearLayout>

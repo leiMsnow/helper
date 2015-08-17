@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="40dp"
-    android:background="@drawable/selector_white_to_gray">
+    android:background="@drawable/selector_white_to_gray"
+    android:minHeight="40dp">
 
     <TextView
         android:id="@+id/tv_poi_name"
@@ -14,7 +14,7 @@
         android:layout_toLeftOf="@+id/iv_poi_selected"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textColor="@color/black" />
+        android:textColor="@color/main_black" />
 
     <TextView
         android:id="@+id/tv_poi_address"
@@ -26,7 +26,7 @@
         android:layout_toLeftOf="@+id/iv_poi_selected"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
     <ImageView
@@ -38,12 +38,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:src="@mipmap/ic_poi_selected"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tv_poi_address"
-        android:background="@color/grey_300" />
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/tv_poi_address" />
 
 </RelativeLayout>

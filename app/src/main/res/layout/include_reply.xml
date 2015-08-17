@@ -27,7 +27,7 @@
         android:layout_toRightOf="@+id/iv_add_img"
         android:background="@drawable/selector_edit_text"
         android:hint="@string/create_reply"
-        android:textColorHint="@color/grey_500"
+        android:textColorHint="@color/normal_grey"
         android:textSize="14sp" />
 
     <ImageView

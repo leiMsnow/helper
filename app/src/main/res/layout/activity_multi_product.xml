@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/brown_200"
+    android:background="@color/weak_grey"
     android:orientation="vertical">
     <!-- 专题头图 -->
     <ImageView
@@ -38,21 +38,21 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="夏日"
-                android:textColor="@color/red_300" />
+                android:textColor="@color/main_deep_orange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="防蚊"
-                android:textColor="@color/red_300" />
+                android:textColor="@color/main_deep_orange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="进口"
-                android:textColor="@color/red_300" />
+                android:textColor="@color/main_deep_orange" />
         </com.tongban.corelib.widget.view.FlowLayout>
         <!-- 发表人信息 -->
         <RelativeLayout
@@ -85,7 +85,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/tv_user_name"
                 android:text="宝宝三岁,幼儿教师"
-                android:textColor="@color/grey_500" />
+                android:textColor="@color/normal_grey" />
             <!-- 发表时间 -->
             <TextView
                 android:id="@+id/tv_create_time"
@@ -96,10 +96,7 @@
                 android:text="11:53 AM" />
         </RelativeLayout>
         <!-- 分割线 -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey_300" />
+        <View style="@style/HorizontalLine" />
         <!-- 专题描述 -->
         <TextView
             android:id="@+id/tv_desc"
@@ -133,10 +130,8 @@
             android:layout_marginTop="8dp"
             android:text="相关话题" />
         <!-- 分割线 -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey_300" />
+        <View style="@style/HorizontalLine" />
+
         <!-- 相关话题列表 -->
         <ListView
             android:id="@+id/lv_topic"

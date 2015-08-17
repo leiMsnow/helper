@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey_200"
+    android:background="@color/weak_grey"
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_toRightOf="@+id/iv_topic_icon"
                 android:padding="4dp"
                 android:text="大象爸爸"
-                android:textColor="@color/grey_500"
+                android:textColor="@color/normal_grey"
                 android:textSize="12sp" />
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/tv_nickname"
                 android:text="回复我"
-                android:textColor="@color/grey_300"
+                android:textColor="@color/normal_grey"
                 android:textSize="12sp" />
 
             <TextView
@@ -78,12 +78,12 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="回复"
-            android:textColor="@color/red_300" />
+            android:textColor="@color/main_deep_orange" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/grey_200" />
+            android:background="@color/normal_light_grey" />
 
         <TextView
             android:id="@+id/tv_topic_content"

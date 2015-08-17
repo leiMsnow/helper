@@ -28,7 +28,7 @@
             style="@style/ClearEditTextStyle"
             android:digits="@string/digits"
             android:hint="@string/input_register_phone_num"
-            android:textColorHint="@color/grey_500"
+            android:textColorHint="@color/normal_grey"
             />
     </LinearLayout>
 

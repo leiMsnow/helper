@@ -83,7 +83,7 @@
             android:background="@null"
             android:digits="@string/digits"
             android:hint="@string/hint_pwd"
-            android:textColorHint="@color/grey_500" />
+            android:textColorHint="@color/normal_grey" />
     </LinearLayout>
 
     <Button

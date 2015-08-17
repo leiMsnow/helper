@@ -2,7 +2,7 @@
 
     <style name="AppTheme.White.Base" >
         <item name="android:statusBarColor">@color/black</item>
-        <item name="android:navigationBarColor">@color/grey_700</item>
+        <item name="android:navigationBarColor">@color/normal_dark_grey</item>
     </style>
 
 </resources>

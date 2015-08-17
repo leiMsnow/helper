@@ -4,10 +4,8 @@
     android:layout_height="40dp">
 
     <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/discover_time_line_left_margin"
-        android:background="@color/grey_500" />
+        style="@style/VerticalLine"
+        android:layout_marginLeft="@dimen/discover_time_line_left_margin" />
 
     <View
         android:id="@+id/v_circle"
