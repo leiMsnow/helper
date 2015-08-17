@@ -74,7 +74,7 @@ public class LoadingActivity extends BaseToolBarActivity {
      * 获取七牛token成功的回调
      */
     public void onEventMainThread(QiniuToken qiniuToken) {
-        SPUtils.put(mContext, Consts.QINIU_TOKEN, qiniuToken.getUploadToken());
+        SPUtils.put(mContext, Consts.QINIU_TOKEN, qiniuToken.getUpload_token());
     }
 
     public void onEventMainThread(Object obj) {

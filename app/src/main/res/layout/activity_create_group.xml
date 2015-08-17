@@ -59,14 +59,6 @@
                 android:hint="@string/create_age"
                 android:visibility="gone" />
 
-            <!-- 同学 - 选择学校-->
-            <TextView
-                android:id="@+id/tv_school"
-                style="@style/CreateGroupTextStyle"
-                android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_label"
-                android:hint="@string/create_school"
-                android:visibility="gone" />
 
             <!-- 生活 - 选择类型-->
             <TextView

@@ -6,23 +6,23 @@ package com.tongban.im.model;
  */
 public class QiniuToken {
     // 过期时间
-    private int expireTime;
+    private int expire_time;
     // 上传token
-    private String uploadToken;
+    private String upload_token;
 
-    public int getExpireTime() {
-        return expireTime;
+    public int getExpire_time() {
+        return expire_time;
     }
 
-    public void setExpireTime(int expireTime) {
-        this.expireTime = expireTime;
+    public void setExpire_time(int expire_time) {
+        this.expire_time = expire_time;
     }
 
-    public String getUploadToken() {
-        return uploadToken;
+    public String getUpload_token() {
+        return upload_token;
     }
 
-    public void setUploadToken(String uploadToken) {
-        this.uploadToken = uploadToken;
+    public void setUpload_token(String upload_token) {
+        this.upload_token = upload_token;
     }
 }

@@ -21,6 +21,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.GroupType;
 
 /**
  * poi搜索功能
@@ -92,6 +93,7 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
         getMenuInflater().inflate(R.menu.menu_search_poi, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint(mGroupType == GroupType.CLASSMATE ? "输入宝宝学校" : "输入附近的位置");
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewCollapsed();
         return true;
@@ -107,7 +109,7 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
         lvLocation.setResultSize(result.getCurrentPageCapacity());
         if (result == null
                 || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-            ToastUtil.getInstance(mContext).showToast("未找到您当前的位置");
+//            ToastUtil.getInstance(mContext).showToast("未找到您当前的位置");
             return;
         }
         if (result.error == SearchResult.ERRORNO.NO_ERROR) {
@@ -122,7 +124,7 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
 
     public void onGetPoiDetailResult(PoiDetailResult result) {
         if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-            ToastUtil.getInstance(mContext).showToast("未找到您当前的位置");
+//            ToastUtil.getInstance(mContext).showToast("未找到您当前的位置");
         } else {
             ToastUtil.getInstance(mContext).showToast(result.getName() + ": " +
                     result.getAddress());

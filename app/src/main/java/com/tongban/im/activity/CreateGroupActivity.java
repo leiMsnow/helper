@@ -16,11 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -29,6 +32,8 @@ import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Calendar;
@@ -49,7 +54,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     private ImageView ivSetGroupIcon;
     private EditText etGroupName, etDesc;
-    private TextView tvGroupLabel, tvLocation, tvBirthday, tvSchool, tvLife;
+    private TextView tvGroupLabel, tvLocation, tvBirthday, tvLife;
     private CheckBox chbSecret, chbAgree;
     private Button btnSubmit;
 
@@ -59,7 +64,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     private String titleName;
 
     private DatePickerDialog mDatePickerDialog;
-
+    private byte[] mGroupIcon;
     /**
      * 经纬度
      */
@@ -76,7 +81,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocationUtils.get(mContext).start();
         setTitle(titleName.equals("") ? getString(R.string.create_group) :
                 getString(R.string.create) + titleName);
 
@@ -105,7 +109,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvLocation = (TextView) findViewById(R.id.tv_group_location);
 
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
-        tvSchool = (TextView) findViewById(R.id.tv_school);
         tvLife = (TextView) findViewById(R.id.tv_life);
 
         chbSecret = (CheckBox) findViewById(R.id.chb_secret);
@@ -126,7 +129,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 tvLife.setVisibility(View.VISIBLE);
                 break;
             case GroupType.CLASSMATE:
-                tvSchool.setVisibility(View.VISIBLE);
+                tvLocation.setHint(R.string.create_school);
                 break;
         }
     }
@@ -139,7 +142,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvGroupLabel.setOnClickListener(this);
         tvBirthday.setOnClickListener(this);
         tvLife.setOnClickListener(this);
-        tvSchool.setOnClickListener(this);
 
         chbAgree.setOnCheckedChangeListener(this);
         chbSecret.setOnCheckedChangeListener(this);
@@ -149,7 +151,13 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initData() {
-
+        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
+        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
+        province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
+        city = (String) SPUtils.get(mContext, Consts.CITY, "");
+        county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
+        address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+        setLocationInfo();
     }
 
     @Override
@@ -157,17 +165,24 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         if (v == ivSetGroupIcon) {
             createDialog();
         } else if (v == btnSubmit) {
-            String groupName = etGroupName.getText().toString().trim();
+            final String groupName = etGroupName.getText().toString().trim();
             if (TextUtils.isEmpty(groupName)) {
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
                 return;
             }
-            declaration = etDesc.getText().toString().trim();
-            groupAvatar.put("max", "");
-            groupAvatar.put("min", "");
-            groupAvatar.put("mid", "");
-            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-                    birthday, tags, declaration, groupAvatar, isSearch, this);
+
+            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UpCompletionHandler() {
+                @Override
+                public void complete(String key, ResponseInfo info, JSONObject response) {
+                    declaration = etDesc.getText().toString().trim();
+                    groupAvatar.put("max", "");
+                    groupAvatar.put("min", "");
+                    groupAvatar.put("mid", "");
+//                    GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+//                            birthday, tags, declaration, groupAvatar, isSearch, CreateGroupActivity.this);
+                }
+            });
+
         } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, SearchPoiActivity.class);
             Bundle bundle = new Bundle();
@@ -214,13 +229,15 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             intent.putExtra("newFile", newFile);
             startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
         } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
-            byte[] b = data.getByteArrayExtra("bitmap");
-            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            mGroupIcon = data.getByteArrayExtra("bitmap");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(mGroupIcon, 0, mGroupIcon.length);
             ivSetGroupIcon.setImageBitmap(bitmap);
         } else if (requestCode == SELECT_LOCATION) {
             longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
             latitude = data.getDoubleExtra(Consts.LATITUDE, 0.0);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
+            tvLocation.setText(address);
+
             setLocationInfo();
         }
     }
@@ -261,14 +278,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             // 创建成功
             ToastUtil.getInstance(mContext).showToast("创建成功");
             finish();
-        } else if (obj instanceof BDLocation) {
-            longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
-            latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
-            province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
-            city = (String) SPUtils.get(mContext, Consts.CITY, "");
-            county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
-            address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
-            setLocationInfo();
         } else if (obj instanceof BaseEvent.LabelEvent) {
             tags = ((BaseEvent.LabelEvent) obj).getLabel();
             tvGroupLabel.setText(tags);
@@ -277,7 +286,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     //设置当前位置
     private void setLocationInfo() {
-        tvLocation.setText(address);
         address = province + "," + city + "," + county + "," + address;
     }
 
