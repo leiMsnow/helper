@@ -21,24 +21,24 @@
             android:layout_weight="1">
 
             <com.tongban.corelib.widget.view.ChangeColorView
-                android:id="@+id/ccv_multiple_product"
-                android:layout_width="40dp"
+                android:id="@+id/ccv_my_send_topic"
+                android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:changeColor="@color/theme_red"
-                app:changeText="@string/multiple_product"
+                app:changeText="@string/my_send_topic"
                 app:defaultColor="@color/grey_500" />
 
             <TextView
-                android:id="@+id/tv_multiple_product_num"
+                android:id="@+id/tv_my_send_topic"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/ccv_multiple_product"
+                android:layout_toRightOf="@+id/ccv_my_send_topic"
                 android:gravity="center_vertical"
-                android:paddingTop="8dp"
+                android:paddingTop="3dp"
                 android:text="123"
                 android:textColor="@color/grey_500"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -47,24 +47,24 @@
             android:layout_weight="1">
 
             <com.tongban.corelib.widget.view.ChangeColorView
-                android:id="@+id/ccv_single_product"
-                android:layout_width="40dp"
+                android:id="@+id/ccv_my_receive_topic"
+                android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:changeColor="@color/theme_red"
-                app:changeText="@string/single_product"
+                app:changeText="@string/my_receive_topic"
                 app:defaultColor="@color/grey_500" />
 
             <TextView
-                android:id="@+id/tv_single_product_num"
+                android:id="@+id/tv_my_receive_topic"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/ccv_single_product"
+                android:layout_toRightOf="@+id/ccv_my_receive_topic"
                 android:gravity="center_vertical"
-                android:paddingTop="8dp"
+                android:paddingTop="3dp"
                 android:text="23"
                 android:textColor="@color/grey_500"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
 

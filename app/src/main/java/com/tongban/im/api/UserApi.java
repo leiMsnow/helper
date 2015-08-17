@@ -31,22 +31,6 @@ public class UserApi extends BaseApi {
 
     private static UserApi mApi;
 
-    /**
-     * 注册
-     */
-    public final static String REGISTER = "user/register/1";
-    /**
-     * 第三方注册
-     */
-    public final static String THIRD_REGISTER = "user/register/2";
-    /**
-     * 获取手机验证码
-     */
-    public final static String FETCH = "sms/fetch";
-    /**
-     * 校验手机验证码
-     */
-    public final static String EXAM = "sms/exam";
 
     /**
      * 登录
@@ -65,6 +49,18 @@ public class UserApi extends BaseApi {
      * 获取用户信息
      */
     public final static String GET_USER_INFO = "user/info";
+    /**
+     * 注册第一步，获取手机验证码
+     */
+    public final static String SMS_REQUIRE = "verifycode/sms/require";
+    /**
+     * 注册第二步，验证手机验证码
+     */
+    public final static String VERIFY_CODE = "verifycode/sms/verify";
+    /**
+     * 注册
+     */
+    public final static String REGISTER = "user/register/1";
 
     private UserApi(Context context) {
         super(context);
@@ -82,17 +78,91 @@ public class UserApi extends BaseApi {
     }
 
     /**
-     * 注册,第一步
+     * 获取手机验证码,注册第一步
      *
-     * @param nickName    昵称
      * @param mobilePhone 手机号
-     * @param password    密码
      * @param callback    回调结果
      */
-    public void register(String nickName, String mobilePhone, String password, final ApiCallback callback) {
+    public void getSMSCode(String mobilePhone, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("nick_name", nickName);
+        mParams.put("mobile_phone", mobilePhone);
+        mParams.put("verify_type", 1);
+
+        simpleRequest(SMS_REQUIRE, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
+                        });
+                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
+                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE);
+                callback.onComplete(registerEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(DisplayType.None, errorMessage);
+                if (errorMessage instanceof ApiResult) {
+                    EventBus.getDefault().post(((ApiResult) errorMessage).getStatusDesc());
+                }
+            }
+
+        });
+    }
+
+    /**
+     * 校验手机验证码，注册第二步
+     *
+     * @param verifyId   验证码Id
+     * @param verifyCode 验证码
+     * @param callback
+     */
+    public void verifyCode(String verifyId, String verifyCode, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("verify_id", verifyId);
+        mParams.put("verify_code", verifyCode);
+
+        simpleRequest(VERIFY_CODE, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
+                        });
+                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
+                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE);
+                callback.onComplete(registerEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+
+        });
+    }
+
+    /**
+     * 注册，注册第三步
+     *
+     * @param mobilePhone 手机号
+     * @param password    密码
+     * @param callback
+     */
+    public void register(String mobilePhone, String password, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("password", password);
 
@@ -108,89 +178,7 @@ public class UserApi extends BaseApi {
                         new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
                         });
                 BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.REG);
-
-                callback.onComplete(registerEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(DisplayType.None, errorMessage);
-                if (errorMessage instanceof ApiResult) {
-                    JSONObject jsonObject = (JSONObject) ((ApiResult) errorMessage).getData();
-                    ((ApiResult) errorMessage).setData(jsonObject.opt("user_id"));
-                    EventBus.getDefault().post(errorMessage);
-                }
-            }
-
-        });
-    }
-
-    /**
-     * 获取手机验证码，注册第二步
-     *
-     * @param userId      从注册第一步拿到的userid
-     * @param mobilePhone 手机号
-     * @param verifyType  验证类型
-     * @param callback
-     */
-    public void fetch(String userId, String mobilePhone, String verifyType, final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        mParams.put("user_id", userId);
-        mParams.put("mobile_phone", mobilePhone);
-        mParams.put("verify_type", verifyType);
-
-        simpleRequest(FETCH, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
-                        });
-                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.FETCH);
-                callback.onComplete(registerEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-
-        });
-    }
-
-    /**
-     * 校验手机验证码，注册第三步
-     *
-     * @param verifyId   验证码ID
-     * @param verifyCode 验证码code
-     * @param callback
-     */
-    public void exam(String verifyId, String verifyCode, final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        mParams.put("verify_id", verifyId);
-        mParams.put("verify_code", verifyCode);
-
-        simpleRequest(EXAM, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
-                        });
-                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.EXAM);
+                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.REGISTER);
                 callback.onComplete(registerEvent);
             }
 

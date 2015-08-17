@@ -105,21 +105,21 @@ public class BaseEvent {
 
         public enum RegisterEnum {
             /**
-             * 注册第一步，填写用户信息
+             * 注册第一步，获取验证码
              */
-            REG,
+            SMS_CODE,
+            /**
+             * 注册第二步，验证验证码
+             */
+            VERIFY_CODE,
+            /**
+             * 注册第三步，提交用户信息和验证码注册
+             */
+            REGISTER,
             /**
              * 第三方注册，授权
              */
-            THIRD_REG,
-            /**
-             * 注册第二步，根据userid获取验证码
-             */
-            FETCH,
-            /**
-             * 注册第三步，校验验证码
-             */
-            EXAM
+            THIRD_REG
         }
 
         //注册第一步返回的userid

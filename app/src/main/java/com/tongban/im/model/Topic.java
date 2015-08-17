@@ -24,6 +24,40 @@ public class Topic implements Parcelable {
     private String topicTime;
     //话题生成地点
     private String topicAddress;
+    //话题评论
+    private TopicReply topicReply;
+
+    public Topic(Parcel in) {
+        topicName = in.readString();
+        topicReplyNum = in.readString();
+        topicPraiseNum = in.readString();
+        topicTime = in.readString();
+        topicAddress = in.readString();
+        topicContent = in.readString();
+        contentType = in.readInt();
+        smallUrl = in.createStringArrayList();
+        bigUrl = in.createStringArrayList();
+    }
+
+    public static final Creator<Topic> CREATOR = new Creator<Topic>() {
+        @Override
+        public Topic createFromParcel(Parcel in) {
+            return new Topic(in);
+        }
+
+        @Override
+        public Topic[] newArray(int size) {
+            return new Topic[size];
+        }
+    };
+
+    public TopicReply getTopicReply() {
+        return topicReply;
+    }
+
+    public void setTopicReply(TopicReply topicReply) {
+        this.topicReply = topicReply;
+    }
 
     public String getTopicAddress() {
         return topicAddress;
@@ -124,6 +158,14 @@ public class Topic implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(topicName);
+        dest.writeString(topicReplyNum);
+        dest.writeString(topicPraiseNum);
+        dest.writeString(topicTime);
+        dest.writeString(topicAddress);
+        dest.writeString(topicContent);
+        dest.writeInt(contentType);
+        dest.writeStringList(smallUrl);
+        dest.writeStringList(bigUrl);
     }
 }

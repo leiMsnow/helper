@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/lv_receive_topic_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_toolbar"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:scrollbars="none" />
+
+</FrameLayout>

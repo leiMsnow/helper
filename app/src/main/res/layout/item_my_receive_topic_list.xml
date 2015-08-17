@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_200"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selector_corner_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="8dp">
+
+            <com.tongban.corelib.widget.view.CircleImageView
+                android:id="@+id/iv_topic_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/rc_default_portrait" />
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/iv_topic_icon"
+                android:padding="4dp"
+                android:text="大象爸爸"
+                android:textColor="@color/grey_500"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_reply_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tv_nickname"
+                android:text="回复我"
+                android:textColor="@color/grey_300"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_receive_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="08-01-11:15" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_reply_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:text="少时诵诗书少时滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答答诵诗书少时诵诗书少时诵诗书少时诵诗书少时诵诗书诗水蛇山神庙" />
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@mipmap/ic_reply_count"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="回复"
+            android:textColor="@color/red_300" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey_200" />
+
+        <TextView
+            android:id="@+id/tv_topic_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="8dp"
+            android:text="兰陵缭乱哩哩啦啦兰陵缭乱哩哩啦啦凉凉快快快快快快奋斗过的电饭锅蛋糕华国锋琐琐碎碎" />
+    </LinearLayout>
+</FrameLayout>

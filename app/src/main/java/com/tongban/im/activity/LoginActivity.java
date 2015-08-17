@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +43,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected void initView() {
-        etUser = (EditText) findViewById(R.id.et_user);
+        etUser = (EditText) findViewById(R.id.et_phone_num);
         etPwd = (EditText) findViewById(R.id.et_pwd);
         tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
