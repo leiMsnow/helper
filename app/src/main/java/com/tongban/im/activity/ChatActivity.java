@@ -51,7 +51,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void initView() {
         topicLayout = findViewById(R.id.fl_topic);
         ivTopic = (ImageView) findViewById(R.id.iv_topic);
-        tvTopic = (TextView) findViewById(R.id.tv_topic);
+        tvTopic = (TextView) findViewById(R.id.tv_topic_num);
         tvTopicDetails = (TextView) findViewById(R.id.tv_topic_details);
     }
 

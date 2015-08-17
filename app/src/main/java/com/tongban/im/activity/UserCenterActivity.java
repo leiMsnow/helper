@@ -22,7 +22,9 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     private PullToZoomScrollViewEx lvUserCenter;
     private BadgeView fansBadgeView;
     private LinearLayout llUserInfo;
-    private RelativeLayout rlFans, rlFollow, rlTopic;
+    private RelativeLayout rlFansNum, rlFollowNum, rlTopicNum;
+    private TextView tvFans, tvFollow, tvTopic;
+    private TextView tvMyGroup, tvMyCollect, tvFeedBack, tvSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,18 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         lvUserCenter.setScrollContentView(contentView);
 
         llUserInfo = (LinearLayout) headView.findViewById(R.id.ll_user_info);
-        rlFans = (RelativeLayout) headView.findViewById(R.id.rl_fans);
-        rlFollow = (RelativeLayout) headView.findViewById(R.id.rl_follow);
-        rlTopic = (RelativeLayout) headView.findViewById(R.id.rl_topic);
+        rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
+        rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
+        rlTopicNum = (RelativeLayout) headView.findViewById(R.id.rl_topic_num);
+
+        tvFans = (TextView) headView.findViewById(R.id.tv_fans);
+        tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
+        tvTopic = (TextView) headView.findViewById(R.id.tv_topic);
+
+        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_group);
+        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
+        tvFeedBack = (TextView) contentView.findViewById(R.id.tv_feedback);
+        tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -65,25 +76,58 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     protected void initListener() {
         llUserInfo.setOnClickListener(this);
-        rlFans.setOnClickListener(this);
-        rlFollow.setOnClickListener(this);
-        rlTopic.setOnClickListener(this);
+        rlFansNum.setOnClickListener(this);
+        rlFollowNum.setOnClickListener(this);
+        rlTopicNum.setOnClickListener(this);
+
+        tvMyGroup.setOnClickListener(this);
+        tvMyCollect.setOnClickListener(this);
+        tvFeedBack.setOnClickListener(this);
+        tvSettings.setOnClickListener(this);
+
+        tvFans.setOnClickListener(this);
+        tvFollow.setOnClickListener(this);
+        tvTopic.setOnClickListener(this);
+
     }
 
 
     @Override
     public void onClick(View v) {
+        //跳转到个人资料界面
         if (v == llUserInfo) {
             startActivity(new Intent(this, PersonalDataActivity.class));
-        } else if (v == rlFans) {
+        }
+        //跳转到粉丝界面
+        else if (v == rlFansNum || v == tvFans) {
             Intent intent = new Intent(this, MyInfoActivity.class);
             intent.putExtra("Tag", "Fans");
             startActivity(intent);
-        } else if (v == rlFollow) {
+        }
+        //跳转到关注界面
+        else if (v == rlFollowNum || v == tvFollow) {
             Intent intent = new Intent(this, MyInfoActivity.class);
             intent.putExtra("Tag", "Follow");
             startActivity(intent);
-        } else if (v == rlTopic) {
+        }
+        //跳转到话题界面
+        else if (v == rlTopicNum || v == tvTopic) {
+
+        }
+        //跳转到我的圈子界面
+        else if (v == tvMyGroup) {
+
+        }
+        //跳转到我的收藏界面
+        else if (v == tvMyCollect) {
+
+        }
+        //跳转到意见反馈界面
+        else if (v == tvFeedBack) {
+
+        }
+        //跳转到设置界面
+        else if (v == tvSettings) {
 
         }
     }

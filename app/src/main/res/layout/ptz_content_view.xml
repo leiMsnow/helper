@@ -7,6 +7,7 @@
 
 
     <TextView
+        android:id="@+id/tv_my_group"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
@@ -17,6 +18,7 @@
         android:text="@string/my_group" />
 
     <TextView
+        android:id="@+id/tv_my_collect"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
@@ -27,6 +29,7 @@
         android:text="@string/my_collect" />
 
     <TextView
+        android:id="@+id/tv_feedback"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="1dp"
@@ -37,6 +40,7 @@
         android:text="@string/feedback" />
 
     <TextView
+        android:id="@+id/tv_settings"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/selector_white_to_gray"

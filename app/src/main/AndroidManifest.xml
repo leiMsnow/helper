@@ -178,7 +178,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.FindPwdActivity" />
         <activity android:name=".activity.PersonalDataActivity" />
-        <activity android:name=".activity.MyInfoActivity"></activity>
+        <activity android:name=".activity.MyInfoActivity" />
+        <activity android:name=".activity.MyGroupActivity"></activity>
+        <activity android:name=".activity.MyCollectActivity"></activity>
     </application>
 
 </manifest>
