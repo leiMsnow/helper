@@ -5,7 +5,7 @@ import android.widget.FrameLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.user.InputPhoneFragment;
-import com.tongban.im.fragment.user.ResetPwdFragment;
+import com.tongban.im.fragment.user.ReSetPwdFragment;
 
 /**
  * 找回密码界面
@@ -16,7 +16,7 @@ public class FindPwdActivity extends BaseToolBarActivity {
     private FrameLayout flReplasedFragment;
 
     private InputPhoneFragment mInputPhoneFragment;
-    private ResetPwdFragment mResetPwdFragment;
+    private ReSetPwdFragment mResetPwdFragment;
 
     @Override
     protected int getLayoutRes() {

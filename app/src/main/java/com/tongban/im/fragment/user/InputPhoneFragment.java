@@ -17,7 +17,7 @@ public class InputPhoneFragment extends BaseApiFragment implements View.OnClickL
     private EditText etInputPhone;
     private Button btnSubmit;
 
-    private ResetPwdFragment mResetPwdFragment;
+    private ReSetPwdFragment mResetPwdFragment;
 
     private String mInputPhone;
 
@@ -46,7 +46,7 @@ public class InputPhoneFragment extends BaseApiFragment implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (v == btnSubmit) {
-            mResetPwdFragment = new ResetPwdFragment();
+            mResetPwdFragment = new ReSetPwdFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             Bundle bundle=new Bundle();
             bundle.putString("mInputPhone",mInputPhone);

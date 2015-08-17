@@ -1,4 +1,4 @@
-package com.tongban.im.fragment;
+package com.tongban.im.fragment.user;
 
 
 import android.os.Bundle;
