@@ -48,18 +48,18 @@ public class ApiListResult<T> {
         /**
          * 列表数据
          */
-        public List<T> searchResult;
+        public List<T> result;
         /**
          * 分页信息
          */
         public Pagination pagination;
 
-        public List<T> getSearchResult() {
-            return searchResult;
+        public List<T> getResult() {
+            return result;
         }
 
-        public void setSearchResult(List<T> searchResult) {
-            this.searchResult = searchResult;
+        public void setResult(List<T> result) {
+            this.result = result;
         }
 
         public Pagination getPagination() {
