@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.LocationApi;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.QiniuToken;
 import com.tongban.im.model.User;
 import com.tongban.im.utils.LocationUtils;
 
@@ -54,10 +52,6 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-//        RongCloudEvent.getInstance().
-//                connectIM("lyS2WqphPm3WxQ4b3HSBqpfvs6iY4hdfHmjaBXqoM0uZm5Omq/97zX7GG7CiHr1l34GaS+C+U15Wz8IEWh/ST9vZVNrAnQHVjpmzZkfb11n7rZgLoyeYvg==");
-//        startActivity(new Intent(mContext, MainActivity.class));
-//        finish();
         mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
         if (mToken.equals("")) {
             startActivity(new Intent(mContext, LoginActivity.class));
@@ -66,12 +60,21 @@ public class LoadingActivity extends BaseToolBarActivity {
             UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
             LocationUtils.get(mContext).start();
         }
+        // 获取七牛token
+        FileUploadApi.getInstance().fetchUploadToken(this);
     }
 
     public void onEventMainThread(User user) {
         RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
         startActivity(new Intent(mContext, MainActivity.class));
         finish();
+    }
+
+    /**
+     * 获取七牛token成功的回调
+     */
+    public void onEventMainThread(QiniuToken qiniuToken) {
+        SPUtils.put(mContext, Consts.QINIU_TOKEN, qiniuToken.getUploadToken());
     }
 
     public void onEventMainThread(Object obj) {
@@ -90,10 +93,9 @@ public class LoadingActivity extends BaseToolBarActivity {
             int addressType = 0;
             LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
                     location, addressType, LoadingActivity.this);
-        }
-        else if(obj instanceof String){
+        } else if (obj instanceof String) {
             RongCloudEvent.getInstance().
-                    connectIM(SPUtils.get(mContext,Consts.IM_BIND_TOKEN,"").toString());
+                    connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
             startActivity(new Intent(mContext, MainActivity.class));
             finish();
         }

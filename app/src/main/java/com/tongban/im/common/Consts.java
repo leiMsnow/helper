@@ -14,6 +14,10 @@ public class Consts {
      */
     public static final String FREEAUTH_TOKEN = "FREEAUTH_TOKEN";
     /**
+     * 七牛上传的token
+     */
+    public static final String QINIU_TOKEN = "QINIU_TOKEN";
+    /**
      * 用户id
      */
     public static final String USER_ID = "USER_ID";

@@ -14,7 +14,6 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.utils.CheckID;
 
@@ -27,7 +26,7 @@ import java.util.Map;
 /**
  * Created by zhangleilei on 15/7/8.
  */
-public class BaseApi<API extends BaseApi> {
+public class BaseApi {
 
     protected Context mContext;
     // 服务器地址存储标示

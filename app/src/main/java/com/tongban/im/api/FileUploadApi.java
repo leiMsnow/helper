@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.Recorder;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -11,18 +13,23 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
 import com.qiniu.android.storage.Zone;
 import com.qiniu.android.storage.persistent.FileRecorder;
+import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.common.Consts;
+import com.tongban.im.model.QiniuToken;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * 文件上传到七牛服务器的api
  * Created by Cheney on 15/8/6.
  */
-public class FileUploadApi {
+public class FileUploadApi extends BaseApi {
     private static FileUploadApi mApi;
     private static Context mContext = App.getInstance().getApplicationContext();
     private static String dirPath = SDCardUtils.getSDCardPath() + "tongban" + File.separator
@@ -31,11 +38,18 @@ public class FileUploadApi {
     private static Configuration config;
     private static UploadManager mUploadManager;
 
+    // 获取上传token的url
+    private String UPLOAD_TOKEN = "token/require/qiniu/upload";
+
+    private FileUploadApi(Context context) {
+        super(context);
+    }
+
     public static FileUploadApi getInstance() {
         if (mApi == null) {
             synchronized (FileUploadApi.class) {
                 if (mApi == null) {
-                    mApi = new FileUploadApi();
+                    mApi = new FileUploadApi(App.getInstance());
                     try {
                         mRecorder = new FileRecorder(dirPath);
                     } catch (IOException e) {
@@ -54,6 +68,36 @@ public class FileUploadApi {
             }
         }
         return mApi;
+    }
+
+    /**
+     * 获取上传图片的Token
+     *
+     * @param callback 回调
+     */
+    public void fetchUploadToken(final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("space_name", "tongban");
+        simpleRequest(UPLOAD_TOKEN, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<QiniuToken> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<QiniuToken>>() {
+                        });
+                QiniuToken token = result.getData();
+                callback.onComplete(token);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+
+            }
+        });
     }
 
     /**
@@ -77,7 +121,7 @@ public class FileUploadApi {
      */
     public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull UpCompletionHandler callback,
                            @Nullable UploadOptions options) {
-        String token = (String) SPUtils.get(mContext, "QINIU_TOKEN", "");
+        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
         mUploadManager.put(data, key, token, callback, options);
     }
 
@@ -126,7 +170,7 @@ public class FileUploadApi {
      */
     public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UpCompletionHandler callback,
                            @Nullable UploadOptions options) {
-        String token = (String) SPUtils.get(mContext, "QINIU_TOKEN", "");
+        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
         mUploadManager.put(file, key, token, callback, options);
     }
 
