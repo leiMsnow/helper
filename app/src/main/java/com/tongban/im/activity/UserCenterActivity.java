@@ -120,7 +120,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         }
         //跳转到我的收藏界面
         else if (v == tvMyCollect) {
-
+            startActivity(new Intent(this, MyCollectActivity.class));
         }
         //跳转到意见反馈界面
         else if (v == tvFeedBack) {

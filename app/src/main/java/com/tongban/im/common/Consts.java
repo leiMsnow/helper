@@ -39,7 +39,11 @@ public class Consts {
     public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
     //话题相关key
-    public static final String KEY_TOPIC_INFO = "KEY_TOPIC_INFO";
+    /**
+     * 是否显示话题页的标题
+     */
+    public static final String KEY_TOPIC_TOOLBAR_DISPLAY = "KEY_TOPIC_TOOLBAR_DISPLAY";
+
     /**
      * 经度
      */

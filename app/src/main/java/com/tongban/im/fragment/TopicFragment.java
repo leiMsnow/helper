@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -47,6 +48,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
+    private RelativeLayout rlToolBar;
 
     private BaseEvent.TopicEvent topicEvent;
 
@@ -63,7 +65,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
-
+        rlToolBar = (RelativeLayout) mView.findViewById(R.id.rl_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         mListView = (ListView) mView.findViewById(R.id.lv_topic_list);
@@ -86,6 +88,14 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
+        if (getArguments() != null) {
+            boolean toolbarDisplay = getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true);
+            if (!toolbarDisplay) {
+                rlToolBar.setVisibility(View.GONE);
+            } else {
+                rlToolBar.setVisibility(View.VISIBLE);
+            }
+        }
         tvTitle.setText(getResources().getString(R.string.topic));
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

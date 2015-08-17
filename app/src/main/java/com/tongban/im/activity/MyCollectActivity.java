@@ -1,39 +1,129 @@
 package com.tongban.im.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
+import com.tongban.im.fragment.MultipleProductFragment;
+import com.tongban.im.fragment.SingleProductFragment;
+import com.tongban.im.fragment.TopicFragment;
 
-public class MyCollectActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 我的收藏
+ *
+ * @author fushudi
+ */
+public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.OnPageChangeListener {
+
+    private ViewPager vpResult;
+    private View mIndicator;
+    private FragmentPagerAdapter mAdapter;
+    private RelativeLayout rlToolBar;
+
+    private List<Fragment> mTabs = new ArrayList<>();
+    private List<ChangeColorView> mTabIndicator = new ArrayList<>();
+    private ChangeColorView ccvMultiple;
+    private ChangeColorView ccvSingle;
+    private ChangeColorView ccvTopic;
+
+    private int mIndicatorWidth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_collect);
+    protected int getLayoutRes() {
+        return R.layout.activity_my_collect;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_collect, menu);
-        return true;
+    protected void initView() {
+        ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_multiple_product);
+        ccvSingle = (ChangeColorView) findViewById(R.id.ccv_single_product);
+        ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
+        mIndicator = findViewById(R.id.v_indicator);
+        vpResult = (ViewPager) findViewById(R.id.vp_result);
+        ccvMultiple.setIconAlpha(1.0f);
+        initIndicator(3);
+    }
+
+    /**
+     * 设置指示器宽度
+     *
+     * @param count 分割数量
+     */
+    private void initIndicator(int count) {
+        mIndicatorWidth = ScreenUtils.getScreenWidth(mContext) / count;
+        ViewGroup.LayoutParams lp = mIndicator.getLayoutParams();
+        lp.width = mIndicatorWidth;
+        mIndicator.setLayoutParams(lp);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initData() {
+        mTabIndicator.add(ccvMultiple);
+        mTabIndicator.add(ccvSingle);
+        mTabIndicator.add(ccvTopic);
+        //专题结果
+        mTabs.add(new MultipleProductFragment());
+        //单品结果
+        mTabs.add(new SingleProductFragment());
+        //话题结果
+        TopicFragment topicFragment = new TopicFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY,false);
+        topicFragment.setArguments(bundle);
+        mTabs.add(topicFragment);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public int getCount() {
+                return mTabs.size();
+            }
+
+            @Override
+            public Fragment getItem(int arg0) {
+                return mTabs.get(arg0);
+            }
+        };
+        vpResult.setAdapter(mAdapter);
+        vpResult.addOnPageChangeListener(this);
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (positionOffset > 0) {
+            mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
+            mTabIndicator.get(position + 1).setIconAlpha(positionOffset);
         }
 
-        return super.onOptionsItemSelected(item);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mIndicator.getLayoutParams();
+        lp.leftMargin = (int) (mIndicatorWidth * (position + positionOffset));
+        mIndicator.setLayoutParams(lp);
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

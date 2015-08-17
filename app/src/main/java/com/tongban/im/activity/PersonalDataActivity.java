@@ -1,13 +1,14 @@
 package com.tongban.im.activity;
 
 
-import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
+/**
+ * 个人资料界面
+ *
+ * @author fushudi
+ */
 public class PersonalDataActivity extends BaseToolBarActivity {
 
     @Override

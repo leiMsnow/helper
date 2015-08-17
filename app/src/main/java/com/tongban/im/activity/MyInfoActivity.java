@@ -10,6 +10,10 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.FansFragment;
 import com.tongban.im.fragment.FollowFragment;
 
+/**
+ * 粉丝、关注、话题界面
+ * @author fushudi
+ */
 public class MyInfoActivity extends BaseToolBarActivity {
     private FrameLayout flReplasedFragment;
     private FansFragment mFansFragment;

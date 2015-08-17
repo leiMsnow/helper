@@ -9,7 +9,9 @@ import com.tongban.im.R;
 import com.tongban.im.adapter.SingleProductAdapter;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 单品查询结果页
+ *
+ * @author fushudi
  */
 public class SingleProductFragment extends BaseApiFragment {
     private SingleProductAdapter mAdapter;
