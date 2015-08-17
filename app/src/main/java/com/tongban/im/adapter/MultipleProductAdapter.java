@@ -8,8 +8,7 @@ import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.Group;
-import com.tongban.im.model.MultipleProduct;
+import com.tongban.im.model.MultiProduct;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ import java.util.List;
  * @author  zhangleilei
  * @createTime 2015/8/13
  */
-public class MultipleProductAdapter extends QuickAdapter<MultipleProduct> {
+public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
 
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -37,7 +36,7 @@ public class MultipleProductAdapter extends QuickAdapter<MultipleProduct> {
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, MultipleProduct item) {
+    protected void convert(BaseAdapterHelper helper, MultiProduct item) {
         helper.setImageBitmap(R.id.iv_product,
                 "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
