@@ -28,7 +28,7 @@ public class MyReceiveTopicAdapter extends QuickAdapter<Topic> {
     protected void convert(BaseAdapterHelper helper, Topic item) {
         helper.setImageBitmap(R.id.iv_topic_icon, item.getTopicReply().getPortrait_url());
         helper.setText(R.id.tv_nickname, item.getTopicReply().getReplyNickName());
-        helper.setText(R.id.tv_receive_time, item.getTopicReply().getReplyTime());
+        helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
         helper.setText(R.id.tv_reply_content, item.getTopicReply().getReplyContent());
         helper.setText(R.id.tv_topic_content, item.getTopicContent());
     }
