@@ -50,7 +50,7 @@ public class GroupFragment extends BaseApiFragment {
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
                 .build();
         chatFragment.setUri(uri);
-        recommendFragment = new RecommendCircleFragment();
+        recommendFragment = new RecommendGroupFragment();
         fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
     }

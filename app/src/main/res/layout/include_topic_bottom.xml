@@ -10,10 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:drawableLeft="@mipmap/ic_reply_count"
-        android:gravity="bottom"
+        android:gravity="center"
         android:paddingBottom="4dp"
         android:text="200"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
 
@@ -25,10 +25,10 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/tv_reply_count"
         android:drawableLeft="@mipmap/ic_reply_count"
-        android:gravity="bottom"
+        android:gravity="center"
         android:paddingBottom="4dp"
         android:text="300"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
 
@@ -41,6 +41,6 @@
         android:drawableLeft="@mipmap/ic_topic_location"
         android:gravity="center_vertical"
         android:text="北京"
-        android:textColor="@color/grey_500"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 </RelativeLayout>

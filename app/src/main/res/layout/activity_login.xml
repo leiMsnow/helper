@@ -9,7 +9,7 @@
         layout="@layout/include_toolbar" />
 
     <com.tongban.im.widget.view.ClearEditText
-        android:id="@+id/et_user"
+        android:id="@+id/et_phone_num"
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
         android:digits="@string/digits"
@@ -18,7 +18,7 @@
     <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
         style="@style/ClearEditTextStyle"
-        android:layout_below="@+id/et_user"
+        android:layout_below="@+id/et_phone_num"
         android:background="@drawable/selector_edit_text"
         android:hint="@string/pwd"
         android:inputType="textPassword" />

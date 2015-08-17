@@ -14,7 +14,7 @@ import com.tongban.im.api.TopicApi;
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
-public class RecommendCircleFragment extends BaseApiFragment {
+public class RecommendGroupFragment extends BaseApiFragment {
     private ListView mListView;
     private FloatingActionButton mFab;
 
@@ -42,7 +42,7 @@ public class RecommendCircleFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        TopicApi.getInstance().recommendTopicList(this);
+//        TopicApi.getInstance().recommendTopicList(this);
     }
 
 }

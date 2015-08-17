@@ -20,13 +20,17 @@ public class TopicApi extends BaseApi {
     private static TopicApi mApi;
 
     /**
-     * 创建话题
+     * 创建话题接口
      */
     public static final String CREATE_TOPIC = "topic/create";
     /**
      * 话题推荐接口
      */
     public static final String RECOMMEND_TOPIC_LIST = "topic/recommend/list";
+    /**
+     * 话题搜索接口
+     */
+    public static final String SEARCH_TOPIC_LIST = "topic/search/list";
 
     private TopicApi(Context context) {
         super(context);
@@ -83,14 +87,53 @@ public class TopicApi extends BaseApi {
     }
 
     /**
+     * 话题推荐
      *
      * @param callback
      */
-    public void recommendTopicList(final ApiCallback callback) {
+    public void recommendTopicList(int cursor, int pageSize, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 话题搜索
+     *
+     * @param keyword  关键字
+     * @param cursor   第几页，默认0开始
+     * @param pageSize 每页数量 最少1条
+     * @param callback
+     */
+    public void searchTopicList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("keyword", keyword);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(SEARCH_TOPIC_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)

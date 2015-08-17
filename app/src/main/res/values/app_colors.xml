@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 颜色的定义使用material_design,每种色值完全按照官网提供的来定义，
+    命名规则：color_int[_alpha],颜色_饱和度_透明度
+    颜色定义地址:http://design.1sters.com/material_design/style/color.html-->
+<resources>
+
+    <!-- 重要色-->
+    <!-- 主要按钮的描边，icon按下效果-->
+    <color name="main_deep_orange">#fb866f</color>
+    <!-- 用于导航标题，一级icon默认效果-->
+    <color name="main_brown">#794503</color>
+    <!-- 内容标题、类目名称、用户昵称等-->
+    <color name="main_black">#444444</color>
+
+    <!-- 一般色-->
+    <!-- 用户次级大面积显示文本-->
+    <color name="normal_dark_grey">#848484</color>
+    <!-- 用于次级辅助文字信息，时间等-->
+    <color name="normal_grey">#c8c8c8</color>
+    <!-- 用于分割线，标签描边等-->
+    <color name="normal_light_grey">#e6e6e6</color>
+
+    <!-- 较弱色-->
+    <!-- 用户较弱可点击文字，如注册登录、忘记密码等-->
+    <color name="weak_orange">#f7dfc5</color>
+    <!-- 用户整体背景色和搜索背景色-->
+    <color name="weak_grey">#f4f2f0</color>
+
+
+</resources>

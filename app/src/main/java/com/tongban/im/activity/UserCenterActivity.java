@@ -112,7 +112,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         }
         //跳转到话题界面
         else if (v == rlTopicNum || v == tvTopic) {
-
+            startActivity(new Intent(this, MyTopicActivity.class));
         }
         //跳转到我的圈子界面
         else if (v == tvMyGroup) {

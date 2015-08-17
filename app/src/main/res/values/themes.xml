@@ -3,10 +3,10 @@
 
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="actionMenuTextColor">@color/brown_300</item>
+        <item name="actionMenuTextColor">@color/main_brown</item>
         <item name="colorPrimaryDark">@color/grey_200</item>
         <item name="colorAccent">@color/grey_700</item>
-        <item name="android:textColorPrimary">@color/brown_300</item>
+        <item name="android:textColorPrimary">@color/main_brown</item>
         <item name="buttonBackground">@drawable/selector_btn_bg_light_blue</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>

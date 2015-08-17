@@ -9,7 +9,7 @@ import java.util.List;
  * 话题信息表
  * Created by fushudi on 2015/7/16.
  */
-public class Topic implements Parcelable {
+public class Topic  {
     //话题内容为文本
     public final static int TEXT = 0;
     //话题内容为图片
@@ -24,6 +24,17 @@ public class Topic implements Parcelable {
     private String topicTime;
     //话题生成地点
     private String topicAddress;
+    //话题评论
+    private TopicReply topicReply;
+
+
+    public TopicReply getTopicReply() {
+        return topicReply;
+    }
+
+    public void setTopicReply(TopicReply topicReply) {
+        this.topicReply = topicReply;
+    }
 
     public String getTopicAddress() {
         return topicAddress;
@@ -117,13 +128,4 @@ public class Topic implements Parcelable {
         this.topicContent = topicContent;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }

@@ -7,16 +7,16 @@
         layout="@layout/include_toolbar" />
 
     <com.tongban.im.widget.view.ClearEditText
-        android:id="@+id/et_user"
+        android:id="@+id/et_phone_num"
+        style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
         android:digits="@string/digits"
-        android:hint="手机号"
-        style="@style/ClearEditTextStyle"/>
+        android:hint="手机号" />
 
     <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
         style="@style/ClearEditTextStyle"
-        android:layout_below="@+id/et_user"
+        android:layout_below="@+id/et_phone_num"
         android:hint="密 码"
         android:inputType="textPassword" />
 
@@ -30,12 +30,12 @@
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
-            android:layout_below="@+id/et_user"
+            style="@style/ClearEditTextStyle"
+            android:layout_below="@+id/et_phone_num"
             android:layout_weight="1"
             android:background="@null"
             android:hint="验证码"
-            android:inputType="textPassword"
-            style="@style/ClearEditTextStyle"/>
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/tv_verify_code"
@@ -54,7 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_verify_code"
         android:background="@drawable/selector_cb_bg"
-        android:button="@null" />
+        android:button="@null"
+        android:checked="true" />
 
     <TextView
         android:id="@+id/tv_agree"

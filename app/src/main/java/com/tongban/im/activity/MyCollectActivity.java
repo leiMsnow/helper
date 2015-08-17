@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 我的收藏
+ * 我的收藏界面
  *
  * @author fushudi
  */
@@ -31,7 +31,6 @@ public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.
     private ViewPager vpResult;
     private View mIndicator;
     private FragmentPagerAdapter mAdapter;
-    private RelativeLayout rlToolBar;
 
     private List<Fragment> mTabs = new ArrayList<>();
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();

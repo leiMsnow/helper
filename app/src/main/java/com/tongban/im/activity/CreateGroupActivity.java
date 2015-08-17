@@ -45,8 +45,7 @@ import java.util.Map;
  *
  * @author fushudi
  */
-public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener {
+public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     public static int SELECT_LOCATION = 310;
     public static int SELECT_LABEL = 320;
@@ -74,9 +73,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
      */
     private String province, city, county, address, birthday, tags, declaration;
     private Map<String, String> groupAvatar = new HashMap<>();
-    //(1:允许搜索;0：不允许搜索)
-    private boolean isSearch = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,16 +139,13 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvBirthday.setOnClickListener(this);
         tvLife.setOnClickListener(this);
 
-        chbAgree.setOnCheckedChangeListener(this);
-        chbSecret.setOnCheckedChangeListener(this);
-
         btnSubmit.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, 0.0);
-        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, 0.0);
+        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, -1.0D);
+        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, -1.0D);
         province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
         city = (String) SPUtils.get(mContext, Consts.CITY, "");
         county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
@@ -171,17 +164,22 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 return;
             }
 
-            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UpCompletionHandler() {
-                @Override
-                public void complete(String key, ResponseInfo info, JSONObject response) {
-                    declaration = etDesc.getText().toString().trim();
-                    groupAvatar.put("max", "");
-                    groupAvatar.put("min", "");
-                    groupAvatar.put("mid", "");
-//                    GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-//                            birthday, tags, declaration, groupAvatar, isSearch, CreateGroupActivity.this);
-                }
-            });
+//            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UpCompletionHandler() {
+//                @Override
+//                public void complete(String key, ResponseInfo info, JSONObject response) {
+//
+//                }
+//            });
+            if (!chbAgree.isChecked()) {
+                ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement)+"'");
+                return;
+            }
+            declaration = etDesc.getText().toString().trim();
+            groupAvatar.put("max", "");
+            groupAvatar.put("min", "");
+            groupAvatar.put("mid", "");
+            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+                    birthday, tags, declaration, groupAvatar, chbSecret.isChecked(),this);
 
         } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, SearchPoiActivity.class);
@@ -233,8 +231,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             Bitmap bitmap = BitmapFactory.decodeByteArray(mGroupIcon, 0, mGroupIcon.length);
             ivSetGroupIcon.setImageBitmap(bitmap);
         } else if (requestCode == SELECT_LOCATION) {
-            longitude = data.getDoubleExtra(Consts.LONGITUDE, 0.0);
-            latitude = data.getDoubleExtra(Consts.LATITUDE, 0.0);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE, -1.0D);
+            latitude = data.getDoubleExtra(Consts.LATITUDE, -1.0D);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             tvLocation.setText(address);
 
@@ -287,14 +285,5 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     //设置当前位置
     private void setLocationInfo() {
         address = province + "," + city + "," + county + "," + address;
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (buttonView == chbSecret) {
-
-        } else if (buttonView == chbAgree) {
-
-        }
     }
 }
