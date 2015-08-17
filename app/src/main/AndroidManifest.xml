@@ -106,10 +106,10 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"
+        <activity android:name=".activity.topic.LoginActivity"
             android:theme="@style/AppTheme.Red.Base"/>
         <activity
-            android:name=".activity.ChatActivity"
+            android:name=".activity.group.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -122,7 +122,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity"
+        <activity android:name=".activity.user.RegisterActivity"
             android:theme="@style/AppTheme.Red.Base"/>
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
@@ -132,58 +132,58 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.GroupInfoActivity"
+            android:name=".activity.group.GroupInfoActivity"
             android:label="@string/group_settings" />
         <activity
-            android:name=".activity.CreateGroupActivity"
+            android:name=".activity.group.CreateGroupActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.SearchGroupActivity"
+            android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
             android:theme="@style/AppTheme.White.Base.Translucent" />
         <activity
-            android:name=".activity.ChooseGroupTypeActivity"
+            android:name=".activity.group.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
-        <activity android:name=".activity.PwdResetActivity" />
+        <activity android:name=".activity.user.PwdResetActivity" />
         <activity android:name=".activity.ClipImageBorderViewActivity" />
         <activity
-            android:name=".activity.TopicDetailsActivity"
+            android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.UserCenterActivity"
+            android:name=".activity.user.UserCenterActivity"
             android:label="@string/user_center" />
         <activity
-            android:name=".activity.SearchPoiActivity"
+            android:name=".activity.group.SearchPoiActivity"
             android:label="@string/select_location" />
         <activity
-            android:name=".activity.LabelListActivity"
+            android:name=".activity.group.LabelListActivity"
             android:label="@string/group_label" />
         <activity
-            android:name=".activity.CreateTopicActivity"
+            android:name=".activity.topic.CreateTopicActivity"
             android:label="@string/create_topic"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.OfficialTopicDetailsActivity"
+            android:name=".activity.topic.OfficialTopicDetailsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.SearchTopicActivity"
+            android:name=".activity.topic.SearchTopicActivity"
             android:label="@string/topic_search" />
         <activity
             android:name=".activity.PhotoViewPagerActivity"
             android:label="@string/image_display" />
         <activity
-            android:name=".activity.SearchDiscoverActivity"
+            android:name=".activity.discover.SearchDiscoverActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.SearchDiscoverResultActivity"
+            android:name=".activity.discover.SearchDiscoverResultActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.FindPwdActivity" />
-        <activity android:name=".activity.PersonalDataActivity" />
-        <activity android:name=".activity.MyInfoActivity" />
-        <activity android:name=".activity.MyGroupActivity" />
-        <activity android:name=".activity.MyCollectActivity" />
-        <activity android:name=".activity.MyTopicActivity" />
+        <activity android:name=".activity.topic.FindPwdActivity" />
+        <activity android:name=".activity.user.PersonalDataActivity" />
+        <activity android:name=".activity.user.MyInfoActivity" />
+        <activity android:name=".activity.topic.MyGroupActivity" />
+        <activity android:name=".activity.topic.MyCollectActivity" />
+        <activity android:name=".activity.user.MyTopicActivity" />
     </application>
 
 </manifest>

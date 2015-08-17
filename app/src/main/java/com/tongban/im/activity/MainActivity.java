@@ -9,9 +9,9 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.fragment.GroupFragment;
-import com.tongban.im.fragment.DiscoverFragment;
-import com.tongban.im.fragment.TopicFragment;
+import com.tongban.im.fragment.group.GroupFragment;
+import com.tongban.im.fragment.discover.DiscoverFragment;
+import com.tongban.im.fragment.topic.TopicFragment;
 
 import java.util.ArrayList;
 import java.util.List;
