@@ -13,7 +13,7 @@ import com.tongban.im.model.TopicReply;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyReceiveTopicFragment extends BaseApiFragment implements View.OnClickListener{
+public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClickListener{
     private ListView mListView;
     private MyReplyTopicAdapter mAdapter;
     @Override

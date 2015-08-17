@@ -13,7 +13,7 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.MyReceiveTopicFragment;
+import com.tongban.im.fragment.user.MyReplyTopicFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         //回复我的话题
-        mTabs.add(new MyReceiveTopicFragment());
+        mTabs.add(new MyReplyTopicFragment());
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

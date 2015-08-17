@@ -1,14 +1,11 @@
 package com.tongban.im.fragment.user;
 
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
 
+import android.widget.ListView;
+/**
+ * 关注界面
+ * @author fushudi
+ */
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.FansAdapter;

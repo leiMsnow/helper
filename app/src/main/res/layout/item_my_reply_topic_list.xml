@@ -63,7 +63,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:padding="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
             android:text="少时诵诗书少时滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答答诵诗书少时诵诗书少时诵诗书少时诵诗书少时诵诗书诗水蛇山神庙" />
 
         <TextView
@@ -73,7 +75,8 @@
             android:layout_marginBottom="8dp"
             android:drawableLeft="@mipmap/ic_reply_count"
             android:gravity="center"
-            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="回复"
             android:textColor="@color/red_300" />
 

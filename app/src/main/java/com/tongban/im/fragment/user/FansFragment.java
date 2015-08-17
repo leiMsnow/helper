@@ -11,6 +11,10 @@ import com.tongban.im.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 粉丝界面
+ * @author fushudi
+ */
 public class FansFragment extends BaseApiFragment {
     private ListView lvFansList;
     private FansAdapter mAdapter;

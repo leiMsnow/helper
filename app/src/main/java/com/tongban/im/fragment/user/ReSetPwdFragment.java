@@ -14,7 +14,10 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 
-
+/**
+ * 找回密码，第二步
+ * @author fushudi
+ */
 public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickListener, TextWatcher {
 
     private TextView tvPhoneNum;

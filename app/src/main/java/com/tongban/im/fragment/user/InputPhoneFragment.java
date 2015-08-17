@@ -13,6 +13,10 @@ import android.widget.EditText;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 
+/**
+ * 找回密码，第一步
+ * @author fushudi
+ */
 public class InputPhoneFragment extends BaseApiFragment implements View.OnClickListener, TextWatcher {
     private EditText etInputPhone;
     private Button btnSubmit;
