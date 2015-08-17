@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.ChooseGroupTypeActivity;
+import com.tongban.im.api.TopicApi;
 
 /**
  * 推荐圈子的Fragment
@@ -41,7 +42,7 @@ public class RecommendCircleFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-
+        TopicApi.getInstance().recommendTopicList(this);
     }
 
 }
