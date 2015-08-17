@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/weak_grey">
 
     <include
         android:id="@+id/toolbar"
@@ -20,41 +21,37 @@
         android:hint="密 码"
         android:inputType="textPassword" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_verify_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_pwd"
-        android:background="@drawable/selector_edit_text"
         android:orientation="horizontal">
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
             style="@style/ClearEditTextStyle"
-            android:layout_below="@+id/et_phone_num"
-            android:layout_weight="1"
-            android:background="@null"
+            android:background="@drawable/selector_edit_text"
             android:hint="验证码"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:paddingRight="88dp" />
 
         <TextView
             android:id="@+id/tv_verify_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_pwd"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
+            android:layout_height="56dp"
+            android:layout_alignParentRight="true"
+            android:paddingRight="16dp"
+            android:gravity="center"
             android:text="@string/get_verify_code"
             android:textColor="@color/selector_text_color" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <CheckBox
         android:id="@+id/cb_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_verify_code"
-        android:background="@drawable/selector_cb_bg"
-        android:button="@null"
         android:checked="true" />
 
     <TextView

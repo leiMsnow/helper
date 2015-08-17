@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/weak_grey"
     android:orientation="vertical">
 
 
@@ -25,26 +26,20 @@
 
     <TextView
         android:id="@+id/tv_forget_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ClickTextViewStyle"
         android:layout_below="@+id/et_pwd"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/forget_pwd"
-        android:textColor="@color/selector_text_color"
-        android:textSize="12sp" />
+        android:text="@string/forget_pwd" />
 
     <TextView
         android:id="@+id/tv_new_user_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ClickTextViewStyle"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/et_pwd"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/new_register"
-        android:textColor="@color/selector_text_color"
-        android:textSize="12sp" />
+        android:text="@string/new_register" />
 
     <Button
         android:id="@+id/btn_login"

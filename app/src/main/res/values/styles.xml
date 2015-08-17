@@ -92,7 +92,7 @@
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/grey_500</item>
+        <item name="android:textColorHint">@color/normal_dark_grey</item>
         <item name="android:textSize">14sp</item>
 
     </style>
@@ -102,6 +102,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">56dp</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/main_brown</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
     </style>
@@ -117,6 +118,16 @@
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/normal_light_grey</item>
+    </style>
+
+    <!-- 可点击文本样式-->
+    <style name="ClickTextViewStyle">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/selector_click_text_color</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
     </style>
 
 </resources>
