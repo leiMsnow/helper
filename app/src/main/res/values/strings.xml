@@ -85,6 +85,8 @@
     <string name="my_collect">我的收藏</string>
     <string name="feedback">意见反馈</string>
     <string name="my_topic">我的话题</string>
+    <string name="my_send_topic">我发起的</string>
+    <string name="my_receive_topic">回复我的</string>
     <!-- 位置-->
     <string name="select_location">选择位置</string>
     <!--标签-->
