@@ -9,7 +9,7 @@ import java.util.List;
  * 话题信息表
  * Created by fushudi on 2015/7/16.
  */
-public class Topic implements Parcelable {
+public class Topic  {
     //话题内容为文本
     public final static int TEXT = 0;
     //话题内容为图片
@@ -27,29 +27,6 @@ public class Topic implements Parcelable {
     //话题评论
     private TopicReply topicReply;
 
-    public Topic(Parcel in) {
-        topicName = in.readString();
-        topicReplyNum = in.readString();
-        topicPraiseNum = in.readString();
-        topicTime = in.readString();
-        topicAddress = in.readString();
-        topicContent = in.readString();
-        contentType = in.readInt();
-        smallUrl = in.createStringArrayList();
-        bigUrl = in.createStringArrayList();
-    }
-
-    public static final Creator<Topic> CREATOR = new Creator<Topic>() {
-        @Override
-        public Topic createFromParcel(Parcel in) {
-            return new Topic(in);
-        }
-
-        @Override
-        public Topic[] newArray(int size) {
-            return new Topic[size];
-        }
-    };
 
     public TopicReply getTopicReply() {
         return topicReply;
@@ -151,21 +128,4 @@ public class Topic implements Parcelable {
         this.topicContent = topicContent;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(topicName);
-        dest.writeString(topicReplyNum);
-        dest.writeString(topicPraiseNum);
-        dest.writeString(topicTime);
-        dest.writeString(topicAddress);
-        dest.writeString(topicContent);
-        dest.writeInt(contentType);
-        dest.writeStringList(smallUrl);
-        dest.writeStringList(bigUrl);
-    }
 }
