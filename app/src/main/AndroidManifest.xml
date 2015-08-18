@@ -106,8 +106,9 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.topic.LoginActivity"
-            android:theme="@style/AppTheme.Red.Base"/>
+        <activity
+            android:name=".activity.topic.LoginActivity"
+            android:theme="@style/AppTheme.Red.Base" />
         <activity
             android:name=".activity.group.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -122,8 +123,9 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.user.RegisterActivity"
-            android:theme="@style/AppTheme.Red.Base"/>
+        <activity
+            android:name=".activity.user.RegisterActivity"
+            android:theme="@style/AppTheme.Red.Base" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -184,6 +186,7 @@
         <activity android:name=".activity.topic.MyGroupActivity" />
         <activity android:name=".activity.topic.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
+        <activity android:name=".activity.user.MyGroupActivity" />
     </application>
 
 </manifest>
