@@ -13,7 +13,9 @@
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
         android:digits="@string/digits"
-        android:hint="@string/phone_num" />
+        android:hint="@string/phone_num"
+        android:inputType="number"
+        android:maxLength="11" />
 
     <View
         style="@style/HorizontalLine"
@@ -23,6 +25,7 @@
         android:id="@+id/et_pwd"
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/et_phone_num"
+        android:maxLength="24"
         android:hint="@string/pwd"
         android:inputType="textPassword" />
 
