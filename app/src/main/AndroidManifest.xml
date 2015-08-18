@@ -183,7 +183,6 @@
         <activity android:name=".activity.topic.FindPwdActivity" />
         <activity android:name=".activity.user.PersonalDataActivity" />
         <activity android:name=".activity.user.MyInfoActivity" />
-        <activity android:name=".activity.topic.MyGroupActivity" />
         <activity android:name=".activity.topic.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
         <activity android:name=".activity.user.MyGroupActivity" />
