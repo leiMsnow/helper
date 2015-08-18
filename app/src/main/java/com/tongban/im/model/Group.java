@@ -8,29 +8,23 @@ import java.util.List;
  * author: chenenyu 15/7/14
  */
 public class Group {
-    /**
-     * id
-     */
+    //群Id
     private String group_id;
-    /**
-     * 群组名称
-     */
+    //群名称
     private String group_name;
-    /**
-     * 群组类型
-     */
+    //群类型
     private int group_type;
-    /**
-     * 地址
-     */
+    //地址Id
+    private String address_id;
+    //地址
     private String address;
-    /**
-     * 群组介绍
-     */
+    // 群组介绍
     private String declaration;
-    /**
-     * 群头像
-     */
+    //经度
+    private double longitude;
+    //纬度
+    private double latitude;
+    //群头像
     private String group_avatar;
     /**
      * 是否需要验证 0:无需验证；1需要验证
@@ -56,6 +50,9 @@ public class Group {
      * 群成员信息
      */
     private List<User> members;
+
+    //标签
+    private String tags;
 
    private boolean is_joined;
 

@@ -77,13 +77,13 @@ public class ApiListResult<T> {
          */
         public int page_size;
         /**
-         * 第几页
+         * 总页数
          */
         public int page_num;
         /**
-         * 总页数
+         * 页码-从0开始
          */
-        public int page_no;
+        public int cursor;
 
         public int getPage_size() {
             return page_size;
@@ -101,12 +101,12 @@ public class ApiListResult<T> {
             this.page_num = page_num;
         }
 
-        public int getPage_no() {
-            return page_no;
+        public int getCursor() {
+            return cursor;
         }
 
-        public void setPage_no(int page_no) {
-            this.page_no = page_no;
+        public void setCursor(int cursor) {
+            this.cursor = cursor;
         }
     }
 }
