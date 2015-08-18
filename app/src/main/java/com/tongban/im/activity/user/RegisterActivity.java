@@ -111,7 +111,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
             tvVerifyCode.setEnabled(false);
         }
         if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mVerifyCode)
-                && mPwd.length() < 6) {
+                && mPwd.length() > 6) {
             btnRegister.setEnabled(true);
         } else {
             btnRegister.setEnabled(false);
