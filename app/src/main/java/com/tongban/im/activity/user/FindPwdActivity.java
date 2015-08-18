@@ -1,11 +1,10 @@
 package com.tongban.im.activity.user;
 
-import android.widget.FrameLayout;
+import android.view.MenuItem;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.user.InputPhoneFragment;
-import com.tongban.im.fragment.user.ReSetPwdFragment;
 
 /**
  * 找回密码界面
@@ -13,10 +12,8 @@ import com.tongban.im.fragment.user.ReSetPwdFragment;
  * @author fushudi
  */
 public class FindPwdActivity extends BaseToolBarActivity {
-    private FrameLayout flReplasedFragment;
 
     private InputPhoneFragment mInputPhoneFragment;
-    private ReSetPwdFragment mResetPwdFragment;
 
     @Override
     protected int getLayoutRes() {
@@ -26,7 +23,6 @@ public class FindPwdActivity extends BaseToolBarActivity {
     @Override
     protected void initView() {
         setTitle(R.string.find_pwd);
-        flReplasedFragment = (FrameLayout) findViewById(R.id.fl_container);
     }
 
     @Override
@@ -38,5 +34,16 @@ public class FindPwdActivity extends BaseToolBarActivity {
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
