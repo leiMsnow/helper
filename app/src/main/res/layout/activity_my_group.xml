@@ -6,14 +6,16 @@
     <include layout="@layout/include_toolbar" />
 
     <ListView
+        android:layout_marginTop="8dp"
         android:id="@+id/lv_my_group_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@color/transparent"
-        android:divider="@null"
+        android:divider="@color/transparent"
+        android:dividerHeight="8dp"
         android:paddingBottom="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 
 </LinearLayout>

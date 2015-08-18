@@ -1,6 +1,7 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -22,7 +23,8 @@ public class MyGroupAdapter extends QuickAdapter<Group> {
     protected void convert(BaseAdapterHelper helper, Group item) {
         helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar());
         helper.setText(R.id.tv_group_name, item.getGroup_name());
-//        helper.setText(R.id.tv_group_label, item.getGroup_type());
-//        helper.setText(R.id.tv_group_introduce, item.getDeclaration());
+        helper.setText(R.id.tv_group_status, item.getTags());
+        helper.setText(R.id.tv_group_introduce, item.getDeclaration());
+        helper.setVisible(R.id.btn_join, View.GONE);
     }
 }
