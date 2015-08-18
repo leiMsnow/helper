@@ -44,7 +44,6 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == ivUserIcon) {

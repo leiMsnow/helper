@@ -1,6 +1,5 @@
 package com.tongban.im.model;
 
-import java.util.List;
 
 /**
  * 专题的model
@@ -24,8 +23,6 @@ public class MultiProduct {
     private String user_tag;
     // 发布时间
     private String create_time;
-    // 单品列表
-    private List<Product> product_list;
 
     public int getId() {
         return id;
@@ -97,14 +94,6 @@ public class MultiProduct {
 
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
-    }
-
-    public List<Product> getProduct_list() {
-        return product_list;
-    }
-
-    public void setProduct_list(List<Product> product_list) {
-        this.product_list = product_list;
     }
 
 }

@@ -194,6 +194,7 @@
         <activity android:name=".activity.user.MyTopicActivity" />
         <activity android:name=".activity.user.MyGroupActivity" />
         <activity android:name=".activity.user.UserCenterActivity" />
+        <activity android:name=".activity.discover.MultiProductActivity" />
     </application>
 
 </manifest>
