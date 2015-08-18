@@ -1,6 +1,5 @@
 package com.tongban.im.model;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,35 +25,58 @@ public class Group {
     private double latitude;
     //群头像
     private String group_avatar;
-    /**
-     * 是否需要验证 0:无需验证；1需要验证
-     */
-    private String verify_user;
-    /**
-     * 群主的用户ID
-     */
-    private String user_id;
-    /**
-     * 注册时间
-     */
-    private Date register_time;
-    /**
-     * 状态 0:表示无效 1:表示有效
-     */
-    private String status;
-    /**
-     * 群主信息
-     */
+    // 群主的用户ID
+    private String group_owner_id;
+    // 群主信息
     private User owner_info;
-    /**
-     * 群成员信息
-     */
+    //群成员信息
     private List<User> members;
 
     //标签
     private String tags;
 
-   private boolean is_joined;
+    private boolean is_joined;
+
+
+    public String getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(String address_id) {
+        this.address_id = address_id;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getGroup_owner_id() {
+        return group_owner_id;
+    }
+
+    public void setGroup_owner_id(String group_owner_id) {
+        this.group_owner_id = group_owner_id;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 
     public String getGroup_id() {
         return group_id;
@@ -78,30 +100,6 @@ public class Group {
 
     public void setDeclaration(String declaration) {
         this.declaration = declaration;
-    }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
-
-    public Date getRegister_time() {
-        return register_time;
-    }
-
-    public void setRegister_time(Date register_time) {
-        this.register_time = register_time;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public List<User> getMembers() {
@@ -134,14 +132,6 @@ public class Group {
 
     public void setGroup_avatar(String group_avatar) {
         this.group_avatar = group_avatar;
-    }
-
-    public String getVerify_user() {
-        return verify_user;
-    }
-
-    public void setVerify_user(String verify_user) {
-        this.verify_user = verify_user;
     }
 
     public User getOwner_info() {

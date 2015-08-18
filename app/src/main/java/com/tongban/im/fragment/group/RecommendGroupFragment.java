@@ -46,7 +46,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, null);
+        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_group_list, null);
         mListView.setAdapter(mAdapter);
         GroupApi.getInstance().recommendGroupList(0, 10, this);
     }
