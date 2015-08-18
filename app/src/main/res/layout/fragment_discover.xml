@@ -1,12 +1,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/weak_grey">
 
-    <!--<View-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginLeft="@dimen/discover_time_line_left_margin"-->
-    <!--android:background="@color/grey_500" />-->
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/discover_time_line_left_margin"
+        android:background="@color/normal_light_grey" />
+
     <ListView
         android:id="@+id/lv_discover"
         android:layout_width="match_parent"
@@ -20,13 +22,13 @@
         android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
-        android:visibility="gone">
+        android:layout_marginTop="0dp">
 
         <LinearLayout
             android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/discover_toolbar_height"
             android:orientation="vertical">
 
             <include layout="@layout/item_discover_timeline" />
@@ -57,10 +59,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.tongban.corelib.widget.view.SemicircleImageView
+        <!--<com.tongban.corelib.widget.view.SemicircleImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/discover_toolbar_height"-->
+        <!--android:src="@drawable/bg_light" />-->
+        <com.tongban.corelib.widget.view.BezierImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/discover_toolbar_height"
-            android:src="@drawable/bg_light" />
+            android:src="@color/white" />
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
