@@ -4,7 +4,7 @@
     <color name="transparent">#00000000</color>
     <color name="translucent_a80">#64000000</color>
     <!-- black-->
-    <color name="black">#000000</color>
+    <!--<color name="black">#000000</color>-->
     <!-- white-->
     <color name="white">#ffffff</color>
     <!-- grey-->

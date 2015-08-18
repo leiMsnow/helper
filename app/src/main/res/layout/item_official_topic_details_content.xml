@@ -25,7 +25,7 @@
             android:layout_marginLeft="4dp"
             android:layout_toRightOf="@+id/iv_product_icon"
             android:text="澳大利亚品牌"
-            android:textColor="@color/black"
+            android:textColor="@color/main_black"
             android:textSize="16sp" />
     </RelativeLayout>
 

@@ -62,7 +62,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/selector_join_btn_bg"
                 android:text="@string/join"
-                android:textColor="@color/black"
+                android:textColor="@color/main_deep_orange"
                 android:textSize="12sp" />
             <!--已加入-->
             <ImageView

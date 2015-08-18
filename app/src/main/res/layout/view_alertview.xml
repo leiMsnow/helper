@@ -11,7 +11,7 @@
         android:background="@drawable/selector_corners_top_bg"
         android:gravity="center"
         android:text="拍照"
-        android:textColor="@color/black"
+        android:textColor="@color/main_black"
         android:textSize="16sp" />
 
     <View style="@style/HorizontalLine" />
@@ -25,7 +25,7 @@
         android:background="@drawable/selector_corners_bottom_bg"
         android:gravity="center"
         android:text="相册"
-        android:textColor="@color/black"
+        android:textColor="@color/main_black"
         android:textSize="16sp" />
 
 </LinearLayout>

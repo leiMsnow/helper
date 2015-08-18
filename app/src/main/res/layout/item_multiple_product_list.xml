@@ -19,7 +19,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:text="从此蚊子和宝宝“绝缘”"
-            android:textColor="@color/black"
+            android:textColor="@color/main_black"
             android:textSize="16sp" />
 
         <TextView
