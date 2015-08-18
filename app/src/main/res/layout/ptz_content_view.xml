@@ -37,7 +37,8 @@
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:text="@string/feedback" />
+        android:text="@string/feedback"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tv_settings"
@@ -47,5 +48,6 @@
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:text="@string/settings" />
+        android:text="@string/settings"
+        android:visibility="gone"/>
 </LinearLayout>

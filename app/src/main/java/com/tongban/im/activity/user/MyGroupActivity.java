@@ -1,39 +1,40 @@
 package com.tongban.im.activity.user;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.MyGroupAdapter;
 
-public class MyGroupActivity extends AppCompatActivity {
+/**
+ * 个人中心（我的圈子）
+ *
+ * @author fushudi
+ */
+public class MyGroupActivity extends BaseToolBarActivity {
+    private ListView lvMyGroupList;
+    private MyGroupAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_group);
+    protected int getLayoutRes() {
+        return R.layout.activity_my_group;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_group, menu);
-        return true;
+    protected void initView() {
+        lvMyGroupList = (ListView) findViewById(R.id.lv_my_group_list);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initData() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    protected void initListener() {
+
     }
 }

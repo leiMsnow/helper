@@ -48,7 +48,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initData() {
         List<Group> groups = new ArrayList<>();
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_join_group_list, groups);
+        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_group_list, groups);
         lvGroups.setAdapter(mAdapter);
     }
 

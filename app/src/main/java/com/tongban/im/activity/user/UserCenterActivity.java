@@ -25,7 +25,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     private LinearLayout llUserInfo;
     private RelativeLayout rlFansNum, rlFollowNum, rlTopicNum;
     private TextView tvFans, tvFollow, tvTopic;
-    private TextView tvMyGroup, tvMyCollect, tvFeedBack, tvSettings;
+    private TextView tvMyGroup, tvMyCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,6 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
         tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_group);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
-        tvFeedBack = (TextView) contentView.findViewById(R.id.tv_feedback);
-        tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -83,8 +81,6 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
         tvMyGroup.setOnClickListener(this);
         tvMyCollect.setOnClickListener(this);
-        tvFeedBack.setOnClickListener(this);
-        tvSettings.setOnClickListener(this);
 
         tvFans.setOnClickListener(this);
         tvFollow.setOnClickListener(this);
@@ -117,19 +113,11 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         }
         //跳转到我的圈子界面
         else if (v == tvMyGroup) {
-
+            startActivity(new Intent(this, MyGroupActivity.class));
         }
         //跳转到我的收藏界面
         else if (v == tvMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
-        }
-        //跳转到意见反馈界面
-        else if (v == tvFeedBack) {
-
-        }
-        //跳转到设置界面
-        else if (v == tvSettings) {
-
         }
     }
 }
