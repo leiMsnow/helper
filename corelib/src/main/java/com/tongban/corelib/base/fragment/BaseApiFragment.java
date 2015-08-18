@@ -1,5 +1,7 @@
 package com.tongban.corelib.base.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -46,6 +48,20 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
         if (mDialog != null)
             mDialog.dismiss();
         EventBus.getDefault().post(obj);
+
+        if (mEmptyView != null) {
+            if (mEmptyView.getVisibility() == View.VISIBLE) {
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
+                objectAnimator.start();
+                objectAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        mEmptyView.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -91,7 +107,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
      * @param msg 提示信息
      */
     private void createEmptyView(final String msg) {
-        mEmptyView = mViewGroup.findViewById(com.tongban.corelib.R.id.rl_empty_view);
+        mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
@@ -116,7 +132,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
             objectAnimator.start();
-            mViewGroup.addView(mEmptyView, layoutParams);
+            ((ViewGroup)mView).addView(mEmptyView, layoutParams);
         }
     }
 

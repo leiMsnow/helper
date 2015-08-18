@@ -10,6 +10,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
+import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyReplyTopicAdapter;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
@@ -64,7 +65,7 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_topic_icon:
-                ToastUtil.getInstance(mContext).showToast("个人中心");
+                startActivity(new Intent(mContext, UserCenterActivity.class));
                 break;
             case R.id.tv_reply:
                 ToastUtil.getInstance(mContext).showToast("回复");

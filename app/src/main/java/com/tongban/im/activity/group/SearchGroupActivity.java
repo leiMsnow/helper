@@ -87,7 +87,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
         if (TextUtils.isEmpty(query)) {
             ToastUtil.getInstance(mContext).showToast("无效的圈子名称");
         } else {
-            GroupApi.getInstance().searchGroupByName(query, 0, 15, this);
+            GroupApi.getInstance().searchGroupList(query, 0, 15, this);
         }
         return true;
     }

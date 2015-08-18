@@ -1,39 +1,57 @@
 package com.tongban.im.activity.user;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 
-public class UserCenterActivity extends AppCompatActivity {
+public class UserCenterActivity extends BaseToolBarActivity {
+    private PullToZoomScrollViewEx lvUserCenter;
+
+    private TextView tvTags;
+    private TextView tvMyGroup, tvMyCollect;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_center);
+    protected int getLayoutRes() {
+        return R.layout.activity_personal_center;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_center, menu);
-        return true;
+    protected void initView() {
+        lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
+        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view, null, false);
+        View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+        lvUserCenter.setHeaderView(headView);
+        lvUserCenter.setZoomView(zoomView);
+        lvUserCenter.setScrollContentView(contentView);
+
+        tvTags = (TextView) findViewById(R.id.tv_tags);
+        tvTags.setVisibility(View.GONE);
+        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_group);
+        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
+        tvMyGroup.setVisibility(View.GONE);
+        tvMyCollect.setVisibility(View.GONE);
+
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
+                (int) (3.0F * (mScreenWidth / 4.0F)));
+        lvUserCenter.setHeaderLayoutParams(localObject);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void initData() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    }
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    protected void initListener() {
+
     }
 }

@@ -85,21 +85,17 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
         if (mEmptyView != null) {
             if (mEmptyView.getVisibility() == View.VISIBLE) {
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(getEmptyView(), "alpha", 1.0f, 0.0f).setDuration(500);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
                 objectAnimator.start();
                 objectAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        getEmptyView().setVisibility(View.GONE);
+                        mEmptyView.setVisibility(View.GONE);
                     }
                 });
             }
         }
-    }
-
-    public View getEmptyView() {
-        return mEmptyView;
     }
 
     @Override

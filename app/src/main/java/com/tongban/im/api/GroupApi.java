@@ -44,12 +44,6 @@ public class GroupApi extends BaseApi {
      * 获取个人群组列表-创建的群
      */
     public static final String FETCH_MY_CREATE_GROUP_LIST = "group/fetch/1";
-
-    /**
-     * 根据群组名获取搜索群组
-     */
-    public static final String SEARCH_GROUP_BY_NAME = "search/demo/group/";
-
     /**
      * 根据群组类型获取搜索群组
      */
@@ -81,7 +75,7 @@ public class GroupApi extends BaseApi {
     /**
      * 圈子搜索接口
      */
-    public static final String SEARCH_GROUP_LIST = "group/search/listt";
+    public static final String SEARCH_GROUP_LIST = "group/search/list";
 
 
     private GroupApi(Context context) {
@@ -221,53 +215,6 @@ public class GroupApi extends BaseApi {
                         });
                 List<Group> groups = apiResponse.getData();
                 callback.onComplete(groups);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
-
-    /**
-     * 根据群组名获取搜索群组
-     * cey:接口还在修改中
-     *
-     * @param groupName 群名称
-     * @param num       第几页,从0开始计数
-     * @param pageSize  每页数量,默认15条
-     * @param callback  回调
-     */
-    public void searchGroupByName(String groupName, int num, int pageSize, final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        //mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("keyword", groupName);
-        if (num < 0)
-            num = 0;
-        if (pageSize <= 0)
-            pageSize = 15;
-        Map page = new HashMap();
-        page.put("page_num", num);
-        page.put("page_size", pageSize);
-        mParams.put("pagination", page);
-
-        simpleRequest(SEARCH_GROUP_BY_NAME, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<Group>>() {
-                        });
-                BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
-                searchGroupEvent.setGroups(apiResponse.getData().getResult());
-                callback.onComplete(searchGroupEvent);
             }
 
             @Override
