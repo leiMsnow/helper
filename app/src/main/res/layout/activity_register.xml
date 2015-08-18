@@ -14,6 +14,10 @@
         android:digits="@string/digits"
         android:hint="手机号" />
 
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/et_phone_num" />
+
     <com.tongban.im.widget.view.ClearEditText
         android:id="@+id/et_pwd"
         style="@style/ClearEditTextStyle"
@@ -21,37 +25,45 @@
         android:hint="密 码"
         android:inputType="textPassword" />
 
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/et_pwd" />
+
     <RelativeLayout
-        android:id="@+id/ll_verify_code"
+        android:id="@+id/rl_verify_code"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@+id/et_pwd"
         android:orientation="horizontal">
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
             style="@style/ClearEditTextStyle"
-            android:background="@drawable/selector_edit_text"
             android:hint="验证码"
-            android:inputType="textPassword"
-            android:paddingRight="88dp" />
+            android:layout_toLeftOf="@+id/tv_verify_code"
+            android:inputType="number"/>
 
         <TextView
             android:id="@+id/tv_verify_code"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
-            android:paddingRight="16dp"
             android:gravity="center"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
             android:text="@string/get_verify_code"
             android:textColor="@color/selector_text_color" />
     </RelativeLayout>
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/rl_verify_code" />
 
     <CheckBox
         android:id="@+id/cb_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_verify_code"
+        android:layout_below="@+id/rl_verify_code"
         android:checked="true" />
 
     <TextView
@@ -60,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/cb_agree"
         android:layout_alignTop="@+id/cb_agree"
-        android:layout_below="@+id/ll_verify_code"
+        android:layout_below="@+id/rl_verify_code"
         android:layout_toRightOf="@+id/cb_agree"
         android:gravity="center"
         android:text="阅读并同意"
@@ -71,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv_agree"
         android:layout_alignTop="@+id/tv_agree"
-        android:layout_below="@+id/ll_verify_code"
+        android:layout_below="@+id/rl_verify_code"
         android:layout_toRightOf="@+id/tv_agree"
         android:gravity="center"
         android:text="《用户协议》"

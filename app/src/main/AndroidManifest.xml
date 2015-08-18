@@ -108,7 +108,8 @@
         </activity>
         <activity
             android:name=".activity.topic.LoginActivity"
-            android:theme="@style/AppTheme.Red.Base" />
+            android:theme="@style/AppTheme.Red.Base"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.group.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -125,7 +126,8 @@
         </activity>
         <activity
             android:name=".activity.user.RegisterActivity"
-            android:theme="@style/AppTheme.Red.Base" />
+            android:theme="@style/AppTheme.Red.Base"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -180,7 +182,10 @@
         <activity
             android:name=".activity.discover.SearchDiscoverResultActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.topic.FindPwdActivity" />
+        <activity
+            android:name=".activity.topic.FindPwdActivity"
+            android:theme="@style/AppTheme.Red.Base"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalDataActivity" />
         <activity android:name=".activity.user.MyInfoActivity" />
         <activity android:name=".activity.topic.MyCollectActivity" />

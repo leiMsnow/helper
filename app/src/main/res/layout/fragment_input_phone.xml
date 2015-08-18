@@ -2,35 +2,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_edit_text"
-        android:orientation="horizontal">
+        android:layout_height="48dp">
 
         <TextView
             android:id="@+id/tv_phone_text"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
             android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:text="@string/phone_num"
-            android:textSize="16sp" />
+            android:textColor="@color/normal_grey" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_input_phone"
+            style="@style/ClearEditTextStyle"
             android:layout_width="match_parent"
             android:layout_below="@+id/toolbar"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/tv_phone"
-            android:background="@null"
-            style="@style/ClearEditTextStyle"
+            android:layout_toRightOf="@+id/tv_phone_text"
             android:digits="@string/digits"
             android:hint="@string/input_register_phone_num"
-            android:textColorHint="@color/normal_grey"
-            />
-    </LinearLayout>
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_submit"
