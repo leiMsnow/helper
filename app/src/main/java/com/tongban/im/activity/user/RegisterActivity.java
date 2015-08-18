@@ -105,10 +105,18 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         mPhoneNum = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();
         mVerifyCode = etVerifyCode.getText().toString();
-        if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mPwd)
-                && !TextUtils.isEmpty(mVerifyCode) && cbAgree.isChecked()) {
-            btnRegister.setEnabled(true);
+        if (!TextUtils.isEmpty(mPhoneNum)) {
+            tvVerifyCode.setEnabled(true);
+        } else {
+            tvVerifyCode.setEnabled(false);
         }
+        if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mVerifyCode)
+                && mPwd.length() < 6) {
+            btnRegister.setEnabled(true);
+        } else {
+            btnRegister.setEnabled(false);
+        }
+
     }
 
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {
@@ -120,7 +128,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         // 注册成功，自动登录
         else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-            UserApi.getInstance().login(mPhoneNum,mPwd,this);
+            UserApi.getInstance().login(mPhoneNum, mPwd, this);
         }
     }
 
@@ -141,9 +149,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     public void onClick(View v) {
         // 获取手机验证码
         if (v == tvVerifyCode) {
-            if (TextUtils.isEmpty(mPhoneNum)) {
-                ToastUtil.getInstance(mContext).showToast("手机号码不能为空");
-            } else if (mPhoneNum.length() != 11) {
+            if (mPhoneNum.length() != 11) {
                 ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
             } else {
                 UserApi.getInstance().getSMSCode(mPhoneNum, this);
@@ -151,14 +157,9 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         }
         //校验手机验证码
         else if (v == btnRegister) {
-
             if (regEvent != null) {
                 //校验手机验证码接口
-                if (TextUtils.isEmpty(mPwd)) {
-                    ToastUtil.getInstance(mContext).showToast("密码不能为空");
-                } else if (mPwd.length() < 6) {
-                    ToastUtil.getInstance(mContext).showToast("密码至少为六位");
-                } else if (!cbAgree.isChecked()) {
+                if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
                     UserApi.getInstance().register(mPhoneNum, mPwd, regEvent.getVerify_id(),
