@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:minHeight="56dp">
 
-    <ImageView
+    <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"

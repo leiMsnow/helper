@@ -13,21 +13,25 @@
         <ImageView
             android:id="@+id/iv_user_head"
             android:layout_width="48dp"
-            android:layout_gravity="center"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:src="@mipmap/ic_img_user_default" />
 
         <ImageView
+            android:id="@+id/iv_add_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@mipmap/ic_menu_add" />
+            android:src="@mipmap/ic_menu_add"
+            android:visibility="gone" />
 
         <ImageView
+            android:id="@+id/iv_cancel_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@mipmap/ic_joined" />
+            android:src="@mipmap/ic_joined"
+            android:visibility="gone" />
     </FrameLayout>
     <!-- 用户信息布局-->
     <LinearLayout
@@ -64,8 +68,7 @@
             android:paddingLeft="16dp"
             android:singleLine="true"
             android:text="独立行走|淘气包|吃固体食物"
-            android:textColor="@color/white"
-            android:visibility="gone" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <TextView
@@ -78,6 +81,7 @@
         android:layout_marginRight="24dp"
         android:gravity="center_vertical"
         android:text="私聊"
+        android:visibility="gone"
         android:textColor="@color/red_300" />
     <!--底部粉丝、关注、话题布局-->
     <LinearLayout
