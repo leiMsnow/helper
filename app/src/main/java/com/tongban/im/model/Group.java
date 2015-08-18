@@ -19,7 +19,7 @@ public class Group {
     /**
      * 群组类型
      */
-    private String group_type;
+    private int group_type;
     /**
      * 地址
      */
@@ -115,11 +115,11 @@ public class Group {
         this.members = members;
     }
 
-    public String getGroup_type() {
+    public int getGroup_type() {
         return group_type;
     }
 
-    public void setGroup_type(String group_type) {
+    public void setGroup_type(int group_type) {
         this.group_type = group_type;
     }
 
