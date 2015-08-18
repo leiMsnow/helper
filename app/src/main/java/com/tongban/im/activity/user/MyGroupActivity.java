@@ -29,6 +29,7 @@ public class MyGroupActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
+        setTitle(R.string.my_group);
         lvMyGroupList = (ListView) findViewById(R.id.lv_my_group_list);
     }
 
