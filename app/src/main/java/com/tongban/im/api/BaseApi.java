@@ -13,7 +13,9 @@ import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.common.Consts;
 import com.tongban.im.utils.CheckID;
 
@@ -111,6 +113,10 @@ public class BaseApi {
      * @return request--当前请求对象
      */
     protected Request simpleRequest(String url, Map params, final ApiCallback callback) {
+        if (!NetUtils.isConnected(mContext)) {
+            ToastUtil.getInstance(mContext).showToast("网络连接失败,请稍后重试");
+            return null;
+        }
         if (url == null || params == Collections.emptyMap()) {
             return null;
         }
@@ -124,7 +130,7 @@ public class BaseApi {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("onResponse:",jsonObject.toString());
+                        LogUtil.d("onResponse:", jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -144,7 +150,7 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.e("onErrorResponse",volleyError.toString());
+                LogUtil.e("onErrorResponse", volleyError.toString());
 
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {
