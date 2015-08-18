@@ -94,6 +94,7 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -109,6 +110,7 @@
         <activity
             android:name=".activity.user.LoginActivity"
             android:theme="@style/AppTheme.Red.Base"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.group.ChatActivity"

@@ -18,6 +18,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
+import com.tongban.im.widget.view.ClearEditText;
 
 /**
  * 登录
@@ -27,8 +28,8 @@ import com.tongban.im.model.User;
  */
 public class LoginActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener {
 
-    private EditText etUser;
-    private EditText etPwd;
+    private ClearEditText etUser;
+    private ClearEditText etPwd;
     private TextView tvFindPwd;
     private TextView tvRegister;
     private Button tvLogin;
@@ -44,8 +45,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected void initView() {
-        etUser = (EditText) findViewById(R.id.et_phone_num);
-        etPwd = (EditText) findViewById(R.id.et_pwd);
+        etUser = (ClearEditText) findViewById(R.id.et_phone_num);
+        etPwd = (ClearEditText) findViewById(R.id.et_pwd);
         tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
         tvLogin = (Button) findViewById(R.id.btn_login);

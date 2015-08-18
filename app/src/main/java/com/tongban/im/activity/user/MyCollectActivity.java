@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
@@ -25,8 +26,10 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.OnPageChangeListener {
+public class MyCollectActivity extends BaseToolBarActivity implements
+        ViewPager.OnPageChangeListener, View.OnClickListener {
 
+    private RelativeLayout rlMultipleProduct, rlSingleProduct, rlTopic;
     private ViewPager vpResult;
     private View mIndicator;
     private FragmentPagerAdapter mAdapter;
@@ -46,6 +49,10 @@ public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.
 
     @Override
     protected void initView() {
+        rlMultipleProduct = (RelativeLayout) findViewById(R.id.rl_multiple_product);
+        rlSingleProduct = (RelativeLayout) findViewById(R.id.rl_single_product);
+        rlTopic = (RelativeLayout) findViewById(R.id.rl_topic);
+
         ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_multiple_product);
         ccvSingle = (ChangeColorView) findViewById(R.id.ccv_single_product);
         ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
@@ -79,7 +86,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.
         //话题结果
         TopicFragment topicFragment = new TopicFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY,false);
+        bundle.putBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, false);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
 
@@ -100,7 +107,9 @@ public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.
 
     @Override
     protected void initListener() {
-
+        rlMultipleProduct.setOnClickListener(this);
+        rlSingleProduct.setOnClickListener(this);
+        rlTopic.setOnClickListener(this);
     }
 
     @Override
@@ -123,5 +132,16 @@ public class MyCollectActivity extends BaseToolBarActivity implements ViewPager.
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == rlMultipleProduct) {
+            vpResult.setCurrentItem(0);
+        } else if (v == rlSingleProduct) {
+            vpResult.setCurrentItem(1);
+        } else if (v == rlTopic) {
+            vpResult.setCurrentItem(2);
+        }
     }
 }

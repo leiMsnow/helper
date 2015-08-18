@@ -12,7 +12,9 @@
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
         android:digits="@string/digits"
-        android:hint="手机号" />
+        android:hint="手机号"
+        android:inputType="number"
+        android:maxLength="11" />
 
     <View
         style="@style/HorizontalLine"
@@ -23,7 +25,8 @@
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/et_phone_num"
         android:hint="密 码"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLength="24" />
 
     <View
         style="@style/HorizontalLine"
@@ -39,18 +42,20 @@
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
             style="@style/ClearEditTextStyle"
-            android:hint="验证码"
             android:layout_toLeftOf="@+id/tv_verify_code"
-            android:inputType="number"/>
+            android:hint="验证码"
+            android:maxLength="6"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/tv_verify_code"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
+            android:enabled="false"
             android:gravity="center"
-            android:paddingRight="16dp"
             android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="@string/get_verify_code"
             android:textColor="@color/selector_text_color" />
     </RelativeLayout>

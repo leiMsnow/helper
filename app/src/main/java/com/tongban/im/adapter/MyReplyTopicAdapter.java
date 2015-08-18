@@ -30,5 +30,7 @@ public class MyReplyTopicAdapter extends QuickAdapter<Topic> {
         helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
         helper.setText(R.id.tv_reply_content, item.getTopicReply().getReplyContent());
         helper.setText(R.id.tv_topic_content, item.getTopicContent());
+        helper.setOnClickListener(R.id.iv_topic_icon,onClickListener);
+        helper.setOnClickListener(R.id.tv_reply,onClickListener);
     }
 }
