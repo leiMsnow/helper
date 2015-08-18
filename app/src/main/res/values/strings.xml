@@ -46,9 +46,9 @@
     <string name="phone_num">手机号</string>
     <string name="input_register_phone_num">请输入注册时的手机号</string>
     <string name="submit">提交</string>
-    <string name="your_phone_num">您的手机号是:</string>
+    <string name="your_phone_num">您的手机号是</string>
     <string name="verify_code">验证码</string>
-    <string name="re_set_pwd">重设密码</string>
+    <string name="re_set_pwd">重置密码</string>
     <string name="hint_pwd">6-24位字母或数字</string>
     <!-- 发现-->
     <string name="discover">发现</string>

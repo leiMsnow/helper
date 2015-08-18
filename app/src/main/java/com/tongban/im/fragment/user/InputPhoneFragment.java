@@ -15,6 +15,7 @@ import com.tongban.im.R;
 
 /**
  * 找回密码，第一步
+ *
  * @author fushudi
  */
 public class InputPhoneFragment extends BaseApiFragment implements View.OnClickListener, TextWatcher {
@@ -52,8 +53,8 @@ public class InputPhoneFragment extends BaseApiFragment implements View.OnClickL
         if (v == btnSubmit) {
             mResetPwdFragment = new ReSetPwdFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            Bundle bundle=new Bundle();
-            bundle.putString("mInputPhone",mInputPhone);
+            Bundle bundle = new Bundle();
+            bundle.putString("mInputPhone", mInputPhone);
             mResetPwdFragment.setArguments(bundle);
             transaction.replace(R.id.fl_container, mResetPwdFragment);
             transaction.addToBackStack(null);
@@ -74,7 +75,7 @@ public class InputPhoneFragment extends BaseApiFragment implements View.OnClickL
     @Override
     public void afterTextChanged(Editable s) {
         mInputPhone = etInputPhone.getText().toString().trim();
-        if (!TextUtils.isEmpty(mInputPhone)) {
+        if (mInputPhone.length() == 11) {
             btnSubmit.setEnabled(true);
         } else {
             btnSubmit.setEnabled(false);

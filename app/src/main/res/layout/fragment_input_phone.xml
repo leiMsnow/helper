@@ -25,6 +25,8 @@
             android:layout_toRightOf="@+id/tv_phone_text"
             android:digits="@string/digits"
             android:hint="@string/input_register_phone_num"
+            android:inputType="number"
+            android:maxLength="11"
             android:paddingLeft="16dp"
             android:paddingRight="16dp" />
 

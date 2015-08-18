@@ -20,6 +20,7 @@ import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -39,7 +40,8 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     private Button btnRegister;
     private String mPhoneNum, mPwd, mVerifyCode;
 
-    BaseEvent.RegisterEvent regEvent;
+    private VerifyTimerCount mTime;
+    private BaseEvent.RegisterEvent regEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +125,8 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         regEvent = obj;
         // 获取验证码成功
         if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
+            mTime = new VerifyTimerCount(tvVerifyCode);//构造CountDownTimer对象
+            mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
         // 注册成功，自动登录
@@ -169,6 +173,15 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
                 //提示获取验证码
                 ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);
             }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTime != null) {
+            mTime.cancel();
+            mTime = null;
         }
     }
 }

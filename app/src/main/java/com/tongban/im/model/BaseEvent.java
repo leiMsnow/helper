@@ -108,14 +108,14 @@ public class BaseEvent {
              * 注册第一步，获取验证码
              */
             SMS_CODE,
-//            /**
-//             * 注册第二步，验证验证码
-//             */
-//            VERIFY_CODE,
             /**
              * 注册第二步，提交用户信息和验证码注册
              */
             REGISTER,
+            /**
+             * 找回密码，验证步骤
+             */
+            VERIFY_CODE,
             /**
              * 第三方注册，授权
              */
