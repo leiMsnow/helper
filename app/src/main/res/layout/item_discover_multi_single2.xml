@@ -51,7 +51,6 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_img_profile_bg" />
 
-
             <View
                 style="@style/HorizontalLine"
                 android:layout_marginBottom="4dp"

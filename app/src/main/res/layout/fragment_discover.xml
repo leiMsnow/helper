@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
-        android:divider="@null">
+        android:divider="@null"
+        android:visibility="gone">
 
     </ListView>
 
@@ -22,14 +23,15 @@
         android:id="@+id/sv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp">
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/discover_toolbar_height"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/discover_toolbar_height">
 
             <include layout="@layout/item_discover_timeline" />
 
