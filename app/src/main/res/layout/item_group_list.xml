@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/weak_grey"
+    android:layout_height="64dp"
+    android:background="@color/white"
     android:descendantFocusability="blocksDescendants">
 
 
     <RelativeLayout
-        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_group_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="8dp"
-            android:paddingBottom="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/rc_default_portrait" />
 
@@ -32,18 +30,17 @@
                 android:id="@+id/tv_group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:text="@string/app_name"
                 android:textColor="@color/main_black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
             <!--群标签-->
             <TextView
                 android:id="@+id/tv_group_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_group_name"
-                android:paddingLeft="8dp"
-                android:text="宝宝圈" />
+                android:text="宝宝圈"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_group_introduce"
@@ -54,6 +51,7 @@
                 android:layout_toRightOf="@+id/tv_group_status"
                 android:gravity="center_vertical"
                 android:paddingLeft="4dp"
+                android:textSize="12sp"
                 android:text="-1周岁，狮子座"
                 android:textColor="@color/normal_grey" />
         </RelativeLayout>
