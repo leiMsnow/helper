@@ -53,12 +53,12 @@ public class UserApi extends BaseApi {
      * 注册第一步，获取手机验证码
      */
     public final static String SMS_REQUIRE = "verifycode/sms/require";
+//    /**
+//     * 注册第二步，验证手机验证码
+//     */
+//    public final static String VERIFY_CODE = "verifycode/sms/verify";
     /**
-     * 注册第二步，验证手机验证码
-     */
-    public final static String VERIFY_CODE = "verifycode/sms/verify";
-    /**
-     * 注册
+     * 注册第二步，输入手机号验证码
      */
     public final static String REGISTER = "user/register/1";
 
@@ -117,54 +117,23 @@ public class UserApi extends BaseApi {
     }
 
     /**
-     * 校验手机验证码，注册第二步
-     *
-     * @param verifyId   验证码Id
-     * @param verifyCode 验证码
-     * @param callback
-     */
-    public void verifyCode(String verifyId, String verifyCode, final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        mParams.put("verify_id", verifyId);
-        mParams.put("verify_code", verifyCode);
-
-        simpleRequest(VERIFY_CODE, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
-                        });
-                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE);
-                callback.onComplete(registerEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-
-        });
-    }
-
-    /**
-     * 注册，注册第三步
+     * 注册
      *
      * @param mobilePhone 手机号
      * @param password    密码
+     * @param verifyId    验证码Id
+     * @param verifyCode  验证码
      * @param callback
      */
-    public void register(String mobilePhone, String password, final ApiCallback callback) {
+    public void register(String mobilePhone, String password, String verifyId, String verifyCode,
+                         final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
+        mParams.put("nick_name", mobilePhone);
         mParams.put("password", password);
+        mParams.put("verify_id", verifyId);
+        mParams.put("verify_code", verifyCode);
 
         simpleRequest(REGISTER, mParams, new ApiCallback() {
             @Override

@@ -5,6 +5,11 @@ package com.tongban.im.common;
  * version:1.0  15/7/15
  */
 public class Consts {
+
+    /**
+     * 图片服务器地址前缀
+     */
+    public static final String TONGBAN_UPLOAD_HOST_PREFIX = "http://7xkuqd.com2.z0.glb.qiniucdn.com/";
     /**
      * IM系统的Token
      */

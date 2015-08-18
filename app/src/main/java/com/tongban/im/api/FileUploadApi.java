@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.Recorder;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -15,11 +16,14 @@ import com.qiniu.android.storage.Zone;
 import com.qiniu.android.storage.persistent.FileRecorder;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.QiniuToken;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,7 +111,7 @@ public class FileUploadApi extends BaseApi {
      * @param key      上传数据名,可以为null
      * @param callback 回调
      */
-    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull UpCompletionHandler callback) {
+    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull UploadFileCallback callback) {
         uploadFile(data, key, callback, null);
     }
 
@@ -119,10 +123,10 @@ public class FileUploadApi extends BaseApi {
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull UpCompletionHandler callback,
+    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull final UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
-        mUploadManager.put(data, key, token, callback, options);
+        mUploadManager.put(data, key, token, new MyUpCompletionHandler(callback), options);
     }
 
     /**
@@ -132,7 +136,7 @@ public class FileUploadApi extends BaseApi {
      * @param key      上传文件名,可以为null
      * @param callback 回调
      */
-    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UpCompletionHandler callback) {
+    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UploadFileCallback callback) {
         uploadFile(new File(filePath), key, callback);
     }
 
@@ -144,7 +148,7 @@ public class FileUploadApi extends BaseApi {
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UpCompletionHandler callback,
+    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         uploadFile(new File(filePath), key, callback, options);
     }
@@ -156,7 +160,7 @@ public class FileUploadApi extends BaseApi {
      * @param key      上传文件名,可以为null
      * @param callback 回调
      */
-    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UpCompletionHandler callback) {
+    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UploadFileCallback callback) {
         uploadFile(file, key, callback, null);
     }
 
@@ -168,10 +172,34 @@ public class FileUploadApi extends BaseApi {
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UpCompletionHandler callback,
+    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
-        mUploadManager.put(file, key, token, callback, options);
+        mUploadManager.put(file, key, token, new MyUpCompletionHandler(callback), options);
+    }
+
+    /**
+     * 上传成功回调
+     */
+    class MyUpCompletionHandler implements UpCompletionHandler {
+
+        private UploadFileCallback mCallback;
+
+        MyUpCompletionHandler(UploadFileCallback callback) {
+            this.mCallback = callback;
+        }
+
+        @Override
+        public void complete(String key, ResponseInfo info, JSONObject response) {
+            LogUtil.d("upload-complete", response.toString());
+            if (mCallback != null) {
+                String responseKey = response.optString("key");
+                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + "-100";
+                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + "-500";
+                String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                mCallback.uploadSuccess(min, mid, max);
+            }
+        }
     }
 
 }

@@ -116,17 +116,12 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         regEvent = obj;
         // 获取验证码成功
         if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
-
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
-        }
-        // 验证码验证成功，继续第三步注册
-        else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE) {
-                UserApi.getInstance().register(mPhoneNum, mPwd, this);
         }
         // 注册成功，自动登录
         else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-            UserApi.getInstance().tokenLogin(regEvent.getFreeauth_token(), this);
+            UserApi.getInstance().login(mPhoneNum,mPwd,this);
         }
     }
 
@@ -149,9 +144,9 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         if (v == tvVerifyCode) {
             if (TextUtils.isEmpty(mPhoneNum)) {
                 ToastUtil.getInstance(mContext).showToast("手机号码不能为空");
-            } else if (mPhoneNum.length()!=11){
+            } else if (mPhoneNum.length() != 11) {
                 ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
-            }else {
+            } else {
                 UserApi.getInstance().getSMSCode(mPhoneNum, this);
             }
         }
@@ -164,10 +159,11 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
                     ToastUtil.getInstance(mContext).showToast("密码不能为空");
                 } else if (mPwd.length() < 6) {
                     ToastUtil.getInstance(mContext).showToast("密码至少为六位");
-                }else if (!cbAgree.isChecked()){
+                } else if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
-                }else {
-                    UserApi.getInstance().verifyCode(regEvent.getVerify_id(), mVerifyCode, this);
+                } else {
+                    UserApi.getInstance().register(mPhoneNum, mPwd, regEvent.getVerify_id(),
+                            mVerifyCode, this);
                 }
             } else {
                 //提示获取验证码

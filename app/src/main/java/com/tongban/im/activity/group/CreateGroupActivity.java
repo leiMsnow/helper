@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -21,13 +23,17 @@ import com.tongban.im.activity.ClipImageBorderViewActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.group.LabelListActivity;
 import com.tongban.im.activity.group.SearchPoiActivity;
+import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Calendar;
@@ -157,23 +163,26 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
                 return;
             }
-
-//            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UpCompletionHandler() {
-//                @Override
-//                public void complete(String key, ResponseInfo info, JSONObject response) {
-//
-//                }
-//            });
             if (!chbAgree.isChecked()) {
-                ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement)+"'");
+                ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement) + "'");
                 return;
             }
-            declaration = etDesc.getText().toString().trim();
-            groupAvatar.put("max", "");
-            groupAvatar.put("min", "");
-            groupAvatar.put("mid", "");
-            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-                    birthday, tags, declaration, groupAvatar, chbSecret.isChecked(),this);
+            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UploadFileCallback() {
+
+                @Override
+                public void uploadSuccess(String minUrl, String midUrl, String maxUrl) {
+                    groupAvatar.put("min", minUrl);
+                    groupAvatar.put("mid", midUrl);
+                    groupAvatar.put("max", maxUrl);
+
+                    declaration = etDesc.getText().toString().trim();
+
+                    GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+                            birthday, tags, declaration, groupAvatar, chbSecret.isChecked(),
+                            CreateGroupActivity.this);
+                }
+            });
+
 
         } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, SearchPoiActivity.class);
