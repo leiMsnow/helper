@@ -44,6 +44,7 @@
                 android:textSize="16sp" />
         </RadioGroup>
 
+
         <ImageButton
             android:id="@+id/ib_search"
             android:layout_width="48dp"
@@ -54,6 +55,10 @@
             android:background="@drawable/selector_white_to_gray"
             android:src="@mipmap/ic_menu_search" />
     </RelativeLayout>
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/rg_circle" />
 
     <FrameLayout
         android:id="@+id/fl_container"

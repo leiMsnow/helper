@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 public abstract class BaseUIFragment extends BaseFragment {
 
     protected View mView;
+    protected ViewGroup mViewGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mViewGroup = container;
         if (mView == null) {
             mView = inflater.inflate(getLayoutRes(), container, false);
             initView();
@@ -35,10 +37,12 @@ public abstract class BaseUIFragment extends BaseFragment {
      * 初始化界面View
      */
     protected abstract void initView();
+
     /**
      * 初始化数据
      */
     protected abstract void initData();
+
     /**
      * 初始化监听器
      */

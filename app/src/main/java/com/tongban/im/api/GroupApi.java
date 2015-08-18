@@ -456,7 +456,7 @@ public class GroupApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(DisplayType.View, errorMessage);
             }
         });
     }
@@ -492,7 +492,7 @@ public class GroupApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(DisplayType.View, errorMessage);
             }
         });
     }

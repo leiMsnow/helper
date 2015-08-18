@@ -4,9 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
@@ -32,7 +33,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private ClearEditText etPwd;
     private TextView tvFindPwd;
     private TextView tvRegister;
-    private Button tvLogin;
+    private Button btnLogin;
 
     private String mUser, mPwd;
 
@@ -49,7 +50,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etPwd = (ClearEditText) findViewById(R.id.et_pwd);
         tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
-        tvLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin = (Button) findViewById(R.id.btn_login);
     }
 
     @Override
@@ -67,9 +68,18 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     protected void initListener() {
         etUser.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
-        tvLogin.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
         tvFindPwd.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        etPwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    onClick(btnLogin);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -87,9 +97,9 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         mUser = etUser.getText().toString();
         mPwd = etPwd.getText().toString();
         if (mUser.length() == 0 || mPwd.length() < 6) {
-            tvLogin.setEnabled(false);
+            btnLogin.setEnabled(false);
         } else {
-            tvLogin.setEnabled(true);
+            btnLogin.setEnabled(true);
         }
     }
 
@@ -109,7 +119,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     public void onClick(View v) {
-        if (v == tvLogin) {
+        if (v == btnLogin) {
             UserApi.getInstance().login(mUser, mPwd, this);
         } else if (v == tvRegister) {
             startActivity(new Intent(mContext, RegisterActivity.class));

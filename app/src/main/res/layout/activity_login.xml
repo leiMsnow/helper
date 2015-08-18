@@ -27,6 +27,7 @@
         android:layout_below="@+id/et_phone_num"
         android:maxLength="24"
         android:hint="@string/pwd"
+        android:imeOptions="actionDone"
         android:inputType="textPassword" />
 
     <View
