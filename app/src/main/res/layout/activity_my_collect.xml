@@ -16,6 +16,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/rl_multiple_product"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -42,6 +43,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_single_product"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
@@ -68,6 +70,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_topic"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">

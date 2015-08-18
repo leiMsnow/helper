@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
@@ -24,9 +25,10 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.OnPageChangeListener {
+public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
     private ViewPager vpResult;
     private View mIndicator;
+    private RelativeLayout rlMySendTopic, rlReplyTopic;
     private FragmentPagerAdapter mAdapter;
 
     private List<Fragment> mTabs = new ArrayList<>();
@@ -43,6 +45,8 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
 
     @Override
     protected void initView() {
+        rlMySendTopic = (RelativeLayout) findViewById(R.id.rl_my_send_topic);
+        rlReplyTopic = (RelativeLayout) findViewById(R.id.rl_reply_topic);
         ccvMySendTopic = (ChangeColorView) findViewById(R.id.ccv_my_send_topic);
         ccvMyReceiveTopic = (ChangeColorView) findViewById(R.id.ccv_my_receive_topic);
         mIndicator = findViewById(R.id.v_indicator);
@@ -93,7 +97,8 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
 
     @Override
     protected void initListener() {
-
+        rlMySendTopic.setOnClickListener(this);
+        rlReplyTopic.setOnClickListener(this);
     }
 
     @Override
@@ -116,5 +121,14 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == rlMySendTopic) {
+            vpResult.setCurrentItem(0);
+        } else if (v == rlReplyTopic) {
+            vpResult.setCurrentItem(1);
+        }
     }
 }

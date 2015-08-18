@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:background="@color/white"
+    android:background="@drawable/selector_corner_bg"
     android:descendantFocusability="blocksDescendants">
 
 
+    <com.tongban.corelib.widget.view.CircleImageView
+        android:id="@+id/iv_group_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rc_default_portrait" />
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/iv_group_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/rc_default_portrait" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_group_icon"
+        android:layout_alignTop="@+id/iv_group_icon"
+        android:layout_toRightOf="@+id/iv_group_icon"
+        android:gravity="center_vertical">
+        <!--群名称-->
+        <TextView
+            android:id="@+id/tv_group_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_group_icon"
-            android:layout_alignTop="@+id/iv_group_icon"
-            android:layout_toRightOf="@+id/iv_group_icon"
-            android:gravity="center_vertical">
-            <!--群名称-->
-            <TextView
-                android:id="@+id/tv_group_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/main_black"
-                android:textSize="14sp" />
-            <!--群标签-->
-            <TextView
-                android:id="@+id/tv_group_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_group_name"
-                android:text="宝宝圈"
-                android:textSize="12sp"/>
+            android:layout_marginLeft="8dp"
+            android:text="@string/app_name"
+            android:textColor="@color/main_black"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_group_introduce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tv_group_status"
-                android:layout_alignTop="@+id/tv_group_status"
-                android:layout_toRightOf="@+id/tv_group_status"
-                android:gravity="center_vertical"
-                android:paddingLeft="4dp"
-                android:textSize="12sp"
-                android:text="-1周岁，狮子座"
-                android:textColor="@color/normal_grey" />
-        </RelativeLayout>
-        <!--加入-->
-        <Button
-            android:id="@+id/btn_join"
-            android:layout_width="48dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/selector_join_btn_bg"
-            android:text="@string/join"
-            android:textColor="@color/main_deep_orange"
+
+        <!--群标签-->
+        <TextView
+            android:id="@+id/tv_group_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_group_name"
+            android:layout_marginLeft="8dp"
+            android:text="宝宝圈"
             android:textSize="12sp" />
-        <!--已加入-->
-        <ImageView
-            android:id="@+id/iv_join"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
-            android:src="@mipmap/ic_joined"
-            android:visibility="gone" />
 
+        <TextView
+            android:id="@+id/tv_group_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_group_status"
+            android:layout_alignTop="@+id/tv_group_status"
+            android:layout_toRightOf="@+id/tv_group_status"
+            android:gravity="center_vertical"
+            android:paddingLeft="4dp"
+            android:text="-1周岁，狮子座"
+            android:textColor="@color/normal_grey"
+            android:textSize="12sp" />
     </RelativeLayout>
-</FrameLayout>
+    <!--加入-->
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="48dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/selector_join_btn_bg"
+        android:text="@string/join"
+        android:textColor="@color/main_deep_orange"
+        android:textSize="12sp" />
+    <!--已加入-->
+    <ImageView
+        android:id="@+id/iv_join"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:src="@mipmap/ic_joined"
+        android:visibility="gone" />
+
+</RelativeLayout>
 
 
 
