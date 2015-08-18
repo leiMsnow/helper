@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 public abstract class BaseUIFragment extends BaseFragment {
 
     protected View mView;
-    protected ViewGroup mViewGroup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mViewGroup = container;
         if (mView == null) {
             mView = inflater.inflate(getLayoutRes(), container, false);
             initView();
