@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/weak_grey"
     android:orientation="vertical">
+    <!-- toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
     <!-- 专题头图 -->
     <ImageView
         android:id="@+id/iv_head"
@@ -16,7 +20,6 @@
         android:id="@+id/ll_multi"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/iv_head"
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="8dp">
@@ -26,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="从此宝宝和蚊子绝缘"
+            android:textColor="@color/main_black"
             android:textSize="18sp" />
         <!-- 专题标签 -->
         <com.tongban.corelib.widget.view.FlowLayout
@@ -75,7 +79,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/iv_user_portrait"
-                android:text="Jack Chan" />
+                android:text="Jack Chan"
+                android:textColor="@color/main_black" />
             <!-- 发表人标签 -->
             <TextView
                 android:id="@+id/tv_user_tag"
@@ -93,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="11:53 AM" />
+                android:text="11:53 AM"
+                android:textColor="@color/normal_grey" />
         </RelativeLayout>
         <!-- 分割线 -->
         <View style="@style/HorizontalLine" />
@@ -106,7 +112,8 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="5"
-            android:text="萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒" />
+            android:text="萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒"
+            android:textColor="@color/normal_dark_grey" />
         <!-- 单品列表 -->
         <ListView
             android:id="@+id/lv_product"
@@ -139,4 +146,4 @@
             android:layout_height="wrap_content"
             android:scrollbars="none" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
