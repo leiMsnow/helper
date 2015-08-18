@@ -9,11 +9,11 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
  *
  * @author fushudi
  */
-public class PersonalDataActivity extends BaseToolBarActivity {
+public class PersonalInfoActivity extends BaseToolBarActivity {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_personal_data;
+        return R.layout.activity_personal_info;
     }
 
     @Override

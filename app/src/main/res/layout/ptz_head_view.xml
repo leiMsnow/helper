@@ -1,37 +1,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <!-- 头像-->
-    <ImageView
-        android:id="@+id/iv_user_head"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <FrameLayout
+        android:id="@+id/fl_user_head"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_marginLeft="48dp"
-        android:layout_marginTop="72dp"
-        android:src="@mipmap/ic_img_user_default" />
+        android:layout_marginTop="72dp">
+        <!-- 头像-->
+        <ImageView
+            android:id="@+id/iv_user_head"
+            android:layout_width="48dp"
+            android:layout_gravity="center"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_img_user_default" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@mipmap/ic_menu_add" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@mipmap/ic_joined" />
+    </FrameLayout>
     <!-- 用户信息布局-->
     <LinearLayout
         android:id="@+id/ll_user_info"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_user_head"
-        android:layout_alignTop="@+id/iv_user_head"
-        android:layout_marginRight="48dp"
-        android:layout_toRightOf="@+id/iv_user_head"
+        android:layout_alignBottom="@+id/fl_user_head"
+        android:layout_alignTop="@+id/fl_user_head"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@+id/fl_user_head"
         android:orientation="vertical">
+
+
         <!-- 用户名称、年龄、星座-->
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="24dp"
             android:text="小王子  1岁23天  狮子座"
             android:textColor="@color/white" />
+
         <!-- 用户标签-->
         <TextView
             android:id="@+id/tv_tags"
@@ -39,11 +60,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="16dp"
             android:singleLine="true"
             android:text="独立行走|淘气包|吃固体食物"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_private_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fl_user_head"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/fl_user_head"
+        android:layout_marginRight="24dp"
+        android:gravity="center_vertical"
+        android:text="私聊"
+        android:textColor="@color/red_300" />
     <!--底部粉丝、关注、话题布局-->
     <LinearLayout
         android:layout_width="match_parent"

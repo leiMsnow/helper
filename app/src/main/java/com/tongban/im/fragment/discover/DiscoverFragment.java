@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
-import com.tongban.im.activity.user.UserCenterActivity;
+import com.tongban.im.activity.user.PersonalCenterActivity;
 
 /**
  * 发现页
@@ -48,7 +48,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == ivUserIcon) {
-            mContext.startActivity(new Intent(mContext, UserCenterActivity.class));
+            mContext.startActivity(new Intent(mContext, PersonalCenterActivity.class));
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }

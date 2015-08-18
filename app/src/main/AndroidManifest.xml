@@ -109,8 +109,8 @@
         </activity>
         <activity
             android:name=".activity.user.LoginActivity"
-            android:theme="@style/AppTheme.Red.Base"
             android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.group.ChatActivity"
@@ -157,7 +157,7 @@
             android:label="@string/topic"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.user.UserCenterActivity"
+            android:name=".activity.user.PersonalCenterActivity"
             android:label="@string/user_center" />
         <activity
             android:name=".activity.group.SearchPoiActivity"
@@ -188,11 +188,12 @@
             android:name=".activity.user.FindPwdActivity"
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.PersonalDataActivity" />
-        <activity android:name=".activity.user.MyInfoActivity" />
+        <activity android:name=".activity.user.PersonalInfoActivity" />
+        <activity android:name=".activity.user.MyRelationshipActivity" />
         <activity android:name=".activity.user.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
         <activity android:name=".activity.user.MyGroupActivity" />
+        <activity android:name=".activity.user.UserCenterActivity" />
     </application>
 
 </manifest>
