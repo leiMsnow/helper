@@ -8,9 +8,12 @@
     <ListView
         android:id="@+id/lv_my_group_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="match_parent"
         android:cacheColorHint="@color/transparent"
-        android:scrollbars="none" />
+        android:divider="@null"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:scrollbars="none"/>
 
 </LinearLayout>
