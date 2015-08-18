@@ -1,4 +1,4 @@
-package com.tongban.im.activity.topic;
+package com.tongban.im.activity.user;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

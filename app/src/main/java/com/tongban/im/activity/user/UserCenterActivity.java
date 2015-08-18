@@ -12,7 +12,6 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.BadgeView;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
-import com.tongban.im.activity.topic.MyCollectActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
 /**

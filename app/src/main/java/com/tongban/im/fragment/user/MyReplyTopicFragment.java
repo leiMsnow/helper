@@ -1,11 +1,15 @@
 package com.tongban.im.fragment.user;
 
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
+import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.MyReplyTopicAdapter;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
@@ -13,9 +17,15 @@ import com.tongban.im.model.TopicReply;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClickListener{
+/**
+ * 回复我的话题
+ *
+ * @author fushudi
+ */
+public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView mListView;
     private MyReplyTopicAdapter mAdapter;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_my_receive_topic;
@@ -47,11 +57,23 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 
     @Override
     protected void initListener() {
-
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_topic_icon:
+                ToastUtil.getInstance(mContext).showToast("个人中心");
+                break;
+            case R.id.tv_reply:
+                ToastUtil.getInstance(mContext).showToast("回复");
+                break;
+        }
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(mContext, TopicDetailsActivity.class));
     }
 }

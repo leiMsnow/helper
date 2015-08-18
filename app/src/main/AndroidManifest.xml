@@ -107,7 +107,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.topic.LoginActivity"
+            android:name=".activity.user.LoginActivity"
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -183,12 +183,12 @@
             android:name=".activity.discover.SearchDiscoverResultActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".activity.topic.FindPwdActivity"
+            android:name=".activity.user.FindPwdActivity"
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalDataActivity" />
         <activity android:name=".activity.user.MyInfoActivity" />
-        <activity android:name=".activity.topic.MyCollectActivity" />
+        <activity android:name=".activity.user.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
         <activity android:name=".activity.user.MyGroupActivity" />
     </application>

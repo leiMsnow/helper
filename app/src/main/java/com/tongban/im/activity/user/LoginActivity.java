@@ -1,4 +1,4 @@
-package com.tongban.im.activity.topic;
+package com.tongban.im.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.user.RegisterActivity;
 import com.tongban.im.api.UserApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;

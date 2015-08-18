@@ -16,7 +16,6 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
-import com.tongban.im.activity.topic.LoginActivity;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserApi;
