@@ -11,6 +11,11 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 
+/**
+ * 用户中心（他人的）
+ *
+ * @author fushudi
+ */
 public class UserCenterActivity extends BaseToolBarActivity {
     private PullToZoomScrollViewEx lvUserCenter;
 
@@ -34,7 +39,7 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
         tvTags = (TextView) findViewById(R.id.tv_tags);
         tvTags.setVisibility(View.GONE);
-        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_group);
+        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
         tvMyGroup.setVisibility(View.GONE);
         tvMyCollect.setVisibility(View.GONE);
