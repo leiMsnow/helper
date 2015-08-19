@@ -1,7 +1,6 @@
 package com.tongban.im.fragment.group;
 
 
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +11,7 @@ import android.widget.RadioGroup;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.common.TransferPathPrefix;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -74,8 +74,7 @@ public class GroupFragment extends BaseApiFragment {
         ibSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 TransferCenter.startGroupSearch(mContext, "city1");
-//                startActivity(new Intent(mContext, SearchGroupActivity.class));
+                 TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_GROUP, "city1");
             }
         });
     }

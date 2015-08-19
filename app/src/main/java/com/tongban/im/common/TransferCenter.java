@@ -5,32 +5,47 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.tongban.im.App;
+
 /**
  * 跳转中心
  * Created by zhangleilei on 8/19/15.
  */
 public class TransferCenter {
 
-    /**
-     * 打开搜索圈子界面
-     *
-     * @param mContext
-     * @param keyword  关键字,可以为空
-     */
-    public static void startGroupSearch(Context mContext, @Nullable String keyword) {
-        Uri uri = Uri.parse("tongban://" + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath("searchgroup").appendPath("search")
-                .appendQueryParameter("keyword", keyword)
-                .build();
-        mContext.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    private static TransferCenter mApi;
+    private Context mContext;
 
+    private TransferCenter(Context context) {
+        this.mContext = context;
     }
 
-    public static void startTopicSearch(Context mContext, @Nullable String keyword) {
-        Uri uri = Uri.parse("tongban://" + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath("searchtopic").appendPath("search")
+    public static TransferCenter getInstance() {
+        if (mApi == null) {
+            synchronized (TransferCenter.class) {
+                if (mApi == null) {
+                    mApi = new TransferCenter(App.getInstance());
+                }
+            }
+        }
+        return mApi;
+    }
+
+    public static final String APP_SCHEME = "tongban://";
+
+    /**
+     * 打开搜索界面
+     *
+     * @param pathPrefix 跳转的前缀参考 {@link TransferPathPrefix}
+     * @param keyword    关键字,可以为空
+     */
+    public void startSearch(String pathPrefix, @Nullable String keyword) {
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendPath("search")
                 .appendQueryParameter("keyword", keyword)
                 .build();
-        mContext.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
     }
 }

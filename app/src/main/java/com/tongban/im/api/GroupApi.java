@@ -98,7 +98,7 @@ public class GroupApi extends BaseApi {
      * modified by chen
      *
      * @param groupName   群组名字
-     * @param groupType   群组类型
+     * @param groupType   群组类型{@link GroupType}
      * @param longitude   经度
      * @param latitude    纬度
      * @param address     详细地址
@@ -220,7 +220,6 @@ public class GroupApi extends BaseApi {
             }
         });
     }
-
 
 
     /**
