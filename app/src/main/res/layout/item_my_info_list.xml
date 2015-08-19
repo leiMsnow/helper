@@ -25,13 +25,15 @@
         android:gravity="center"
         android:text="Children" />
 
-    <ImageView
-        android:id="@+id/iv_attention"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/btn_follow"
+        android:layout_width="48dp"
+        android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/selector_cb_bg" />
+        android:background="@drawable/selector_join_btn_bg"
+        android:text="@string/follow"
+        android:textColor="@color/main_deep_orange"
+        android:textSize="12sp" />
 </RelativeLayout>

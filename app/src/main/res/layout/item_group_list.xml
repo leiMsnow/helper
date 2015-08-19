@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_margin="8dp"
-        android:background="@drawable/selector_corner_bg">
+        android:background="@drawable/selector_white_to_gray">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_group_icon"
@@ -47,6 +47,8 @@
                 android:layout_below="@+id/tv_group_name"
                 android:layout_marginLeft="8dp"
                 android:text="宝宝圈"
+                android:padding="4dp"
+                android:background="@drawable/shape_corners_bg_yellow"
                 android:textSize="12sp" />
 
             <TextView
