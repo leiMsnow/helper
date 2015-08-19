@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.group.GroupInfoActivity;
 import com.tongban.im.common.Consts;
 
 import io.rong.imkit.model.Event;
@@ -52,7 +51,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void initView() {
         topicLayout = findViewById(R.id.fl_topic);
         ivTopic = (ImageView) findViewById(R.id.iv_topic);
-        tvTopic = (TextView) findViewById(R.id.tv_topic_num);
+        tvTopic = (TextView) findViewById(R.id.tv_group_num);
         tvTopicDetails = (TextView) findViewById(R.id.tv_topic_details);
     }
 

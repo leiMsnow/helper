@@ -22,9 +22,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private PullToZoomScrollViewEx lvUserCenter;
     private BadgeView fansBadgeView;
     private LinearLayout llUserInfo;
-    private RelativeLayout rlFansNum, rlFollowNum, rlTopicNum;
-    private TextView tvFans, tvFollow, tvTopic;
-    private TextView tvMyGroup, tvMyCollect;
+    private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
+    private TextView tvFans, tvFollow, tvGroup;
+    private TextView tvTopic, tvMyCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +50,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         llUserInfo = (LinearLayout) headView.findViewById(R.id.ll_user_info);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
         rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
-        rlTopicNum = (RelativeLayout) headView.findViewById(R.id.rl_topic_num);
+        rlGroupNum = (RelativeLayout) headView.findViewById(R.id.rl_group_num);
 
         tvFans = (TextView) headView.findViewById(R.id.tv_fans);
         tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
-        tvTopic = (TextView) headView.findViewById(R.id.tv_topic);
+        tvGroup = (TextView) headView.findViewById(R.id.tv_group);
 
-        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_group);
+        tvTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
@@ -76,14 +76,14 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         llUserInfo.setOnClickListener(this);
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
-        rlTopicNum.setOnClickListener(this);
+        rlGroupNum.setOnClickListener(this);
 
-        tvMyGroup.setOnClickListener(this);
+        tvTopic.setOnClickListener(this);
         tvMyCollect.setOnClickListener(this);
 
         tvFans.setOnClickListener(this);
         tvFollow.setOnClickListener(this);
-        tvTopic.setOnClickListener(this);
+        tvGroup.setOnClickListener(this);
 
     }
 
@@ -106,13 +106,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             intent.putExtra("Tag", "Follow");
             startActivity(intent);
         }
-        //跳转到话题界面
-        else if (v == rlTopicNum || v == tvTopic) {
-            startActivity(new Intent(this, MyTopicActivity.class));
-        }
         //跳转到我的圈子界面
-        else if (v == tvMyGroup) {
+        else if (v == rlGroupNum || v == tvGroup) {
             startActivity(new Intent(this, MyGroupActivity.class));
+        }
+        //跳转到话题界面
+        else if (v == tvTopic) {
+            startActivity(new Intent(this, MyTopicActivity.class));
         }
         //跳转到我的收藏界面
         else if (v == tvMyCollect) {

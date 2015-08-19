@@ -129,20 +129,20 @@
                     android:visibility="gone" />
             </RelativeLayout>
 
-            <!-- 话题数量布局-->
+            <!-- 圈子数量布局-->
             <RelativeLayout
-                android:id="@+id/rl_topic_num"
+                android:id="@+id/rl_group_num"
                 style="@style/UserInfoAttrLayout">
-                <!-- 话题数量-->
+                <!-- 圈子数量-->
                 <TextView
-                    android:id="@+id/tv_topic_num"
+                    android:id="@+id/tv_group_num"
                     style="@style/UserInfoAttrTopText"
                     android:text="300" />
-                <!-- 话题badge-->
+                <!-- 圈子badge-->
                 <View
                     android:id="@+id/badge_topic"
                     style="@style/UserInfoBadge"
-                    android:layout_toRightOf="@+id/tv_topic_num" />
+                    android:layout_toRightOf="@+id/tv_group_num" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -162,9 +162,9 @@
                 android:text="@string/follow" />
 
             <TextView
-                android:id="@+id/tv_topic"
+                android:id="@+id/tv_group"
                 style="@style/UserInfoAttrBottomText"
-                android:text="@string/topic" />
+                android:text="@string/group" />
         </LinearLayout>
 
     </LinearLayout>
