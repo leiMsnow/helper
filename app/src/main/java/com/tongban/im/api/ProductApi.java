@@ -24,7 +24,7 @@ public class ProductApi extends BaseApi {
     /**
      * 获取专题详情信息
      */
-    public static final String FETCH_MULTI_PRODUCT_INFO = "ddim/theme/info";
+    public static final String FETCH_MULTI_PRODUCT_INFO = "theme/info";
 
     private ProductApi(Context context) {
         super(context);

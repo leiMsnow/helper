@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:src="@mipmap/ic_img_profile_bg" />
 
     <LinearLayout
@@ -40,21 +41,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:background="@drawable/shape_corners_bg_grey"
                 android:text="夏日"
                 android:textColor="@color/main_deep_orange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:background="@drawable/shape_corners_bg_grey"
                 android:text="防蚊"
                 android:textColor="@color/main_deep_orange" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:background="@drawable/shape_corners_bg_grey"
                 android:text="进口"
                 android:textColor="@color/main_deep_orange" />
         </com.tongban.corelib.widget.view.FlowLayout>
