@@ -32,10 +32,50 @@ public class User {
     private String portrait_url;
     //用户标签
     private String tags;
-    //
+    //个人描述
     private String declaration;
     //用户地址
     private String address;
+    //加入的群数量
+    private int joined_group_amount;
+    //粉丝数量
+    private int fans_amount;
+    //关注数量
+    private int focused_amount;
+    //地址类型
+    private String address_type;
+
+    public int getJoined_group_amount() {
+        return joined_group_amount;
+    }
+
+    public void setJoined_group_amount(int joined_group_amount) {
+        this.joined_group_amount = joined_group_amount;
+    }
+
+    public int getFans_amount() {
+        return fans_amount;
+    }
+
+    public void setFans_amount(int fans_amount) {
+        this.fans_amount = fans_amount;
+    }
+
+    public int getFocused_amount() {
+        return focused_amount;
+    }
+
+    public void setFocused_amount(int focused_amount) {
+        this.focused_amount = focused_amount;
+    }
+
+    public String getAddress_type() {
+        return address_type;
+    }
+
+    public void setAddress_type(String address_type) {
+        this.address_type = address_type;
+    }
 
     public String getBirthday() {
         return birthday;
@@ -156,5 +196,4 @@ public class User {
     public void setDeclaration(String declaration) {
         this.declaration = declaration;
     }
-
 }

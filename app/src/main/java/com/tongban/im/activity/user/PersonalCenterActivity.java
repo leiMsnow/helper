@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.BadgeView;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.User;
 
 /**
  * 个人中心
@@ -20,9 +24,11 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private PullToZoomScrollViewEx lvUserCenter;
-    private BadgeView fansBadgeView;
+    private ImageView ivUserIcon;
+    private TextView tvUserName, tvDeclaration;
     private LinearLayout llUserInfo;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
+    private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
     private TextView tvTopic, tvMyCollect;
 
@@ -48,9 +54,16 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         lvUserCenter.setScrollContentView(contentView);
 
         llUserInfo = (LinearLayout) headView.findViewById(R.id.ll_user_info);
+        ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_head);
+        tvDeclaration = (TextView) headView.findViewById(R.id.tv_declaration);
+        tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
         rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
         rlGroupNum = (RelativeLayout) headView.findViewById(R.id.rl_group_num);
+
+        tvFansCount = (TextView) headView.findViewById(R.id.tv_fans_num);
+        tvFollowCount = (TextView) headView.findViewById(R.id.tv_follow_num);
+        tvGroupCount = (TextView) headView.findViewById(R.id.tv_group_num);
 
         tvFans = (TextView) headView.findViewById(R.id.tv_fans);
         tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
@@ -68,7 +81,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initData() {
-
+        UserCenterApi.getInstance().fetchUserCenterInfo(this);
     }
 
     @Override
@@ -118,5 +131,15 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         else if (v == tvMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
         }
+    }
+
+    public void onEventMainThread(User user) {
+        Glide.with(mContext).load(user.getPortrait_url()).into(ivUserIcon);
+        tvUserName.setText(user.getNick_name() + user.getBirthday() + user.getTags());
+        tvDeclaration.setText(user.getDeclaration());
+        tvFansCount.setText(user.getFans_amount()+"");
+        tvFollowCount.setText(user.getFocused_amount()+"");
+        tvGroupCount.setText(user.getJoined_group_amount()+"");
+
     }
 }

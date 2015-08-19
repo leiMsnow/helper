@@ -37,7 +37,7 @@ public class UserCenterActivity extends BaseToolBarActivity {
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
 
-        tvTags = (TextView) findViewById(R.id.tv_tags);
+        tvTags = (TextView) findViewById(R.id.tv_declaration);
         tvTags.setVisibility(View.GONE);
         tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
