@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.activity.topic.OfficialTopicDetailsActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 import com.tongban.im.model.MultiProduct;
@@ -66,6 +67,6 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d("onItemClick","onItemClick");
-        mContext.startActivity(new Intent(mContext, OfficialTopicDetailsActivity.class));
+        mContext.startActivity(new Intent(mContext, MultiProductActivity.class));
     }
 }
