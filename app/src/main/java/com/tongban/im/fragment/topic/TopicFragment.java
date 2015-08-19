@@ -20,6 +20,7 @@ import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.topic.SearchTopicActivity;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
@@ -37,14 +38,12 @@ import de.greenrobot.event.EventBus;
 public class TopicFragment extends BaseApiFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener {
 
-    private ListView mListView;
+    private ListView lvTopicList;
     private TopicAdapter mAdapter;
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
     private RelativeLayout rlToolBar;
-
-    private BaseEvent.TopicEvent topicEvent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         rlToolBar = (RelativeLayout) mView.findViewById(R.id.rl_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
-        mListView = (ListView) mView.findViewById(R.id.lv_topic_list);
+        lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
         mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
 
     }
@@ -70,7 +69,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initListener() {
         ivSearch.setOnClickListener(this);
-        mListView.setOnItemClickListener(this);
+        lvTopicList.setOnItemClickListener(this);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +81,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initData() {
+        tvTitle.setText(getResources().getString(R.string.topic));
         if (getArguments() != null) {
             boolean toolbarDisplay = getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true);
             if (!toolbarDisplay) {
@@ -90,7 +90,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                 rlToolBar.setVisibility(View.VISIBLE);
             }
         }
-        tvTitle.setText(getResources().getString(R.string.topic));
+
+        TopicApi.getInstance().recommendTopicList(0, 10, this);
+
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Topic topic = new Topic();
@@ -131,7 +133,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         }
         mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, listsByHot);
         mAdapter.setOnClickListener(this);
-        mListView.setAdapter(mAdapter);
+        lvTopicList.setAdapter(mAdapter);
     }
 
     @Override
@@ -170,19 +172,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(mContext, TopicDetailsActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(Consts.KEY_TOPIC_INFO,mAdapter.getItem(position));
-//        intent.putExtras(bundle);
+        Bundle bundle = new Bundle();
+        bundle.putString(Consts.KEY_TOPIC_ID, mAdapter.getItem(position).getTopicId());
+        intent.putExtras(bundle);
         startActivity(intent);
-
-        topicEvent = new BaseEvent.TopicEvent();
-        topicEvent.setTopic(mAdapter.getItem(position));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (topicEvent != null)
-            EventBus.getDefault().post(topicEvent);
     }
 }

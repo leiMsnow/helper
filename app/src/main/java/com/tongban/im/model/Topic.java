@@ -14,6 +14,8 @@ public class Topic  {
     public final static int TEXT = 0;
     //话题内容为图片
     public final static int IMAGE = 1;
+    //话题ID
+    private String topicId;
     // 话题名称
     private String topicName;
     // 话题评论数量
@@ -26,7 +28,24 @@ public class Topic  {
     private String topicAddress;
     //话题评论
     private TopicReply topicReply;
+    // 话题内容
+    private String topicContent;
+    //用户
+    private User user;
+    //内容类型（文字或者图片）
+    private int contentType;
+    //缩略图地址
+    private List<String> smallUrl;
+    //原图地址
+    private List<String> bigUrl;
 
+    public String getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(String topicId) {
+        this.topicId = topicId;
+    }
 
     public TopicReply getTopicReply() {
         return topicReply;
@@ -44,16 +63,6 @@ public class Topic  {
         this.topicAddress = topicAddress;
     }
 
-    // 话题内容
-    private String topicContent;
-    //用户
-    private User user;
-    //内容类型（文字或者图片）
-    private int contentType;
-    //缩略图地址
-    private List<String> smallUrl;
-    //原图地址
-    private List<String> bigUrl;
 
     public int getContentType() {
         return contentType;

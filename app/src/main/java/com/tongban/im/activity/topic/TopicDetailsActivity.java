@@ -51,6 +51,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private TopicReplyAdapter mAdapter;
     private Topic mTopicInfo;
 
+    private String mTopicId;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_topic_detail;
@@ -74,7 +76,18 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     protected void initData() {
-
+        if (getIntent().getExtras() != null) {
+            mTopicId = getIntent().getExtras().getString(Consts.KEY_TOPIC_ID,"");
+        }
+        if (mTopicInfo != null) {
+            if (mTopicInfo.getContentType() == Topic.IMAGE) {
+                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+                        mTopicInfo.getSmallUrl());
+                gvContent.setAdapter(mTopicImgAdapter);
+            }
+        } else {
+            lvReplyList.removeHeaderView(mHeader);
+        }
         List<TopicReply> replyList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             TopicReply topicReply = new TopicReply();
@@ -94,19 +107,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     @Override
     protected void initListener() {
 
-    }
-
-    public void onEventMainThread(BaseEvent.TopicEvent topicEvent) {
-        mTopicInfo = topicEvent.getTopic();
-        if (mTopicInfo != null) {
-            if (mTopicInfo.getContentType() == Topic.IMAGE) {
-                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                        mTopicInfo.getSmallUrl());
-                gvContent.setAdapter(mTopicImgAdapter);
-            }
-        } else {
-            lvReplyList.removeHeaderView(mHeader);
-        }
     }
 
     @Override

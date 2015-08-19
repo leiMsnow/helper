@@ -2,10 +2,14 @@ package com.tongban.im.api;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.Topic;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -105,8 +109,17 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                if (callback != null)
-                    callback.onComplete(obj);
+                ApiListResult<Topic> listResult = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+
+                if (listResult.getData().getResult().size() > 0) {
+                    if (callback != null)
+                        callback.onComplete(listResult);
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.View, "暂无话题,快来创建第一条话题吧");
+                }
             }
 
             @Override

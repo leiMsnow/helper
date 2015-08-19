@@ -35,20 +35,6 @@ public class Consts {
      */
     public static final String USER_ACCOUNT = "USER_ACCOUNT";
 
-    //------------------------------bundle-key------------------------------------------------------
-    //圈子相关key
-    public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
-    public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
-    public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
-
-    public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
-    public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
-    //话题相关key
-    /**
-     * 是否显示话题页的标题
-     */
-    public static final String KEY_TOPIC_TOOLBAR_DISPLAY = "KEY_TOPIC_TOOLBAR_DISPLAY";
-
     /**
      * 经度
      */
@@ -58,14 +44,68 @@ public class Consts {
      */
     public static final String LATITUDE = "LATITUDE";
     /**
-     * 位置
+     * 省份
      */
     public static final String PROVINCE = "PROVINCE";
+    /**
+     * 城市
+     */
     public static final String CITY = "CITY";
+    /**
+     * 区县
+     */
     public static final String COUNTY = "COUNTY";
+    /**
+     * 地址
+     */
     public static final String ADDRESS = "ADDRESS";
     /**
-     * 历史搜索-话题
+     * 历史搜索-话题搜索记录
      */
     public static final String HISTORY_SEARCH_TOPIC = "HISTORY_SEARCH_TOPIC";
+
+    //------------------------------bundle-key-start------------------------------------------------
+
+
+
+    //------------------------------圈子相关key------------------------------------------------------
+    /**
+     * 圈子ID
+     */
+    public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
+    /**
+     * 圈子类型
+     */
+    public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
+    /**
+     * 圈子类型名称
+     */
+    public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
+    /**
+     * 搜索圈子POI的名称
+     */
+    public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
+    /**
+     * 圈子搜索结果
+     */
+    public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
+
+
+
+
+    //------------------------------话题相关key------------------------------------------------------
+    /**
+     * 是否显示话题页的标题
+     */
+    public static final String KEY_TOPIC_TOOLBAR_DISPLAY = "KEY_TOPIC_TOOLBAR_DISPLAY";
+    /**
+     * 话题ID
+     */
+    public static final String KEY_TOPIC_ID = "KEY_TOPIC_ID";
+
+    //------------------------------用户相关key------------------------------------------------------
+
+
+    //------------------------------bundle-key-end--------------------------------------------------
+
 }
