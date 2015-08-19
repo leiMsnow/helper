@@ -124,7 +124,7 @@ public class GroupApi extends BaseApi {
         mParams.put("latitude", latitude);
         mParams.put("address", address);
 
-//        if (birthday != null)
+        if (birthday != null)
             mParams.put("birthday", birthday);
         if (tags != null)
             mParams.put("tags", tags);
@@ -132,7 +132,7 @@ public class GroupApi extends BaseApi {
             mParams.put("declaration", declaration);
 
         mParams.put("group_avatar", groupAvatar);
-        mParams.put("is_search", isSearch ? 1 : 0);
+        mParams.put("flag_allow_search", isSearch ? 1 : 0);
         //此处接口名称根据groupType变化
         simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new ApiCallback() {
             @Override
