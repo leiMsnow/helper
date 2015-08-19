@@ -43,21 +43,27 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         switch (item.getGroup_type()) {
             case GroupType.ACTIVITY:
                 setGroupTags(helper, "活动圈", R.color.theme_yellow);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
                 break;
             case GroupType.AGE:
                 setGroupTags(helper, "同龄圈", R.color.theme_pink);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_pink);
                 break;
             case GroupType.CITY:
                 setGroupTags(helper, "同城圈", R.color.theme_deep_purple);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_purple);
                 break;
             case GroupType.CLASSMATE:
                 setGroupTags(helper, "同学圈", R.color.theme_light_blue);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_blue);
                 break;
             case GroupType.LIFE:
                 setGroupTags(helper, "生活圈", R.color.theme_light_green);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_green);
                 break;
             case GroupType.TALENT:
                 setGroupTags(helper, "达人圈", R.color.theme_yellow);
+                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
                 break;
         }
         helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar(),R.drawable.rc_default_group_portrait);
