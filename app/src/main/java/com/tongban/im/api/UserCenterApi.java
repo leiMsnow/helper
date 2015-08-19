@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +25,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取用户个人中心数据
      */
-    public static final String FETCH_USER_ = "user/center/info";
+    public static final String FETCH_USER_CENTER_INFO = "user/center/info";
     /**
      * 获取个人群组列表-创建的群
      */
@@ -42,7 +44,37 @@ public class UserCenterApi extends BaseApi {
         }
         return mApi;
     }
+    /**
+     * 获取用户个人中心数据
+     *
+     * @param callback
+     */
+    public void fetchUserCenterInfo( final ApiCallback callback) {
 
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+        simpleRequest(FETCH_USER_CENTER_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                User user = apiResponse.getData();
+                callback.onComplete(user);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
     /**
      * 获取个人群组列表-创建的群
      *
