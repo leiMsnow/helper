@@ -39,10 +39,7 @@ public class GroupApi extends BaseApi {
      */
     public static final String JOIN_GROUP = "user/group/join";
 
-    /**
-     * 获取个人群组列表-创建的群
-     */
-    public static final String FETCH_MY_GROUP_LIST = "user/join/group/list";
+
     /**
      * 根据群组类型获取搜索群组
      */
@@ -190,39 +187,7 @@ public class GroupApi extends BaseApi {
         });
     }
 
-    /**
-     * 获取个人群组列表-创建的群
-     *
-     * @param callback
-     */
-    public void fetchMyGroupList(final ApiCallback callback) {
 
-        mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor",0);
-        mParams.put("page_size", 4);
-
-        simpleRequest(FETCH_MY_GROUP_LIST, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<Group>>>() {
-                        });
-                List<Group> groups = apiResponse.getData();
-                callback.onComplete(groups);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
 
     /**
      * 根据群组类型获取搜索群组

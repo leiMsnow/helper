@@ -1,4 +1,4 @@
-package com.tongban.im.fragment.discover;
+package com.tongban.im.fragment.user;
 
 
 import android.widget.GridView;
