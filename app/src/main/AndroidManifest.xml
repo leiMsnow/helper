@@ -146,7 +146,18 @@
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
-            android:theme="@style/AppTheme.White.Base.Translucent" />
+            android:theme="@style/AppTheme.White.Base.Translucent" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/search_group/"
+                    android:scheme="tongban" />
+            </intent-filter>
+            </activity>
         <activity
             android:name=".activity.group.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
