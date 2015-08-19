@@ -66,13 +66,13 @@
         <Button
             android:id="@+id/btn_join"
             android:layout_width="48dp"
-            android:layout_height="32dp"
+            android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:background="@drawable/selector_join_btn_bg"
             android:text="@string/join"
-            android:textColor="@color/main_deep_orange"
+            android:textColor="@color/selector_join_text_color"
             android:textSize="12sp" />
 
     </RelativeLayout>

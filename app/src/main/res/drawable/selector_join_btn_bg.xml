@@ -2,5 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/shape_join_btn_pressed" android:state_pressed="true" />
     <item android:drawable="@drawable/shape_join_btn_pressed" android:state_focused="true" />
+    <item android:drawable="@drawable/shape_join_btn_enabled" android:state_enabled="false" />
     <item android:drawable="@drawable/shape_join_btn_normal" />
 </selector>

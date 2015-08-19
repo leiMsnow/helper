@@ -38,7 +38,7 @@ public class GroupApi extends BaseApi {
     /**
      * 加入群组
      */
-    public static final String JOIN_GROUP = "group/join";
+    public static final String JOIN_GROUP = "user/group/join";
 
     /**
      * 获取个人群组列表-创建的群
@@ -160,16 +160,15 @@ public class GroupApi extends BaseApi {
      * 加入群组
      *
      * @param groupId   群组ID
-     * @param masterId  群主ID
      * @param groupName 群名称
+     * @param masterId  群主ID
      * @param callback  结果回调
      */
     public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_name", groupName);
-
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_owner_id", masterId);
 
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {

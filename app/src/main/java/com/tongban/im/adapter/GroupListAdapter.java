@@ -64,6 +64,9 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         helper.setText(R.id.tv_group_name, item.getGroup_name());
         helper.setText(R.id.tv_group_introduce, item.getDeclaration());
 
+        helper.setTag(R.id.btn_join, item);
+        helper.setOnClickListener(R.id.btn_join, onClickListener);
+
     }
 
     private void setGroupTags(BaseAdapterHelper helper, String tags, int tagsColor) {
