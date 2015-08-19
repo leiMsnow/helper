@@ -263,5 +263,19 @@ public class BaseEvent {
         }
     }
 
+    /**
+     * 创建圈子成功Event
+     */
+    public static class CreateGroupEvent{
+        String groupId;
+
+        public String getGroupId() {
+            return groupId;
+        }
+
+        public void setGroupId(String groupId) {
+            this.groupId = groupId;
+        }
+    }
 
 }

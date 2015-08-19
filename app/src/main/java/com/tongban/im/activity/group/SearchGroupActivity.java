@@ -65,7 +65,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQuery(mKeyword,false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;

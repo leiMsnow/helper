@@ -8,6 +8,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.adapter.MTTAdapter;
@@ -108,9 +109,9 @@ public class GroupApi extends BaseApi {
      * @param isSearch    (true-1:允许搜索;false-0：不允许搜索)
      * @param callback    回调
      */
-    public void createGroup(String groupName, int groupType, double longitude,
-                            double latitude, String address, @Nullable String birthday,
-                            @Nullable String tags, @Nullable String declaration,
+    public void createGroup(final String groupName, int groupType, double longitude,
+                            double latitude, final String address, @Nullable String birthday,
+                            @Nullable String tags, @Nullable final String declaration,
                             Map<String, String> groupAvatar, boolean isSearch,
                             final ApiCallback callback) {
 
@@ -144,13 +145,43 @@ public class GroupApi extends BaseApi {
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
-                Group group = result.getData();
-                callback.onComplete(group);
+                BaseEvent.CreateGroupEvent createGroupEvent = new BaseEvent.CreateGroupEvent();
+                createGroupEvent.setGroupId(result.getData().toString());
+                // TODO: 8/19/15  同步到查询表，后面会删除
+                createGroup1(groupName, result.getData().toString(), address, declaration, null);
+                callback.onComplete(createGroupEvent);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    public void createGroup1(String groupName, String groupId, String address, String declaration,
+                             final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("group_name", groupName);
+        mParams.put("address", address);
+        mParams.put("declaration", declaration);
+
+        //此处接口名称根据groupType变化
+        simpleRequest("http://10.255.209.72/group_test/group_info/1", mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                LogUtil.d("createGroup1-onComplete", obj.toString());
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                LogUtil.d("createGroup1-onFailure", errorMessage.toString());
+
             }
         });
     }
@@ -190,39 +221,7 @@ public class GroupApi extends BaseApi {
         });
     }
 
-    /**
-     * 获取个人群组列表-创建的群
-     *
-     * @param callback
-     */
-    public void fetchMyGroupList(final ApiCallback callback) {
 
-        mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor",0);
-        mParams.put("page_size", 4);
-
-        simpleRequest(FETCH_MY_GROUP_LIST, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<Group>>>() {
-                        });
-                List<Group> groups = apiResponse.getData();
-                callback.onComplete(groups);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
 
     /**
      * 根据群组类型获取搜索群组

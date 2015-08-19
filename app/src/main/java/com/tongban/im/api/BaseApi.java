@@ -57,7 +57,7 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.255.209.67:8080/ddim/";
+    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
     //正式环境
     private static String MAIN_HOST = "";
     //测试环境

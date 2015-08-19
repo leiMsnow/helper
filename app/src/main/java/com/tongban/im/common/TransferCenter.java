@@ -1,4 +1,4 @@
-package com.tongban.corelib;
+package com.tongban.im.common;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,16 @@ public class TransferCenter {
      */
     public static void startGroupSearch(Context mContext, @Nullable String keyword) {
         Uri uri = Uri.parse("tongban://" + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath("search_group")
+                .appendPath("searchgroup").appendPath("search")
+                .appendQueryParameter("keyword", keyword)
+                .build();
+        mContext.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+
+    }
+
+    public static void startTopicSearch(Context mContext, @Nullable String keyword) {
+        Uri uri = Uri.parse("tongban://" + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath("searchtopic").appendPath("search")
                 .appendQueryParameter("keyword", keyword)
                 .build();
         mContext.startActivity(new Intent(Intent.ACTION_VIEW, uri));

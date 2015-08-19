@@ -16,8 +16,8 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.discover.MultipleProductFragment;
-import com.tongban.im.fragment.discover.SingleProductFragment;
+import com.tongban.im.fragment.user.MultipleProductFragment;
+import com.tongban.im.fragment.user.SingleProductFragment;
 
 import java.util.ArrayList;
 import java.util.List;

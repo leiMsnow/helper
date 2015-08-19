@@ -154,10 +154,11 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/search_group/"
+                    android:pathPrefix="/searchgroup/"
                     android:scheme="tongban" />
             </intent-filter>
-            </activity>
+        </activity>
+
         <activity
             android:name=".activity.group.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
@@ -185,7 +186,18 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.topic.SearchTopicActivity"
-            android:label="@string/topic_search" />
+            android:label="@string/topic_search" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/searchtopic/"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.PhotoViewPagerActivity"
             android:label="@string/image_display" />
