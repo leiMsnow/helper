@@ -1,13 +1,28 @@
 package com.tongban.im.activity.discover;
 
+import android.graphics.Color;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.DateUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.ProductApi;
+import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.User;
+
+import java.util.List;
 
 /**
  * 专题页
@@ -54,11 +69,87 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-
+        // cey id是假的
+        ProductApi.getInstance().fetchMultiProductInfo("55c9b0f5bbafae4478f5dac2", this);
     }
 
     @Override
     protected void initListener() {
 
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_multi_product, menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.collect) {
+            ToastUtil.getInstance(mContext).showToast("收藏接口还没有~~~");
+            return true;
+        } else if (itemId == R.id.share) {
+            ToastUtil.getInstance(mContext).showToast("分享接口还没有~~~");
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 获取专题信息成功的事件
+     *
+     * @param multiProduct MultiProduct
+     */
+    public void onEventMainThread(MultiProduct multiProduct) {
+        // 获取专题发布人的信息
+        AccountApi.getInstance().getUserInfoByUserId(multiProduct.getUser_id(), this);
+        // 获取专题下的单品列表 cey 接口对不上UI,待分析
+        //ProductApi.getInstance().fetchSimpleByMultiId(multiProduct.getTheme_id(), 0, 20, this);
+
+        setTitle(multiProduct.getTheme_title());
+        if (multiProduct.getTheme_img_url().length > 0) {
+            Glide.with(mContext).load(multiProduct.getTheme_img_url()[0]).into(headImg);
+        }
+        title.setText(multiProduct.getTheme_title());
+        multiTag.removeAllViews();
+        String[] themeTags = multiProduct.getTheme_tags().split(",");
+        if (themeTags.length > 0) {
+            for (String tag : themeTags) {
+                TextView tv = new TextView(mContext);
+                tv.setText(tag);
+                tv.setTextColor(getResources().getColor(R.color.main_deep_orange));
+                tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
+                multiTag.addView(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+        } else {
+            multiTag.setVisibility(View.GONE);
+        }
+        multiDesc.setText(multiProduct.getTheme_content());
+        createTime.setText(DateUtils.longToString(multiProduct.getC_time(), "MM-dd hh:mm a"));
+    }
+
+    /**
+     * 获取专题发布人信息成功的事件
+     *
+     * @param user User
+     */
+    public void onEventMainThread(User user) {
+        Glide.with(mContext).load(user.getPortrait_url()).into(userPortrait);
+        userName.setText(user.getNick_name());
+        userTag.setText(user.getTags());
+    }
+
+    /**
+     * 获取专题下的图书列表信息成功的事件
+     *
+     * @param list 单品列表
+     */
+    public void onEventMainThread(List<ProductBook> list) {
+
+    }
+
+
 }

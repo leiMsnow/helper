@@ -11,6 +11,8 @@
     <string name="search">搜索</string>
     <string name="join">加入</string>
     <string name="recommend">推荐</string>
+    <string name="collect">收藏</string>
+    <string name="share">分享</string>
     <string name="digits">1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM._-@#$%^*()?~</string>
     <string name="image_display">图片浏览</string>
 
@@ -104,8 +106,6 @@
     <string name="all_type">全部分类</string>
     <string name="multiple_product">专题</string>
     <string name="single_product">单品</string>
-
-
 
 
 </resources>

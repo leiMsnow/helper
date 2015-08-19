@@ -9,8 +9,10 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.im.App;
 import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.ProductBook;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 商品相关的Api
@@ -61,6 +63,42 @@ public class ProductApi extends BaseApi {
                         });
                 MultiProduct multiProduct = result.getData();
                 callback.onComplete(multiProduct);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(displayType, errorObj);
+            }
+        });
+    }
+
+    /**
+     * 根据专题id获取专题下的单品列表
+     *
+     * @param multiProductId 专题id
+     * @param cursor         游标
+     * @param pageSize       每页的数量
+     * @param callback       回调
+     */
+    public void fetchSimpleByMultiId(@NonNull String multiProductId, int cursor, int pageSize,
+                                     final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("theme_id", multiProductId);
+        mParams.put("cursor", cursor);
+        mParams.put("page_size", pageSize);
+        simpleRequest(FETCH_MULTI_PRODUCT_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<List<ProductBook>> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<List<ProductBook>>>() {
+                        });
+                List<ProductBook> productList = result.getData();
+                callback.onComplete(productList);
             }
 
             @Override
