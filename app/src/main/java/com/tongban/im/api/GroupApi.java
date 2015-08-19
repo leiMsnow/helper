@@ -8,6 +8,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.adapter.MTTAdapter;
@@ -145,7 +146,7 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiResult<Group>>() {
                         });
                 BaseEvent.CreateGroupEvent createGroupEvent = new BaseEvent.CreateGroupEvent();
-                createGroupEvent.setGroupId(result.getData());
+                createGroupEvent.setGroupId(result.getData().toString());
                 // TODO: 8/19/15  同步到查询表，后面会删除
                 createGroup1(groupName, result.getData().toString(), address, declaration, null);
                 callback.onComplete(createGroupEvent);
@@ -174,12 +175,12 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                LogUtil.d("createGroup1-onComplete",obj.toString());
+                LogUtil.d("createGroup1-onComplete", obj.toString());
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                LogUtil.d("createGroup1-onFailure",errorMessage.toString());
+                LogUtil.d("createGroup1-onFailure", errorMessage.toString());
 
             }
         });
