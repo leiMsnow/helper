@@ -16,20 +16,18 @@ import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 
 import de.greenrobot.event.EventBus;
 
 
 /**
- * 用户操作API接口类
+ * 账号相关API接口类
  * Created by zhangleilei on 15/7/3.
  */
-public class UserApi extends BaseApi {
+public class AccountApi extends BaseApi {
 
-    private static UserApi mApi;
+    private static AccountApi mApi;
 
 
     /**
@@ -62,15 +60,15 @@ public class UserApi extends BaseApi {
      */
     public final static String REGISTER = "user/register/1";
 
-    private UserApi(Context context) {
+    private AccountApi(Context context) {
         super(context);
     }
 
-    public static UserApi getInstance() {
+    public static AccountApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (AccountApi.class) {
                 if (mApi == null) {
-                    mApi = new UserApi(App.getInstance());
+                    mApi = new AccountApi(App.getInstance());
                 }
             }
         }

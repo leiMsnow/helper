@@ -32,7 +32,7 @@ public class LocationApi extends BaseApi {
 
     public static LocationApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (LocationApi.class) {
                 if (mApi == null) {
                     mApi = new LocationApi(App.getInstance());
                 }

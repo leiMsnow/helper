@@ -12,7 +12,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.user.LoginActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.LocationApi;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.QiniuToken;
 import com.tongban.im.model.User;
@@ -58,7 +58,7 @@ public class LoadingActivity extends BaseToolBarActivity {
             startActivity(new Intent(mContext, LoginActivity.class));
             finish();
         } else {
-            UserApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
+            AccountApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
             LocationUtils.get(mContext).start();
         }
         // 获取七牛token

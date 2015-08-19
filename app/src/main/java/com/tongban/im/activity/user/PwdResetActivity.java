@@ -10,7 +10,7 @@ import android.widget.EditText;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -72,7 +72,7 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
                 } else {
                     if (mNewPwd.length() >= 6) {
                         if (mNewPwd.equals(mConfirmNewPwd)) {
-                            UserApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
+                            AccountApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
                         } else {
                             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.twice_pwd_same));
                         }

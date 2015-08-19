@@ -16,7 +16,7 @@ import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.ClearEditText;
@@ -120,7 +120,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            UserApi.getInstance().login(mUser, mPwd, this);
+            AccountApi.getInstance().login(mUser, mPwd, this);
         } else if (v == tvRegister) {
             startActivity(new Intent(mContext, RegisterActivity.class));
         } else if (v == tvFindPwd) {

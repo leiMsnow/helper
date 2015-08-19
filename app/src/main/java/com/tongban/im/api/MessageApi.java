@@ -1,22 +1,12 @@
 package com.tongban.im.api;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
-import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
-import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 消息api
@@ -39,7 +29,7 @@ public class MessageApi extends BaseApi {
 
     public static MessageApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (MessageApi.class) {
                 if (mApi == null) {
                     mApi = new MessageApi(App.getInstance());
                 }

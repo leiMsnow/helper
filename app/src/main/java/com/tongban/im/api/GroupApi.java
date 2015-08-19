@@ -83,7 +83,7 @@ public class GroupApi extends BaseApi {
 
     public static GroupApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (GroupApi.class) {
                 if (mApi == null) {
                     mApi = new GroupApi(App.getInstance());
                 }

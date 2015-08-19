@@ -1,5 +1,6 @@
 package com.tongban.im.activity.group;
 
+import android.net.Uri;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -30,6 +31,8 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
     private ListView lvGroups;
     private GroupListAdapter mAdapter;
 
+    private String mKeyword;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_join_group;
@@ -47,6 +50,10 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initData() {
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            mKeyword = uri.getQueryParameter("keyword");
+        }
         List<Group> groups = new ArrayList<>();
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
         mAdapter.setDisplayModel(false);
@@ -58,6 +65,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
+        searchView.setQuery(mKeyword,false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;

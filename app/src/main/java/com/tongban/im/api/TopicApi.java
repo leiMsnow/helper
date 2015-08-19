@@ -6,7 +6,6 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +37,7 @@ public class TopicApi extends BaseApi {
 
     public static TopicApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (TopicApi.class) {
                 if (mApi == null) {
                     mApi = new TopicApi(App.getInstance());
                 }

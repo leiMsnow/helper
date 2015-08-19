@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.BaseEvent;
 
@@ -70,7 +70,7 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
             ToastUtil.getInstance(mContext).showToast(R.string.submit);
         } // 获取手机验证码
         else if (v == tvVerifyCode) {
-            UserApi.getInstance().getSMSCode(tvPhoneNum.getText().toString(), this);
+            AccountApi.getInstance().getSMSCode(tvPhoneNum.getText().toString(), this);
         }
     }
 
@@ -85,7 +85,7 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
         // 找回成功，自动登录
         else if (obj.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.pwd_reset_success));
-            UserApi.getInstance().login(tvPhoneNum.getText().toString(), mPwd, this);
+            AccountApi.getInstance().login(tvPhoneNum.getText().toString(), mPwd, this);
         }
     }
 

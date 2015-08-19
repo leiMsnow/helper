@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
@@ -287,7 +287,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public UserInfo getUserInfo(String userId) {
 
-        UserApi.getInstance().getUserInfoByUserId(userId, null);
+        AccountApi.getInstance().getUserInfoByUserId(userId, null);
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
             LogUtil.d("userTable-----" + userTable.getUser_id());

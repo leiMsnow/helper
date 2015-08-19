@@ -18,7 +18,7 @@ import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.api.UserApi;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.BaseEvent;
@@ -131,7 +131,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         // 注册成功，自动登录
         else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-            UserApi.getInstance().login(mPhoneNum, mPwd, this);
+            AccountApi.getInstance().login(mPhoneNum, mPwd, this);
         }
     }
 
@@ -155,7 +155,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
             if (mPhoneNum.length() != 11) {
                 ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
             } else {
-                UserApi.getInstance().getSMSCode(mPhoneNum, this);
+                AccountApi.getInstance().getSMSCode(mPhoneNum, this);
             }
         }
         //校验手机验证码
@@ -165,7 +165,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
-                    UserApi.getInstance().register(mPhoneNum, mPwd, regEvent.getVerify_id(),
+                    AccountApi.getInstance().register(mPhoneNum, mPwd, regEvent.getVerify_id(),
                             mVerifyCode, this);
                 }
             } else {

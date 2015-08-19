@@ -30,7 +30,7 @@ public class ProductApi extends BaseApi {
 
     public static ProductApi getInstance() {
         if (mApi == null) {
-            synchronized (UserApi.class) {
+            synchronized (ProductApi.class) {
                 if (mApi == null) {
                     mApi = new ProductApi(App.getInstance());
                 }

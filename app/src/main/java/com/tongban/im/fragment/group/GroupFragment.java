@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
+import com.tongban.corelib.TransferCenter;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.SearchGroupActivity;
@@ -74,7 +75,8 @@ public class GroupFragment extends BaseApiFragment {
         ibSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(mContext, SearchGroupActivity.class));
+                TransferCenter.startGroupSearch(mContext,"圈");
+//                startActivity(new Intent(mContext, SearchGroupActivity.class));
             }
         });
     }
