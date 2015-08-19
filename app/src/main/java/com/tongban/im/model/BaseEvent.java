@@ -251,7 +251,7 @@ public class BaseEvent {
     /**
      * 选择标签Event
      */
-    public static class LabelEvent{
+    public static class LabelEvent {
         String label;
 
         public String getLabel() {

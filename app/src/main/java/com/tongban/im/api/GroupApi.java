@@ -1,7 +1,6 @@
 package com.tongban.im.api;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
@@ -43,7 +42,7 @@ public class GroupApi extends BaseApi {
     /**
      * 获取个人群组列表-创建的群
      */
-    public static final String FETCH_MY_CREATE_GROUP_LIST = "group/fetch/1";
+    public static final String FETCH_MY_GROUP_LIST = "user/join/group/list";
     /**
      * 根据群组类型获取搜索群组
      */
@@ -196,12 +195,14 @@ public class GroupApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchMyCreateGroupList(final ApiCallback callback) {
+    public void fetchMyGroupList(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor",0);
+        mParams.put("page_size", 4);
 
-        simpleRequest(FETCH_MY_CREATE_GROUP_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_MY_GROUP_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
