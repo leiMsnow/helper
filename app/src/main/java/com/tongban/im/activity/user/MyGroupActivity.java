@@ -7,6 +7,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 
@@ -51,7 +52,7 @@ public class MyGroupActivity extends BaseToolBarActivity {
 //            }
 //            myGroupList.add(group);
 //        }
-        GroupApi.getInstance().fetchMyGroupList(this);
+        UserCenterApi.getInstance().fetchMyGroupList(0,4,this);
     }
 
     @Override

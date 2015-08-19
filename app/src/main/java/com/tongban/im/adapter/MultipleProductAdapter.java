@@ -29,20 +29,18 @@ public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
     public MultipleProductAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
-
-    @Override
-    public int getCount() {
-        return 10;
-    }
-
     @Override
     protected void convert(BaseAdapterHelper helper, MultiProduct item) {
         helper.setImageBitmap(R.id.iv_product,
                 "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
+
+    }
+
+    @Override
+    protected void onFirstCreateView(BaseAdapterHelper helper) {
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
                 (int) (3.0F * (mScreenWidth / 4.0F)));
         helper.getView(R.id.iv_product).setLayoutParams(localObject);
     }
-
 }

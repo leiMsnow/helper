@@ -1,7 +1,8 @@
-package com.tongban.im.fragment.discover;
+package com.tongban.im.fragment.user;
 
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,6 +11,10 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.OfficialTopicDetailsActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
+import com.tongban.im.model.MultiProduct;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 专题查询结果页
@@ -34,8 +39,10 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
     protected void initView() {
         lvMultipleProduct = (ListView) mView.findViewById(R.id.lv_multiple_product);
 
+        List<MultiProduct> data = new ArrayList<>();
+        data.add(new MultiProduct());
         mAdapter = new MultipleProductAdapter(mContext,
-                R.layout.item_multiple_product_list, null);
+                R.layout.item_multiple_product_list, data);
         lvMultipleProduct.setAdapter(mAdapter);
     }
 
@@ -58,6 +65,7 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("onItemClick","onItemClick");
         mContext.startActivity(new Intent(mContext, OfficialTopicDetailsActivity.class));
     }
 }
