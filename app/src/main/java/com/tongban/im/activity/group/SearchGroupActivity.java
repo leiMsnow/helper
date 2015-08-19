@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.JoinGroupAdapter;
+import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 加入圈子
+ * 圈子-adapter
  *
  * @author zhangleilei
  * @createTime 2015/07/22
@@ -28,7 +28,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
         SearchView.OnQueryTextListener {
     private SearchView searchView;
     private ListView lvGroups;
-    private JoinGroupAdapter mAdapter;
+    private GroupListAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -48,7 +48,8 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initData() {
         List<Group> groups = new ArrayList<>();
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_group_list, groups);
+        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
+        mAdapter.setDisplayModel(false);
         lvGroups.setAdapter(mAdapter);
     }
 

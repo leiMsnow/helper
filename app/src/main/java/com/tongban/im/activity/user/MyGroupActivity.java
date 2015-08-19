@@ -1,13 +1,11 @@
 package com.tongban.im.activity.user;
 
 
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.MyGroupAdapter;
+import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 
@@ -21,7 +19,7 @@ import java.util.List;
  */
 public class MyGroupActivity extends BaseToolBarActivity {
     private ListView lvMyGroupList;
-    private MyGroupAdapter mAdapter;
+    private GroupListAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -52,7 +50,7 @@ public class MyGroupActivity extends BaseToolBarActivity {
             }
             myGroupList.add(group);
         }
-        mAdapter = new MyGroupAdapter(mContext, R.layout.item_group_list, myGroupList);
+        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, myGroupList);
         lvMyGroupList.setAdapter(mAdapter);
     }
 

@@ -8,9 +8,8 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
-import com.tongban.im.adapter.JoinGroupAdapter;
+import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.TopicApi;
 
 /**
  * 推荐圈子的Fragment
@@ -20,7 +19,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
     private ListView mListView;
     private FloatingActionButton mFab;
 
-    private JoinGroupAdapter mAdapter;
+    private GroupListAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -46,7 +45,8 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        mAdapter = new JoinGroupAdapter(mContext, R.layout.item_group_list, null);
+        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
+        mAdapter.setDisplayModel(false);
         mListView.setAdapter(mAdapter);
         GroupApi.getInstance().recommendGroupList(0, 10, this);
     }
