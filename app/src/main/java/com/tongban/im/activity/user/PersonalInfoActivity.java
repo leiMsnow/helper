@@ -42,7 +42,7 @@ public class PersonalInfoActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        UserCenterApi.getInstance().fetchUserCenterInfo(this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(this);
     }
 
     @Override

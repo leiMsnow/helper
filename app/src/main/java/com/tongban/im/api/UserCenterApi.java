@@ -27,9 +27,18 @@ public class UserCenterApi extends BaseApi {
      */
     public static final String FETCH_USER_CENTER_INFO = "user/center/info";
     /**
+     * 获取个人资料
+     */
+    public static final String FETCH_USER_DETAIL_INFO = "/user/info";
+    /**
      * 获取个人群组列表-创建的群
      */
     public static final String FETCH_MY_GROUP_LIST = "user/join/group/list";
+    /**
+     * 获取我关注的人员列表
+     */
+    public static final String FETCH_FOCUS_USER_LIST = "/user/focus/user/list";
+
     public UserCenterApi(Context context) {
         super(context);
     }
@@ -44,12 +53,13 @@ public class UserCenterApi extends BaseApi {
         }
         return mApi;
     }
+
     /**
      * 获取用户个人中心数据
      *
      * @param callback
      */
-    public void fetchUserCenterInfo( final ApiCallback callback) {
+    public void fetchUserCenterInfo(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -75,6 +85,39 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
+    /**
+     * 获取个人资料
+     *
+     * @param callback
+     */
+    public void fetchUserDetailInfo(final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        //TODO缺少参数
+        simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                User user = apiResponse.getData();
+                callback.onComplete(user);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
     /**
      * 获取个人群组列表-创建的群
      *
@@ -101,6 +144,36 @@ public class UserCenterApi extends BaseApi {
                         });
                 List<Group> groups = apiResponse.getData().getResult();
                 callback.onComplete(groups);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+    /**
+     * 获取我关注的人员列表
+     *
+     * @param callback
+     */
+    public void fetchFocusUserList(int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        // TODO: 2015/8/19 借口返回参数错误，缺少页码
+        simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+
             }
 
             @Override
