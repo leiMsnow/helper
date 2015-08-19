@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:background="@color/weak_grey"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
+        android:visibility="gone"
         android:dividerHeight="0dp"
         android:layoutAnimation="@anim/list_alpha_layout"
         android:scrollbars="none" />

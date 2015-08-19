@@ -83,10 +83,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // todo 根据名字搜索群组
-        if (TextUtils.isEmpty(query)) {
-            ToastUtil.getInstance(mContext).showToast("无效的圈子名称");
-        } else {
+        if (!TextUtils.isEmpty(query)) {
             GroupApi.getInstance().searchGroupList(query, 0, 15, this);
         }
         return true;
@@ -104,6 +101,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
      */
     public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
         mAdapter.replaceAll(searchGroupEvent.getGroups());
+        lvGroups.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -34,10 +34,8 @@ public class JoinGroupAdapter extends QuickAdapter<Group> {
                 "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
         //是否已经加入过
         if (item.is_joined()) {
-            helper.setVisible(R.id.iv_join, View.VISIBLE);
             helper.setVisible(R.id.btn_join, View.GONE);
         } else {
-            helper.setVisible(R.id.iv_join, View.GONE);
             helper.setVisible(R.id.btn_join, View.VISIBLE);
 
             helper.setTag(R.id.btn_join, item);

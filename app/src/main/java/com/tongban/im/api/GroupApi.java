@@ -124,7 +124,7 @@ public class GroupApi extends BaseApi {
         mParams.put("latitude", latitude);
         mParams.put("address", address);
 
-        if (birthday != null)
+//        if (birthday != null)
             mParams.put("birthday", birthday);
         if (tags != null)
             mParams.put("tags", tags);
@@ -432,8 +432,13 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Group>>() {
+                        });
+                BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
+                searchGroupEvent.setGroups(apiResponse.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(searchGroupEvent);
             }
 
             @Override
