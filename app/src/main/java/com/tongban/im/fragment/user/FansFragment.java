@@ -6,6 +6,7 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.FansAdapter;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.User;
 
 import java.util.ArrayList;
@@ -19,7 +20,6 @@ public class FansFragment extends BaseApiFragment {
     private ListView lvFansList;
     private FansAdapter mAdapter;
 
-    private List<User> mFansList;
 
     @Override
     protected int getLayoutRes() {
@@ -33,19 +33,24 @@ public class FansFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-        mFansList = new ArrayList<>();
-        for (int i = 0; i < 17; i++) {
-            User user = new User();
-            user.setPortrait_url("http://h.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e511857c31640a7d933c9950dd2.jpg");
-            user.setNick_name("小狗");
-            mFansList.add(user);
-        }
-        mAdapter = new FansAdapter(mContext, R.layout.item_my_info_list, mFansList);
-        lvFansList.setAdapter(mAdapter);
+//        mFansList = new ArrayList<>();
+//        for (int i = 0; i < 17; i++) {
+//            User user = new User();
+//            user.setPortrait_url("http://h.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e511857c31640a7d933c9950dd2.jpg");
+//            user.setNick_name("小狗");
+//            mFansList.add(user);
+//        }
+        UserCenterApi.getInstance().fetchFansUserList(0,10,this);
     }
 
     @Override
     protected void initListener() {
 
+    }
+
+    public void onEventMainThread(List<User> mFansList) {
+
+        mAdapter = new FansAdapter(mContext, R.layout.item_my_info_list, mFansList);
+        lvFansList.setAdapter(mAdapter);
     }
 }

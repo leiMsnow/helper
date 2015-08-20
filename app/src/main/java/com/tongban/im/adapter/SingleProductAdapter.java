@@ -1,30 +1,38 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.view.ViewGroup;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.SingleProduct;
+import com.tongban.im.model.Product;
+import com.tongban.im.model.ProductBook;
 
 import java.util.List;
 
 /**
  * Created by fushudi on 2015/8/13.
  */
-public class SingleProductAdapter extends QuickAdapter<SingleProduct> {
+public class SingleProductAdapter extends QuickAdapter<ProductBook> {
     public SingleProductAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 
-    @Override
-    protected void convert(BaseAdapterHelper helper, SingleProduct item) {
-        helper.setImageBitmap(R.id.iv_product,
-                "http://b.hiphotos.baidu.com/image/w%3D310/sign=7e618bd474c6a7efb926ae27cdfbafe9/fc1f4134970a304ebc6f8ef1d3c8a786c9175c6f.jpg");
+    protected void convert(BaseAdapterHelper helper, ProductBook item) {
+        helper.setImageBitmap(R.id.iv_product, item.getProduct_url());
+        helper.setText(R.id.tv_product_name, item.getProduct_name());
+        helper.setText(R.id.tv_product_content, item.getProduct_description());
     }
 
+
     @Override
-    public int getCount() {
-        return 10;
+    protected void onFirstCreateView(BaseAdapterHelper helper) {
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        ViewGroup.LayoutParams lp = helper.getView(R.id.iv_product).getLayoutParams();
+        lp.height = mScreenWidth / 2;
+        lp.height = mScreenWidth / 7 * 3;
+        helper.getView(R.id.iv_product).setLayoutParams(lp);
     }
 }

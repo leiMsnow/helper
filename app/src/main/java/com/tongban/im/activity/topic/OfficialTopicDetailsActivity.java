@@ -54,9 +54,9 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         product.setProductIntroduction("该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
                 "产于1987年，该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
                 "产于1987年该产品属于当当的产品，产于1987年。");
-        product.setProductName("澳大利亚品牌");
+        product.setProduct_name("澳大利亚品牌");
         product.setProductParameter("175ml；产地：澳大利亚");
-        product.setProduct_img_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
+        product.setProduct_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         product.setProduct_icon_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         officialTopic.setProduct(product);
         officialTopicList.add(officialTopic);

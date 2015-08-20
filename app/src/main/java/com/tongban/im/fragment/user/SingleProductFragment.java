@@ -6,6 +6,7 @@ import android.widget.GridView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.SingleProductAdapter;
+import com.tongban.im.api.UserCenterApi;
 
 /**
  * 单品查询结果页
@@ -33,9 +34,13 @@ public class SingleProductFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
+        UserCenterApi.getInstance().fetchSingleProductList(this);
+    }
+
+    @Override
+    public void onEventMainThread(Object obj) {
+
         mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, null);
         gvSingleProductList.setAdapter(mAdapter);
     }
-
-
 }

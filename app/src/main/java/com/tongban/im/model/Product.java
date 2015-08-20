@@ -7,9 +7,9 @@ public class Product {
     //产品头像
     private String product_icon_url;
     //产品名称
-    private String productName;
+    private String product_name;
     //产品内容（图片）
-    private String product_img_url;
+    private String product_url;
     //产品介绍
     private String productIntroduction;
     //产品参数
@@ -20,13 +20,23 @@ public class Product {
     private String productDisAdvantage;
     //产品收藏数量
     private String productCollectNum;
+    //产品描述
+    private String product_description;
 
-    public String getProductName() {
-        return productName;
+    public String getProduct_description() {
+        return product_description;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProduct_description(String product_description) {
+        this.product_description = product_description;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getProductIntroduction() {
@@ -77,11 +87,11 @@ public class Product {
         this.product_icon_url = product_icon_url;
     }
 
-    public String getProduct_img_url() {
-        return product_img_url;
+    public String getProduct_url() {
+        return product_url;
     }
 
-    public void setProduct_img_url(String product_img_url) {
-        this.product_img_url = product_img_url;
+    public void setProduct_url(String product_url) {
+        this.product_url = product_url;
     }
 }

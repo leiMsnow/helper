@@ -7,35 +7,20 @@
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:background="@drawable/selector_corner_bg"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/rc_default_group_portrait" />
+        <ImageView
+            android:id="@+id/iv_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/rc_default_group_portrait" />
 
-            <TextView
-                android:id="@+id/tv_praise_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="@color/normal_grey"
-                android:drawableLeft="@mipmap/ic_reply_count"
-                android:gravity="center_vertical"
-                android:text="345"
-                android:textColor="@color/main_deep_orange" />
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_product_name"

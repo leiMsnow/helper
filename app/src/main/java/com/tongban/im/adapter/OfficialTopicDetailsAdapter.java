@@ -27,8 +27,8 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         //产品相关
         if (item.getContentType() == OfficialTopic.CONTENT) {
             helper.setImageBitmap(R.id.iv_product_icon, item.getProduct().getProduct_icon_url());
-            helper.setImageBitmap(R.id.iv_product_img, item.getProduct().getProduct_img_url());
-            helper.setText(R.id.tv_product_name, item.getProduct().getProductName());
+            helper.setImageBitmap(R.id.iv_product_img, item.getProduct().getProduct_url());
+            helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
             helper.setText(R.id.tv_product_introduce_content, item.getProduct().getProductIntroduction());
             helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProductParameter());
             helper.setText(R.id.tv_product_advantage_content, item.getProduct().getProductAdvantage());

@@ -11,6 +11,8 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.Product;
+import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
@@ -37,7 +39,16 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我关注的人员列表
      */
-    public static final String FETCH_FOCUS_USER_LIST = "/user/focus/user/list";
+    public static final String FETCH_FOCUS_USER_LIST = "user/focus/user/list";
+    /**
+     * 获取我的粉丝人员列表
+     */
+    public static final String FETCH_FANS_USER_LIST = "user/focus/user/list";
+
+    /**
+     * 获取我的收藏 - 单品列表
+     */
+    public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
 
     public UserCenterApi(Context context) {
         super(context);
@@ -152,6 +163,7 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
     /**
      * 获取我关注的人员列表
      *
@@ -164,7 +176,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19 借口返回参数错误，缺少页码
+        // TODO: 2015/8/19 接口缺少返回数据
         simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -173,7 +185,79 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<User>>() {
+                        });
+                List<User> groups = apiResponse.getData().getResult();
+                callback.onComplete(groups);
+            }
 
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取我的粉丝人员列表
+     *
+     * @param callback
+     */
+    public void fetchFansUserList(int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        // TODO: 2015/8/19  接口缺少返回数据
+        simpleRequest(FETCH_FANS_USER_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<User>>() {
+                        });
+                List<User> fansList = apiResponse.getData().getResult();
+                callback.onComplete(fansList);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取我的收藏 - 单品列表
+     *
+     * @param callback
+     */
+    public void fetchSingleProductList(final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+        // TODO: 2015/8/19  接口请求参数缺少cursor、page_size  出参缺少cursor、page_num  返回结果为空
+        simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<ProductBook>>() {
+                        });
+                List<ProductBook> singleProductList = apiResponse.getData().getResult();
+                callback.onComplete(singleProductList);
             }
 
             @Override
