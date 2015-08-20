@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/weak_grey"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/weak_grey"
+              android:orientation="vertical">
     <!-- toolbar -->
     <include
         android:id="@+id/toolbar"
-        layout="@layout/include_toolbar" />
+        layout="@layout/include_toolbar"/>
     <!-- 专题头图 -->
     <ImageView
         android:id="@+id/iv_head"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_img_profile_bg" />
+        android:src="@mipmap/ic_img_profile_bg"/>
 
     <LinearLayout
         android:id="@+id/ll_multi"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="从此宝宝和蚊子绝缘"
             android:textColor="@color/main_black"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
         <!-- 专题标签 -->
         <com.tongban.corelib.widget.view.FlowLayout
             android:id="@+id/fl_tag"
@@ -43,21 +43,21 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_corners_bg_grey"
                 android:text="夏日"
-                android:textColor="@color/main_deep_orange" />
+                android:textColor="@color/main_deep_orange"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_corners_bg_grey"
                 android:text="防蚊"
-                android:textColor="@color/main_deep_orange" />
+                android:textColor="@color/main_deep_orange"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_corners_bg_grey"
                 android:text="进口"
-                android:textColor="@color/main_deep_orange" />
+                android:textColor="@color/main_deep_orange"/>
         </com.tongban.corelib.widget.view.FlowLayout>
         <!-- 发表人信息 -->
         <RelativeLayout
@@ -71,7 +71,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/ic_img_user_default" />
+                android:src="@mipmap/ic_img_user_default"/>
             <!-- 发表人昵称 -->
             <TextView
                 android:id="@+id/tv_user_name"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/iv_user_portrait"
                 android:text="Jack Chan"
-                android:textColor="@color/main_black" />
+                android:textColor="@color/main_black"/>
             <!-- 发表人标签 -->
             <TextView
                 android:id="@+id/tv_user_tag"
@@ -91,7 +91,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/tv_user_name"
                 android:text="宝宝三岁,幼儿教师"
-                android:textColor="@color/normal_grey" />
+                android:textColor="@color/normal_grey"/>
             <!-- 发表时间 -->
             <TextView
                 android:id="@+id/tv_create_time"
@@ -100,10 +100,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="11:53 AM"
-                android:textColor="@color/normal_grey" />
+                android:textColor="@color/normal_grey"/>
         </RelativeLayout>
         <!-- 分割线 -->
-        <View style="@style/HorizontalLine" />
+        <View style="@style/HorizontalLine"/>
         <!-- 专题描述 -->
         <TextView
             android:id="@+id/tv_desc"
@@ -114,19 +114,18 @@
             android:ellipsize="end"
             android:maxLines="5"
             android:text="萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒"
-            android:textColor="@color/normal_dark_grey" />
+            android:textColor="@color/normal_dark_grey"/>
         <!-- 单品列表 -->
         <ListView
             android:id="@+id/lv_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_multi"
         android:layout_marginTop="8dp"
         android:orientation="vertical">
 
@@ -136,15 +135,16 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="相关话题" />
+            android:text="相关话题"
+            android:textColor="@color/main_brown"/>
         <!-- 分割线 -->
-        <View style="@style/HorizontalLine" />
+        <View style="@style/HorizontalLine"/>
 
         <!-- 相关话题列表 -->
         <ListView
             android:id="@+id/lv_topic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
     </LinearLayout>
 </LinearLayout>

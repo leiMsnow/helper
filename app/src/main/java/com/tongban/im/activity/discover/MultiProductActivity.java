@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -88,7 +89,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.collect) {
-            ToastUtil.getInstance(mContext).showToast("收藏接口还没有~~~");
+            ToastUtil.getInstance(mContext).showToast("收藏接口还没做~~~");
             return true;
         } else if (itemId == R.id.share) {
             ToastUtil.getInstance(mContext).showToast("分享接口还没有~~~");
@@ -120,9 +121,12 @@ public class MultiProductActivity extends BaseToolBarActivity {
                 TextView tv = new TextView(mContext);
                 tv.setText(tag);
                 tv.setTextColor(getResources().getColor(R.color.main_deep_orange));
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 0, 5, 0);
+                tv.setLayoutParams(layoutParams);
                 tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
-                multiTag.addView(tv, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
+                multiTag.addView(tv);
             }
         } else {
             multiTag.setVisibility(View.GONE);

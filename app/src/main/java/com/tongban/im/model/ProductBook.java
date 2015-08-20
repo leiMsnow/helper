@@ -15,6 +15,8 @@ public class ProductBook {
     private String product_type;
     // 商品标签
     private String product_tags;
+    // 商品图片
+    private List<ProductImg> product_img_url;
     // 商品在不同渠道的价格信息
     private List<PriceInfo> price_info;
     // 外部平台商品详情页链接
@@ -49,6 +51,39 @@ public class ProductBook {
     private long c_time;
     // 修改时间
     private long m_time;
+
+    class ProductImg {
+        // 大图
+        private String max;
+        // 中图
+        private String mid;
+        // 小图
+        private String min;
+
+        public String getMax() {
+            return max;
+        }
+
+        public void setMax(String max) {
+            this.max = max;
+        }
+
+        public String getMid() {
+            return mid;
+        }
+
+        public void setMid(String mid) {
+            this.mid = mid;
+        }
+
+        public String getMin() {
+            return min;
+        }
+
+        public void setMin(String min) {
+            this.min = min;
+        }
+    }
 
     /**
      * 商品在不同渠道的价格信息
@@ -104,6 +139,14 @@ public class ProductBook {
 
     public void setProduct_tags(String product_tags) {
         this.product_tags = product_tags;
+    }
+
+    public List<ProductImg> getProduct_img_url() {
+        return product_img_url;
+    }
+
+    public void setProduct_img_url(List<ProductImg> product_img_url) {
+        this.product_img_url = product_img_url;
     }
 
     public List<PriceInfo> getPrice_info() {
