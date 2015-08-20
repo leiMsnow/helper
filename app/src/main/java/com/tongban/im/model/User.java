@@ -1,5 +1,7 @@
 package com.tongban.im.model;
 
+import java.util.List;
+
 /**
  * 用户信息model
  * Created by zhangleilei on 15/7/3.
@@ -44,6 +46,16 @@ public class User {
     private int focused_amount;
     //地址类型
     private String address_type;
+    //孩子信息
+    private List<ChildInfo> child_info;
+
+    public List<ChildInfo> getChild_info() {
+        return child_info;
+    }
+
+    public void setChild_info(List<ChildInfo> child_info) {
+        this.child_info = child_info;
+    }
 
     public int getJoined_group_amount() {
         return joined_group_amount;
@@ -195,5 +207,44 @@ public class User {
 
     public void setDeclaration(String declaration) {
         this.declaration = declaration;
+    }
+
+    public class ChildInfo {
+        public String address_type;
+        public String birthday;
+        public String sex;
+        public String school;
+
+        public String getSchool() {
+            return school;
+        }
+
+        public void setSchool(String school) {
+            this.school = school;
+        }
+
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public String getAddress_type() {
+            return address_type;
+        }
+
+        public void setAddress_type(String address_type) {
+            this.address_type = address_type;
+        }
     }
 }

@@ -66,7 +66,6 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("onItemClick","onItemClick");
         mContext.startActivity(new Intent(mContext, MultiProductActivity.class));
     }
 }

@@ -55,9 +55,9 @@ public class PersonalInfoActivity extends BaseToolBarActivity {
         tvPhoneNum.setText(user.getMobile_phone());
         tvWork.setText(user.getDeclaration());
         tvChildAge.setText(user.getAge());
-        tvChildSex.setText(user.getSex());
-        tvChildConstellation.setText(user.getNick_name());
-        tvChildSchool.setText(user.getNick_name());
+        tvChildSex.setText(user.getChild_info().get(0).getSex());
+        tvChildConstellation.setText(user.getChild_info().get(0).getBirthday());
+        tvChildSchool.setText(user.getChild_info().get(0).getSchool());
         tvAddress.setText(user.getAddress());
     }
 }

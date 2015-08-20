@@ -52,7 +52,8 @@ public class MyGroupActivity extends BaseToolBarActivity {
 //            }
 //            myGroupList.add(group);
 //        }
-        UserCenterApi.getInstance().fetchMyGroupList(0,4,this);
+
+        UserCenterApi.getInstance().fetchMyGroupList(0, 10, this);
     }
 
     @Override

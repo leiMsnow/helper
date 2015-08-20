@@ -7,6 +7,9 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.SingleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.ProductBook;
+
+import java.util.List;
 
 /**
  * 单品查询结果页
@@ -37,10 +40,9 @@ public class SingleProductFragment extends BaseApiFragment {
         UserCenterApi.getInstance().fetchSingleProductList(this);
     }
 
-    @Override
-    public void onEventMainThread(Object obj) {
+    public void onEventMainThread( List<ProductBook> singleProductList) {
 
-        mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, null);
+        mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, singleProductList);
         gvSingleProductList.setAdapter(mAdapter);
     }
 }

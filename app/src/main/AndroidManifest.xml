@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tongban.im" >
+    package="com.tongban.im">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -35,13 +35,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.White.Base" >
+        android:theme="@style/AppTheme.White.Base">
 
         <!-- begin rongcloud -->
 
         <service
             android:name="io.rong.push.PushService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -50,7 +50,7 @@
         </service>
         <service
             android:name="io.rong.push.CommandService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -60,7 +60,7 @@
 
         <receiver
             android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
@@ -80,7 +80,7 @@
             android:process=":ipc" />
         <service android:name="io.rong.imlib.ReConnectService" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
                 <action android:name="io.rong.push.message" />
             </intent-filter>
@@ -95,7 +95,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -114,7 +114,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.group.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -130,7 +130,7 @@
             android:name=".activity.user.RegisterActivity"
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.LoadingActivity" >
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,7 +146,7 @@
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
-            android:theme="@style/AppTheme.White.Base.Translucent" >
+            android:theme="@style/AppTheme.White.Base.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -185,7 +185,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.topic.SearchTopicActivity"
-            android:label="@string/topic_search" >
+            android:label="@string/topic_search">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -217,10 +217,7 @@
         <activity android:name=".activity.user.MyGroupActivity" />
         <activity android:name=".activity.user.UserCenterActivity" />
         <activity android:name=".activity.discover.MultiProductActivity" />
-        <activity
-            android:name=".activity.discover.ProductBookActivity"
-            android:label="@string/title_activity_product_book" >
-        </activity>
+        <activity android:name=".activity.discover.ProductBookActivity" />
     </application>
 
 </manifest>

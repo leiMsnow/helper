@@ -134,7 +134,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     }
 
     public void onEventMainThread(User user) {
-        Glide.with(mContext).load(user.getPortrait_url()).into(ivUserIcon);
+//        Glide.with(mContext).load(user.getPortrait_url()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvUserName.setText(user.getNick_name() + user.getBirthday());
         tvDeclaration.setText(user.getTags());
         tvFansCount.setText(user.getFans_amount() + "");

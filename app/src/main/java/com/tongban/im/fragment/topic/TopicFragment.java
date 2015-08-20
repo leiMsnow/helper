@@ -44,12 +44,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private RelativeLayout rlToolBar;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.fragment_topic;
     }
@@ -89,7 +83,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             }
         }
 
-        TopicApi.getInstance().recommendTopicList(0, 10, this);
+        //TopicApi.getInstance().recommendTopicList(0, 10, this);
 
         List<Topic> listsByHot = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

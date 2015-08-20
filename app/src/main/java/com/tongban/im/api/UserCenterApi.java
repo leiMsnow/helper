@@ -10,9 +10,11 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.Product;
 import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
@@ -43,13 +45,20 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的粉丝人员列表
      */
-    public static final String FETCH_FANS_USER_LIST = "user/focus/user/list";
+    public static final String FETCH_FANS_USER_LIST = "user/befocus/user/list";
 
     /**
      * 获取我的收藏 - 单品列表
      */
     public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
-
+    /**
+     * 获取我的收藏 - 我发起的话题列表
+     */
+    public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
+    /**
+     * 获取我的收藏 - 回复我的话题列表
+     */
+    public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
     public UserCenterApi(Context context) {
         super(context);
     }
@@ -106,7 +115,7 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        //TODO缺少参数
+        //TODO缺少参数  参数不对应
         simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -130,7 +139,7 @@ public class UserCenterApi extends BaseApi {
     }
 
     /**
-     * 获取个人群组列表-创建的群
+     * 获取个人群组列表（圈子）
      *
      * @param callback
      */
@@ -138,10 +147,11 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 4 ? 4 : pageSize);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19 借口返回参数错误，缺少页码
         simpleRequest(FETCH_MY_GROUP_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -176,7 +186,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19 接口缺少返回数据
+        // TODO: 2015/8/19 接口缺少测试数据
         simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -211,7 +221,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19  接口缺少返回数据
+        // TODO: 2015/8/19  接口测试数据
         simpleRequest(FETCH_FANS_USER_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -244,7 +254,7 @@ public class UserCenterApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        // TODO: 2015/8/19  接口请求参数缺少cursor、page_size  出参缺少cursor、page_num  返回结果为空
+        // TODO: 2015/8/19  接口缺少测试数据
         simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -258,6 +268,75 @@ public class UserCenterApi extends BaseApi {
                         });
                 List<ProductBook> singleProductList = apiResponse.getData().getResult();
                 callback.onComplete(singleProductList);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+    /**
+     * 获取我的收藏 - 话题列表
+     *
+     * @param callback
+     */
+    public void setFetchCollectTopicList(int cursor, int pageSize,final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(FETCH_COLLECT_TOPIC_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                topicListEvent.setTopicList(result.getData().getResult());
+                if (callback != null)
+                    callback.onComplete(topicListEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+    /**
+     * 获取我的话题 - 回复我的话题列表
+     *
+     * @param callback
+     */
+    public void fetchReplyTopicList(int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        // TODO: 2015/8/19  接口测试数据
+        simpleRequest(FETCH_COLLECT_REPLY_TOPIC_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<Topic> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+                List<Topic> replyTopicList = apiResponse.getData().getResult();
+                callback.onComplete(replyTopicList);
             }
 
             @Override
