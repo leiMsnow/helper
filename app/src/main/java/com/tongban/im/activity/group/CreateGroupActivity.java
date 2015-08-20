@@ -268,19 +268,21 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         mDatePickerDialog.show();
     }
 
-    public void onEventMainThread(Object obj) {
-        if (obj instanceof Group) {
-            // 创建成功
-            ToastUtil.getInstance(mContext).showToast("创建成功");
-            finish();
-
-        } else if (obj instanceof BaseEvent.LabelEvent) {
-            tags = ((BaseEvent.LabelEvent) obj).getLabel();
-            tvGroupLabel.setText(tags);
-        }
+    //圈子创建成功Event
+    public void onEventMainThread(BaseEvent.CreateGroupEvent obj) {
+        // 创建成功
+        ToastUtil.getInstance(mContext).showToast("创建成功");
+        finish();
     }
 
-    //设置当前位置
+    //标签选择完成Event
+    public void onEventMainThread(BaseEvent.LabelEvent obj) {
+        tags = obj.getLabel();
+        tvGroupLabel.setText(tags);
+    }
+
+
+    //拼接当前位置，用于接口接收[省，市，区，详细地址]
     private void setLocationInfo() {
         address = province + "," + city + "," + county + "," + address;
     }
