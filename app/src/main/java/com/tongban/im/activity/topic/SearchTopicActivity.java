@@ -14,10 +14,9 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.Topic;
-
-import java.util.List;
+import com.tongban.im.model.BaseEvent;
 
 /**
  * 搜索话题
@@ -35,7 +34,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     private String mKeys;
     private final int mKeyCount = 10;
-    private List<Topic> mTopicList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +88,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
             if (query.contains(";"))
                 query = query.replace(";", "");
             saveSearchKey(query);
+            TopicApi.getInstance().searchTopicList(query, 0, 10, this);
         }
         return false;
     }
@@ -151,5 +150,9 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
             flHistorySearch.addView(keyView);
             keyView.setOnClickListener(this);
         }
+    }
+
+    public void onEventMainThread(BaseEvent.TopicListEvent topicListEvent) {
+
     }
 }

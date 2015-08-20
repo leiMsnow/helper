@@ -9,7 +9,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
-import com.tongban.im.adapter.MTTAdapter;
+import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.Consts;
 import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.ApiErrorCode;
@@ -321,7 +321,7 @@ public class AccountApi extends BaseApi {
                 userInfoEvent.setUser(apiResponse.getData());
                 userInfoEvent.getUser().setUser_id(userId);
                 //将用户信息保存到本地数据库
-                UserDaoHelper.get(mContext).addData(MTTAdapter.userToTable(userInfoEvent.getUser()));
+                UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(userInfoEvent.getUser()));
                 if (callback != null)
                     callback.onComplete(userInfoEvent);
             }

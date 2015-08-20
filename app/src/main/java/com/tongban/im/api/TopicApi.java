@@ -9,6 +9,7 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 
 import java.util.HashMap;
@@ -154,8 +155,13 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(topicListEvent);
             }
 
             @Override

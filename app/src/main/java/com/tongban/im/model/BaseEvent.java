@@ -251,7 +251,7 @@ public class BaseEvent {
     /**
      * 创建圈子成功Event
      */
-    public static class CreateGroupEvent{
+    public static class CreateGroupEvent {
         String groupId;
 
         public String getGroupId() {
@@ -260,6 +260,22 @@ public class BaseEvent {
 
         public void setGroupId(String groupId) {
             this.groupId = groupId;
+        }
+    }
+
+    /**
+     * 话题列表Event
+     */
+    public static class TopicListEvent {
+        List<Topic> topicList;
+
+
+        public List<Topic> getTopicList() {
+            return topicList;
+        }
+
+        public void setTopicList(List<Topic> topicList) {
+            this.topicList = topicList;
         }
     }
 

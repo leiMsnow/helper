@@ -1,4 +1,4 @@
-package com.tongban.im.adapter;
+package com.tongban.im.common;
 
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
@@ -13,7 +13,7 @@ import java.util.List;
  * Model to Table
  * Created by zhangleilei on 15/7/30.
  */
-public class MTTAdapter {
+public class ModelToTable {
     /**
      * user转换本地数据库user
      *

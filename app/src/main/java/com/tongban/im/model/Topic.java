@@ -1,8 +1,5 @@
 package com.tongban.im.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.List;
 
 /**
