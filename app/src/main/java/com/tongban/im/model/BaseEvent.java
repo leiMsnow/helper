@@ -267,8 +267,32 @@ public class BaseEvent {
      * 话题列表Event
      */
     public static class TopicListEvent {
+        //是否是主界面调用的接口
+        boolean isMain = false;
         List<Topic> topicList;
 
+        public List<Topic> getTopicList() {
+            return topicList;
+        }
+
+        public void setTopicList(List<Topic> topicList) {
+            this.topicList = topicList;
+        }
+
+        public boolean isMain() {
+            return isMain;
+        }
+
+        public void setIsMain(boolean isMain) {
+            this.isMain = isMain;
+        }
+    }
+
+    /**
+     * 话题搜索结果Event
+     */
+    public static class SearchTopicListEvent {
+        List<Topic> topicList;
 
         public List<Topic> getTopicList() {
             return topicList;

@@ -158,7 +158,7 @@ public class TopicApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
                 topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicListEvent);
