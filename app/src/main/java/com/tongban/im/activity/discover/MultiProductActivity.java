@@ -1,6 +1,5 @@
 package com.tongban.im.activity.discover;
 
-import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,8 +68,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
+        setTitle("");
         // cey id是假的
-        ProductApi.getInstance().fetchMultiProductInfo("55c9b0f5bbafae4478f5dac2", this);
+        ProductApi.getInstance().fetchMultiProductInfo("55c9b0f5bbafae4478f5dac3", this);
     }
 
     @Override

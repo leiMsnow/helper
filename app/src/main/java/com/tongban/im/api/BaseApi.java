@@ -57,7 +57,7 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
+    private static String DEFAULT_HOST = "http://10.255.209.67:8080/ddim/";
     //正式环境
     private static String MAIN_HOST = "";
     //测试环境
@@ -167,7 +167,6 @@ public class BaseApi {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                LogUtil.d("getHeaders", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)) + "");
                 headers.put("_R_C", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)));
                 return headers;
             }
