@@ -124,15 +124,15 @@ public class BaseApi {
             url = getRequestUrl(url);
         }
         final String requestUrl = url;
-        LogUtil.d("request-url: [" + requestUrl + "]",
-                "request-params: \n " + new JSONObject(params).toString());
+        LogUtil.d("request-url:", requestUrl);
+        LogUtil.d("request-url:","request-params: \n " + new JSONObject(params).toString());
         // 创建request
         request = new JsonObjectRequest(requestUrl, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("onResponse-url:[" + requestUrl + "]",
-                                "onResponse-data: \n " + jsonObject.toString());
+                        LogUtil.d("onResponse-url:", requestUrl);
+                        LogUtil.d("onResponse-url:","onResponse-data: \n " + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -152,8 +152,8 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.e("onErrorResponse-url:[" + requestUrl + "]：",
-                        "onErrorResponse-info: volleyError-ServerError");
+                LogUtil.d("onErrorResponse-url:", requestUrl);
+                LogUtil.d("onErrorResponse-url:","onErrorResponse-info: volleyError-ServerError");
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {
                     BaseApiActivity.getFailedRequest().add(request);
