@@ -1,6 +1,7 @@
 package com.tongban.im.api;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
@@ -17,7 +18,10 @@ import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.User;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +103,7 @@ public class GroupApi extends BaseApi {
     public void createGroup(final String groupName, int groupType, double longitude,
                             double latitude, final String address, @Nullable String birthday,
                             @Nullable String tags, @Nullable final String declaration,
-                            Map<String, String> groupAvatar, boolean isSearch,
+                            ImageUrl groupAvatar, boolean isSearch,
                             final ApiCallback callback) {
 
         mParams = new HashMap<>();
@@ -118,7 +122,7 @@ public class GroupApi extends BaseApi {
         if (declaration != null)
             mParams.put("declaration", declaration);
 
-        mParams.put("group_avatar", groupAvatar);
+        mParams.put("group_avatar", JSON.toJSON(groupAvatar));
         mParams.put("flag_allow_search", isSearch ? 1 : 0);
         //此处接口名称根据groupType变化
         simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new ApiCallback() {
@@ -199,46 +203,6 @@ public class GroupApi extends BaseApi {
                 BaseEvent.JoinGroupEvent joinGroupEvent = new BaseEvent.JoinGroupEvent();
                 joinGroupEvent.setMessage("加入成功");
                 callback.onComplete(joinGroupEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
-
-    /**
-     * 根据群组类型获取搜索群组
-     *
-     * @param groupType 群组类型,注意：这里使用GroupType类的常量
-     * @param cursor    第几页，默认0开始
-     * @param pageSize  每页数量 默认10条
-     * @param callback
-     */
-    public void searchGroupByType(int groupType, int cursor, int pageSize, final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("group_type", groupType);
-        mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 10 ? 10 : pageSize);
-
-        simpleRequest(SEARCH_GROUP_BY_TYPE, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<Group>>>() {
-                        });
-                BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
-                searchGroupEvent.setGroups(apiResponse.getData());
-                callback.onComplete(searchGroupEvent);
             }
 
             @Override
@@ -396,7 +360,7 @@ public class GroupApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
-                BaseEvent.SearchGroupEvent searchGroupEvent = new BaseEvent.SearchGroupEvent();
+                BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
                 searchGroupEvent.setGroups(apiResponse.getData().getResult());
                 if (callback != null)
                     callback.onComplete(searchGroupEvent);

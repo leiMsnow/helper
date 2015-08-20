@@ -107,7 +107,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
      *
      * @param searchGroupEvent
      */
-    public void onEventMainThread(BaseEvent.SearchGroupEvent searchGroupEvent) {
+    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
         mAdapter.replaceAll(searchGroupEvent.getGroups());
         lvGroups.setVisibility(View.VISIBLE);
     }

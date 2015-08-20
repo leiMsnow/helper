@@ -26,6 +26,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
 
@@ -66,8 +67,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
      * 位置信息
      */
     private String province, city, county, address, birthday, tags, declaration;
-    private Map<String, String> groupAvatar = new HashMap<>();
 
+    private ImageUrl groupAvatar = new ImageUrl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,9 +166,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
                 @Override
                 public void uploadSuccess(String minUrl, String midUrl, String maxUrl) {
-                    groupAvatar.put("min", minUrl);
-                    groupAvatar.put("mid", midUrl);
-                    groupAvatar.put("max", maxUrl);
+                    groupAvatar.setMin(minUrl);
+                    groupAvatar.setMid(midUrl);
+                    groupAvatar.setMax(maxUrl);
 
                     declaration = etDesc.getText().toString().trim();
 
