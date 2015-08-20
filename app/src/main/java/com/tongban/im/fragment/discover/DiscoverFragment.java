@@ -10,6 +10,10 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.activity.user.PersonalCenterActivity;
+import com.tongban.im.api.ProductApi;
+import com.tongban.im.model.Discover;
+
+import java.util.List;
 
 /**
  * 发现页
@@ -41,7 +45,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initData() {
-
+        ProductApi.getInstance().fetchHomeInfo(this);
     }
 
     @Override
@@ -51,5 +55,14 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }
+    }
+
+    /**
+     * 获取首页数据成功的事件
+     *
+     * @param discoverList List<Discover>
+     */
+    public void onEventMainThread(List<Discover> discoverList) {
+        // cey
     }
 }

@@ -7,7 +7,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.AppUtils;
 import com.tongban.im.App;
+import com.tongban.im.model.Discover;
 import com.tongban.im.model.MultiProduct;
 import com.tongban.im.model.ProductBook;
 
@@ -21,10 +23,11 @@ import java.util.List;
 public class ProductApi extends BaseApi {
     private static ProductApi mApi;
 
-    /**
-     * 获取专题详情信息
-     */
-    public static final String FETCH_MULTI_PRODUCT_INFO = "theme/info";
+    // 获取首页数据
+    private static final String FETCH_HOME_INFO = "home/template/require";
+
+    // 获取专题详情信息
+    private static final String FETCH_MULTI_PRODUCT_INFO = "theme/info";
 
     private ProductApi(Context context) {
         super(context);
@@ -39,6 +42,37 @@ public class ProductApi extends BaseApi {
             }
         }
         return mApi;
+    }
+
+    /**
+     * 获取首页数据
+     *
+     * @param callback 回调
+     */
+    public void fetchHomeInfo(final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("client_version", AppUtils.getVersionName(mContext));
+        mParams.put("paltform", "0");
+        simpleRequest(FETCH_HOME_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<List<Discover>> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<List<Discover>>>() {
+                        });
+                List<Discover> discoverList = result.getData();
+                callback.onComplete(discoverList);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(displayType, errorObj);
+            }
+        });
     }
 
     /**
