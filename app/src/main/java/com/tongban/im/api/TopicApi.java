@@ -110,17 +110,17 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<Topic> listResult = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<Topic>>() {
-                        });
-
-                if (listResult.getData().getResult().size() > 0) {
-                    if (callback != null)
-                        callback.onComplete(listResult);
-                } else {
+//                ApiListResult<Topic> listResult = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiListResult<Topic>>() {
+//                        });
+//
+//                if (listResult.getData().getResult().size() > 0) {
+//                    if (callback != null)
+//                        callback.onComplete(listResult);
+//                } else {
                     if (callback != null)
                         callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
-                }
+//                }
             }
 
             @Override
@@ -158,7 +158,7 @@ public class TopicApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
                 topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicListEvent);

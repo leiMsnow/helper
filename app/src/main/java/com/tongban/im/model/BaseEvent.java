@@ -11,67 +11,10 @@ import io.rong.imlib.model.Conversation;
  */
 public class BaseEvent {
 
-    public static class DrawerLayoutMenu {
-        private int icon;
-        private String text;
-        private boolean isSelected;
-        private String targetId;
-        private Conversation.ConversationType chatType;
-
-        public int getIcon() {
-            return icon;
-        }
-
-        public void setIcon(int icon) {
-            this.icon = icon;
-        }
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public boolean isSelected() {
-            return isSelected;
-        }
-
-        public void setSelected(boolean isSelected) {
-            this.isSelected = isSelected;
-        }
-
-        public String getTargetId() {
-            return targetId;
-        }
-
-        public void setTargetId(String targetId) {
-            this.targetId = targetId;
-        }
-
-        public Conversation.ConversationType getChatType() {
-            return chatType;
-        }
-
-        public void setChatType(Conversation.ConversationType chatType) {
-            this.chatType = chatType;
-        }
-
-        public DrawerLayoutMenu(String text, String targetId, Conversation.ConversationType type, int icon, boolean isSelect) {
-            this.text = text;
-            this.targetId = targetId;
-            this.chatType = type;
-            this.icon = icon;
-            this.isSelected = isSelect;
-        }
-    }
-
-
     /**
-     * 加入群组的Event
+     * 搜索圈子的Event
      */
-    public static class SearchGroupEvent {
+    public static class SearchGroupListEvent {
         List<Group> groups = new ArrayList<>();
 
         public List<Group> getGroups() {
@@ -84,7 +27,7 @@ public class BaseEvent {
     }
 
     /**
-     * 加入群组的Event
+     * 加入圈子的Event
      */
     public static class JoinGroupEvent {
         String message;
@@ -174,7 +117,7 @@ public class BaseEvent {
     }
 
     /**
-     * 群信息Event
+     * 圈子信息Event
      */
     public static class GroupInfoEvent {
         Group group;
@@ -189,7 +132,7 @@ public class BaseEvent {
     }
 
     /**
-     * 群成员Event
+     * 圈子成员Event
      */
     public static class GroupMemberEvent {
         List<User> users;
@@ -267,8 +210,32 @@ public class BaseEvent {
      * 话题列表Event
      */
     public static class TopicListEvent {
+        //是否是主界面调用的接口
+        boolean isMain = false;
         List<Topic> topicList;
 
+        public List<Topic> getTopicList() {
+            return topicList;
+        }
+
+        public void setTopicList(List<Topic> topicList) {
+            this.topicList = topicList;
+        }
+
+        public boolean isMain() {
+            return isMain;
+        }
+
+        public void setIsMain(boolean isMain) {
+            this.isMain = isMain;
+        }
+    }
+
+    /**
+     * 话题搜索结果Event
+     */
+    public static class SearchTopicListEvent {
+        List<Topic> topicList;
 
         public List<Topic> getTopicList() {
             return topicList;

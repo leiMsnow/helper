@@ -166,7 +166,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     }
 
 
-    public void onEventMainThread(BaseEvent.TopicListEvent topicListEvent) {
+    public void onEventMainThread(BaseEvent.SearchTopicListEvent topicListEvent) {
         mCursor++;
         lvTopicList.setVisibility(View.VISIBLE);
         mAdapter.replaceAll(topicListEvent.getTopicList());
