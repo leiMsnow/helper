@@ -32,7 +32,7 @@ public class ProductBook {
     // 适读情景
     private String scene_for;
     // 内容简介
-    private String book_content_desc;
+    private String product_description;
     // 作者简介
     private String author_desc;
     // 图书目录
@@ -170,12 +170,12 @@ public class ProductBook {
         this.scene_for = scene_for;
     }
 
-    public String getBook_content_desc() {
-        return book_content_desc;
+    public String getProduct_description() {
+        return product_description;
     }
 
-    public void setBook_content_desc(String book_content_desc) {
-        this.book_content_desc = book_content_desc;
+    public void setProduct_description(String product_description) {
+        this.product_description = product_description;
     }
 
     public String getAuthor_desc() {
