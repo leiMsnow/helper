@@ -56,6 +56,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initData() {
+        //从SP中查找历史搜索记录
         mKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
         if (TextUtils.isEmpty(mKeys)) {
             tvHistory.setVisibility(View.GONE);

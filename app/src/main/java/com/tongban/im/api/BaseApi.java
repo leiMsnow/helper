@@ -107,7 +107,7 @@ public class BaseApi {
      * 封装了JsonObjectRequest的网络请求方法
      * cey:目前失败的请求都存到BaseApiActivity中,暂未考虑BaseApiFragment~~~
      *
-     * @param url      请求地址
+     * @param url      请求接口名称||地址
      * @param params   请求参数
      * @param callback 请求结果的回调
      * @return request--当前请求对象
@@ -123,14 +123,16 @@ public class BaseApi {
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = getRequestUrl(url);
         }
-        LogUtil.d("request-url:", url);
-        LogUtil.d("request-params:", new JSONObject(params).toString());
+        final String requestUrl = url;
+        LogUtil.d("request-url: [" + requestUrl + "]",
+                "request-params: \n " + new JSONObject(params).toString());
         // 创建request
-        request = new JsonObjectRequest(url, new JSONObject(params),
+        request = new JsonObjectRequest(requestUrl, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("onResponse:", jsonObject.toString());
+                        LogUtil.d("onResponse-url:[" + requestUrl + "]",
+                                "onResponse-data: \n " + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -150,8 +152,8 @@ public class BaseApi {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.e("onErrorResponse", volleyError.toString());
-
+                LogUtil.e("onErrorResponse-url:[" + requestUrl + "]：",
+                        "onErrorResponse-info: volleyError-ServerError");
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {
                     BaseApiActivity.getFailedRequest().add(request);
