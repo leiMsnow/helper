@@ -65,8 +65,8 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         officialTopic = new OfficialTopic();
         Topic topic = new Topic();
         officialTopic.setContentType(OfficialTopic.REPLY_NUM);
-        topic.setTopicPraiseNum("90");
-        topic.setTopicReplyNum("100");
+//        topic.setTopicPraiseNum("90");
+//        topic.setTopicReplyNum("100");
         officialTopic.setTopic(topic);
         officialTopicList.add(officialTopic);
 

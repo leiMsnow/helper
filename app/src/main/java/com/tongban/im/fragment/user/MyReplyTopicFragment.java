@@ -47,8 +47,8 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
             topicReply.setReplyContent("得到大家积极扭扭捏捏" + i);
             topicReply.setPortrait_url("http://img2.imgtn.bdimg.com/it/u=606613155,1633300277&fm=23&gp=0.jpg");
             topicReply.setReplyNickName("小强" + i);
-            topic.setTopicReply(topicReply);
-            topic.setTopicContent("小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强");
+//            topic.setTopicReply(topicReply);
+            topic.setTopic_content("小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强");
             replyTopicList.add(topic);
         }
         mAdapter = new MyReplyTopicAdapter(mContext, R.layout.item_my_reply_topic_list, replyTopicList);

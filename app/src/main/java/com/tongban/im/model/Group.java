@@ -24,19 +24,19 @@ public class Group {
     //纬度
     private double latitude;
     //群头像
-    private String group_avatar;
+    private ImageUrl group_avatar;
     // 群主的用户ID
     private String group_owner_id;
     // 群主信息
     private User owner_info;
-    //群成员信息
-    private List<User> members;
-
-    //标签
-    private String tags;
-
-    private boolean is_joined;
-
+    //星座
+    private String constellation;
+    //距离
+    private String distance;
+    //年龄
+    private String age;
+    //是否已经加入
+    private boolean isAllowAdd;
 
     public String getAddress_id() {
         return address_id;
@@ -70,14 +70,6 @@ public class Group {
         this.group_owner_id = group_owner_id;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public String getGroup_id() {
         return group_id;
     }
@@ -102,14 +94,6 @@ public class Group {
         this.declaration = declaration;
     }
 
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
-
     public int getGroup_type() {
         return group_type;
     }
@@ -126,14 +110,6 @@ public class Group {
         this.address = address;
     }
 
-    public String getGroup_avatar() {
-        return group_avatar;
-    }
-
-    public void setGroup_avatar(String group_avatar) {
-        this.group_avatar = group_avatar;
-    }
-
     public User getOwner_info() {
         return owner_info;
     }
@@ -143,10 +119,10 @@ public class Group {
     }
 
     public boolean is_joined() {
-        return is_joined;
+        return isAllowAdd;
     }
 
-    public void setIs_joined(boolean is_joined) {
-        this.is_joined = is_joined;
+    public void setAllowAdd(boolean allowAdd) {
+        this.isAllowAdd = allowAdd;
     }
 }

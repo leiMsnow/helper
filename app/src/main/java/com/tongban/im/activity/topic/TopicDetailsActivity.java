@@ -81,9 +81,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
         if (mTopicInfo != null) {
             if (mTopicInfo.getContentType() == Topic.IMAGE) {
-                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                        mTopicInfo.getSmallUrl());
-                gvContent.setAdapter(mTopicImgAdapter);
+//                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+//                        mTopicInfo.getto;
+//                gvContent.setAdapter(mTopicImgAdapter);
             }
         } else {
             lvReplyList.removeHeaderView(mHeader);

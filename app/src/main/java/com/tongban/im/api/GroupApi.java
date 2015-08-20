@@ -38,7 +38,7 @@ public class GroupApi extends BaseApi {
     /**
      * 加入群组
      */
-    public static final String JOIN_GROUP = "user/group/join";
+    public static final String JOIN_GROUP = "/user/join/group";
     /**
      * 根据群组类型获取搜索群组
      */

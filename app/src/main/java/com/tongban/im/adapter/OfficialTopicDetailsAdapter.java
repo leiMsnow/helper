@@ -37,9 +37,9 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         }
         //数量（评论、点赞）相关
         else if (item.getContentType() == OfficialTopic.REPLY_NUM) {
-            helper.setText(R.id.tv_praise_count, item.getTopic().getTopicPraiseNum());
-            helper.setText(R.id.tv_reply_count, item.getTopic().getTopicReplyNum());
-            helper.setText(R.id.tv_location, item.getTopic().getTopicAddress());
+//            helper.setText(R.id.tv_praise_count, item.getTopic().getTopicPraiseNum());
+//            helper.setText(R.id.tv_reply_count, item.getTopic().getTopicReplyNum());
+//            helper.setText(R.id.tv_location, item.getTopic().getTopicAddress());
         }
         //评论相关
         else if (item.getContentType() == OfficialTopic.REPLY) {

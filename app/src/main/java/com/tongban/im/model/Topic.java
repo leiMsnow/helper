@@ -1,65 +1,62 @@
 package com.tongban.im.model;
 
-import java.util.List;
-
 /**
  * 话题信息表
  * Created by fushudi on 2015/7/16.
  */
-public class Topic  {
+public class Topic {
+
     //话题内容为文本
     public final static int TEXT = 0;
     //话题内容为图片
     public final static int IMAGE = 1;
     //话题ID
-    private String topicId;
-    // 话题名称
-    private String topicName;
-    // 话题评论数量
-    private String topicReplyNum;
-    //话题获得赞的数量
-    private String topicPraiseNum;
-    //话题生成时间
-    private String topicTime;
-    //话题生成地点
-    private String topicAddress;
-    //话题评论
-    private TopicReply topicReply;
+    private String topic_id;
+    // 话题标题
+    private String topic_title;
     // 话题内容
-    private String topicContent;
-    //用户
-    private User user;
+    private String topic_content;
+    //话题类型：0，用户话题；1：官方话题
+    private String topic_type;
+    //图片地址
+    //回复数量
+    private int amount;
     //内容类型（文字或者图片）
     private int contentType;
-    //缩略图地址
-    private List<String> smallUrl;
-    //原图地址
-    private List<String> bigUrl;
+    //话题图片
+    private ImageUrl[] topic_img_url;
 
-    public String getTopicId() {
-        return topicId;
+    public ImageUrl[] getTopic_img_url() {
+        return topic_img_url;
     }
 
-    public void setTopicId(String topicId) {
-        this.topicId = topicId;
+    public void setTopic_img_url(ImageUrl[] topic_img_url) {
+        this.topic_img_url = topic_img_url;
     }
 
-    public TopicReply getTopicReply() {
-        return topicReply;
+    public String getTopic_type() {
+        return topic_type;
     }
 
-    public void setTopicReply(TopicReply topicReply) {
-        this.topicReply = topicReply;
+    public void setTopic_type(String topic_type) {
+        this.topic_type = topic_type;
     }
 
-    public String getTopicAddress() {
-        return topicAddress;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setTopicAddress(String topicAddress) {
-        this.topicAddress = topicAddress;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
+    public String getTopic_id() {
+        return topic_id;
+    }
+
+    public void setTopic_id(String topic_id) {
+        this.topic_id = topic_id;
+    }
 
     public int getContentType() {
         return contentType;
@@ -69,69 +66,20 @@ public class Topic  {
         this.contentType = contentType;
     }
 
-    public List<String> getSmallUrl() {
-        return smallUrl;
+    public String getTopic_title() {
+        return topic_title;
     }
 
-    public void setSmallUrl(List<String> smallUrl) {
-        this.smallUrl = smallUrl;
+    public String getTopic_content() {
+        return topic_content;
     }
 
-    public List<String> getBigUrl() {
-        return bigUrl;
+    public void setTopic_title(String topic_title) {
+        this.topic_title = topic_title;
     }
 
-    public void setBigUrl(List<String> bigUrl) {
-        this.bigUrl = bigUrl;
-    }
-
-    public void setTopicPraiseNum(String topicPraiseNum) {
-        this.topicPraiseNum = topicPraiseNum;
-    }
-
-    public void setTopicTime(String topicTime) {
-        this.topicTime = topicTime;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getTopicPraiseNum() {
-
-        return topicPraiseNum;
-    }
-
-    public String getTopicTime() {
-        return topicTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public String getTopicName() {
-        return topicName;
-    }
-
-    public String getTopicReplyNum() {
-        return topicReplyNum;
-    }
-
-    public String getTopicContent() {
-        return topicContent;
-    }
-
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
-    }
-
-    public void setTopicReplyNum(String topicReplyNum) {
-        this.topicReplyNum = topicReplyNum;
-    }
-
-    public void setTopicContent(String topicContent) {
-        this.topicContent = topicContent;
+    public void setTopic_content(String topic_content) {
+        this.topic_content = topic_content;
     }
 
 }

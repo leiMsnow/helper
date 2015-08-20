@@ -14,6 +14,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -32,8 +33,13 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     private FlowLayout flHistorySearch;
     private ListView lvTopicList;
 
+    private TopicAdapter mAdapter;
+
     private String mKeys;
     private final int mKeyCount = 10;
+
+    private int mCursor = 0;
+    private int mPageSize = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +60,15 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initData() {
+
+        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, null);
+        lvTopicList.setAdapter(mAdapter);
+        //初始化
+        initHistoryKey();
+    }
+
+    //初始化历史搜索key
+    private void initHistoryKey() {
         //从SP中查找历史搜索记录
         mKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
         if (TextUtils.isEmpty(mKeys)) {
@@ -64,6 +79,25 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
         setSearchKeyView();
     }
 
+    //设置历史搜索key和控件
+    private void setSearchKeyView() {
+        String[] keyList = mKeys.split(";");
+        if (keyList.length > 0) {
+            for (int i = 0; i < keyList.length; i++) {
+                String key = keyList[i];
+                TextView keyView = (TextView) LayoutInflater.from(mContext).
+                        inflate(R.layout.item_history_topic, flHistorySearch, false);
+                flHistorySearch.addView(keyView);
+                keyView.setTag(key);
+                keyView.setText(key);
+                keyView.setOnClickListener(this);
+            }
+            TextView keyView = (TextView) LayoutInflater.from(mContext).
+                    inflate(R.layout.item_history_topic_clear, flHistorySearch, false);
+            flHistorySearch.addView(keyView);
+            keyView.setOnClickListener(this);
+        }
+    }
 
     @Override
     protected void initListener() {
@@ -76,8 +110,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("搜索话题关键字");
         searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("搜索话题关键字");
         searchView.onActionViewExpanded();
         return true;
     }
@@ -88,9 +122,27 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
             if (query.contains(";"))
                 query = query.replace(";", "");
             saveSearchKey(query);
-            TopicApi.getInstance().searchTopicList(query, 0, 10, this);
+            TopicApi.getInstance().searchTopicList(query, mCursor, mPageSize, this);
         }
         return false;
+    }
+
+    //保存历史搜索key
+    private void saveSearchKey(String query) {
+        String[] keyList = mKeys.split(";");
+        if (!TextUtils.isEmpty(mKeys)) {
+            for (int i = 0; i < keyList.length; i++) {
+                if (keyList[i].equals(query)) {
+                    mKeys = mKeys.replace(query + ";", "");
+                    break;
+                }
+            }
+            if (keyList.length == mKeyCount) {
+                mKeys = mKeys.replace(keyList[keyList.length - 1] + ";", "");
+            }
+        }
+        mKeys = query + ";" + mKeys;
+        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
     }
 
     @Override
@@ -114,45 +166,9 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     }
 
 
-    //保存历史搜索key
-    private void saveSearchKey(String query) {
-        String[] keyList = mKeys.split(";");
-        if (!TextUtils.isEmpty(mKeys)) {
-            for (int i = 0; i < keyList.length; i++) {
-                if (keyList[i].equals(query)) {
-                    mKeys = mKeys.replace(query + ";", "");
-                    break;
-                }
-            }
-            if (keyList.length == mKeyCount) {
-                mKeys = mKeys.replace(keyList[keyList.length - 1] + ";", "");
-            }
-        }
-        mKeys = query + ";" + mKeys;
-        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
-    }
-
-    //设置历史搜索key和控件
-    private void setSearchKeyView() {
-        String[] keyList = mKeys.split(";");
-        if (keyList.length > 0) {
-            for (int i = 0; i < keyList.length; i++) {
-                String key = keyList[i];
-                TextView keyView = (TextView) LayoutInflater.from(mContext).
-                        inflate(R.layout.item_history_topic, flHistorySearch, false);
-                flHistorySearch.addView(keyView);
-                keyView.setTag(key);
-                keyView.setText(key);
-                keyView.setOnClickListener(this);
-            }
-            TextView keyView = (TextView) LayoutInflater.from(mContext).
-                    inflate(R.layout.item_history_topic_clear, flHistorySearch, false);
-            flHistorySearch.addView(keyView);
-            keyView.setOnClickListener(this);
-        }
-    }
-
     public void onEventMainThread(BaseEvent.TopicListEvent topicListEvent) {
-
+        mCursor++;
+        lvTopicList.setVisibility(View.VISIBLE);
+        mAdapter.replaceAll(topicListEvent.getTopicList());
     }
 }
