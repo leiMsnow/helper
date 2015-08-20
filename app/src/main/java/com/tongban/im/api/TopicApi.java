@@ -118,7 +118,7 @@ public class TopicApi extends BaseApi {
                         callback.onComplete(listResult);
                 } else {
                     if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题,快来创建第一条话题吧");
+                        callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
                 }
             }
 

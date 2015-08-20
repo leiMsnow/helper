@@ -14,6 +14,7 @@
         android:layout_marginTop="16dp"
         android:maxHeight="96dp"
         android:maxWidth="96dp"
+        android:visibility="invisible"
         android:src="@mipmap/bg_empty_data" />
 
     <TextView

@@ -17,6 +17,7 @@ import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
+import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
@@ -39,21 +40,10 @@ public class GroupApi extends BaseApi {
      * 加入群组
      */
     public static final String JOIN_GROUP = "user/group/join";
-
-    /**
-     * 获取个人群组列表-创建的群
-     */
-    public static final String FETCH_MY_GROUP_LIST = "user/join/group/list";
     /**
      * 根据群组类型获取搜索群组
      */
     public static final String SEARCH_GROUP_BY_TYPE = "group/fetch/3";
-
-    /**
-     * 获取用户加入的群组-全部的群
-     */
-    public static final String FETCH_MY_All_GROUP_LIST = "group/fetch/4";
-
     /**
      * 根据地理位置获取推荐群组(附近的群)
      */
@@ -66,8 +56,6 @@ public class GroupApi extends BaseApi {
      * 获取群组成员信息
      */
     public static final String FETCH_MY_JOIN_GROUP_MEMBER = "group/members";
-
-
     /**
      * 圈子推荐接口
      */
@@ -262,38 +250,6 @@ public class GroupApi extends BaseApi {
     }
 
     /**
-     * 获取圈子列表数据-全部的群
-     *
-     * @param callback 回调
-     */
-    @Deprecated
-    public void fetchMyAllGroupList(final ApiCallback callback) {
-        mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-
-        simpleRequest(FETCH_MY_All_GROUP_LIST, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<List<Group>> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<Group>>>() {
-                        });
-                List<Group> groups = apiResponse.getData();
-                callback.onComplete(groups);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
-    /**
      * 获取群组详情
      *
      * @param groupId  群组ID
@@ -394,8 +350,16 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                if (callback != null)
-                    callback.onComplete(obj);
+                ApiListResult<Group> listResult = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Group>>() {
+                        });
+                if (listResult.getData().getResult().size() > 0) {
+                    if (callback != null)
+                        callback.onComplete(listResult);
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.View, "暂无圈子信息,快来创建第一个圈子吧");
+                }
             }
 
             @Override
