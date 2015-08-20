@@ -53,6 +53,7 @@ public class LocationApi extends BaseApi {
      * @param addressType 地址类型；(默认0，1：学校)
      * @param callback    回调
      */
+    @Deprecated
     public void createLocation(double longitude, double latitude, @Nullable String province,
                                @Nullable String city, @Nullable String county,
                                String location, int addressType, final ApiCallback callback) {
