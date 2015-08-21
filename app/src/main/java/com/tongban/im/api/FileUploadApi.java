@@ -21,19 +21,30 @@ import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.QiniuToken;
 
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 文件上传到七牛服务器的api
  * Created by Cheney on 15/8/6.
  */
 public class FileUploadApi extends BaseApi {
+
+    /**
+     * 100尺寸大小图片
+     */
+    public final static String IMAGE_SIZE_100 = "-100";
+    public final static String IMAGE_SIZE_500 = "-500";
+
+
     private static FileUploadApi mApi;
     private static Context mContext = App.getInstance().getApplicationContext();
     private static String dirPath = SDCardUtils.getSDCardPath() + "tongban" + File.separator
@@ -109,10 +120,13 @@ public class FileUploadApi extends BaseApi {
      *
      * @param data     byte数组
      * @param key      上传数据名,可以为null
+     * @param minSize  小图尺寸
+     * @param midSize  中图尺寸
      * @param callback 回调
      */
-    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull UploadFileCallback callback) {
-        uploadFile(data, key, callback, null);
+    public void uploadFile(@NonNull byte[] data, @Nullable String key, String minSize, String midSize,
+                           @NonNull UploadFileCallback callback) {
+        uploadFile(data, key, minSize, midSize, callback, null);
     }
 
     /**
@@ -120,13 +134,16 @@ public class FileUploadApi extends BaseApi {
      *
      * @param data     byte数组
      * @param key      上传数据名,可以为null
+     * @param minSize  小图尺寸
+     * @param midSize  中图尺寸
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull byte[] data, @Nullable String key, @NonNull final UploadFileCallback callback,
+    public void uploadFile(@NonNull byte[] data, @Nullable String key, String minSize, String midSize,
+                           @NonNull final UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
-        mUploadManager.put(data, key, token, new MyUpCompletionHandler(callback), options);
+        mUploadManager.put(data, key, token, new MyUpCompletionHandler(minSize, midSize, callback), options);
     }
 
     /**
@@ -134,10 +151,13 @@ public class FileUploadApi extends BaseApi {
      *
      * @param filePath 文件路径
      * @param key      上传文件名,可以为null
+     * @param minSize  小图尺寸
+     * @param midSize  中图尺寸
      * @param callback 回调
      */
-    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UploadFileCallback callback) {
-        uploadFile(new File(filePath), key, callback);
+    public void uploadFile(@NonNull String filePath, @Nullable String key, String minSize, String midSize,
+                           @NonNull UploadFileCallback callback) {
+        uploadFile(new File(filePath), key, minSize, midSize, callback);
     }
 
     /**
@@ -145,12 +165,15 @@ public class FileUploadApi extends BaseApi {
      *
      * @param filePath 文件路径
      * @param key      上传文件名,可以为null
+     * @param minSize  小图尺寸
+     * @param midSize  中图尺寸
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull String filePath, @Nullable String key, @NonNull UploadFileCallback callback,
+    public void uploadFile(@NonNull String filePath, @Nullable String key, String minSize, String midSize,
+                           @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
-        uploadFile(new File(filePath), key, callback, options);
+        uploadFile(new File(filePath), key, minSize, midSize, callback, options);
     }
 
     /**
@@ -160,8 +183,9 @@ public class FileUploadApi extends BaseApi {
      * @param key      上传文件名,可以为null
      * @param callback 回调
      */
-    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UploadFileCallback callback) {
-        uploadFile(file, key, callback, null);
+    public void uploadFile(@NonNull File file, @Nullable String key, String minSize, String midSize,
+                           @NonNull UploadFileCallback callback) {
+        uploadFile(file, key, minSize, midSize, callback, null);
     }
 
     /**
@@ -169,13 +193,51 @@ public class FileUploadApi extends BaseApi {
      *
      * @param file     文件
      * @param key      上传文件名,可以为null
+     * @param minSize  小图尺寸
+     * @param midSize  中图尺寸
      * @param callback 回调
      * @param options  配置项,进度监听/取消上传等
      */
-    public void uploadFile(@NonNull File file, @Nullable String key, @NonNull UploadFileCallback callback,
+    public void uploadFile(@NonNull File file, @Nullable String key, String minSize, String midSize,
+                           @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
-        mUploadManager.put(file, key, token, new MyUpCompletionHandler(callback), options);
+        mUploadManager.put(file, key, token, new MyUpCompletionHandler(minSize, midSize, callback), options);
+    }
+
+    /**
+     * 批量上传文件接口
+     *
+     * @param filePaths 文件数组
+     * @param minSize   小图尺寸
+     * @param midSize   中图尺寸
+     * @param callback
+     */
+    public void uploadFile(@NonNull final List<String> filePaths, final String minSize, final String midSize,
+                           @NonNull final MultiUploadFileCallback callback) {
+        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        final List<ImageUrl> urls = new ArrayList<>();
+        for (int i = 0; i < filePaths.size(); i++) {
+            final int index = i;
+            mUploadManager.put(new File(filePaths.get(i)), null, token,
+                    new UpCompletionHandler() {
+
+                        @Override
+                        public void complete(String key, ResponseInfo info, JSONObject response) {
+                            LogUtil.d("UploadFileCallback-complete", response.toString());
+                            if (callback != null) {
+                                String responseKey = response.optString("key");
+                                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
+                                String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                                ImageUrl url = new ImageUrl(min, mid, max);
+                                urls.add(url);
+                                if (index == (filePaths.size() - 1))
+                                    callback.uploadSuccess(urls);
+                            }
+                        }
+                    }, null);
+        }
     }
 
     /**
@@ -183,21 +245,26 @@ public class FileUploadApi extends BaseApi {
      */
     class MyUpCompletionHandler implements UpCompletionHandler {
 
+        private String minSize;
+        private String midSize;
         private UploadFileCallback mCallback;
 
-        MyUpCompletionHandler(UploadFileCallback callback) {
+        MyUpCompletionHandler(String minSize, String midSize, UploadFileCallback callback) {
+            this.minSize = minSize;
+            this.midSize = midSize;
             this.mCallback = callback;
         }
 
         @Override
         public void complete(String key, ResponseInfo info, JSONObject response) {
-            LogUtil.d("upload-complete", response.toString());
+            LogUtil.d("UploadFileCallback-complete", response.toString());
             if (mCallback != null) {
                 String responseKey = response.optString("key");
-                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + "-100";
-                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + "-500";
+                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                 String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
-                mCallback.uploadSuccess(min, mid, max);
+                ImageUrl url = new ImageUrl(min, mid, max);
+                mCallback.uploadSuccess(url);
             }
         }
     }

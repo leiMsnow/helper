@@ -1,23 +1,32 @@
 package com.tongban.im.activity.topic;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
+import com.tongban.im.api.FileUploadApi;
+import com.tongban.im.api.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.UploadFileCallback;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,8 +44,9 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     private CreateTopicImgAdapter adapter;
     private CameraView mCameraView;
 
-
-    private Map<String, String[]> mUrls = new HashMap<>();
+    private final static int IMAGE_COUNT = 15;
+    //当前选择的图片数量
+    private List<String> selectedFile = new ArrayList<>();
 
     @Override
     protected int getLayoutRes() {
@@ -54,7 +64,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initData() {
         adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        adapter.setImgCount(15);
+        adapter.setImgCount(IMAGE_COUNT);
         adapter.add("");
         gvTopicImg.setAdapter(adapter);
     }
@@ -83,8 +93,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                    tvContent.getText().toString().trim(), mUrls, this);
+            uploadImage();
         } else {
             int viewId = v.getId();
             switch (viewId) {
@@ -127,6 +136,20 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         }
     }
 
+    //批量上传图片,成功后将发表话题
+    private void uploadImage() {
+        FileUploadApi.getInstance().uploadFile(selectedFile,
+                FileUploadApi.IMAGE_SIZE_100, FileUploadApi.IMAGE_SIZE_500,
+                new MultiUploadFileCallback() {
+                    @Override
+                    public void uploadSuccess(List<ImageUrl>  urls) {
+                        TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                                tvContent.getText().toString().trim(),urls,
+                                CreateTopicActivity.this);
+                    }
+                });
+    }
+
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
         if (adapter == null) {
@@ -135,18 +158,11 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         if (adapter.getCount() == adapter.getImgCount()) {
             adapter.remove(adapter.getCount() - 1, false);
         }
-        String[] minUrl = new String[adapter.getCount()];
-        String[] maxUrl = new String[adapter.getCount()];
-        String[] midUrl = new String[adapter.getCount()];
+        adapter.add(0, picturePath);
 
         for (int i = 0; i < adapter.getCount(); i++) {
-            minUrl[i] = "http://pic1.nipic.com/2008-12-15/20081215211851562_2.jpg";
-            maxUrl[i] = "http://pic1.nipic.com/2008-12-15/20081215211851562_2.jpg";
-            midUrl[i] = "http://pic1.nipic.com/2008-12-15/20081215211851562_2.jpg";
+            if (!TextUtils.isEmpty(adapter.getItem(i).toString()))
+                selectedFile.add(0, adapter.getItem(i).toString());
         }
-        mUrls.put("min", minUrl);
-        mUrls.put("max", maxUrl);
-        mUrls.put("mid", midUrl);
-        adapter.add(0, picturePath);
     }
 }

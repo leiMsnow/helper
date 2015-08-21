@@ -13,6 +13,15 @@ public class ImageUrl {
     //大图
     private String max;
 
+    public ImageUrl() {
+    }
+
+    public ImageUrl(String min, String mid, String max) {
+        this.min = min;
+        this.mid = mid;
+        this.max = max;
+    }
+
     public String getMin() {
         return min;
     }

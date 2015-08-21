@@ -68,7 +68,6 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
      */
     private String province, city, county, address, birthday, tags, declaration;
 
-    private ImageUrl groupAvatar = new ImageUrl();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +151,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     public void onClick(View v) {
         if (v == ivSetGroupIcon) {
             createDialog();
-        } else if (v == btnSubmit) {
+        }
+        //发表圈子
+        else if (v == btnSubmit) {
             final String groupName = etGroupName.getText().toString().trim();
             if (TextUtils.isEmpty(groupName)) {
                 ToastUtil.getInstance(mContext).showToast("请输入圈子名称");
@@ -162,18 +163,15 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement) + "'");
                 return;
             }
-            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, new UploadFileCallback() {
+
+            declaration = etDesc.getText().toString().trim();
+            FileUploadApi.getInstance().uploadFile(mGroupIcon, null,FileUploadApi.IMAGE_SIZE_100,
+                    FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
                 @Override
-                public void uploadSuccess(String minUrl, String midUrl, String maxUrl) {
-                    groupAvatar.setMin(minUrl);
-                    groupAvatar.setMid(midUrl);
-                    groupAvatar.setMax(maxUrl);
-
-                    declaration = etDesc.getText().toString().trim();
-
+                public void uploadSuccess(ImageUrl url) {
                     GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-                            birthday, tags, declaration, groupAvatar, chbSecret.isChecked(),
+                            birthday, tags, declaration, url, chbSecret.isChecked(),
                             CreateGroupActivity.this);
                 }
             });

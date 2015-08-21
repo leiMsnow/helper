@@ -10,9 +10,13 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -50,8 +54,6 @@ public class TopicApi extends BaseApi {
         }
         return mApi;
     }
-
-
     /**
      * 创建话题
      *
@@ -60,14 +62,14 @@ public class TopicApi extends BaseApi {
      * @param urls     图片集合
      * @param callback
      */
-    public void createTopic(String title, String content, Map<String, String[]> urls,
+    public void createTopic(String title, String content, List<ImageUrl> urls,
                             final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_title", title);
         mParams.put("topic_content", content);
-        mParams.put("topic_img_url", urls);
+        mParams.put("topic_img_url", JSON.toJSON(urls));
 
         simpleRequest(CREATE_TOPIC, mParams, new ApiCallback() {
             @Override
