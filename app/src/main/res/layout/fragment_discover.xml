@@ -1,74 +1,34 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/weak_grey">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/weak_grey">
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/discover_time_line_left_margin"
-        android:background="@color/normal_light_grey" />
+        android:layout_marginLeft="24dp"
+        android:background="@color/normal_light_grey"/>
 
     <ListView
         android:id="@+id/lv_discover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="@dimen/discover_toolbar_height"
         android:divider="@null"
-        android:visibility="gone">
-
-    </ListView>
-
-    <ScrollView
-        android:id="@+id/sv_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:id="@+id/ll_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/discover_toolbar_height"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/discover_toolbar_height">
-
-            <include layout="@layout/item_discover_timeline" />
-
-            <include layout="@layout/item_discover_multi_img3" />
-
-            <include layout="@layout/item_discover_timeline" />
-
-            <include layout="@layout/item_discover_multi_portrait" />
-
-            <include layout="@layout/item_discover_timeline" />
-
-            <include layout="@layout/item_discover_portrait" />
-
-            <include layout="@layout/item_discover_timeline" />
-
-            <include layout="@layout/item_discover_single_product" />
-
-            <include layout="@layout/item_discover_timeline" />
-
-            <include layout="@layout/item_discover_multi_single2" />
-        </LinearLayout>
-
-    </ScrollView>
+        android:scrollbars="none"/>
 
     <RelativeLayout
         android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--<com.tongban.corelib.widget.view.SemicircleImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/discover_toolbar_height"-->
-        <!--android:src="@drawable/bg_light" />-->
         <com.tongban.corelib.widget.view.BezierImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/discover_toolbar_height"
-            android:src="@color/white" />
+            android:src="@color/white"/>
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
@@ -77,7 +37,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/rc_default_portrait" />
+            android:src="@drawable/rc_default_portrait"/>
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -91,7 +51,7 @@
             android:paddingTop="4dp"
             android:text="小鹿妈妈"
             android:textColor="@color/main_brown"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_user_info"
@@ -106,7 +66,7 @@
             android:singleLine="true"
             android:text="宝宝5岁零1个月，1年纪预备生，伊顿国际小学"
             android:textColor="@color/main_deep_orange"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_user_more_info"
@@ -120,7 +80,7 @@
             android:gravity="center_vertical"
             android:text="依然淘气 | 体能发育快"
             android:textColor="@color/normal_grey"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <ImageView
             android:id="@+id/iv_search_all"
@@ -131,7 +91,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/selector_white_to_gray"
             android:scaleType="center"
-            android:src="@mipmap/ic_menu_search" />
+            android:src="@mipmap/ic_menu_search"/>
     </RelativeLayout>
 
 </FrameLayout>

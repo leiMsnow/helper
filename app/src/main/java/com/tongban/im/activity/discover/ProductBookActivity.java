@@ -1,17 +1,20 @@
 package com.tongban.im.activity.discover;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.im.R;
 
 /**
  * 商品详情页(图书)
+ *
  * @author Cheney
  * @date 8/20
  */
-public class ProductBookActivity extends BaseApiActivity {
+public class ProductBookActivity extends BaseApiActivity implements View.OnClickListener {
+    private ImageView ivBack, ivShare, ivCollect;
+
 
     @Override
     protected int getLayoutRes() {
@@ -20,6 +23,9 @@ public class ProductBookActivity extends BaseApiActivity {
 
     @Override
     protected void initView() {
+        ivBack = (ImageView) findViewById(R.id.iv_back);
+        ivShare = (ImageView) findViewById(R.id.iv_share);
+        ivCollect = (ImageView) findViewById(R.id.iv_collect);
 
     }
 
@@ -30,23 +36,19 @@ public class ProductBookActivity extends BaseApiActivity {
 
     @Override
     protected void initListener() {
-
+        ivBack.setOnClickListener(this);
+        ivShare.setOnClickListener(this);
+        ivCollect.setOnClickListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_product_book, menu);
-        return true;
-    }
+    public void onClick(View v) {
+        if (v == ivBack) {
+            finish();
+        } else if (v == ivShare) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        } else if (v == ivCollect) {
 
-        if (id == R.id.action_settings) {
-            return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

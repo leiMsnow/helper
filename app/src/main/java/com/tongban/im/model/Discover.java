@@ -26,7 +26,7 @@ public class Discover {
     // 组件id
     private String component_id;
 
-    class ImgMap {
+    public class ImgMap {
         // 图片地址
         private String img_url;
         // 跳转地址

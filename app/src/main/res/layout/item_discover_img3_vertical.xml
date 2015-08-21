@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 组件:左侧一个图,右侧为两个上下布局的图 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <include layout="@layout/item_discover_timeline"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_corners_normal"
+        android:orientation="vertical">
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:textColor="@color/main_black"
+            android:textSize="16sp"/>
+
+        <View style="@style/HorizontalLine"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+            <!-- 左侧图 -->
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
+
+            <View
+                style="@style/VerticalLine"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <!-- 右上方图 -->
+                <ImageView
+                    android:id="@+id/iv_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"/>
+
+                <View
+                    style="@style/HorizontalLine"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"/>
+                <!-- 右下方图 -->
+                <ImageView
+                    android:id="@+id/iv_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View style="@style/HorizontalLine"/>
+        <!-- 收藏数量 -->
+        <TextView
+            android:id="@+id/tv_collect_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/ic_discover_collect_count"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/normal_grey"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -56,7 +56,7 @@ public class ProductApi extends BaseApi {
         simpleRequest(FETCH_HOME_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+
             }
 
             @Override
