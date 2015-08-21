@@ -3,8 +3,6 @@ package com.tongban.im.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.rong.imlib.model.Conversation;
-
 /**
  * EventBus事件回调类，主要是将参数封装
  * Created by zhangleilei on 15/7/14.
@@ -258,6 +256,21 @@ public class BaseEvent {
 
         public void setTopicList(List<Topic> topicList) {
             this.topicList = topicList;
+        }
+    }
+
+    /**
+     * 话题回复列表Event
+     */
+    public static class TopicCommentListEvent {
+        List<TopicComment> topicReplyList;
+
+        public List<TopicComment> getTopicReplyList() {
+            return topicReplyList;
+        }
+
+        public void setTopicReplyList(List<TopicComment> topicReplyList) {
+            this.topicReplyList = topicReplyList;
         }
     }
 

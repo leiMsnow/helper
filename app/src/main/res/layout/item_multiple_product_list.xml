@@ -37,7 +37,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/tv_praise_count"
+            android:id="@+id/tv_collect_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"

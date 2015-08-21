@@ -16,15 +16,15 @@ public class OfficialTopic {
     //产品
     private Product product;
     //话题评论
-    private TopicReply topicReply;
+    private TopicComment topicReply;
     //话题
     private Topic topic;
 
-    public TopicReply getTopicReply() {
+    public TopicComment getTopicReply() {
         return topicReply;
     }
 
-    public void setTopicReply(TopicReply topicReply) {
+    public void setTopicReply(TopicComment topicReply) {
         this.topicReply = topicReply;
     }
 

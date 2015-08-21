@@ -4,7 +4,7 @@ package com.tongban.im.model;
  * 话题评论信息表
  * Created by fushudi on 2015/8/1.
  */
-public class TopicReply {
+public class TopicComment {
     /**
      * 评论者头像
      */

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
 import com.tongban.im.adapter.TopicImgAdapter;
@@ -15,11 +16,7 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicReply;
 import com.tongban.im.widget.view.TopicInputView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 话题评论界面
@@ -30,15 +27,18 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     //头布局控件
     private View mHeader;
-    private ImageView ivUserIcon;
+    //头布局 top
+    private ImageView ivUserPortrait;
     private TextView tvUserName;
     private TextView tvAge;
     private TextView tvTime;
+    //头布局 content
     private TextView tvTopicTitle;
     private TextView tvTopicContent;
     private GridView gvContent;
+    //头布局 bottom
+    private TextView tvComment;
     private TextView tvCollect;
-    private TextView tvReply;
 
     private ListView lvReplyList;
 
@@ -62,11 +62,19 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         //添加头布局
         mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
-        ivUserIcon = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
+        ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
+        tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
+        tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
+
+        tvTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
+        tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
         gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
         gvContent.setVisibility(View.VISIBLE);
-        lvReplyList.addHeaderView(mHeader);
 
+        tvComment = (TextView) mHeader.findViewById(R.id.tv_reply_count);
+        tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
+
+        lvReplyList.addHeaderView(mHeader);
     }
 
     @Override
@@ -75,21 +83,11 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (getIntent().getExtras() != null) {
             mTopicId = getIntent().getExtras().getString(Consts.KEY_TOPIC_ID, "");
         }
+
         TopicApi.getInstance().getTopicInfo(mTopicId, this);
 
-        List<TopicReply> replyList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            TopicReply topicReply = new TopicReply();
-            topicReply.setReplyAge("1" + i);
-            topicReply.setComment_content("说的很有道理，讲的很有道理，写的很有道理" + i);
-            topicReply.setReplyNickName("打不死的小强");
-            topicReply.setReplyNum("赞" + i);
-            topicReply.setReplySex("男");
-            topicReply.setReplyTime("08-01 14:28");
-            replyList.add(topicReply);
-        }
 
-        mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_list, replyList);
+        mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_list, null);
         lvReplyList.setAdapter(mAdapter);
     }
 
@@ -106,6 +104,20 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.getTopic();
         if (mTopicInfo != null) {
+
+            if (mTopicInfo.getUser_info() != null) {
+                tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
+                Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().getPortrait_url().getMin())
+                        .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
+            }
+            tvTime.setText(mTopicInfo.getC_time(mContext));
+
+            tvTopicTitle.setText(mTopicInfo.getTopic_title());
+            tvTopicContent.setText(mTopicInfo.getTopic_content());
+
+//            tvComment.setText(mTopicInfo.getAmount());
+//            tvCollect.setText(mTopicInfo.getUser_amount());
+
             if (mTopicInfo.getContentType() == Topic.IMAGE) {
                 mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
                         mTopicInfo.getTopic_img_url());

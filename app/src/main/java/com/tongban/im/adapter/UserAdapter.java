@@ -28,7 +28,7 @@ public class UserAdapter extends QuickAdapter<User> {
     @Override
     protected void convert(BaseAdapterHelper helper, User item) {
 //        helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
-        helper.setText(R.id.tv_nickname, item.getNick_name());
+        helper.setText(R.id.tv_user_name, item.getNick_name());
         helper.setTag(R.id.btn_follow, item.getUser_id());
         helper.setTag(R.id.iv_user_icon, item.getUser_id());
         helper.setOnClickListener(R.id.iv_user_icon, onClickListener);

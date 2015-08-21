@@ -26,19 +26,19 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/tv_nickname"
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:layout_toLeftOf="@+id/tv_time"
+        android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/tv_birthday"
         android:text="昵称"
         android:textColor="@color/main_black" />
 
 
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/tv_create_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

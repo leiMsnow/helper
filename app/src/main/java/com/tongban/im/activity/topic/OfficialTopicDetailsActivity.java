@@ -11,7 +11,7 @@ import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.Product;
 import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicReply;
+import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
 
         //评论相关
         officialTopic = new OfficialTopic();
-        TopicReply topicReply = new TopicReply();
+        TopicComment topicReply = new TopicComment();
         officialTopic.setContentType(OfficialTopic.REPLY);
         topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         topicReply.setReplyNickName("小鹿妈妈");
@@ -83,7 +83,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         officialTopicList.add(officialTopic);
 
         officialTopic = new OfficialTopic();
-        topicReply = new TopicReply();
+        topicReply = new TopicComment();
         officialTopic.setContentType(OfficialTopic.REPLY);
         topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
         topicReply.setReplyNickName("小鹿妈妈");

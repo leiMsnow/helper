@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
@@ -30,7 +29,7 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     protected void initView() {
         setTitle("个人资料");
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
-        tvNickName = (TextView) findViewById(R.id.tv_nickname);
+        tvNickName = (TextView) findViewById(R.id.tv_user_name);
         tvPhoneNum = (TextView) findViewById(R.id.tv_phone_num);
         tvWork = (TextView) findViewById(R.id.tv_work);
         tvChildAge = (TextView) findViewById(R.id.tv_child_age);

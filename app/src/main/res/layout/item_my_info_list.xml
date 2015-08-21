@@ -14,7 +14,7 @@
         android:src="@mipmap/ic_img_user_default" />
 
     <TextView
-        android:id="@+id/tv_nickname"
+        android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/iv_user_icon"

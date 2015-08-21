@@ -39,15 +39,15 @@ public class Topic {
     //用户信息
     private User user_info;
     //话题评论
-    private List<TopicReply> topicReplyList;
+    private List<TopicComment> topicReplyList;
     // 话题图片
     private List<ImageUrl> topic_img_url;
 
-    public List<TopicReply> getTopicReplyList() {
+    public List<TopicComment> getTopicReplyList() {
         return topicReplyList;
     }
 
-    public void setTopicReplyList(List<TopicReply> topicReplyList) {
+    public void setTopicReplyList(List<TopicComment> topicReplyList) {
         this.topicReplyList = topicReplyList;
     }
 

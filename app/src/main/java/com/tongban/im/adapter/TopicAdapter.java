@@ -31,19 +31,19 @@ public class TopicAdapter extends QuickAdapter<Topic> {
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
         //用户信息
-//        helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
-//                R.drawable.rc_default_portrait);
-        helper.setText(R.id.tv_nickname, item.getUser_info().getNick_name());
+        helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
+                R.drawable.rc_default_portrait);
+        helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
 //        helper.setText(R.id.tv_birthday, item.getUser_info().getAge());
-        helper.setText(R.id.tv_time, item.getC_time(mContext));
+        helper.setText(R.id.tv_create_time, item.getC_time(mContext));
         //话题内容
-        helper.setText(R.id.tv_topic_name, item.getTopic_title());
+        helper.setText(R.id.tv_topic_title, item.getTopic_title());
         helper.setText(R.id.tv_topic_content, item.getTopic_content());
 
         setImagesVisibleAndUrl(helper, item);
         //回复、收藏、地址
         helper.setText(R.id.tv_reply_count, String.valueOf(item.getUser_amount()));
-        helper.setText(R.id.tv_praise_count, String.valueOf(item.getAmount()));
+        helper.setText(R.id.tv_collect_count, String.valueOf(item.getAmount()));
     }
 
     //设置图片的显示/隐藏和src
