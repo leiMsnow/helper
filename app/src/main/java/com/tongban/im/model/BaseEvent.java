@@ -13,7 +13,7 @@ public class BaseEvent {
      * 搜索圈子的Event
      */
     public static class SearchGroupListEvent {
-        List<Group> groups = new ArrayList<>();
+        List<Group> groups;
 
         public List<Group> getGroups() {
             return groups;
@@ -21,6 +21,21 @@ public class BaseEvent {
 
         public void setGroups(List<Group> groups) {
             this.groups = groups;
+        }
+    }
+
+    /**
+     * 群推荐列表Event
+     */
+    public static class RecommendGroupListEvent {
+        List<Group> groupList;
+
+        public List<Group> getGroupList() {
+            return groupList;
+        }
+
+        public void setGroupList(List<Group> groupList) {
+            this.groupList = groupList;
         }
     }
 

@@ -10,13 +10,14 @@ import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.model.BaseEvent;
 
 /**
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
 public class RecommendGroupFragment extends BaseApiFragment {
-    private ListView mListView;
+    private ListView lvGroupList;
     private FloatingActionButton mFab;
 
     private GroupListAdapter mAdapter;
@@ -28,7 +29,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
-        mListView = (ListView) mView.findViewById(R.id.lv_circle);
+        lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
         mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
     }
 
@@ -47,8 +48,12 @@ public class RecommendGroupFragment extends BaseApiFragment {
     protected void initData() {
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);
-        mListView.setAdapter(mAdapter);
+        lvGroupList.setAdapter(mAdapter);
         GroupApi.getInstance().recommendGroupList(0, 10, this);
     }
 
+    public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
+        mAdapter.replaceAll(list.getGroupList());
+        lvGroupList.setVisibility(View.VISIBLE);
+    }
 }

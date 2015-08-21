@@ -317,9 +317,12 @@ public class GroupApi extends BaseApi {
                 ApiListResult<Group> listResult = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
+
                 if (listResult.getData().getResult().size() > 0) {
+                    BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
+                    listEvent.setGroupList(listResult.getData().getResult());
                     if (callback != null)
-                        callback.onComplete(listResult);
+                        callback.onComplete(listEvent);
                 } else {
                     if (callback != null)
                         callback.onFailure(DisplayType.View, "暂无圈子信息,快来创建第一个圈子吧");

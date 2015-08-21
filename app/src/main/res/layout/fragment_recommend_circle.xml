@@ -6,9 +6,17 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/lv_circle"
+        android:id="@+id/lv_group_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_toolbar"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add"

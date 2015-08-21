@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_margin="8dp"
-        android:background="@drawable/selector_white_to_gray">
+        android:background="@drawable/selector_corner_bg">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_group_icon"

@@ -1,7 +1,5 @@
 package com.tongban.im.model;
 
-import java.util.List;
-
 /**
  * 群组
  * author: chenenyu 15/7/14
