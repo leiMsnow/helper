@@ -207,6 +207,21 @@ public class BaseEvent {
     }
 
     /**
+     * 话题信息Event
+     */
+    public static class TopicInfoEvent {
+        Topic topic;
+
+        public Topic getTopic() {
+            return topic;
+        }
+
+        public void setTopic(Topic topic) {
+            this.topic = topic;
+        }
+    }
+
+    /**
      * 话题列表Event
      */
     public static class TopicListEvent {

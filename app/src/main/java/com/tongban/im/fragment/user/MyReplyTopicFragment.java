@@ -14,9 +14,7 @@ import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyReplyTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicReply;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +63,7 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_topic_icon:
+            case R.id.iv_user_portrait:
                 String visitorId=v.getTag().toString();
                 Intent intent=new Intent(mContext,UserCenterActivity.class);
                 intent.putExtra("visitorId",visitorId);

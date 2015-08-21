@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
+import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
@@ -13,11 +14,8 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 话题api
@@ -39,6 +37,10 @@ public class TopicApi extends BaseApi {
      * 话题搜索接口
      */
     public static final String SEARCH_TOPIC_LIST = "topic/search/list";
+    /**
+     * 话题详情接口
+     */
+    public static final String TOPIC_INFO = "topic/detail/info";
 
     private TopicApi(Context context) {
         super(context);
@@ -167,6 +169,47 @@ public class TopicApi extends BaseApi {
                 topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicListEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 话题详情接口
+     *
+     * @param topicId  话题Id
+     * @param callback
+     */
+    public void getTopicInfo(String topicId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("topic_id", topicId);
+
+        simpleRequest(TOPIC_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<Topic> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<Topic>>() {
+                        });
+                if (result.getData() != null) {
+                    BaseEvent.TopicInfoEvent topicEvent = new BaseEvent.TopicInfoEvent();
+                    topicEvent.setTopic(result.getData());
+                    if (callback != null)
+                        callback.onComplete(topicEvent);
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.View, "暂无话题数据");
+                }
             }
 
             @Override

@@ -13,6 +13,7 @@ import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * 话题列表--图片展示Adapter
  * Created by fushudi on 2015/7/16.
  */
-public class TopicImgAdapter extends QuickAdapter<String> {
+public class TopicImgAdapter extends QuickAdapter<ImageUrl> {
 
 
     private View.OnClickListener imgClickListener;
@@ -41,8 +42,8 @@ public class TopicImgAdapter extends QuickAdapter<String> {
     }
 
     @Override
-    protected void convert(final BaseAdapterHelper helper, final String item) {
-        helper.setImageBitmap(R.id.iv_topic_img, item, R.drawable.rc_ic_def_rich_content);
+    protected void convert(final BaseAdapterHelper helper, final ImageUrl item) {
+        helper.setImageBitmap(R.id.iv_topic_img, item.getMid(), R.drawable.rc_ic_def_rich_content);
         helper.setTag(R.id.iv_topic_img, tagKey, getDataAll());
         helper.setOnClickListener(R.id.iv_topic_img, imgClickListener);
     }
@@ -52,7 +53,7 @@ public class TopicImgAdapter extends QuickAdapter<String> {
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)
                 helper.getView(R.id.iv_topic_img).getLayoutParams();
-        lp.height = mScreenWidth;
+        lp.height = mScreenWidth / 4 * 3;
         helper.getView(R.id.iv_topic_img).setLayoutParams(lp);
     }
 }

@@ -31,7 +31,7 @@ public class TopicAdapter extends QuickAdapter<Topic> {
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
         //用户信息
-        helper.setImageBitmap(R.id.iv_topic_icon, item.getUser_info().getPortrait_url().getMin(),
+        helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
                 R.drawable.rc_default_portrait);
         helper.setText(R.id.tv_nickname, item.getUser_info().getNick_name());
 //        helper.setText(R.id.tv_birthday, item.getUser_info().getAge());
