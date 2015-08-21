@@ -1,5 +1,9 @@
 package com.tongban.im.model;
 
+import android.content.Context;
+
+import com.tongban.corelib.utils.DateUtils;
+
 import java.util.List;
 
 /**
@@ -29,7 +33,7 @@ public class Topic {
     // 用户收藏数量
     private int user_amount;
     // 话题创建时间
-    private String c_time;
+    private long c_time;
     // 内容类型（文字或者图片）
     private int contentType;
     //用户信息
@@ -123,11 +127,11 @@ public class Topic {
         this.user_amount = user_amount;
     }
 
-    public String getC_time() {
-        return c_time;
+    public String getC_time(Context context) {
+        return DateUtils.formatDateTime(c_time, context);
     }
 
-    public void setC_time(String c_time) {
+    public void setC_time(long c_time) {
         this.c_time = c_time;
     }
 

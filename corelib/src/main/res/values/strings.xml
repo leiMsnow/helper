@@ -22,4 +22,25 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="january">1月</string>
+    <string name="february">2月</string>
+    <string name="march">3月</string>
+    <string name="april">4月</string>
+    <string name="may">5月</string>
+    <string name="june">6月</string>
+    <string name="july">7月</string>
+    <string name="aguest">8月</string>
+    <string name="september">9月</string>
+    <string name="october">10月</string>
+    <string name="november">11月</string>
+    <string name="december">12月</string>
+    <string name="today">今天</string>
+    <string name="day">日</string>
+    <string name="year">年</string>
+    <string name="yesterday">昨天</string>
+    <string name="morning">上午 %s</string>
+    <string name="noon">中午 %s</string>
+    <string name="afternoon">下午 %s</string>
+    <string name="evening">晚上 %s</string>
 </resources>

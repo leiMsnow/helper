@@ -2,10 +2,14 @@ package com.tongban.corelib.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import android.content.Context;
 import android.text.TextUtils;
+
+import com.tongban.corelib.R;
 
 /**
  * 时间转换工具
@@ -161,6 +165,13 @@ public class DateUtils {
         return date;
     }
 
+    public static Date longToDate(long currentTime) {
+        Date dateOld = new Date(currentTime); // 根据long类型的毫秒数生命一个date类型的时间
+        String sDateTime = dateToString(dateOld, "yyyy-MM-dd HH:mm:ss"); // 把date类型的时间转换为string
+        Date date = stringToDate(sDateTime, "yyyy-MM-dd HH:mm:ss"); // 把String类型转换为Date类型
+        return date;
+    }
+
     /**
      * 格式化时间
      *
@@ -184,6 +195,81 @@ public class DateUtils {
         long time = date.getTime() - predate.getTime();
         long min = time / 1000 / 60;
         return min;
+    }
+
+    private static int[] months = {R.string.january, R.string.february,
+            R.string.march, R.string.april, R.string.may, R.string.june,
+            R.string.july, R.string.aguest, R.string.september,
+            R.string.october, R.string.november, R.string.december};
+
+
+    public static String formatDateTime(long fromDate, Context context) {
+
+        Date date = longToDate(fromDate);
+
+        //传递进来的时间
+        Calendar fromCalendar = Calendar.getInstance();
+        fromCalendar.setTime(date);
+
+        String result = "";
+        int year = fromCalendar.get(Calendar.YEAR);
+        int month = fromCalendar.get(Calendar.MONTH);
+        int day = fromCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //当前时间
+        Calendar currentCalendar = Calendar.getInstance();
+
+        int thisYear = currentCalendar.get(Calendar.YEAR);
+        int thisMonth = currentCalendar.get(Calendar.MONTH);
+        int thisDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+
+        int h = fromCalendar.get(Calendar.HOUR_OF_DAY);
+        int min = fromCalendar.get(Calendar.MINUTE);
+
+        String str_h = h < 10 ? "0" + h : h + "";
+        String str_min = min < 10 ? "0" + min : "" + min;
+        result = result + " " + str_h + ":" + str_min;
+        if (year < thisYear) {
+            return (year + 1900) + context.getString(R.string.year)
+                    + context.getString(months[month]) + day
+                    + context.getString(R.string.day) + result;
+        } else {
+            if (thisMonth == month) {
+                if (thisDay - day > 1 || thisMonth != month) {
+                    // 今年前天及以前：
+                    // 如果没跨年：10月5日上午09：10；10月5日下午14：10
+                    return context.getString(months[month]) + day
+                            + context.getString(R.string.day) + result;
+                } else {
+                    // 0：00-7.59为早上
+                    // 8：00-11：59为上午
+                    // 12：00-17：59为下午
+                    // 18：00-23.59为晚上
+                    if (h >= 0 && h < 8) {
+                        result = String.format(
+                                context.getString(R.string.morning), result);
+                    } else if (h >= 8 && h < 12) {
+                        result = String.format(
+                                context.getString(R.string.morning), result);
+                    } else if (h >= 12 && h < 18) {
+                        result = String.format(
+                                context.getString(R.string.afternoon), result);
+                    } else if (h >= 18 && h < 24) {
+                        result = String.format(
+                                context.getString(R.string.evening), result);
+                    }
+                    if (thisDay - day == 1) {
+                        return context.getString(R.string.yesterday) + result;
+                    } else {
+                        return result;
+                    }
+                }
+            } else {
+                // 不是同一月份，显示10月5日上午09：10；10月5日下午14：10
+                return context.getString(months[month]) + day
+                        + context.getString(R.string.day) + result;
+            }
+        }
     }
 
 }
