@@ -32,7 +32,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取个人资料
      */
-    public static final String FETCH_USER_DETAIL_INFO = "/user/info";
+    public static final String FETCH_USER_DETAIL_INFO = "user/info";
     /**
      * 获取个人群组列表-创建的群
      */

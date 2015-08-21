@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
