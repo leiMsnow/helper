@@ -51,13 +51,18 @@ public class UserCenterApi extends BaseApi {
      */
     public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
     /**
-     * 获取我的收藏 - 我发起的话题列表
+     * 获取我的收藏 - 话题列表
      */
     public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
     /**
-     * 获取我的收藏 - 回复我的话题列表
+     * 获取我的话题 - 回复我的话题列表
      */
     public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
+
+    /**
+     * 获取我的话题 - 我发起的话题列表
+     */
+    public static final String FETCH_LAUNCH_TOPIC_LIST = "user/launch/topic/list";
     /**
      * 关注用户
      */
@@ -184,7 +189,7 @@ public class UserCenterApi extends BaseApi {
     }
 
     /**
-     * 获取个人群组列表（圈子）
+     * 获取个人中心群组列表（圈子）
      *
      * @param callback
      */
@@ -327,7 +332,7 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void setFetchCollectTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchCollectTopicList(int cursor, int pageSize, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -384,6 +389,50 @@ public class UserCenterApi extends BaseApi {
                         });
                 List<Topic> replyTopicList = apiResponse.getData().getResult();
                 callback.onComplete(replyTopicList);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取我的话题 - 我发起的话题列表
+     *
+     * @param callback
+     */
+    public void fetchLaunchTopicList(int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        // TODO: 2015/8/21  未测试
+        simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<Topic> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+
+                if (apiResponse.getData().getResult().size() > 0) {
+                    BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                    topicListEvent.setTopicList(apiResponse.getData().getResult());
+                    if (callback != null)
+                        callback.onComplete(topicListEvent);
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.View, "暂无创建的话题,快来创建第一条话题吧");
+                }
+
             }
 
             @Override

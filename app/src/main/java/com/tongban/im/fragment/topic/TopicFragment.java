@@ -22,6 +22,7 @@ import com.tongban.im.activity.topic.SearchTopicActivity;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
@@ -83,6 +84,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             if (!getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true)) {
                 rlToolBar.setVisibility(View.GONE);
             }
+            UserCenterApi.getInstance().fetchLaunchTopicList(0, 10, this);
         } else {
             TopicApi.getInstance().recommendTopicList(0, 10, this);
         }
@@ -144,6 +146,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     }
 
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
+
         mAdapter.replaceAll(obj.getTopicList());
         lvTopicList.setVisibility(View.VISIBLE);
     }
