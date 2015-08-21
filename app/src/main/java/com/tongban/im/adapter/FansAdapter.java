@@ -20,7 +20,7 @@ public class FansAdapter extends QuickAdapter<User> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, User item) {
-        helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url());
+        helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
         helper.setText(R.id.tv_nickname, item.getNick_name());
     }
 }

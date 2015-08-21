@@ -31,16 +31,4 @@
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
-
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:drawableLeft="@mipmap/ic_topic_location"
-        android:gravity="center_vertical"
-        android:text="北京"
-        android:textColor="@color/normal_grey"
-        android:textSize="12sp" />
 </RelativeLayout>

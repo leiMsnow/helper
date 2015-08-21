@@ -138,8 +138,8 @@ public class GroupApi extends BaseApi {
                         });
                 BaseEvent.CreateGroupEvent createGroupEvent = new BaseEvent.CreateGroupEvent();
                 createGroupEvent.setGroupId(result.getData().toString());
-                // TODO: 8/19/15  同步到查询表，后面会删除
-                createGroup1(groupName, result.getData().toString(), address, declaration, null);
+//                // TODO: 8/19/15  同步到查询表，后面会删除
+//                createGroup1(groupName, result.getData().toString(), address, declaration, null);
                 callback.onComplete(createGroupEvent);
             }
 
@@ -150,6 +150,7 @@ public class GroupApi extends BaseApi {
         });
     }
 
+    @Deprecated
     public void createGroup1(String groupName, String groupId, String address, String declaration,
                              final ApiCallback callback) {
 

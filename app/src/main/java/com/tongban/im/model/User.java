@@ -1,5 +1,7 @@
 package com.tongban.im.model;
 
+import android.media.Image;
+
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class User {
     // 个性签名
     private String personal_sign;
     // 用户头像
-    private String portrait_url;
+    private ImageUrl portrait_url;
     //用户标签
     private String tags;
     //个人描述
@@ -48,6 +50,15 @@ public class User {
     private String address_type;
     //孩子信息
     private List<ChildInfo> child_info;
+
+
+    public ImageUrl getPortrait_url() {
+        return portrait_url;
+    }
+
+    public void setPortrait_url(ImageUrl portrait_url) {
+        this.portrait_url = portrait_url;
+    }
 
     public List<ChildInfo> getChild_info() {
         return child_info;
@@ -183,14 +194,6 @@ public class User {
 
     public void setPersonal_sign(String personal_sign) {
         this.personal_sign = personal_sign;
-    }
-
-    public String getPortrait_url() {
-        return portrait_url;
-    }
-
-    public void setPortrait_url(String portrait_url) {
-        this.portrait_url = portrait_url;
     }
 
     public String getTags() {

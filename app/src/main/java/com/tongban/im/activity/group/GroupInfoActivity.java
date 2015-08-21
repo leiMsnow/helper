@@ -105,11 +105,11 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
             User user = new User();
             user.setNick_name("张三" + i);
-            user.setPortrait_url("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg");
-            if (i % 2 == 0) {
-                user.setPortrait_url("http://diy.qqjay.com/u2/2012/0601/caafdf4fe2eee3b7f397922b575f46af.jpg");
-            }
-            users.add(user);
+//            user.setPortrait_url("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg");
+//            if (i % 2 == 0) {
+//                user.setPortrait_url("http://diy.qqjay.com/u2/2012/0601/caafdf4fe2eee3b7f397922b575f46af.jpg");
+//            }
+//            users.add(user);
             i++;
         }
         if (getIntent().getExtras() != null) {

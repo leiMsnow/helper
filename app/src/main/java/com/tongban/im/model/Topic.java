@@ -1,36 +1,48 @@
 package com.tongban.im.model;
 
+import java.util.List;
+
 /**
  * 话题信息表
  * Created by fushudi on 2015/7/16.
  */
 public class Topic {
 
-    //话题内容为文本
+    // 话题内容为文本
     public final static int TEXT = 0;
-    //话题内容为图片
+    // 话题内容为图片
     public final static int IMAGE = 1;
-    //话题ID
+
+
+    // 话题ID
     private String topic_id;
     // 话题标题
     private String topic_title;
     // 话题内容
     private String topic_content;
-    //话题类型：0，用户话题；1：官方话题
+    // 话题标签
+    private String topic_tags;
+    // 话题类型：0，用户话题；1：官方话题
     private String topic_type;
-    //图片地址
-    //回复数量
+    // 用户回复数量
     private int amount;
-    //内容类型（文字或者图片）
+    // 用户收藏数量
+    private int user_amount;
+    // 话题创建时间
+    private String c_time;
+    // 内容类型（文字或者图片）
     private int contentType;
-    //话题图片
-    private ImageUrl[] topic_img_url;
 
-    public ImageUrl[] getTopic_img_url() {
+    private User user_info;
+
+    // 话题图片
+    private List<ImageUrl> topic_img_url;
+
+    public List<ImageUrl> getTopic_img_url() {
         return topic_img_url;
     }
 
-    public void setTopic_img_url(ImageUrl[] topic_img_url) {
+    public void setTopic_img_url(List<ImageUrl> topic_img_url) {
         this.topic_img_url = topic_img_url;
     }
 
@@ -59,7 +71,11 @@ public class Topic {
     }
 
     public int getContentType() {
-        return contentType;
+        if (topic_img_url.size() > 0) {
+            return contentType = IMAGE;
+        } else {
+            return contentType = TEXT;
+        }
     }
 
     public void setContentType(int contentType) {
@@ -82,4 +98,35 @@ public class Topic {
         this.topic_content = topic_content;
     }
 
+    public String getTopic_tags() {
+        return topic_tags;
+    }
+
+    public void setTopic_tags(String topic_tags) {
+        this.topic_tags = topic_tags;
+    }
+
+    public int getUser_amount() {
+        return user_amount;
+    }
+
+    public void setUser_amount(int user_amount) {
+        this.user_amount = user_amount;
+    }
+
+    public String getC_time() {
+        return c_time;
+    }
+
+    public void setC_time(String c_time) {
+        this.c_time = c_time;
+    }
+
+    public User getUser_info() {
+        return user_info;
+    }
+
+    public void setUser_info(User user_info) {
+        this.user_info = user_info;
+    }
 }

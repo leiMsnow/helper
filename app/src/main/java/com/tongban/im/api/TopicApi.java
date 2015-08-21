@@ -54,6 +54,7 @@ public class TopicApi extends BaseApi {
         }
         return mApi;
     }
+
     /**
      * 创建话题
      *
@@ -112,17 +113,19 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-//                ApiListResult<Topic> listResult = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<Topic>>() {
-//                        });
-//
-//                if (listResult.getData().getResult().size() > 0) {
-//                    if (callback != null)
-//                        callback.onComplete(listResult);
-//                } else {
+                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+
+                if (result.getData().getResult().size() > 0) {
+                    BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                    topicListEvent.setTopicList(result.getData().getResult());
+                    if (callback != null)
+                        callback.onComplete(topicListEvent);
+                } else {
                     if (callback != null)
                         callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
-//                }
+                }
             }
 
             @Override

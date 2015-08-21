@@ -31,34 +31,33 @@ public class TopicAdapter extends QuickAdapter<Topic> {
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
         //用户信息
-//        helper.setImageBitmap(R.id.iv_topic_icon, item.getUser().getPortrait_url());
+        helper.setImageBitmap(R.id.iv_topic_icon, item.getUser_info().getPortrait_url().getMin());
 //        helper.setText(R.id.tv_nickname, item.getUser().getNick_name());
 //        helper.setText(R.id.tv_birthday, item.getUser().getAge());
-//        helper.setText(R.id.tv_time, item.getTopicTime());
+        helper.setText(R.id.tv_time, item.getC_time());
         //话题内容
         helper.setText(R.id.tv_topic_name, item.getTopic_title());
         helper.setText(R.id.tv_topic_content, item.getTopic_content());
 
         setImagesVisibleAndUrl(helper, item);
-        //点赞、评论、地址
-//        helper.setText(R.id.tv_praise_count, item.getTopicPraiseNum());
-//        helper.setText(R.id.tv_reply_count, item.getTopicReplyNum());
-//        helper.setText(R.id.tv_location, item.getTopicAddress());
+        //回复、收藏、地址
+        helper.setText(R.id.tv_reply_count, String.valueOf(item.getUser_amount()));
+        helper.setText(R.id.tv_praise_count, String.valueOf(item.getAmount()));
     }
 
     //设置图片的显示/隐藏和src
     private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
-//        for (int i = 0; i < item.getTopic_img_url().getMin().size(); i++) {
-//            if (item.getContentType() == Topic.TEXT) {
-//                helper.setVisible(images[i], View.GONE);
-//            } else {
-//                helper.setVisible(images[i], View.VISIBLE);
-//                helper.setImageBitmap(images[i],
-//                        item.getTopic_img_url().getMin().get("min")[i]);
-//                helper.setTag(images[i], Integer.MAX_VALUE,
-//                        item.getTopic_img_url().getMin().get("mid")[i]);
-//                helper.setOnClickListener(images[i], onClickListener);
-//            }
-//        }
+        for (int i = 0; i < item.getTopic_img_url().size(); i++) {
+            if (item.getContentType() == Topic.TEXT) {
+                helper.setVisible(images[i], View.GONE);
+            } else {
+                helper.setVisible(images[i], View.VISIBLE);
+                helper.setImageBitmap(images[i],
+                        item.getTopic_img_url().get(i).getMin());
+                helper.setTag(images[i], Integer.MAX_VALUE,
+                        item.getTopic_img_url());
+                helper.setOnClickListener(images[i], onClickListener);
+            }
+        }
     }
 }

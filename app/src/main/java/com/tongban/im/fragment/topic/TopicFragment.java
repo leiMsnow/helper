@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.activity.PhotoViewPagerActivity;
@@ -23,11 +24,14 @@ import com.tongban.im.adapter.TopicAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 话题/动态页
@@ -75,55 +79,15 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
         if (getArguments() != null) {
-            boolean toolbarDisplay = getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true);
-            if (!toolbarDisplay) {
+            //是否显示标题栏,目前只有首页显示
+            if (!getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true)) {
                 rlToolBar.setVisibility(View.GONE);
-            } else {
-                rlToolBar.setVisibility(View.VISIBLE);
             }
+        } else {
+            TopicApi.getInstance().recommendTopicList(0, 10, this);
         }
 
-        //TopicApi.getInstance().recommendTopicList(0, 10, this);
-
-        List<Topic> listsByHot = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Topic topic = new Topic();
-            topic.setContentType(Topic.TEXT);
-            if (i % 2 == 0) {
-                topic.setContentType(Topic.IMAGE);
-//                List<String> smallUrls = new ArrayList<>();
-//                smallUrls.add("http://img2.3lian.com/2014/f7/5/d/22.jpg");
-//                smallUrls.add("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
-//                smallUrls.add("http://pic2.nipic.com/20090427/2390580_091546018_2.jpg");
-//                smallUrls.add("http://pic2.nipic.com/20090413/406638_125424003_2.jpg");
-//                smallUrls.add("http://pic25.nipic.com/20121115/6357173_141620329300_2.jpg");
-//                smallUrls.add("http://image.tianjimedia.com/uploadImages/2012/236/5UADNJV31013.jpg");
-//                smallUrls.add("http://pic31.nipic.com/20130708/12246968_161410243000_2.jpg");
-//                smallUrls.add("http://pic.58pic.com/58pic/11/10/80/20X58PICzs8.jpg");
-//                smallUrls.add("http://img3.3lian.com/2013/s1/20/d/56.jpg");
-//                smallUrls.add("http://image.tianjimedia.com/uploadImages/2013/022/66DHZ1AXR1IT.jpg");
-//                smallUrls.add("http://img3.3lian.com/2013/s1/20/d/57.jpg");
-//                smallUrls.add("http://f0.topit.me/0/9b/cd/11438440895facd9b0o.jpg");
-//                smallUrls.add("http://www.loveq.cn/store/photo/423/796/423796/328954/1235287844929077825.jpg");
-//                smallUrls.add("http://pic.58pic.com/58pic/13/87/82/27Q58PICYje_1024.jpg");
-//                smallUrls.add("http://img.taopic.com/uploads/allimg/110915/15-1109150Q30812.jpg");
-//                topic.setSmallUrl(smallUrls);
-            }
-            topic.setTopic_content("RayRay的爸爸：#食物中含有硫酸锌？酸奶？#" + i);
-            topic.setTopic_title("什么食物中含有硫酸锌？" + i);
-//            topic.setTopicReplyNum("评论" + i);
-//            topic.setTopicPraiseNum("赞" + i);
-//            topic.setTopicTime("2015-08-05");
-            User user = new User();
-            user.setSex("男");
-            user.setAddress("北京");
-            user.setAge(i + "岁宝宝");
-            user.setPortrait_url("http://b.hiphotos.baidu.com/image/pic/item/dbb44aed2e738bd4a244792ca38b87d6277ff942.jpg");
-            user.setNick_name("小明" + i);
-//            topic.setUser(user);
-            listsByHot.add(topic);
-        }
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, listsByHot);
+        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(this);
         lvTopicList.setAdapter(mAdapter);
     }
@@ -136,20 +100,29 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         } else {
             switch (v.getId()) {
                 case R.id.iv_small_img_1:
-                    ArrayList<String> urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(urls, 0);
+                    List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(setImageUrls(imageUrls), 0);
                     break;
                 case R.id.iv_small_img_2:
-                    urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(urls, 1);
+                    imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(setImageUrls(imageUrls), 1);
                     break;
                 case R.id.iv_small_img_3:
-                    urls = (ArrayList<String>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(urls, 2);
+                    imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(setImageUrls(imageUrls), 2);
                     break;
             }
         }
 
+    }
+
+    //取出大图地址存入集合中
+    private ArrayList<String> setImageUrls(List<ImageUrl> imageUrls) {
+        ArrayList<String> urls = new ArrayList<>();
+        for (int i = 0; i < imageUrls.size(); i++) {
+            urls.add(imageUrls.get(i).getMax());
+        }
+        return urls;
     }
 
     private void startPhotoView(ArrayList<String> urls, int currentIndex) {
@@ -172,5 +145,19 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
         mAdapter.replaceAll(obj.getTopicList());
+        lvTopicList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
     }
 }
