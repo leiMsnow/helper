@@ -5,20 +5,20 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
-import com.tongban.im.adapter.FansAdapter;
+import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 粉丝界面
+ *
  * @author fushudi
  */
 public class FansFragment extends BaseApiFragment {
     private ListView lvFansList;
-    private FansAdapter mAdapter;
+    private UserAdapter mAdapter;
 
 
     @Override
@@ -40,7 +40,9 @@ public class FansFragment extends BaseApiFragment {
 //            user.setNick_name("小狗");
 //            mFansList.add(user);
 //        }
-        UserCenterApi.getInstance().fetchFansUserList(0,10,this);
+        mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
+        lvFansList.setAdapter(mAdapter);
+        UserCenterApi.getInstance().fetchFansUserList(0, 10, this);
     }
 
     @Override
@@ -49,8 +51,7 @@ public class FansFragment extends BaseApiFragment {
     }
 
     public void onEventMainThread(List<User> mFansList) {
+        mAdapter.replaceAll(mFansList);
 
-        mAdapter = new FansAdapter(mContext, R.layout.item_my_info_list, mFansList);
-        lvFansList.setAdapter(mAdapter);
     }
 }

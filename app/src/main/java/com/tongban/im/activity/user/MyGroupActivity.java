@@ -52,6 +52,8 @@ public class MyGroupActivity extends BaseToolBarActivity {
 //            }
 //            myGroupList.add(group);
 //        }
+        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
+        lvMyGroupList.setAdapter(mAdapter);
 
         UserCenterApi.getInstance().fetchMyGroupList(0, 10, this);
     }
@@ -62,7 +64,6 @@ public class MyGroupActivity extends BaseToolBarActivity {
     }
 
     public void onEventMainThread(List<Group> groups) {
-        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
-        lvMyGroupList.setAdapter(mAdapter);
+        mAdapter.replaceAll(groups);
     }
 }

@@ -52,7 +52,10 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 //            topic.setTopic_content("小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强");
 //            replyTopicList.add(topic);
 //        }
-        UserCenterApi.getInstance().fetchReplyTopicList(0,10,this);
+        mAdapter = new MyReplyTopicAdapter(mContext, R.layout.item_my_reply_topic_list, null);
+        mAdapter.setOnClickListener(this);
+        mListView.setAdapter(mAdapter);
+        UserCenterApi.getInstance().fetchReplyTopicList(0, 10, this);
     }
 
     @Override
@@ -79,8 +82,6 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 
     public void onEventMainThread(List<Topic> replyTopicList) {
 
-        mAdapter = new MyReplyTopicAdapter(mContext, R.layout.item_my_reply_topic_list, replyTopicList);
-        mAdapter.setOnClickListener(this);
-        mListView.setAdapter(mAdapter);
+        mAdapter.replaceAll(replyTopicList);
     }
 }

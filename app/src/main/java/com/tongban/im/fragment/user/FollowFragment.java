@@ -1,6 +1,7 @@
 package com.tongban.im.fragment.user;
 
 
+import android.view.View;
 import android.widget.ListView;
 /**
  * 关注界面
@@ -8,16 +9,15 @@ import android.widget.ListView;
  */
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
-import com.tongban.im.adapter.FansAdapter;
+import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FollowFragment extends BaseApiFragment {
+public class FollowFragment extends BaseApiFragment implements View.OnClickListener {
     private ListView lvFollowList;
-    private FansAdapter mAdapter;
+    private UserAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -37,6 +37,9 @@ public class FollowFragment extends BaseApiFragment {
 //            user.setNick_name("小猪");
 //            mFollowList.add(user);
 //        }
+        mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
+        mAdapter.setOnClickListener(this);
+        lvFollowList.setAdapter(mAdapter);
         UserCenterApi.getInstance().fetchFocusUserList(0, 10, this);
 
     }
@@ -47,7 +50,17 @@ public class FollowFragment extends BaseApiFragment {
     }
 
     public void onEventMainThread(List<User> mFollowList) {
-        mAdapter = new FansAdapter(mContext, R.layout.item_my_info_list, mFollowList);
-        lvFollowList.setAdapter(mAdapter);
+        mAdapter.replaceAll(mFollowList);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_follow:
+//                String [] focusId=new String[]{v.getTag().toString()};
+                String focusId = v.getTag().toString();
+                UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
+                break;
+        }
     }
 }

@@ -37,12 +37,13 @@ public class SingleProductFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
+        mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, null);
+        gvSingleProductList.setAdapter(mAdapter);
         UserCenterApi.getInstance().fetchSingleProductList(this);
     }
 
-    public void onEventMainThread( List<ProductBook> singleProductList) {
+    public void onEventMainThread(List<ProductBook> singleProductList) {
 
-        mAdapter = new SingleProductAdapter(mContext, R.layout.item_single_product_list, singleProductList);
-        gvSingleProductList.setAdapter(mAdapter);
+        mAdapter.replaceAll(singleProductList);
     }
 }

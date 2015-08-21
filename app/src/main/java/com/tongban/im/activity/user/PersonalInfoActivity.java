@@ -1,6 +1,7 @@
 package com.tongban.im.activity.user;
 
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import com.tongban.im.model.User;
  *
  * @author fushudi
  */
-public class PersonalInfoActivity extends BaseToolBarActivity {
+public class PersonalInfoActivity extends BaseToolBarActivity implements View.OnClickListener {
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvWork, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool, tvAddress;
@@ -47,10 +48,21 @@ public class PersonalInfoActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
+        ivUserIcon.setOnClickListener(this);
+        ivUserIcon.setOnClickListener(this);
+        tvNickName.setOnClickListener(this);
+        tvPhoneNum.setOnClickListener(this);
+        tvWork.setOnClickListener(this);
+        tvChildAge.setOnClickListener(this);
+        tvChildSex.setOnClickListener(this);
+        tvChildConstellation.setOnClickListener(this);
+        tvChildSchool.setOnClickListener(this);
+        tvAddress.setOnClickListener(this);
 
     }
 
     public void onEventMainThread(User user) {
+
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
         tvWork.setText(user.getDeclaration());
@@ -59,5 +71,10 @@ public class PersonalInfoActivity extends BaseToolBarActivity {
         tvChildConstellation.setText(user.getChild_info().get(0).getBirthday());
         tvChildSchool.setText(user.getChild_info().get(0).getSchool());
         tvAddress.setText(user.getAddress());
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

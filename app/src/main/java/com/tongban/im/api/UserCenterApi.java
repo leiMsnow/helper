@@ -17,6 +17,8 @@ import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
+import org.json.JSONArray;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -59,6 +61,15 @@ public class UserCenterApi extends BaseApi {
      * 获取我的收藏 - 回复我的话题列表
      */
     public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
+    /**
+     * 关注用户
+     */
+    public static final String FOCUS_USER = "user/focus/user";
+    /**
+     * 取消关注用户
+     */
+    public static final String CANCEL_FOCUS_USER = "user/nofucus/user";
+
     public UserCenterApi(Context context) {
         super(context);
     }
@@ -276,12 +287,13 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
     /**
      * 获取我的收藏 - 话题列表
      *
      * @param callback
      */
-    public void setFetchCollectTopicList(int cursor, int pageSize,final ApiCallback callback) {
+    public void setFetchCollectTopicList(int cursor, int pageSize, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -311,6 +323,7 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
     /**
      * 获取我的话题 - 回复我的话题列表
      *
@@ -345,4 +358,45 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
+    /**
+     * 关注用户
+     *
+     * @param focusUserId 被关注的Id
+     * @param callback
+     */
+    public void focusUser(String[] focusUserId, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("be_focused_user_id", focusUserId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+
+        simpleRequest(FOCUS_USER, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                User user = apiResponse.getData();
+                callback.onComplete(user);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+    /**
+     * 取消关注用户
+     *
+     * @param callback
+     */
+
 }
