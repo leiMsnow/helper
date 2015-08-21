@@ -12,12 +12,9 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
-import com.tongban.im.model.Product;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
-
-import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +28,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取用户个人中心数据
      */
-    public static final String FETCH_USER_CENTER_INFO = "user/center/info";
+    public static final String FETCH_PERSONAL_CENTER_INFO = "user/center/info";
     /**
      * 获取个人资料
      */
@@ -70,6 +67,11 @@ public class UserCenterApi extends BaseApi {
      */
     public static final String CANCEL_FOCUS_USER = "user/nofucus/user";
 
+    /**
+     * 获取用户（他人）资料
+     */
+    public static final String FETCH_USER_CENTER_INFO = "user/card";
+
     public UserCenterApi(Context context) {
         super(context);
     }
@@ -90,10 +92,42 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchUserCenterInfo(final ApiCallback callback) {
+    public void fetchPersonalCenterInfo(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                User user = apiResponse.getData();
+                callback.onComplete(user);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+    /**
+     * 获取用户(他人)资料
+     *
+     * @param callback
+     */
+    public void fetchUserCenterInfo(String visiterId,final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("visiter_id",visiterId);
 
         simpleRequest(FETCH_USER_CENTER_INFO, mParams, new ApiCallback() {
             @Override

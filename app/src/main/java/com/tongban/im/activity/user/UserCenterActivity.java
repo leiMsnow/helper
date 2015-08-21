@@ -1,6 +1,7 @@
 package com.tongban.im.activity.user;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.UserCenterApi;
 
 /**
  * 用户中心（他人的）
@@ -52,7 +54,8 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-
+        String visitorId=getIntent().getStringExtra("visitorId");
+        UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
     }
 
     @Override

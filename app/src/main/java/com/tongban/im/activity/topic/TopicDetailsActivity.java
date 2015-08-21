@@ -1,10 +1,7 @@
 package com.tongban.im.activity.topic;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,16 +9,12 @@ import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.adapter.TopicReplyAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicReply;
 import com.tongban.im.widget.view.TopicInputView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +85,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         for (int i = 0; i < 10; i++) {
             TopicReply topicReply = new TopicReply();
             topicReply.setReplyAge("1" + i);
-            topicReply.setReplyContent("说的很有道理，讲的很有道理，写的很有道理" + i);
+            topicReply.setComment_content("说的很有道理，讲的很有道理，写的很有道理" + i);
             topicReply.setReplyNickName("打不死的小强");
             topicReply.setReplyNum("赞" + i);
             topicReply.setReplySex("男");

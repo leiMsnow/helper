@@ -1,6 +1,7 @@
 package com.tongban.im.fragment.user;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
 /**
@@ -9,6 +10,7 @@ import android.widget.ListView;
  */
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.User;
@@ -57,9 +59,14 @@ public class FollowFragment extends BaseApiFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_follow:
-//                String [] focusId=new String[]{v.getTag().toString()};
                 String focusId = v.getTag().toString();
                 UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
+                break;
+            case R.id.iv_user_icon:
+                String visitorId = v.getTag().toString();
+                Intent intent = new Intent(mContext, UserCenterActivity.class);
+                intent.putExtra("visitorId", visitorId);
+                startActivity(intent);
                 break;
         }
     }

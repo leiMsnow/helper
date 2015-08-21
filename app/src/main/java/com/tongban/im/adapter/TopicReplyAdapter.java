@@ -23,6 +23,5 @@ public class TopicReplyAdapter extends QuickAdapter<TopicReply> {
 //        helper.setImageBitmap(R.id.iv_user_icon, "http://b.hiphotos.baidu.com/image/pic/item/dbb44aed2e738bd4a244792ca38b87d6277ff942.jpg");
 //        helper.setText(R.id.tv_user_name, item.getReplyNickName());
 //        helper.setText(R.id.tv_reply_time, item.getReplyTime());
-//        helper.setText(R.id.tv_reply_content, item.getReplyContent());
     }
 }

@@ -9,9 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
-import com.tongban.corelib.widget.view.BadgeView;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -81,7 +79,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initData() {
-        UserCenterApi.getInstance().fetchUserCenterInfo(this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
     }
 
     @Override

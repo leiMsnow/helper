@@ -23,14 +23,15 @@ public class MyReplyTopicAdapter extends QuickAdapter<Topic> {
     public MyReplyTopicAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
+
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
 //        helper.setImageBitmap(R.id.iv_topic_icon, item.getTopicReply().getPortrait_url());
 //        helper.setText(R.id.tv_nickname, item.getTopicReply().getReplyNickName());
 //        helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
-//        helper.setText(R.id.tv_reply_content, item.getTopicReply().getReplyContent());
-        helper.setText(R.id.tv_topic_content, item.getTopic_content());
-        helper.setOnClickListener(R.id.iv_topic_icon,onClickListener);
-        helper.setOnClickListener(R.id.tv_reply,onClickListener);
+//        helper.setText(R.id.tv_reply_content, item.getTopicReplyList().get(0).getComment_content());
+//        helper.setTag(R.id.iv_topic_icon,item.getUser_info().getUser_id());
+        helper.setOnClickListener(R.id.iv_topic_icon, onClickListener);
+        helper.setOnClickListener(R.id.tv_reply, onClickListener);
     }
 }

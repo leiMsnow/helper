@@ -45,7 +45,6 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 //            Topic topic = new Topic();
 //            TopicReply topicReply = new TopicReply();
 //            topicReply.setReplyTime("2015-8-17 18:31");
-//            topicReply.setReplyContent("得到大家积极扭扭捏捏" + i);
 //            topicReply.setPortrait_url("http://img2.imgtn.bdimg.com/it/u=606613155,1633300277&fm=23&gp=0.jpg");
 //            topicReply.setReplyNickName("小强" + i);
 ////            topic.setTopicReply(topicReply);
@@ -67,7 +66,10 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_topic_icon:
-                startActivity(new Intent(mContext, UserCenterActivity.class));
+                String visitorId=v.getTag().toString();
+                Intent intent=new Intent(mContext,UserCenterActivity.class);
+                intent.putExtra("visitorId",visitorId);
+                startActivity(intent);
                 break;
             case R.id.tv_reply:
                 ToastUtil.getInstance(mContext).showToast("回复");

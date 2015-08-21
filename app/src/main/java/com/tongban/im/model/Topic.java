@@ -32,11 +32,20 @@ public class Topic {
     private String c_time;
     // 内容类型（文字或者图片）
     private int contentType;
-
+    //用户信息
     private User user_info;
-
+    //话题评论
+    private List<TopicReply> topicReplyList;
     // 话题图片
     private List<ImageUrl> topic_img_url;
+
+    public List<TopicReply> getTopicReplyList() {
+        return topicReplyList;
+    }
+
+    public void setTopicReplyList(List<TopicReply> topicReplyList) {
+        this.topicReplyList = topicReplyList;
+    }
 
     public List<ImageUrl> getTopic_img_url() {
         return topic_img_url;

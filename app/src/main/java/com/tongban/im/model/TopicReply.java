@@ -24,7 +24,7 @@ public class TopicReply {
     /**
      * 评论内容
      */
-    private String replyContent;
+    private String comment_content;
     /**
      * 评论时间
      */
@@ -55,8 +55,8 @@ public class TopicReply {
         return replyAge;
     }
 
-    public String getReplyContent() {
-        return replyContent;
+    public String getComment_content() {
+        return comment_content;
     }
 
     public String getReplyTime() {
@@ -79,8 +79,8 @@ public class TopicReply {
         this.replyAge = replyAge;
     }
 
-    public void setReplyContent(String replyContent) {
-        this.replyContent = replyContent;
+    public void setComment_content(String comment_content) {
+        this.comment_content = comment_content;
     }
 
     public void setReplyTime(String replyTime) {
