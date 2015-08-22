@@ -47,7 +47,7 @@ public class User {
     //地址类型
     private String address_type;
     //孩子信息
-    private List<ChildInfo> child_info;
+    private List<Child> child_info;
 
 
     public ImageUrl getPortrait_url() {
@@ -58,11 +58,11 @@ public class User {
         this.portrait_url = portrait_url;
     }
 
-    public List<ChildInfo> getChild_info() {
+    public List<Child> getChild_info() {
         return child_info;
     }
 
-    public void setChild_info(List<ChildInfo> child_info) {
+    public void setChild_info(List<Child> child_info) {
         this.child_info = child_info;
     }
 
