@@ -35,7 +35,8 @@ public class TopicAdapter extends QuickAdapter<Topic> {
                 R.drawable.rc_default_portrait);
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
         helper.setText(R.id.tv_birthday,
-                String.valueOf(item.getUser_info().getChild_info().get(0).getAge()));
+                String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
+                        item.getUser_info().getChild_info().get(0).getSex() + "宝宝");
         helper.setText(R.id.tv_create_time, item.getC_time(mContext));
         //话题内容
         helper.setText(R.id.tv_topic_title, item.getTopic_title());
@@ -55,7 +56,7 @@ public class TopicAdapter extends QuickAdapter<Topic> {
             } else {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
-                        item.getTopic_img_url().get(i).getMin());
+                        item.getTopic_img_url().get(i).getMin(),R.drawable.rc_ic_def_rich_content);
                 helper.setTag(images[i], Integer.MAX_VALUE,
                         item.getTopic_img_url());
                 helper.setOnClickListener(images[i], onClickListener);

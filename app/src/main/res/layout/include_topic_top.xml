@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="48dp"
-    android:padding="8dp">
+    android:layout_height="wrap_content">
 
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/rc_default_portrait" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:textColor="@color/normal_grey"
-        android:layout_marginRight="8dp"
-        android:text="09:45 AM" />
+        android:layout_marginRight="16dp"
+        android:text="09:45 AM"
+        android:textColor="@color/normal_grey" />
 </RelativeLayout>

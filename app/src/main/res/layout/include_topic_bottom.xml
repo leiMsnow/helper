@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:padding="8dp">
+    android:layout_height="40dp">
+
+
+    <ImageView
+        android:id="@+id/iv_comment_count"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:src="@mipmap/ic_topic_comment_count" />
 
     <TextView
         android:id="@+id/tv_reply_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:drawableLeft="@mipmap/ic_reply_count"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/iv_comment_count"
         android:gravity="center"
-        android:paddingBottom="4dp"
-        android:text="200"
+        android:text="1"
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
 
+    <ImageView
+        android:id="@+id/iv_collect_count"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/tv_reply_count"
+        android:src="@mipmap/ic_topic_collect_count" />
+
     <TextView
+
         android:id="@+id/tv_collect_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/tv_reply_count"
-        android:drawableLeft="@mipmap/ic_reply_count"
+        android:layout_toRightOf="@+id/iv_collect_count"
         android:gravity="center"
-        android:paddingBottom="4dp"
         android:text="300"
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />

@@ -9,7 +9,7 @@ public class Child {
     private String nick_name;
     private String birthday;
     private String constellation;
-    private int sex;
+    private String sex;
     private String school;
     private int age;
 
@@ -37,11 +37,11 @@ public class Child {
         this.constellation = constellation;
     }
 
-    public int getSex() {
-        return sex;
+    public String getSex() {
+        return sex.equals("0") ? "男" : "女";
     }
 
-    public void setSex(int sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

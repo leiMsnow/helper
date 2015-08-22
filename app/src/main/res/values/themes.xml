@@ -4,6 +4,7 @@
     <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="actionMenuTextColor">@color/main_brown</item>
+        <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="colorPrimaryDark">@color/normal_grey</item>
         <item name="colorAccent">@color/normal_dark_grey</item>
         <item name="android:textColorPrimary">@color/main_brown</item>
