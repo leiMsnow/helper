@@ -71,7 +71,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
         gvContent.setVisibility(View.VISIBLE);
 
-        tvComment = (TextView) mHeader.findViewById(R.id.tv_reply_count);
+        tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
         tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);

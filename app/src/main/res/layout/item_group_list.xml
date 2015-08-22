@@ -12,20 +12,21 @@
         android:background="@drawable/selector_corner_bg">
 
         <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/iv_group_icon"
+            android:id="@+id/iv_group_portrait"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:src="@drawable/rc_default_group_portrait"
             android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_group_icon"
-            android:layout_alignTop="@+id/iv_group_icon"
+            android:layout_alignBottom="@+id/iv_group_portrait"
+            android:layout_alignTop="@+id/iv_group_portrait"
             android:layout_toLeftOf="@+id/btn_join"
-            android:layout_toRightOf="@+id/iv_group_icon"
+            android:layout_toRightOf="@+id/iv_group_portrait"
             android:gravity="center_vertical">
             <!--群名称-->
             <TextView

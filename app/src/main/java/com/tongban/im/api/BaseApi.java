@@ -58,10 +58,8 @@ public class BaseApi {
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
     private static String DEFAULT_HOST = "http://10.255.209.67:8080/ddim/";
-    //正式环境
-    private static String MAIN_HOST = "";
     //测试环境
-    private static String TEST_HOST = "";
+    private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
 
     public BaseApi(Context context) {
         this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();
@@ -74,7 +72,7 @@ public class BaseApi {
      * @return 服务器地址
      */
     protected String getHostUrl() {
-        return SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
+        return SPUtils.get(mContext, HOST_FLAG,DEFAULT_HOST).toString();
     }
 
     /**
@@ -82,12 +80,12 @@ public class BaseApi {
      *
      * @param flag 0线上；1test；2+其他开发人员地址
      */
-    public void setHostUrl(int flag) {
+    public static void setHostUrl(Context mContext,int flag) {
         String saveUrl;
         switch (flag) {
             case 0:
             default:
-                saveUrl = MAIN_HOST;
+                saveUrl = DEFAULT_HOST;
                 break;
             case 1:
                 saveUrl = TEST_HOST;

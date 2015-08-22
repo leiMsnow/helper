@@ -43,7 +43,7 @@
             android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            android:visibility="gone" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_small_img_2"
@@ -53,7 +53,7 @@
             android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            android:visibility="gone" />
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_small_img_3"
@@ -63,7 +63,7 @@
             android:layout_marginRight="4dp"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            android:visibility="gone" />
+            android:visibility="invisible" />
     </LinearLayout>
 
 </RelativeLayout>

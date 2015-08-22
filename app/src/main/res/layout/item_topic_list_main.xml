@@ -16,7 +16,7 @@
 
         <include layout="@layout/include_topic_content_main" />
 
-        <include layout="@layout/include_topic_bottom" />
+        <include layout="@layout/include_topic_bottom_main" />
 
     </LinearLayout>
 </FrameLayout>

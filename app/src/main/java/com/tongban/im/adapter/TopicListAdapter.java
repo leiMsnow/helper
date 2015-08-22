@@ -14,13 +14,13 @@ import java.util.List;
  * 话题适配器
  * Created by fushudi on 2015/7/16.
  */
-public class TopicAdapter extends QuickAdapter<Topic> {
+public class TopicListAdapter extends QuickAdapter<Topic> {
 
     private View.OnClickListener onClickListener;
 
     private int[] images = new int[]{R.id.iv_small_img_1, R.id.iv_small_img_2, R.id.iv_small_img_3};
 
-    public TopicAdapter(Context context, int layoutResId, List data) {
+    public TopicListAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 
@@ -44,7 +44,7 @@ public class TopicAdapter extends QuickAdapter<Topic> {
 
         setImagesVisibleAndUrl(helper, item);
         //回复、收藏、地址
-        helper.setText(R.id.tv_reply_count, String.valueOf(item.getCollect_amount()));
+        helper.setText(R.id.tv_comment_count, String.valueOf(item.getCollect_amount()));
         helper.setText(R.id.tv_collect_count, String.valueOf(item.getComment_amount()));
     }
 
@@ -52,7 +52,7 @@ public class TopicAdapter extends QuickAdapter<Topic> {
     private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
         for (int i = 0; i < item.getTopic_img_url().size(); i++) {
             if (item.getContentType() == Topic.TEXT) {
-                helper.setVisible(images[i], View.GONE);
+                helper.setVisible(images[i], View.INVISIBLE);
             } else {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],

@@ -14,7 +14,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.TopicAdapter;
+import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -33,7 +33,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     private FlowLayout flHistorySearch;
     private ListView lvTopicList;
 
-    private TopicAdapter mAdapter;
+    private TopicListAdapter mAdapter;
 
     private String mKeys;
     private final int mKeyCount = 10;
@@ -61,7 +61,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     @Override
     protected void initData() {
 
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list, null);
+        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list, null);
         lvTopicList.setAdapter(mAdapter);
         //初始化
         initHistoryKey();

@@ -3,31 +3,25 @@ package com.tongban.im.fragment.topic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.topic.SearchTopicActivity;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
-import com.tongban.im.adapter.TopicAdapter;
+import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.Topic;
-import com.tongban.im.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +36,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         AdapterView.OnItemClickListener {
 
     private ListView lvTopicList;
-    private TopicAdapter mAdapter;
+    private TopicListAdapter mAdapter;
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
@@ -80,7 +74,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
         TopicApi.getInstance().recommendTopicList(0, 10, this);
 
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, null);
+        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(this);
         lvTopicList.setAdapter(mAdapter);
     }

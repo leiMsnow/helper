@@ -10,7 +10,7 @@
         android:layout_height="16dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:src="@drawable/selector_topic_comment" />
+        android:src="@mipmap/ic_topic_comment_count" />
 
     <TextView
         android:id="@+id/tv_comment_count"
@@ -24,6 +24,7 @@
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
+
     <ImageView
         android:id="@+id/iv_collect_count"
         android:layout_width="16dp"
@@ -31,7 +32,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/tv_comment_count"
-        android:src="@drawable/selector_topic_collect" />
+        android:src="@mipmap/ic_topic_collect_count" />
 
     <TextView
 

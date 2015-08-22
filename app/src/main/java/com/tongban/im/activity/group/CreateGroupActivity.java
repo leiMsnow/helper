@@ -24,7 +24,6 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
@@ -32,8 +31,6 @@ import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 创建圈子界面
@@ -90,7 +87,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initView() {
 
-        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_icon);
+        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_portrait);
         etGroupName = (EditText) findViewById(R.id.et_group_name);
         etGroupName.requestFocus();
         etDesc = (EditText) findViewById(R.id.et_group_desc);

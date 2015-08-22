@@ -18,7 +18,7 @@ import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.activity.topic.SearchTopicActivity;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
-import com.tongban.im.adapter.TopicAdapter;
+import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -39,7 +39,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
         AdapterView.OnItemClickListener {
 
     private ListView lvTopicList;
-    private TopicAdapter mAdapter;
+    private TopicListAdapter mAdapter;
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
@@ -83,7 +83,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
             }
         }
 
-        mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, null);
+        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(this);
         lvTopicList.setAdapter(mAdapter);
     }

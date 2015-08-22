@@ -3,6 +3,7 @@ package com.tongban.im;
 import com.baidu.mapapi.SDKInitializer;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.im.api.BaseApi;
 
 import io.rong.imkit.RongIM;
 
@@ -12,10 +13,13 @@ import io.rong.imkit.RongIM;
 public class App extends BaseApplication {
 
     private static App mApp;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mApp = this;
+
+        BaseApi.setHostUrl(mApp,0);
 
         RongIM.init(this);
         RongCloudEvent.init(this);

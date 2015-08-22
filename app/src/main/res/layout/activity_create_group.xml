@@ -35,7 +35,7 @@
                     android:textColor="@color/normal_grey" />
 
                 <com.tongban.corelib.widget.view.CircleImageView
-                    android:id="@+id/iv_group_icon"
+                    android:id="@+id/iv_group_portrait"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/createGroupIcon" />

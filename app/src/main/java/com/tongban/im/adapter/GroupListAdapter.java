@@ -75,14 +75,14 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                 break;
         }
 
-        helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar().getMin(),
-                R.drawable.rc_default_group_portrait);
+        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
         helper.setText(R.id.tv_group_name, item.getGroup_name());
 
         //判断是否可以加入
         if (item.isAllow_add()) {
             helper.getView(R.id.btn_join).setEnabled(false);
             helper.setOnClickListener(R.id.btn_join, null);
+            helper.setText(R.id.btn_join,"已加入");
         } else {
             helper.getView(R.id.btn_join).setEnabled(true);
             helper.setTag(R.id.btn_join, item);
