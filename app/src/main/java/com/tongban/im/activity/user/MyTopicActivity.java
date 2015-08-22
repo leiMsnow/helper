@@ -16,6 +16,8 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyReplyTopicFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
+import com.tongban.im.fragment.user.MyTopicFragment;
+import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +74,9 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         mTabIndicator.add(ccvMySendTopic);
         mTabIndicator.add(ccvMyReceiveTopic);
         //我发起的话题
-        TopicFragment topicFragment = new TopicFragment();
+        MyTopicFragment topicFragment = new MyTopicFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, false);
+        bundle.putInt(Consts.KEY_MY_TOPIC_LIST, Topic.MY_SEND_TOPIC_LIST);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         //回复我的话题

@@ -131,6 +131,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         }
     }
 
+    //返回个人中心数据
     public void onEventMainThread(User user) {
 //        Glide.with(mContext).load(user.getPortrait_url()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvUserName.setText(user.getNick_name() + user.getBirthday());

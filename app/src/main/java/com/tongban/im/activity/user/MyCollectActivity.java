@@ -15,8 +15,9 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MultipleProductFragment;
+import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.SingleProductFragment;
-import com.tongban.im.fragment.topic.TopicFragment;
+import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +85,9 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         //单品结果
         mTabs.add(new SingleProductFragment());
         //话题结果
-        TopicFragment topicFragment = new TopicFragment();
+        MyTopicFragment topicFragment = new MyTopicFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, false);
+        bundle.putInt(Consts.KEY_MY_TOPIC_LIST, Topic.MY_COLLECT_TOPIC_LIST);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
 
@@ -137,11 +138,19 @@ public class MyCollectActivity extends BaseToolBarActivity implements
     @Override
     public void onClick(View v) {
         if (v == rlMultipleProduct) {
-            vpResult.setCurrentItem(0);
+            resetTabs(0);
         } else if (v == rlSingleProduct) {
-            vpResult.setCurrentItem(1);
+            resetTabs(1);
         } else if (v == rlTopic) {
-            vpResult.setCurrentItem(2);
+            resetTabs(2);
         }
+    }
+
+    private void resetTabs(int index) {
+        for (int i = 0; i < mTabIndicator.size(); i++) {
+            mTabIndicator.get(i).setIconAlpha(0.0f);
+        }
+        mTabIndicator.get(index).setIconAlpha(1.0f);
+        vpResult.setCurrentItem(index, false);
     }
 }

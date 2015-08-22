@@ -60,6 +60,7 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
 
     }
 
+    //返回个人资料数据
     public void onEventMainThread(User user) {
 
         tvNickName.setText(user.getNick_name());
