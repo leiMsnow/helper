@@ -26,6 +26,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
         android:src="@mipmap/ic_fab_add"
+        android:visibility="gone"
         app:backgroundTint="@color/main_brown" />
 
 </FrameLayout>

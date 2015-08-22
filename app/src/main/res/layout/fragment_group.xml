@@ -49,11 +49,22 @@
             android:id="@+id/ib_search"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_toLeftOf="@+id/ib_add"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_white_to_gray"
+            android:src="@mipmap/ic_menu_search" />
+
+
+        <ImageButton
+            android:id="@+id/ib_add"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:background="@drawable/selector_white_to_gray"
-            android:src="@mipmap/ic_menu_search" />
+            android:src="@mipmap/ic_menu_topic_add" />
+
     </RelativeLayout>
 
     <View
