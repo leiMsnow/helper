@@ -16,7 +16,10 @@ public class Topic {
     public final static int TEXT = 0;
     // 话题内容为图片
     public final static int IMAGE = 1;
-
+    // 我的话题 - 我收藏话题列表
+    public final static int MY_COLLECT_TOPIC_LIST = 0;
+    // 我的话题 - 我发起的话题
+    public final static int MY_SEND_TOPIC_LIST = 1;
 
     // 话题ID
     private String topic_id;

@@ -123,16 +123,18 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
     /**
      * 获取用户(他人)资料
      *
+     * @param visiterId 被关注者的ID
      * @param callback
      */
-    public void fetchUserCenterInfo(String visiterId,final ApiCallback callback) {
+    public void fetchUserCenterInfo(String visiterId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("visiter_id",visiterId);
+        mParams.put("visiter_id", visiterId);
 
         simpleRequest(FETCH_USER_CENTER_INFO, mParams, new ApiCallback() {
             @Override
@@ -191,6 +193,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取个人中心群组列表（圈子）
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchMyGroupList(int cursor, int pageSize, final ApiCallback callback) {
@@ -227,6 +231,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我关注的人员列表
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchFocusUserList(int cursor, int pageSize, final ApiCallback callback) {
@@ -262,6 +268,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的粉丝人员列表
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchFansUserList(int cursor, int pageSize, final ApiCallback callback) {
@@ -304,7 +312,6 @@ public class UserCenterApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        // TODO: 2015/8/19  接口缺少测试数据
         simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -313,11 +320,12 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<ProductBook>>() {
-                        });
-                List<ProductBook> singleProductList = apiResponse.getData().getResult();
-                callback.onComplete(singleProductList);
+                // TODO 数据格式错误
+//                ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiListResult<ProductBook>>() {
+//                        });
+//                List<ProductBook> singleProductList = apiResponse.getData().getResult();
+                callback.onComplete(obj);
             }
 
             @Override
@@ -330,6 +338,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的收藏 - 话题列表
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchCollectTopicList(int cursor, int pageSize, final ApiCallback callback) {
@@ -347,13 +357,14 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<Topic>>() {
-                        });
-                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                topicListEvent.setTopicList(result.getData().getResult());
+                // // TODO: 2015/8/22 数据格式错误
+//                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiListResult<Topic>>() {
+//                        });
+//                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+//                topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(topicListEvent);
+                    callback.onComplete(obj);
             }
 
             @Override
@@ -366,6 +377,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的话题 - 回复我的话题列表
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchReplyTopicList(int cursor, int pageSize, final ApiCallback callback) {
@@ -375,7 +388,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19  接口测试数据
+        // TODO: 2015/8/19  接口缺少测试数据
         simpleRequest(FETCH_COLLECT_REPLY_TOPIC_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -401,6 +414,8 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的话题 - 我发起的话题列表
      *
+     * @param cursor
+     * @param pageSize
      * @param callback
      */
     public void fetchLaunchTopicList(int cursor, int pageSize, final ApiCallback callback) {
@@ -410,7 +425,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/21  未测试
+        // TODO: 2015/8/21  返回参数应为User对象
         simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
