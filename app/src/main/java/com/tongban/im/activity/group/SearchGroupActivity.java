@@ -83,7 +83,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
                 Group group = (Group) v.getTag();
                 // TODO 加入群，不需要验证
                 GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
-                        group.getGroup_owner_id(), this);
+                        group.getUser_info().getUser_id(), this);
                 break;
         }
 

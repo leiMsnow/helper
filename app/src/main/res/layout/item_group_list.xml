@@ -17,8 +17,7 @@
             android:layout_height="56dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/rc_default_portrait" />
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -44,5 +44,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textColor="@color/normal_grey"
+        android:layout_marginRight="8dp"
         android:text="09:45 AM" />
 </RelativeLayout>

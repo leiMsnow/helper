@@ -66,12 +66,20 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
                 break;
         }
-//        helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar(),R.drawable.rc_default_group_portrait);
+        helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar().getMin(),
+                R.drawable.rc_default_group_portrait);
         helper.setText(R.id.tv_group_name, item.getGroup_name());
         helper.setText(R.id.tv_group_introduce, item.getDeclaration());
 
-        helper.setTag(R.id.btn_join, item);
-        helper.setOnClickListener(R.id.btn_join, onClickListener);
+        //判断是否可以加入
+        if (item.isAllow_add()) {
+            helper.getView(R.id.btn_join).setEnabled(false);
+            helper.setOnClickListener(R.id.btn_join, null);
+        } else {
+            helper.getView(R.id.btn_join).setEnabled(true);
+            helper.setTag(R.id.btn_join, item);
+            helper.setOnClickListener(R.id.btn_join, onClickListener);
+        }
 
     }
 

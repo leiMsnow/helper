@@ -1,7 +1,5 @@
 package com.tongban.im.model;
 
-import android.media.Image;
-
 import java.util.List;
 
 /**
@@ -212,42 +210,4 @@ public class User {
         this.declaration = declaration;
     }
 
-    public class ChildInfo {
-        public String address_type;
-        public String birthday;
-        public String sex;
-        public String school;
-
-        public String getSchool() {
-            return school;
-        }
-
-        public void setSchool(String school) {
-            this.school = school;
-        }
-
-        public String getSex() {
-            return sex;
-        }
-
-        public void setSex(String sex) {
-            this.sex = sex;
-        }
-
-        public String getBirthday() {
-            return birthday;
-        }
-
-        public void setBirthday(String birthday) {
-            this.birthday = birthday;
-        }
-
-        public String getAddress_type() {
-            return address_type;
-        }
-
-        public void setAddress_type(String address_type) {
-            this.address_type = address_type;
-        }
-    }
 }

@@ -29,9 +29,9 @@ public class Topic {
     // 话题类型：0，用户话题；1：官方话题
     private String topic_type;
     // 用户回复数量
-    private int amount;
+    private int comment_amount;
     // 用户收藏数量
-    private int user_amount;
+    private int collect_amount;
     // 话题创建时间
     private long c_time;
     // 内容类型（文字或者图片）
@@ -67,12 +67,12 @@ public class Topic {
         this.topic_type = topic_type;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getComment_amount() {
+        return comment_amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setComment_amount(int comment_amount) {
+        this.comment_amount = comment_amount;
     }
 
     public String getTopic_id() {
@@ -119,12 +119,12 @@ public class Topic {
         this.topic_tags = topic_tags;
     }
 
-    public int getUser_amount() {
-        return user_amount;
+    public int getCollect_amount() {
+        return collect_amount;
     }
 
-    public void setUser_amount(int user_amount) {
-        this.user_amount = user_amount;
+    public void setCollect_amount(int collect_amount) {
+        this.collect_amount = collect_amount;
     }
 
     public String getC_time(Context context) {
@@ -142,4 +142,5 @@ public class Topic {
     public void setUser_info(User user_info) {
         this.user_info = user_info;
     }
+
 }

@@ -136,10 +136,10 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         mGroup = groupInfo.getGroup();
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
-        Glide.with(GroupInfoActivity.this).load(mGroup.getOwner_info().getPortrait_url()).
+        Glide.with(GroupInfoActivity.this).load(mGroup.getUser_info().getPortrait_url()).
                 placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
                 .into(ivCreator);
-        tvCreator.setText(mGroup.getOwner_info().getNick_name());
+        tvCreator.setText(mGroup.getUser_info().getNick_name());
 
     }
 }

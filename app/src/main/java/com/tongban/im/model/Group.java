@@ -23,18 +23,40 @@ public class Group {
     private double latitude;
     //群头像
     private ImageUrl group_avatar;
-    // 群主的用户ID
-    private String group_owner_id;
-    // 群主信息
-    private User owner_info;
+    //群主信息
+    private User user_info;
     //星座
     private String constellation;
     //距离
     private String distance;
-    //年龄
-    private String age;
     //是否已经加入
-    private boolean isAllowAdd;
+    private boolean allow_add;
+    //成员数量
+    private String member_amount;
+
+    public String getGroup_id() {
+        return group_id;
+    }
+
+    public void setGroup_id(String group_id) {
+        this.group_id = group_id;
+    }
+
+    public String getGroup_name() {
+        return group_name;
+    }
+
+    public void setGroup_name(String group_name) {
+        this.group_name = group_name;
+    }
+
+    public int getGroup_type() {
+        return group_type;
+    }
+
+    public void setGroup_type(int group_type) {
+        this.group_type = group_type;
+    }
 
     public String getAddress_id() {
         return address_id;
@@ -42,6 +64,22 @@ public class Group {
 
     public void setAddress_id(String address_id) {
         this.address_id = address_id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(String declaration) {
+        this.declaration = declaration;
     }
 
     public double getLongitude() {
@@ -60,67 +98,51 @@ public class Group {
         this.latitude = latitude;
     }
 
-    public String getGroup_owner_id() {
-        return group_owner_id;
+    public ImageUrl getGroup_avatar() {
+        return group_avatar;
     }
 
-    public void setGroup_owner_id(String group_owner_id) {
-        this.group_owner_id = group_owner_id;
+    public void setGroup_avatar(ImageUrl group_avatar) {
+        this.group_avatar = group_avatar;
     }
 
-    public String getGroup_id() {
-        return group_id;
+    public User getUser_info() {
+        return user_info;
     }
 
-    public void setGroup_id(String group_id) {
-        this.group_id = group_id;
+    public void setUser_info(User user_info) {
+        this.user_info = user_info;
     }
 
-    public String getGroup_name() {
-        return group_name;
+    public String getConstellation() {
+        return constellation;
     }
 
-    public void setGroup_name(String group_name) {
-        this.group_name = group_name;
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
     }
 
-    public String getDeclaration() {
-        return declaration;
+    public String getDistance() {
+        return distance;
     }
 
-    public void setDeclaration(String declaration) {
-        this.declaration = declaration;
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
-    public int getGroup_type() {
-        return group_type;
+    public boolean isAllow_add() {
+        return allow_add;
     }
 
-    public void setGroup_type(int group_type) {
-        this.group_type = group_type;
+    public void setAllow_add(boolean allow_add) {
+        this.allow_add = allow_add;
     }
 
-    public String getAddress() {
-        return address;
+    public String getMember_amount() {
+        return member_amount;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public User getOwner_info() {
-        return owner_info;
-    }
-
-    public void setOwner_info(User owner_info) {
-        this.owner_info = owner_info;
-    }
-
-    public boolean is_joined() {
-        return isAllowAdd;
-    }
-
-    public void setAllowAdd(boolean allowAdd) {
-        this.isAllowAdd = allowAdd;
+    public void setMember_amount(String member_amount) {
+        this.member_amount = member_amount;
     }
 }

@@ -85,7 +85,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
 
         TopicApi.getInstance().getTopicInfo(mTopicId, this);
-
+        TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
 
         mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_list, null);
         lvReplyList.setAdapter(mAdapter);
@@ -115,14 +115,15 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
-//            tvComment.setText(mTopicInfo.getAmount());
-//            tvCollect.setText(mTopicInfo.getUser_amount());
+            tvComment.setText(mTopicInfo.getComment_amount());
+            tvCollect.setText(mTopicInfo.getCollect_amount());
 
             if (mTopicInfo.getContentType() == Topic.IMAGE) {
                 mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
                         mTopicInfo.getTopic_img_url());
                 gvContent.setAdapter(mTopicImgAdapter);
             }
+
         } else {
             lvReplyList.removeHeaderView(mHeader);
         }

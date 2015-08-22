@@ -46,7 +46,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private FloatingActionButton mFab;
     private ImageView ivSearch;
     private TextView tvTitle;
-    private RelativeLayout rlToolBar;
 
     @Override
     protected int getLayoutRes() {
@@ -55,7 +54,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
-        rlToolBar = (RelativeLayout) mView.findViewById(R.id.rl_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
@@ -79,15 +77,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
-        if (getArguments() != null) {
-            //是否显示标题栏,目前只有首页显示
-            if (!getArguments().getBoolean(Consts.KEY_TOPIC_TOOLBAR_DISPLAY, true)) {
-                rlToolBar.setVisibility(View.GONE);
-            }
-            UserCenterApi.getInstance().fetchLaunchTopicList(0, 10, this);
-        } else {
-            TopicApi.getInstance().recommendTopicList(0, 10, this);
-        }
+
+        TopicApi.getInstance().recommendTopicList(0, 10, this);
 
         mAdapter = new TopicAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(this);
@@ -145,6 +136,10 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         startActivity(intent);
     }
 
+    /**
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
 
         mAdapter.replaceAll(obj.getTopicList());
@@ -160,7 +155,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        if (!EventBus.getDefault().isRegistered(this))
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
+        }
     }
 }
