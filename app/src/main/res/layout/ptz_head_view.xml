@@ -66,7 +66,7 @@
                 android:layout_alignTop="@+id/tv_label"
                 android:layout_toRightOf="@+id/tv_label"
                 android:padding="4dp"
-                android:src="@mipmap/ic_sex_boy" />
+                android:src="@mipmap/ic_boy" />
             <!-- 用户名称、年龄、星座-->
             <TextView
                 android:id="@+id/tv_user_name"

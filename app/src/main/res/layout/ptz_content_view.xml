@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/weak_grey"
-    android:orientation="vertical">
+    android:background="@color/weak_grey">
 
+    <ImageView
+        android:id="@+id/iv_my_topic_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/selector_white_to_gray"
+        android:paddingLeft="8dp"
+        android:src="@mipmap/ic_my_topic" />
 
     <TextView
         android:id="@+id/tv_my_topic"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@+id/iv_my_topic_icon"
         android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_my_topic"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/my_topic" />
+
+    <ImageView
+        android:id="@+id/iv_my_collect_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tv_my_topic"
+        android:background="@drawable/selector_white_to_gray"
+        android:paddingLeft="8dp"
+        android:src="@mipmap/ic_my_collect" />
 
     <TextView
         android:id="@+id/tv_my_collect"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_below="@+id/tv_my_topic"
         android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@+id/iv_my_collect_icon"
         android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_my_collect"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/my_collect" />
@@ -32,22 +48,24 @@
         android:id="@+id/tv_feedback"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_below="@+id/tv_my_collect"
         android:layout_marginBottom="1dp"
         android:background="@drawable/selector_white_to_gray"
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/feedback"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_settings"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_below="@+id/tv_feedback"
         android:background="@drawable/selector_white_to_gray"
         android:drawableLeft="@mipmap/ic_menu_circle_normal"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/settings"
-        android:visibility="gone"/>
-</LinearLayout>
+        android:visibility="gone" />
+</RelativeLayout>
