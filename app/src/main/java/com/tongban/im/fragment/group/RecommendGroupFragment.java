@@ -76,13 +76,12 @@ public class RecommendGroupFragment extends BaseApiFragment implements View.OnCl
     }
 
     /**
-     * 加入群组成功的事件
+     * 加入群组成功的事件回调
      *
      * @param joinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
         ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
     }
-
 
 }

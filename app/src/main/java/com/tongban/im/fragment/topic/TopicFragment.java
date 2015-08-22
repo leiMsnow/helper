@@ -137,6 +137,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     }
 
     /**
+     * 推荐话题事件回调
      *
      * @param obj
      */

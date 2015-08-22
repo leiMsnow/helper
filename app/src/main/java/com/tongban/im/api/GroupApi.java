@@ -364,10 +364,16 @@ public class GroupApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
-                BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
-                searchGroupEvent.setGroups(apiResponse.getData().getResult());
-                if (callback != null)
-                    callback.onComplete(searchGroupEvent);
+                if (apiResponse.getData().getResult().size() > 0) {
+
+                    BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
+                    searchGroupEvent.setGroups(apiResponse.getData().getResult());
+                    if (callback != null)
+                        callback.onComplete(searchGroupEvent);
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.Toast, "没有符合条件的圈子");
+                }
             }
 
             @Override

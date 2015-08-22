@@ -1,5 +1,7 @@
 package com.tongban.im.model;
 
+import android.text.TextUtils;
+
 /**
  * 群组
  * author: chenenyu 15/7/14
@@ -33,6 +35,29 @@ public class Group {
     private boolean allow_add;
     //成员数量
     private String member_amount;
+    //年龄
+    private int age;
+    //最后一级地址
+    private String lastAddress;
+
+    public String getLastAddress() {
+        if (!TextUtils.isEmpty(address)) {
+            lastAddress = address;
+            if (lastAddress.lastIndexOf(",") != -1) {
+                lastAddress = lastAddress.substring(lastAddress.lastIndexOf(",") + 1);
+                return lastAddress;
+            }
+        }
+        return "";
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public String getGroup_id() {
         return group_id;

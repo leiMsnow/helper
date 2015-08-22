@@ -101,6 +101,11 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     }
 
+    /**
+     * 话题详情事件回调
+     *
+     * @param topicInfoEvent
+     */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.getTopic();
         if (mTopicInfo != null) {

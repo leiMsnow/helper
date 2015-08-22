@@ -44,32 +44,40 @@ public class GroupListAdapter extends QuickAdapter<Group> {
             case GroupType.ACTIVITY:
                 setGroupTags(helper, "活动圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
+                helper.setText(R.id.tv_group_introduce, "");
                 break;
             case GroupType.AGE:
                 setGroupTags(helper, "同龄圈", R.color.theme_pink);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_pink);
+                helper.setText(R.id.tv_group_introduce, "-" + item.getAge() + "岁," +
+                        item.getConstellation());
                 break;
             case GroupType.CITY:
                 setGroupTags(helper, "同城圈", R.color.theme_deep_purple);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_purple);
+                helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress() + "<" +
+                        item.getDistance());
                 break;
             case GroupType.CLASSMATE:
                 setGroupTags(helper, "同学圈", R.color.theme_light_blue);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_blue);
+                helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress());
                 break;
             case GroupType.LIFE:
                 setGroupTags(helper, "生活圈", R.color.theme_light_green);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_green);
+                helper.setText(R.id.tv_group_introduce, "");
                 break;
             case GroupType.TALENT:
                 setGroupTags(helper, "达人圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
+                helper.setText(R.id.tv_group_introduce, "-" + item.getUser_info().getNick_name());
                 break;
         }
+
         helper.setImageBitmap(R.id.iv_group_icon, item.getGroup_avatar().getMin(),
                 R.drawable.rc_default_group_portrait);
         helper.setText(R.id.tv_group_name, item.getGroup_name());
-        helper.setText(R.id.tv_group_introduce, item.getDeclaration());
 
         //判断是否可以加入
         if (item.isAllow_add()) {
