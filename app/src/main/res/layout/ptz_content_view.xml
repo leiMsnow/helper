@@ -12,7 +12,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_menu_circle_normal"
+        android:drawableLeft="@mipmap/ic_my_topic"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/my_topic" />
@@ -23,7 +23,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_menu_circle_normal"
+        android:drawableLeft="@mipmap/ic_my_collect"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="@string/my_collect" />

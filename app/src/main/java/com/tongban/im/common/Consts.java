@@ -108,6 +108,12 @@ public class Consts {
      * 2.我发起的列表：1 "MY_SEND_TOPIC_LIST"
      */
     public static final String KEY_MY_TOPIC_LIST = "KEY_MY_TOPIC_LIST";
+    /**
+     * 是否是我已经关注的
+     * 1.已经关注的：0 "FOCUS"
+     * 2.未关注的：1 "UN_FOCUS"
+     */
+    public static final String KEY_FOCUS = "KEY_FOCUS";
 
 
     //------------------------------商品相关key------------------------------------------------------

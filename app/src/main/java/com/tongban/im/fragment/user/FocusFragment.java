@@ -13,35 +13,30 @@ import com.tongban.im.R;
 import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
 import java.util.List;
 
-public class FollowFragment extends BaseApiFragment implements View.OnClickListener {
-    private ListView lvFollowList;
+public class FocusFragment extends BaseApiFragment implements View.OnClickListener {
+    private ListView lvFocusList;
     private UserAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_follow;
+        return R.layout.fragment_focus;
     }
 
     @Override
     protected void initView() {
-        lvFollowList = (ListView) mView.findViewById(R.id.lv_follow_list);
+        lvFocusList = (ListView) mView.findViewById(R.id.lv_focus_list);
     }
 
     @Override
     protected void initData() {
-//        for (int i = 0; i < 17; i++) {
-//            User user = new User();
-//            user.setPortrait_url("http://h.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e511857c31640a7d933c9950dd2.jpg");
-//            user.setNick_name("小猪");
-//            mFollowList.add(user);
-//        }
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
         mAdapter.setOnClickListener(this);
-        lvFollowList.setAdapter(mAdapter);
+        lvFocusList.setAdapter(mAdapter);
         UserCenterApi.getInstance().fetchFocusUserList(0, 10, this);
 
     }
@@ -51,6 +46,7 @@ public class FollowFragment extends BaseApiFragment implements View.OnClickListe
 
     }
 
+    //我的关注Event
     public void onEventMainThread(List<User> mFollowList) {
         mAdapter.replaceAll(mFollowList);
     }
@@ -66,6 +62,7 @@ public class FollowFragment extends BaseApiFragment implements View.OnClickListe
                 String visitorId = v.getTag().toString();
                 Intent intent = new Intent(mContext, UserCenterActivity.class);
                 intent.putExtra("visitorId", visitorId);
+                intent.putExtra(Consts.KEY_FOCUS, User.FOCUS);
                 startActivity(intent);
                 break;
         }

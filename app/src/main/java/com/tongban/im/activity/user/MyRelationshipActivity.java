@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.fragment.user.FansFragment;
-import com.tongban.im.fragment.user.FollowFragment;
+import com.tongban.im.fragment.user.FocusFragment;
 
 /**
  * 粉丝、关注界面
@@ -17,7 +17,7 @@ import com.tongban.im.fragment.user.FollowFragment;
 public class MyRelationshipActivity extends BaseToolBarActivity {
     private FrameLayout flReplasedFragment;
     private FansFragment mFansFragment;
-    private FollowFragment mFollowFragment;
+    private FocusFragment mFocusFragment;
 
     @Override
     protected int getLayoutRes() {
@@ -41,8 +41,8 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
             transaction.commit();
         } else if (tag.equals("Follow")) {
             setTitle("关注");
-            mFollowFragment = new FollowFragment();
-            transaction.replace(R.id.fl_container, mFollowFragment);
+            mFocusFragment = new FocusFragment();
+            transaction.replace(R.id.fl_container, mFocusFragment);
             transaction.commit();
         }
     }
