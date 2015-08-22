@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
@@ -15,6 +16,7 @@ import com.tongban.im.activity.user.PersonalCenterActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 
 import java.util.List;
@@ -65,6 +67,9 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     @Override
     public void onStart() {
         super.onStart();
+//        if (mAdapter != null) {
+//            mListView.setAdapter(mAdapter);
+//        }
     }
 
     @Override
@@ -79,16 +84,19 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     /**
      * 获取首页数据成功的事件
      *
-     * @param discoverList List<Discover>
+     * @param homeInfo {@link BaseEvent.FetchHomeInfo}
      */
-    public void onEventMainThread(List<Discover> discoverList) {
-        mDiscovers = discoverList;
-        mAdapter = new DiscoverAdapter(mContext, discoverList);
-        mListView.setAdapter(mAdapter);
+    public void onEventMainThread(BaseEvent.FetchHomeInfo homeInfo) {
+        mDiscovers = homeInfo.getList();
+        if (mDiscovers != null && mDiscovers.size() > 0) {
+            mAdapter = new DiscoverAdapter(mContext, mDiscovers);
+            mListView.setAdapter(mAdapter);
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
+//        mListView.setAdapter(null);
     }
 }

@@ -26,7 +26,7 @@ public class ProductBook {
     // 出版社
     private String publisher;
     // 出版时间
-    private long publish_time;
+    private String publish_time;
     // ISBN号码
     private String isbn;
     // 适读人群
@@ -181,11 +181,11 @@ public class ProductBook {
         this.publisher = publisher;
     }
 
-    public long getPublish_time() {
+    public String getPublish_time() {
         return publish_time;
     }
 
-    public void setPublish_time(long publish_time) {
+    public void setPublish_time(String publish_time) {
         this.publish_time = publish_time;
     }
 

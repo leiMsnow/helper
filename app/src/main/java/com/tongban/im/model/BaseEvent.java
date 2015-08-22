@@ -1,6 +1,5 @@
 package com.tongban.im.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -286,6 +285,43 @@ public class BaseEvent {
 
         public void setTopicReplyList(List<TopicComment> topicReplyList) {
             this.topicReplyList = topicReplyList;
+        }
+    }
+
+    /**
+     * 收藏专题的Event
+     */
+    public static class CollectMultiProductEvent {
+
+    }
+
+    /**
+     * 获取首页数据的Event
+     */
+    public static class FetchHomeInfo {
+        private List<Discover> list;
+
+        public List<Discover> getList() {
+            return list;
+        }
+
+        public void setList(List<Discover> list) {
+            this.list = list;
+        }
+    }
+
+    /**
+     * 获取专题下的商品列表Event
+     */
+    public static class FetchThemeProducts {
+        private List<ProductBook> list;
+
+        public List<ProductBook> getList() {
+            return list;
+        }
+
+        public void setList(List<ProductBook> list) {
+            this.list = list;
         }
     }
 

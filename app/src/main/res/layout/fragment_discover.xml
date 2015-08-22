@@ -1,7 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/weak_grey">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/weak_grey">
 
     <View
         android:layout_width="1dp"
@@ -12,30 +12,25 @@
     <ListView
         android:id="@+id/lv_discover"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_toolbar"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="@dimen/discover_toolbar_height"
         android:divider="@null"
         android:scrollbars="none"/>
 
     <RelativeLayout
         android:id="@+id/rl_toolbar"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.tongban.corelib.widget.view.BezierImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/discover_toolbar_height"
-            android:src="@color/white"/>
+        android:layout_height="?attr/actionBarSize">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/rc_default_portrait"/>
 
@@ -47,8 +42,6 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user_portrait"
             android:gravity="center"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp"
             android:text="小鹿妈妈"
             android:textColor="@color/main_brown"
             android:textSize="16sp"/>
@@ -62,7 +55,7 @@
             android:layout_toLeftOf="@+id/iv_search_all"
             android:layout_toRightOf="@+id/tv_user_name"
             android:gravity="center_vertical"
-            android:padding="4dp"
+            android:layout_marginLeft="4dp"
             android:singleLine="true"
             android:text="宝宝5岁零1个月，1年纪预备生，伊顿国际小学"
             android:textColor="@color/main_deep_orange"
@@ -84,14 +77,14 @@
 
         <ImageView
             android:id="@+id/iv_search_all"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/selector_white_to_gray"
-            android:scaleType="center"
-            android:src="@mipmap/ic_menu_search"/>
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_discover_search"/>
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

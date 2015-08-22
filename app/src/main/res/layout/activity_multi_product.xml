@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_img_profile_bg"/>
+        android:scaleType="fitXY"/>
 
     <LinearLayout
         android:id="@+id/ll_multi"
@@ -29,79 +28,51 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="从此宝宝和蚊子绝缘"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/main_black"
             android:textSize="18sp"/>
         <!-- 专题标签 -->
         <com.tongban.corelib.widget.view.FlowLayout
             android:id="@+id/fl_tag"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_corners_bg_grey"
-                android:text="夏日"
-                android:textColor="@color/main_deep_orange"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_corners_bg_grey"
-                android:text="防蚊"
-                android:textColor="@color/main_deep_orange"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_corners_bg_grey"
-                android:text="进口"
-                android:textColor="@color/main_deep_orange"/>
-        </com.tongban.corelib.widget.view.FlowLayout>
         <!-- 发表人信息 -->
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
             <!-- 头像 -->
             <com.tongban.corelib.widget.view.CircleImageView
                 android:id="@+id/iv_user_portrait"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/ic_img_user_default"/>
+                android:layout_height="30dp"/>
             <!-- 发表人昵称 -->
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/iv_user_portrait"
-                android:text="Jack Chan"
                 android:textColor="@color/main_black"/>
             <!-- 发表人标签 -->
             <TextView
                 android:id="@+id/tv_user_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/tv_user_name"
-                android:text="宝宝三岁,幼儿教师"
                 android:textColor="@color/normal_grey"/>
             <!-- 发表时间 -->
             <TextView
                 android:id="@+id/tv_create_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="11:53 AM"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginLeft="4dp"
                 android:textColor="@color/normal_grey"/>
-        </RelativeLayout>
+        </LinearLayout>
         <!-- 分割线 -->
         <View style="@style/HorizontalLine"/>
         <!-- 专题描述 -->
@@ -109,11 +80,10 @@
             android:id="@+id/tv_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="5"
-            android:text="萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒萌萌哒"
             android:textColor="@color/normal_dark_grey"/>
         <!-- 单品列表 -->
         <ListView
