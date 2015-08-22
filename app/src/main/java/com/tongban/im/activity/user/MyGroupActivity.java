@@ -62,7 +62,7 @@ public class MyGroupActivity extends BaseToolBarActivity {
     protected void initListener() {
 
     }
-
+    //返回圈子列表
     public void onEventMainThread(List<Group> groups) {
         mAdapter.replaceAll(groups);
     }
