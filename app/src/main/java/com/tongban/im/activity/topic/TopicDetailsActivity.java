@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
 import com.tongban.im.adapter.TopicImgAdapter;
@@ -32,13 +33,16 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private TextView tvUserName;
     private TextView tvAge;
     private TextView tvTime;
-    //头布局 content
+    //中间布局 content
     private TextView tvTopicTitle;
     private TextView tvTopicContent;
     private GridView gvContent;
-    //头布局 bottom
+    //底布局 bottom
+    private ImageView ivComment;
     private TextView tvComment;
+    private ImageView ivCollect;
     private TextView tvCollect;
+
 
     private ListView lvReplyList;
 
@@ -71,7 +75,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
         gvContent.setVisibility(View.VISIBLE);
 
+        ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
+        ivCollect = (ImageView) mHeader.findViewById(R.id.iv_collect);
         tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -93,12 +99,17 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     protected void initListener() {
-
+        ivComment.setOnClickListener(this);
+        ivCollect.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v == ivComment) {
+            ToastUtil.getInstance(mContext).showToast("ivComment");
+        } else if (v == ivCollect) {
+            ToastUtil.getInstance(mContext).showToast("ivCollect");
+        }
     }
 
     /**

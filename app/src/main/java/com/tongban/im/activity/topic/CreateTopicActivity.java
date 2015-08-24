@@ -11,7 +11,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
+import com.qiniu.android.storage.UpProgressHandler;
+import com.qiniu.android.storage.UploadOptions;
 import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
@@ -19,6 +22,7 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.UploadFileCallback;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
@@ -93,7 +97,13 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            uploadImage();
+            if (selectedFile.size() > 0) {
+                uploadImage();
+            } else {
+                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
+                        CreateTopicActivity.this);
+            }
         } else {
             int viewId = v.getId();
             switch (viewId) {
@@ -138,16 +148,20 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
-        FileUploadApi.getInstance().uploadFile(selectedFile,
+        mDialog.setMessage("正在上传图片...");
+        mDialog.show();
+        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0, selectedFile,
                 FileUploadApi.IMAGE_SIZE_100, FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
-                    public void uploadSuccess(List<ImageUrl>  urls) {
+                    public void uploadSuccess(List<ImageUrl> urls) {
+                        if (mDialog != null && mDialog.isShowing())
+                            mDialog.dismiss();
                         TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                                tvContent.getText().toString().trim(),urls,
+                                tvContent.getText().toString().trim(), urls,
                                 CreateTopicActivity.this);
                     }
-                });
+                }, null);
     }
 
     //刷新图片Adapter
@@ -155,6 +169,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         if (adapter == null) {
             return;
         }
+        selectedFile.clear();
         if (adapter.getCount() == adapter.getImgCount()) {
             adapter.remove(adapter.getCount() - 1, false);
         }
@@ -164,5 +179,10 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
             if (!TextUtils.isEmpty(adapter.getItem(i).toString()))
                 selectedFile.add(0, adapter.getItem(i).toString());
         }
+    }
+
+    public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
+        ToastUtil.getInstance(mContext).showToast("话题发表成功");
+        finish();
     }
 }

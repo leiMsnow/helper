@@ -32,9 +32,9 @@ public class Topic {
     // 话题类型：0，用户话题；1：官方话题
     private String topic_type;
     // 用户回复数量
-    private int comment_amount;
+    private String comment_amount;
     // 用户收藏数量
-    private int collect_amount;
+    private String collect_amount;
     // 话题创建时间
     private long c_time;
     // 内容类型（文字或者图片）
@@ -70,11 +70,11 @@ public class Topic {
         this.topic_type = topic_type;
     }
 
-    public int getComment_amount() {
-        return comment_amount;
+    public String getComment_amount() {
+        return String.valueOf(comment_amount);
     }
 
-    public void setComment_amount(int comment_amount) {
+    public void setComment_amount(String comment_amount) {
         this.comment_amount = comment_amount;
     }
 
@@ -122,11 +122,11 @@ public class Topic {
         this.topic_tags = topic_tags;
     }
 
-    public int getCollect_amount() {
+    public String getCollect_amount() {
         return collect_amount;
     }
 
-    public void setCollect_amount(int collect_amount) {
+    public void setCollect_amount(String collect_amount) {
         this.collect_amount = collect_amount;
     }
 

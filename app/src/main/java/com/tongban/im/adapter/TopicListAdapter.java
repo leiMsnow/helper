@@ -50,13 +50,14 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     //设置图片的显示/隐藏和src
     private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
-        for (int i = 0; i < item.getTopic_img_url().size(); i++) {
+        int count = item.getTopic_img_url().size() > 3 ? 3 : item.getTopic_img_url().size();
+        for (int i = 0; i < count; i++) {
             if (item.getContentType() == Topic.TEXT) {
                 helper.setVisible(images[i], View.INVISIBLE);
             } else {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
-                        item.getTopic_img_url().get(i).getMin(),R.drawable.rc_ic_def_rich_content);
+                        item.getTopic_img_url().get(i).getMin(), R.drawable.rc_ic_def_rich_content);
                 helper.setTag(images[i], Integer.MAX_VALUE,
                         item.getTopic_img_url());
                 helper.setOnClickListener(images[i], onClickListener);

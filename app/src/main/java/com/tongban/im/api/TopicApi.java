@@ -88,8 +88,14 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                ApiResult<String> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<String>>() {
+                        });
+
+                BaseEvent.CreateTopicEvent createTopicEvent = new BaseEvent.CreateTopicEvent();
+                createTopicEvent.setTopicId(result.getData());
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(createTopicEvent);
             }
 
             @Override

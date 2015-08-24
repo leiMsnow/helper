@@ -219,6 +219,21 @@ public class BaseEvent {
     }
 
     /**
+     * 创建话题Event
+     */
+    public static class CreateTopicEvent {
+        String topicId;
+
+        public String getTopicId() {
+            return topicId;
+        }
+
+        public void setTopicId(String topicId) {
+            this.topicId = topicId;
+        }
+    }
+
+    /**
      * 话题信息Event
      */
     public static class TopicInfoEvent {

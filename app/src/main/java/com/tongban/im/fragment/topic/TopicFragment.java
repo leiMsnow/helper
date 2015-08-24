@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.activity.PhotoViewPagerActivity;
@@ -136,22 +137,16 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-
         mAdapter.replaceAll(obj.getTopicList());
         lvTopicList.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
+    /**
+     * 创建话题成功回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
+        TopicApi.getInstance().recommendTopicList(0, 10, this);
     }
 }

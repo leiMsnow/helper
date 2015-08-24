@@ -53,7 +53,7 @@ public class TopicImgAdapter extends QuickAdapter<ImageUrl> {
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)
                 helper.getView(R.id.iv_topic_img).getLayoutParams();
-        lp.height = mScreenWidth / 4 * 3;
+        lp.height = mScreenWidth;
         helper.getView(R.id.iv_topic_img).setLayoutParams(lp);
     }
 }

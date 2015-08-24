@@ -206,37 +206,85 @@ public class FileUploadApi extends BaseApi {
     }
 
     /**
-     * 批量上传文件接口
-     *
-     * @param filePaths 文件数组
-     * @param minSize   小图尺寸
-     * @param midSize   中图尺寸
+     * @param resultUrls 回调数据集合
+     * @param index      上传图片的索引，传入0
+     * @param filePaths  文件数组
+     * @param minSize    小图尺寸
+     * @param midSize    中图尺寸
      * @param callback
+     * @param options
      */
-    public void uploadFile(@NonNull final List<String> filePaths, final String minSize, final String midSize,
-                           @NonNull final MultiUploadFileCallback callback) {
+    public void uploadFile(final List<ImageUrl> resultUrls, final int index,
+                           @NonNull final List<String> filePaths, final String minSize, final String midSize,
+                           @NonNull final MultiUploadFileCallback callback, UploadOptions options) {
         String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
-        final List<ImageUrl> urls = new ArrayList<>();
-        for (int i = 0; i < filePaths.size(); i++) {
-            final int index = i;
-            mUploadManager.put(new File(filePaths.get(i)), null, token,
-                    new UpCompletionHandler() {
+        mUploadManager.put(new File(filePaths.get(index)), null, token,
+                new UpCompletionHandler() {
 
-                        @Override
-                        public void complete(String key, ResponseInfo info, JSONObject response) {
-                            LogUtil.d("UploadFileCallback-complete", response.toString());
+                    @Override
+                    public void complete(String key, ResponseInfo info, JSONObject response) {
+
+                        if (response != null) {
+                            LogUtil.d("MultiUploadFileCallback-complete", response.toString());
                             if (callback != null) {
                                 String responseKey = response.optString("key");
                                 String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
                                 String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                                 String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                                 ImageUrl url = new ImageUrl(min, mid, max);
-                                urls.add(url);
-                                if (index == (filePaths.size() - 1))
-                                    callback.uploadSuccess(urls);
+                                int newIndex = index + 1;
+                                resultUrls.add(url);
+                                LogUtil.d("resultUrls:", String.valueOf(resultUrls.size()));
+                                LogUtil.d("filePaths:", String.valueOf(filePaths.size()));
+                                if (resultUrls.size() == filePaths.size()) {
+                                    callback.uploadSuccess(resultUrls);
+                                } else {
+                                    uploadFile(resultUrls, newIndex, filePaths, minSize, midSize, callback, null);
+                                }
                             }
                         }
-                    }, null);
+                    }
+                }, options);
+    }
+
+
+    /**
+     * 批量上传
+     */
+    @Deprecated
+    class MyMultiCompletionHandler implements UpCompletionHandler {
+
+        private List<ImageUrl> resultUrls;
+        private boolean isReturn = false;
+        private String minSize;
+        private String midSize;
+        private MultiUploadFileCallback mCallback;
+
+        public MyMultiCompletionHandler(List<ImageUrl> resultUrls, boolean isReturn,
+                                        String minSize, String midSize, MultiUploadFileCallback callback) {
+            this.resultUrls = resultUrls;
+            this.isReturn = isReturn;
+            this.minSize = minSize;
+            this.midSize = midSize;
+            this.mCallback = callback;
+        }
+
+
+        @Override
+        public void complete(String key, ResponseInfo info, JSONObject response) {
+            if (response != null) {
+                LogUtil.d("MultiUploadFileCallback-complete", response.toString());
+                if (mCallback != null) {
+                    String responseKey = response.optString("key");
+                    String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                    String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
+                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                    ImageUrl url = new ImageUrl(min, mid, max);
+                    resultUrls.add(url);
+                    if (isReturn)
+                        mCallback.uploadSuccess(resultUrls);
+                }
+            }
         }
     }
 
@@ -255,16 +303,19 @@ public class FileUploadApi extends BaseApi {
             this.mCallback = callback;
         }
 
+
         @Override
         public void complete(String key, ResponseInfo info, JSONObject response) {
-            LogUtil.d("UploadFileCallback-complete", response.toString());
-            if (mCallback != null) {
-                String responseKey = response.optString("key");
-                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
-                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
-                String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
-                ImageUrl url = new ImageUrl(min, mid, max);
-                mCallback.uploadSuccess(url);
+            if (response != null) {
+                LogUtil.d("UploadFileCallback-complete", response.toString());
+                if (mCallback != null) {
+                    String responseKey = response.optString("key");
+                    String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                    String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
+                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                    ImageUrl url = new ImageUrl(min, mid, max);
+                    mCallback.uploadSuccess(url);
+                }
             }
         }
     }
