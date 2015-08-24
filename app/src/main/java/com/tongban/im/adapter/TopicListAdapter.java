@@ -41,8 +41,12 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         //话题内容
         helper.setText(R.id.tv_topic_title, item.getTopic_title());
         helper.setText(R.id.tv_topic_content, item.getTopic_content());
-
-        setImagesVisibleAndUrl(helper, item);
+        if (item.getContentType() == Topic.IMAGE) {
+            setImagesVisibleAndUrl(helper, item);
+            helper.setVisible(R.id.ll_small_img_parent,View.VISIBLE);
+        } else {
+            helper.setVisible(R.id.ll_small_img_parent,View.GONE);
+        }
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, String.valueOf(item.getCollect_amount()));
         helper.setText(R.id.tv_collect_count, String.valueOf(item.getComment_amount()));

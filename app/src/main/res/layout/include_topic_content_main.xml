@@ -28,6 +28,7 @@
         android:textColor="@color/normal_dark_grey" />
 
     <LinearLayout
+        android:id="@+id/ll_small_img_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_content"
