@@ -46,6 +46,10 @@ public class TopicApi extends BaseApi {
      * 话题回复列表接口
      */
     public static final String TOPIC_COMMENT_LIST = "topic/contain/comment/list";
+    /**
+     * 回复话题
+     */
+    public static final String COMMENT_CREATE = "comment/create";
 
     private TopicApi(Context context) {
         super(context);
@@ -144,7 +148,7 @@ public class TopicApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(DisplayType.View, "服务器被外星人抓走了");
             }
         });
     }
@@ -273,6 +277,51 @@ public class TopicApi extends BaseApi {
                     if (callback != null)
                         callback.onFailure(DisplayType.View, "暂无话题数据");
                 }
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 回复话题
+     *
+     * @param topicId        话题Id
+     * @param commentContent 回复内容
+     * @param callback
+     */
+    public void createCommentForTopic(String topicId, String commentContent, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
+        mParams.put("topic_id", topicId);
+        mParams.put("comment_content", commentContent);
+
+        simpleRequest(COMMENT_CREATE, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+//                ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiListResult<TopicComment>>() {
+//                        });
+//                if (result.getData() != null) {
+//                    BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
+//                    topicCommentListEvent.setTopicReplyList(result.getData().getResult());
+                if (callback != null)
+                    callback.onComplete(obj);
+//                } else {
+//                    if (callback != null)
+//                        callback.onFailure(DisplayType.View, "暂无话题数据");
+//                }
             }
 
             @Override

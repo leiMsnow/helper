@@ -332,7 +332,7 @@ public class GroupApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, errorMessage);
+                    callback.onFailure(DisplayType.View, "服务器被外星人抓走了");
             }
         });
     }
