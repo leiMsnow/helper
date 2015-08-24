@@ -113,6 +113,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         mCameraView.show();
     }
 
+    public void clearText() {
+        etComment.setText("");
+    }
+
     /**
      * 回复按钮点击监听
      */

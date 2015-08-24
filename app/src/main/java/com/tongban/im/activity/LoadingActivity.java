@@ -14,6 +14,7 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.LocationApi;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.QiniuToken;
 import com.tongban.im.model.User;
 import com.tongban.im.utils.LocationUtils;
@@ -59,7 +60,6 @@ public class LoadingActivity extends BaseToolBarActivity {
             finish();
         } else {
             AccountApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
-//            LocationUtils.get(mContext).start();
         }
         // 获取七牛token
         FileUploadApi.getInstance().fetchUploadToken(this);
@@ -84,23 +84,12 @@ public class LoadingActivity extends BaseToolBarActivity {
             startActivity(new Intent(mContext, LoginActivity.class));
             finish();
         }
-//        else if (obj instanceof BDLocation) {
-//            BDLocation dbLocation = (BDLocation) obj;
-//            double longitude = dbLocation.getLongitude();
-//            double latitude = dbLocation.getLatitude();
-//            String province = dbLocation.getProvince();
-//            String city = dbLocation.getCity();
-//            String county = dbLocation.getDistrict();
-//            String location = dbLocation.getAddrStr();
-//            int addressType = 0;
-////            LocationApi.getInstance().createLocation(longitude, latitude, province, city, county,
-////                    location, addressType, LoadingActivity.this);
-//        }
-        else if (obj instanceof String) {
+        else if(obj instanceof BaseEvent.ConnectionErrorEvent){
             RongCloudEvent.getInstance().
                     connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
             startActivity(new Intent(mContext, MainActivity.class));
             finish();
         }
     }
+
 }

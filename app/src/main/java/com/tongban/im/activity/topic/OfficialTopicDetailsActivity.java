@@ -99,7 +99,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
                 } else if (o.getContentType() == OfficialTopic.REPLY_NUM) {
                     return R.layout.item_official_topic_details_reply_num;
                 } else if (o.getContentType() == OfficialTopic.REPLY) {
-                    return R.layout.item_topic_reply_list;
+                    return R.layout.item_topic_comment_list;
                 }
                 return 0;
             }

@@ -6,7 +6,6 @@ import android.view.View;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 
 import java.util.List;
@@ -30,9 +29,9 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
         helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
                 R.drawable.rc_default_portrait);
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
-        helper.setText(R.id.tv_reply_time, item.getC_time(mContext));
+        helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
         //TODO 缺少评论内容参数
-        helper.setText(R.id.tv_reply_content, item.getComment_content());
+        helper.setText(R.id.tv_comment_content, item.getComment_content());
         helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_content());
 
         helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);

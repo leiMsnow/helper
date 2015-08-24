@@ -35,7 +35,7 @@
         android:layout_marginLeft="48dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rc_ic_bubble_left">
+        android:background="@drawable/bg_topic_comment">
 
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:singleLine="true"
             android:text="小鹿妈妈" />
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/tv_user_name"
             android:singleLine="true"
             android:text="回复大象妈妈"
@@ -61,35 +61,37 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_reply_time"
+            android:id="@+id/tv_comment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/normal_grey"
-            android:text="11:50 AM" />
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="11:50 AM"
+            android:textColor="@color/normal_grey" />
 
         <TextView
-            android:id="@+id/tv_reply_content"
+            android:id="@+id/tv_comment_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_user_name"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/normal_dark_grey"
-            android:text="回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容回复内容" />
+            android:text=""
+            android:textColor="@color/normal_dark_grey" />
 
         <TextView
             android:id="@+id/tv_reply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_reply_content"
+            android:layout_below="@+id/tv_comment_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:drawableLeft="@mipmap/ic_reply_count"
-            android:gravity="bottom"
+            android:drawableLeft="@mipmap/ic_topic_comment"
+            android:padding="4dp"
             android:text="回复"
-            android:textColor="@color/main_deep_orange"
+            android:drawablePadding="4dp"
+            android:textColor="@color/selector_join_text_color"
             android:textSize="12sp" />
     </RelativeLayout>
 

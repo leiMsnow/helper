@@ -12,7 +12,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
 import com.tongban.im.adapter.TopicImgAdapter;
-import com.tongban.im.adapter.TopicReplyAdapter;
+import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -48,7 +48,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private ListView lvReplyList;
 
     private TopicImgAdapter mTopicImgAdapter;
-    private TopicReplyAdapter mAdapter;
+    private TopicCommentAdapter mAdapter;
 
     private Topic mTopicInfo;
     private String mTopicId;
@@ -95,7 +95,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         TopicApi.getInstance().getTopicInfo(mTopicId, this);
         TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
 
-        mAdapter = new TopicReplyAdapter(mContext, R.layout.item_topic_reply_list, null);
+        mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
         lvReplyList.setAdapter(mAdapter);
     }
 
@@ -110,7 +110,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             ToastUtil.getInstance(mContext).showToast("ivComment");
         } else if (v == ivCollect) {
-            ToastUtil.getInstance(mContext).showToast("ivCollect");
+            TopicApi.getInstance().collectTopic(mTopicId,this);
         }
     }
 
@@ -159,5 +159,11 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     @Override
     public void onClickComment(String commentContent) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, this);
+    }
+
+    public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
+        topicInputView.clearText();
+        TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
+        ToastUtil.getInstance(mContext).showToast(obj.getMessage());
     }
 }

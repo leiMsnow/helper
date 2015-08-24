@@ -50,6 +50,10 @@ public class TopicApi extends BaseApi {
      * 回复话题
      */
     public static final String COMMENT_CREATE = "comment/create";
+    /**
+     * 收藏话题
+     */
+    public static final String COLLECT_CREATE = "user/collect/topic";
 
     private TopicApi(Context context) {
         super(context);
@@ -302,34 +306,61 @@ public class TopicApi extends BaseApi {
         mParams.put("comment_content", commentContent);
 
         simpleRequest(COMMENT_CREATE, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
-            }
+                    @Override
+                    public void onStartApi() {
+                        if (callback != null)
+                            callback.onStartApi();
+                    }
 
-            @Override
-            public void onComplete(Object obj) {
-//                ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<TopicComment>>() {
-//                        });
-//                if (result.getData() != null) {
-//                    BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-//                    topicCommentListEvent.setTopicCommentList(result.getData().getResult());
-                if (callback != null)
-                    callback.onComplete(obj);
-//                } else {
-//                    if (callback != null)
-//                        callback.onFailure(DisplayType.View, "暂无话题数据");
-//                }
-            }
+                    @Override
+                    public void onComplete(Object obj) {
 
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
-            }
-        });
+                        BaseEvent.CreateTopicCommentEvent event = new BaseEvent.CreateTopicCommentEvent();
+                        event.setMessage("回复成功");
+                        if (callback != null)
+                            callback.onComplete(event);
+                    }
+
+                    @Override
+                    public void onFailure(DisplayType displayType, Object errorMessage) {
+                        if (callback != null)
+                            callback.onFailure(displayType, errorMessage);
+                    }
+                }
+
+        );
+    }
+
+    /**
+     * @param topicId
+     * @param callback
+     */
+    public void collectTopic(String topicId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("topic_id", topicId);
+
+        simpleRequest(COLLECT_CREATE, mParams, new ApiCallback() {
+                    @Override
+                    public void onStartApi() {
+                        if (callback != null)
+                            callback.onStartApi();
+                    }
+
+                    @Override
+                    public void onComplete(Object obj) {
+                        if (callback != null)
+                            callback.onComplete(obj);
+                    }
+
+                    @Override
+                    public void onFailure(DisplayType displayType, Object errorMessage) {
+                        if (callback != null)
+                            callback.onFailure(displayType, errorMessage);
+                    }
+                }
+
+        );
     }
 
 

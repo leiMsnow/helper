@@ -11,7 +11,7 @@
         android:layout_height="16dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:src="@drawable/selector_topic_comment" />
+        android:src="@mipmap/ic_topic_comment" />
 
     <TextView
         android:id="@+id/tv_comment_count"

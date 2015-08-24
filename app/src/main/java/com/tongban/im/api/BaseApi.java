@@ -17,6 +17,7 @@ import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.CheckID;
 
 import org.json.JSONObject;
@@ -115,8 +116,9 @@ public class BaseApi {
     protected Request simpleRequest(String url, Map params, final ApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
             ToastUtil.getInstance(mContext).showToast("网络连接失败,请稍后重试");
-
-            EventBus.getDefault().post("网络连接失败,请稍后重试");
+            BaseEvent.ConnectionErrorEvent connectionErrorEvent = new BaseEvent.ConnectionErrorEvent();
+            connectionErrorEvent.setErrorMessage("网络连接失败,请稍后重试");
+            EventBus.getDefault().post(connectionErrorEvent);
             return null;
         }
         if (url == null || params == Collections.emptyMap()) {

@@ -438,7 +438,7 @@ public class BaseEvent {
         }
     }
 
-    public static class ConnecteErroEvent{
+    public static class ConnectionErrorEvent {
         String errorMessage;
 
         public String getErrorMessage() {
@@ -447,6 +447,21 @@ public class BaseEvent {
 
         public void setErrorMessage(String errorMessage) {
             this.errorMessage = errorMessage;
+        }
+    }
+
+    /**
+     * 回复话题Event
+     */
+    public static class CreateTopicCommentEvent{
+        String message;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
         }
     }
 
