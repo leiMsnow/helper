@@ -15,6 +15,7 @@ import com.tongban.im.model.Group;
 import com.tongban.im.model.MultiProduct;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
+import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
@@ -439,10 +440,10 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<Topic> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<Topic>>() {
+                ApiListResult<TopicComment> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                List<Topic> replyTopicList = apiResponse.getData().getResult();
+                List<TopicComment> replyTopicList = apiResponse.getData().getResult();
                 callback.onComplete(replyTopicList);
             }
 

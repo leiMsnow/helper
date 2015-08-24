@@ -1,101 +1,73 @@
 package com.tongban.im.model;
 
+import android.content.Context;
+
+import com.tongban.corelib.utils.DateUtils;
+
 /**
  * 话题评论信息表
  * Created by fushudi on 2015/8/1.
  */
 public class TopicComment {
-    /**
-     * 评论者头像
-     */
-    private String replyUserIcon;
-    /**
-     * 评论者昵称
-     */
-    private String replyNickName;
-    /**
-     * 评论者性别
-     */
-    private String replySex;
-    /**
-     * 评论者年龄
-     */
-    private String replyAge;
-    /**
-     * 评论内容
-     */
+    // 话题回复Id
+    private String comment_id;
+    // 创建时间
+    private long c_time;
+    // 回复的用户信息
+    private User user_info;
+    // 话题信息
+    private Topic topic_info;
+    // 回复内容
     private String comment_content;
-    /**
-     * 评论时间
-     */
-    private String replyTime;
-    /**
-     * 评论数量
-     */
-    private String replyNum;
-    private String portrait_url;
+    // 回复的回复Id
+    private String replied_comment_id;
 
-    public String getReplyUserIcon() {
-        return replyUserIcon;
+    public String getComment_id() {
+        return comment_id;
     }
 
-    public void setReplyUserIcon(String replyUserIcon) {
-        this.replyUserIcon = replyUserIcon;
+    public void setComment_id(String comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public String getReplyNickName() {
-        return replyNickName;
+    public String getC_time(Context context) {
+
+        return DateUtils.formatDateTime(c_time,context);
     }
 
-    public String getReplySex() {
-        return replySex;
+    public void setC_time(long c_time) {
+        this.c_time = c_time;
     }
 
-    public String getReplyAge() {
-        return replyAge;
+    public User getUser_info() {
+        return user_info;
+    }
+
+    public void setUser_info(User user_info) {
+        this.user_info = user_info;
+    }
+
+    public Topic getTopic_info() {
+        return topic_info;
+    }
+
+    public void setTopic_info(Topic topic_info) {
+        this.topic_info = topic_info;
     }
 
     public String getComment_content() {
         return comment_content;
     }
 
-    public String getReplyTime() {
-        return replyTime;
-    }
-
-    public String getReplyNum() {
-        return replyNum;
-    }
-
-    public void setReplyNickName(String replyNickName) {
-        this.replyNickName = replyNickName;
-    }
-
-    public void setReplySex(String replySex) {
-        this.replySex = replySex;
-    }
-
-    public void setReplyAge(String replyAge) {
-        this.replyAge = replyAge;
-    }
-
     public void setComment_content(String comment_content) {
         this.comment_content = comment_content;
     }
 
-    public void setReplyTime(String replyTime) {
-        this.replyTime = replyTime;
+    public String getReplied_comment_id() {
+        return replied_comment_id;
     }
 
-    public void setReplyNum(String replyNum) {
-        this.replyNum = replyNum;
-    }
-
-    public String getPortrait_url() {
-        return portrait_url;
-    }
-
-    public void setPortrait_url(String portrait_url) {
-        this.portrait_url = portrait_url;
+    public void setReplied_comment_id(String replied_comment_id) {
+        this.replied_comment_id = replied_comment_id;
     }
 }

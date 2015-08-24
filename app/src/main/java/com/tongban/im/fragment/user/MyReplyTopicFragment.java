@@ -14,6 +14,7 @@ import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyReplyTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.Topic;
+import com.tongban.im.model.TopicComment;
 
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
         startActivity(new Intent(mContext, TopicDetailsActivity.class));
     }
 
-    public void onEventMainThread(List<Topic> replyTopicList) {
+    public void onEventMainThread(List<TopicComment> replyTopicList) {
         mAdapter.replaceAll(replyTopicList);
     }
 }

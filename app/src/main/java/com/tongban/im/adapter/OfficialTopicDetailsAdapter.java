@@ -43,10 +43,10 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         }
         //评论相关
         else if (item.getContentType() == OfficialTopic.REPLY) {
-            helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getPortrait_url());
-            helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
-            helper.setText(R.id.tv_reply_content, item.getTopicReply().getComment_content());
-            helper.setText(R.id.tv_user_name, item.getTopicReply().getReplyNickName());
+//            helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getPortrait_url());
+//            helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
+//            helper.setText(R.id.tv_reply_content, item.getTopicReply().getComment_content());
+//            helper.setText(R.id.tv_user_name, item.getTopicReply().getReplyNickName());
         }
     }
 

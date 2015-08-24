@@ -75,20 +75,20 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         officialTopic = new OfficialTopic();
         TopicComment topicReply = new TopicComment();
         officialTopic.setContentType(OfficialTopic.REPLY);
-        topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
-        topicReply.setReplyNickName("小鹿妈妈");
-        topicReply.setComment_content("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
-        topicReply.setReplyTime("19:13");
+//        topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
+//        topicReply.setReplyNickName("小鹿妈妈");
+//        topicReply.setComment_content("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
+//        topicReply.setReplyTime("19:13");
         officialTopic.setTopicReply(topicReply);
         officialTopicList.add(officialTopic);
 
         officialTopic = new OfficialTopic();
         topicReply = new TopicComment();
         officialTopic.setContentType(OfficialTopic.REPLY);
-        topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
-        topicReply.setReplyNickName("小鹿妈妈");
-        topicReply.setComment_content("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
-        topicReply.setReplyTime("19:13");
+//        topicReply.setPortrait_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
+//        topicReply.setReplyNickName("小鹿妈妈");
+//        topicReply.setComment_content("该产品属于当当的产品，产于1987年。该产于1987年，该产品属于当当的产品，产于1987年。");
+//        topicReply.setReplyTime("19:13");
         officialTopic.setTopicReply(topicReply);
         officialTopicList.add(officialTopic);
         mAdapter = new OfficialTopicDetailsAdapter(mContext, officialTopicList, new IMultiItemTypeSupport<OfficialTopic>() {
