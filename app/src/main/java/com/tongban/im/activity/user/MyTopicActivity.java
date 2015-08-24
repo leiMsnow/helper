@@ -14,8 +14,7 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.MyReplyTopicFragment;
-import com.tongban.im.fragment.topic.TopicFragment;
+import com.tongban.im.fragment.user.MyCommentTopicFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.model.Topic;
 
@@ -47,6 +46,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
 
     @Override
     protected void initView() {
+        setTitle(R.string.my_topic);
         rlMySendTopic = (RelativeLayout) findViewById(R.id.rl_my_send_topic);
         rlReplyTopic = (RelativeLayout) findViewById(R.id.rl_reply_topic);
         ccvMySendTopic = (ChangeColorView) findViewById(R.id.ccv_my_send_topic);
@@ -80,7 +80,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         //回复我的话题
-        mTabs.add(new MyReplyTopicFragment());
+        mTabs.add(new MyCommentTopicFragment());
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

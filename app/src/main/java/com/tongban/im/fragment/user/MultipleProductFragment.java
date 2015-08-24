@@ -13,6 +13,7 @@ import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.activity.topic.OfficialTopicDetailsActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.MultiProduct;
 
 import java.util.ArrayList;
@@ -26,8 +27,6 @@ import java.util.List;
  */
 public class MultipleProductFragment extends BaseApiFragment implements View.OnClickListener
         , AdapterView.OnItemClickListener {
-
-
     private ListView lvMultipleProduct;
 
     private MultipleProductAdapter mAdapter;
@@ -68,8 +67,8 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
         mContext.startActivity(new Intent(mContext, MultiProductActivity.class));
     }
 
-    public void onEventMainThread(List<MultiProduct> multiProductList) {
+    public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
 
-        mAdapter.replaceAll(multiProductList);
+        mAdapter.replaceAll(obj.getMultiProductList());
     }
 }

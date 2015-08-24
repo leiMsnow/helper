@@ -223,8 +223,9 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
-                List<Group> groups = apiResponse.getData().getResult();
-                callback.onComplete(groups);
+                BaseEvent.MyGroupListEvent myGroupListEvent=new BaseEvent.MyGroupListEvent();
+                myGroupListEvent.setMyGroupList(apiResponse.getData().getResult());
+                callback.onComplete(myGroupListEvent);
             }
 
             @Override
@@ -260,8 +261,9 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<User>>() {
                         });
-                List<User> mFollowList = apiResponse.getData().getResult();
-                callback.onComplete(mFollowList);
+                BaseEvent.MyFollowListEvent myFollowListEvent=new BaseEvent.MyFollowListEvent();
+                myFollowListEvent.setMyFollowList(apiResponse.getData().getResult());
+                callback.onComplete(myFollowListEvent);
             }
 
             @Override
@@ -294,11 +296,12 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-//                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<User>>() {
-//                        });
-//                List<User> fansList = apiResponse.getData().getResult();
-                callback.onComplete(obj);
+                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<User>>() {
+                        });
+                BaseEvent.MyFansListEvent myFansListEvent=new BaseEvent.MyFansListEvent();
+                myFansListEvent.setMyFansList(apiResponse.getData().getResult());
+                callback.onComplete(myFansListEvent);
             }
 
             @Override
@@ -327,11 +330,12 @@ public class UserCenterApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 // TODO 数据格式错误
-//                ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<ProductBook>>() {
-//                        });
-//                List<ProductBook> singleProductList = apiResponse.getData().getResult();
-                callback.onComplete(obj);
+                ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<ProductBook>>() {
+                        });
+                BaseEvent.CollectSingleProductEvent collectSingleProductEvent=new BaseEvent.CollectSingleProductEvent();
+                collectSingleProductEvent.setSingleProductList(apiResponse.getData().getResult());
+                callback.onComplete(collectSingleProductEvent);
             }
 
             @Override
@@ -405,9 +409,10 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<MultiProduct> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<MultiProduct>>() {
                         });
-                List<MultiProduct> multiProductList=result.getData().getResult();
+                BaseEvent.CollectMultiProductEvent collectMultiProductEvent=new BaseEvent.CollectMultiProductEvent();
+                collectMultiProductEvent.setMultiProductList(result.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(multiProductList);
+                    callback.onComplete(collectMultiProductEvent);
             }
 
             @Override

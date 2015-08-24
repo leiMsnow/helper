@@ -307,7 +307,105 @@ public class BaseEvent {
      * 收藏专题的Event
      */
     public static class CollectMultiProductEvent {
+        List<MultiProduct> multiProductList;
 
+        public List<MultiProduct> getMultiProductList() {
+            return multiProductList;
+        }
+
+        public void setMultiProductList(List<MultiProduct> multiProductList) {
+            this.multiProductList = multiProductList;
+        }
+    }
+
+    /**
+     * 收藏话题题的Event
+     */
+    public static class CollectTopicEvent {
+        List<Topic> collectTopicList;
+
+        public List<Topic> getCollectTopicList() {
+            return collectTopicList;
+        }
+
+        public void setCollectTopicList(List<Topic> collectTopicList) {
+            this.collectTopicList = collectTopicList;
+        }
+    }
+
+    /**
+     * 收藏单品的Event
+     */
+    public static class CollectSingleProductEvent {
+        List<ProductBook> singleProductList;
+
+        public List<ProductBook> getSingleProductList() {
+            return singleProductList;
+        }
+
+        public void setSingleProductList(List<ProductBook> singleProductList) {
+            this.singleProductList = singleProductList;
+        }
+    }
+
+    /**
+     * 我发起的话题Event
+     */
+    public static class MyLaunchTopicEvent {
+        List<Topic> myLaunchTopicList;
+
+        public List<Topic> getMyLaunchTopicList() {
+            return myLaunchTopicList;
+        }
+
+        public void setMyLaunchTopicList(List<Topic> myLaunchTopicList) {
+            this.myLaunchTopicList = myLaunchTopicList;
+        }
+    }
+
+    /**
+     * 我的圈子Event
+     */
+    public static class MyGroupListEvent {
+        List<Group> myGroupList;
+
+        public List<Group> getMyGroupList() {
+            return myGroupList;
+        }
+
+        public void setMyGroupList(List<Group> myGroupList) {
+            this.myGroupList = myGroupList;
+        }
+    }
+
+    /**
+     * 我的关注Event
+     */
+    public static class MyFollowListEvent {
+        List<User> myFollowList;
+
+        public List<User> getMyFollowList() {
+            return myFollowList;
+        }
+
+        public void setMyFollowList(List<User> myFollowList) {
+            this.myFollowList = myFollowList;
+        }
+    }
+
+    /**
+     * 我的粉丝Event
+     */
+    public static class MyFansListEvent {
+        List<User> myFansList;
+
+        public List<User> getMyFansList() {
+            return myFansList;
+        }
+
+        public void setMyFansList(List<User> myFansList) {
+            this.myFansList = myFansList;
+        }
     }
 
     /**
@@ -337,6 +435,18 @@ public class BaseEvent {
 
         public void setList(List<ProductBook> list) {
             this.list = list;
+        }
+    }
+
+    public static class ConnecteErroEvent{
+        String errorMessage;
+
+        public String getErrorMessage() {
+            return errorMessage;
+        }
+
+        public void setErrorMessage(String errorMessage) {
+            this.errorMessage = errorMessage;
         }
     }
 

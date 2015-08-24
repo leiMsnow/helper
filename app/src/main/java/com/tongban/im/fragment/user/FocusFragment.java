@@ -14,6 +14,7 @@ import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 import java.util.List;
@@ -47,8 +48,8 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     }
 
     //我的关注Event
-    public void onEventMainThread(List<User> mFollowList) {
-        mAdapter.replaceAll(mFollowList);
+    public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
+        mAdapter.replaceAll(obj.getMyFollowList());
     }
 
     @Override

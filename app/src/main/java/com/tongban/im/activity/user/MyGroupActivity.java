@@ -8,6 +8,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 
@@ -46,7 +47,9 @@ public class MyGroupActivity extends BaseToolBarActivity {
     protected void initListener() {
 
     }
-    public void onEventMainThread(List<Group> groups) {
-        mAdapter.replaceAll(groups);
+
+    public void onEventMainThread(BaseEvent.MyGroupListEvent obj) {
+
+        mAdapter.replaceAll(obj.getMyGroupList());
     }
 }

@@ -14,14 +14,14 @@ import java.util.List;
 /**
  * Created by fushudi on 2015/8/17.
  */
-public class MyReplyTopicAdapter extends QuickAdapter<TopicComment> {
+public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
     private View.OnClickListener onClickListener;
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    public MyReplyTopicAdapter(Context context, int layoutResId, List data) {
+    public MyCommentTopicAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 

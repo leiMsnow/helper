@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -58,6 +59,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
         ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
         mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
+        mFab.setVisibility(View.GONE);
 
     }
 
@@ -91,26 +93,20 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v == ivSearch) {
-            Intent intent = new Intent(mContext, SearchTopicActivity.class);
-            startActivity(intent);
-        } else {
-            switch (v.getId()) {
-                case R.id.iv_small_img_1:
-                    List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(setImageUrls(imageUrls), 0);
-                    break;
-                case R.id.iv_small_img_2:
-                    imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(setImageUrls(imageUrls), 1);
-                    break;
-                case R.id.iv_small_img_3:
-                    imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(setImageUrls(imageUrls), 2);
-                    break;
-            }
+        switch (v.getId()) {
+            case R.id.iv_small_img_1:
+                List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                startPhotoView(setImageUrls(imageUrls), 0);
+                break;
+            case R.id.iv_small_img_2:
+                imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                startPhotoView(setImageUrls(imageUrls), 1);
+                break;
+            case R.id.iv_small_img_3:
+                imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                startPhotoView(setImageUrls(imageUrls), 2);
+                break;
         }
-
     }
 
     //取出大图地址存入集合中

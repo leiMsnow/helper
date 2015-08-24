@@ -50,6 +50,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
+        setTitle(R.string.my_collect);
         rlMultipleProduct = (RelativeLayout) findViewById(R.id.rl_multiple_product);
         rlSingleProduct = (RelativeLayout) findViewById(R.id.rl_single_product);
         rlTopic = (RelativeLayout) findViewById(R.id.rl_topic);

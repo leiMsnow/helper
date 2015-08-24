@@ -11,9 +11,8 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.activity.user.UserCenterActivity;
-import com.tongban.im.adapter.MyReplyTopicAdapter;
+import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 
 import java.util.List;
@@ -23,9 +22,9 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView mListView;
-    private MyReplyTopicAdapter mAdapter;
+    private MyCommentTopicAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -39,7 +38,7 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 
     @Override
     protected void initData() {
-        mAdapter = new MyReplyTopicAdapter(mContext, R.layout.item_my_reply_topic_list, null);
+        mAdapter = new MyCommentTopicAdapter(mContext, R.layout.item_my_comment_topic_list, null);
         mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
         UserCenterApi.getInstance().fetchReplyTopicList(0, 10, this);

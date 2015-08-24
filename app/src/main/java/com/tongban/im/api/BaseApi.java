@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by zhangleilei on 15/7/8.
  */
@@ -113,6 +115,8 @@ public class BaseApi {
     protected Request simpleRequest(String url, Map params, final ApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
             ToastUtil.getInstance(mContext).showToast("网络连接失败,请稍后重试");
+
+            EventBus.getDefault().post("网络连接失败,请稍后重试");
             return null;
         }
         if (url == null || params == Collections.emptyMap()) {
