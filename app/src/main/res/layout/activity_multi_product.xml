@@ -8,113 +8,135 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar"/>
-    <!-- 专题头图 -->
-    <ImageView
-        android:id="@+id/iv_head"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"/>
+        android:scrollbars="none">
 
-    <LinearLayout
-        android:id="@+id/ll_multi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="8dp">
-        <!-- title -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/main_black"
-            android:textSize="18sp"/>
-        <!-- 专题标签 -->
-        <com.tongban.corelib.widget.view.FlowLayout
-            android:id="@+id/fl_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <!-- 发表人信息 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <!-- 头像 -->
-            <com.tongban.corelib.widget.view.CircleImageView
-                android:id="@+id/iv_user_portrait"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-            <!-- 发表人昵称 -->
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <!-- 专题头图 -->
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/main_black"/>
-            <!-- 发表人标签 -->
-            <TextView
-                android:id="@+id/tv_user_tag"
-                android:layout_width="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"/>
+
+            <LinearLayout
+                android:id="@+id/ll_multi"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/normal_grey"/>
-            <!-- 发表时间 -->
-            <TextView
-                android:id="@+id/tv_create_time"
-                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <!-- title -->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/main_black"
+                    android:textSize="18sp"/>
+                <!-- 专题标签 -->
+                <com.tongban.corelib.widget.view.FlowLayout
+                    android:id="@+id/fl_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!-- 发表人信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <!-- 头像 -->
+                    <com.tongban.corelib.widget.view.CircleImageView
+                        android:id="@+id/iv_user_portrait"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_img_user_default"/>
+                    <!-- 发表人昵称 -->
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/main_black"/>
+                    <!-- 发表人标签 -->
+                    <TextView
+                        android:id="@+id/tv_user_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/normal_grey"/>
+                    <!-- 发表时间 -->
+                    <TextView
+                        android:id="@+id/tv_create_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:textColor="@color/normal_grey"/>
+                </LinearLayout>
+                <!-- 分割线 -->
+                <View style="@style/HorizontalLine"/>
+                <!-- 专题描述 -->
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    android:textColor="@color/normal_dark_grey"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_product_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:layout_marginLeft="4dp"
-                android:textColor="@color/normal_grey"/>
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/weak_orange"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="相关话题"
+                    android:textColor="@color/main_brown"
+                    android:textSize="16sp"/>
+                <!-- 分割线 -->
+                <View style="@style/HorizontalLine"/>
+
+                <!-- 相关话题列表 -->
+                <ListView
+                    android:id="@+id/lv_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:scrollbars="none"/>
+            </LinearLayout>
         </LinearLayout>
-        <!-- 分割线 -->
-        <View style="@style/HorizontalLine"/>
-        <!-- 专题描述 -->
-        <TextView
-            android:id="@+id/tv_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:textColor="@color/normal_dark_grey"/>
-        <!-- 单品列表 -->
-        <ListView
-            android:id="@+id/lv_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"/>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
+    </ScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="相关话题"
-            android:textColor="@color/main_brown"/>
-        <!-- 分割线 -->
-        <View style="@style/HorizontalLine"/>
-
-        <!-- 相关话题列表 -->
-        <ListView
-            android:id="@+id/lv_topic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"/>
-    </LinearLayout>
 </LinearLayout>

@@ -9,8 +9,8 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
-import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
@@ -308,8 +308,7 @@ public class AccountApi extends BaseApi {
         simpleRequest(GET_USER_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override
@@ -317,13 +316,11 @@ public class AccountApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                BaseEvent.UserInfoEvent userInfoEvent = new BaseEvent.UserInfoEvent();
-                userInfoEvent.setUser(apiResponse.getData());
-                userInfoEvent.getUser().setUser_id(userId);
-                //将用户信息保存到本地数据库
-                UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(userInfoEvent.getUser()));
+                User user = apiResponse.getData();
+                // 将用户信息保存到本地数据库
+                UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(user));
                 if (callback != null)
-                    callback.onComplete(userInfoEvent);
+                    callback.onComplete(user);
             }
 
             @Override

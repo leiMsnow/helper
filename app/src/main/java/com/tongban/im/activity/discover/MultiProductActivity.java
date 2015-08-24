@@ -1,11 +1,13 @@
 package com.tongban.im.activity.discover;
 
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +20,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.MultiProduct;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.User;
@@ -46,7 +49,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     // 专题描述
     private TextView multiDesc;
     // 单品列表和相关话题列表
-    private ListView productList, topicList;
+    private LinearLayout mProductList;
 
     // 当前的专题id
     private String multiId;
@@ -68,8 +71,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
         userTag = (TextView) findViewById(R.id.tv_user_tag);
         createTime = (TextView) findViewById(R.id.tv_create_time);
         multiDesc = (TextView) findViewById(R.id.tv_desc);
-        productList = (ListView) findViewById(R.id.lv_product);
-        topicList = (ListView) findViewById(R.id.lv_topic);
+        mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
+        // TODO: 15/8/24 相关话题
     }
 
     @Override
@@ -98,7 +101,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
             ProductApi.getInstance().collectMultiProduct(multiId, this);
             return true;
         } else if (itemId == R.id.share) {
-            ToastUtil.getInstance(mContext).showToast("分享接口还没有~~~");
+            ToastUtil.getInstance(mContext).showToast("分享暂时不做~~~");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -147,7 +150,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      * @param user User
      */
     public void onEventMainThread(User user) {
-        Glide.with(mContext).load(user.getPortrait_url()).into(userPortrait);
+        Glide.with(mContext).load(user.getPortrait_url().getMin()).into(userPortrait);
         userName.setText(user.getNick_name());
         userTag.setText(user.getTags());
     }
@@ -160,8 +163,47 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.FetchThemeProducts themeProducts) {
         mProductBooks = themeProducts.getList();
         if (mProductBooks != null && mProductBooks.size() > 0) {
-            // cey
-            ToastUtil.getInstance(mContext).showToast("接口还没做完~~~haha");
+            mProductList.removeAllViews();
+            View view;
+            int pos = 1; // 商品序号
+            for (ProductBook productBook : mProductBooks) {
+                view = LayoutInflater.from(mContext).inflate(R.layout.item_product_list_in_theme, null, false);
+                TextView cursor = (TextView) view.findViewById(R.id.tv_cursor);
+                TextView title = (TextView) view.findViewById(R.id.tv_title);
+                LinearLayout productImgs = (LinearLayout) view.findViewById(R.id.ll_product_img);
+                TextView productDesc = (TextView) view.findViewById(R.id.tv_product_desc);
+                TextView authorDesc = (TextView) view.findViewById(R.id.tv_author_desc);
+                TextView sceneFor = (TextView) view.findViewById(R.id.tv_scene_for);
+                TextView recommendCause = (TextView) view.findViewById(R.id.tv_recommend_cause);
+                Button productDetail = (Button) view.findViewById(R.id.btn_detail);
+                cursor.setText(String.valueOf(pos));
+                title.setText(productBook.getProduct_name());
+                List<ImageUrl> imgList = productBook.getProduct_img_url();
+                if (imgList != null && imgList.size() > 0) {
+                    for (ImageUrl imgUrl : imgList) {
+                        ImageView imageView = new ImageView(mContext);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(0, 0, 0, 20);
+                        imageView.setLayoutParams(lp);
+                        imageView.setAdjustViewBounds(true);
+                        Glide.with(mContext).load(imgUrl.getMid()).into(imageView);
+                        productImgs.addView(imageView);
+                    }
+                }
+                productDesc.setText(productBook.getProduct_description());
+                authorDesc.setText(productBook.getAuthor_desc());
+                sceneFor.setText(productBook.getScene_for());
+                recommendCause.setText(productBook.getProduct_description());
+                productDetail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO: 15/8/24 跳转到单品页
+                    }
+                });
+                mProductList.addView(view);
+                pos++;
+            }
         }
     }
 
@@ -173,6 +215,5 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent collect) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
     }
-
 
 }
