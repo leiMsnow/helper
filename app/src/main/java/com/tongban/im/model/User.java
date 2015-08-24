@@ -52,7 +52,16 @@ public class User {
     private String address_type;
     //孩子信息
     private List<Child> child_info;
+    //是否已经关注
+    private boolean is_focused;
 
+    public boolean is_focused() {
+        return is_focused;
+    }
+
+    public void setIs_focused(boolean is_focused) {
+        this.is_focused = is_focused;
+    }
 
     public ImageUrl getPortrait_url() {
         return portrait_url;

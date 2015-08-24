@@ -14,6 +14,8 @@ import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
+import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -60,11 +62,8 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
                 UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
                 break;
             case R.id.iv_user_icon:
-                String visitorId = v.getTag().toString();
-                Intent intent = new Intent(mContext, UserCenterActivity.class);
-                intent.putExtra("visitorId", visitorId);
-                intent.putExtra(Consts.KEY_FOCUS, User.FOCUS);
-                startActivity(intent);
+                String visitorId = v.getTag(Integer.MAX_VALUE).toString();
+                TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER,visitorId);
                 break;
         }
     }

@@ -46,7 +46,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:paddingLeft="24dp">
@@ -55,15 +55,16 @@
                 android:id="@+id/tv_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="爸爸" />
 
             <ImageView
                 android:id="@+id/iv_sex"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_label"
                 android:layout_alignTop="@+id/tv_label"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/tv_label"
                 android:padding="4dp"
                 android:src="@mipmap/ic_boy" />
@@ -72,6 +73,7 @@
                 android:id="@+id/tv_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_sex"
                 android:text="小王子  1岁23天  狮子座"
                 android:textColor="@color/white" />
@@ -82,12 +84,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:paddingLeft="16dp"
             android:singleLine="true"
             android:text="独立行走|淘气包|吃固体食物"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="visible" />
     </LinearLayout>
 
     <TextView

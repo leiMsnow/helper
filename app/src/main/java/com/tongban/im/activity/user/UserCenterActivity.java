@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
@@ -26,9 +27,11 @@ import static com.tongban.im.common.Consts.KEY_FOCUS;
 public class UserCenterActivity extends BaseToolBarActivity {
     private PullToZoomScrollViewEx lvUserCenter;
 
-    private TextView tvTags;
+    private TextView tvTags, tvUserName;
     private ImageView ivFocus, ivCancelFocus;
     private LinearLayout llMyTopic, llMyCollect;
+    private ImageView ivSex;
+    private TextView tvFansNum, tvFocusNum, tvGroupNum;
 
     @Override
     protected int getLayoutRes() {
@@ -51,14 +54,15 @@ public class UserCenterActivity extends BaseToolBarActivity {
         llMyCollect = (LinearLayout) contentView.findViewById(R.id.ll_my_collect);
         llMyTopic.setVisibility(View.GONE);
         llMyCollect.setVisibility(View.GONE);
+        ivSex = (ImageView) headView.findViewById(R.id.iv_sex);
+        tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
+        tvFansNum = (TextView) headView.findViewById(R.id.tv_fans_num);
+        tvFocusNum = (TextView) headView.findViewById(R.id.tv_follow_num);
+        tvGroupNum = (TextView) headView.findViewById(R.id.tv_group_num);
 
         ivFocus = (ImageView) headView.findViewById(R.id.iv_focus);
         ivCancelFocus = (ImageView) headView.findViewById(R.id.iv_cancel_focus);
-        if (getIntent().getIntExtra(Consts.KEY_FOCUS, 0) == User.FOCUS) {
-            ivCancelFocus.setVisibility(View.VISIBLE);
-        } else if (getIntent().getIntExtra(Consts.KEY_FOCUS, 1) == User.UN_FOCUS) {
-            ivFocus.setVisibility(View.VISIBLE);
-        }
+
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -78,5 +82,23 @@ public class UserCenterActivity extends BaseToolBarActivity {
     @Override
     protected void initListener() {
 
+    }
+
+    public void onEventMainThread(User user) {
+        if (user.getSex().equals("男")) {
+            Glide.with(mContext).load(R.mipmap.ic_boy).into(ivSex);
+        } else {
+            Glide.with(mContext).load(R.mipmap.ic_girl).into(ivSex);
+        }
+        tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " + user.getChild_info().get(0).getAge()
+                + " " + user.getChild_info().get(0).getConstellation());
+        tvFansNum.setText(user.getFans_amount());
+        tvFocusNum.setText(user.getFocused_amount());
+        tvGroupNum.setText(user.getJoined_group_amount());
+        if (user.is_focused()) {
+            ivCancelFocus.setVisibility(View.VISIBLE);
+        } else {
+            ivFocus.setVisibility(View.VISIBLE);
+        }
     }
 }
