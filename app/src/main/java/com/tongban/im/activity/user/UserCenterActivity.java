@@ -26,8 +26,8 @@ public class UserCenterActivity extends BaseToolBarActivity {
     private PullToZoomScrollViewEx lvUserCenter;
 
     private TextView tvTags;
-    private TextView tvMyGroup, tvMyCollect;
     private ImageView ivFocus, ivCancelFocus;
+    private LinearLayout llMyTopic,llMyCollect;
 
     @Override
     protected int getLayoutRes() {
@@ -46,10 +46,10 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
         tvTags = (TextView) findViewById(R.id.tv_declaration);
         tvTags.setVisibility(View.GONE);
-        tvMyGroup = (TextView) contentView.findViewById(R.id.tv_my_topic);
-        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
-        tvMyGroup.setVisibility(View.GONE);
-        tvMyCollect.setVisibility(View.GONE);
+        llMyTopic = (LinearLayout) contentView.findViewById(R.id.ll_my_topic);
+        llMyCollect = (LinearLayout) contentView.findViewById(R.id.ll_my_collect);
+        llMyTopic.setVisibility(View.GONE);
+        llMyCollect.setVisibility(View.GONE);
 
         ivFocus = (ImageView) headView.findViewById(R.id.iv_focus);
         ivCancelFocus = (ImageView) headView.findViewById(R.id.iv_cancel_focus);

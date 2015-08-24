@@ -38,17 +38,6 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
 
     @Override
     protected void initData() {
-//        List<Topic> replyTopicList = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            Topic topic = new Topic();
-//            TopicReply topicReply = new TopicReply();
-//            topicReply.setReplyTime("2015-8-17 18:31");
-//            topicReply.setPortrait_url("http://img2.imgtn.bdimg.com/it/u=606613155,1633300277&fm=23&gp=0.jpg");
-//            topicReply.setReplyNickName("小强" + i);
-////            topic.setTopicReply(topicReply);
-//            topic.setTopic_content("小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强小强很坚强");
-//            replyTopicList.add(topic);
-//        }
         mAdapter = new MyReplyTopicAdapter(mContext, R.layout.item_my_reply_topic_list, null);
         mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
@@ -81,7 +70,6 @@ public class MyReplyTopicFragment extends BaseApiFragment implements View.OnClic
     }
 
     public void onEventMainThread(List<Topic> replyTopicList) {
-
         mAdapter.replaceAll(replyTopicList);
     }
 }

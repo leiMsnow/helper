@@ -71,11 +71,11 @@ public class GroupListAdapter extends QuickAdapter<Group> {
             case GroupType.TALENT:
                 setGroupTags(helper, "达人圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
-                helper.setText(R.id.tv_group_introduce, "-" + item.getUser_info().getNick_name());
+//                helper.setText(R.id.tv_group_introduce, "-" + item.getUser_info().getNick_name());
                 break;
         }
 
-        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+//        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
         helper.setText(R.id.tv_group_name, item.getGroup_name());
 
         //判断是否可以加入

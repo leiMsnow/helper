@@ -28,7 +28,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
-    private TextView tvTopic, tvMyCollect;
+    private LinearLayout llMyTopic,llMyCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
         tvGroup = (TextView) headView.findViewById(R.id.tv_group);
 
-        tvTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
-        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
+        llMyTopic = (LinearLayout) contentView.findViewById(R.id.ll_my_topic);
+        llMyCollect = (LinearLayout) contentView.findViewById(R.id.ll_my_collect);
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -89,8 +89,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
 
-        tvTopic.setOnClickListener(this);
-        tvMyCollect.setOnClickListener(this);
+        llMyCollect.setOnClickListener(this);
+        llMyTopic.setOnClickListener(this);
 
         tvFans.setOnClickListener(this);
         tvFollow.setOnClickListener(this);
@@ -111,7 +111,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             intent.putExtra("Tag", "Fans");
             startActivity(intent);
         }
-        //跳转到关注界面
+        //跳转到关注列表界面
         else if (v == rlFollowNum || v == tvFollow) {
             Intent intent = new Intent(this, MyRelationshipActivity.class);
             intent.putExtra("Tag", "Follow");
@@ -122,11 +122,11 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             startActivity(new Intent(this, MyGroupActivity.class));
         }
         //跳转到话题界面
-        else if (v == tvTopic) {
+        else if (v == llMyTopic) {
             startActivity(new Intent(this, MyTopicActivity.class));
         }
         //跳转到我的收藏界面
-        else if (v == tvMyCollect) {
+        else if (v == llMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
         }
     }

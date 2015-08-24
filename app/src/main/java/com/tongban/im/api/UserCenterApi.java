@@ -12,6 +12,7 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+import com.tongban.im.model.MultiProduct;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
@@ -54,6 +55,10 @@ public class UserCenterApi extends BaseApi {
      * 获取我的收藏 - 话题列表
      */
     public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
+    /**
+     * 获取我的收藏 - 专题列表
+     */
+    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST="user/collect/theme/list";
     /**
      * 获取我的话题 - 回复我的话题列表
      */
@@ -254,8 +259,8 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<User>>() {
                         });
-                List<User> groups = apiResponse.getData().getResult();
-                callback.onComplete(groups);
+                List<User> mFollowList = apiResponse.getData().getResult();
+                callback.onComplete(mFollowList);
             }
 
             @Override
@@ -288,11 +293,11 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<User>>() {
-                        });
-                List<User> fansList = apiResponse.getData().getResult();
-                callback.onComplete(fansList);
+//                ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiListResult<User>>() {
+//                        });
+//                List<User> fansList = apiResponse.getData().getResult();
+                callback.onComplete(obj);
             }
 
             @Override
@@ -358,13 +363,50 @@ public class UserCenterApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 // // TODO: 2015/8/22 数据格式错误
-//                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<Topic>>() {
-//                        });
-//                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-//                topicListEvent.setTopicList(result.getData().getResult());
+                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Topic>>() {
+                        });
+                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                topicListEvent.setTopicList(result.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(topicListEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取我的收藏 - 专题列表
+     *
+     * @param cursor
+     * @param pageSize
+     * @param callback
+     */
+    public void fetchCollectMultipleTopicList(int cursor, int pageSize, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(FETCH_COLLECT_MULTIPLE_PRODUCT_LIST, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<MultiProduct> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<MultiProduct>>() {
+                        });
+                List<MultiProduct> multiProductList=result.getData().getResult();
+                if (callback != null)
+                    callback.onComplete(multiProductList);
             }
 
             @Override
@@ -434,19 +476,13 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<Topic> apiResponse = JSON.parseObject(obj.toString(),
+
+                ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-
-                if (apiResponse.getData().getResult().size() > 0) {
-                    BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                    topicListEvent.setTopicList(apiResponse.getData().getResult());
-                    if (callback != null)
-                        callback.onComplete(topicListEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无创建的话题,快来创建第一条话题吧");
-                }
+                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                topicListEvent.setTopicList(result.getData().getResult());
+                callback.onComplete(topicListEvent);
 
             }
 

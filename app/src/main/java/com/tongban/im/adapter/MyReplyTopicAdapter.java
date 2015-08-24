@@ -26,11 +26,13 @@ public class MyReplyTopicAdapter extends QuickAdapter<Topic> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
-//        helper.setImageBitmap(R.id.iv_topic_icon, item.getTopicReply().getPortrait_url());
-//        helper.setText(R.id.tv_nickname, item.getTopicReply().getReplyNickName());
-//        helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
-//        helper.setText(R.id.tv_reply_content, item.getTopicReplyList().get(0).getComment_content());
-//        helper.setTag(R.id.iv_topic_icon,item.getUser_info().getUser_id());
+        helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin());
+        helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
+        helper.setText(R.id.tv_reply_time, item.getM_time(mContext));
+        //TODO 缺少评论内容参数
+//        helper.setText(R.id.tv_reply_content, item.getTopicComment().getComment_content());
+        helper.setText(R.id.tv_topic_content, item.getTopic_content());
+
         helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
         helper.setOnClickListener(R.id.tv_reply, onClickListener);
     }

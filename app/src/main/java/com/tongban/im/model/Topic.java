@@ -37,22 +37,31 @@ public class Topic {
     private String collect_amount;
     // 话题创建时间
     private long c_time;
+    //话题回复时间
+    private long m_time;
     // 内容类型（文字或者图片）
     private int contentType;
     //用户信息
     private User user_info;
     //话题评论
-    private List<TopicComment> topicReplyList;
+    private TopicComment topicComment;
+
+    public TopicComment getTopicComment() {
+        return topicComment;
+    }
+
+    public void setTopicComment(TopicComment topicComment) {
+        this.topicComment = topicComment;
+    }
+
     // 话题图片
     private List<ImageUrl> topic_img_url;
 
-    public List<TopicComment> getTopicReplyList() {
-        return topicReplyList;
+
+    public void setM_time(long m_time) {
+        this.m_time = m_time;
     }
 
-    public void setTopicReplyList(List<TopicComment> topicReplyList) {
-        this.topicReplyList = topicReplyList;
-    }
 
     public List<ImageUrl> getTopic_img_url() {
         return topic_img_url;
@@ -132,6 +141,10 @@ public class Topic {
 
     public String getC_time(Context context) {
         return DateUtils.formatDateTime(c_time, context);
+    }
+
+    public String getM_time(Context context) {
+        return DateUtils.formatDateTime(m_time, context);
     }
 
     public void setC_time(long c_time) {

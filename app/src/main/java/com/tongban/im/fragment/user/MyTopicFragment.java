@@ -53,6 +53,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
     @Override
     protected void initView() {
         rlToolBar = (RelativeLayout) mView.findViewById(R.id.rl_toolbar);
+        rlToolBar.setVisibility(View.GONE);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
