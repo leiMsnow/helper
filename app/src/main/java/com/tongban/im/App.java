@@ -19,7 +19,7 @@ public class App extends BaseApplication {
         super.onCreate();
         mApp = this;
 
-        BaseApi.setHostUrl(mApp,0);
+        BaseApi.setHostUrl(mApp,1);
 
         RongIM.init(this);
         RongCloudEvent.init(this);
