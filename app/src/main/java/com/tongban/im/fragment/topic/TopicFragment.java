@@ -21,6 +21,8 @@ import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
+import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 
@@ -98,6 +100,10 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                 case R.id.iv_small_img_3:
                     imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
                     startPhotoView(setImageUrls(imageUrls), 2);
+                    break;
+                case R.id.iv_user_portrait:
+                    String userId = v.getTag(Integer.MAX_VALUE).toString();
+                    TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER,userId);
                     break;
             }
         }

@@ -25,7 +25,7 @@ import com.tongban.im.widget.view.TopicInputView;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener{
+        TopicInputView.onClickCommentListener {
 
     //头布局控件
     private View mHeader;
@@ -147,8 +147,17 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
     }
 
+    /**
+     * 话题回复列表事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
+        mAdapter.replaceAll(obj.getTopicCommentList());
+    }
+
     @Override
     public void onClickComment(String commentContent) {
-       TopicApi.getInstance().createCommentForTopic(mTopicId,commentContent,this);
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, this);
     }
 }

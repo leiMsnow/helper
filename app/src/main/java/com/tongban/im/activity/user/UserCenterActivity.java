@@ -1,6 +1,7 @@
 package com.tongban.im.activity.user;
 
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
     private TextView tvTags;
     private ImageView ivFocus, ivCancelFocus;
-    private LinearLayout llMyTopic,llMyCollect;
+    private LinearLayout llMyTopic, llMyCollect;
 
     @Override
     protected int getLayoutRes() {
@@ -67,8 +68,11 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        String visitorId = getIntent().getStringExtra("visitorId");
-        UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            String visitorId = uri.getQueryParameter("visitorId");
+            UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
+        }
     }
 
     @Override

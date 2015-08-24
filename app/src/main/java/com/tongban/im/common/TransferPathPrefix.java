@@ -14,4 +14,9 @@ public class TransferPathPrefix {
      * 圈子搜索
      */
     public static final String SEARCH_GROUP = "searchgroup";
+
+    /**
+     * 用户中心/他人
+     */
+    public static final String USER_CENTER = "usercenter";
 }

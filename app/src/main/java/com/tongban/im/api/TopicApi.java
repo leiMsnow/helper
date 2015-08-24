@@ -268,14 +268,14 @@ public class TopicApi extends BaseApi {
                 ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                if (result.getData() != null) {
+                if (result.getData().getResult().size() > 0) {
                     BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-                    topicCommentListEvent.setTopicReplyList(result.getData().getResult());
+                    topicCommentListEvent.setTopicCommentList(result.getData().getResult());
                     if (callback != null)
                         callback.onComplete(topicCommentListEvent);
                 } else {
                     if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题数据");
+                        callback.onFailure(DisplayType.Toast, "暂无话题回复数据");
                 }
             }
 
@@ -315,7 +315,7 @@ public class TopicApi extends BaseApi {
 //                        });
 //                if (result.getData() != null) {
 //                    BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-//                    topicCommentListEvent.setTopicReplyList(result.getData().getResult());
+//                    topicCommentListEvent.setTopicCommentList(result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(obj);
 //                } else {

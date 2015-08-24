@@ -50,6 +50,9 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, String.valueOf(item.getCollect_amount()));
         helper.setText(R.id.tv_collect_count, String.valueOf(item.getComment_amount()));
+
+        helper.setTag(R.id.iv_user_portrait,Integer.MAX_VALUE,item.getUser_info().getUser_id());
+        helper.setOnClickListener(R.id.iv_user_portrait,onClickListener);
     }
 
     //设置图片的显示/隐藏和src

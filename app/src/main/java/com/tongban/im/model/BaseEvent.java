@@ -292,14 +292,14 @@ public class BaseEvent {
      * 话题回复列表Event
      */
     public static class TopicCommentListEvent {
-        List<TopicComment> topicReplyList;
+        List<TopicComment> topicCommentList;
 
-        public List<TopicComment> getTopicReplyList() {
-            return topicReplyList;
+        public List<TopicComment> getTopicCommentList() {
+            return topicCommentList;
         }
 
-        public void setTopicReplyList(List<TopicComment> topicReplyList) {
-            this.topicReplyList = topicReplyList;
+        public void setTopicCommentList(List<TopicComment> topicCommentList) {
+            this.topicCommentList = topicCommentList;
         }
     }
 

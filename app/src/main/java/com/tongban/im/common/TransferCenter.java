@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import com.tongban.im.App;
+import com.tongban.im.model.User;
 
 /**
  * 跳转中心
@@ -48,4 +49,22 @@ public class TransferCenter {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
+
+    /**
+     * 打开用户中心界面
+     *
+     * @param pathPrefix 跳转的前缀参考 {@link TransferPathPrefix}
+     * @param visitorId
+     */
+    public void startUserCenter(String pathPrefix, String visitorId) {
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendPath("user")
+                .appendQueryParameter("visitorId", visitorId)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
+
 }

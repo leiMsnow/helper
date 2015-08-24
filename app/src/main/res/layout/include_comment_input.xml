@@ -5,6 +5,8 @@
     android:background="@color/white"
     android:minHeight="48dp">
 
+    <View style="@style/HorizontalLine" />
+
     <ImageView
         android:id="@+id/iv_add_img"
         android:layout_width="48dp"
@@ -23,14 +25,14 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/shape_join_btn_enabled"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/btn_comment"
         android:layout_toRightOf="@+id/iv_add_img"
+        android:background="@drawable/shape_join_btn_enabled"
         android:gravity="center_vertical"
-        android:paddingLeft="8dp"
         android:hint="@string/create_reply"
         android:minHeight="40dp"
+        android:paddingLeft="8dp"
         android:textColorHint="@color/normal_grey"
         android:textSize="14sp" />
 
@@ -40,10 +42,10 @@
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/et_comment"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
-        android:background="@drawable/selector_send_bg"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/selector_send_bg"
         android:src="@mipmap/ic_menu_send" />
 
 </RelativeLayout>
