@@ -2,6 +2,7 @@ package com.tongban.im.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;

@@ -2,6 +2,7 @@ package com.tongban.im.fragment.user;
 
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -17,7 +18,8 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class FocusFragment extends BaseApiFragment implements View.OnClickListener {
+public class FocusFragment extends BaseApiFragment implements View.OnClickListener,
+        AdapterView.OnItemClickListener {
     private ListView lvFocusList;
     private UserAdapter mAdapter;
 
@@ -34,7 +36,6 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
-        mAdapter.setOnClickListener(this);
         lvFocusList.setAdapter(mAdapter);
         if (getArguments() != null) {
             String userID = getArguments().getString(Consts.USER_ID);
@@ -44,7 +45,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initListener() {
-
+        lvFocusList.setOnItemClickListener(this);
     }
 
     /**
@@ -62,11 +63,12 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
                 String focusId = v.getTag().toString();
                 UserCenterApi.getInstance().focusUser(false, new String[]{focusId}, this);
                 break;
-            //跳到用户中心（他人）
-            case R.id.iv_user_icon:
-                String visitorId = v.getTag(Integer.MAX_VALUE).toString();
-                TransferCenter.getInstance().startUserCenter(visitorId);
-                break;
+
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
     }
 }

@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/selector_white_to_gray"
+    android:descendantFocusability="blocksDescendants"
     android:minHeight="56dp">
 
     <com.tongban.corelib.widget.view.CircleImageView
@@ -28,12 +30,13 @@
     <Button
         android:id="@+id/btn_follow"
         android:layout_width="48dp"
-        android:layout_height="32dp"
+        android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
         android:background="@drawable/selector_join_btn_bg"
-        android:text="@string/follow"
-        android:textColor="@color/main_deep_orange"
+        android:enabled="false"
+        android:text="@string/followed"
+        android:textColor="@color/selector_join_text_color"
         android:textSize="12sp" />
 </RelativeLayout>
