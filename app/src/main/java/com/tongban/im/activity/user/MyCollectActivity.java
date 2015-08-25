@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
@@ -17,6 +18,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MultipleProductFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.SingleProductFragment;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
     private ChangeColorView ccvMultiple;
     private ChangeColorView ccvSingle;
     private ChangeColorView ccvTopic;
+    private TextView tvMultiProductNum, tvSingleProductNum, tvCollectTopicNum;
 
     private int mIndicatorWidth;
 
@@ -62,6 +65,10 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         vpResult = (ViewPager) findViewById(R.id.vp_result);
         ccvMultiple.setIconAlpha(1.0f);
         initIndicator(3);
+
+        tvMultiProductNum = (TextView) findViewById(R.id.tv_multiple_product_num);
+        tvSingleProductNum = (TextView) findViewById(R.id.tv_single_product_num);
+        tvCollectTopicNum = (TextView) findViewById(R.id.tv_collect_topic_num);
     }
 
     /**
@@ -153,5 +160,14 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         }
         mTabIndicator.get(index).setIconAlpha(1.0f);
         vpResult.setCurrentItem(index, false);
+    }
+
+    /**
+     * 我收藏的话题Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.TopicListEvent obj) {
+        tvCollectTopicNum.setText(String.valueOf(obj.getTopicList().size()));
     }
 }

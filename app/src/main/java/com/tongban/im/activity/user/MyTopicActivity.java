@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
@@ -37,6 +38,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();
     private ChangeColorView ccvMySendTopic;
     private ChangeColorView ccvMyReceiveTopic;
+    private TextView tvMySendTopicNum, tvMyCommentTopicNum;
 
     private int mIndicatorWidth;
 
@@ -56,6 +58,8 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         vpResult = (ViewPager) findViewById(R.id.vp_result);
         ccvMySendTopic.setIconAlpha(1.0f);
         initIndicator(2);
+        tvMySendTopicNum = (TextView) findViewById(R.id.tv_my_send_topic_num);
+        tvMyCommentTopicNum = (TextView) findViewById(R.id.tv_my_receive_topic_num);
     }
 
     /**
@@ -135,8 +139,21 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         }
     }
 
+    /**
+     * 我发起的话题Event
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
+        tvMySendTopicNum.setText(String.valueOf(obj.getTopicList().size()));
+    }
 
-
+    /**
+     * 回复我的话题Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
+        tvMyCommentTopicNum.setText(String.valueOf(obj.getCommentTopicList().size()));
     }
 }

@@ -449,8 +449,9 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<TopicComment> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                List<TopicComment> replyTopicList = apiResponse.getData().getResult();
-                callback.onComplete(replyTopicList);
+                BaseEvent.CommentTopicListEvent commentTopicListEvent=new BaseEvent.CommentTopicListEvent();
+                commentTopicListEvent.setCommentTopicList(apiResponse.getData().getResult());
+                callback.onComplete(commentTopicListEvent);
             }
 
             @Override
@@ -539,5 +540,33 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
+    public void cancelFocusUser(String[] focusUserId, final ApiCallback callback) {
 
+        mParams = new HashMap<>();
+        mParams.put("be_focused_user_id", focusUserId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+
+        simpleRequest(CANCEL_FOCUS_USER, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<User>>() {
+                        });
+                BaseEvent.CancelFocusEvent cancelFocusEvent=new BaseEvent.CancelFocusEvent();
+                cancelFocusEvent.setUser(apiResponse.getData());
+                callback.onComplete(cancelFocusEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
 }

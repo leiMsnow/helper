@@ -483,7 +483,56 @@ public class BaseEvent {
             this.status = status;
         }
     }
-    public static class UserCenterEvent{
+
+    /**
+     * 用户中心（他人）Event
+     */
+    public static class UserCenterEvent {
+        User user;
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
+
+    /**
+     * 回复我的话题列表Event
+     */
+    public static class CommentTopicListEvent {
+        List<TopicComment> commentTopicList;
+
+        public List<TopicComment> getCommentTopicList() {
+            return commentTopicList;
+        }
+
+        public void setCommentTopicList(List<TopicComment> commentTopicList) {
+            this.commentTopicList = commentTopicList;
+        }
+    }
+
+    /**
+     * 取消关注用户Event
+     */
+    public static class CancelFocusEvent {
+        User user;
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
+
+    /**
+     * 关注用户Event
+     */
+    public static class FocusEvent {
         User user;
 
         public User getUser() {

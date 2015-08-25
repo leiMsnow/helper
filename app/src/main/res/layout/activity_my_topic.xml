@@ -31,7 +31,7 @@
                 app:defaultColor="@color/normal_dark_grey" />
 
             <TextView
-                android:id="@+id/tv_my_send_topic"
+                android:id="@+id/tv_my_send_topic_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/ccv_my_send_topic"
@@ -58,7 +58,7 @@
                 app:defaultColor="@color/normal_dark_grey" />
 
             <TextView
-                android:id="@+id/tv_my_receive_topic"
+                android:id="@+id/tv_my_receive_topic_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/ccv_my_receive_topic"
