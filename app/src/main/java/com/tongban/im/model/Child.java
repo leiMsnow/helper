@@ -1,5 +1,7 @@
 package com.tongban.im.model;
 
+import android.text.TextUtils;
+
 /**
  * 孩子信息model
  * Created by zhangleilei on 8/22/15.
@@ -11,7 +13,7 @@ public class Child {
     private String constellation;
     private String sex;
     private String school;
-    private int age;
+    private String age;
 
     public String getNick_name() {
         return nick_name;
@@ -53,11 +55,13 @@ public class Child {
         this.school = school;
     }
 
-    public int getAge() {
+    public String getAge() {
+        if (TextUtils.isEmpty(age))
+            return "0";
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 }

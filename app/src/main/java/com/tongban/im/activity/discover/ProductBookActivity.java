@@ -25,7 +25,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
     protected void initView() {
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivShare = (ImageView) findViewById(R.id.iv_share);
-        ivCollect = (ImageView) findViewById(R.id.chb_collect);
+        ivCollect = (ImageView) findViewById(R.id.iv_collect);
 
     }
 

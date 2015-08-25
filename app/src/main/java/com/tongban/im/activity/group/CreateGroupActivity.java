@@ -95,7 +95,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
         tvLocation = (TextView) findViewById(R.id.tv_group_location);
 
-        tvBirthday = (TextView) findViewById(R.id.tv_birthday);
+        tvBirthday = (TextView) findViewById(R.id.tv_child_age);
         tvLife = (TextView) findViewById(R.id.tv_life);
 
         chbSecret = (CheckBox) findViewById(R.id.chb_secret);
@@ -113,7 +113,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 tvBirthday.setVisibility(View.VISIBLE);
                 break;
             case GroupType.LIFE:
-                tvLife.setVisibility(View.VISIBLE);
+//                tvLife.setVisibility(View.VISIBLE);
                 break;
             case GroupType.CLASSMATE:
                 tvLocation.setHint(R.string.create_school);

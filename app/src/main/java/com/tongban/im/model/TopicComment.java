@@ -9,18 +9,38 @@ import com.tongban.corelib.utils.DateUtils;
  * Created by fushudi on 2015/8/1.
  */
 public class TopicComment {
-    // 话题回复Id
+    // 话题评论Id
     private String comment_id;
-    // 创建时间
+    // 评论创建时间
     private long c_time;
-    // 回复的用户信息
+    // 发评论的用户信息
     private User user_info;
-    // 话题信息
+    // 回复的话题信息
     private Topic topic_info;
-    // 回复内容
+    // 评论/回复内容
     private String comment_content;
-    // 回复的回复Id
+    // 回复评论的Id
     private String replied_comment_id;
+    // 回复评论的用户Id
+    private String replied_user_id;
+    // 回复评论的用户昵称
+    private String replied_nick_name;
+
+    public String getReplied_user_id() {
+        return replied_user_id;
+    }
+
+    public void setReplied_user_id(String replied_user_id) {
+        this.replied_user_id = replied_user_id;
+    }
+
+    public String getReplied_nick_name() {
+        return replied_nick_name;
+    }
+
+    public void setReplied_nick_name(String replied_nick_name) {
+        this.replied_nick_name = replied_nick_name;
+    }
 
     public String getComment_id() {
         return comment_id;
@@ -32,7 +52,7 @@ public class TopicComment {
 
     public String getC_time(Context context) {
 
-        return DateUtils.formatDateTime(c_time,context);
+        return DateUtils.formatDateTime(c_time, context);
     }
 
     public void setC_time(long c_time) {

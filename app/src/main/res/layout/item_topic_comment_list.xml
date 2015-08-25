@@ -15,7 +15,7 @@
         android:id="@+id/iv_user_portrait"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/rc_default_portrait" />
 
@@ -45,8 +45,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:text="小鹿妈妈" />
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tv_comment_name"
@@ -56,7 +55,6 @@
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/tv_user_name"
             android:singleLine="true"
-            android:text="回复大象妈妈"
             android:textColor="@color/normal_grey"
             android:textSize="12sp" />
 
@@ -67,7 +65,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:text="11:50 AM"
             android:textColor="@color/normal_grey" />
 
         <TextView
@@ -77,7 +74,6 @@
             android:layout_below="@+id/tv_user_name"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text=""
             android:textColor="@color/normal_dark_grey" />
 
         <TextView

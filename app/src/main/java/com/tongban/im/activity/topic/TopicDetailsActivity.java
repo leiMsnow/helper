@@ -2,8 +2,6 @@ package com.tongban.im.activity.topic;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -11,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
@@ -45,7 +44,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     //底布局 bottom
     private ImageView ivComment;
     private TextView tvComment;
-    private CheckBox chbCollect;
+    private ImageView ivCollect;
     private TextView tvCollect;
 
 
@@ -72,6 +71,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         //添加头布局
         mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
         ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
+        tvAge = (TextView) mHeader.findViewById(R.id.tv_child_age);
         tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
         tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
 
@@ -82,7 +82,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-        chbCollect = (CheckBox) mHeader.findViewById(R.id.chb_collect);
+        ivCollect = (ImageView) mHeader.findViewById(R.id.iv_collect);
         tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -102,12 +102,16 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
         mAdapter.setOnClickListener(this);
         lvReplyList.setAdapter(mAdapter);
+
+        mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+                null);
+        gvContent.setAdapter(mTopicImgAdapter);
     }
 
     @Override
     protected void initListener() {
         ivComment.setOnClickListener(this);
-        chbCollect.setOnClickListener(this);
+        ivCollect.setOnClickListener(this);
     }
 
     @Override
@@ -116,8 +120,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
             KeyBoardUtils.openKeybord(topicInputView.getEtComment(), mContext);
-        } else if (v == chbCollect) {
-            TopicApi.getInstance().collectTopic(mTopicId, TopicDetailsActivity.this);
+        } else if (v == ivCollect) {
+            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
         } else {
             switch (v.getId()) {
                 //回复评论
@@ -146,22 +150,27 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                 Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().getPortrait_url().getMin())
                         .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
             }
+
+            tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁宝宝");
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
-            chbCollect.setChecked(topicInfoEvent.getTopic().isCollect_status());
-
+            if (mTopicInfo.getUser_info().getUser_id().equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
+                ivCollect.setEnabled(false);
+                ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+            } else {
+                if (mTopicInfo.isCollect_status()) {
+                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+                } else {
+                    ivCollect.setImageResource(R.drawable.selector_topic_collect);
+                }
+            }
             tvComment.setText(mTopicInfo.getComment_amount());
             tvCollect.setText(mTopicInfo.getCollect_amount());
 
-            if (mTopicInfo.getContentType() == Topic.IMAGE) {
-                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                        mTopicInfo.getTopic_img_url());
-                gvContent.setAdapter(mTopicImgAdapter);
-            }
-
+            mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
         } else {
             lvReplyList.removeHeaderView(mHeader);
         }
@@ -204,9 +213,17 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
+        int collectCount = Integer.parseInt(tvCollect.getText().toString());
+        mTopicInfo.setCollect_status(obj.isStatus());
         if (obj.isStatus()) {
             ToastUtil.getInstance(mContext).showToast("收藏成功");
-            chbCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
+            ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+            tvCollect.setText(String.valueOf(collectCount + 1));
+        } else {
+            ToastUtil.getInstance(mContext).showToast("取消成功");
+            ivCollect.setImageResource(R.drawable.selector_topic_collect);
+            tvCollect.setText(String.valueOf(collectCount - 1));
+
         }
     }
 }

@@ -52,7 +52,7 @@
 
             <!-- 同龄 - 选择年龄-->
             <TextView
-                android:id="@+id/tv_birthday"
+                android:id="@+id/tv_child_age"
                 style="@style/CreateGroupTextStyle"
                 android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"

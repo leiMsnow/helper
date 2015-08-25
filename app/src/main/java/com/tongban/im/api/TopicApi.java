@@ -55,6 +55,10 @@ public class TopicApi extends BaseApi {
      * 收藏话题
      */
     public static final String COLLECT_CREATE = "user/collect/topic";
+    /**
+     * 取消收藏话题
+     */
+    public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
 
     private TopicApi(Context context) {
         super(context);
@@ -269,15 +273,11 @@ public class TopicApi extends BaseApi {
                 ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                if (result.getData().getResult().size() > 0) {
-                    BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-                    topicCommentListEvent.setTopicCommentList(result.getData().getResult());
-                    if (callback != null)
-                        callback.onComplete(topicCommentListEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.Toast, "暂无话题回复数据");
-                }
+                BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
+                topicCommentListEvent.setTopicCommentList(result.getData().getResult());
+                if (callback != null)
+                    callback.onComplete(topicCommentListEvent);
+
             }
 
             @Override
@@ -310,9 +310,9 @@ public class TopicApi extends BaseApi {
         mParams.put("comment_content", commentContent);
         //回复评论用到的字段，如果不传这三个值，将视为回复话题
         if (repliedName != null && repliedUserId != null && repliedCommentId != null) {
-            mParams.put("replied_comment_id", commentContent);
-            mParams.put("replied_nick_name", commentContent);
-            mParams.put("replied_user_id", commentContent);
+            mParams.put("replied_comment_id", repliedCommentId);
+            mParams.put("replied_nick_name", repliedName);
+            mParams.put("replied_user_id", repliedUserId);
         }
 
 
@@ -345,15 +345,16 @@ public class TopicApi extends BaseApi {
     /**
      * 收藏话题
      *
-     * @param topicId
+     * @param collect  true:收藏；false：取消收藏
+     * @param topicId  话题Id
      * @param callback
      */
-    public void collectTopic(String topicId, final ApiCallback callback) {
+    public void collectTopic(final boolean collect, String topicId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_id", topicId);
 
-        simpleRequest(COLLECT_CREATE, mParams, new ApiCallback() {
+        simpleRequest(collect ? COLLECT_CREATE : NO_COLLECT_CREATE, mParams, new ApiCallback() {
                     @Override
                     public void onStartApi() {
                         if (callback != null)
@@ -364,7 +365,7 @@ public class TopicApi extends BaseApi {
                     public void onComplete(Object obj) {
 
                         if (callback != null)
-                            callback.onComplete(new BaseEvent.TopicCollect(true));
+                            callback.onComplete(new BaseEvent.TopicCollect(collect));
                     }
 
                     @Override
@@ -373,9 +374,6 @@ public class TopicApi extends BaseApi {
                             callback.onFailure(displayType, errorMessage);
                     }
                 }
-
         );
     }
-
-
 }

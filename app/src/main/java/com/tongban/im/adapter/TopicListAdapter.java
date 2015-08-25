@@ -34,7 +34,7 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
                 R.drawable.rc_default_portrait);
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
-        helper.setText(R.id.tv_birthday,
+        helper.setText(R.id.tv_child_age,
                 String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
                         item.getUser_info().getChild_info().get(0).getSex() + "宝宝");
         helper.setText(R.id.tv_create_time, item.getC_time(mContext));
@@ -43,25 +43,24 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         helper.setText(R.id.tv_topic_content, item.getTopic_content());
         if (item.getContentType() == Topic.IMAGE) {
             setImagesVisibleAndUrl(helper, item);
-            helper.setVisible(R.id.ll_small_img_parent,View.VISIBLE);
+            helper.setVisible(R.id.ll_small_img_parent, View.VISIBLE);
         } else {
-            helper.setVisible(R.id.ll_small_img_parent,View.GONE);
+            helper.setVisible(R.id.ll_small_img_parent, View.GONE);
         }
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, String.valueOf(item.getComment_amount()));
         helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
 
-        helper.setTag(R.id.iv_user_portrait,Integer.MAX_VALUE,item.getUser_info().getUser_id());
-        helper.setOnClickListener(R.id.iv_user_portrait,onClickListener);
+        helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getUser_info().getUser_id());
+        helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
     }
 
     //设置图片的显示/隐藏和src
     private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
         int count = item.getTopic_img_url().size() > 3 ? 3 : item.getTopic_img_url().size();
-        for (int i = 0; i < count; i++) {
-            if (item.getContentType() == Topic.TEXT) {
-                helper.setVisible(images[i], View.INVISIBLE);
-            } else {
+        for (int i = 0; i < images.length; i++) {
+            helper.setVisible(images[i], View.INVISIBLE);
+            if (i < count) {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
                         item.getTopic_img_url().get(i).getMin(), R.drawable.rc_ic_def_rich_content);

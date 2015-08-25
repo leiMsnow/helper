@@ -14,7 +14,7 @@
         android:src="@drawable/rc_default_portrait" />
 
     <TextView
-        android:id="@+id/tv_birthday"
+        android:id="@+id/tv_child_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -32,7 +32,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
         android:layout_toLeftOf="@+id/tv_create_time"
-        android:layout_toRightOf="@+id/tv_birthday"
+        android:layout_toRightOf="@+id/tv_child_age"
         android:text="昵称"
         android:textColor="@color/main_black" />
 
