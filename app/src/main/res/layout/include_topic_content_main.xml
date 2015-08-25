@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:singleLine="true"
-        android:text="话题标题"
         android:textColor="@color/main_black"
         android:textSize="16sp" />
 
@@ -23,8 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_title"
+        android:ellipsize="end"
         android:layout_marginBottom="8dp"
-        android:text="话题内容"
+        android:maxLines="5"
         android:textColor="@color/normal_dark_grey" />
 
     <LinearLayout

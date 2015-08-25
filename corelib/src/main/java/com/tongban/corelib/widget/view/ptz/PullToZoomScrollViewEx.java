@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.tongban.corelib.R;
+import com.tongban.corelib.utils.LogUtil;
 
 /**
  * Author:    ZhuWenWu
@@ -53,11 +54,11 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
             @Override
             public void onInternalScrollChanged(int left, int top, int oldLeft, int oldTop) {
                 if (isPullToZoomEnabled() && isParallax()) {
-                    Log.d(TAG, "onScrollChanged --> getScrollY() = " + mRootView.getScrollY());
                     float f = mHeaderHeight - mHeaderContainer.getBottom() + mRootView.getScrollY();
-                    Log.d(TAG, "onScrollChanged --> f = " + f);
                     if ((f > 0.0F) && (f < mHeaderHeight)) {
                         int i = (int) (0.65D * f);
+                        LogUtil.d(TAG, "onScrollChanged --> f = " + i);
+
                         mHeaderContainer.scrollTo(0, -i);
                     } else if (mHeaderContainer.getScrollY() != 0) {
                         mHeaderContainer.scrollTo(0, 0);
@@ -69,8 +70,6 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
 
     @Override
     protected void pullHeaderToZoom(int newScrollValue) {
-        Log.d(TAG, "pullHeaderToZoom --> newScrollValue = " + newScrollValue);
-        Log.d(TAG, "pullHeaderToZoom --> mHeaderHeight = " + mHeaderHeight);
         if (mScalingRunnable != null && !mScalingRunnable.isFinished()) {
             mScalingRunnable.abortAnimation();
         }
@@ -155,7 +154,6 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
 
     @Override
     protected void smoothScrollToTop() {
-        Log.d(TAG, "smoothScrollToTop --> ");
         mScalingRunnable.startAnimation(200L);
     }
 
@@ -229,7 +227,6 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
     protected void onLayout(boolean paramBoolean, int paramInt1, int paramInt2,
                             int paramInt3, int paramInt4) {
         super.onLayout(paramBoolean, paramInt1, paramInt2, paramInt3, paramInt4);
-        Log.d(TAG, "onLayout --> ");
         if (mHeaderHeight == 0 && mZoomView != null) {
             mHeaderHeight = mHeaderContainer.getHeight();
         }
@@ -260,7 +257,6 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
                     float f1 = ((float) SystemClock.currentThreadTimeMillis() - (float) mStartTime) / (float) mDuration;
                     f2 = mScale - (mScale - 1.0F) * PullToZoomScrollViewEx.sInterpolator.getInterpolation(f1);
                     localLayoutParams = mHeaderContainer.getLayoutParams();
-                    Log.d(TAG, "ScalingRunnable --> f2 = " + f2);
                     if (f2 > 1.0F) {
                         localLayoutParams.height = ((int) (f2 * mHeaderHeight));
                         mHeaderContainer.setLayoutParams(localLayoutParams);

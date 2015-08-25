@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_zoom"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@mipmap/ic_img_profile_bg"
-    android:scaleType="centerCrop"
-    android:layout_gravity="center_horizontal" />
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_zoom_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_user_center_bottom" />
+
+    <ImageView
+        android:id="@+id/iv_zoom_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_user_center_top" />
+
+
+</FrameLayout>

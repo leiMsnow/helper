@@ -8,9 +8,12 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.ModelToTable;
+import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.MultiProduct;
@@ -146,22 +149,33 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_USER_CENTER_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
-                userCenterEvent.setUser(apiResponse.getData());
-                callback.onComplete(userCenterEvent);
+
+                try {
+                    ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                            new TypeReference<ApiResult<User>>() {
+                            });
+                    // 将用户信息保存到本地数据库
+                    UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(apiResponse.getData()));
+                    BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
+                    userCenterEvent.setUser(apiResponse.getData());
+                    if (callback != null)
+                        callback.onComplete(userCenterEvent);
+                } catch (Throwable throwable) {
+                    LogUtil.e("fetchUserCenterInfo-throwable", throwable.toString());
+                }
+
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
         });
     }

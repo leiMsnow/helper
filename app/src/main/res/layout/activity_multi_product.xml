@@ -60,8 +60,7 @@
                     <com.tongban.corelib.widget.view.CircleImageView
                         android:id="@+id/iv_user_portrait"
                         android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@mipmap/ic_img_user_default"/>
+                        android:layout_height="30dp"/>
                     <!-- 发表人昵称 -->
                     <TextView
                         android:id="@+id/tv_user_name"

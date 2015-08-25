@@ -10,6 +10,7 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
@@ -18,6 +19,7 @@ import com.tongban.im.model.TopicComment;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 话题api
@@ -156,8 +158,9 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
+
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, "服务器被外星人抓走了");
+                    callback.onFailure(DisplayType.View, getErrorMessage());
             }
         });
     }

@@ -16,6 +16,7 @@ import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.CheckID;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import de.greenrobot.event.EventBus;
 
@@ -75,7 +77,7 @@ public class BaseApi {
      * @return 服务器地址
      */
     protected String getHostUrl() {
-        return SPUtils.get(mContext, HOST_FLAG,DEFAULT_HOST).toString();
+        return SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
     /**
@@ -83,7 +85,7 @@ public class BaseApi {
      *
      * @param flag 0线上；1test；2+其他开发人员地址
      */
-    public static void setHostUrl(Context mContext,int flag) {
+    public static void setHostUrl(Context mContext, int flag) {
         String saveUrl;
         switch (flag) {
             case 0:
@@ -129,14 +131,14 @@ public class BaseApi {
         }
         final String requestUrl = url;
         LogUtil.d("request-url:", requestUrl);
-        LogUtil.d("request-url:","request-params: \n " + new JSONObject(params).toString());
+        LogUtil.d("request-url:", "request-params: \n " + new JSONObject(params).toString());
         // 创建request
         request = new JsonObjectRequest(requestUrl, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         LogUtil.d("onResponse-url:", requestUrl);
-                        LogUtil.d("onResponse-url:","onResponse-data: \n " + jsonObject.toString());
+                        LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
                         // 如果当前请求位于失败请求的队列中,则移除
                         if (BaseApiActivity.getFailedRequest().contains(request)) {
                             BaseApiActivity.getFailedRequest().remove(request);
@@ -157,7 +159,7 @@ public class BaseApi {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtil.d("onErrorResponse-url:", requestUrl);
-                LogUtil.d("onErrorResponse-url:","onErrorResponse-info: volleyError-ServerError");
+                LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
                 // 将当前的请求添加到失败队列中
                 if (!BaseApiActivity.getFailedRequest().contains(request)) {
                     BaseApiActivity.getFailedRequest().add(request);
@@ -186,4 +188,12 @@ public class BaseApi {
 
         return request;
     }
+
+    protected String getErrorMessage() {
+        Random random = new Random(mContext.getResources().
+                getStringArray(R.array.error_message).length);
+        return mContext.getResources().getStringArray(R.array.error_message)[random.nextInt()];
+    }
+
+    ;
 }

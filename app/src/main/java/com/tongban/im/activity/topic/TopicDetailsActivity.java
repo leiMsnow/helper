@@ -177,7 +177,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                         .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
             }
 
-            tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁宝宝");
+            tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
+                    mTopicInfo.getUser_info().getChild_info().get(0).getSex() + "宝宝");
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());

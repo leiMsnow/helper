@@ -20,7 +20,7 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/iv_comment"
         android:gravity="center"
-        android:text="1"
+        android:text="0"
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
@@ -43,7 +43,7 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/iv_collect"
         android:gravity="center"
-        android:text="300"
+        android:text="0"
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 

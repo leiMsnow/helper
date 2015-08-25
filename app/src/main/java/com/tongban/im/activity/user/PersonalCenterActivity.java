@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
@@ -29,7 +30,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
-    private LinearLayout llMyTopic,llMyCollect;
+    private LinearLayout llMyTopic, llMyCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +139,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     //返回个人中心数据
     public void onEventMainThread(User user) {
-//        Glide.with(mContext).load(user.getPortrait_url()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
+        Glide.with(mContext).load(user.getPortrait_url().getMin()).
+                placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvUserName.setText(user.getNick_name() + user.getBirthday());
         tvDeclaration.setText(user.getTags());
         tvFansCount.setText(user.getFans_amount() + "");

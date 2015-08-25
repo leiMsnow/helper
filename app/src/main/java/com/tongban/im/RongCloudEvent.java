@@ -9,6 +9,8 @@ import android.view.View;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
@@ -287,7 +289,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public UserInfo getUserInfo(String userId) {
 
-        AccountApi.getInstance().getUserInfoByUserId(userId, null);
+        UserCenterApi.getInstance().fetchUserCenterInfo(userId, null);
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
             LogUtil.d("userTable-----" + userTable.getUser_id());
@@ -322,13 +324,14 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      *
      * @param context          应用当前上下文。
      * @param conversationType 会话类型。
-     * @param userInfo             被点击的用户的信息。
+     * @param userInfo         被点击的用户的信息。
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType
             conversationType, UserInfo userInfo) {
         if (userInfo != null) {
+            TransferCenter.getInstance().startUserCenter(userInfo.getUserId());
             LogUtil.d(TAG, "onUserPortraitClick: " + userInfo.getUserId());
         }
 
