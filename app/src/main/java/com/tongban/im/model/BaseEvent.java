@@ -483,6 +483,10 @@ public class BaseEvent {
             this.status = status;
         }
     }
+
+    /**
+     * 用户中心（他人）Event
+     */
     public static class UserCenterEvent{
         User user;
 
@@ -492,6 +496,20 @@ public class BaseEvent {
 
         public void setUser(User user) {
             this.user = user;
+        }
+    }
+    /**
+     * 回复我的话题列表Event
+     */
+    public static class CommentTopicListEvent{
+        List<TopicComment> commentTopicList;
+
+        public List<TopicComment> getCommentTopicList() {
+            return commentTopicList;
+        }
+
+        public void setCommentTopicList(List<TopicComment> commentTopicList) {
+            this.commentTopicList = commentTopicList;
         }
     }
 }

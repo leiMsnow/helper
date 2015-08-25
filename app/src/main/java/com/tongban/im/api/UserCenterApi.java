@@ -449,8 +449,9 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<TopicComment> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                List<TopicComment> replyTopicList = apiResponse.getData().getResult();
-                callback.onComplete(replyTopicList);
+                BaseEvent.CommentTopicListEvent commentTopicListEvent=new BaseEvent.CommentTopicListEvent();
+                commentTopicListEvent.setCommentTopicList(apiResponse.getData().getResult());
+                callback.onComplete(commentTopicListEvent);
             }
 
             @Override

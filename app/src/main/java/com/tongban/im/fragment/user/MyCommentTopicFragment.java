@@ -13,6 +13,7 @@ import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.TopicComment;
 
 import java.util.List;
@@ -53,9 +54,9 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_user_portrait:
-                String visitorId=v.getTag().toString();
-                Intent intent=new Intent(mContext,UserCenterActivity.class);
-                intent.putExtra("visitorId",visitorId);
+                String visitorId = v.getTag().toString();
+                Intent intent = new Intent(mContext, UserCenterActivity.class);
+                intent.putExtra("visitorId", visitorId);
                 startActivity(intent);
                 break;
             case R.id.tv_comment:
@@ -69,7 +70,11 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
         startActivity(new Intent(mContext, TopicDetailsActivity.class));
     }
 
-    public void onEventMainThread(List<TopicComment> replyTopicList) {
-        mAdapter.replaceAll(replyTopicList);
+    /**
+     * 回复我的话题Event
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
+        mAdapter.replaceAll(obj.getCommentTopicList());
     }
 }
