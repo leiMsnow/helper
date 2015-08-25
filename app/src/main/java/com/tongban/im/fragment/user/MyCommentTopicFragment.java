@@ -13,6 +13,7 @@ import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.TopicComment;
 
@@ -67,7 +68,8 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(mContext, TopicDetailsActivity.class));
+//        startActivity(new Intent(mContext, TopicDetailsActivity.class));
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getUser_info().getUser_id());
     }
 
     /**
