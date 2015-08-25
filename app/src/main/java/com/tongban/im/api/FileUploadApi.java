@@ -248,47 +248,6 @@ public class FileUploadApi extends BaseApi {
                 }, options);
     }
 
-
-    /**
-     * 批量上传
-     */
-    @Deprecated
-    class MyMultiCompletionHandler implements UpCompletionHandler {
-
-        private List<ImageUrl> resultUrls;
-        private boolean isReturn = false;
-        private String minSize;
-        private String midSize;
-        private MultiUploadFileCallback mCallback;
-
-        public MyMultiCompletionHandler(List<ImageUrl> resultUrls, boolean isReturn,
-                                        String minSize, String midSize, MultiUploadFileCallback callback) {
-            this.resultUrls = resultUrls;
-            this.isReturn = isReturn;
-            this.minSize = minSize;
-            this.midSize = midSize;
-            this.mCallback = callback;
-        }
-
-
-        @Override
-        public void complete(String key, ResponseInfo info, JSONObject response) {
-            if (response != null) {
-                LogUtil.d("MultiUploadFileCallback-complete", response.toString());
-                if (mCallback != null) {
-                    String responseKey = response.optString("key");
-                    String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
-                    String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
-                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
-                    ImageUrl url = new ImageUrl(min, mid, max);
-                    resultUrls.add(url);
-                    if (isReturn)
-                        mCallback.uploadSuccess(resultUrls);
-                }
-            }
-        }
-    }
-
     /**
      * 上传成功回调
      */
