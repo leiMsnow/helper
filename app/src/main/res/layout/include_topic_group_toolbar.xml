@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:id="@+id/rl_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@+id/ib_search"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="4dp"
+        android:singleLine="true"
+        android:text="标题"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/rb_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/chat"
+            android:textColor="@drawable/selector_main_tab_text_color"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/rb_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/recommend"
+            android:textColor="@drawable/selector_main_tab_text_color"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+
+    <ImageButton
+        android:id="@+id/ib_search"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/ib_create"
+        android:background="@drawable/selector_white_to_gray"
+        android:src="@mipmap/ic_menu_search" />
+
+
+    <ImageButton
+        android:id="@+id/ib_create"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/selector_white_to_gray"
+        android:src="@mipmap/ic_menu_topic_add" />
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
+

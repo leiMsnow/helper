@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,8 +42,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     private ListView lvTopicList;
     private TopicListAdapter mAdapter;
-    private FloatingActionButton mFab;
-    private ImageView ivSearch;
+    private ImageButton ibSearch;
+    private ImageButton ibCreate;
     private TextView tvTitle;
 
     @Override
@@ -53,23 +54,18 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initView() {
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
-        ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
+        ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
+        ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
         lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
-        mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
 
+        tvTitle.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initListener() {
-        ivSearch.setOnClickListener(this);
+        ibSearch.setOnClickListener(this);
+        ibCreate.setOnClickListener(this);
         lvTopicList.setOnItemClickListener(this);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, CreateTopicActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -85,8 +81,10 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v == ivSearch) {
-            Intent intent = new Intent(mContext, SearchTopicActivity.class);
+        if (v == ibSearch) {
+            TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_TOPIC, null);
+        } else if (v == ibCreate) {
+            Intent intent = new Intent(mContext, CreateTopicActivity.class);
             startActivity(intent);
         } else {
             switch (v.getId()) {

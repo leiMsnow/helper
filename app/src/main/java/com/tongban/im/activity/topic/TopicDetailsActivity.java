@@ -2,6 +2,8 @@ package com.tongban.im.activity.topic;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -43,7 +45,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     //底布局 bottom
     private ImageView ivComment;
     private TextView tvComment;
-    private ImageView ivCollect;
+    private CheckBox chbCollect;
     private TextView tvCollect;
 
 
@@ -80,7 +82,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-        ivCollect = (ImageView) mHeader.findViewById(R.id.chb_collect);
+        chbCollect = (CheckBox) mHeader.findViewById(R.id.chb_collect);
         tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -105,7 +107,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     @Override
     protected void initListener() {
         ivComment.setOnClickListener(this);
-        ivCollect.setOnClickListener(this);
+        chbCollect.setOnClickListener(this);
     }
 
     @Override
@@ -114,10 +116,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
             KeyBoardUtils.openKeybord(topicInputView.getEtComment(), mContext);
-        }
-        //收藏话题
-        else if (v == ivCollect) {
-            TopicApi.getInstance().collectTopic(mTopicId, this);
+        } else if (v == chbCollect) {
+            TopicApi.getInstance().collectTopic(mTopicId, TopicDetailsActivity.this);
         } else {
             switch (v.getId()) {
                 //回复评论
@@ -129,6 +129,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                     break;
             }
         }
+
     }
 
     /**
@@ -150,9 +151,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
-            if (topicInfoEvent.getTopic().isCollect_status()){
-                ivCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
-            }
+            chbCollect.setChecked(topicInfoEvent.getTopic().isCollect_status());
+
             tvComment.setText(mTopicInfo.getComment_amount());
             tvCollect.setText(mTopicInfo.getCollect_amount());
 
@@ -206,7 +206,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
         if (obj.isStatus()) {
             ToastUtil.getInstance(mContext).showToast("收藏成功");
-            ivCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
+            chbCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
         }
     }
 }

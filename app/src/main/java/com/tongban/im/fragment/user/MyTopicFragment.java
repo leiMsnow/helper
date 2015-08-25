@@ -41,39 +41,21 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     private ListView lvTopicList;
     private TopicListAdapter mAdapter;
-    private FloatingActionButton mFab;
-    private ImageView ivSearch;
-    private TextView tvTitle;
-    private RelativeLayout rlToolBar;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_topic;
+        return R.layout.fragment_my_topic;
     }
 
     @Override
     protected void initView() {
-        rlToolBar = (RelativeLayout) mView.findViewById(R.id.rl_toolbar);
-        rlToolBar.setVisibility(View.GONE);
-        tvTitle = (TextView) mView.findViewById(R.id.tv_title);
-        ivSearch = (ImageView) mView.findViewById(R.id.iv_search_topic);
         lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
-        mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
-        mFab.setVisibility(View.GONE);
 
     }
 
     @Override
     protected void initListener() {
-        ivSearch.setOnClickListener(this);
         lvTopicList.setOnItemClickListener(this);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, CreateTopicActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -140,18 +122,5 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
         mAdapter.replaceAll(obj.getTopicList());
         lvTopicList.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
     }
 }

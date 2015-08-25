@@ -21,7 +21,6 @@ import com.tongban.im.model.Group;
 public class RecommendGroupFragment extends BaseApiFragment implements View.OnClickListener {
 
     private ListView lvGroupList;
-//    private FloatingActionButton mFab;
 
     private GroupListAdapter mAdapter;
 
@@ -33,18 +32,10 @@ public class RecommendGroupFragment extends BaseApiFragment implements View.OnCl
     @Override
     protected void initView() {
         lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
-//        mFab = (FloatingActionButton) mView.findViewById(R.id.fab_add);
     }
 
     @Override
     protected void initListener() {
-//        mFab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     @Override

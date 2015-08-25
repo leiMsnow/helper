@@ -2,10 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/in_topic_toolbar"
-        layout="@layout/include_topic_group_toolbar" />
-
     <ListView
         android:id="@+id/lv_topic_list"
         android:layout_width="match_parent"

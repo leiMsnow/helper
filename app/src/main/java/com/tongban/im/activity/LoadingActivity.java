@@ -84,6 +84,13 @@ public class LoadingActivity extends BaseToolBarActivity {
         finish();
     }
 
+    public void onEventMainThread(String obj) {
+        RongCloudEvent.getInstance().
+                connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
     public void onEventMainThread(BaseEvent.ConnectionErrorEvent obj) {
         RongCloudEvent.getInstance().
                 connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());

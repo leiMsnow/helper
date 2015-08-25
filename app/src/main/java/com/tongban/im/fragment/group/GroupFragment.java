@@ -27,7 +27,7 @@ public class GroupFragment extends BaseApiFragment {
     private RadioGroup rgCircle;
     // 圈子页顶部的搜索按钮
     private ImageButton ibSearch;
-    private ImageButton ibCreateGroup;
+    private ImageButton ibCreate;
 
     private FragmentManager fm;
     private ConversationListFragment chatFragment;
@@ -42,8 +42,9 @@ public class GroupFragment extends BaseApiFragment {
     protected void initView() {
         // 圈子页的顶部tab
         rgCircle = (RadioGroup) mView.findViewById(R.id.rg_circle);
+        rgCircle.setVisibility(View.VISIBLE);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
-        ibCreateGroup = (ImageButton) mView.findViewById(R.id.ib_add);
+        ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
 
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
@@ -82,7 +83,7 @@ public class GroupFragment extends BaseApiFragment {
             }
         });
 
-        ibCreateGroup.setOnClickListener(new View.OnClickListener() {
+        ibCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
