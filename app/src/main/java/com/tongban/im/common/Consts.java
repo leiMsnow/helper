@@ -114,7 +114,10 @@ public class Consts {
      * 2.未关注的：1 "UN_FOCUS"
      */
     public static final String KEY_FOCUS = "KEY_FOCUS";
-
+    /**
+     * 被关注者的Id
+     */
+    public static final int KEY_FOCUS_ID = 1;
 
     //------------------------------商品相关key------------------------------------------------------
     public static final String KEY_MULTI_PRODUCT_ID = "KEY_MULTI_PRODUCT_ID";

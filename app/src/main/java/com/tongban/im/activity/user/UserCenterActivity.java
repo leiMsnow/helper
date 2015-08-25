@@ -2,6 +2,7 @@ package com.tongban.im.activity.user;
 
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 import static com.tongban.im.common.Consts.KEY_FOCUS;
@@ -24,7 +26,7 @@ import static com.tongban.im.common.Consts.KEY_FOCUS;
  *
  * @author fushudi
  */
-public class UserCenterActivity extends BaseToolBarActivity {
+public class UserCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
     private PullToZoomScrollViewEx lvUserCenter;
 
     private TextView tvTags, tvUserName;
@@ -81,10 +83,12 @@ public class UserCenterActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
-
+        ivFocus.setOnClickListener(this);
+        ivCancelFocus.setOnClickListener(this);
     }
 
-    public void onEventMainThread(User user) {
+    public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
+        User user = obj.getUser();
         if (user.getSex().equals("男")) {
             Glide.with(mContext).load(R.mipmap.ic_boy).into(ivSex);
         } else {
@@ -97,8 +101,25 @@ public class UserCenterActivity extends BaseToolBarActivity {
         tvGroupNum.setText(user.getJoined_group_amount());
         if (user.is_focused()) {
             ivCancelFocus.setVisibility(View.VISIBLE);
+            ivCancelFocus.setTag(user.getUser_id());
         } else {
             ivFocus.setVisibility(View.VISIBLE);
+            ivFocus.setTag(user.getUser_id());
+            Log.d("user.getUser_id", user.getUser_id());
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        //添加关注
+        if (v == ivFocus) {
+            String focusId = v.getTag().toString();
+            UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
+        }
+        //取消关注
+        else if (v == ivCancelFocus) {
+            String focusId = v.getTag().toString();
+            UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
         }
     }
 }
