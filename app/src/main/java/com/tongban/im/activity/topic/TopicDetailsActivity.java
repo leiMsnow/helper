@@ -1,26 +1,35 @@
 package com.tongban.im.activity.topic;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
+import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 话题评论界面
@@ -28,7 +37,7 @@ import com.tongban.im.widget.view.TopicInputView;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener {
+        TopicInputView.onClickCommentListener,AdapterView.OnItemClickListener {
 
     //头布局控件
     private View mHeader;
@@ -112,6 +121,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     protected void initListener() {
         ivComment.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
+        gvContent.setOnItemClickListener(this);
     }
 
     @Override
@@ -151,7 +161,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.getTopic();
         if (mTopicInfo != null) {
-
+            setTitle(mTopicInfo.getTopic_title());
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
                 Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().getPortrait_url().getMin())
@@ -228,4 +238,26 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         }
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putStringArrayList(PhotoViewFragment.KEY_URL,setImageUrls(mTopicImgAdapter.getDataAll()));
+        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, position);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+
+    //取出大图地址存入集合中
+    private ArrayList<String> setImageUrls(List<ImageUrl> imageUrls) {
+        ArrayList<String> urls = new ArrayList<>();
+        for (int i = 0; i < imageUrls.size(); i++) {
+            urls.add(imageUrls.get(i).getMax());
+        }
+        return urls;
+    }
+
 }

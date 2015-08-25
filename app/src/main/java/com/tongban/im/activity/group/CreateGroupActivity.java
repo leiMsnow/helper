@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -27,7 +28,10 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Calendar;
@@ -135,13 +139,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initData() {
-        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, -1.0D);
-        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, -1.0D);
-        province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
-        city = (String) SPUtils.get(mContext, Consts.CITY, "");
-        county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
-        address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
-        setLocationInfo();
+        LocationUtils.get(mContext).start();
     }
 
     @Override
@@ -160,18 +158,25 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
                 ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement) + "'");
                 return;
             }
-
+            if (mGroupIcon == null) {
+                ToastUtil.getInstance(mContext).showToast("添加一个头像吧");
+                return;
+            }
+            if (TextUtils.isEmpty(address)) {
+                ToastUtil.getInstance(mContext).showToast("请选择一个位置");
+                return;
+            }
             declaration = etDesc.getText().toString().trim();
-            FileUploadApi.getInstance().uploadFile(mGroupIcon, null,FileUploadApi.IMAGE_SIZE_300,
+            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, FileUploadApi.IMAGE_SIZE_300,
                     FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
-                @Override
-                public void uploadSuccess(ImageUrl url) {
-                    GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
-                            birthday, tags, declaration, url, chbSecret.isChecked(),
-                            CreateGroupActivity.this);
-                }
-            });
+                        @Override
+                        public void uploadSuccess(ImageUrl url) {
+                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+                                    birthday, tags, declaration, url, chbSecret.isChecked(),
+                                    CreateGroupActivity.this);
+                        }
+                    });
 
 
         } else if (v == tvLocation) {
@@ -275,6 +280,16 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     public void onEventMainThread(BaseEvent.LabelEvent obj) {
         tags = obj.getLabel();
         tvGroupLabel.setText(tags);
+    }
+
+    public void onEventMainThread(BDLocation obj) {
+        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, -1.0D);
+        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, -1.0D);
+        province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
+        city = (String) SPUtils.get(mContext, Consts.CITY, "");
+        county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
+        address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+        setLocationInfo();
     }
 
 

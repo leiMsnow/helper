@@ -16,18 +16,21 @@
         android:background="@color/white"
         android:gravity="center"
         android:hint="@string/input_topic"
+        android:maxLength="30"
         android:minHeight="80dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:singleLine="true"
         android:textColorHint="@color/normal_light_grey"
         android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/et_topic_name"
         android:layout_marginTop="5dp"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/et_topic_content"
@@ -36,10 +39,13 @@
             android:background="@color/white"
             android:gravity="top|left"
             android:hint="@string/hint_topic_content"
+            android:maxLength="2000"
+            android:maxLines="10"
             android:minHeight="80dp"
             android:paddingBottom="16dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:paddingTop="16dp"
-            android:maxLength="10"
             android:textColorHint="@color/normal_light_grey"
             android:textSize="16sp" />
 
@@ -47,6 +53,7 @@
             android:id="@+id/gv_add_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="8dp"
             android:columnWidth="80dp"
             android:horizontalSpacing="4dp"
             android:numColumns="3"

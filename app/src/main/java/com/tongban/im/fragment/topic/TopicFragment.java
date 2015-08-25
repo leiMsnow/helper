@@ -46,6 +46,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private ImageButton ibCreate;
     private TextView tvTitle;
 
+    private int mCursor = 0;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_topic;
@@ -164,6 +166,14 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
-        TopicApi.getInstance().recommendTopicList(0, 10, this);
+        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+    }
+
+    public void onEventMainThread(BaseEvent.TopicCollect obj) {
+        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+    }
+
+    public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
+        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
     }
 }
