@@ -37,7 +37,7 @@
                 android:layout_toRightOf="@+id/ccv_multiple_product"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
-                android:text="123"
+                android:text="0"
                 android:textColor="@color/normal_grey"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -64,7 +64,7 @@
                 android:layout_toRightOf="@+id/ccv_single_product"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
-                android:text="23"
+                android:text="0"
                 android:textColor="@color/normal_grey"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -85,13 +85,13 @@
                 app:defaultColor="@color/normal_dark_grey" />
 
             <TextView
-                android:id="@+id/tv_group_num"
+                android:id="@+id/tv_collect_topic_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/ccv_topic"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
-                android:text="12"
+                android:text="0"
                 android:textColor="@color/normal_grey"
                 android:textSize="14sp" />
         </RelativeLayout>
