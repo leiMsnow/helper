@@ -105,10 +105,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_topic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -128,12 +130,11 @@
                 <View style="@style/HorizontalLine"/>
 
                 <!-- 相关话题列表 -->
-                <ListView
-                    android:id="@+id/lv_topic"
+                <LinearLayout
+                    android:id="@+id/ll_topic_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@null"
-                    android:scrollbars="none"/>
+                    android:orientation="vertical"/>
             </LinearLayout>
         </LinearLayout>
 

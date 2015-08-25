@@ -20,6 +20,8 @@ public class MultiProduct {
     private String status;
     // 发布人id
     private String user_id;
+    // 收藏状态
+    private boolean collect_status;
     // 发布时间
     private long c_time;
     // 修改时间
@@ -79,6 +81,14 @@ public class MultiProduct {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public boolean isCollect_status() {
+        return collect_status;
+    }
+
+    public void setCollect_status(boolean collect_status) {
+        this.collect_status = collect_status;
     }
 
     public long getC_time() {

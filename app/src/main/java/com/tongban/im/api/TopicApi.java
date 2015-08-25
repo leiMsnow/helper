@@ -184,15 +184,10 @@ public class TopicApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-                if (result.getData().getResult().size() > 0) {
-                    BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
-                    topicListEvent.setTopicList(result.getData().getResult());
-                    if (callback != null)
-                        callback.onComplete(topicListEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "没找到符合条件的话题");
-                }
+                BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
+                topicListEvent.setTopicList(result.getData().getResult());
+                if (callback != null)
+                    callback.onComplete(topicListEvent);
             }
 
             @Override
