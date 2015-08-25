@@ -1,9 +1,12 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +84,7 @@ public class ProductPriceAdapter extends BaseAdapter {
         return str;
     }
 
-    private String getPrice(String price) {
+    private SpannableStringBuilder getPrice(String price) {
         SpannableStringBuilder sb = new SpannableStringBuilder(price);
         int index = price.indexOf(".");
         if (index != -1) {
@@ -89,6 +92,6 @@ public class ProductPriceAdapter extends BaseAdapter {
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         sb.insert(0, "￥");
-        return sb.toString();
+        return sb;
     }
 }
