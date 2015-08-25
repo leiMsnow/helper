@@ -11,26 +11,19 @@
         android:layout_marginTop="72dp">
         <!-- 头像-->
         <ImageView
-            android:id="@+id/iv_user_head"
+            android:id="@+id/iv_user_portrait"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_img_user_default" />
 
-        <ImageView
-            android:id="@+id/iv_focus"
+        <CheckBox
+            android:id="@+id/chb_focus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@mipmap/ic_focus"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/iv_cancel_focus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@mipmap/ic_cancel_focus"
+            android:background="@drawable/selector_user_focus"
+            android:button="@null"
             android:visibility="gone" />
     </FrameLayout>
     <!-- 用户信息布局-->
