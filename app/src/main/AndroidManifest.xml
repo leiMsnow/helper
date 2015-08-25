@@ -167,9 +167,7 @@
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activity.user.PersonalCenterActivity"
-            android:label="@string/user_center" />
+
         <activity
             android:name=".activity.group.SearchPoiActivity"
             android:label="@string/select_location" />
@@ -211,11 +209,26 @@
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalInfoActivity" />
+
         <activity android:name=".activity.user.MyRelationshipActivity" />
         <activity android:name=".activity.user.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
         <activity android:name=".activity.user.MyGroupActivity" />
-        <activity android:name=".activity.user.UserCenterActivity" >
+        <activity
+            android:name=".activity.user.PersonalCenterActivity"
+            android:label="@string/user_center">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/mycenter/"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.user.UserCenterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

@@ -19,4 +19,8 @@ public class TransferPathPrefix {
      * 用户中心/他人
      */
     public static final String USER_CENTER = "usercenter";
+    /**
+     * 用户中心
+     */
+    public static final String MY_CENTER = "mycenter";
 }

@@ -63,7 +63,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
                 break;
             case R.id.iv_user_icon:
                 String visitorId = v.getTag(Integer.MAX_VALUE).toString();
-                TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER,visitorId);
+                TransferCenter.getInstance().startUserCenter(visitorId);
                 break;
         }
     }

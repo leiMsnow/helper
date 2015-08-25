@@ -102,7 +102,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                     break;
                 case R.id.iv_user_portrait:
                     String userId = v.getTag(Integer.MAX_VALUE).toString();
-                    TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER, userId);
+                    TransferCenter.getInstance().startUserCenter(userId);
                     break;
             }
         }
