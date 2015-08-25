@@ -22,6 +22,7 @@ import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.MultiProduct;
@@ -249,9 +250,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, TopicDetailsActivity.class);
-                    intent.putExtra(Consts.KEY_TOPIC_ID, topic.getTopic_id());
-                    startActivity(intent);
+                    TransferCenter.getInstance().startTopicDetails(topic.getTopic_id());
                 }
             });
             mTopicList.addView(view);
