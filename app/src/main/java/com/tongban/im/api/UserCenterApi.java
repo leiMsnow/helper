@@ -1,6 +1,7 @@
 package com.tongban.im.api;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -204,10 +205,10 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchMyGroupList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchMyGroupList(int cursor, int pageSize, String userId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", userId);
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
@@ -243,10 +244,11 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFocusUserList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchFocusUserList(int cursor, int pageSize, String userId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", TextUtils.isEmpty(userId) ?
+                SPUtils.get(mContext, Consts.USER_ID, "") : userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -281,10 +283,11 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFansUserList(int cursor, int pageSize, final ApiCallback callback) {
-
+    public void fetchFansUserList(int cursor, int pageSize, String userId, final ApiCallback callback) {
+//
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", TextUtils.isEmpty(userId) ? SPUtils.get(mContext, Consts.USER_ID, "") :
+                userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
