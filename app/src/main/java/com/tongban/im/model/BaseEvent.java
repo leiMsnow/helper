@@ -514,33 +514,19 @@ public class BaseEvent {
         }
     }
 
-    /**
-     * 取消关注用户Event
-     */
-    public static class CancelFocusEvent {
-        User user;
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-    }
 
     /**
      * 关注用户Event
      */
     public static class FocusEvent {
-        User user;
+       boolean isFocus;
 
-        public User getUser() {
-            return user;
+        public boolean isFocus() {
+            return isFocus;
         }
 
-        public void setUser(User user) {
-            this.user = user;
+        public void setIsFocus(boolean isFocus) {
+            this.isFocus = isFocus;
         }
     }
 }

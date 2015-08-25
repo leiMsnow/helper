@@ -1,26 +1,21 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
-/**
- * 关注界面
- * @author fushudi
- */
+
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
-import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.User;
 
-import java.util.List;
-
+/**
+ * 关注界面
+ *
+ * @author fushudi
+ */
 public class FocusFragment extends BaseApiFragment implements View.OnClickListener {
     private ListView lvFocusList;
     private UserAdapter mAdapter;
@@ -49,7 +44,9 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
 
     }
 
-    //我的关注Event
+    /**
+     * 我的关注Event
+     */
     public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
         mAdapter.replaceAll(obj.getMyFollowList());
     }
@@ -57,10 +54,12 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //取消关注
             case R.id.btn_follow:
                 String focusId = v.getTag().toString();
-                UserCenterApi.getInstance().focusUser(new String[]{focusId}, this);
+                UserCenterApi.getInstance().focusUser(false,new String[]{focusId}, this);
                 break;
+            //跳到用户中心（他人）
             case R.id.iv_user_icon:
                 String visitorId = v.getTag(Integer.MAX_VALUE).toString();
                 TransferCenter.getInstance().startUserCenter(visitorId);

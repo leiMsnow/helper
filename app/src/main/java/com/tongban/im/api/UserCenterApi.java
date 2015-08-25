@@ -59,7 +59,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取我的收藏 - 专题列表
      */
-    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST="user/collect/theme/list";
+    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST = "user/collect/theme/list";
     /**
      * 获取我的话题 - 回复我的话题列表
      */
@@ -76,7 +76,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 取消关注用户
      */
-    public static final String CANCEL_FOCUS_USER = "user/nofucus/user";
+    public static final String CANCEL_FOCUS_USER = "user/nofocus/user";
 
     /**
      * 获取用户（他人）资料
@@ -153,7 +153,7 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                BaseEvent.UserCenterEvent userCenterEvent=new BaseEvent.UserCenterEvent();
+                BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
                 userCenterEvent.setUser(apiResponse.getData());
                 callback.onComplete(userCenterEvent);
             }
@@ -224,7 +224,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
-                BaseEvent.MyGroupListEvent myGroupListEvent=new BaseEvent.MyGroupListEvent();
+                BaseEvent.MyGroupListEvent myGroupListEvent = new BaseEvent.MyGroupListEvent();
                 myGroupListEvent.setMyGroupList(apiResponse.getData().getResult());
                 callback.onComplete(myGroupListEvent);
             }
@@ -262,7 +262,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<User>>() {
                         });
-                BaseEvent.MyFollowListEvent myFollowListEvent=new BaseEvent.MyFollowListEvent();
+                BaseEvent.MyFollowListEvent myFollowListEvent = new BaseEvent.MyFollowListEvent();
                 myFollowListEvent.setMyFollowList(apiResponse.getData().getResult());
                 callback.onComplete(myFollowListEvent);
             }
@@ -300,7 +300,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<User>>() {
                         });
-                BaseEvent.MyFansListEvent myFansListEvent=new BaseEvent.MyFansListEvent();
+                BaseEvent.MyFansListEvent myFansListEvent = new BaseEvent.MyFansListEvent();
                 myFansListEvent.setMyFansList(apiResponse.getData().getResult());
                 callback.onComplete(myFansListEvent);
             }
@@ -330,11 +330,10 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                // TODO 数据格式错误
                 ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
-                BaseEvent.CollectSingleProductEvent collectSingleProductEvent=new BaseEvent.CollectSingleProductEvent();
+                BaseEvent.CollectSingleProductEvent collectSingleProductEvent = new BaseEvent.CollectSingleProductEvent();
                 collectSingleProductEvent.setSingleProductList(apiResponse.getData().getResult());
                 callback.onComplete(collectSingleProductEvent);
             }
@@ -410,7 +409,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<MultiProduct> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<MultiProduct>>() {
                         });
-                BaseEvent.CollectMultiProductEvent collectMultiProductEvent=new BaseEvent.CollectMultiProductEvent();
+                BaseEvent.CollectMultiProductEvent collectMultiProductEvent = new BaseEvent.CollectMultiProductEvent();
                 collectMultiProductEvent.setMultiProductList(result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(collectMultiProductEvent);
@@ -449,7 +448,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<TopicComment> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                BaseEvent.CommentTopicListEvent commentTopicListEvent=new BaseEvent.CommentTopicListEvent();
+                BaseEvent.CommentTopicListEvent commentTopicListEvent = new BaseEvent.CommentTopicListEvent();
                 commentTopicListEvent.setCommentTopicList(apiResponse.getData().getResult());
                 callback.onComplete(commentTopicListEvent);
             }
@@ -475,7 +474,6 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/21  返回参数应为User对象
         simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -502,19 +500,20 @@ public class UserCenterApi extends BaseApi {
     }
 
     /**
-     * 关注用户
+     * 关注/取消关注用户
      *
+     * @param isFocus     true:关注用户;false:取消关注
      * @param focusUserId 被关注的Id
      * @param callback
      */
-    public void focusUser(String[] focusUserId, final ApiCallback callback) {
+    public void focusUser(final boolean isFocus, String[] focusUserId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
 
-        simpleRequest(FOCUS_USER, mParams, new ApiCallback() {
+        simpleRequest(isFocus ? FOCUS_USER : CANCEL_FOCUS_USER, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -522,11 +521,10 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+
+                BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
+                focusEvent.setIsFocus(isFocus);
+                callback.onComplete(focusEvent);
             }
 
             @Override
@@ -535,38 +533,5 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
-    /**
-     * 取消关注用户
-     *
-     * @param callback
-     */
-    public void cancelFocusUser(String[] focusUserId, final ApiCallback callback) {
 
-        mParams = new HashMap<>();
-        mParams.put("be_focused_user_id", focusUserId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-
-
-        simpleRequest(CANCEL_FOCUS_USER, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                BaseEvent.CancelFocusEvent cancelFocusEvent=new BaseEvent.CancelFocusEvent();
-                cancelFocusEvent.setUser(apiResponse.getData());
-                callback.onComplete(cancelFocusEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
 }

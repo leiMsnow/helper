@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -31,6 +32,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     private LinearLayout llMyTopic, llMyCollect;
     private ImageView ivSex;
     private TextView tvFansNum, tvFocusNum, tvGroupNum;
+    private TextView tvFans, tvFocus, tvGroup;
 
     private User mUserInfo;
 
@@ -60,6 +62,9 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         tvFansNum = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFocusNum = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupNum = (TextView) headView.findViewById(R.id.tv_group_num);
+        tvFans = (TextView) findViewById(R.id.tv_fans);
+        tvFocus = (TextView) findViewById(R.id.tv_follow);
+        tvGroup = (TextView) findViewById(R.id.tv_group);
 
         chbFocus = (CheckBox) headView.findViewById(R.id.chb_focus);
 
@@ -82,9 +87,15 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     protected void initListener() {
         chbFocus.setOnClickListener(this);
+        tvFans.setOnClickListener(this);
+        tvGroup.setOnClickListener(this);
+        tvFocus.setOnClickListener(this);
+
     }
 
     /**
+     * 用户中心（他人）Event
+     *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
@@ -109,16 +120,37 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == chbFocus) {
-            //添加关注（为checkbox设置的onClick事件的原因，逻辑正好相反）
-            if (chbFocus.isChecked()) {
-                UserCenterApi.getInstance().focusUser(new String[]{mUserInfo.getUser_id()}, this);
-                chbFocus.setChecked(false);
-            }
-            //取消关注
-            else {
-                UserCenterApi.getInstance().focusUser(new String[]{mUserInfo.getUser_id()}, this);
-                chbFocus.setChecked(true);
-            }
+            //添加/取消关注（为checkbox设置的onClick事件的原因，逻辑正好相反）
+            UserCenterApi.getInstance().focusUser(chbFocus.isChecked(),
+                    new String[]{mUserInfo.getUser_id()}, this);
+            chbFocus.setChecked(false);
+        }
+        //粉丝列表
+        else if (v == tvFans) {
+
+        }
+        //关注列表
+        else if (v == tvFocus) {
+
+        }
+        //圈子列表
+        else if (v == tvGroup) {
+
+        }
+    }
+
+    /**
+     * 关注/取消关注事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.FocusEvent obj) {
+
+        chbFocus.setChecked(obj.isFocus());
+        if (obj.isFocus()) {
+            ToastUtil.getInstance(mContext).showToast("关注成功");
+        } else {
+            ToastUtil.getInstance(mContext).showToast("取消成功");
         }
     }
 }

@@ -118,7 +118,7 @@
                 <TextView
                     android:id="@+id/tv_fans_num"
                     style="@style/UserInfoAttrTopText"
-                    android:text="300" />
+                    android:text="0" />
                 <!-- 粉丝badge-->
                 <View
                     android:id="@+id/badge_fans"
@@ -134,7 +134,7 @@
                 <TextView
                     android:id="@+id/tv_follow_num"
                     style="@style/UserInfoAttrTopText"
-                    android:text="300" />
+                    android:text="0" />
                 <!-- 关注badge-->
                 <View
                     android:id="@+id/badge_follow"
@@ -151,7 +151,7 @@
                 <TextView
                     android:id="@+id/tv_group_num"
                     style="@style/UserInfoAttrTopText"
-                    android:text="300" />
+                    android:text="0" />
                 <!-- 圈子badge-->
                 <View
                     android:id="@+id/badge_topic"
