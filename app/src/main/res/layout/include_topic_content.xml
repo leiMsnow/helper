@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:singleLine="true"
-        android:text="话题标题"
         android:textColor="@color/main_black"
         android:textSize="16sp" />
 
@@ -24,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_title"
         android:layout_marginBottom="8dp"
-        android:text="话题内容"
-        android:textColor="@color/normal_dark_grey" />
+        android:textColor="@color/normal_dark_grey"
+        android:textIsSelectable="true" />
 
     <com.tongban.im.widget.view.ChildGridView
         android:id="@+id/gv_content"

@@ -21,7 +21,8 @@ public class SingleProductAdapter extends QuickAdapter<ProductBook> {
     }
 
     protected void convert(BaseAdapterHelper helper, ProductBook item) {
-        helper.setImageBitmap(R.id.iv_product, item.getProduct_img_url().get(0).getMin());
+        helper.setImageBitmap(R.id.iv_product, item.getProduct_img_url().get(0).getMin(),
+                R.drawable.rc_ic_def_rich_content);
         helper.setText(R.id.tv_product_name, item.getProduct_name());
         helper.setText(R.id.tv_product_content, item.getProduct_tags());
     }
@@ -31,7 +32,7 @@ public class SingleProductAdapter extends QuickAdapter<ProductBook> {
     protected void onFirstCreateView(BaseAdapterHelper helper) {
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         ViewGroup.LayoutParams lp = helper.getView(R.id.iv_product).getLayoutParams();
-        lp.height = mScreenWidth / 2;
+//        lp.width = mScreenWidth / 2;
         lp.height = mScreenWidth / 7 * 3;
         helper.getView(R.id.iv_product).setLayoutParams(lp);
     }

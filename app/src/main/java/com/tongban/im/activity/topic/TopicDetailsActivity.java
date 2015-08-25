@@ -136,6 +136,13 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     }
 
+    @Override
+    public void onClickComment(String commentContent, String repliedCommentId,
+                               String repliedName, String repliedUserId) {
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
+                repliedName, repliedUserId, this);
+    }
+
     /**
      * 话题详情事件回调
      *
@@ -176,16 +183,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
     }
 
-    @Override
-    public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, this);
-    }
-
 
     /**
-     * 话题回复列表事件回调
+     * 话题评论列表事件回调
      *
      * @param obj
      */
@@ -194,12 +194,14 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     }
 
     /**
-     * 话题回复成功事件回调
+     * 话题评论成功事件回调
      *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
 
+        int commentCount = Integer.parseInt(tvComment.getText().toString());
+        tvComment.setText(String.valueOf(commentCount + 1));
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeybord(topicInputView.getEtComment(), mContext);
 
