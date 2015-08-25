@@ -109,12 +109,12 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == chbFocus) {
-            //取消关注
+            //添加关注（为checkbox设置的onClick事件的原因，逻辑正好相反）
             if (chbFocus.isChecked()) {
                 UserCenterApi.getInstance().focusUser(new String[]{mUserInfo.getUser_id()}, this);
                 chbFocus.setChecked(false);
             }
-            //添加关注
+            //取消关注
             else {
                 UserCenterApi.getInstance().focusUser(new String[]{mUserInfo.getUser_id()}, this);
                 chbFocus.setChecked(true);
