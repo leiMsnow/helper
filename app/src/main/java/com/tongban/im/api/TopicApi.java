@@ -140,6 +140,7 @@ public class TopicApi extends BaseApi {
 
                 if (result.getData().getResult().size() > 0) {
                     BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                    topicListEvent.setIsMain(true);
                     topicListEvent.setTopicList(result.getData().getResult());
                     if (callback != null)
                         callback.onComplete(topicListEvent);
