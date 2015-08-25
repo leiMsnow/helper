@@ -65,7 +65,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
             if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_COLLECT_TOPIC_LIST) {
                 UserCenterApi.getInstance().fetchCollectTopicList(0, 10, this);
             }
-            //
+            //我发起的话题列表
             else if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_SEND_TOPIC_LIST) {
                 UserCenterApi.getInstance().fetchLaunchTopicList(0, 10, this);
             }
@@ -122,7 +122,6 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
     }
 
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-
         mAdapter.replaceAll(obj.getTopicList());
         lvTopicList.setVisibility(View.VISIBLE);
     }

@@ -16,6 +16,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyCommentTopicFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 
 import java.util.ArrayList;
@@ -132,5 +133,10 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         } else if (v == rlReplyTopic) {
             vpResult.setCurrentItem(1);
         }
+    }
+
+    public void onEventMainThread(BaseEvent.TopicListEvent obj) {
+
+
     }
 }

@@ -37,7 +37,7 @@
                 android:layout_toRightOf="@+id/ccv_my_send_topic"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
-                android:text="123"
+                android:text="0"
                 android:textColor="@color/normal_grey"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -64,7 +64,7 @@
                 android:layout_toRightOf="@+id/ccv_my_receive_topic"
                 android:gravity="center_vertical"
                 android:paddingTop="3dp"
-                android:text="23"
+                android:text="0"
                 android:textColor="@color/normal_grey"
                 android:textSize="14sp" />
         </RelativeLayout>
