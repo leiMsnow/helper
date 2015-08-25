@@ -1,7 +1,9 @@
 package com.tongban.im.activity.user;
 
 
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -16,6 +18,7 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -90,6 +93,9 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         tvFans.setOnClickListener(this);
         tvGroup.setOnClickListener(this);
         tvFocus.setOnClickListener(this);
+        tvFansNum.setOnClickListener(this);
+        tvFocusNum.setOnClickListener(this);
+        tvGroupNum.setOnClickListener(this);
 
     }
 
@@ -126,16 +132,30 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
             chbFocus.setChecked(false);
         }
         //粉丝列表
-        else if (v == tvFans) {
-
+        else if (v == tvFans || v == tvFansNum) {
+            Intent intent = new Intent(this, MyRelationshipActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("Tag", "Fans");
+            bundle.putString(Consts.USER_ID, mUserInfo.getUser_id());
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         //关注列表
-        else if (v == tvFocus) {
-
+        else if (v == tvFocus || v == tvFocusNum) {
+            Intent intent = new Intent(this, MyRelationshipActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("Tag", "Follow");
+            bundle.putString(Consts.USER_ID, mUserInfo.getUser_id());
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         //圈子列表
-        else if (v == tvGroup) {
-
+        else if (v == tvGroup || v == tvGroupNum) {
+            Intent intent = new Intent(this, MyGroupActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Consts.USER_ID, mUserInfo.getUser_id());
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 

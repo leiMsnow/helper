@@ -1,15 +1,18 @@
 package com.tongban.im.activity.user;
 
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -43,8 +46,13 @@ public class MyGroupActivity extends BaseToolBarActivity implements AdapterView.
     protected void initData() {
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         lvMyGroupList.setAdapter(mAdapter);
-
-        UserCenterApi.getInstance().fetchMyGroupList(0, 10, this);
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            String userId = bundle.getString(Consts.USER_ID);
+            UserCenterApi.getInstance().fetchMyGroupList(0, 10, userId, this);
+        } else {
+            UserCenterApi.getInstance().fetchMyGroupList(0, 10, SPUtils.get(mContext, Consts.USER_ID, "").toString(), this);
+        }
     }
 
     @Override

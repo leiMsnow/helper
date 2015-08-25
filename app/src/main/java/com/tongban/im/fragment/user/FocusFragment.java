@@ -8,6 +8,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 
@@ -35,8 +36,10 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
         mAdapter.setOnClickListener(this);
         lvFocusList.setAdapter(mAdapter);
-        UserCenterApi.getInstance().fetchFocusUserList(0, 10, this);
-
+        if (getArguments() != null) {
+            String userID = getArguments().getString(Consts.USER_ID);
+            UserCenterApi.getInstance().fetchFocusUserList(0, 10, userID, this);
+        }
     }
 
     @Override
@@ -57,7 +60,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
             //取消关注
             case R.id.btn_follow:
                 String focusId = v.getTag().toString();
-                UserCenterApi.getInstance().focusUser(false,new String[]{focusId}, this);
+                UserCenterApi.getInstance().focusUser(false, new String[]{focusId}, this);
                 break;
             //跳到用户中心（他人）
             case R.id.iv_user_icon:

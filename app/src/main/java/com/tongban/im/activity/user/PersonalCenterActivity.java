@@ -14,6 +14,7 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
 /**
@@ -108,13 +109,17 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         //跳转到粉丝界面
         else if (v == rlFansNum || v == tvFans) {
             Intent intent = new Intent(this, MyRelationshipActivity.class);
-            intent.putExtra("Tag", "Fans");
+            Bundle bundle = new Bundle();
+            bundle.putString("Tag", "Fans");
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         //跳转到关注列表界面
         else if (v == rlFollowNum || v == tvFollow) {
             Intent intent = new Intent(this, MyRelationshipActivity.class);
-            intent.putExtra("Tag", "Follow");
+            Bundle bundle = new Bundle();
+            bundle.putString("Tag", "Follow");
+            intent.putExtras(bundle);
             startActivity(intent);
         }
         //跳转到我的圈子界面
