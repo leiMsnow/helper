@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -31,5 +32,6 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/tv_comment_count"
         android:drawableLeft="@mipmap/ic_discover_collect_count"
+        android:drawablePadding="4dp"
         android:textColor="@color/normal_grey"/>
 </RelativeLayout>

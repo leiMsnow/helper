@@ -120,7 +120,14 @@ public class Consts {
     public static final int KEY_FOCUS_ID = 1;
 
     //------------------------------商品相关key------------------------------------------------------
+    /**
+     * 专题id
+     */
     public static final String KEY_MULTI_PRODUCT_ID = "KEY_MULTI_PRODUCT_ID";
+    /**
+     * 图书单品id
+     */
+    public static final String KEY_PRODUCY_BOOK_ID = "KEY_PRODUCY_BOOK_ID";
 
     //------------------------------bundle-key-end--------------------------------------------------
 

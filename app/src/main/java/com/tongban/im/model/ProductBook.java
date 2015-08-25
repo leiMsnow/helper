@@ -34,7 +34,7 @@ public class ProductBook {
     // 适读情景
     private String scene_for;
     // 内容简介
-    private String product_description;
+    private String book_content_desc;
     // 作者简介
     private String author_desc;
     // 图书目录
@@ -51,30 +51,6 @@ public class ProductBook {
     private long c_time;
     // 修改时间
     private long m_time;
-
-    /**
-     * 商品在不同渠道的价格信息
-     */
-    class PriceInfo {
-        private String platform;
-        private float price;
-
-        public String getPlatform() {
-            return platform;
-        }
-
-        public void setPlatform(String platform) {
-            this.platform = platform;
-        }
-
-        public float getPrice() {
-            return price;
-        }
-
-        public void setPrice(float price) {
-            this.price = price;
-        }
-    }
 
     public String getProduct_id() {
         return product_id;
@@ -180,12 +156,12 @@ public class ProductBook {
         this.scene_for = scene_for;
     }
 
-    public String getProduct_description() {
-        return product_description;
+    public String getBook_content_desc() {
+        return book_content_desc;
     }
 
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
+    public void setBook_content_desc(String book_content_desc) {
+        this.book_content_desc = book_content_desc;
     }
 
     public String getAuthor_desc() {

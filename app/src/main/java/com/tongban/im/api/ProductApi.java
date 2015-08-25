@@ -186,7 +186,38 @@ public class ProductApi extends BaseApi {
                 callback.onFailure(DisplayType.Toast, "收藏失败");
             }
         });
+    }
 
+    /**
+     * 获取图书单品信息
+     *
+     * @param productId 单品id
+     * @param callback  回调
+     */
+    public void fetchProductDetailInfo(String productId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("product_id", productId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<ProductBook> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<ProductBook>>() {
+                        });
+                ProductBook productBook = result.getData();
+                callback.onComplete(productBook);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(DisplayType.ALL, "请重试");
+            }
+        });
     }
 
 }

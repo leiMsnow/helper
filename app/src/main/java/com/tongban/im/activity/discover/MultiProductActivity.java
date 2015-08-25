@@ -1,5 +1,6 @@
 package com.tongban.im.activity.discover;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +17,11 @@ import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.MultiProduct;
@@ -52,7 +55,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     // 单品列表
     private LinearLayout mProductList;
     // 相关话题的容器
-    private LinearLayout mTopicContianer;
+    private LinearLayout mTopicContainer;
     // 相关话题列表
     private LinearLayout mTopicList;
 
@@ -77,16 +80,15 @@ public class MultiProductActivity extends BaseToolBarActivity {
         createTime = (TextView) findViewById(R.id.tv_create_time);
         multiDesc = (TextView) findViewById(R.id.tv_desc);
         mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
-        mTopicContianer = (LinearLayout) findViewById(R.id.ll_topic);
+        mTopicContainer = (LinearLayout) findViewById(R.id.ll_topic);
         mTopicList = (LinearLayout) findViewById(R.id.ll_topic_list);
-
     }
 
     @Override
     protected void initData() {
         setTitle("");
-        // cey id是假的
-        multiId = "55c9b0f5bbafae4478f5dac3";
+        Intent intent = getIntent();
+        multiId = intent.getStringExtra(Consts.KEY_MULTI_PRODUCT_ID);
         ProductApi.getInstance().fetchMultiProductInfo(multiId, this);
     }
 
@@ -178,7 +180,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
             mProductList.removeAllViews();
             View view;
             int pos = 1; // 商品序号
-            for (ProductBook productBook : mProductBooks) {
+            for (final ProductBook productBook : mProductBooks) {
                 view = getLayoutInflater().inflate(R.layout.item_product_list_in_theme, null, false);
                 TextView cursor = (TextView) view.findViewById(R.id.tv_cursor);
                 TextView title = (TextView) view.findViewById(R.id.tv_title);
@@ -203,14 +205,18 @@ public class MultiProductActivity extends BaseToolBarActivity {
                         productImgs.addView(imageView);
                     }
                 }
-                productDesc.setText(productBook.getProduct_description());
+                productDesc.setText(productBook.getBook_content_desc());
                 authorDesc.setText(productBook.getAuthor_desc());
                 sceneFor.setText(productBook.getScene_for());
-                recommendCause.setText(productBook.getProduct_description());
+                recommendCause.setText(productBook.getRecommend_cause());
                 productDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: 15/8/24 跳转到单品页
+                        if (productBook.getProduct_id() != null) {
+                            Intent intent = new Intent(mContext, ProductBookActivity.class);
+                            intent.putExtra(Consts.KEY_PRODUCY_BOOK_ID, productBook.getProduct_id());
+                            startActivity(intent);
+                        }
                     }
                 });
                 mProductList.addView(view);
@@ -227,12 +233,12 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.SearchTopicListEvent event) {
         List<Topic> topics = event.getTopicList();
         if (topics == null || topics.size() < 1) {
-            mTopicContianer.setVisibility(View.GONE);
+            mTopicContainer.setVisibility(View.GONE);
             return;
         }
-        mTopicContianer.setVisibility(View.VISIBLE);
+        mTopicContainer.setVisibility(View.VISIBLE);
         View view;
-        for (Topic topic : topics) {
+        for (final Topic topic : topics) {
             view = getLayoutInflater().inflate(R.layout.item_topic_in_theme, null, false);
             TextView title = (TextView) view.findViewById(R.id.tv_title);
             TextView commentCount = (TextView) view.findViewById(R.id.tv_comment_count);
@@ -243,7 +249,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 15/8/24 跳转到话题详情页
+                    Intent intent = new Intent(mContext, TopicDetailsActivity.class);
+                    intent.putExtra(Consts.KEY_TOPIC_ID, topic.getTopic_id());
+                    startActivity(intent);
                 }
             });
             mTopicList.addView(view);
