@@ -1,6 +1,8 @@
 package com.tongban.im.activity.user;
 
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.im.R;
@@ -15,12 +17,14 @@ import com.tongban.im.model.GroupType;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+
 /**
  * 个人中心（我的圈子）
  *
  * @author fushudi
  */
-public class MyGroupActivity extends BaseToolBarActivity {
+public class MyGroupActivity extends BaseToolBarActivity implements AdapterView.OnItemClickListener {
     private ListView lvMyGroupList;
     private GroupListAdapter mAdapter;
 
@@ -45,11 +49,17 @@ public class MyGroupActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
-
+        lvMyGroupList.setOnItemClickListener(this);
     }
 
     public void onEventMainThread(BaseEvent.MyGroupListEvent obj) {
 
         mAdapter.replaceAll(obj.getMyGroupList());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        RongIM.getInstance().startGroupChat(mContext, mAdapter.getItem(position).getGroup_id(),
+                mAdapter.getItem(position).getGroup_name());
     }
 }

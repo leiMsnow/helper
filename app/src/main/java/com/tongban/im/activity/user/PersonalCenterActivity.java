@@ -52,7 +52,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         lvUserCenter.setScrollContentView(contentView);
 
         llUserInfo = (LinearLayout) headView.findViewById(R.id.ll_user_info);
-        ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_head);
+        ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
         tvDeclaration = (TextView) headView.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);

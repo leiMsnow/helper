@@ -1,6 +1,7 @@
 package com.tongban.im.model;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.tongban.corelib.utils.DateUtils;
 
@@ -90,6 +91,8 @@ public class Topic {
     }
 
     public String getComment_amount() {
+        if (TextUtils.isEmpty(comment_amount))
+            return "0";
         return String.valueOf(comment_amount);
     }
 
@@ -142,6 +145,8 @@ public class Topic {
     }
 
     public String getCollect_amount() {
+        if (TextUtils.isEmpty(collect_amount))
+            return "0";
         return collect_amount;
     }
 

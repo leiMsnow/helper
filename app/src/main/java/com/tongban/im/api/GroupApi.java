@@ -234,15 +234,15 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<Group> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<Group>>() {
-                        });
-                BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
-                groupInfoEvent.setGroup(apiResponse.getData());
-                //将数据保存在本地数据库
-                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(apiResponse.getData()));
+//                ApiResult<Group> apiResponse = JSON.parseObject(obj.toString(),
+//                        new TypeReference<ApiResult<Group>>() {
+//                        });
+//                BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
+//                groupInfoEvent.setGroup(apiResponse.getData());
+//                //将数据保存在本地数据库
+//                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(apiResponse.getData()));
                 if (callback != null)
-                    callback.onComplete(groupInfoEvent);
+                    callback.onComplete(obj);
             }
 
             @Override

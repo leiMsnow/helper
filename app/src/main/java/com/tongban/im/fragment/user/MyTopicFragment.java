@@ -61,9 +61,12 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
     @Override
     protected void initData() {
         if (getArguments() != null) {
+            //我的收藏 - 话题列表
             if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_COLLECT_TOPIC_LIST) {
                 UserCenterApi.getInstance().fetchCollectTopicList(0, 10, this);
-            } else if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_SEND_TOPIC_LIST) {
+            }
+            //
+            else if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_SEND_TOPIC_LIST) {
                 UserCenterApi.getInstance().fetchLaunchTopicList(0, 10, this);
             }
         }
