@@ -166,7 +166,18 @@
         <activity
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/topicdetails/"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".activity.group.SearchPoiActivity"

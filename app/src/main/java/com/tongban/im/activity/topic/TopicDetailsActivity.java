@@ -1,7 +1,9 @@
 package com.tongban.im.activity.topic;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +20,8 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
 import com.tongban.im.activity.PhotoViewPagerActivity;
-import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.adapter.TopicCommentAdapter;
+import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -37,7 +39,7 @@ import java.util.List;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener,AdapterView.OnItemClickListener {
+        TopicInputView.onClickCommentListener {
 
     //头布局控件
     private View mHeader;
@@ -101,27 +103,30 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     protected void initData() {
         topicInputView.setAdapterImgCount(3);
         topicInputView.setOnClickCommentListener(this);
-        if (getIntent().getExtras() != null) {
-            mTopicId = getIntent().getExtras().getString(Consts.KEY_TOPIC_ID, "");
+
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
+            if (!TextUtils.isEmpty(mTopicId)) {
+                TopicApi.getInstance().getTopicInfo(mTopicId, this);
+                TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
+
+                mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
+                mAdapter.setOnClickListener(this);
+                lvReplyList.setAdapter(mAdapter);
+
+                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+                        null);
+                mTopicImgAdapter.setImgClickListener(this);
+                gvContent.setAdapter(mTopicImgAdapter);
+            }
         }
-
-        TopicApi.getInstance().getTopicInfo(mTopicId, this);
-        TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
-
-        mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
-        mAdapter.setOnClickListener(this);
-        lvReplyList.setAdapter(mAdapter);
-
-        mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                null);
-        gvContent.setAdapter(mTopicImgAdapter);
     }
 
     @Override
     protected void initListener() {
         ivComment.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
-        gvContent.setOnItemClickListener(this);
     }
 
     @Override
@@ -140,6 +145,10 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                     topicInputView.setCommentInfo(comment.getComment_id(),
                             comment.getUser_info().getNick_name(),
                             comment.getUser_info().getUser_id());
+                    break;
+                case R.id.iv_topic_img:
+                    List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    startPhotoView(setImageUrls(imageUrls), 0);
                     break;
             }
         }
@@ -239,13 +248,11 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    private void startPhotoView(ArrayList<String> urls, int currentIndex) {
         Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
         Bundle bundle = new Bundle();
-
-        bundle.putStringArrayList(PhotoViewFragment.KEY_URL,setImageUrls(mTopicImgAdapter.getDataAll()));
-        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, position);
+        bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
+        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, currentIndex);
         intent.putExtras(bundle);
         startActivity(intent);
     }

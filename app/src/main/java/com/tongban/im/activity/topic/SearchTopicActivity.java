@@ -5,11 +5,13 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
@@ -105,6 +107,25 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (lvTopicList.getVisibility() == View.VISIBLE) {
+            lvTopicList.setVisibility(View.GONE);
+            searchView.onActionViewExpanded();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_topic, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
@@ -170,5 +191,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
         mCursor++;
         lvTopicList.setVisibility(View.VISIBLE);
         mAdapter.replaceAll(topicListEvent.getTopicList());
+        searchView.onActionViewCollapsed();
     }
 }

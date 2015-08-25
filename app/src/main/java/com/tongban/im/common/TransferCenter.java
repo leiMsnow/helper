@@ -70,5 +70,22 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
+    /**
+     * 打开话题详情
+     *
+     * @param topicId
+     */
+    public void startTopicDetails(String topicId) {
+        String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
+
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendPath("topic")
+                .appendQueryParameter(Consts.KEY_TOPIC_ID, topicId)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
 
 }

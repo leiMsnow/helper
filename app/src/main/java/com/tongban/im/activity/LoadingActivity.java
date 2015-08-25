@@ -2,6 +2,7 @@ package com.tongban.im.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.tongban.corelib.model.ApiResult;
@@ -54,6 +55,9 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
+        if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.ADDRESS, "").toString())) {
+            LocationUtils.get(mContext).start();
+        }
         mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
         if (mToken.equals("")) {
             startActivity(new Intent(mContext, LoginActivity.class));

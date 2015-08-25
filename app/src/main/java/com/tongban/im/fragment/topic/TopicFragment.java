@@ -131,11 +131,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, TopicDetailsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(Consts.KEY_TOPIC_ID, mAdapter.getItem(position).getTopic_id());
-        intent.putExtras(bundle);
-        startActivity(intent);
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
     }
 
     /**

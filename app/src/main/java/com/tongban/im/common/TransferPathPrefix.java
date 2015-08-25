@@ -23,4 +23,8 @@ public class TransferPathPrefix {
      * 用户中心
      */
     public static final String MY_CENTER = "mycenter";
+    /**
+     * 话题详情
+     */
+    public static final String TOPIC_DETAILS = "topicdetails";
 }
