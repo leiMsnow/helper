@@ -483,5 +483,15 @@ public class BaseEvent {
             this.status = status;
         }
     }
+    public static class UserCenterEvent{
+        User user;
 
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+    }
 }

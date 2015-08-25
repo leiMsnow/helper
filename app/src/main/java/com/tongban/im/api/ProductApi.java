@@ -99,6 +99,7 @@ public class ProductApi extends BaseApi {
     public void fetchMultiProductInfo(@NonNull String multiProductId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", multiProductId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(FETCH_THEME_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {

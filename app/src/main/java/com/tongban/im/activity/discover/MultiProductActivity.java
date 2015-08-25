@@ -1,6 +1,5 @@
 package com.tongban.im.activity.discover;
 
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +18,12 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.MultiProduct;
 import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
 import java.util.List;
@@ -48,8 +49,12 @@ public class MultiProductActivity extends BaseToolBarActivity {
     private TextView createTime;
     // 专题描述
     private TextView multiDesc;
-    // 单品列表和相关话题列表
+    // 单品列表
     private LinearLayout mProductList;
+    // 相关话题的容器
+    private LinearLayout mTopicContianer;
+    // 相关话题列表
+    private LinearLayout mTopicList;
 
     // 当前的专题id
     private String multiId;
@@ -72,7 +77,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
         createTime = (TextView) findViewById(R.id.tv_create_time);
         multiDesc = (TextView) findViewById(R.id.tv_desc);
         mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
-        // TODO: 15/8/24 相关话题
+        mTopicContianer = (LinearLayout) findViewById(R.id.ll_topic);
+        mTopicList = (LinearLayout) findViewById(R.id.ll_topic_list);
+
     }
 
     @Override
@@ -117,6 +124,11 @@ public class MultiProductActivity extends BaseToolBarActivity {
         AccountApi.getInstance().getUserInfoByUserId(multiProduct.getUser_id(), this);
         // 获取专题下的单品列表
         ProductApi.getInstance().fetchProductListByMultiId(multiProduct.getTheme_id(), 0, 20, this);
+        // 获取专题下的相关话题,直接调用话题搜索的接口
+        StringBuilder sb = new StringBuilder(multiProduct.getTheme_title());
+        if (multiProduct.getTheme_tags() != null && multiProduct.getTheme_tags().length() > 0)
+            sb.append(",").append(multiProduct.getTheme_tags());
+        TopicApi.getInstance().searchTopicList(sb.toString(), 0, 3, this);
 
         setTitle(multiProduct.getTheme_title());
         if (multiProduct.getTheme_img_url().length > 0) {
@@ -167,7 +179,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
             View view;
             int pos = 1; // 商品序号
             for (ProductBook productBook : mProductBooks) {
-                view = LayoutInflater.from(mContext).inflate(R.layout.item_product_list_in_theme, null, false);
+                view = getLayoutInflater().inflate(R.layout.item_product_list_in_theme, null, false);
                 TextView cursor = (TextView) view.findViewById(R.id.tv_cursor);
                 TextView title = (TextView) view.findViewById(R.id.tv_title);
                 LinearLayout productImgs = (LinearLayout) view.findViewById(R.id.ll_product_img);
@@ -208,11 +220,42 @@ public class MultiProductActivity extends BaseToolBarActivity {
     }
 
     /**
+     * 获取专题下的相关话题Event
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.SearchTopicListEvent event) {
+        List<Topic> topics = event.getTopicList();
+        if (topics == null || topics.size() < 1) {
+            mTopicContianer.setVisibility(View.GONE);
+            return;
+        }
+        mTopicContianer.setVisibility(View.VISIBLE);
+        View view;
+        for (Topic topic : topics) {
+            view = getLayoutInflater().inflate(R.layout.item_topic_in_theme, null, false);
+            TextView title = (TextView) view.findViewById(R.id.tv_title);
+            TextView commentCount = (TextView) view.findViewById(R.id.tv_comment_count);
+            TextView collectCount = (TextView) view.findViewById(R.id.tv_collect_count);
+            title.setText(topic.getTopic_title());
+            commentCount.setText(topic.getComment_amount());
+            collectCount.setText(topic.getCollect_amount());
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: 15/8/24 跳转到话题详情页
+                }
+            });
+            mTopicList.addView(view);
+        }
+    }
+
+    /**
      * 收藏专题成功的Event
      *
-     * @param collect
+     * @param event
      */
-    public void onEventMainThread(BaseEvent.CollectMultiProductEvent collect) {
+    public void onEventMainThread(BaseEvent.CollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
     }
 

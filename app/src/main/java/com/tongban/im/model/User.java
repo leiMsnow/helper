@@ -43,11 +43,11 @@ public class User {
     //用户地址
     private String address;
     //加入的群数量
-    private int joined_group_amount;
+    private String joined_group_amount;
     //粉丝数量
-    private int fans_amount;
+    private String fans_amount;
     //关注数量
-    private int focused_amount;
+    private String focused_amount;
     //地址类型
     private String address_type;
     //孩子信息
@@ -79,27 +79,27 @@ public class User {
         this.child_info = child_info;
     }
 
-    public int getJoined_group_amount() {
+    public String getJoined_group_amount() {
         return joined_group_amount;
     }
 
-    public void setJoined_group_amount(int joined_group_amount) {
+    public void setJoined_group_amount(String joined_group_amount) {
         this.joined_group_amount = joined_group_amount;
     }
 
-    public int getFans_amount() {
+    public String getFans_amount() {
         return fans_amount;
     }
 
-    public void setFans_amount(int fans_amount) {
+    public void setFans_amount(String fans_amount) {
         this.fans_amount = fans_amount;
     }
 
-    public int getFocused_amount() {
+    public String getFocused_amount() {
         return focused_amount;
     }
 
-    public void setFocused_amount(int focused_amount) {
+    public void setFocused_amount(String focused_amount) {
         this.focused_amount = focused_amount;
     }
 

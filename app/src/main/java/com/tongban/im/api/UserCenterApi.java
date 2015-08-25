@@ -153,8 +153,9 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+                BaseEvent.UserCenterEvent userCenterEvent=new BaseEvent.UserCenterEvent();
+                userCenterEvent.setUser(apiResponse.getData());
+                callback.onComplete(userCenterEvent);
             }
 
             @Override
