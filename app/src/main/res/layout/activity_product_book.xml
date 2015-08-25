@@ -38,7 +38,7 @@
             android:src="@mipmap/ic_product_share"/>
 
         <ImageView
-            android:id="@+id/iv_collect"
+            android:id="@+id/chb_collect"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"

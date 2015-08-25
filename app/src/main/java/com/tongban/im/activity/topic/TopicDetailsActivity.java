@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
@@ -17,6 +18,7 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
+import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
 
 /**
@@ -78,7 +80,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-        ivCollect = (ImageView) mHeader.findViewById(R.id.iv_collect);
+        ivCollect = (ImageView) mHeader.findViewById(R.id.chb_collect);
         tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -96,6 +98,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
 
         mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
+        mAdapter.setOnClickListener(this);
         lvReplyList.setAdapter(mAdapter);
     }
 
@@ -107,10 +110,24 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     public void onClick(View v) {
+        //重置回复话题
         if (v == ivComment) {
-            ToastUtil.getInstance(mContext).showToast("ivComment");
-        } else if (v == ivCollect) {
-            TopicApi.getInstance().collectTopic(mTopicId,this);
+            topicInputView.clearCommentInfo();
+            KeyBoardUtils.openKeybord(topicInputView.getEtComment(), mContext);
+        }
+        //收藏话题
+        else if (v == ivCollect) {
+            TopicApi.getInstance().collectTopic(mTopicId, this);
+        } else {
+            switch (v.getId()) {
+                //回复评论
+                case R.id.tv_comment:
+                    TopicComment comment = (TopicComment) v.getTag();
+                    topicInputView.setCommentInfo(comment.getComment_id(),
+                            comment.getUser_info().getNick_name(),
+                            comment.getUser_info().getUser_id());
+                    break;
+            }
         }
     }
 
@@ -133,6 +150,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
+            if (topicInfoEvent.getTopic().isCollect_status()){
+                ivCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
+            }
             tvComment.setText(mTopicInfo.getComment_amount());
             tvCollect.setText(mTopicInfo.getCollect_amount());
 
@@ -147,6 +167,14 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         }
     }
 
+    @Override
+    public void onClickComment(String commentContent, String repliedCommentId,
+                               String repliedName, String repliedUserId) {
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
+                repliedName, repliedUserId, this);
+    }
+
+
     /**
      * 话题回复列表事件回调
      *
@@ -156,14 +184,29 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         mAdapter.replaceAll(obj.getTopicCommentList());
     }
 
-    @Override
-    public void onClickComment(String commentContent) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, this);
-    }
-
+    /**
+     * 话题回复成功事件回调
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
-        topicInputView.clearText();
+
+        topicInputView.clearCommentInfo();
+        KeyBoardUtils.closeKeybord(topicInputView.getEtComment(), mContext);
+
         TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
         ToastUtil.getInstance(mContext).showToast(obj.getMessage());
+    }
+
+    /**
+     * 收藏话题事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.TopicCollect obj) {
+        if (obj.isStatus()) {
+            ToastUtil.getInstance(mContext).showToast("收藏成功");
+            ivCollect.setBackgroundResource(R.mipmap.ic_topic_collect_pressed);
+        }
     }
 }

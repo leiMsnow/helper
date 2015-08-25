@@ -25,14 +25,15 @@
         android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
-    <ImageView
-        android:id="@+id/iv_collect"
+    <CheckBox
+        android:id="@+id/chb_collect"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
         android:layout_toRightOf="@+id/tv_comment_count"
-        android:src="@drawable/selector_topic_collect" />
+        android:background="@drawable/selector_topic_collect"
+        android:button="@null" />
 
     <TextView
 
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/iv_collect"
+        android:layout_toRightOf="@+id/chb_collect"
         android:gravity="center"
         android:text="300"
         android:textColor="@color/normal_grey"

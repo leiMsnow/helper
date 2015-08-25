@@ -78,18 +78,18 @@ public class LoadingActivity extends BaseToolBarActivity {
         SPUtils.put(mContext, Consts.QINIU_TOKEN, qiniuToken.getUpload_token());
     }
 
-    public void onEventMainThread(Object obj) {
-        if (obj instanceof ApiResult) {
-            SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
-            startActivity(new Intent(mContext, LoginActivity.class));
-            finish();
-        }
-        else if(obj instanceof BaseEvent.ConnectionErrorEvent){
-            RongCloudEvent.getInstance().
-                    connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
-            startActivity(new Intent(mContext, MainActivity.class));
-            finish();
-        }
+    public void onEventMainThread(ApiResult obj) {
+        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
+        startActivity(new Intent(mContext, LoginActivity.class));
+        finish();
+    }
+
+    public void onEventMainThread(BaseEvent.ConnectionErrorEvent obj) {
+        RongCloudEvent.getInstance().
+                connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+
     }
 
 }

@@ -39,9 +39,10 @@ import java.util.List;
 public class FileUploadApi extends BaseApi {
 
     /**
-     * 100尺寸大小图片
+     * 图片尺寸
      */
     public final static String IMAGE_SIZE_100 = "-100";
+    public final static String IMAGE_SIZE_300 = "-300";
     public final static String IMAGE_SIZE_500 = "-500";
 
 

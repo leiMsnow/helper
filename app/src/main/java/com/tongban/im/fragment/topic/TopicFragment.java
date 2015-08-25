@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
@@ -103,7 +104,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
                     break;
                 case R.id.iv_user_portrait:
                     String userId = v.getTag(Integer.MAX_VALUE).toString();
-                    TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER,userId);
+                    TransferCenter.getInstance().startUserCenter(TransferPathPrefix.USER_CENTER, userId);
                     break;
             }
         }
@@ -145,6 +146,16 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
         mAdapter.replaceAll(obj.getTopicList());
         lvTopicList.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 接口返回错误回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(ApiErrorResult obj) {
+        mAdapter.clear();
+        lvTopicList.setVisibility(View.GONE);
     }
 
     /**

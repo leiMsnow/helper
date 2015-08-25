@@ -30,7 +30,7 @@
         android:layout_toRightOf="@+id/iv_add_img"
         android:background="@drawable/shape_join_btn_enabled"
         android:gravity="center_vertical"
-        android:hint="@string/create_reply"
+        android:hint="@string/create_comment"
         android:minHeight="40dp"
         android:paddingLeft="8dp"
         android:textColorHint="@color/normal_grey"

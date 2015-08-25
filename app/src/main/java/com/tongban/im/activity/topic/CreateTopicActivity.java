@@ -151,7 +151,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         mDialog.setMessage("正在上传图片...");
         mDialog.show();
         FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0, selectedFile,
-                FileUploadApi.IMAGE_SIZE_100, FileUploadApi.IMAGE_SIZE_500,
+                FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
                     public void uploadSuccess(List<ImageUrl> urls) {

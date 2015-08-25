@@ -58,7 +58,7 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
                 intent.putExtra("visitorId",visitorId);
                 startActivity(intent);
                 break;
-            case R.id.tv_reply:
+            case R.id.tv_comment:
                 ToastUtil.getInstance(mContext).showToast("回复");
                 break;
         }

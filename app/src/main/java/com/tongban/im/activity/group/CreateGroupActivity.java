@@ -162,7 +162,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
             }
 
             declaration = etDesc.getText().toString().trim();
-            FileUploadApi.getInstance().uploadFile(mGroupIcon, null,FileUploadApi.IMAGE_SIZE_100,
+            FileUploadApi.getInstance().uploadFile(mGroupIcon, null,FileUploadApi.IMAGE_SIZE_300,
                     FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
                 @Override

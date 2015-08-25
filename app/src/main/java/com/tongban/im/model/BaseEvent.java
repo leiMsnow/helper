@@ -453,7 +453,7 @@ public class BaseEvent {
     /**
      * 回复话题Event
      */
-    public static class CreateTopicCommentEvent{
+    public static class CreateTopicCommentEvent {
         String message;
 
         public String getMessage() {
@@ -462,6 +462,25 @@ public class BaseEvent {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+    }
+
+    /**
+     * 收藏话题Event
+     */
+    public static class TopicCollect {
+        boolean status;
+
+        public TopicCollect(boolean status) {
+            this.status = status;
+        }
+
+        public boolean isStatus() {
+            return status;
+        }
+
+        public void setStatus(boolean status) {
+            this.status = status;
         }
     }
 

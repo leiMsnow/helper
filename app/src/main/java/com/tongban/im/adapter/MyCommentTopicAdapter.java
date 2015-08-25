@@ -35,6 +35,6 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
         helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_content());
 
         helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
-        helper.setOnClickListener(R.id.tv_reply, onClickListener);
+        helper.setOnClickListener(R.id.tv_comment, onClickListener);
     }
 }

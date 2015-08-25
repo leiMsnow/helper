@@ -1,6 +1,7 @@
 package com.tongban.im.api;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -82,7 +83,6 @@ public class TopicApi extends BaseApi {
                             final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_title", title);
         mParams.put("topic_content", content);
         mParams.put("topic_img_url", JSON.toJSON(urls));
@@ -214,6 +214,7 @@ public class TopicApi extends BaseApi {
     public void getTopicInfo(String topicId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
         simpleRequest(TOPIC_INFO, mParams, new ApiCallback() {
             @Override
@@ -292,18 +293,32 @@ public class TopicApi extends BaseApi {
     }
 
     /**
-     * 回复话题
+     * 回复话题/某评论
      *
-     * @param topicId        话题Id
-     * @param commentContent 回复内容
+     * @param topicId          话题Id
+     * @param commentContent   回复内容
+     * @param repliedCommentId 被回复评论的Id
+     * @param repliedName      被回复评论的用户昵称
+     * @param repliedUserId    被回复评论的用户Id
      * @param callback
      */
-    public void createCommentForTopic(String topicId, String commentContent, final ApiCallback callback) {
+    public void createCommentForTopic(String topicId, String commentContent,
+                                      @Nullable String repliedCommentId,
+                                      @Nullable String repliedName,
+                                      @Nullable String repliedUserId,
+                                      final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_id", topicId);
         mParams.put("comment_content", commentContent);
+        //回复评论用到的字段，如果不传这三个值，将视为回复话题
+        if (repliedName != null && repliedUserId != null && repliedCommentId != null) {
+            mParams.put("replied_comment_id", commentContent);
+            mParams.put("replied_nick_name", commentContent);
+            mParams.put("replied_user_id", commentContent);
+        }
+
 
         simpleRequest(COMMENT_CREATE, mParams, new ApiCallback() {
                     @Override
@@ -332,6 +347,8 @@ public class TopicApi extends BaseApi {
     }
 
     /**
+     * 收藏话题
+     *
      * @param topicId
      * @param callback
      */
@@ -349,8 +366,9 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onComplete(Object obj) {
+
                         if (callback != null)
-                            callback.onComplete(obj);
+                            callback.onComplete(new BaseEvent.TopicCollect(true));
                     }
 
                     @Override

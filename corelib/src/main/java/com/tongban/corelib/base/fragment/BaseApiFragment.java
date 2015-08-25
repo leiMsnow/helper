@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.ToastUtil;
@@ -107,6 +108,10 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
      * @param msg 提示信息
      */
     private void createEmptyView(final String msg) {
+
+
+        EventBus.getDefault().post(new ApiErrorResult(msg));
+
         mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);

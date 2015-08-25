@@ -45,6 +45,16 @@ public class Topic {
     private User user_info;
     //话题评论
     private TopicComment topicComment;
+    //收藏状态
+    private boolean collect_status;
+
+    public boolean isCollect_status() {
+        return collect_status;
+    }
+
+    public void setCollect_status(boolean collect_status) {
+        this.collect_status = collect_status;
+    }
 
     public TopicComment getTopicComment() {
         return topicComment;

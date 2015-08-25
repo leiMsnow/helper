@@ -9,6 +9,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 
@@ -28,6 +29,14 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private Context mContext;
 
     private onClickCommentListener onClickCommentListener;
+
+    private String repliedName;
+    private String repliedUserId;
+    private String repliedCommentId;
+
+    public EditText getEtComment() {
+        return etComment;
+    }
 
     public void setOnClickCommentListener(onClickCommentListener onClickCommentListener) {
         this.onClickCommentListener = onClickCommentListener;
@@ -73,7 +82,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         if (v == ivComment) {
             if (etComment.getText().toString().length() > 0) {
                 if (onClickCommentListener != null)
-                    onClickCommentListener.onClickComment(etComment.getText().toString());
+                    onClickCommentListener.onClickComment(etComment.getText().toString(),
+                            repliedCommentId, repliedName, repliedUserId);
             }
         } else if (v == ivAddImg) {
             if (gvReplyImg.getVisibility() == View.VISIBLE) {
@@ -113,14 +123,40 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         mCameraView.show();
     }
 
-    public void clearText() {
+    /**
+     * 清除回复内容
+     */
+    public void clearCommentInfo() {
+
+        repliedName = null;
+        repliedUserId = null;
+        repliedCommentId = null;
+
         etComment.setText("");
+        etComment.setHint(mContext.getResources().getString(R.string.create_comment));
+    }
+
+    /**
+     * 设置回复评论信息
+     *
+     * @param repliedCommentId 回复的评论Id
+     * @param repliedName      回复的用户昵称
+     * @param repliedUserId    回复的用户Id
+     */
+    public void setCommentInfo(String repliedCommentId, String repliedName, String repliedUserId) {
+        this.repliedCommentId = repliedCommentId;
+        this.repliedName = repliedName;
+        this.repliedUserId = repliedUserId;
+        etComment.setHint("@ " + repliedName);
+        etComment.setText("");
+        KeyBoardUtils.openKeybord(etComment,mContext);
     }
 
     /**
      * 回复按钮点击监听
      */
     public interface onClickCommentListener {
-        void onClickComment(String commentContent);
+        void onClickComment(String commentContent, String repliedCommentId,
+                            String repliedName, String repliedUserId);
     }
 }

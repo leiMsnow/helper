@@ -69,7 +69,7 @@
             android:text="少时诵诗书少时滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答答诵诗书少时诵诗书少时诵诗书少时诵诗书少时诵诗书诗水蛇山神庙" />
 
         <TextView
-            android:id="@+id/tv_reply"
+            android:id="@+id/tv_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
