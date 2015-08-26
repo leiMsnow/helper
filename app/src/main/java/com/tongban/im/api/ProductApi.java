@@ -38,6 +38,8 @@ public class ProductApi extends BaseApi {
 
     // 收藏专题
     private static final String COLLECT_MULTI_PRODUCT = "user/collect/theme";
+    // 取消收藏专题
+    private static final String NO_COLLECT_MULTI_PRODUCT = "user/nocollect/theme";
 
     // 商品的详情信息
     private static final String FETCH_PRODUCT_DETAIL_INFO = "product/detail/info";
@@ -179,6 +181,34 @@ public class ProductApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 callback.onComplete(new BaseEvent.CollectMultiProductEvent());
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(DisplayType.Toast, "收藏失败");
+            }
+        });
+    }
+
+    /**
+     * 取消收藏专题
+     *
+     * @param multiId  专题id
+     * @param callback 回调
+     */
+    public void noCollectMultiProduct(String multiId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("theme_id", multiId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                callback.onComplete(new BaseEvent.NoCollectMultiProductEvent());
             }
 
             @Override

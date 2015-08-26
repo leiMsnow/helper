@@ -37,8 +37,8 @@ public class BezierImageView extends ImageView {
     protected void onDraw(Canvas canvas) {
         w = canvas.getWidth();
         h = canvas.getHeight();
-        path.moveTo(0, 0.8f * h);
-        path.quadTo(w / 2.0f, 1.2f * h, w, 0.8f * h);
+        path.moveTo(0, 0.9f * h);
+        path.quadTo(w / 2.0f, 1.1f * h, w, 0.9f * h);
         path.lineTo(w, 0);
         path.lineTo(0, 0);
         path.close();

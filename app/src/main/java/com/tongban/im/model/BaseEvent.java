@@ -326,6 +326,12 @@ public class BaseEvent {
             this.multiProductList = multiProductList;
         }
     }
+    /**
+     * 取消收藏专题的Event
+     */
+    public static class NoCollectMultiProductEvent {
+
+    }
 
     /**
      * 收藏话题题的Event

@@ -1,14 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.tongban.im.activity.discover.ProductBookActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             tools:context="com.tongban.im.activity.discover.ProductBookActivity">
 
-    <!-- 单品图集 -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_img"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
+
+            <!-- 单品图集 -->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vp_img"
+                android:layout_margin="10dp"
+                android:textColor="@color/main_black"
+                android:textSize="16sp"/>
+
+            <com.tongban.corelib.widget.view.FlowLayout
+                android:id="@+id/fl_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fl_tag"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/normal_dark_grey"/>
+
+            <GridView
+                android:id="@+id/gv_platform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_desc"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:horizontalSpacing="20dp"
+                android:listSelector="@color/transparent"
+                android:numColumns="2"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="15dp"/>
+        </RelativeLayout>
+    </ScrollView>
+
     <!-- toolbar -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,46 +102,4 @@
             android:scaleType="centerInside"
             android:src="@drawable/selector_product_collect"/>
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vp_img"
-        android:layout_margin="10dp"
-        android:textColor="@color/main_black"
-        android:textSize="16sp"/>
-
-    <com.tongban.corelib.widget.view.FlowLayout
-        android:id="@+id/fl_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
-
-    <TextView
-        android:id="@+id/tv_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fl_tag"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/normal_dark_grey"/>
-
-    <GridView
-        android:id="@+id/gv_platform"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_desc"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:horizontalSpacing="20dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="15dp"/>
-</RelativeLayout>
+</FrameLayout>

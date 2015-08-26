@@ -1,6 +1,7 @@
 package com.tongban.im.activity.discover;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,8 +63,12 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
     // 当前的专题id
     private String multiId;
+    // 专题信息数据
+    private MultiProduct mMultiProduct;
     // 商品列表
     private List<ProductBook> mProductBooks;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected int getLayoutRes() {
@@ -105,10 +110,28 @@ public class MultiProductActivity extends BaseToolBarActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.collect) {
-            ProductApi.getInstance().collectMultiProduct(multiId, this);
+            item.setEnabled(false);
+            if (mMultiProduct != null && !mMultiProduct.isCollect_status()) {
+                // 未收藏时,点击收藏
+                ProductApi.getInstance().collectMultiProduct(multiId, this);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        item.setEnabled(true);
+                    }
+                }, 1500);
+            } else if (mMultiProduct != null && mMultiProduct.isCollect_status()) {
+                ProductApi.getInstance().noCollectMultiProduct(multiId, this);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        item.setEnabled(true);
+                    }
+                }, 1500);
+            }
             return true;
         } else if (itemId == R.id.share) {
             ToastUtil.getInstance(mContext).showToast("分享暂时不做~~~");
@@ -123,6 +146,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      * @param multiProduct MultiProduct
      */
     public void onEventMainThread(MultiProduct multiProduct) {
+        mMultiProduct = multiProduct;
         // 获取专题发布人的信息
         AccountApi.getInstance().getUserInfoByUserId(multiProduct.getUser_id(), this);
         // 获取专题下的单品列表
@@ -267,6 +291,15 @@ public class MultiProductActivity extends BaseToolBarActivity {
      */
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
+    }
+
+    /**
+     * 取消收藏专题成功的Event
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.NoCollectMultiProductEvent event) {
+        ToastUtil.getInstance(mContext).showToast("已经取消收藏");
     }
 
 }

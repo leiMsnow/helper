@@ -31,14 +31,6 @@ public class MultiProduct {
     //收藏数量
     private String collect_amount;
 
-    public String getCollect_amount() {
-        return collect_amount;
-    }
-
-    public void setCollect_amount(String collect_amount) {
-        this.collect_amount = collect_amount;
-    }
-
     public String getTheme_id() {
         return theme_id;
     }
@@ -117,5 +109,13 @@ public class MultiProduct {
 
     public void setM_time(long m_time) {
         this.m_time = m_time;
+    }
+
+    public String getCollect_amount() {
+        return collect_amount;
+    }
+
+    public void setCollect_amount(String collect_amount) {
+        this.collect_amount = collect_amount;
     }
 }

@@ -76,6 +76,11 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         }
     }
 
+    /**
+     * 获取图书单品成功的Event
+     *
+     * @param productBook ProductBook
+     */
     public void onEventMainThread(ProductBook productBook) {
         mProductBook = productBook;
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
