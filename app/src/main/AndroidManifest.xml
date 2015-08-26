@@ -239,7 +239,9 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.user.UserCenterActivity">
+        <activity
+            android:name=".activity.user.UserCenterActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

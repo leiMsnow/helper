@@ -80,6 +80,19 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
     @Override
     protected void initData() {
+        getUserInfo();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        getUserInfo();
+    }
+
+
+    /**
+     * 获取用户资料
+     */
+    private void getUserInfo() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             String visitorId = uri.getQueryParameter("visitorId");
