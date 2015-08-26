@@ -14,6 +14,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
@@ -31,7 +32,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private ImageButton ibSearch;
     private ImageButton ibCreate;
     private TextView tvTitle;
+    private View toolbar;
 
+    private boolean mIsMainEvent = false;
     private int mCursor = 0;
 
     @Override
@@ -41,6 +44,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
+        toolbar = mView.findViewById(R.id.in_topic_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
@@ -59,8 +63,13 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
-
-        TopicApi.getInstance().recommendTopicList(0, 10, this);
+        if (getArguments() != null)
+            mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
+        if (mIsMainEvent) {
+            TopicApi.getInstance().recommendTopicList(mCursor, 10, this);
+        } else {
+            toolbar.setVisibility(View.GONE);
+        }
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
@@ -88,8 +97,18 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      *
      * @param obj
      */
-    public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        if (obj.isMain) {
+    public void onEventMainThread(BaseEvent.RecommendTopicListEvent obj) {
+        mAdapter.replaceAll(obj.topicList);
+        lvTopicList.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 话题列表事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
+        if (!mIsMainEvent) {
             mAdapter.replaceAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
         }
@@ -114,10 +133,20 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
     }
 
+    /**
+     * 话题收藏回调
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
         TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
     }
 
+    /**
+     * 话题创建成功回调
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
     }

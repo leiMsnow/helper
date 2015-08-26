@@ -15,6 +15,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
 
 import de.greenrobot.event.EventBus;
@@ -53,6 +54,9 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         tvHistory = (TextView) findViewById(R.id.tv_history);
         flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
         vHistoryList = findViewById(R.id.fl_container);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
+                new TopicFragment()).commit();
     }
 
     @Override
@@ -136,7 +140,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
             if (query.contains(";"))
                 query = query.replace(";", "");
             saveSearchKey(query);
-            EventBus.getDefault().post(query);
             TopicApi.getInstance().searchTopicList(query, mCursor, mPageSize, this);
         }
         return false;
@@ -180,10 +183,9 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         }
     }
 
+    public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
 
-    public void onEventMainThread(BaseEvent.SearchTopicListEvent topicListEvent) {
-        mCursor++;
-        llHistoryParent.setVisibility(View.VISIBLE);
+        llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
         searchView.onActionViewCollapsed();
     }

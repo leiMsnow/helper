@@ -28,8 +28,13 @@ public class BaseEvent {
      * 话题列表Event
      */
     public static class TopicListEvent {
-        //是否是主界面调用的接口
-        public boolean isMain = false;
+        public List<Topic> topicList;
+    }
+
+    /**
+     * 推荐话题列表Event
+     */
+    public static class RecommendTopicListEvent {
         public List<Topic> topicList;
     }
 

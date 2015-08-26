@@ -34,8 +34,6 @@ import io.rong.imkit.RongIM;
 public class SearchGroupActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener {
 
-    private FragmentManager fm;
-
     private SearchView searchView;
     private String mKeyword;
 
@@ -46,9 +44,9 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
-        fm = getSupportFragmentManager();
         RecommendGroupFragment recommendGroupFragment = new RecommendGroupFragment();
-        fm.beginTransaction().add(R.id.fl_container, recommendGroupFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
+                recommendGroupFragment).commit();
     }
 
     @Override

@@ -48,7 +48,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
     @Override
     protected void initData() {
         if (getArguments() != null)
-            mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN_GROUP, false);
+            mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsFromMain) {
             GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
         }
@@ -92,7 +92,6 @@ public class RecommendGroupFragment extends BaseApiFragment {
     public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
         mKeyword = keyEvent.keyword;
         GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
-
     }
 
     /**

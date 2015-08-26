@@ -88,10 +88,6 @@ public class Consts {
      * 圈子搜索结果
      */
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
-    /**
-     * 是否是首页圈子
-     */
-    public static final String KEY_IS_MAIN_GROUP = "KEY_IS_MAIN_GROUP";
 
     //------------------------------话题相关key------------------------------------------------------
     /**
@@ -131,6 +127,12 @@ public class Consts {
      * 图书单品id
      */
     public static final String KEY_PRODUCY_BOOK_ID = "KEY_PRODUCY_BOOK_ID";
+
+    //------------------------------其它相关key------------------------------------------------------
+    /**
+     * 是否是首页
+     */
+    public static final String KEY_IS_MAIN = "KEY_IS_MAIN";
 
     //------------------------------bundle-key-end--------------------------------------------------
 

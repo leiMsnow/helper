@@ -1,5 +1,6 @@
 package com.tongban.im.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.group.GroupFragment;
 import com.tongban.im.fragment.discover.DiscoverFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
@@ -51,7 +53,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         /** 发现 */
         mTabs.add(new DiscoverFragment());
         /** 话题 */
-        mTabs.add(new TopicFragment());
+        TopicFragment topicFragment = new TopicFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Consts.KEY_IS_MAIN, true);
+        topicFragment.setArguments(bundle);
+        mTabs.add(topicFragment);
         /** 圈子 */
         mTabs.add(new GroupFragment());
 

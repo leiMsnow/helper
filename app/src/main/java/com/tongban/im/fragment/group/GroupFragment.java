@@ -59,7 +59,7 @@ public class GroupFragment extends BaseApiFragment {
         chatFragment.setUri(uri);
         recommendFragment = new RecommendGroupFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_IS_MAIN_GROUP, true);
+        bundle.putBoolean(Consts.KEY_IS_MAIN, true);
         recommendFragment.setArguments(bundle);
         fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
