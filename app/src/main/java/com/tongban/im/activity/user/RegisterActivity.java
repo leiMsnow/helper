@@ -123,13 +123,13 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {
         regEvent = obj;
         // 获取验证码成功
-        if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
+        if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             mTime = new VerifyTimerCount(tvVerifyCode);//构造CountDownTimer对象
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
         // 注册成功，自动登录
-        else if (regEvent.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
+        else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
             AccountApi.getInstance().login(mPhoneNum, mPwd, this);
         }
@@ -165,7 +165,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
-                    AccountApi.getInstance().register(mPhoneNum, mPwd, regEvent.getVerify_id(),
+                    AccountApi.getInstance().register(mPhoneNum, mPwd, regEvent.verify_id,
                             mVerifyCode, this);
                 }
             } else {

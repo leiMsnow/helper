@@ -52,7 +52,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
      * 我的关注Event
      */
     public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
-        mAdapter.replaceAll(obj.getMyFollowList());
+        mAdapter.replaceAll(obj.myFollowList);
     }
 
     @Override

@@ -240,7 +240,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         KeyBoardUtils.closeKeybord(topicInputView.getEtComment(), mContext);
 
         TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
-        ToastUtil.getInstance(mContext).showToast(obj.getMessage());
+        ToastUtil.getInstance(mContext).showToast(obj.message);
     }
 
     /**

@@ -163,7 +163,7 @@ public class UserCenterApi extends BaseApi {
                     // 将用户信息保存到本地数据库
                     UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(apiResponse.getData()));
                     BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
-                    userCenterEvent.setUser(apiResponse.getData());
+                    userCenterEvent.user = (apiResponse.getData());
                     if (callback != null)
                         callback.onComplete(userCenterEvent);
                 } catch (Throwable throwable) {
@@ -279,7 +279,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<User>>() {
                         });
                 BaseEvent.MyFollowListEvent myFollowListEvent = new BaseEvent.MyFollowListEvent();
-                myFollowListEvent.setMyFollowList(apiResponse.getData().getResult());
+                myFollowListEvent.myFollowList = (apiResponse.getData().getResult());
                 callback.onComplete(myFollowListEvent);
             }
 
@@ -316,7 +316,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<User>>() {
                         });
                 BaseEvent.MyFansListEvent myFansListEvent = new BaseEvent.MyFansListEvent();
-                myFansListEvent.setMyFansList(apiResponse.getData().getResult());
+                myFansListEvent.myFansList = (apiResponse.getData().getResult());
                 callback.onComplete(myFansListEvent);
             }
 
@@ -463,7 +463,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
                 BaseEvent.CommentTopicListEvent commentTopicListEvent = new BaseEvent.CommentTopicListEvent();
-                commentTopicListEvent.setCommentTopicList(apiResponse.getData().getResult());
+                commentTopicListEvent.commentTopicList = (apiResponse.getData().getResult());
                 callback.onComplete(commentTopicListEvent);
             }
 
@@ -537,7 +537,7 @@ public class UserCenterApi extends BaseApi {
             public void onComplete(Object obj) {
 
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
-                focusEvent.setIsFocus(isFocus);
+                focusEvent.isFocus = (isFocus);
                 callback.onComplete(focusEvent);
             }
 

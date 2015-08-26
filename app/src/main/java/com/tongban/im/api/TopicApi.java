@@ -330,7 +330,7 @@ public class TopicApi extends BaseApi {
                     public void onComplete(Object obj) {
 
                         BaseEvent.CreateTopicCommentEvent event = new BaseEvent.CreateTopicCommentEvent();
-                        event.setMessage("回复成功");
+                        event.message = ("回复成功");
                         if (callback != null)
                             callback.onComplete(event);
                     }

@@ -154,6 +154,6 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
-        tvMyCommentTopicNum.setText(String.valueOf(obj.getCommentTopicList().size()));
+        tvMyCommentTopicNum.setText(String.valueOf(obj.commentTopicList.size()));
     }
 }
