@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_marginBottom="8dp"
               android:orientation="vertical">
 
     <LinearLayout
@@ -44,56 +43,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="【图书简介】"
+        android:text="@string/book_desc"
         android:textColor="@color/main_deep_orange"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tv_product_desc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"/>
 
     <!-- 【作者简介】 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="【作者简介】"
+        android:text="@string/author_desc"
         android:textColor="@color/main_deep_orange"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tv_author_desc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"/>
 
     <!-- 【推荐理由】 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="【推荐理由】"
+        android:text="@string/recommend_cause"
         android:textColor="@color/main_deep_orange"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tv_recommend_cause"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"/>
 
     <!-- 【适读情景】 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="【适读情景】"
+        android:text="@string/scene_for"
         android:textColor="@color/main_deep_orange"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/tv_scene_for"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"/>
 
     <!-- 查看商品详情 -->
     <Button
@@ -102,7 +109,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/shape_corners_bg_deep_orange"
-        android:text="查看详情"
+        android:text="@string/view_details"
         android:textColor="@color/white"
         android:textSize="16sp"/>
 </LinearLayout>

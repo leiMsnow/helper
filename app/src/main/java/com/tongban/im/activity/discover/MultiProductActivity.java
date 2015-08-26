@@ -179,6 +179,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
         mProductBooks = themeProducts.getList();
         if (mProductBooks != null && mProductBooks.size() > 0) {
             mProductList.removeAllViews();
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(0, 0, 0, 30);
             View view;
             int pos = 1; // 商品序号
             for (final ProductBook productBook : mProductBooks) {
@@ -220,7 +223,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
                         }
                     }
                 });
-                mProductList.addView(view);
+                mProductList.addView(view, layoutParams);
                 pos++;
             }
         }

@@ -54,6 +54,11 @@
     <string name="hint_pwd">6-24位字母或数字</string>
     <!-- 发现-->
     <string name="discover">发现</string>
+    <string name="view_details">查看详情</string>
+    <string name="book_desc">【图书简介】</string>
+    <string name="author_desc">【作者简介】</string>
+    <string name="recommend_cause">【推荐理由】</string>
+    <string name="scene_for">【适读情景】</string>
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
