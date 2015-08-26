@@ -24,9 +24,9 @@ import com.tongban.im.model.User;
 public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private PullToZoomScrollViewEx lvUserCenter;
-    private ImageView ivUserIcon;
+    private ImageView ivUserIcon, ivPrivateChat;
     private TextView tvUserName, tvDeclaration;
-    private LinearLayout llUserInfo;
+    private RelativeLayout rlUserInfo;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
@@ -53,8 +53,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
 
-        llUserInfo = (LinearLayout) headView.findViewById(R.id.ll_user_info);
+        rlUserInfo = (RelativeLayout) headView.findViewById(R.id.rl_user_info);
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
+        ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
         tvDeclaration = (TextView) headView.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
@@ -86,10 +87,12 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initListener() {
-        llUserInfo.setOnClickListener(this);
+        rlUserInfo.setOnClickListener(this);
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
+
+        ivPrivateChat.setOnClickListener(this);
 
         llMyCollect.setOnClickListener(this);
         llMyTopic.setOnClickListener(this);
@@ -104,7 +107,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     @Override
     public void onClick(View v) {
         //跳转到个人资料界面
-        if (v == llUserInfo) {
+        if (v == rlUserInfo) {
             startActivity(new Intent(this, PersonalInfoActivity.class));
         }
         //跳转到粉丝界面
@@ -135,13 +138,19 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         else if (v == llMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
         }
+        //私聊
+        else if (v == ivPrivateChat) {
+
+        }
     }
 
     //返回个人中心数据
     public void onEventMainThread(User user) {
         Glide.with(mContext).load(user.getPortrait_url().getMin()).
                 placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
-        tvUserName.setText(user.getNick_name() + user.getBirthday());
+        tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
+                user.getChild_info().get(0).getAge()
+                + " " + user.getChild_info().get(0).getConstellation());
         tvDeclaration.setText(user.getTags());
         tvFansCount.setText(user.getFans_amount() + "");
         tvFollowCount.setText(user.getFocused_amount() + "");
