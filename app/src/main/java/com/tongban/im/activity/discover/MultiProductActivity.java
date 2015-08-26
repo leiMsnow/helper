@@ -18,7 +18,6 @@ import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
@@ -38,6 +37,8 @@ import java.util.List;
  * Created by Cheney on 15/8/17.
  */
 public class MultiProductActivity extends BaseToolBarActivity {
+    // 收藏按钮
+    private MenuItem collectMenu;
     // 专题头图
     private ImageView headImg;
     // 专题标题
@@ -106,6 +107,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_multi_product, menu);
+        collectMenu = menu.findItem(R.id.collect);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -115,8 +117,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
         if (itemId == R.id.collect) {
             if (mMultiProduct != null && !mMultiProduct.isCollect_status()) {
                 // 未收藏时,点击收藏
-                item.setEnabled(false);
                 ProductApi.getInstance().collectMultiProduct(multiId, this);
+                item.setEnabled(false);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -125,8 +127,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
                 }, 1500);
             } else if (mMultiProduct != null && mMultiProduct.isCollect_status()) {
                 // 已收藏,点击取消收藏
-                item.setEnabled(false);
                 ProductApi.getInstance().noCollectMultiProduct(multiId, this);
+                item.setEnabled(false);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -161,7 +163,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
         // 判断是否是收藏状态
         if (mMultiProduct.isCollect_status()) {
-            ((MenuItem) findViewById(R.id.collect)).setChecked(true);
+            collectMenu.setIcon(R.mipmap.ic_multi_product_collected);
         }
         setTitle(mMultiProduct.getTheme_title());
         if (mMultiProduct.getTheme_img_url().size() > 0) {
@@ -298,7 +300,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
         mMultiProduct.setCollect_status(true);
-        ((MenuItem) findViewById(R.id.collect)).setChecked(true);
+        collectMenu.setIcon(R.mipmap.ic_multi_product_collected);
     }
 
     /**
@@ -309,7 +311,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.NoCollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("已经取消收藏");
         mMultiProduct.setCollect_status(false);
-        ((MenuItem) findViewById(R.id.collect)).setChecked(false);
+        collectMenu.setIcon(R.mipmap.ic_multi_product_collect);
     }
 
 }
