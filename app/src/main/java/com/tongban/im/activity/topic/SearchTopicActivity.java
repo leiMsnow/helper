@@ -1,6 +1,5 @@
 package com.tongban.im.activity.topic;
 
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,21 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TopicListenerImpl;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 搜索话题
@@ -30,26 +25,22 @@ import com.tongban.im.model.BaseEvent;
  * @author zhangleilei
  * @createTime 2015/8/11
  */
-public class SearchTopicActivity extends BaseToolBarActivity implements SearchView.OnQueryTextListener,
-        View.OnClickListener {
+public class SearchTopicActivity extends BaseToolBarActivity implements
+        SearchView.OnQueryTextListener, View.OnClickListener {
+
+    //最大历史记录数
+    private final static int mKeyCount = 10;
 
     private SearchView searchView;
     private TextView tvHistory;
     private FlowLayout flHistorySearch;
-    private ListView lvTopicList;
-
-    private TopicListAdapter mAdapter;
+    private View llHistoryParent;
+    private View vHistoryList;
 
     private String mKeys;
-    private final int mKeyCount = 10;
 
     private int mCursor = 0;
     private int mPageSize = 10;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -58,17 +49,14 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initView() {
+        llHistoryParent = findViewById(R.id.ll_history_parent);
         tvHistory = (TextView) findViewById(R.id.tv_history);
         flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
-        lvTopicList = (ListView) findViewById(R.id.lv_topic_list);
+        vHistoryList = findViewById(R.id.fl_container);
     }
 
     @Override
     protected void initData() {
-
-        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list, null);
-        mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
-        lvTopicList.setAdapter(mAdapter);
         //初始化
         initHistoryKey();
     }
@@ -107,13 +95,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initListener() {
-        lvTopicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TransferCenter.getInstance().startTopicDetails(
-                        mAdapter.getItem(position).getTopic_id());
-            }
-        });
+
     }
 
     @Override
@@ -127,9 +109,10 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     public void onBackPressed() {
-        if (lvTopicList.getVisibility() == View.VISIBLE) {
-            lvTopicList.setVisibility(View.GONE);
+        if (vHistoryList.getVisibility() == View.VISIBLE) {
+            vHistoryList.setVisibility(View.GONE);
             searchView.onActionViewExpanded();
+            llHistoryParent.setVisibility(View.VISIBLE);
         } else {
             finish();
         }
@@ -153,6 +136,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
             if (query.contains(";"))
                 query = query.replace(";", "");
             saveSearchKey(query);
+            EventBus.getDefault().post(query);
             TopicApi.getInstance().searchTopicList(query, mCursor, mPageSize, this);
         }
         return false;
@@ -199,8 +183,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     public void onEventMainThread(BaseEvent.SearchTopicListEvent topicListEvent) {
         mCursor++;
-        lvTopicList.setVisibility(View.VISIBLE);
-        mAdapter.replaceAll(topicListEvent.topicList);
+        llHistoryParent.setVisibility(View.VISIBLE);
+        vHistoryList.setVisibility(View.VISIBLE);
         searchView.onActionViewCollapsed();
     }
 }

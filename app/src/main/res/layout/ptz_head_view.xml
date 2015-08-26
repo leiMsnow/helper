@@ -14,7 +14,7 @@
             android:id="@+id/iv_user_portrait"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
         <CheckBox
             android:id="@+id/chb_focus"
@@ -33,10 +33,12 @@
         android:layout_alignBottom="@+id/fl_user_head"
         android:layout_alignTop="@+id/fl_user_head"
         android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/iv_private_chat"
         android:layout_toRightOf="@+id/fl_user_head"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_user_info"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -68,7 +70,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_sex"
                 android:text="小王子  1岁23天  狮子座"
-                android:textColor="@color/white" />
+                android:textColor="@drawable/selector_usercenter_text_color" />
         </RelativeLayout>
         <!-- 用户标签-->
         <TextView
@@ -84,18 +86,16 @@
             android:visibility="visible" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_private_chat"
+    <ImageView
+        android:id="@+id/iv_private_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/fl_user_head"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/fl_user_head"
         android:layout_marginRight="24dp"
-        android:gravity="center_vertical"
-        android:text="私聊"
-        android:textColor="@color/red_300"
-        android:visibility="gone" />
+        android:src="@drawable/selector_chat_icon"
+        android:visibility="visible" />
     <!--底部粉丝、关注、话题布局-->
     <LinearLayout
         android:layout_width="match_parent"

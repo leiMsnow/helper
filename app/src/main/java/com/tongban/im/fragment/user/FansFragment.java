@@ -58,7 +58,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
      * @param obj
      */
     public void onEventMainThread(BaseEvent.MyFansListEvent obj) {
-        mAdapter.replaceAll(obj.getMyFansList());
+        mAdapter.replaceAll(obj.myFansList);
     }
 
     @Override

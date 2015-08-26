@@ -59,6 +59,7 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_product) {
+
         }
     }
 

@@ -68,7 +68,6 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        startActivity(new Intent(mContext, TopicDetailsActivity.class));
         TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getUser_info().getUser_id());
     }
 
@@ -77,6 +76,6 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
-        mAdapter.replaceAll(obj.getCommentTopicList());
+        mAdapter.replaceAll(obj.commentTopicList);
     }
 }

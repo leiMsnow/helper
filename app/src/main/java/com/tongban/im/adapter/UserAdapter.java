@@ -35,6 +35,7 @@ public class UserAdapter extends QuickAdapter<User> {
             helper.setText(R.id.btn_follow, "已关注");
         } else {
             helper.setText(R.id.btn_follow, "关注");
+            helper.setTextColor(R.id.follow, R.color.red_300);
         }
         helper.setTag(R.id.iv_user_icon, Integer.MAX_VALUE, item.getUser_id());
         helper.setOnClickListener(R.id.iv_user_icon, onClickListener);

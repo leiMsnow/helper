@@ -15,20 +15,12 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@android:color/transparent">
 
-        <ImageView
-            android:id="@+id/iv_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:src="@mipmap/ic_create_group" />
-
         <TextView
             android:id="@+id/tv_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_weather"
+            android:layout_marginLeft="8dp"
             android:text="18-29°c\n北京市朝阳区"
             android:textColor="@color/white"
             android:textSize="10sp" />
@@ -53,7 +45,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/ic_menu_close" />
+            android:src="@mipmap/ic_closed" />
 
     </RelativeLayout>
 

@@ -118,7 +118,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
      * @param obj
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
-        mUserInfo = obj.getUser();
+        mUserInfo = obj.user;
         if (mUserInfo.getSex().equals("男")) {
             ivSex.setImageResource(R.mipmap.ic_boy);
         } else {
@@ -179,8 +179,8 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
 
-        chbFocus.setChecked(obj.isFocus());
-        if (obj.isFocus()) {
+        chbFocus.setChecked(obj.isFocus);
+        if (obj.isFocus) {
             ToastUtil.getInstance(mContext).showToast("关注成功");
         } else {
             ToastUtil.getInstance(mContext).showToast("取消成功");

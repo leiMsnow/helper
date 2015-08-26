@@ -76,14 +76,14 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
 
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {
         // 获取验证码成功
-        if (obj.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
+        if (obj.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             //构造CountDownTimer对象
             mTime = new VerifyTimerCount(tvVerifyCode);
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
         // 找回成功，自动登录
-        else if (obj.getRegisterEnum() == BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE) {
+        else if (obj.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.VERIFY_CODE) {
             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.pwd_reset_success));
             AccountApi.getInstance().login(tvPhoneNum.getText().toString(), mPwd, this);
         }

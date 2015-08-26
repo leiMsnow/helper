@@ -99,7 +99,7 @@ public class AccountApi extends BaseApi {
                         new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
                         });
                 BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE);
+                registerEvent.registerEnum = (BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE);
                 callback.onComplete(registerEvent);
             }
 
@@ -145,7 +145,7 @@ public class AccountApi extends BaseApi {
                         new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
                         });
                 BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-                registerEvent.setRegisterEnum(BaseEvent.RegisterEvent.RegisterEnum.REGISTER);
+                registerEvent.registerEnum = (BaseEvent.RegisterEvent.RegisterEnum.REGISTER);
                 callback.onComplete(registerEvent);
             }
 
