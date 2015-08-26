@@ -113,9 +113,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.collect) {
-            item.setEnabled(false);
             if (mMultiProduct != null && !mMultiProduct.isCollect_status()) {
                 // 未收藏时,点击收藏
+                item.setEnabled(false);
                 ProductApi.getInstance().collectMultiProduct(multiId, this);
                 mHandler.postDelayed(new Runnable() {
                     @Override
@@ -124,6 +124,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
                     }
                 }, 1500);
             } else if (mMultiProduct != null && mMultiProduct.isCollect_status()) {
+                // 已收藏,点击取消收藏
+                item.setEnabled(false);
                 ProductApi.getInstance().noCollectMultiProduct(multiId, this);
                 mHandler.postDelayed(new Runnable() {
                     @Override
@@ -146,24 +148,28 @@ public class MultiProductActivity extends BaseToolBarActivity {
      * @param multiProduct MultiProduct
      */
     public void onEventMainThread(MultiProduct multiProduct) {
-        mMultiProduct = multiProduct;
+        this.mMultiProduct = multiProduct;
         // 获取专题发布人的信息
-        AccountApi.getInstance().getUserInfoByUserId(multiProduct.getUser_id(), this);
+        AccountApi.getInstance().getUserInfoByUserId(mMultiProduct.getUser_id(), this);
         // 获取专题下的单品列表
-        ProductApi.getInstance().fetchProductListByMultiId(multiProduct.getTheme_id(), 0, 20, this);
+        ProductApi.getInstance().fetchProductListByMultiId(mMultiProduct.getTheme_id(), 0, 20, this);
         // 获取专题下的相关话题,直接调用话题搜索的接口
-        StringBuilder sb = new StringBuilder(multiProduct.getTheme_title());
-        if (multiProduct.getTheme_tags() != null && multiProduct.getTheme_tags().length() > 0)
-            sb.append(",").append(multiProduct.getTheme_tags());
+        StringBuilder sb = new StringBuilder(mMultiProduct.getTheme_title());
+        if (mMultiProduct.getTheme_tags() != null && mMultiProduct.getTheme_tags().length() > 0)
+            sb.append(",").append(mMultiProduct.getTheme_tags());
         TopicApi.getInstance().searchTopicList(sb.toString(), 0, 3, this);
 
-        setTitle(multiProduct.getTheme_title());
-        if (multiProduct.getTheme_img_url().size() > 0) {
-            Glide.with(mContext).load(multiProduct.getTheme_img_url().get(0).getMid()).into(headImg);
+        // 判断是否是收藏状态
+        if (mMultiProduct.isCollect_status()) {
+            ((MenuItem) findViewById(R.id.collect)).setChecked(true);
         }
-        title.setText(multiProduct.getTheme_title());
+        setTitle(mMultiProduct.getTheme_title());
+        if (mMultiProduct.getTheme_img_url().size() > 0) {
+            Glide.with(mContext).load(mMultiProduct.getTheme_img_url().get(0).getMid()).into(headImg);
+        }
+        title.setText(mMultiProduct.getTheme_title());
         multiTag.removeAllViews();
-        String[] themeTags = multiProduct.getTheme_tags().split(",");
+        String[] themeTags = mMultiProduct.getTheme_tags().split(",");
         if (themeTags.length > 0) {
             for (String tag : themeTags) {
                 TextView tv = new TextView(mContext);
@@ -179,8 +185,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
         } else {
             multiTag.setVisibility(View.GONE);
         }
-        multiDesc.setText(multiProduct.getTheme_content());
-        createTime.setText(DateUtils.longToString(multiProduct.getC_time(), "MM-dd hh:mm"));
+        multiDesc.setText(mMultiProduct.getTheme_content());
+        createTime.setText(DateUtils.longToString(mMultiProduct.getC_time(), "MM-dd hh:mm"));
     }
 
     /**
@@ -291,6 +297,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
      */
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
+        mMultiProduct.setCollect_status(true);
+        ((MenuItem) findViewById(R.id.collect)).setChecked(true);
     }
 
     /**
@@ -300,6 +308,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
      */
     public void onEventMainThread(BaseEvent.NoCollectMultiProductEvent event) {
         ToastUtil.getInstance(mContext).showToast("已经取消收藏");
+        mMultiProduct.setCollect_status(false);
+        ((MenuItem) findViewById(R.id.collect)).setChecked(false);
     }
 
 }
