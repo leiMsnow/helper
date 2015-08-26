@@ -1,6 +1,8 @@
 package com.tongban.im.activity.group;
 
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -11,13 +13,16 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
+import com.tongban.im.fragment.group.RecommendGroupFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
 
 /**
@@ -28,9 +33,12 @@ import io.rong.imkit.RongIM;
  */
 public class SearchGroupActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener {
+
+    private FragmentManager fm;
+
     private SearchView searchView;
-    private ListView lvGroups;
-    private GroupListAdapter mAdapter;
+    //    private ListView lvGroups;
+//    private GroupListAdapter mAdapter;
     private String mKeyword;
 
     @Override
@@ -40,12 +48,15 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
-        lvGroups = (ListView) findViewById(R.id.lv_groups);
+//        lvGroups = (ListView) findViewById(R.id.lv_groups);
+        fm = getSupportFragmentManager();
+        RecommendGroupFragment recommendGroupFragment = new RecommendGroupFragment();
+        fm.beginTransaction().add(R.id.fl_container, recommendGroupFragment).commit();
     }
 
     @Override
     protected void initListener() {
-        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
+//        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     @Override
@@ -54,10 +65,10 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
             Uri uri = getIntent().getData();
             mKeyword = uri.getQueryParameter("keyword");
         }
-        List<Group> groups = new ArrayList<>();
-        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
-        mAdapter.setDisplayModel(false);
-        lvGroups.setAdapter(mAdapter);
+//        List<Group> groups = new ArrayList<>();
+//        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
+//        mAdapter.setDisplayModel(false);
+//        lvGroups.setAdapter(mAdapter);
     }
 
     @Override
@@ -65,7 +76,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQuery(mKeyword, false);
+//        searchView.setQuery(mKeyword, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
@@ -75,8 +86,9 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            mKeyword = query;
-            GroupApi.getInstance().searchGroupList(mKeyword, 0, 15, this);
+            BaseEvent.SearchGroupKeyEvent search = new BaseEvent.SearchGroupKeyEvent();
+            search.keyword = query;
+            EventBus.getDefault().post(search);
         }
         return true;
     }
@@ -84,26 +96,5 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
-    }
-
-    /**
-     * 搜索群组成功的事件
-     *
-     * @param searchGroupEvent
-     */
-    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        mAdapter.replaceAll(searchGroupEvent.getGroups());
-        lvGroups.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 加入群组成功的事件回调
-     *
-     * @param joinGroupEvent
-     */
-    public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.getGroup_id(),
-                joinGroupEvent.getGroup_name());
-        GroupApi.getInstance().searchGroupList(mKeyword, 0, mAdapter.getCount(), this);
     }
 }

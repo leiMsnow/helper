@@ -12,30 +12,16 @@ public class BaseEvent {
      * 搜索圈子的Event
      */
     public static class SearchGroupListEvent {
-        List<Group> groups;
-
-        public List<Group> getGroups() {
-            return groups;
-        }
-
-        public void setGroups(List<Group> groups) {
-            this.groups = groups;
-        }
+        public List<Group> groups;
+        public boolean isSearchEvent = false;
     }
 
     /**
      * 群推荐列表Event
      */
     public static class RecommendGroupListEvent {
-        List<Group> groupList;
-
-        public List<Group> getGroupList() {
-            return groupList;
-        }
-
-        public void setGroupList(List<Group> groupList) {
-            this.groupList = groupList;
-        }
+        public List<Group> groupList;
+        public boolean isMainEvent = false;
     }
 
     /**
@@ -522,7 +508,7 @@ public class BaseEvent {
      * 关注用户Event
      */
     public static class FocusEvent {
-       boolean isFocus;
+        boolean isFocus;
 
         public boolean isFocus() {
             return isFocus;
@@ -531,5 +517,12 @@ public class BaseEvent {
         public void setIsFocus(boolean isFocus) {
             this.isFocus = isFocus;
         }
+    }
+
+    /**
+     * 搜索圈子关键字Event
+     */
+    public static class SearchGroupKeyEvent {
+        public String keyword;
     }
 }

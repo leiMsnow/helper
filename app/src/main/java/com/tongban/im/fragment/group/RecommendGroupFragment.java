@@ -23,6 +23,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     private GroupListAdapter mAdapter;
 
+    private boolean mIsFromMain = false;
     private int mCursor = 0;
 
     @Override
@@ -41,13 +42,13 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     @Override
     protected void initData() {
-
-        GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
-
-        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
-        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
-        mAdapter.setDisplayModel(false);
-        lvGroupList.setAdapter(mAdapter);
+        if (mIsFromMain) {
+            GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
+            mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
+            mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
+            mAdapter.setDisplayModel(false);
+            lvGroupList.setAdapter(mAdapter);
+        }
     }
 
     /**
@@ -56,8 +57,10 @@ public class RecommendGroupFragment extends BaseApiFragment {
      * @param list
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
-        mAdapter.replaceAll(list.getGroupList());
-        lvGroupList.setVisibility(View.VISIBLE);
+        if (list.isMainEvent) {
+            mAdapter.replaceAll(list.groupList);
+            lvGroupList.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -70,5 +73,26 @@ public class RecommendGroupFragment extends BaseApiFragment {
         RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.getGroup_id(),
                 joinGroupEvent.getGroup_name());
         GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
+    }
+
+    /**
+     * 搜索keyword事件回调
+     *
+     * @param keyEvent
+     */
+    public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
+        GroupApi.getInstance().searchGroupList(keyEvent.keyword, 0, 15, this);
+    }
+
+    /**
+     * 搜索群组成功的事件
+     *
+     * @param searchGroupEvent
+     */
+    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
+        if (searchGroupEvent.isSearchEvent) {
+            mAdapter.replaceAll(searchGroupEvent.groups);
+            lvGroupList.setVisibility(View.VISIBLE);
+        }
     }
 }

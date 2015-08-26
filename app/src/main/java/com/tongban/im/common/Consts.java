@@ -88,7 +88,10 @@ public class Consts {
      * 圈子搜索结果
      */
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
-
+    /**
+     * 是否是首页圈子
+     */
+    public static final String KEY_IS_MAIN_GROUP = "KEY_IS_MAIN_GROUP";
 
     //------------------------------话题相关key------------------------------------------------------
     /**

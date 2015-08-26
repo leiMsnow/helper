@@ -3,6 +3,7 @@ package com.tongban.im.fragment.group;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.RadioGroup;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 
@@ -56,6 +58,9 @@ public class GroupFragment extends BaseApiFragment {
                 .build();
         chatFragment.setUri(uri);
         recommendFragment = new RecommendGroupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Consts.KEY_IS_MAIN_GROUP, true);
+        recommendFragment.setArguments(bundle);
         fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
     }

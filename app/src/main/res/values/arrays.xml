@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="error_message">
-        <item>服务器被外星人抓走了</item>
+        <item>服务器睡着了</item>
         <item>不好了,服务器被妖怪抓走了</item>
         <item>服务器去泡妞了</item>
         <item>快看，有飞机</item>
+        <item>股市又跌了，服务器不想写代码了</item>
+        <item>再等一会吧，服务器要给你转100万</item>
     </array>
 </resources>

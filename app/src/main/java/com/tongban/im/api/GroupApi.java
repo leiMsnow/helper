@@ -198,7 +198,8 @@ public class GroupApi extends BaseApi {
 
                 if (listResult.getData().getResult().size() > 0) {
                     BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
-                    listEvent.setGroupList(listResult.getData().getResult());
+                    listEvent.isMainEvent = true;
+                    listEvent.groupList = listResult.getData().getResult();
                     if (callback != null)
                         callback.onComplete(listEvent);
                 } else {
@@ -245,7 +246,8 @@ public class GroupApi extends BaseApi {
                 if (apiResponse.getData().getResult().size() > 0) {
 
                     BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
-                    searchGroupEvent.setGroups(apiResponse.getData().getResult());
+                    searchGroupEvent.isSearchEvent = true;
+                    searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)
                         callback.onComplete(searchGroupEvent);
                 } else {
