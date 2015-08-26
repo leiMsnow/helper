@@ -29,14 +29,14 @@ public class MultiProduct {
     // 修改时间
     private long m_time;
     //收藏数量
-    private String collect_count;
+    private String collect_amount;
 
-    public String getCollect_count() {
-        return collect_count;
+    public String getCollect_amount() {
+        return collect_amount;
     }
 
-    public void setCollect_count(String collect_count) {
-        this.collect_count = collect_count;
+    public void setCollect_amount(String collect_amount) {
+        this.collect_amount = collect_amount;
     }
 
     public String getTheme_id() {
