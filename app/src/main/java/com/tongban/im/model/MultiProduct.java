@@ -1,6 +1,8 @@
 package com.tongban.im.model;
 
 
+import java.util.List;
+
 /**
  * 专题的model
  * Created by chenenyu on 15/8/17.
@@ -11,7 +13,7 @@ public class MultiProduct {
     // 标题
     private String theme_title;
     // 专题图片
-    private String[] theme_img_url;
+    private List<ImageUrl> theme_img_url;
     // 专题标签
     private String theme_tags;
     // 专题描述
@@ -53,11 +55,11 @@ public class MultiProduct {
         this.theme_title = theme_title;
     }
 
-    public String[] getTheme_img_url() {
+    public List<ImageUrl> getTheme_img_url() {
         return theme_img_url;
     }
 
-    public void setTheme_img_url(String[] theme_img_url) {
+    public void setTheme_img_url(List<ImageUrl> theme_img_url) {
         this.theme_img_url = theme_img_url;
     }
 
