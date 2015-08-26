@@ -26,6 +26,16 @@ public class MultiProduct {
     private long c_time;
     // 修改时间
     private long m_time;
+    //收藏数量
+    private String collect_count;
+
+    public String getCollect_count() {
+        return collect_count;
+    }
+
+    public void setCollect_count(String collect_count) {
+        this.collect_count = collect_count;
+    }
 
     public String getTheme_id() {
         return theme_id;
