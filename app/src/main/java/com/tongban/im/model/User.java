@@ -7,11 +7,6 @@ import java.util.List;
  * Created by zhangleilei on 15/7/3.
  */
 public class User {
-    //已经关注
-    public final static int FOCUS = 0;
-    //还未关注
-    public final static int UN_FOCUS = 1;
-
     // 用户id
     private String user_id;
     // 手机号码

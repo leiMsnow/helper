@@ -1,6 +1,8 @@
 package com.tongban.im.fragment.user;
 
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -9,6 +11,7 @@ import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -19,7 +22,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class FansFragment extends BaseApiFragment {
+public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener {
     private ListView lvFansList;
     private UserAdapter mAdapter;
 
@@ -46,7 +49,7 @@ public class FansFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
-
+        lvFansList.setOnItemClickListener(this);
     }
 
     /**
@@ -56,6 +59,10 @@ public class FansFragment extends BaseApiFragment {
      */
     public void onEventMainThread(BaseEvent.MyFansListEvent obj) {
         mAdapter.replaceAll(obj.getMyFansList());
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
     }
 }

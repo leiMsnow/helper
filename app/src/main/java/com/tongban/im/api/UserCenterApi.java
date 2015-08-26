@@ -298,14 +298,12 @@ public class UserCenterApi extends BaseApi {
      * @param callback
      */
     public void fetchFansUserList(int cursor, int pageSize, String userId, final ApiCallback callback) {
-//
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ? SPUtils.get(mContext, Consts.USER_ID, "") :
                 userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19  接口测试数据
         simpleRequest(FETCH_FANS_USER_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
