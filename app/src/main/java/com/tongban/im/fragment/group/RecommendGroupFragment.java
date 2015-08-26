@@ -7,6 +7,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
@@ -38,10 +39,13 @@ public class RecommendGroupFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
+
     }
 
     @Override
     protected void initData() {
+        if (getArguments() != null)
+            mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN_GROUP, false);
         if (mIsFromMain) {
             GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
             mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
