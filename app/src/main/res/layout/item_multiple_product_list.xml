@@ -10,13 +10,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/selector_corner_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/tv_product_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
             android:singleLine="true"
             android:text="从此蚊子和宝宝“绝缘”"
             android:textColor="@color/main_black"
@@ -24,25 +28,34 @@
 
         <TextView
             android:id="@+id/tv_product_desc"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
             android:maxLines="2"
-            android:padding="8dp"
-            android:text="从此蚊子和宝宝“绝缘”从此蚊从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝从此蚊子和宝宝"
-            android:textSize="12sp" />
+            android:textColor="@color/normal_dark_grey" />
 
         <ImageView
             android:id="@+id/iv_product"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_collect_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@mipmap/ic_my_collect"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
             android:padding="8dp"
-            android:singleLine="true"
-            android:text="230"
+            android:text="0"
+            android:textColor="@color/normal_grey"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

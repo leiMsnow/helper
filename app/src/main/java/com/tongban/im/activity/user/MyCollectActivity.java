@@ -179,4 +179,12 @@ public class MyCollectActivity extends BaseToolBarActivity implements
     public void onEventMainThread(BaseEvent.CollectSingleProductEvent obj) {
         tvSingleProductNum.setText(String.valueOf(obj.getSingleProductList().size()));
     }
+    /**
+     * 我的收藏专题Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
+        tvMultiProductNum.setText(String.valueOf(obj.getMultiProductList().size()));
+    }
 }
