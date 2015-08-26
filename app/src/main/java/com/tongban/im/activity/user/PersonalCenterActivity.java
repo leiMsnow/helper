@@ -16,6 +16,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.User;
 
 /**
@@ -24,7 +25,7 @@ import com.tongban.im.model.User;
 public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private PullToZoomScrollViewEx lvUserCenter;
-    private ImageView ivUserIcon, ivPrivateChat;
+    private ImageView ivUserIcon, ivPrivateChat, ivClose;
     private TextView tvUserName, tvDeclaration;
     private RelativeLayout rlUserInfo;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
@@ -45,6 +46,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initView() {
+        ivClose = (ImageView) findViewById(R.id.iv_close);
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
         View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view, null, false);
         View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
@@ -87,6 +89,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initListener() {
+        ivClose.setOnClickListener(this);
+
         rlUserInfo.setOnClickListener(this);
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
@@ -138,9 +142,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         else if (v == llMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
         }
+        //关闭个人中心
+        else if (v == ivClose) {
+            finish();
+        }
         //私聊
         else if (v == ivPrivateChat) {
-
+//            TransferCenter.getInstance().
         }
     }
 
