@@ -22,7 +22,6 @@
             android:layout_marginRight="8dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="从此蚊子和宝宝“绝缘”"
             android:textColor="@color/main_black"
             android:textSize="16sp" />
 
