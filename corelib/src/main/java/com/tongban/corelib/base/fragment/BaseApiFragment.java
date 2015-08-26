@@ -89,7 +89,9 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
             ToastUtil.getInstance(mContext).showToast(errorMsg);
             createEmptyView(errorMsg);
         }
-    }
+        ApiErrorResult errorResult = new ApiErrorResult();
+        errorResult.setErrorMessage(errorMsg);
+        EventBus.getDefault().post(errorResult);    }
 
     public void onEventMainThread(Object obj) {
 
@@ -108,9 +110,6 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
      * @param msg 提示信息
      */
     private void createEmptyView(final String msg) {
-
-
-        EventBus.getDefault().post(new ApiErrorResult(msg));
 
         mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {

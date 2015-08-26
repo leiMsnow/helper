@@ -4,19 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.baidu.location.BDLocation;
+import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.user.LoginActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.LocationApi;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.QiniuToken;
 import com.tongban.im.model.User;
 import com.tongban.im.utils.LocationUtils;
 
@@ -63,44 +60,37 @@ public class LoadingActivity extends BaseToolBarActivity {
             startActivity(new Intent(mContext, LoginActivity.class));
             finish();
         } else {
-            AccountApi.getInstance().tokenLogin(mToken, LoadingActivity.this);
+            AccountApi.getInstance().tokenLogin(mToken, new ApiCallback() {
+                @Override
+                public void onStartApi() {
+
+                }
+
+                @Override
+                public void onComplete(Object obj) {
+                    if (obj instanceof ApiResult) {
+                        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
+                        startActivity(new Intent(mContext, LoginActivity.class));
+                        finish();
+                    } else if (obj instanceof User) {
+                        User user = (User) obj;
+                        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(DisplayType displayType, Object errorObj) {
+                    RongCloudEvent.getInstance().
+                            connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
+                    startActivity(new Intent(mContext, MainActivity.class));
+                    finish();
+                }
+            });
         }
         // 获取七牛token
-        FileUploadApi.getInstance().fetchUploadToken(this);
-    }
-
-    public void onEventMainThread(User user) {
-        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
-    /**
-     * 获取七牛token成功的回调
-     */
-    public void onEventMainThread(QiniuToken qiniuToken) {
-        SPUtils.put(mContext, Consts.QINIU_TOKEN, qiniuToken.getUpload_token());
-    }
-
-    public void onEventMainThread(ApiResult obj) {
-        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
-        startActivity(new Intent(mContext, LoginActivity.class));
-        finish();
-    }
-
-    public void onEventMainThread(String obj) {
-        RongCloudEvent.getInstance().
-                connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-    }
-
-    public void onEventMainThread(BaseEvent.ConnectionErrorEvent obj) {
-        RongCloudEvent.getInstance().
-                connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
-
+        FileUploadApi.getInstance().fetchUploadToken();
     }
 
 }

@@ -67,7 +67,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     protected void initData() {
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list, null);
-        mAdapter.setOnClickListener(new TopicListenerImpl.OpenPhotoViewListener(mContext));
+        mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
         lvTopicList.setAdapter(mAdapter);
         //初始化
         initHistoryKey();

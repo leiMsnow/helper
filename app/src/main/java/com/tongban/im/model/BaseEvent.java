@@ -42,14 +42,23 @@ public class BaseEvent {
      * 加入圈子的Event
      */
     public static class JoinGroupEvent {
-        String message;
+        String group_id;
+        String group_name;
 
-        public String getMessage() {
-            return message;
+        public String getGroup_name() {
+            return group_name;
         }
 
-        public void setMessage(String message) {
-            this.message = message;
+        public void setGroup_name(String group_name) {
+            this.group_name = group_name;
+        }
+
+        public String getGroup_id() {
+            return group_id;
+        }
+
+        public void setGroup_id(String group_id) {
+            this.group_id = group_id;
         }
     }
 
@@ -435,18 +444,6 @@ public class BaseEvent {
 
         public void setList(List<ProductBook> list) {
             this.list = list;
-        }
-    }
-
-    public static class ConnectionErrorEvent {
-        String errorMessage;
-
-        public String getErrorMessage() {
-            return errorMessage;
-        }
-
-        public void setErrorMessage(String errorMessage) {
-            this.errorMessage = errorMessage;
         }
     }
 

@@ -2,7 +2,6 @@ package com.tongban.im.fragment.topic;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -10,21 +9,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
-import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 话题/动态页
@@ -70,7 +63,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         TopicApi.getInstance().recommendTopicList(0, 10, this);
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
-        mAdapter.setOnClickListener(new TopicListenerImpl.OpenPhotoViewListener(mContext));
+        mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
         lvTopicList.setAdapter(mAdapter);
     }
 

@@ -71,24 +71,26 @@ public class GroupListAdapter extends QuickAdapter<Group> {
             case GroupType.TALENT:
                 setGroupTags(helper, "达人圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
-//                helper.setText(R.id.tv_group_introduce, "-" + item.getUser_info().getNick_name());
                 break;
         }
 
-//        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
         helper.setText(R.id.tv_group_name, item.getGroup_name());
 
         //判断是否可以加入
         if (item.isAllow_add()) {
             helper.getView(R.id.btn_join).setEnabled(false);
+            helper.setText(R.id.btn_join, mContext.getResources().getString(R.string.joined));
             helper.setOnClickListener(R.id.btn_join, null);
-            helper.setText(R.id.btn_join,"已加入");
         } else {
             helper.getView(R.id.btn_join).setEnabled(true);
+            helper.setText(R.id.btn_join, mContext.getResources().getString(R.string.join));
             helper.setTag(R.id.btn_join, item);
             helper.setOnClickListener(R.id.btn_join, onClickListener);
         }
 
+        helper.setTag(R.id.rl_group_item, item);
+        helper.setOnClickListener(R.id.rl_group_item, onClickListener);
     }
 
     private void setGroupTags(BaseAdapterHelper helper, String tags, int tagsColor) {

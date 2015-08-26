@@ -5,10 +5,6 @@ package com.tongban.corelib.model;
  */
 public class ApiErrorResult {
 
-    public ApiErrorResult(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
     private String errorMessage;
 
     public String getErrorMessage() {

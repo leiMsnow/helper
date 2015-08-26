@@ -4,20 +4,21 @@ import android.net.Uri;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imkit.RongIM;
 
 /**
  * 圈子-adapter
@@ -25,12 +26,11 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class SearchGroupActivity extends BaseToolBarActivity implements View.OnClickListener,
+public class SearchGroupActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener {
     private SearchView searchView;
     private ListView lvGroups;
     private GroupListAdapter mAdapter;
-
     private String mKeyword;
 
     @Override
@@ -45,7 +45,7 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initListener() {
-        mAdapter.setOnClickListener(this);
+        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     @Override
@@ -65,34 +65,18 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
+        searchView.setQuery(mKeyword, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int viewId = v.getId();
-        switch (viewId) {
-            case R.id.btn_join:
-                Group group = (Group) v.getTag();
-                // TODO 加入群，不需要验证
-                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
-                        group.getUser_info().getUser_id(), this);
-                break;
-        }
-
-    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            GroupApi.getInstance().searchGroupList(query, 0, 15, this);
+            mKeyword = query;
+            GroupApi.getInstance().searchGroupList(mKeyword, 0, 15, this);
         }
         return true;
     }
@@ -113,11 +97,13 @@ public class SearchGroupActivity extends BaseToolBarActivity implements View.OnC
     }
 
     /**
-     * 加入群组成功的事件
+     * 加入群组成功的事件回调
      *
      * @param joinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        ToastUtil.getInstance(mContext).showToast(joinGroupEvent.getMessage());
+        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.getGroup_id(),
+                joinGroupEvent.getGroup_name());
+        GroupApi.getInstance().searchGroupList(mKeyword, 0, mAdapter.getCount(), this);
     }
 }

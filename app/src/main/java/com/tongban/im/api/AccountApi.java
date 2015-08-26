@@ -229,7 +229,6 @@ public class AccountApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 callback.onFailure(displayType, errorMessage);
-                EventBus.getDefault().post(errorMessage);
             }
 
         });

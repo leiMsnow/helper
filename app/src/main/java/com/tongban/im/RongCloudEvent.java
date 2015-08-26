@@ -309,13 +309,13 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public Group getGroupInfo(String groupId) {
 
-        GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
-        GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
-        if (groupTable != null) {
-            LogUtil.d("groupTable-----" + groupTable.getGroup_id());
-            return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
-                    groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
-        }
+//        GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
+//        GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
+//        if (groupTable != null) {
+//            LogUtil.d("groupTable-----" + groupTable.getGroup_id());
+//            return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
+//                    groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
+//        }
         return null;
     }
 

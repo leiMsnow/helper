@@ -16,6 +16,7 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -113,6 +114,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         } else if (errorObj instanceof String) {
             errorMsg = errorObj.toString();
         }
+
         if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
             errorMsg = "网络异常，请稍后重试";
         }
@@ -124,6 +126,10 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             ToastUtil.getInstance(mContext).showToast(errorMsg);
             createEmptyView(errorMsg);
         }
+
+        ApiErrorResult errorResult = new ApiErrorResult();
+        errorResult.setErrorMessage(errorMsg);
+        EventBus.getDefault().post(errorResult);
     }
 
     /**
@@ -132,8 +138,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
      * @param msg 提示信息
      */
     private void createEmptyView(final String msg) {
-
-        EventBus.getDefault().post(new ApiErrorResult(msg));
 
         mEmptyView = this.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {

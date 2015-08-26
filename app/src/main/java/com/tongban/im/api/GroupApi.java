@@ -1,7 +1,6 @@
 package com.tongban.im.api;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
@@ -9,23 +8,18 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
-import com.tongban.im.common.ModelToTable;
+import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.User;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 群组操作api
@@ -36,30 +30,6 @@ public class GroupApi extends BaseApi {
     private static GroupApi mApi;
 
     /**
-     * 创建群组
-     */
-    public static final String CREATE_GROUP = "group/create";
-    /**
-     * 加入群组
-     */
-    public static final String JOIN_GROUP = "/user/join/group";
-    /**
-     * 根据群组类型获取搜索群组
-     */
-    public static final String SEARCH_GROUP_BY_TYPE = "group/fetch/3";
-    /**
-     * 根据地理位置获取推荐群组(附近的群)
-     */
-    public static final String FETCH_RECOMMEND_GROUP_LIST = "group/fetch/5";
-    /**
-     * 获取群组详情
-     */
-    public static final String FETCH_MY_JOIN_GROUP_INFO = "group/info";
-    /**
-     * 获取群组成员信息
-     */
-    public static final String FETCH_MY_JOIN_GROUP_MEMBER = "group/members";
-    /**
      * 圈子推荐接口
      */
     public static final String RECOMMEND_GROUP_LIST = "group/recommend/list";
@@ -67,6 +37,14 @@ public class GroupApi extends BaseApi {
      * 圈子搜索接口
      */
     public static final String SEARCH_GROUP_LIST = "group/search/list";
+    /**
+     * 创建群组
+     */
+    public static final String CREATE_GROUP = "group/create";
+    /**
+     * 加入群组
+     */
+    public static final String JOIN_GROUP = "/user/join/group";
 
 
     private GroupApi(Context context) {
@@ -138,8 +116,6 @@ public class GroupApi extends BaseApi {
                         });
                 BaseEvent.CreateGroupEvent createGroupEvent = new BaseEvent.CreateGroupEvent();
                 createGroupEvent.setGroupId(result.getData().toString());
-//                // TODO: 8/19/15  同步到查询表，后面会删除
-//                createGroup1(groupName, result.getData().toString(), address, declaration, null);
                 callback.onComplete(createGroupEvent);
             }
 
@@ -150,40 +126,12 @@ public class GroupApi extends BaseApi {
         });
     }
 
-    @Deprecated
-    public void createGroup1(String groupName, String groupId, String address, String declaration,
-                             final ApiCallback callback) {
-
-        mParams = new HashMap<>();
-        mParams.put("group_name", groupName);
-        mParams.put("address", address);
-        mParams.put("declaration", declaration);
-
-        //此处接口名称根据groupType变化
-        simpleRequest("http://10.255.209.72/group_test/group_info/1", mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                LogUtil.d("createGroup1-onComplete", obj.toString());
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                LogUtil.d("createGroup1-onFailure", errorMessage.toString());
-
-            }
-        });
-    }
-
     /**
-     * 加入群组
+     * 加入圈子
      *
-     * @param groupId   群组ID
-     * @param groupName 群名称
-     * @param masterId  群主ID
+     * @param groupId   圈子Id
+     * @param groupName 圈子名称
+     * @param masterId  圈子主Id
      * @param callback  结果回调
      */
     public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
@@ -196,53 +144,20 @@ public class GroupApi extends BaseApi {
         simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
-            }
 
-            @Override
-            public void onComplete(Object obj) {
-                BaseEvent.JoinGroupEvent joinGroupEvent = new BaseEvent.JoinGroupEvent();
-                joinGroupEvent.setMessage("加入成功");
-                callback.onComplete(joinGroupEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
-    /**
-     * 获取群组详情
-     *
-     * @param groupId  群组ID
-     * @param callback
-     */
-    public void fetchMyGroupInfo(String groupId, final ApiCallback callback) {
-        mParams = new HashMap<>();
-        mParams.put("group_id", groupId);
-        //获取数量，默认15条用户信息
-        mParams.put("member_amount", 15);
-
-        simpleRequest(FETCH_MY_JOIN_GROUP_INFO, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
                 if (callback != null)
                     callback.onStartApi();
             }
 
             @Override
             public void onComplete(Object obj) {
-//                ApiResult<Group> apiResponse = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiResult<Group>>() {
-//                        });
-//                BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
-//                groupInfoEvent.setGroup(apiResponse.getData());
-//                //将数据保存在本地数据库
-//                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(apiResponse.getData()));
+                ApiResult<BaseEvent.JoinGroupEvent> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.JoinGroupEvent>>() {
+                        });
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(result.getData());
+                else
+                    EventBus.getDefault().post(result.getData());
             }
 
             @Override
@@ -254,47 +169,10 @@ public class GroupApi extends BaseApi {
     }
 
     /**
-     * 获取群组成员信息
-     *
-     * @param groupId  群组ID
-     * @param cursor   第几页，默认0开始
-     * @param pageSize 每页数量 默认15条
-     * @param callback
-     */
-    public void fetchMyGroupMember(String groupId, int cursor, int pageSize, final ApiCallback callback) {
-        mParams = new HashMap<>();
-        mParams.put("group_id", groupId);
-        mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 15 ? 15 : pageSize);
-
-        simpleRequest(FETCH_MY_JOIN_GROUP_MEMBER, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiResult<List<User>> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<User>>>() {
-                        });
-                BaseEvent.GroupMemberEvent groupInfoEvent = new BaseEvent.GroupMemberEvent();
-                groupInfoEvent.setUsers(apiResponse.getData());
-                callback.onComplete(groupInfoEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
-    /**
      * 获取圈子推荐列表
      *
      * @param cursor   第几页，默认0开始
-     * @param pageSize 每页数量 最少1条
+     * @param pageSize 每页多少数据
      * @param callback
      */
     public void recommendGroupList(int cursor, int pageSize, final ApiCallback callback) {
@@ -302,8 +180,8 @@ public class GroupApi extends BaseApi {
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("page_size", pageSize);
 
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new ApiCallback() {
             @Override
@@ -342,15 +220,15 @@ public class GroupApi extends BaseApi {
      *
      * @param keyword  关键字
      * @param cursor   第几页，默认0开始
-     * @param pageSize 每页数量 最少1条
+     * @param pageSize 每页多少数据
      * @param callback
      */
     public void searchGroupList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("page_size", pageSize);
 
         simpleRequest(SEARCH_GROUP_LIST, mParams, new ApiCallback() {
             @Override
@@ -383,6 +261,5 @@ public class GroupApi extends BaseApi {
             }
         });
     }
-
 
 }

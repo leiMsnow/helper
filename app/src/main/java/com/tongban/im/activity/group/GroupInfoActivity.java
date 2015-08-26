@@ -114,7 +114,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         }
         if (getIntent().getExtras() != null) {
             String groupId = getIntent().getExtras().getString(Consts.KEY_GROUP_ID, "");
-            GroupApi.getInstance().fetchMyGroupInfo(groupId, this);
+//            GroupApi.getInstance().fetchMyGroupInfo(groupId, this);
         }
         mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, users);
         gvMembers.setAdapter(mMemberGridAdapter);

@@ -37,36 +37,4 @@ public class MessageApi extends BaseApi {
         }
         return mApi;
     }
-
-    /**
-     * 获取圈子列表数据
-     *
-     * @param toUserIds 接收方ID
-     * @param callback  回调
-     */
-    public void joinGroup(String[] toUserIds, String content, final ApiCallback callback) {
-        mParams = new HashMap<>();
-        mParams.put("to_user_ids", toUserIds);
-        mParams.put("content", content);
-
-        simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
-                callback.onStartApi();
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                BaseEvent.JoinGroupEvent joinGroupEvent = new BaseEvent.JoinGroupEvent();
-                joinGroupEvent.setMessage("已经向该圈子发送申请");
-                callback.onComplete(joinGroupEvent);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
-            }
-        });
-    }
-
 }

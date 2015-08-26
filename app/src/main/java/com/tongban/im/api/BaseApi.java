@@ -115,16 +115,13 @@ public class BaseApi {
      * @param callback 请求结果的回调
      * @return request--当前请求对象
      */
-    protected Request simpleRequest(String url, Map params, final ApiCallback callback) {
+    protected void simpleRequest(String url, Map params, final ApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
-            ToastUtil.getInstance(mContext).showToast("网络连接失败,请稍后重试");
-            BaseEvent.ConnectionErrorEvent connectionErrorEvent = new BaseEvent.ConnectionErrorEvent();
-            connectionErrorEvent.setErrorMessage("网络连接失败,请稍后重试");
-            EventBus.getDefault().post(connectionErrorEvent);
-            return null;
+            callback.onFailure(ApiCallback.DisplayType.Toast, "网络连接失败,请稍后重试");
+            return;
         }
         if (url == null || params == Collections.emptyMap()) {
-            return null;
+            return;
         }
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = getRequestUrl(url);
@@ -165,10 +162,7 @@ public class BaseApi {
                     BaseApiActivity.getFailedRequest().add(request);
                 }
                 // 请求失败,错误信息回调给调用方
-                String errorMessage = "";
-                if (volleyError.getMessage() != null) {
-                    errorMessage = volleyError.getMessage().toString();
-                }
+                String errorMessage = getErrorMessage();
                 callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
             }
         }) {
@@ -185,15 +179,13 @@ public class BaseApi {
         mRequestQueue.add(request);
         // 回调到方法调用方,通知请求已经开始
         callback.onStartApi();
-
-        return request;
     }
 
     protected String getErrorMessage() {
-        Random random = new Random(mContext.getResources().
-                getStringArray(R.array.error_message).length);
-        return mContext.getResources().getStringArray(R.array.error_message)[random.nextInt()];
+        Random random = new Random();
+        int count = mContext.getResources().
+                getStringArray(R.array.error_message).length - 1;
+        return mContext.getResources().getStringArray(R.array.error_message)
+                [random.nextInt(count)].toString();
     }
-
-    ;
 }

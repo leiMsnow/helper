@@ -88,10 +88,8 @@ public class FileUploadApi extends BaseApi {
 
     /**
      * 获取上传图片的Token
-     *
-     * @param callback 回调
      */
-    public void fetchUploadToken(final ApiCallback callback) {
+    public void fetchUploadToken() {
         mParams = new HashMap<>();
         mParams.put("space_name", "tongban");
         simpleRequest(UPLOAD_TOKEN, mParams, new ApiCallback() {
@@ -106,7 +104,7 @@ public class FileUploadApi extends BaseApi {
                         new TypeReference<ApiResult<QiniuToken>>() {
                         });
                 QiniuToken token = result.getData();
-                callback.onComplete(token);
+                SPUtils.put(mContext, Consts.QINIU_TOKEN, token.getUpload_token());
             }
 
             @Override
