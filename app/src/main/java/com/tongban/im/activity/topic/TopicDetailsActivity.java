@@ -182,7 +182,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param topicInfoEvent
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
-        mTopicInfo = topicInfoEvent.getTopic();
+        mTopicInfo = topicInfoEvent.topic;
         if (mTopicInfo != null) {
             setTitle(mTopicInfo.getTopic_title());
             if (mTopicInfo.getUser_info() != null) {
@@ -224,7 +224,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
-        mAdapter.replaceAll(obj.getTopicCommentList());
+        mAdapter.replaceAll(obj.topicCommentList);
     }
 
     /**
@@ -250,8 +250,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
         int collectCount = Integer.parseInt(tvCollect.getText().toString());
-        mTopicInfo.setCollect_status(obj.isStatus());
-        if (obj.isStatus()) {
+        mTopicInfo.setCollect_status(obj.status);
+        if (obj.status) {
             ToastUtil.getInstance(mContext).showToast("收藏成功");
             ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
             tvCollect.setText(String.valueOf(collectCount + 1));

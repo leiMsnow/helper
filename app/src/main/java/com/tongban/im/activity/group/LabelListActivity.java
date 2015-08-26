@@ -74,7 +74,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_finish) {
             BaseEvent.LabelEvent labelEvent = new BaseEvent.LabelEvent();
-            labelEvent.setLabel(getSelectedLabel());
+            labelEvent.label = (getSelectedLabel());
             EventBus.getDefault().post(labelEvent);
             finish();
         }

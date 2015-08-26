@@ -37,8 +37,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
     private FragmentManager fm;
 
     private SearchView searchView;
-    //    private ListView lvGroups;
-//    private GroupListAdapter mAdapter;
     private String mKeyword;
 
     @Override
@@ -48,7 +46,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
-//        lvGroups = (ListView) findViewById(R.id.lv_groups);
         fm = getSupportFragmentManager();
         RecommendGroupFragment recommendGroupFragment = new RecommendGroupFragment();
         fm.beginTransaction().add(R.id.fl_container, recommendGroupFragment).commit();
@@ -56,7 +53,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initListener() {
-//        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     @Override
@@ -65,10 +61,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
             Uri uri = getIntent().getData();
             mKeyword = uri.getQueryParameter("keyword");
         }
-//        List<Group> groups = new ArrayList<>();
-//        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, groups);
-//        mAdapter.setDisplayModel(false);
-//        lvGroups.setAdapter(mAdapter);
     }
 
     @Override
@@ -76,7 +68,6 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSubmitButtonEnabled(true);
-//        searchView.setQuery(mKeyword, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;

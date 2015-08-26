@@ -107,7 +107,7 @@ public class TopicApi extends BaseApi {
                         });
 
                 BaseEvent.CreateTopicEvent createTopicEvent = new BaseEvent.CreateTopicEvent();
-                createTopicEvent.setTopicId(result.getData());
+                createTopicEvent.topicId = (result.getData());
                 if (callback != null)
                     callback.onComplete(createTopicEvent);
             }
@@ -146,8 +146,8 @@ public class TopicApi extends BaseApi {
 
                 if (result.getData().getResult().size() > 0) {
                     BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                    topicListEvent.setIsMain(true);
-                    topicListEvent.setTopicList(result.getData().getResult());
+                    topicListEvent.isMain = (true);
+                    topicListEvent.topicList = (result.getData().getResult());
                     if (callback != null)
                         callback.onComplete(topicListEvent);
                 } else {
@@ -193,7 +193,7 @@ public class TopicApi extends BaseApi {
                         new TypeReference<ApiListResult<Topic>>() {
                         });
                 BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
-                topicListEvent.setTopicList(result.getData().getResult());
+                topicListEvent.topicList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicListEvent);
             }
@@ -233,7 +233,7 @@ public class TopicApi extends BaseApi {
                         });
                 if (result.getData() != null) {
                     BaseEvent.TopicInfoEvent topicEvent = new BaseEvent.TopicInfoEvent();
-                    topicEvent.setTopic(result.getData());
+                    topicEvent.topic = (result.getData());
                     if (callback != null)
                         callback.onComplete(topicEvent);
                 } else {
@@ -277,7 +277,7 @@ public class TopicApi extends BaseApi {
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
                 BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-                topicCommentListEvent.setTopicCommentList(result.getData().getResult());
+                topicCommentListEvent.topicCommentList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicCommentListEvent);
 

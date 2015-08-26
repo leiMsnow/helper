@@ -133,7 +133,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     }
 
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
-        mGroup = groupInfo.getGroup();
+        mGroup = groupInfo.group;
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
         Glide.with(GroupInfoActivity.this).load(mGroup.getUser_info().getPortrait_url()).

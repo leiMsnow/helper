@@ -259,7 +259,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      * @param event
      */
     public void onEventMainThread(BaseEvent.SearchTopicListEvent event) {
-        List<Topic> topics = event.getTopicList();
+        List<Topic> topics = event.topicList;
         if (topics == null || topics.size() < 1) {
             mTopicContainer.setVisibility(View.GONE);
             return;

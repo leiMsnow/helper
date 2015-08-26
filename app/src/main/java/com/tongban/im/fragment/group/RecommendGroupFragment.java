@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
@@ -12,6 +13,7 @@ import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
 
 /**
@@ -25,6 +27,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
     private GroupListAdapter mAdapter;
 
     private boolean mIsFromMain = false;
+    private String mKeyword;
     private int mCursor = 0;
 
     @Override
@@ -48,11 +51,11 @@ public class RecommendGroupFragment extends BaseApiFragment {
             mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN_GROUP, false);
         if (mIsFromMain) {
             GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
-            mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
-            mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
-            mAdapter.setDisplayModel(false);
-            lvGroupList.setAdapter(mAdapter);
         }
+        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
+        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
+        mAdapter.setDisplayModel(false);
+        lvGroupList.setAdapter(mAdapter);
     }
 
     /**
@@ -61,10 +64,8 @@ public class RecommendGroupFragment extends BaseApiFragment {
      * @param list
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
-        if (list.isMainEvent) {
-            mAdapter.replaceAll(list.groupList);
-            lvGroupList.setVisibility(View.VISIBLE);
-        }
+        mAdapter.replaceAll(list.groupList);
+        lvGroupList.setVisibility(View.VISIBLE);
     }
 
 
@@ -74,9 +75,13 @@ public class RecommendGroupFragment extends BaseApiFragment {
      * @param joinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.getGroup_id(),
-                joinGroupEvent.getGroup_name());
-        GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
+        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
+                joinGroupEvent.group_name);
+        if (mIsFromMain) {
+            GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
+        } else {
+            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
+        }
     }
 
     /**
@@ -85,18 +90,31 @@ public class RecommendGroupFragment extends BaseApiFragment {
      * @param keyEvent
      */
     public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
-        GroupApi.getInstance().searchGroupList(keyEvent.keyword, 0, 15, this);
+        mKeyword = keyEvent.keyword;
+        GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
+
     }
 
     /**
-     * 搜索群组成功的事件
+     * 搜索圈子成功的事件
      *
      * @param searchGroupEvent
      */
     public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        if (searchGroupEvent.isSearchEvent) {
-            mAdapter.replaceAll(searchGroupEvent.groups);
-            lvGroupList.setVisibility(View.VISIBLE);
-        }
+        mAdapter.replaceAll(searchGroupEvent.groups);
+        lvGroupList.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
     }
 }

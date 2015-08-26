@@ -122,7 +122,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
     }
 
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        mAdapter.replaceAll(obj.getTopicList());
+        mAdapter.replaceAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
     }
 }

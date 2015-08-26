@@ -69,6 +69,6 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
 
-        mAdapter.replaceAll(obj.getMultiProductList());
+        mAdapter.replaceAll(obj.multiProductList);
     }
 }

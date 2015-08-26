@@ -13,7 +13,6 @@ public class BaseEvent {
      */
     public static class SearchGroupListEvent {
         public List<Group> groups;
-        public boolean isSearchEvent = false;
     }
 
     /**
@@ -21,31 +20,14 @@ public class BaseEvent {
      */
     public static class RecommendGroupListEvent {
         public List<Group> groupList;
-        public boolean isMainEvent = false;
     }
 
     /**
      * 加入圈子的Event
      */
     public static class JoinGroupEvent {
-        String group_id;
-        String group_name;
-
-        public String getGroup_name() {
-            return group_name;
-        }
-
-        public void setGroup_name(String group_name) {
-            this.group_name = group_name;
-        }
-
-        public String getGroup_id() {
-            return group_id;
-        }
-
-        public void setGroup_id(String group_id) {
-            this.group_id = group_id;
-        }
+        public String group_id;
+        public String group_name;
     }
 
     /**
@@ -127,120 +109,56 @@ public class BaseEvent {
      * 圈子信息Event
      */
     public static class GroupInfoEvent {
-        Group group;
-
-        public Group getGroup() {
-            return group;
-        }
-
-        public void setGroup(Group group) {
-            this.group = group;
-        }
+        public Group group;
     }
 
     /**
      * 圈子成员Event
      */
     public static class GroupMemberEvent {
-        List<User> users;
-
-        public List<User> getUsers() {
-            return users;
-        }
-
-        public void setUsers(List<User> users) {
-            this.users = users;
-        }
+        public List<User> users;
     }
 
     /**
      * 重置密码Event
      */
     public static class PwdResetEvent {
-        String result;
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
+        public String result;
     }
 
     /**
      * 用户信息Event
      */
     public static class UserInfoEvent {
-        User user;
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
+        public User user;
     }
 
     /**
      * 选择标签Event
      */
     public static class LabelEvent {
-        String label;
-
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label) {
-            this.label = label;
-        }
+        public String label;
     }
 
     /**
      * 创建圈子成功Event
      */
     public static class CreateGroupEvent {
-        String groupId;
-
-        public String getGroupId() {
-            return groupId;
-        }
-
-        public void setGroupId(String groupId) {
-            this.groupId = groupId;
-        }
+       public String groupId;
     }
 
     /**
      * 创建话题Event
      */
     public static class CreateTopicEvent {
-        String topicId;
-
-        public String getTopicId() {
-            return topicId;
-        }
-
-        public void setTopicId(String topicId) {
-            this.topicId = topicId;
-        }
+        public String topicId;
     }
 
     /**
      * 话题信息Event
      */
     public static class TopicInfoEvent {
-        Topic topic;
-
-        public Topic getTopic() {
-            return topic;
-        }
-
-        public void setTopic(Topic topic) {
-            this.topic = topic;
-        }
+        public Topic topic;
     }
 
     /**
@@ -248,69 +166,29 @@ public class BaseEvent {
      */
     public static class TopicListEvent {
         //是否是主界面调用的接口
-        boolean isMain = false;
-        List<Topic> topicList;
-
-        public List<Topic> getTopicList() {
-            return topicList;
-        }
-
-        public void setTopicList(List<Topic> topicList) {
-            this.topicList = topicList;
-        }
-
-        public boolean isMain() {
-            return isMain;
-        }
-
-        public void setIsMain(boolean isMain) {
-            this.isMain = isMain;
-        }
+        public boolean isMain = false;
+        public List<Topic> topicList;
     }
 
     /**
      * 话题搜索结果Event
      */
     public static class SearchTopicListEvent {
-        List<Topic> topicList;
-
-        public List<Topic> getTopicList() {
-            return topicList;
-        }
-
-        public void setTopicList(List<Topic> topicList) {
-            this.topicList = topicList;
-        }
+        public List<Topic> topicList;
     }
 
     /**
      * 话题回复列表Event
      */
     public static class TopicCommentListEvent {
-        List<TopicComment> topicCommentList;
-
-        public List<TopicComment> getTopicCommentList() {
-            return topicCommentList;
-        }
-
-        public void setTopicCommentList(List<TopicComment> topicCommentList) {
-            this.topicCommentList = topicCommentList;
-        }
+        public List<TopicComment> topicCommentList;
     }
 
     /**
      * 收藏专题的Event
      */
     public static class CollectMultiProductEvent {
-        List<MultiProduct> multiProductList;
-
-        public List<MultiProduct> getMultiProductList() {
-            return multiProductList;
-        }
-
-        public void setMultiProductList(List<MultiProduct> multiProductList) {
-            this.multiProductList = multiProductList;
-        }
+        public List<MultiProduct> multiProductList;
     }
     /**
      * 取消收藏专题的Event
@@ -323,22 +201,14 @@ public class BaseEvent {
      * 收藏话题题的Event
      */
     public static class CollectTopicEvent {
-        List<Topic> collectTopicList;
-
-        public List<Topic> getCollectTopicList() {
-            return collectTopicList;
-        }
-
-        public void setCollectTopicList(List<Topic> collectTopicList) {
-            this.collectTopicList = collectTopicList;
-        }
+        public  List<Topic> collectTopicList;
     }
 
     /**
      * 收藏单品的Event
      */
     public static class CollectSingleProductEvent {
-        List<ProductBook> singleProductList;
+        public  List<ProductBook> singleProductList;
 
         public List<ProductBook> getSingleProductList() {
             return singleProductList;
@@ -353,30 +223,14 @@ public class BaseEvent {
      * 我发起的话题Event
      */
     public static class MyLaunchTopicEvent {
-        List<Topic> myLaunchTopicList;
-
-        public List<Topic> getMyLaunchTopicList() {
-            return myLaunchTopicList;
-        }
-
-        public void setMyLaunchTopicList(List<Topic> myLaunchTopicList) {
-            this.myLaunchTopicList = myLaunchTopicList;
-        }
+        public List<Topic> myLaunchTopicList;
     }
 
     /**
      * 我的圈子Event
      */
     public static class MyGroupListEvent {
-        List<Group> myGroupList;
-
-        public List<Group> getMyGroupList() {
-            return myGroupList;
-        }
-
-        public void setMyGroupList(List<Group> myGroupList) {
-            this.myGroupList = myGroupList;
-        }
+        public List<Group> myGroupList;
     }
 
     /**
@@ -458,17 +312,9 @@ public class BaseEvent {
      * 收藏话题Event
      */
     public static class TopicCollect {
-        boolean status;
+        public boolean status;
 
         public TopicCollect(boolean status) {
-            this.status = status;
-        }
-
-        public boolean isStatus() {
-            return status;
-        }
-
-        public void setStatus(boolean status) {
             this.status = status;
         }
     }

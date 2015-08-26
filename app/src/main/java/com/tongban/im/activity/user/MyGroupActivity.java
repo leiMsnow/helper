@@ -62,7 +62,7 @@ public class MyGroupActivity extends BaseToolBarActivity implements AdapterView.
 
     public void onEventMainThread(BaseEvent.MyGroupListEvent obj) {
 
-        mAdapter.replaceAll(obj.getMyGroupList());
+        mAdapter.replaceAll(obj.myGroupList);
     }
 
     @Override

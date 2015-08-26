@@ -115,7 +115,7 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiResult<Group>>() {
                         });
                 BaseEvent.CreateGroupEvent createGroupEvent = new BaseEvent.CreateGroupEvent();
-                createGroupEvent.setGroupId(result.getData().toString());
+                createGroupEvent.groupId = (result.getData().toString());
                 callback.onComplete(createGroupEvent);
             }
 
@@ -198,7 +198,6 @@ public class GroupApi extends BaseApi {
 
                 if (listResult.getData().getResult().size() > 0) {
                     BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
-                    listEvent.isMainEvent = true;
                     listEvent.groupList = listResult.getData().getResult();
                     if (callback != null)
                         callback.onComplete(listEvent);
@@ -246,7 +245,6 @@ public class GroupApi extends BaseApi {
                 if (apiResponse.getData().getResult().size() > 0) {
 
                     BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
-                    searchGroupEvent.isSearchEvent = true;
                     searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)
                         callback.onComplete(searchGroupEvent);

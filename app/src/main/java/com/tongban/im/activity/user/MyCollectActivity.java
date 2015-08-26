@@ -168,7 +168,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        tvCollectTopicNum.setText(String.valueOf(obj.getTopicList().size()));
+        tvCollectTopicNum.setText(String.valueOf(obj.topicList.size()));
     }
 
     /**
@@ -185,6 +185,6 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
-        tvMultiProductNum.setText(String.valueOf(obj.getMultiProductList().size()));
+        tvMultiProductNum.setText(String.valueOf(obj.multiProductList.size()));
     }
 }

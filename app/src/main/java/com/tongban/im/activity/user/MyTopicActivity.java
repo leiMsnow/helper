@@ -145,7 +145,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        tvMySendTopicNum.setText(String.valueOf(obj.getTopicList().size()));
+        tvMySendTopicNum.setText(String.valueOf(obj.topicList.size()));
     }
 
     /**

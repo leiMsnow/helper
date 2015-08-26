@@ -278,7 +278,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     //标签选择完成Event
     public void onEventMainThread(BaseEvent.LabelEvent obj) {
-        tags = obj.getLabel();
+        tags = obj.label;
         tvGroupLabel.setText(tags);
     }
 

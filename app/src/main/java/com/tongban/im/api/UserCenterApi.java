@@ -240,7 +240,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<Group>>() {
                         });
                 BaseEvent.MyGroupListEvent myGroupListEvent = new BaseEvent.MyGroupListEvent();
-                myGroupListEvent.setMyGroupList(apiResponse.getData().getResult());
+                myGroupListEvent.myGroupList = (apiResponse.getData().getResult());
                 callback.onComplete(myGroupListEvent);
             }
 
@@ -387,7 +387,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<Topic>>() {
                         });
                 BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                topicListEvent.setTopicList(result.getData().getResult());
+                topicListEvent.topicList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(topicListEvent);
             }
@@ -425,7 +425,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<MultiProduct>>() {
                         });
                 BaseEvent.CollectMultiProductEvent collectMultiProductEvent = new BaseEvent.CollectMultiProductEvent();
-                collectMultiProductEvent.setMultiProductList(result.getData().getResult());
+                collectMultiProductEvent.multiProductList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(collectMultiProductEvent);
             }
@@ -501,7 +501,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<Topic>>() {
                         });
                 BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                topicListEvent.setTopicList(result.getData().getResult());
+                topicListEvent.topicList = (result.getData().getResult());
                 callback.onComplete(topicListEvent);
 
             }

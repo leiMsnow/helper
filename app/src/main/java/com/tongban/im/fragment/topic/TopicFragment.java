@@ -89,8 +89,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        if (obj.isMain()) {
-            mAdapter.replaceAll(obj.getTopicList());
+        if (obj.isMain) {
+            mAdapter.replaceAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
         }
     }

@@ -258,7 +258,7 @@ public class AccountApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 BaseEvent.PwdResetEvent pwdResetEvent = new BaseEvent.PwdResetEvent();
-                pwdResetEvent.setResult(mContext.getResources().getString(R.string.pwd_reset_success));
+                pwdResetEvent.result = (mContext.getResources().getString(R.string.pwd_reset_success));
                 callback.onComplete(pwdResetEvent);
             }
 

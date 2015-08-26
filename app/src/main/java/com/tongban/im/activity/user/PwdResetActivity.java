@@ -115,7 +115,7 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
     }
 
     public void onEventMainThread(BaseEvent.PwdResetEvent result) {
-        ToastUtil.getInstance(mContext).showToast(result.getResult());
+        ToastUtil.getInstance(mContext).showToast(result.result);
         finish();
     }
 }
