@@ -134,8 +134,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
         TopicApi.getInstance().searchTopicList(sb.toString(), 0, 3, this);
 
         setTitle(multiProduct.getTheme_title());
-        if (multiProduct.getTheme_img_url().length > 0) {
-            Glide.with(mContext).load(multiProduct.getTheme_img_url()[0]).into(headImg);
+        if (multiProduct.getTheme_img_url().size() > 0) {
+            Glide.with(mContext).load(multiProduct.getTheme_img_url().get(0).getMid()).into(headImg);
         }
         title.setText(multiProduct.getTheme_title());
         multiTag.removeAllViews();
