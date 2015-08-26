@@ -92,10 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="5"
                     android:textColor="@color/normal_dark_grey"/>
-
+                <!-- 商品列表 -->
                 <LinearLayout
                     android:id="@+id/ll_product_list"
                     android:layout_width="match_parent"
@@ -107,7 +105,6 @@
                 android:id="@+id/ll_topic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
