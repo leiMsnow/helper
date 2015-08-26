@@ -3,6 +3,7 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -14,7 +15,8 @@ import java.util.List;
 
 /**
  * 专题页
- * @author  zhangleilei
+ *
+ * @author zhangleilei
  * @createTime 2015/8/13
  */
 public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
@@ -29,10 +31,13 @@ public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
     public MultipleProductAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
+
     @Override
     protected void convert(BaseAdapterHelper helper, MultiProduct item) {
-        helper.setImageBitmap(R.id.iv_product,
-                "http://www.qqzhi.com/uploadpic/2015-01-16/121337592.jpg");
+        helper.setImageBitmap(R.id.iv_product, item.getTheme_img_url().get(0).getMin());
+        helper.setText(R.id.tv_product_desc, item.getTheme_content());
+        helper.setText(R.id.tv_product_name, item.getTheme_title());
+        helper.setText(R.id.tv_collect_count, item.getCollect_amount());
 
     }
 
