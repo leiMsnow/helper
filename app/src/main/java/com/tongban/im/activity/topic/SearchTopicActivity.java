@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +20,8 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TopicListenerImpl;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -64,6 +67,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
     protected void initData() {
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list, null);
+        mAdapter.setOnClickListener(new TopicListenerImpl.OpenPhotoViewListener(mContext));
         lvTopicList.setAdapter(mAdapter);
         //初始化
         initHistoryKey();
@@ -103,7 +107,13 @@ public class SearchTopicActivity extends BaseToolBarActivity implements SearchVi
 
     @Override
     protected void initListener() {
-
+        lvTopicList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TransferCenter.getInstance().startTopicDetails(
+                        mAdapter.getItem(position).getTopic_id());
+            }
+        });
     }
 
     @Override

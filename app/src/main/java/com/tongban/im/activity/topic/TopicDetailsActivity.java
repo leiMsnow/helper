@@ -24,6 +24,8 @@ import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TopicListenerImpl;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
@@ -125,6 +127,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     protected void initListener() {
+        ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
     }
@@ -135,8 +138,14 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
             KeyBoardUtils.openKeybord(topicInputView.getEtComment(), mContext);
-        } else if (v == ivCollect) {
+        }
+        // 收藏话题
+        else if (v == ivCollect) {
             TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
+        }
+        // 用户信息查看
+        else if (v == ivUserPortrait) {
+            TransferCenter.getInstance().startUserCenter(mTopicInfo.getUser_info().getUser_id());
         } else {
             switch (v.getId()) {
                 //回复评论
@@ -148,7 +157,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                     break;
                 case R.id.iv_topic_img:
                     List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                    startPhotoView(setImageUrls(imageUrls), 0);
+                    TopicListenerImpl.startPhotoView(mContext,
+                            TopicListenerImpl.setImageUrls(imageUrls), 0);
+                    break;
+                case R.id.iv_user_portrait:
+                    String userId = v.getTag(Integer.MAX_VALUE).toString();
+                    TransferCenter.getInstance().startUserCenter(userId);
                     break;
             }
         }
@@ -248,24 +262,4 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         }
     }
-
-    private void startPhotoView(ArrayList<String> urls, int currentIndex) {
-        Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
-        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, currentIndex);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-
-    //取出大图地址存入集合中
-    private ArrayList<String> setImageUrls(List<ImageUrl> imageUrls) {
-        ArrayList<String> urls = new ArrayList<>();
-        for (int i = 0; i < imageUrls.size(); i++) {
-            urls.add(imageUrls.get(i).getMax());
-        }
-        return urls;
-    }
-
 }
