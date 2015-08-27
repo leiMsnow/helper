@@ -33,16 +33,23 @@ public class ProductApi extends BaseApi {
     // 获取专题详情信息
     private static final String FETCH_THEME_INFO = "theme/info";
 
-    // 获取专题下属的商品列表
-    private static final String FETCH_THEME_PRODUCTS = "theme/products";
-
     // 收藏专题
     private static final String COLLECT_MULTI_PRODUCT = "user/collect/theme";
+
     // 取消收藏专题
     private static final String NO_COLLECT_MULTI_PRODUCT = "user/nocollect/theme";
 
+    // 获取专题下属的商品列表
+    private static final String FETCH_THEME_PRODUCTS = "theme/products";
+
     // 商品的详情信息
     private static final String FETCH_PRODUCT_DETAIL_INFO = "product/detail/info";
+
+    // 收藏商品
+    private static final String COLLECT_PRODUCT = "user/collect/product";
+
+    // 取消收藏商品
+    private static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
 
     private ProductApi(Context context) {
         super(context);
@@ -180,7 +187,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(new BaseEvent.CollectMultiProductEvent());
+                callback.onComplete(new BaseEvent.CollectThemeEvent());
             }
 
             @Override
@@ -208,7 +215,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(new BaseEvent.NoCollectMultiProductEvent());
+                callback.onComplete(new BaseEvent.NoCollectThemeEvent());
             }
 
             @Override
@@ -246,6 +253,62 @@ public class ProductApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorObj) {
                 callback.onFailure(DisplayType.ALL, "请重试");
+            }
+        });
+    }
+
+    /**
+     * 收藏商品
+     *
+     * @param productId  商品id
+     * @param callback 回调
+     */
+    public void collectProduct(String productId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("theme_id", productId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        simpleRequest(COLLECT_PRODUCT, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                callback.onComplete(new BaseEvent.CollectProductEvent());
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(DisplayType.Toast, "收藏失败");
+            }
+        });
+    }
+
+    /**
+     * 取消收藏专题
+     *
+     * @param multiId  专题id
+     * @param callback 回调
+     */
+    public void noCollectProduct(String multiId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("theme_id", multiId);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        simpleRequest(NO_COLLECT_PRODUCT, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                callback.onComplete(new BaseEvent.NoCollectProductEvent());
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(DisplayType.Toast, "收藏失败");
             }
         });
     }

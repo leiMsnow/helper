@@ -8,9 +8,6 @@ import com.tongban.im.R;
 import com.tongban.im.adapter.SingleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ProductBook;
-
-import java.util.List;
 
 /**
  * 单品查询结果页
@@ -43,7 +40,7 @@ public class SingleProductFragment extends BaseApiFragment {
         UserCenterApi.getInstance().fetchSingleProductList(this);
     }
 
-    public void onEventMainThread(BaseEvent.CollectSingleProductEvent obj) {
+    public void onEventMainThread(BaseEvent.FetchCollectedProductEvent obj) {
 
         mAdapter.replaceAll(obj.getSingleProductList());
     }

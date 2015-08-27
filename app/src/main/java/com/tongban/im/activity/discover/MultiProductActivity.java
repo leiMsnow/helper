@@ -303,7 +303,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      *
      * @param event
      */
-    public void onEventMainThread(BaseEvent.CollectMultiProductEvent event) {
+    public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
         mMultiProduct.setCollect_status(true);
         collectMenu.setIcon(R.mipmap.ic_multi_product_collected);
@@ -314,7 +314,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      *
      * @param event
      */
-    public void onEventMainThread(BaseEvent.NoCollectMultiProductEvent event) {
+    public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("已经取消收藏");
         mMultiProduct.setCollect_status(false);
         collectMenu.setIcon(R.mipmap.ic_multi_product_collect);

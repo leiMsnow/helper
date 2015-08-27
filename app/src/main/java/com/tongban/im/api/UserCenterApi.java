@@ -23,7 +23,6 @@ import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 用户中心api
@@ -348,7 +347,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
-                BaseEvent.CollectSingleProductEvent collectSingleProductEvent = new BaseEvent.CollectSingleProductEvent();
+                BaseEvent.FetchCollectedProductEvent collectSingleProductEvent = new BaseEvent.FetchCollectedProductEvent();
                 collectSingleProductEvent.setSingleProductList(apiResponse.getData().getResult());
                 callback.onComplete(collectSingleProductEvent);
             }
@@ -424,7 +423,7 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<MultiProduct> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<MultiProduct>>() {
                         });
-                BaseEvent.CollectMultiProductEvent collectMultiProductEvent = new BaseEvent.CollectMultiProductEvent();
+                BaseEvent.FetchCollectedThemeEvent collectMultiProductEvent = new BaseEvent.FetchCollectedThemeEvent();
                 collectMultiProductEvent.multiProductList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(collectMultiProductEvent);
