@@ -214,7 +214,7 @@
             android:name=".activity.discover.SearchDiscoverActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
-            android:name=".activity.discover.SearchDiscoverResultActivity"
+            android:name=".activity.discover.SearchResultActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.user.FindPwdActivity"

@@ -18,7 +18,7 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class MultipleProductAdapter extends QuickAdapter<Theme> {
+public class ThemeListAdapter extends QuickAdapter<Theme> {
 
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -27,7 +27,7 @@ public class MultipleProductAdapter extends QuickAdapter<Theme> {
 
     private View.OnClickListener onClickListener;
 
-    public MultipleProductAdapter(Context context, int layoutResId, List data) {
+    public ThemeListAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 

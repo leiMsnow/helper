@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.discover.SearchDiscoverResultActivity;
 import com.tongban.im.common.Consts;
 
 /**
@@ -29,18 +28,13 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     private View vIndiccator;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.activity_discover_search;
     }
 
     @Override
     protected void initView() {
-        tvAllType = (TextView) findViewById(R.id.tv_history);
+
     }
 
     @Override
@@ -69,7 +63,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            Intent intent = new Intent(mContext, SearchDiscoverResultActivity.class);
+            Intent intent = new Intent(mContext, SearchResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(Consts.KEY_SEARCH_VALUE, query);
             intent.putExtras(bundle);
@@ -85,7 +79,6 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
 
     @Override
     public void onClick(View v) {
-
 
     }
 

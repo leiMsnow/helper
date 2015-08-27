@@ -15,9 +15,9 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.MultipleProductFragment;
+import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
-import com.tongban.im.fragment.user.SingleProductFragment;
+import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Topic;
 
@@ -58,8 +58,8 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         rlSingleProduct = (RelativeLayout) findViewById(R.id.rl_single_product);
         rlTopic = (RelativeLayout) findViewById(R.id.rl_topic);
 
-        ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_multiple_product);
-        ccvSingle = (ChangeColorView) findViewById(R.id.ccv_single_product);
+        ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_theme);
+        ccvSingle = (ChangeColorView) findViewById(R.id.ccv_product);
         ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
         mIndicator = findViewById(R.id.v_indicator);
         vpResult = (ViewPager) findViewById(R.id.vp_result);
@@ -89,9 +89,9 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         mTabIndicator.add(ccvSingle);
         mTabIndicator.add(ccvTopic);
         //专题结果
-        mTabs.add(new MultipleProductFragment());
+        mTabs.add(new ThemeListFragment());
         //单品结果
-        mTabs.add(new SingleProductFragment());
+        mTabs.add(new ProductListFragment());
         //话题结果
         MyTopicFragment topicFragment = new MyTopicFragment();
         Bundle bundle = new Bundle();

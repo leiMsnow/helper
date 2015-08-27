@@ -223,7 +223,23 @@ public class BaseEvent {
     public static class FocusEvent {
         public boolean isFocus;
     }
+
     //--------------------------------------商品模块-------------------------------------------------
+
+    /**
+     * 搜索专题的Event
+     */
+    public static class SearchThemeEvent {
+        public List<Theme> mThemes;
+    }
+
+    /**
+     * 搜索单品的Event
+     */
+    public static class SearchProductEvent {
+        public List<ProductBook> mProductBooks;
+    }
+
     /**
      * 收藏专题的Event
      */

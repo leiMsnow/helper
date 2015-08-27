@@ -51,6 +51,12 @@ public class ProductApi extends BaseApi {
     // 取消收藏商品
     private static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
 
+    // 专题搜索
+    private static final String SEARCH_THEME = "theme/search/list";
+
+    // 单品搜索
+    private static final String SEARCH_PRODUCT = "product/search/list";
+
     private ProductApi(Context context) {
         super(context);
     }
@@ -309,6 +315,82 @@ public class ProductApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorObj) {
                 callback.onFailure(DisplayType.Toast, "收藏失败");
+            }
+        });
+    }
+
+    /**
+     * 搜索专题的接口
+     *
+     * @param keyword  关键字
+     * @param cursor   游标
+     * @param pageSize 每页大小
+     * @param callback 回调
+     */
+    public void searchTheme(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("keyword", keyword);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 1 : pageSize);
+        simpleRequest(SEARCH_THEME, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<Theme> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Theme>>() {
+                        });
+                List<Theme> themeList = result.getData().getResult();
+                BaseEvent.SearchThemeEvent event = new BaseEvent.SearchThemeEvent();
+                event.mThemes = themeList;
+                callback.onComplete(event);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(displayType, errorObj);
+            }
+        });
+    }
+
+    /**
+     * 搜索单品的接口
+     *
+     * @param keyword  关键字
+     * @param cursor   游标
+     * @param pageSize 每页大小
+     * @param callback 回调
+     */
+    public void searchProduct(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("keyword", keyword);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 1 : pageSize);
+        simpleRequest(SEARCH_PRODUCT, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<ProductBook> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<ProductBook>>() {
+                        });
+                List<ProductBook> productBooks = result.getData().getResult();
+                BaseEvent.SearchProductEvent event = new BaseEvent.SearchProductEvent();
+                event.mProductBooks = productBooks;
+                callback.onComplete(event);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                callback.onFailure(displayType, errorObj);
             }
         });
     }

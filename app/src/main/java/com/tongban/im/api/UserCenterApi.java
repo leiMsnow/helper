@@ -331,7 +331,7 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchSingleProductList(final ApiCallback callback) {
+    public void fetchCollectedProductList(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));

@@ -1,5 +1,5 @@
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gv_single_product"
+    android:id="@+id/gv_product"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnWidth="80dp"
