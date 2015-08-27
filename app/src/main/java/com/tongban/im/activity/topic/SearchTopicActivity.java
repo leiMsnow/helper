@@ -140,7 +140,9 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
             if (query.contains(";"))
                 query = query.replace(";", "");
             saveSearchKey(query);
-            TopicApi.getInstance().searchTopicList(query, mCursor, mPageSize, this);
+            BaseEvent.SearchTopicKeyEvent search = new BaseEvent.SearchTopicKeyEvent();
+            search.keyword = query;
+            EventBus.getDefault().post(search);
         }
         return false;
     }

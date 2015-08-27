@@ -36,6 +36,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     private boolean mIsMainEvent = false;
     private int mCursor = 0;
+    private String mKeyword;
 
     @Override
     protected int getLayoutRes() {
@@ -98,17 +99,19 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.RecommendTopicListEvent obj) {
+        mCursor++;
         mAdapter.replaceAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
     }
 
     /**
-     * 话题列表事件回调
+     * 话题搜索事件回调
      *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
         if (!mIsMainEvent) {
+            mCursor++;
             mAdapter.replaceAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
         }
@@ -139,15 +142,33 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
-        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+        notifyChangeData();
     }
 
     /**
-     * 话题创建成功回调
+     * 话题评论创建成功回调
      *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
-        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+        notifyChangeData();
     }
+
+    /**
+     * 话题搜索关键字回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.SearchTopicKeyEvent obj) {
+        mKeyword = obj.keyword;
+        TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mAdapter.getCount(), this);
+    }
+
+    //更新相关接口
+    private void notifyChangeData() {
+        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+        if (!mIsMainEvent)
+            TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mAdapter.getCount(), this);
+    }
+
 }
