@@ -25,7 +25,7 @@ import com.tongban.im.model.User;
 public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private PullToZoomScrollViewEx lvUserCenter;
-    private ImageView ivUserIcon, ivPrivateChat, ivClose;
+    private ImageView ivUserIcon, ivClose;
     private TextView tvUserName, tvDeclaration;
     private RelativeLayout rlUserInfo;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
@@ -57,7 +57,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
         rlUserInfo = (RelativeLayout) headView.findViewById(R.id.rl_user_info);
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
-        ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
         tvDeclaration = (TextView) headView.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
@@ -95,8 +94,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
-
-        ivPrivateChat.setOnClickListener(this);
 
         llMyCollect.setOnClickListener(this);
         llMyTopic.setOnClickListener(this);
@@ -146,10 +143,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         else if (v == ivClose) {
             finish();
         }
-        //私聊
-        else if (v == ivPrivateChat) {
 
-        }
     }
 
     //返回个人中心数据

@@ -22,6 +22,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
+import io.rong.imkit.RongIM;
+
 /**
  * 用户中心（他人的）
  *
@@ -33,7 +35,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     private TextView tvTags, tvUserName;
     private CheckBox chbFocus;
     private LinearLayout llMyTopic, llMyCollect;
-    private ImageView ivSex;
+    private ImageView ivSex, ivPrivateChat, ivClose;
     private TextView tvFansNum, tvFocusNum, tvGroupNum;
     private TextView tvFans, tvFocus, tvGroup;
 
@@ -54,6 +56,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
 
+        ivClose = (ImageView) findViewById(R.id.iv_close);
         tvTags = (TextView) findViewById(R.id.tv_declaration);
         tvTags.setVisibility(View.GONE);
         llMyTopic = (LinearLayout) contentView.findViewById(R.id.ll_my_topic);
@@ -65,6 +68,9 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         tvFansNum = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFocusNum = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupNum = (TextView) headView.findViewById(R.id.tv_group_num);
+
+        ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
+
         tvFans = (TextView) findViewById(R.id.tv_fans);
         tvFocus = (TextView) findViewById(R.id.tv_follow);
         tvGroup = (TextView) findViewById(R.id.tv_group);
@@ -109,7 +115,8 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         tvFansNum.setOnClickListener(this);
         tvFocusNum.setOnClickListener(this);
         tvGroupNum.setOnClickListener(this);
-
+        ivPrivateChat.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
     }
 
     /**
@@ -133,6 +140,12 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
         chbFocus.setVisibility(View.VISIBLE);
         chbFocus.setChecked(mUserInfo.is_focused());
+        if (mUserInfo.is_focused()) {
+            ivPrivateChat.setVisibility(View.VISIBLE);
+        } else {
+            ivPrivateChat.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -170,6 +183,14 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
             intent.putExtras(bundle);
             startActivity(intent);
         }
+        //私聊
+        else if (v == ivPrivateChat) {
+            RongIM.getInstance().startPrivateChat(mContext,mUserInfo.getUser_id(),"单聊");
+        }
+        //关闭用户中心
+        else if (v == ivClose) {
+            finish();
+        }
     }
 
     /**
@@ -181,8 +202,10 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
         chbFocus.setChecked(obj.isFocus);
         if (obj.isFocus) {
+            ivPrivateChat.setVisibility(View.VISIBLE);
             ToastUtil.getInstance(mContext).showToast("关注成功");
         } else {
+            ivPrivateChat.setVisibility(View.GONE);
             ToastUtil.getInstance(mContext).showToast("取消成功");
         }
     }
