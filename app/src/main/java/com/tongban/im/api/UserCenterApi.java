@@ -348,7 +348,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
                 BaseEvent.FetchCollectedProductEvent collectSingleProductEvent = new BaseEvent.FetchCollectedProductEvent();
-                collectSingleProductEvent.setSingleProductList(apiResponse.getData().getResult());
+                collectSingleProductEvent.setProductBookList(apiResponse.getData().getResult());
                 callback.onComplete(collectSingleProductEvent);
             }
 

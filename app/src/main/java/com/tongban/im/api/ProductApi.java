@@ -345,7 +345,7 @@ public class ProductApi extends BaseApi {
                         new TypeReference<ApiListResult<Theme>>() {
                         });
                 List<Theme> themeList = result.getData().getResult();
-                BaseEvent.SearchThemeEvent event = new BaseEvent.SearchThemeEvent();
+                BaseEvent.SearchThemeResultEvent event = new BaseEvent.SearchThemeResultEvent();
                 event.mThemes = themeList;
                 callback.onComplete(event);
             }
@@ -383,7 +383,7 @@ public class ProductApi extends BaseApi {
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
                 List<ProductBook> productBooks = result.getData().getResult();
-                BaseEvent.SearchProductEvent event = new BaseEvent.SearchProductEvent();
+                BaseEvent.SearchProductResultEvent event = new BaseEvent.SearchProductResultEvent();
                 event.mProductBooks = productBooks;
                 callback.onComplete(event);
             }

@@ -225,16 +225,23 @@ public class BaseEvent {
     //--------------------------------------商品模块-------------------------------------------------
 
     /**
-     * 搜索专题的Event
+     * 搜索专题和单品的Event
      */
-    public static class SearchThemeEvent {
+    public static class SearchThemeAndProductEvent {
+        public String keyword;
+    }
+
+    /**
+     * 搜索专题成功的Event
+     */
+    public static class SearchThemeResultEvent {
         public List<Theme> mThemes;
     }
 
     /**
-     * 搜索单品的Event
+     * 搜索单品成功的Event
      */
-    public static class SearchProductEvent {
+    public static class SearchProductResultEvent {
         public List<ProductBook> mProductBooks;
     }
 
@@ -277,14 +284,14 @@ public class BaseEvent {
      * 获取已经收藏的单品的Event
      */
     public static class FetchCollectedProductEvent {
-        public List<ProductBook> singleProductList;
+        public List<ProductBook> productBookList;
 
-        public List<ProductBook> getSingleProductList() {
-            return singleProductList;
+        public List<ProductBook> getProductBookList() {
+            return productBookList;
         }
 
-        public void setSingleProductList(List<ProductBook> singleProductList) {
-            this.singleProductList = singleProductList;
+        public void setProductBookList(List<ProductBook> productBookList) {
+            this.productBookList = productBookList;
         }
     }
 

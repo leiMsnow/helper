@@ -10,6 +10,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
+import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
@@ -59,16 +60,18 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
     protected void initData() {
         mAdapter = new ThemeListAdapter(mContext, R.layout.item_theme_list, null);
         lvTheme.setAdapter(mAdapter);
-        if (getArguments().getInt("type", 0) == 0) {
-            // TODO: 15/8/27  
-        } else {
+        int type = getArguments().getInt("type", 0);
+        if (type == 0) {
+            // Fragment用于搜索
+        } else if (type == 1) {
+            // Fragment用于展示收藏的专题
             UserCenterApi.getInstance().fetchCollectMultipleTopicList(0, 10, this);
         }
     }
 
     @Override
     public void onClick(View v) {
-        
+
     }
 
     @Override
@@ -86,11 +89,20 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
     }
 
     /**
-     * 搜索专题的Event
+     * 通知Fragment执行搜索
      *
      * @param event
      */
-    public void onEventMainThread(BaseEvent.SearchThemeEvent event) {
+    public void onEventMainThread(BaseEvent.SearchThemeAndProductEvent event) {
+        ProductApi.getInstance().searchTheme(event.keyword, 0, 15, this);
+    }
+
+    /**
+     * 搜索专题成功的Event
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
         if (event.mThemes.size() == 0) {
             ToastUtil.getInstance(mContext).showToast("换个搜索词试试吧~");
         } else {

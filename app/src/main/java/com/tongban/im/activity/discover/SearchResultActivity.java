@@ -18,9 +18,12 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
+import com.tongban.im.model.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 搜索结果页
@@ -79,9 +82,6 @@ public class SearchResultActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
-        if (getIntent() != null) {
-            mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
-        }
         mTabs.add(ccvTheme);
         mTabs.add(ccvProduct);
         //专题搜索列表Fragment
@@ -102,6 +102,16 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         };
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
+        // 搜索
+        if (getIntent() != null) {
+            mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
+            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
+            if (!TextUtils.isEmpty(mSearchKey)) {
+                searchView.setQuery(mSearchKey, false);
+                searchEvent.keyword = mSearchKey;
+                EventBus.getDefault().post(searchEvent);
+            }
+        }
     }
 
     @Override
@@ -110,7 +120,6 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQuery(mSearchKey, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
@@ -119,7 +128,9 @@ public class SearchResultActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-
+            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
+            searchEvent.keyword = query;
+            EventBus.getDefault().post(searchEvent);
         }
         return false;
     }
