@@ -18,8 +18,8 @@
 
         <CheckBox
             android:id="@+id/chb_focus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="bottom|right"
             android:background="@drawable/selector_user_focus"
             android:button="@null"

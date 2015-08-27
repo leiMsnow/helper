@@ -521,7 +521,7 @@ public class UserCenterApi extends BaseApi {
      * @param focusUserId 被关注的Id
      * @param callback
      */
-    public void focusUser(final boolean isFocus, String[] focusUserId, final ApiCallback callback) {
+    public void focusUser(final boolean isFocus, final String[] focusUserId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);
@@ -539,6 +539,7 @@ public class UserCenterApi extends BaseApi {
 
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
                 focusEvent.isFocus = isFocus;
+                focusEvent.userIds = focusUserId;
                 callback.onComplete(focusEvent);
             }
 
