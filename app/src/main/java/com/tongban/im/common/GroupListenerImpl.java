@@ -30,12 +30,14 @@ public class GroupListenerImpl implements View.OnClickListener {
                 GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
                         group.getUser_info().getUser_id(), null);
                 break;
-            //打开圈子详情
+            //打开圈子聊天页/详情页
             case R.id.rl_group_item:
                 group = (Group) v.getTag();
                 if (group.isAllow_add()) {
                     RongIM.getInstance().startGroupChat(mContext, group.getGroup_id(),
                             group.getGroup_name());
+                }else{
+                    TransferCenter.getInstance().startGroupInfo(group.getGroup_id());
                 }
                 break;
         }

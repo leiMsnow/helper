@@ -40,10 +40,6 @@ public class RecommendGroupFragment extends BaseApiFragment {
         lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     protected void initData() {
@@ -53,11 +49,14 @@ public class RecommendGroupFragment extends BaseApiFragment {
             GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
-        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
         mAdapter.setDisplayModel(false);
         lvGroupList.setAdapter(mAdapter);
     }
 
+    @Override
+    protected void initListener() {
+        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
+    }
     /**
      * 推荐圈子事件回调
      *

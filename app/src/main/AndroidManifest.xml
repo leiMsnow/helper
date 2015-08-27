@@ -140,7 +140,18 @@
         </activity>
         <activity
             android:name=".activity.group.GroupInfoActivity"
-            android:label="@string/group_settings"/>
+            android:label="@string/group_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/groupinfo/"
+                    android:scheme="tongban"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.group.CreateGroupActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>

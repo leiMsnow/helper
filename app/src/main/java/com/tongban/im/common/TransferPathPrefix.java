@@ -27,7 +27,18 @@ public class TransferPathPrefix {
      * 话题详情
      */
     public static final String TOPIC_DETAILS = "topicdetails";
-
+    /**
+     * 专题
+     */
     public static final String THEME_DETAILS = "theme";
+    /**
+     * 单品-图书
+     */
     public static final String PRODUCT_BOOK = "productbook";
+    /**
+     * 圈子详情
+     */
+    public static final String GROUP_INFO = "groupinfo";
+
+
 }

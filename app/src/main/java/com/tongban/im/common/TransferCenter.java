@@ -116,4 +116,19 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
+    /**
+     * 打开圈子详情页
+     *
+     * @param groupId 圈子Id
+     */
+    public void startGroupInfo(String groupId) {
+        String pathPrefix = TransferPathPrefix.GROUP_INFO;
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_GROUP_ID, groupId)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
 }
