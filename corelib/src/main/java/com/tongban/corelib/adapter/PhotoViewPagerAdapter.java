@@ -32,9 +32,11 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
     public View instantiateItem(ViewGroup container, int position) {
 
         PhotoView photoView = new PhotoView(container.getContext());
-        Glide.with(mContext).load(mResList.get(position)).into(photoView);
+        Glide.with(mContext).load(mResList.get(position)).placeholder(R.mipmap.ic_default_image)
+                .into(photoView);
         container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
+
         return photoView;
     }
 
