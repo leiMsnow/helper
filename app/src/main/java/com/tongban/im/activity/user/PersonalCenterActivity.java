@@ -17,6 +17,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 /**
@@ -32,6 +33,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
     private LinearLayout llMyTopic, llMyCollect;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,8 +149,11 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     }
 
-    //返回个人中心数据
-    public void onEventMainThread(User user) {
+    /**
+     * 返回个人中心数据Event
+     */
+    public void onEventMainThread(BaseEvent.PersonalCenterEvent obj) {
+        this.user = obj.user;
         Glide.with(mContext).load(user.getPortrait_url().getMin()).
                 placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
@@ -158,5 +164,19 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFollowCount.setText(user.getFocused_amount() + "");
         tvGroupCount.setText(user.getJoined_group_amount() + "");
 
+    }
+
+    /**
+     * 关注Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.FocusEvent obj) {
+
+        if (obj.isFocus) {
+            tvFollowCount.setText(String.valueOf(Integer.parseInt(tvFollowCount.getText().toString()) + 1));
+        } else {
+            tvFollowCount.setText(String.valueOf(Integer.parseInt(tvFollowCount.getText().toString()) - 1));
+        }
     }
 }

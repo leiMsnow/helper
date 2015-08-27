@@ -206,7 +206,18 @@ public class BaseEvent {
     public static class UserCenterEvent {
         public User user;
     }
-
+    /**
+     * 个人中心Event
+     */
+    public static class PersonalCenterEvent {
+        public User user;
+    }
+    /**
+     * 用户资料Event
+     */
+    public static class UserInfoEvent {
+        public User user;
+    }
     /**
      * 回复我的话题列表Event
      */
@@ -220,6 +231,7 @@ public class BaseEvent {
      */
     public static class FocusEvent {
         public boolean isFocus;
+        public String [] userIds;
     }
 
     //--------------------------------------商品模块-------------------------------------------------

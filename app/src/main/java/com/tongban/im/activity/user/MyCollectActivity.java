@@ -89,9 +89,9 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         mTabIndicator.add(ccvSingle);
         mTabIndicator.add(ccvTopic);
         //专题结果
-        mTabs.add(new ThemeListFragment());
+        mTabs.add(ThemeListFragment.newInstance(1));
         //单品结果
-        mTabs.add(new ProductListFragment());
+        mTabs.add(ProductListFragment.newInstance(1));
         //话题结果
         MyTopicFragment topicFragment = new MyTopicFragment();
         Bundle bundle = new Bundle();

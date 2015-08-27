@@ -5,9 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 /**
@@ -17,8 +19,10 @@ import com.tongban.im.model.User;
  */
 public class PersonalInfoActivity extends BaseToolBarActivity implements View.OnClickListener {
     private ImageView ivUserIcon;
-    private TextView tvNickName, tvPhoneNum, tvWork, tvChildAge,
+    private TextView tvNickName, tvPhoneNum, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool, tvAddress;
+
+    private User user;
 
     @Override
     protected int getLayoutRes() {
@@ -31,7 +35,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
         tvNickName = (TextView) findViewById(R.id.tv_user_name);
         tvPhoneNum = (TextView) findViewById(R.id.tv_phone_num);
-        tvWork = (TextView) findViewById(R.id.tv_work);
         tvChildAge = (TextView) findViewById(R.id.tv_child_age);
         tvChildSex = (TextView) findViewById(R.id.tv_child_sex);
         tvChildConstellation = (TextView) findViewById(R.id.tv_child_constellation);
@@ -51,7 +54,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         ivUserIcon.setOnClickListener(this);
         tvNickName.setOnClickListener(this);
         tvPhoneNum.setOnClickListener(this);
-        tvWork.setOnClickListener(this);
         tvChildAge.setOnClickListener(this);
         tvChildSex.setOnClickListener(this);
         tvChildConstellation.setOnClickListener(this);
@@ -61,14 +63,14 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     }
 
     //返回个人资料数据
-    public void onEventMainThread(User user) {
-
+    public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
+        this.user = obj.user;
+        Glide.with(mContext).load(user.getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
-        tvWork.setText(user.getDeclaration());
-        tvChildAge.setText(user.getAge());
+        tvChildAge.setText(user.getChild_info().get(0).getAge());
         tvChildSex.setText(user.getChild_info().get(0).getSex());
-        tvChildConstellation.setText(user.getChild_info().get(0).getBirthday());
+        tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
         tvChildSchool.setText(user.getChild_info().get(0).getSchool());
         tvAddress.setText(user.getAddress());
     }

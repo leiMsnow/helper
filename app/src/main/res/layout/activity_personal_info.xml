@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="8dp"
-        android:background="@color/weak_grey">
+        android:background="@color/weak_grey"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,11 +23,11 @@
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
-                <ImageView
+                <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_user_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center" />
 
                 <TextView
                     android:id="@+id/tv_group_name"
@@ -61,21 +62,6 @@
                     android:id="@+id/tv_phone_num"
                     style="@style/ChatSettingRightText"
                     android:text="15910662995" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:text="职业" />
-
-                <TextView
-                    android:id="@+id/tv_work"
-                    style="@style/ChatSettingRightText"
-                    android:text="幼儿教师" />
-
             </LinearLayout>
 
             <LinearLayout

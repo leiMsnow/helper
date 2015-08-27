@@ -122,8 +122,9 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+                BaseEvent.PersonalCenterEvent personalCenterEvent=new BaseEvent.PersonalCenterEvent();
+                personalCenterEvent.user=apiResponse.getData();
+                callback.onComplete(personalCenterEvent);
             }
 
             @Override
@@ -188,7 +189,6 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        //TODO缺少参数  参数不对应
         simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -200,8 +200,9 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+                BaseEvent.UserInfoEvent userInfoEvent=new BaseEvent.UserInfoEvent();
+                userInfoEvent.user=apiResponse.getData();
+                callback.onComplete(userInfoEvent);
             }
 
             @Override
@@ -265,7 +266,6 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        // TODO: 2015/8/19 接口缺少测试数据
         simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -381,7 +381,6 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                // // TODO: 2015/8/22 数据格式错误
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
@@ -519,7 +518,7 @@ public class UserCenterApi extends BaseApi {
      * @param focusUserId 被关注的Id
      * @param callback
      */
-    public void focusUser(final boolean isFocus, String[] focusUserId, final ApiCallback callback) {
+    public void focusUser(final boolean isFocus, final String[] focusUserId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);
@@ -536,7 +535,8 @@ public class UserCenterApi extends BaseApi {
             public void onComplete(Object obj) {
 
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
-                focusEvent.isFocus = (isFocus);
+                focusEvent.isFocus = isFocus;
+                focusEvent.userIds = focusUserId;
                 callback.onComplete(focusEvent);
             }
 

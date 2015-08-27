@@ -42,12 +42,14 @@ public class UserAdapter extends QuickAdapter<User> {
         helper.setTag(R.id.btn_follow, item.getUser_id());
         if (isFocused) {
             helper.setText(R.id.btn_follow, "已关注");
+            helper.getView(R.id.btn_follow).setEnabled(false);
         } else {
             if (item.is_focused()) {
                 helper.setText(R.id.btn_follow, "已关注");
+                helper.getView(R.id.btn_follow).setEnabled(false);
             } else {
                 helper.setText(R.id.btn_follow, "关注");
-                helper.setTextColor(R.id.btn_follow, mContext.getResources().getColor(R.color.red_300));
+                helper.getView(R.id.btn_follow).setEnabled(true);
             }
         }
         helper.setTag(R.id.iv_user_icon, Integer.MAX_VALUE, item.getUser_id());
