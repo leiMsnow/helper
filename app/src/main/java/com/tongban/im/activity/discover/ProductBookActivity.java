@@ -1,6 +1,8 @@
 package com.tongban.im.activity.discover;
 
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -8,12 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ProductBook;
 
 /**
@@ -30,6 +34,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
     private TextView desc;
     private GridView mGridView;
 
+    // 图书id
     private String productBookId;
     private ProductBook mProductBook;
     private ProductBookImgPagerAdapter mPagerAdapter;
@@ -54,8 +59,12 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
 
     @Override
     protected void initData() {
-        productBookId = getIntent().getStringExtra(Consts.KEY_PRODUCY_BOOK_ID);
-        ProductApi.getInstance().fetchProductDetailInfo(productBookId, this);
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            productBookId = uri.getQueryParameter(Consts.KEY_PRODUCT_BOOK_ID);
+            if (!TextUtils.isEmpty(productBookId))
+                ProductApi.getInstance().fetchProductDetailInfo(productBookId, this);
+        }
     }
 
     @Override
@@ -70,7 +79,11 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         if (v == ivBack) {
             finish();
         } else if (v == ivCollect) {
-
+            if (mProductBook != null && mProductBook.isCollect_status()) {
+                ProductApi.getInstance().noCollectProduct(productBookId, this);
+            } else if (mProductBook != null && !mProductBook.isCollect_status()) {
+                ProductApi.getInstance().collectProduct(productBookId, this);
+            }
         } else if (v == ivShare) {
 
         }
@@ -83,6 +96,9 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
      */
     public void onEventMainThread(ProductBook productBook) {
         mProductBook = productBook;
+        if (mProductBook.isCollect_status()) {
+            ivCollect.setSelected(true);
+        }
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);
         title.setText(mProductBook.getProduct_name());
@@ -104,5 +120,27 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         }
         mPriceAdapter = new ProductPriceAdapter(mContext, mProductBook.getPrice_info());
         mGridView.setAdapter(mPriceAdapter);
+    }
+
+    /**
+     * 收藏商品成功的Event
+     *
+     * @param event CollectProductEvent
+     */
+    public void onEventMainThread(BaseEvent.CollectProductEvent event) {
+        ToastUtil.getInstance(mContext).showToast("收藏成功");
+        mProductBook.setCollect_status(true);
+        ivCollect.setSelected(true);
+    }
+
+    /**
+     * 取消收藏商品的Event
+     *
+     * @param event NoCollectProductEvent
+     */
+    public void onEventMainThread(BaseEvent.NoCollectProductEvent event) {
+        ToastUtil.getInstance(mContext).showToast("已经取消收藏");
+        mProductBook.setCollect_status(false);
+        ivCollect.setSelected(false);
     }
 }

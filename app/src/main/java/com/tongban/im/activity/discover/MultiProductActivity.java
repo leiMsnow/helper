@@ -255,9 +255,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
                     @Override
                     public void onClick(View v) {
                         if (productBook.getProduct_id() != null) {
-                            Intent intent = new Intent(mContext, ProductBookActivity.class);
-                            intent.putExtra(Consts.KEY_PRODUCY_BOOK_ID, productBook.getProduct_id());
-                            startActivity(intent);
+                            TransferCenter.getInstance().startProductBook(productBook.getProduct_id());
                         }
                     }
                 });

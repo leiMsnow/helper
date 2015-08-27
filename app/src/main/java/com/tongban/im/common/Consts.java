@@ -126,7 +126,7 @@ public class Consts {
     /**
      * 图书单品id
      */
-    public static final String KEY_PRODUCY_BOOK_ID = "KEY_PRODUCY_BOOK_ID";
+    public static final String KEY_PRODUCT_BOOK_ID = "KEY_PRODUCT_BOOK_ID";
 
     //------------------------------其它相关key------------------------------------------------------
     /**

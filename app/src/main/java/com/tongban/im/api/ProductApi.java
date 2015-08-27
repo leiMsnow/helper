@@ -260,12 +260,12 @@ public class ProductApi extends BaseApi {
     /**
      * 收藏商品
      *
-     * @param productId  商品id
-     * @param callback 回调
+     * @param productId 商品id
+     * @param callback  回调
      */
     public void collectProduct(String productId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", productId);
+        mParams.put("product_id", productId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(COLLECT_PRODUCT, mParams, new ApiCallback() {
             @Override
@@ -293,7 +293,7 @@ public class ProductApi extends BaseApi {
      */
     public void noCollectProduct(String multiId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", multiId);
+        mParams.put("product_id", multiId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(NO_COLLECT_PRODUCT, mParams, new ApiCallback() {
             @Override

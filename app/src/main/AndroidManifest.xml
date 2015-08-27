@@ -266,7 +266,18 @@
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.discover.ProductBookActivity"/>
+        <activity android:name=".activity.discover.ProductBookActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/productbook"
+                    android:scheme="tongban"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

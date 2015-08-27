@@ -51,6 +51,8 @@ public class ProductBook {
     private long c_time;
     // 修改时间
     private long m_time;
+    // 收藏状态
+    private boolean collect_status;
 
     public String getProduct_id() {
         return product_id;
@@ -226,5 +228,13 @@ public class ProductBook {
 
     public void setM_time(long m_time) {
         this.m_time = m_time;
+    }
+
+    public boolean isCollect_status() {
+        return collect_status;
+    }
+
+    public void setCollect_status(boolean collect_status) {
+        this.collect_status = collect_status;
     }
 }

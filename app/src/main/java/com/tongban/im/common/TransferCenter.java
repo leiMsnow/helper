@@ -101,4 +101,19 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
+    /**
+     * 打开图书单品页
+     *
+     * @param productBookId 图书id
+     */
+    public void startProductBook(String productBookId) {
+        String pathPrefix = TransferPathPrefix.PRODUCT_BOOK;
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_PRODUCT_BOOK_ID, productBookId)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
 }
