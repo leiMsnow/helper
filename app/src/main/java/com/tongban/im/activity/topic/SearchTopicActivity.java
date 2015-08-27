@@ -13,7 +13,6 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
@@ -48,7 +47,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     @Override
     protected void initView() {
         llHistoryParent = findViewById(R.id.ll_history_parent);
-        tvHistory = (TextView) findViewById(R.id.tv_history);
+        tvHistory = (TextView) findViewById(R.id.tv_hot_category);
         flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
         vHistoryList = findViewById(R.id.fl_container);
 

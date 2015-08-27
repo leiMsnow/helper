@@ -331,7 +331,7 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchSingleProductList(final ApiCallback callback) {
+    public void fetchCollectedProductList(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -348,7 +348,7 @@ public class UserCenterApi extends BaseApi {
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
                 BaseEvent.FetchCollectedProductEvent collectSingleProductEvent = new BaseEvent.FetchCollectedProductEvent();
-                collectSingleProductEvent.setSingleProductList(apiResponse.getData().getResult());
+                collectSingleProductEvent.setProductBookList(apiResponse.getData().getResult());
                 callback.onComplete(collectSingleProductEvent);
             }
 

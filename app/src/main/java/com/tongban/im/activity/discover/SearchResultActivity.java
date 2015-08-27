@@ -16,11 +16,14 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.MultipleProductFragment;
-import com.tongban.im.fragment.user.SingleProductFragment;
+import com.tongban.im.fragment.user.ThemeListFragment;
+import com.tongban.im.fragment.user.ProductListFragment;
+import com.tongban.im.model.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 搜索结果页
@@ -28,35 +31,33 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
+public class SearchResultActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener, View.OnClickListener {
 
     private SearchView searchView;
-    private ViewPager vpResult;
+    private ViewPager mViewPager;
     private View mIndicator;
     private FragmentPagerAdapter mAdapter;
-    private ChangeColorView ccvMultiple;
-    private ChangeColorView ccvSingle;
-
-    private List<Fragment> mTabs = new ArrayList<>();
-    private List<ChangeColorView> mTabIndicator = new ArrayList<>();
+    private ChangeColorView ccvTheme;
+    private ChangeColorView ccvProduct;
+    private List<Fragment> mFragments = new ArrayList<>();
+    private List<ChangeColorView> mTabs = new ArrayList<>();
 
     private int mIndicatorWidth;
     private String mSearchKey;
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_search_discover_result;
+        return R.layout.activity_discover_search_result;
     }
 
     @Override
     protected void initView() {
-
-        ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_multiple_product);
-        ccvSingle = (ChangeColorView) findViewById(R.id.ccv_single_product);
+        ccvTheme = (ChangeColorView) findViewById(R.id.ccv_theme);
+        ccvProduct = (ChangeColorView) findViewById(R.id.ccv_product);
         mIndicator = findViewById(R.id.v_indicator);
-        vpResult = (ViewPager) findViewById(R.id.vp_search_result);
-        ccvMultiple.setIconAlpha(1.0f);
+        mViewPager = (ViewPager) findViewById(R.id.vp_search_result);
+        ccvTheme.setIconAlpha(1.0f);
         initIndicator(2);
     }
 
@@ -72,36 +73,45 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
         mIndicator.setLayoutParams(lp);
     }
 
+
+    @Override
+    protected void initListener() {
+        ccvTheme.setOnClickListener(this);
+        ccvProduct.setOnClickListener(this);
+    }
+
     @Override
     protected void initData() {
-        if (getIntent().getExtras() != null) {
-            mSearchKey = getIntent().getExtras().getString(Consts.KEY_SEARCH_VALUE,"");
-        }
-        mTabIndicator.add(ccvMultiple);
-        mTabIndicator.add(ccvSingle);
-        //专题搜索结果
-        mTabs.add(new MultipleProductFragment());
-        //单品搜索结果
-        mTabs.add(new SingleProductFragment());
+        mTabs.add(ccvTheme);
+        mTabs.add(ccvProduct);
+        //专题搜索列表Fragment
+        mFragments.add(ThemeListFragment.newInstance(0));
+        //单品搜索列表Fragment
+        mFragments.add(ProductListFragment.newInstance(0));
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {
-                return mTabs.size();
+                return mFragments.size();
             }
 
             @Override
             public Fragment getItem(int arg0) {
-                return mTabs.get(arg0);
+                return mFragments.get(arg0);
             }
         };
-        vpResult.setAdapter(mAdapter);
-        vpResult.addOnPageChangeListener(this);
-    }
-
-    @Override
-    protected void initListener() {
-
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(this);
+        // 搜索
+        if (getIntent() != null) {
+            mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
+            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
+            if (!TextUtils.isEmpty(mSearchKey)) {
+                searchView.setQuery(mSearchKey, false);
+                searchEvent.keyword = mSearchKey;
+                EventBus.getDefault().post(searchEvent);
+            }
+        }
     }
 
     @Override
@@ -110,7 +120,6 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
-        searchView.setQuery(mSearchKey, false);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
         return true;
@@ -119,7 +128,9 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-
+            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
+            searchEvent.keyword = query;
+            EventBus.getDefault().post(searchEvent);
         }
         return false;
     }
@@ -131,12 +142,10 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         if (positionOffset > 0) {
-            mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
-            mTabIndicator.get(position + 1).setIconAlpha(positionOffset);
+            mTabs.get(position).setIconAlpha(1 - positionOffset);
+            mTabs.get(position + 1).setIconAlpha(positionOffset);
         }
-
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mIndicator.getLayoutParams();
         lp.leftMargin = (int) (mIndicatorWidth * (position + positionOffset));
         mIndicator.setLayoutParams(lp);
@@ -153,19 +162,21 @@ public class SearchDiscoverResultActivity extends BaseToolBarActivity implements
     }
 
     private void resetTabs(int index) {
-        for (int i = 0; i < mTabIndicator.size(); i++) {
-            mTabIndicator.get(i).setIconAlpha(0.0f);
+        for (int i = 0; i < mTabs.size(); i++) {
+            mTabs.get(i).setIconAlpha(0.0f);
         }
-        mTabIndicator.get(index).setIconAlpha(1.0f);
-        vpResult.setCurrentItem(index, false);
+        mTabs.get(index).setIconAlpha(1.0f);
+        mViewPager.setCurrentItem(index, false);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == ccvMultiple) {
-            resetTabs(0);
-        } else if (v == ccvSingle) {
-            resetTabs(1);
+        if (v == ccvTheme) {
+            if (mViewPager.getCurrentItem() != 0)
+                resetTabs(0);
+        } else if (v == ccvProduct) {
+            if (mViewPager.getCurrentItem() != 1)
+                resetTabs(1);
         }
     }
 }

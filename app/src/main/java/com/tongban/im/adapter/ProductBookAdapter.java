@@ -16,8 +16,8 @@ import java.util.List;
  * 我的收藏 - 单品列表Adapter
  * Created by fushudi on 2015/8/13.
  */
-public class SingleProductAdapter extends QuickAdapter<ProductBook> {
-    public SingleProductAdapter(Context context, int layoutResId, List data) {
+public class ProductBookAdapter extends QuickAdapter<ProductBook> {
+    public ProductBookAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
 
