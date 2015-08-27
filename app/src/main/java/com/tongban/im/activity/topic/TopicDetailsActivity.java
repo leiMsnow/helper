@@ -1,26 +1,20 @@
 package com.tongban.im.activity.topic;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
-import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
@@ -33,7 +27,6 @@ import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +67,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_topic_detail;
+        return R.layout.activity_topic_details;
     }
 
     @Override
@@ -138,7 +131,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            KeyBoardUtils.hideSoftKeybord(this);
+            KeyBoardUtils.hideSoftKeyboard(this);
             finish();
         }
         return true;
@@ -149,7 +142,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         //重置回复话题
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
-            KeyBoardUtils.openKeybord(topicInputView.getEtComment(), mContext);
+            topicInputView.focusEdit();
         }
         // 收藏话题
         else if (v == ivCollect) {
@@ -264,7 +257,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         int commentCount = Integer.parseInt(tvComment.getText().toString());
         tvComment.setText(String.valueOf(commentCount + 1));
         topicInputView.clearCommentInfo();
-        KeyBoardUtils.closeKeybord(topicInputView.getEtComment(), mContext);
+        KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
 
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount(), this);
         ToastUtil.getInstance(mContext).showToast(obj.message);
