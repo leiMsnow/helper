@@ -10,10 +10,11 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/lpi_indicator" />
 
-    <com.tongban.corelib.widget.view.indicator.LinePageIndicator
+    <com.tongban.corelib.widget.view.indicator.CirclePageIndicator
         android:id="@+id/lpi_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="8dp" />
+
 </RelativeLayout>
