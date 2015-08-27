@@ -256,7 +256,7 @@ public class BaseEvent {
      * 获取已经收藏的专题列表的Event
      */
     public static class FetchCollectedThemeEvent {
-        public List<MultiProduct> multiProductList;
+        public List<Theme> mThemeList;
     }
 
     /**
@@ -292,7 +292,7 @@ public class BaseEvent {
     /**
      * 获取专题下的商品列表Event
      */
-    public static class FetchThemeProducts {
+    public static class FetchProductBooksInTheme {
         private List<ProductBook> list;
 
         public List<ProductBook> getList() {

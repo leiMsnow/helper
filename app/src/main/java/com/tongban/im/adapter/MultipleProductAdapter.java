@@ -3,13 +3,12 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.Theme;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
+public class MultipleProductAdapter extends QuickAdapter<Theme> {
 
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -33,7 +32,7 @@ public class MultipleProductAdapter extends QuickAdapter<MultiProduct> {
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, MultiProduct item) {
+    protected void convert(BaseAdapterHelper helper, Theme item) {
         helper.setImageBitmap(R.id.iv_product, item.getTheme_img_url().get(0).getMin());
         helper.setText(R.id.tv_product_desc, item.getTheme_content());
         helper.setText(R.id.tv_product_name, item.getTheme_title());

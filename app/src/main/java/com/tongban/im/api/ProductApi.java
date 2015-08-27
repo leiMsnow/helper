@@ -14,7 +14,7 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
-import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
 
 import java.util.HashMap;
@@ -105,7 +105,7 @@ public class ProductApi extends BaseApi {
      * @param multiProductId 专题id
      * @param callback       回调
      */
-    public void fetchMultiProductInfo(@NonNull String multiProductId, final ApiCallback callback) {
+    public void fetchThemeInfo(@NonNull String multiProductId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", multiProductId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -117,11 +117,11 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<MultiProduct> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<MultiProduct>>() {
+                ApiResult<Theme> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<Theme>>() {
                         });
-                MultiProduct multiProduct = result.getData();
-                callback.onComplete(multiProduct);
+                Theme theme = result.getData();
+                callback.onComplete(theme);
             }
 
             @Override
@@ -139,7 +139,7 @@ public class ProductApi extends BaseApi {
      * @param pageSize       每页的数量
      * @param callback       回调
      */
-    public void fetchProductListByMultiId(@NonNull String multiProductId, int cursor, int pageSize,
+    public void fetchProductListByThemeId(@NonNull String multiProductId, int cursor, int pageSize,
                                           final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", multiProductId);
@@ -157,7 +157,7 @@ public class ProductApi extends BaseApi {
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
                 List<ProductBook> productList = result.getData().getResult();
-                BaseEvent.FetchThemeProducts themeProducts = new BaseEvent.FetchThemeProducts();
+                BaseEvent.FetchProductBooksInTheme themeProducts = new BaseEvent.FetchProductBooksInTheme();
                 themeProducts.setList(productList);
                 callback.onComplete(themeProducts);
             }
@@ -175,7 +175,7 @@ public class ProductApi extends BaseApi {
      * @param multiId  专题id
      * @param callback 回调
      */
-    public void collectMultiProduct(String multiId, final ApiCallback callback) {
+    public void collectTheme(String multiId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", multiId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -203,7 +203,7 @@ public class ProductApi extends BaseApi {
      * @param multiId  专题id
      * @param callback 回调
      */
-    public void noCollectMultiProduct(String multiId, final ApiCallback callback) {
+    public void noCollectTheme(String multiId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", multiId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));

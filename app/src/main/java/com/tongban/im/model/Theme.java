@@ -7,7 +7,7 @@ import java.util.List;
  * 专题的model
  * Created by chenenyu on 15/8/17.
  */
-public class MultiProduct {
+public class Theme {
     // 专题id
     private String theme_id;
     // 标题

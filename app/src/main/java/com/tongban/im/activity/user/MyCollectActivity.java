@@ -186,6 +186,6 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent obj) {
-        tvMultiProductNum.setText(String.valueOf(obj.multiProductList.size()));
+        tvMultiProductNum.setText(String.valueOf(obj.mThemeList.size()));
     }
 }

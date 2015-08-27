@@ -16,7 +16,7 @@ import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
-import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
@@ -420,11 +420,11 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<MultiProduct> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<MultiProduct>>() {
+                ApiListResult<Theme> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Theme>>() {
                         });
                 BaseEvent.FetchCollectedThemeEvent collectMultiProductEvent = new BaseEvent.FetchCollectedThemeEvent();
-                collectMultiProductEvent.multiProductList = (result.getData().getResult());
+                collectMultiProductEvent.mThemeList = (result.getData().getResult());
                 if (callback != null)
                     callback.onComplete(collectMultiProductEvent);
             }

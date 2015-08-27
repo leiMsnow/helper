@@ -4,7 +4,7 @@
     <item
         android:id="@+id/collect"
         android:checkable="true"
-        android:icon="@drawable/selector_menu_multi_product_collect"
+        android:icon="@drawable/selector_menu_theme_collect"
         android:orderInCategory="100"
         android:title="@string/collect"
         app:showAsAction="always"/>

@@ -254,7 +254,7 @@
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.discover.MultiProductActivity">
+        <activity android:name=".activity.discover.ThemeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 

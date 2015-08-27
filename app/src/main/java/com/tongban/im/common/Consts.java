@@ -122,7 +122,7 @@ public class Consts {
     /**
      * 专题id
      */
-    public static final String KEY_MULTI_PRODUCT_ID = "KEY_MULTI_PRODUCT_ID";
+    public static final String KEY_THEME_ID = "KEY_THEME_ID";
     /**
      * 图书单品id
      */

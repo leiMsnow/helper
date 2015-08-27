@@ -1,6 +1,5 @@
 package com.tongban.im.activity.discover;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -27,7 +26,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.MultiProduct;
+import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
@@ -38,7 +37,7 @@ import java.util.List;
  * 专题页
  * Created by Cheney on 15/8/17.
  */
-public class MultiProductActivity extends BaseToolBarActivity {
+public class ThemeActivity extends BaseToolBarActivity {
     // 收藏按钮
     private MenuItem collectMenu;
     // 专题头图
@@ -46,7 +45,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     // 专题标题
     private TextView title;
     // 存在专题标题的布局
-    private FlowLayout multiTag;
+    private FlowLayout themeTag;
     // 发表人头像
     private CircleImageView userPortrait;
     // 发表人姓名
@@ -56,7 +55,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
     // 创建时间
     private TextView createTime;
     // 专题描述
-    private TextView multiDesc;
+    private TextView themeDesc;
     // 单品列表
     private LinearLayout mProductList;
     // 相关话题的容器
@@ -65,9 +64,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
     private LinearLayout mTopicList;
 
     // 当前的专题id
-    private String multiId;
+    private String themeId;
     // 专题信息数据
-    private MultiProduct mMultiProduct;
+    private Theme mTheme;
     // 商品列表
     private List<ProductBook> mProductBooks;
 
@@ -75,19 +74,19 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_multi_product;
+        return R.layout.activity_theme;
     }
 
     @Override
     protected void initView() {
         headImg = (ImageView) findViewById(R.id.iv_head);
         title = (TextView) findViewById(R.id.tv_title);
-        multiTag = (FlowLayout) findViewById(R.id.fl_tag);
+        themeTag = (FlowLayout) findViewById(R.id.fl_tag);
         userPortrait = (CircleImageView) findViewById(R.id.iv_user_portrait);
         userName = (TextView) findViewById(R.id.tv_user_name);
         userTag = (TextView) findViewById(R.id.tv_user_tag);
         createTime = (TextView) findViewById(R.id.tv_create_time);
-        multiDesc = (TextView) findViewById(R.id.tv_desc);
+        themeDesc = (TextView) findViewById(R.id.tv_desc);
         mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
         mTopicContainer = (LinearLayout) findViewById(R.id.ll_topic);
         mTopicList = (LinearLayout) findViewById(R.id.ll_topic_list);
@@ -98,9 +97,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
         setTitle("");
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
-            multiId = uri.getQueryParameter(Consts.KEY_MULTI_PRODUCT_ID);
-            if (!TextUtils.isEmpty(multiId)) {
-                ProductApi.getInstance().fetchMultiProductInfo(multiId, this);
+            themeId = uri.getQueryParameter(Consts.KEY_THEME_ID);
+            if (!TextUtils.isEmpty(themeId)) {
+                ProductApi.getInstance().fetchThemeInfo(themeId, this);
             }
         }
     }
@@ -112,7 +111,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_multi_product, menu);
+        getMenuInflater().inflate(R.menu.menu_theme, menu);
         collectMenu = menu.findItem(R.id.collect);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -121,9 +120,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.collect) {
-            if (mMultiProduct != null && !mMultiProduct.isCollect_status()) {
+            if (mTheme != null && !mTheme.isCollect_status()) {
                 // 未收藏时,点击收藏
-                ProductApi.getInstance().collectMultiProduct(multiId, this);
+                ProductApi.getInstance().collectTheme(themeId, this);
                 item.setEnabled(false);
                 mHandler.postDelayed(new Runnable() {
                     @Override
@@ -131,9 +130,9 @@ public class MultiProductActivity extends BaseToolBarActivity {
                         item.setEnabled(true);
                     }
                 }, 1500);
-            } else if (mMultiProduct != null && mMultiProduct.isCollect_status()) {
+            } else if (mTheme != null && mTheme.isCollect_status()) {
                 // 已收藏,点击取消收藏
-                ProductApi.getInstance().noCollectMultiProduct(multiId, this);
+                ProductApi.getInstance().noCollectTheme(themeId, this);
                 item.setEnabled(false);
                 mHandler.postDelayed(new Runnable() {
                     @Override
@@ -153,31 +152,31 @@ public class MultiProductActivity extends BaseToolBarActivity {
     /**
      * 获取专题信息成功的事件
      *
-     * @param multiProduct MultiProduct
+     * @param theme Theme
      */
-    public void onEventMainThread(MultiProduct multiProduct) {
-        this.mMultiProduct = multiProduct;
+    public void onEventMainThread(Theme theme) {
+        this.mTheme = theme;
         // 获取专题发布人的信息
-        AccountApi.getInstance().getUserInfoByUserId(mMultiProduct.getUser_id(), this);
+        AccountApi.getInstance().getUserInfoByUserId(mTheme.getUser_id(), this);
         // 获取专题下的单品列表
-        ProductApi.getInstance().fetchProductListByMultiId(mMultiProduct.getTheme_id(), 0, 20, this);
+        ProductApi.getInstance().fetchProductListByThemeId(mTheme.getTheme_id(), 0, 20, this);
         // 获取专题下的相关话题,直接调用话题搜索的接口
-        StringBuilder sb = new StringBuilder(mMultiProduct.getTheme_title());
-        if (mMultiProduct.getTheme_tags() != null && mMultiProduct.getTheme_tags().length() > 0)
-            sb.append(",").append(mMultiProduct.getTheme_tags());
+        StringBuilder sb = new StringBuilder(mTheme.getTheme_title());
+        if (mTheme.getTheme_tags() != null && mTheme.getTheme_tags().length() > 0)
+            sb.append(",").append(mTheme.getTheme_tags());
         TopicApi.getInstance().searchTopicList(sb.toString(), 0, 3, this);
 
         // 判断是否是收藏状态
-        if (mMultiProduct.isCollect_status()) {
-            collectMenu.setIcon(R.mipmap.ic_multi_product_collected);
+        if (mTheme.isCollect_status()) {
+            collectMenu.setIcon(R.mipmap.ic_theme_collected);
         }
-        setTitle(mMultiProduct.getTheme_title());
-        if (mMultiProduct.getTheme_img_url().size() > 0) {
-            Glide.with(mContext).load(mMultiProduct.getTheme_img_url().get(0).getMid()).into(headImg);
+        setTitle(mTheme.getTheme_title());
+        if (mTheme.getTheme_img_url().size() > 0) {
+            Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMid()).into(headImg);
         }
-        title.setText(mMultiProduct.getTheme_title());
-        multiTag.removeAllViews();
-        String[] themeTags = mMultiProduct.getTheme_tags().split(",");
+        title.setText(mTheme.getTheme_title());
+        themeTag.removeAllViews();
+        String[] themeTags = mTheme.getTheme_tags().split(",");
         if (themeTags.length > 0) {
             for (String tag : themeTags) {
                 TextView tv = new TextView(mContext);
@@ -188,13 +187,13 @@ public class MultiProductActivity extends BaseToolBarActivity {
                 layoutParams.setMargins(0, 0, 10, 0);
                 tv.setLayoutParams(layoutParams);
                 tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
-                multiTag.addView(tv);
+                themeTag.addView(tv);
             }
         } else {
-            multiTag.setVisibility(View.GONE);
+            themeTag.setVisibility(View.GONE);
         }
-        multiDesc.setText(mMultiProduct.getTheme_content());
-        createTime.setText(DateUtils.longToString(mMultiProduct.getC_time(), "MM-dd hh:mm"));
+        themeDesc.setText(mTheme.getTheme_content());
+        createTime.setText(DateUtils.longToString(mTheme.getC_time(), "MM-dd hh:mm"));
     }
 
     /**
@@ -213,7 +212,7 @@ public class MultiProductActivity extends BaseToolBarActivity {
      *
      * @param themeProducts 单品列表
      */
-    public void onEventMainThread(BaseEvent.FetchThemeProducts themeProducts) {
+    public void onEventMainThread(BaseEvent.FetchProductBooksInTheme themeProducts) {
         mProductBooks = themeProducts.getList();
         if (mProductBooks != null && mProductBooks.size() > 0) {
             mProductList.removeAllViews();
@@ -303,8 +302,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
      */
     public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
-        mMultiProduct.setCollect_status(true);
-        collectMenu.setIcon(R.mipmap.ic_multi_product_collected);
+        mTheme.setCollect_status(true);
+        collectMenu.setIcon(R.mipmap.ic_theme_collected);
     }
 
     /**
@@ -314,8 +313,8 @@ public class MultiProductActivity extends BaseToolBarActivity {
      */
     public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("已经取消收藏");
-        mMultiProduct.setCollect_status(false);
-        collectMenu.setIcon(R.mipmap.ic_multi_product_collect);
+        mTheme.setCollect_status(false);
+        collectMenu.setIcon(R.mipmap.ic_theme_collect);
     }
 
 }

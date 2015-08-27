@@ -1,14 +1,12 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
-import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
@@ -65,6 +63,6 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent obj) {
 
-        mAdapter.replaceAll(obj.multiProductList);
+        mAdapter.replaceAll(obj.mThemeList);
     }
 }
