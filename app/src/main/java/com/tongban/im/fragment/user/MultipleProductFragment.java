@@ -2,7 +2,6 @@ package com.tongban.im.fragment.user;
 
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,14 +9,10 @@ import android.widget.ListView;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.MultiProductActivity;
-import com.tongban.im.activity.topic.OfficialTopicDetailsActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.MultiProduct;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 专题查询结果页
@@ -65,10 +60,10 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mContext.startActivity(new Intent(mContext, MultiProductActivity.class));
+        TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
     }
 
-    public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
+    public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent obj) {
 
         mAdapter.replaceAll(obj.multiProductList);
     }

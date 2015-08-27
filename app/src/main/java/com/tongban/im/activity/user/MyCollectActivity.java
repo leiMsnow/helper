@@ -111,6 +111,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
             }
         };
         vpResult.setAdapter(mAdapter);
+        vpResult.setOffscreenPageLimit(3);
         vpResult.addOnPageChangeListener(this);
     }
 
@@ -176,7 +177,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      *
      * @param obj
      */
-    public void onEventMainThread(BaseEvent.CollectSingleProductEvent obj) {
+    public void onEventMainThread(BaseEvent.FetchCollectedProductEvent obj) {
         tvSingleProductNum.setText(String.valueOf(obj.getSingleProductList().size()));
     }
     /**
@@ -184,7 +185,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      *
      * @param obj
      */
-    public void onEventMainThread(BaseEvent.CollectMultiProductEvent obj) {
+    public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent obj) {
         tvMultiProductNum.setText(String.valueOf(obj.multiProductList.size()));
     }
 }

@@ -1,23 +1,23 @@
 package com.tongban.im.fragment.user;
 
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.SingleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ProductBook;
-
-import java.util.List;
 
 /**
  * 单品查询结果页
  *
  * @author fushudi
  */
-public class SingleProductFragment extends BaseApiFragment {
+public class SingleProductFragment extends BaseApiFragment implements AdapterView.OnItemClickListener{
     private SingleProductAdapter mAdapter;
     private GridView gvSingleProductList;
 
@@ -33,7 +33,7 @@ public class SingleProductFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
-
+        gvSingleProductList.setOnItemClickListener(this);
     }
 
     @Override
@@ -43,8 +43,13 @@ public class SingleProductFragment extends BaseApiFragment {
         UserCenterApi.getInstance().fetchSingleProductList(this);
     }
 
-    public void onEventMainThread(BaseEvent.CollectSingleProductEvent obj) {
+    public void onEventMainThread(BaseEvent.FetchCollectedProductEvent obj) {
 
         mAdapter.replaceAll(obj.getSingleProductList());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        TransferCenter.getInstance().
     }
 }

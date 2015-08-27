@@ -29,4 +29,5 @@ public class TransferPathPrefix {
     public static final String TOPIC_DETAILS = "topicdetails";
 
     public static final String THEME_DETAILS = "theme";
+    public static final String PRODUCT_BOOK = "productbook";
 }
