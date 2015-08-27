@@ -19,7 +19,7 @@ import com.tongban.im.model.User;
  */
 public class PersonalInfoActivity extends BaseToolBarActivity implements View.OnClickListener {
     private ImageView ivUserIcon;
-    private TextView tvNickName, tvPhoneNum, tvWork, tvChildAge,
+    private TextView tvNickName, tvPhoneNum, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool, tvAddress;
 
     private User user;
@@ -35,7 +35,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
         tvNickName = (TextView) findViewById(R.id.tv_user_name);
         tvPhoneNum = (TextView) findViewById(R.id.tv_phone_num);
-        tvWork = (TextView) findViewById(R.id.tv_work);
         tvChildAge = (TextView) findViewById(R.id.tv_child_age);
         tvChildSex = (TextView) findViewById(R.id.tv_child_sex);
         tvChildConstellation = (TextView) findViewById(R.id.tv_child_constellation);
@@ -55,7 +54,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         ivUserIcon.setOnClickListener(this);
         tvNickName.setOnClickListener(this);
         tvPhoneNum.setOnClickListener(this);
-        tvWork.setOnClickListener(this);
         tvChildAge.setOnClickListener(this);
         tvChildSex.setOnClickListener(this);
         tvChildConstellation.setOnClickListener(this);
@@ -66,12 +64,10 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
 
     //返回个人资料数据
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
-        //TODO 接口返回缺少职业、地区参数
         this.user = obj.user;
-        Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+        Glide.with(mContext).load(user.getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
-        tvWork.setText(user.getDeclaration());
         tvChildAge.setText(user.getChild_info().get(0).getAge());
         tvChildSex.setText(user.getChild_info().get(0).getSex());
         tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());

@@ -35,7 +35,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     private TextView tvTags, tvUserName;
     private CheckBox chbFocus;
     private LinearLayout llMyTopic, llMyCollect;
-    private ImageView ivSex, ivPrivateChat, ivClose;
+    private ImageView ivSex, ivPrivateChat, ivClose, ivUserPortrait;
     private TextView tvFansNum, tvFocusNum, tvGroupNum;
     private TextView tvFans, tvFocus, tvGroup;
 
@@ -68,6 +68,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         tvFansNum = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFocusNum = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupNum = (TextView) headView.findViewById(R.id.tv_group_num);
+        ivUserPortrait = (ImageView) headView.findViewById(R.id.iv_user_portrait);
 
         ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
 
@@ -126,6 +127,8 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
         mUserInfo = obj.user;
+        Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin())
+                .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
         if (mUserInfo.getSex().equals("男")) {
             ivSex.setImageResource(R.mipmap.ic_boy);
         } else {
@@ -185,7 +188,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         }
         //私聊
         else if (v == ivPrivateChat) {
-            RongIM.getInstance().startPrivateChat(mContext,mUserInfo.getUser_id(),"单聊");
+            RongIM.getInstance().startPrivateChat(mContext, mUserInfo.getUser_id(), "单聊");
         }
         //关闭用户中心
         else if (v == ivClose) {

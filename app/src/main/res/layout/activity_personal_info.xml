@@ -70,21 +70,6 @@
 
                 <TextView
                     style="@style/ChatSettingLeftText"
-                    android:text="职业" />
-
-                <TextView
-                    android:id="@+id/tv_work"
-                    style="@style/ChatSettingRightText"
-                    android:text="幼儿教师" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
                     android:text="宝宝性别" />
 
                 <TextView

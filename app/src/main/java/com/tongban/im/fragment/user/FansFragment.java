@@ -68,7 +68,6 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
      *
      * @param obj
      */
-    //TODO 刷新Adapter不正确
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
         String userID = getArguments().getString(Consts.USER_ID);
         UserCenterApi.getInstance().fetchFansUserList(0, 10, userID, this);

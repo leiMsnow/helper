@@ -62,10 +62,14 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
      *
      * @param obj
      */
-    //TODO 刷新Adapter不正确
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
-        String userID = getArguments().getString(Consts.USER_ID);
-        UserCenterApi.getInstance().fetchFocusUserList(0, 10, userID, this);
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            for (int j = 0; j < obj.userIds.length; j++) {
+                if (mAdapter.getItem(i).getUser_id().equals(obj.userIds[j])) {
+                    mAdapter.remove(i);
+                }
+            }
+        }
     }
 
     @Override

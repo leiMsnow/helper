@@ -50,7 +50,6 @@ public class UserAdapter extends QuickAdapter<User> {
             } else {
                 helper.setText(R.id.btn_follow, "关注");
                 helper.getView(R.id.btn_follow).setEnabled(true);
-                helper.setTextColor(R.id.btn_follow, mContext.getResources().getColor(R.color.red_300));
             }
         }
         helper.setTag(R.id.iv_user_icon, Integer.MAX_VALUE, item.getUser_id());
