@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
-import com.tongban.im.model.User;
 
 /**
  * 跳转中心
@@ -87,5 +86,19 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
+    /**
+     * 打开专题详情页
+     *
+     * @param themeId 专题id
+     */
+    public void startThemeDetails(String themeId) {
+        String pathPrefix = TransferPathPrefix.THEME_DETAILS;
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_MULTI_PRODUCT_ID, themeId)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
 
 }

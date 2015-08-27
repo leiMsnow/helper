@@ -69,9 +69,9 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
     public void onClick(View v) {
         if (v == ivBack) {
             finish();
-        } else if (v == ivShare) {
-
         } else if (v == ivCollect) {
+
+        } else if (v == ivShare) {
 
         }
     }

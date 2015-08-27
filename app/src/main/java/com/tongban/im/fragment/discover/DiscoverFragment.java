@@ -8,14 +8,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.activity.user.PersonalCenterActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
-import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 
@@ -52,9 +50,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, MultiProductActivity.class);
-                intent.putExtra(Consts.KEY_MULTI_PRODUCT_ID, mDiscovers.get(position).getTheme_id());
-                startActivity(intent);
+                TransferCenter.getInstance().startThemeDetails(mDiscovers.get(position).getTheme_id());
             }
         });
     }

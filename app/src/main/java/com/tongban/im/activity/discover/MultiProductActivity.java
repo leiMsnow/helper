@@ -1,7 +1,9 @@
 package com.tongban.im.activity.discover;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,9 +96,13 @@ public class MultiProductActivity extends BaseToolBarActivity {
     @Override
     protected void initData() {
         setTitle("");
-        Intent intent = getIntent();
-        multiId = intent.getStringExtra(Consts.KEY_MULTI_PRODUCT_ID);
-        ProductApi.getInstance().fetchMultiProductInfo(multiId, this);
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            multiId = uri.getQueryParameter(Consts.KEY_MULTI_PRODUCT_ID);
+            if (!TextUtils.isEmpty(multiId)) {
+                ProductApi.getInstance().fetchMultiProductInfo(multiId, this);
+            }
+        }
     }
 
     @Override
