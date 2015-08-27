@@ -3,6 +3,7 @@ package com.tongban.im.fragment.user;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener {
+public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
     private ListView lvFansList;
     private UserAdapter mAdapter;
 
@@ -50,6 +51,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
     @Override
     protected void initListener() {
         lvFansList.setOnItemClickListener(this);
+        mAdapter.setOnClickListener(this);
     }
 
     /**
@@ -61,8 +63,29 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
         mAdapter.replaceAll(obj.myFansList);
     }
 
+    /**
+     * 关注Event
+     *
+     * @param obj
+     */
+    //TODO 刷新Adapter不正确
+    public void onEventMainThread(BaseEvent.FocusEvent obj) {
+        String userID = getArguments().getString(Consts.USER_ID);
+        UserCenterApi.getInstance().fetchFansUserList(0, 10, userID, this);
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_follow:
+                String focusId = v.getTag().toString();
+                UserCenterApi.getInstance().focusUser(true, new String[]{focusId}, this);
+                break;
+        }
     }
 }

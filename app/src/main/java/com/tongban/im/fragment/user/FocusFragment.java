@@ -47,13 +47,25 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initListener() {
         lvFocusList.setOnItemClickListener(this);
+        mAdapter.setOnClickListener(this);
     }
 
     /**
-     * 我的关注Event
+     * 我的关注列表Event
      */
     public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
         mAdapter.replaceAll(obj.myFollowList);
+    }
+
+    /**
+     * 关注Event
+     *
+     * @param obj
+     */
+    //TODO 刷新Adapter不正确
+    public void onEventMainThread(BaseEvent.FocusEvent obj) {
+        String userID = getArguments().getString(Consts.USER_ID);
+        UserCenterApi.getInstance().fetchFocusUserList(0, 10, userID, this);
     }
 
     @Override

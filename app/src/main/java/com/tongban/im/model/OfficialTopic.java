@@ -14,7 +14,7 @@ public class OfficialTopic {
     //官方话题内容类型
     private int contentType;
     //产品
-    private Product product;
+    private ProductBook product;
     //话题评论
     private TopicComment topicReply;
     //话题
@@ -28,11 +28,11 @@ public class OfficialTopic {
         this.topicReply = topicReply;
     }
 
-    public Product getProduct() {
+    public ProductBook getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductBook product) {
         this.product = product;
     }
 

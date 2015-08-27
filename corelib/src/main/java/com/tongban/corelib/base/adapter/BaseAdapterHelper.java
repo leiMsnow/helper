@@ -240,7 +240,6 @@ public class BaseAdapterHelper {
         view.setVisibility(visible);
         return this;
     }
-
     public BaseAdapterHelper setMax(int viewId, int max) {
         ProgressBar view = retrieveView(viewId);
         view.setMax(max);

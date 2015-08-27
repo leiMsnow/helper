@@ -122,8 +122,9 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+                BaseEvent.PersonalCenterEvent personalCenterEvent=new BaseEvent.PersonalCenterEvent();
+                personalCenterEvent.user=apiResponse.getData();
+                callback.onComplete(personalCenterEvent);
             }
 
             @Override
@@ -200,8 +201,9 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                callback.onComplete(user);
+                BaseEvent.UserInfoEvent userInfoEvent=new BaseEvent.UserInfoEvent();
+                userInfoEvent.user=apiResponse.getData();
+                callback.onComplete(userInfoEvent);
             }
 
             @Override
@@ -536,7 +538,7 @@ public class UserCenterApi extends BaseApi {
             public void onComplete(Object obj) {
 
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
-                focusEvent.isFocus = (isFocus);
+                focusEvent.isFocus = isFocus;
                 callback.onComplete(focusEvent);
             }
 

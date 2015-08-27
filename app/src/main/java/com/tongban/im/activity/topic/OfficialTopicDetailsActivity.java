@@ -9,7 +9,6 @@ import com.tongban.im.R;
 import com.tongban.im.activity.CommonImageResultActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.model.OfficialTopic;
-import com.tongban.im.model.Product;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
@@ -45,20 +44,20 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
 
         //产品相关
         OfficialTopic officialTopic = new OfficialTopic();
-        Product product = new Product();
-        officialTopic.setContentType(OfficialTopic.CONTENT);
-        product.setProductAdvantage("该产品的优势是舒适、环保，该产品的优势是舒适、环保该产品的" +
-                "优势是舒适、环保，该产品的优势是舒适、环保该产品的优势是舒适、环保");
-        product.setProductCollectNum("3");
-        product.setProductDisAdvantage("无明显不足");
-        product.setProductIntroduction("该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
-                "产于1987年，该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
-                "产于1987年该产品属于当当的产品，产于1987年。");
-        product.setProduct_name("澳大利亚品牌");
-        product.setProductParameter("175ml；产地：澳大利亚");
-        product.setProduct_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
-        product.setProduct_icon_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
-        officialTopic.setProduct(product);
+//        ProductBook product = new ProductBook();
+//        officialTopic.setContentType(OfficialTopic.CONTENT);
+//        product.setProductAdvantage("该产品的优势是舒适、环保，该产品的优势是舒适、环保该产品的" +
+//                "优势是舒适、环保，该产品的优势是舒适、环保该产品的优势是舒适、环保");
+//        product.setProductCollectNum("3");
+//        product.setProductDisAdvantage("无明显不足");
+//        product.setProductIntroduction("该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
+//                "产于1987年，该产品属于当当的产品，产于1987年。该产品属于当当的产品，" +
+//                "产于1987年该产品属于当当的产品，产于1987年。");
+//        product.setProduct_name("澳大利亚品牌");
+//        product.setProductParameter("175ml；产地：澳大利亚");
+//        product.setProduct_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
+//        product.setProduct_icon_url("http://g.hiphotos.baidu.com/image/pic/item/77c6a7efce1b9d16633a4168f1deb48f8c54643e.jpg");
+//        officialTopic.setProduct(product);
         officialTopicList.add(officialTopic);
 
         //数量（评论、点赞）相关

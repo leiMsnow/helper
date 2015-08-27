@@ -5,9 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
 /**
@@ -19,6 +21,8 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvWork, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool, tvAddress;
+
+    private User user;
 
     @Override
     protected int getLayoutRes() {
@@ -61,14 +65,16 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     }
 
     //返回个人资料数据
-    public void onEventMainThread(User user) {
-
+    public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
+        //TODO 接口返回缺少职业、地区参数
+        this.user = obj.user;
+        Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
         tvWork.setText(user.getDeclaration());
-        tvChildAge.setText(user.getAge());
+        tvChildAge.setText(user.getChild_info().get(0).getAge());
         tvChildSex.setText(user.getChild_info().get(0).getSex());
-        tvChildConstellation.setText(user.getChild_info().get(0).getBirthday());
+        tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
         tvChildSchool.setText(user.getChild_info().get(0).getSchool());
         tvAddress.setText(user.getAddress());
     }
