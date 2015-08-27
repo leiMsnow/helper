@@ -94,7 +94,7 @@ public class TransferCenter {
     public void startThemeDetails(String themeId) {
         String pathPrefix = TransferPathPrefix.THEME_DETAILS;
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_MULTI_PRODUCT_ID, themeId)
+                .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_THEME_ID, themeId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
