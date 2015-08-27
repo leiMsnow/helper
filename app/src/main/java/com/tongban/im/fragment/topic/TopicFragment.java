@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.adapter.TopicListAdapter;
@@ -25,9 +26,10 @@ import com.tongban.im.model.BaseEvent;
  * author: chenenyu 15/7/13
  */
 public class TopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener,
+        RequestApiListener {
 
-    private ListView lvTopicList;
+    private LoadMoreListView lvTopicList;
     private TopicListAdapter mAdapter;
     private ImageButton ibSearch;
     private ImageButton ibCreate;
@@ -35,8 +37,12 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     private View toolbar;
 
     private boolean mIsMainEvent = false;
+
     private int mCursor = 0;
+    private int mPageSize = 10;
     private String mKeyword;
+    //是否是下拉刷新操作
+    private boolean mIsPull = false;
 
     @Override
     protected int getLayoutRes() {
@@ -49,16 +55,18 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
-        lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
+        lvTopicList = (LoadMoreListView) mView.findViewById(R.id.lv_topic_list);
 
         tvTitle.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initListener() {
+        setRequestListener(this);
         ibSearch.setOnClickListener(this);
         ibCreate.setOnClickListener(this);
         lvTopicList.setOnItemClickListener(this);
+        lvTopicList.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -67,7 +75,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsMainEvent) {
-            TopicApi.getInstance().recommendTopicList(mCursor, 10, this);
+            mIsPull = true;
+            TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
         } else {
             toolbar.setVisibility(View.GONE);
         }
@@ -75,6 +84,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
         lvTopicList.setAdapter(mAdapter);
+        lvTopicList.setPageSize(mPageSize);
     }
 
     @Override
@@ -90,7 +100,9 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
+        if (mAdapter.getItem(position) != null) {
+            TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
+        }
     }
 
     /**
@@ -99,8 +111,18 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.RecommendTopicListEvent obj) {
+        //下拉刷新成功
+        if (mIsPull) {
+            mCursor = 0;
+            mIsPull = false;
+            mAdapter.clear();
+        }
+        //上拉加载成功
+        else {
+            lvTopicList.setResultSize(obj.topicList.size());
+        }
         mCursor++;
-        mAdapter.replaceAll(obj.topicList);
+        mAdapter.addAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
     }
 
@@ -112,7 +134,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
         if (!mIsMainEvent) {
             mCursor++;
-            mAdapter.replaceAll(obj.topicList);
+            lvTopicList.setResultSize(obj.topicList.size());
+            mAdapter.addAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
         }
     }
@@ -123,8 +146,14 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(ApiErrorResult obj) {
-        mAdapter.clear();
-        lvTopicList.setVisibility(View.GONE);
+        if (mAdapter != null) {
+            if (mAdapter.getCount() == 0) {
+                createEmptyView(obj.getErrorMessage());
+            } else {
+                lvTopicList.setFooterText(obj.getErrorMessage());
+                lvTopicList.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     /**
@@ -133,7 +162,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
-        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
+        // TODO 下拉刷新操作
+        mIsPull = true;
     }
 
     /**
@@ -142,7 +172,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
-        notifyChangeData();
+        updateCurrentData(obj.topic_id, true, obj.status);
     }
 
     /**
@@ -151,7 +181,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
-        notifyChangeData();
+        updateCurrentData(obj.topic_id, false, false);
     }
 
     /**
@@ -160,15 +190,47 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.SearchTopicKeyEvent obj) {
+        mCursor = 0;
         mKeyword = obj.keyword;
         TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mAdapter.getCount(), this);
     }
 
-    //更新相关接口
-    private void notifyChangeData() {
-        TopicApi.getInstance().recommendTopicList(mCursor, mAdapter.getCount(), this);
-        if (!mIsMainEvent)
-            TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mAdapter.getCount(), this);
+    @Override
+    public void onLoadMore() {
+        if (mIsMainEvent)
+            TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
+        else
+            TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mPageSize, this);
     }
 
+    /***
+     * 更新当前列表数据状态
+     *
+     * @param topicId   要更新的话题Id
+     * @param isCollect true 收藏结果修改；false 评论结果修改
+     * @param status    收藏状态(isCollect为true有效)
+     */
+    private void updateCurrentData(String topicId, boolean isCollect, boolean status) {
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            if (mAdapter.getItem(i).getTopic_id().equals(topicId)) {
+                int count = Integer.parseInt(isCollect ? mAdapter.getItem(i).getCollect_amount() :
+                        mAdapter.getItem(i).getComment_amount());
+                //更新收藏数量
+                if (isCollect) {
+                    mAdapter.getItem(i).setCollect_amount(String.valueOf(status ? ++count : --count));
+                }
+                //更新评论数量
+                else {
+                    mAdapter.getItem(i).setComment_amount(String.valueOf(++count));
+                }
+                mAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onRequest() {
+        onLoadMore();
+    }
 }

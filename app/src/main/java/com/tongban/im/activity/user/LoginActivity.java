@@ -112,10 +112,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     //登录成功
     public void onEventMainThread(User user) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
-        ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.login_success));
-        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+        connectIM(user.getIm_bind_token());
     }
 
     @Override

@@ -1,12 +1,19 @@
 package com.tongban.im.activity.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
+import com.tongban.im.RongCloudEvent;
+import com.tongban.im.activity.MainActivity;
 import com.tongban.im.model.GroupType;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /**
  * Created by zhangleilei on 15/7/8.
@@ -71,6 +78,35 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
                 setTheme(R.style.AppTheme_White_Base);
                 break;
         }
+    }
+
+    /**
+     * 连接融云IM
+     * @param token
+     */
+    protected void connectIM(String token) {
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                LogUtil.d("onTokenIncorrect");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtil.d("连接RongIM成功，当前用户：" + s);
+                RongCloudEvent.getInstance().setOtherListener();
+                startActivity(new Intent(mContext, MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtil.d("连接RongIM失败：" + errorCode.toString());
+                RongCloudEvent.getInstance().setOtherListener();
+                startActivity(new Intent(mContext, MainActivity.class));
+                finish();
+            }
+        });
     }
 
 }

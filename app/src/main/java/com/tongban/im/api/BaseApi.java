@@ -136,10 +136,6 @@ public class BaseApi {
                     public void onResponse(JSONObject jsonObject) {
                         LogUtil.d("onResponse-url:", requestUrl);
                         LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
-                        // 如果当前请求位于失败请求的队列中,则移除
-                        if (BaseApiActivity.getFailedRequest().contains(request)) {
-                            BaseApiActivity.getFailedRequest().remove(request);
-                        }
                         int apiResult = jsonObject.optInt("statusCode");
                         if (apiResult == API_SUCCESS) {
                             // 请求成功,数据回调给调用方
@@ -157,10 +153,6 @@ public class BaseApi {
             public void onErrorResponse(VolleyError volleyError) {
                 LogUtil.d("onErrorResponse-url:", requestUrl);
                 LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
-                // 将当前的请求添加到失败队列中
-                if (!BaseApiActivity.getFailedRequest().contains(request)) {
-                    BaseApiActivity.getFailedRequest().add(request);
-                }
                 // 请求失败,错误信息回调给调用方
                 String errorMessage = getErrorMessage();
                 callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
@@ -184,7 +176,7 @@ public class BaseApi {
     protected String getErrorMessage() {
         Random random = new Random();
         int count = mContext.getResources().
-                getStringArray(R.array.error_message).length - 1;
+                getStringArray(R.array.error_message).length;
         return mContext.getResources().getStringArray(R.array.error_message)
                 [random.nextInt(count)].toString();
     }

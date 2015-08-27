@@ -1,6 +1,7 @@
 package com.tongban.corelib.widget.view;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,11 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
     private View footer;
     private TextView tvMore;
-
-    private boolean isLoading;// 判断是否正在加载
-    private boolean isLoadFull;// 判断是否全部加载完
+    // 判断是否正在加载
+    private boolean isLoading;
+    // 判断是否全部加载完
+    private boolean isLoadFull;
+    //每页返回的数量
     private int pageSize = 10;
 
     private OnLoadMoreListener onLoadListener;
@@ -90,6 +93,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
      * @param resultSize
      */
     public void setResultSize(int resultSize) {
+        onLoadComplete();
         if (resultSize == 0) {
             isLoadFull = true;
             tvMore.setText("没有更多数据");
@@ -107,10 +111,28 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
 
     /**
+     * 设置footer提示文字
+     *
+     * @param text
+     */
+    public void setFooterText(final String text) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onLoadComplete();
+                isLoadFull = false;
+                tvMore.setText(text);
+                tvMore.setVisibility(View.VISIBLE);
+            }
+        }, 300);
+    }
+
+
+    /**
      * 定义加载更多接口
      */
     public interface OnLoadMoreListener {
-        public void onLoadMore();
+        void onLoadMore();
     }
 
 }

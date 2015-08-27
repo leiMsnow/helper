@@ -9,8 +9,8 @@ public interface ApiCallback {
      * Toast:toast提示
      * View:错误页展示
      */
-    public enum DisplayType {
-        Toast, View,None,ALL
+    enum DisplayType {
+        Toast, View, None, ALL
     }
 
     /**
@@ -28,8 +28,8 @@ public interface ApiCallback {
     /**
      * api调用失败回调
      *
-     * @param displayType  错误提示方式
-     * @param errorObj 错误信息
+     * @param displayType 错误提示方式
+     * @param errorObj    错误信息
      */
     void onFailure(DisplayType displayType, Object errorObj);
 
