@@ -17,7 +17,8 @@
     <string name="share">分享</string>
     <string name="digits">1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM._-@#$%^*()?~</string>
     <string name="image_display">图片浏览</string>
-
+    <string name="collect_success">收藏成功</string>
+    <string name="un_collect">已取消收藏</string>
     <!--登录-->
     <string name="login">登录</string>
     <string name="login_success">登录成功</string>
@@ -64,6 +65,7 @@
     <!--话题-->
     <string name="topic">话题</string>
     <string name="group_settings">聊天设置</string>
+
     <!-- 圈子 -->
     <string name="group">圈子</string>
     <string name="chat">聊天</string>

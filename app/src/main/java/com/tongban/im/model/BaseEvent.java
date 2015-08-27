@@ -10,6 +10,13 @@ public class BaseEvent {
 
     //--------------------------------------话题模块-------------------------------------------------
 
+
+    /**
+     * 搜索话题关键字Event
+     */
+    public static class SearchTopicKeyEvent {
+        public String keyword;
+    }
     /**
      * 创建话题Event
      */

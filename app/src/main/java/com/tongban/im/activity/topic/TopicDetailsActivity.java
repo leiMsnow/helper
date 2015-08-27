@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -69,6 +70,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private Topic mTopicInfo;
     private String mTopicId;
 
+    private int mCursor = 0;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_topic_detail;
@@ -111,7 +114,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
             if (!TextUtils.isEmpty(mTopicId)) {
                 TopicApi.getInstance().getTopicInfo(mTopicId, this);
-                TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
+                TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, 10, this);
 
                 mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
                 mAdapter.setOnClickListener(this);
@@ -130,6 +133,15 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            KeyBoardUtils.hideSoftKeybord(this);
+            finish();
+        }
+        return true;
     }
 
     @Override
@@ -187,27 +199,42 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             setTitle(mTopicInfo.getTopic_title());
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
-                Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().getPortrait_url().getMin())
-                        .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
+                if (mTopicInfo.getUser_info().getPortrait_url() != null) {
+                    Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().
+                            getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).
+                            into(ivUserPortrait);
+                } else {
+                    ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
+                }
+
+//                if (mTopicInfo.getUser_info().getUser_id().
+//                        equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
+//                    ivCollect.setEnabled(false);
+//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+//                } else {
+//                if (mTopicInfo.isCollect_status()) {
+//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+//                } else {
+//                    ivCollect.setImageResource(R.drawable.selector_topic_collect);
+//                }
+//                }
             }
 
-            tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
-                    mTopicInfo.getUser_info().getChild_info().get(0).getSex() + "宝宝");
+            if (mTopicInfo.isCollect_status()) {
+                ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+            } else {
+                ivCollect.setImageResource(R.drawable.selector_topic_collect);
+            }
+            //宝宝信息
+            if (mTopicInfo.getUser_info().getChild_info().size() > 0) {
+                tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
+                        mTopicInfo.getUser_info().getChild_info().get(0).getSex() + "宝宝");
+            }
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
-            if (mTopicInfo.getUser_info().getUser_id().equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-                ivCollect.setEnabled(false);
-                ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-            } else {
-                if (mTopicInfo.isCollect_status()) {
-                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-                } else {
-                    ivCollect.setImageResource(R.drawable.selector_topic_collect);
-                }
-            }
             tvComment.setText(mTopicInfo.getComment_amount());
             tvCollect.setText(mTopicInfo.getCollect_amount());
 
@@ -239,7 +266,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeybord(topicInputView.getEtComment(), mContext);
 
-        TopicApi.getInstance().getTopicCommentList(mTopicId, 0, 10, this);
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount(), this);
         ToastUtil.getInstance(mContext).showToast(obj.message);
     }
 
@@ -252,14 +279,13 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         int collectCount = Integer.parseInt(tvCollect.getText().toString());
         mTopicInfo.setCollect_status(obj.status);
         if (obj.status) {
-            ToastUtil.getInstance(mContext).showToast("收藏成功");
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.collect_success));
             ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
             tvCollect.setText(String.valueOf(collectCount + 1));
         } else {
-            ToastUtil.getInstance(mContext).showToast("取消成功");
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.un_collect));
             ivCollect.setImageResource(R.drawable.selector_topic_collect);
             tvCollect.setText(String.valueOf(collectCount - 1));
-
         }
     }
 }
