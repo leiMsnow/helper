@@ -36,6 +36,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
+        mAdapter.setIsFocused(true);
         lvFocusList.setAdapter(mAdapter);
         if (getArguments() != null) {
             String userID = getArguments().getString(Consts.USER_ID);

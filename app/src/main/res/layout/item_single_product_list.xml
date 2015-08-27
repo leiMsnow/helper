@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:background="@drawable/selector_corner_bg"
+        android:background="@drawable/selector_white_to_gray"
         android:orientation="vertical">
 
 
@@ -29,7 +29,6 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginTop="8dp"
-            android:text="驱蚊喷雾"
             android:textColor="@color/main_black" />
 
         <TextView
@@ -42,7 +41,6 @@
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="诗水蛇山神庙滴滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答答答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答滴答"
             android:textColor="@color/normal_grey"
             android:textSize="12sp" />
     </LinearLayout>

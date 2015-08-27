@@ -13,6 +13,7 @@ import com.tongban.im.model.ProductBook;
 import java.util.List;
 
 /**
+ * 我的收藏 - 单品列表Adapter
  * Created by fushudi on 2015/8/13.
  */
 public class SingleProductAdapter extends QuickAdapter<ProductBook> {
@@ -21,7 +22,7 @@ public class SingleProductAdapter extends QuickAdapter<ProductBook> {
     }
 
     protected void convert(BaseAdapterHelper helper, ProductBook item) {
-        helper.setImageBitmap(R.id.iv_product, item.getProduct_url());
+        helper.setImageBitmap(R.id.iv_product, item.getProduct_img_url().get(0).getMid());
         helper.setText(R.id.tv_product_name, item.getProduct_name());
         helper.setText(R.id.tv_product_content, item.getBook_content_desc());
     }

@@ -111,6 +111,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
             }
         };
         vpResult.setAdapter(mAdapter);
+        vpResult.setOffscreenPageLimit(3);
         vpResult.addOnPageChangeListener(this);
     }
 

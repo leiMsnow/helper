@@ -22,6 +22,7 @@ import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
@@ -114,11 +115,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(mContext, TopicDetailsActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(Consts.KEY_TOPIC_ID, mAdapter.getItem(position).getTopic_id());
-        intent.putExtras(bundle);
-        startActivity(intent);
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
     }
 
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
