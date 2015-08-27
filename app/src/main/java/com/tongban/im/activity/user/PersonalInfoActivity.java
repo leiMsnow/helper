@@ -64,7 +64,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
 
     //返回个人资料数据
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
-        //TODO 接口返回缺少地区参数
         this.user = obj.user;
         Glide.with(mContext).load(user.getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvNickName.setText(user.getNick_name());
