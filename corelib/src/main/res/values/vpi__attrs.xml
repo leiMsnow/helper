@@ -18,6 +18,7 @@
     <declare-styleable name="ViewPagerIndicator">
         <!-- Style of the line indicator. -->
         <attr name="vpiLinePageIndicatorStyle" format="reference" />
+        <attr name="vpiCirclePageIndicator" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="LinePageIndicator">
@@ -36,5 +37,27 @@
         <!-- View background -->
         <attr name="android:background" />
     </declare-styleable>
+
+    <declare-styleable name="CirclePageIndicator">
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="vpi_centered" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="vpi_fillColor" format="color" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="vpi_pageColor" format="color" />
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation"/>
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="vpi_radius" format="dimension" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="vpi_snap" format="boolean" />
+        <!-- Color of the open circles. -->
+        <attr name="vpi_strokeColor" format="color" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="vpi_strokeWidth" />
+        <!-- View background -->
+        <attr name="android:background"/>
+    </declare-styleable>
+
 
 </resources>

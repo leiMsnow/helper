@@ -7,6 +7,7 @@ import com.tongban.corelib.R;
 import com.tongban.corelib.adapter.PhotoViewPagerAdapter;
 import com.tongban.corelib.base.fragment.BaseUIFragment;
 import com.tongban.corelib.widget.view.HackyViewPager;
+import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.indicator.LinePageIndicator;
 
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class PhotoViewFragment extends BaseUIFragment implements ViewPager.OnPag
 
 
     private ViewPager mViewPager;
-    private LinePageIndicator mIndicator;
+//    private LinePageIndicator mIndicator;
+    private CirclePageIndicator mIndicator;
 
     private PhotoViewPagerAdapter adapter;
 
@@ -34,8 +36,8 @@ public class PhotoViewFragment extends BaseUIFragment implements ViewPager.OnPag
     @Override
     protected void initView() {
         mViewPager = (HackyViewPager) mView.findViewById(R.id.view_pager);
-        mIndicator = (LinePageIndicator) mView.findViewById(R.id.lpi_indicator);
-
+//        mIndicator = (LinePageIndicator) mView.findViewById(R.id.lpi_indicator);
+        mIndicator = (CirclePageIndicator) mView.findViewById(R.id.lpi_indicator);
     }
 
 
