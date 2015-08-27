@@ -148,7 +148,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         }
         //私聊
         else if (v == ivPrivateChat) {
-//            TransferCenter.getInstance().
+
         }
     }
 
