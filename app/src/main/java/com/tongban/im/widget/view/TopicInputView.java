@@ -4,12 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 
@@ -19,6 +21,7 @@ import com.tongban.im.adapter.CreateTopicImgAdapter;
  */
 public class TopicInputView extends LinearLayout implements View.OnClickListener {
 
+    private View rootView;
     private ImageView ivAddImg;
     private EditText etComment;
     private ImageView ivComment;
@@ -33,6 +36,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private String repliedName;
     private String repliedUserId;
     private String repliedCommentId;
+
+    private boolean isFirst = true;
+    private boolean isUp = false;
+    private int mRootLocation;
 
     public EditText getEtComment() {
         return etComment;
@@ -53,24 +60,47 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     public TopicInputView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.include_topic_input, this);
         initView();
         initListener();
         initData();
     }
 
     private void initView() {
+        LayoutInflater.from(mContext).inflate(R.layout.include_topic_input, this);
+        rootView = findViewById(R.id.ll_input_root);
         ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
         etComment = (EditText) findViewById(R.id.et_comment);
         ivComment = (ImageView) findViewById(R.id.btn_comment);
         gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
         mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
+
     }
 
     private void initListener() {
         ivAddImg.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         mAdapter.setOnClickListener(this);
+
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // 第一次记录控件位置
+                        if (isFirst) {
+                            mRootLocation = TopicInputView.this.getTop();
+                            isFirst = false;
+                        }
+                        // 如果键盘抬起,记录up状态
+                        if (TopicInputView.this.getTop() < mRootLocation) {
+                            isUp = true;
+                        }
+                        //如果是up并且高度变回来了，就清除回复状态
+                        if (isUp && TopicInputView.this.getTop() == mRootLocation) {
+                            isUp = false;
+                            clearCommentInfo();
+                        }
+                    }
+                });
     }
 
     private void initData() {
@@ -147,9 +177,18 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         this.repliedCommentId = repliedCommentId;
         this.repliedName = repliedName;
         this.repliedUserId = repliedUserId;
-        etComment.setHint("@ " + repliedName);
+        etComment.setHint(" 回复" + repliedName);
         etComment.setText("");
-        KeyBoardUtils.openKeybord(etComment,mContext);
+        focusEdit();
+    }
+
+    /**
+     * 设置焦点
+     */
+    public void focusEdit() {
+        etComment.setFocusable(true);
+        etComment.requestFocus();
+        KeyBoardUtils.openKeyboard(etComment, mContext);
     }
 
     /**

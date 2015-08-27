@@ -18,7 +18,7 @@ public class KeyBoardUtils {
      * @param mEditText 输入框
      * @param mContext  上下文
      */
-    public static void openKeybord(EditText mEditText, Context mContext) {
+    public static void openKeyboard(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mEditText, InputMethodManager.RESULT_SHOWN);
@@ -32,7 +32,7 @@ public class KeyBoardUtils {
      * @param mEditText 输入框
      * @param mContext  上下文
      */
-    public static void closeKeybord(EditText mEditText, Context mContext) {
+    public static void closeKeyboard(EditText mEditText, Context mContext) {
         InputMethodManager imm = (InputMethodManager) mContext
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -42,7 +42,7 @@ public class KeyBoardUtils {
     /**
      * 隐藏软键盘
      */
-    public static void hideSoftKeybord(Activity activity) {
+    public static void hideSoftKeyboard(Activity activity) {
 
         if (null == activity) {
             return;
