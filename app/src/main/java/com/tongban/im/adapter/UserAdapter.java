@@ -17,6 +17,15 @@ import java.util.List;
  */
 public class UserAdapter extends QuickAdapter<User> {
     private View.OnClickListener onClickListener;
+    private boolean isFocused = false;
+
+    public boolean isFocused() {
+        return isFocused;
+    }
+
+    public void setIsFocused(boolean isFocused) {
+        this.isFocused = isFocused;
+    }
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
@@ -31,11 +40,15 @@ public class UserAdapter extends QuickAdapter<User> {
         helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
         helper.setText(R.id.tv_user_name, item.getNick_name());
         helper.setTag(R.id.btn_follow, item.getUser_id());
-        if (item.is_focused()) {
+        if (isFocused) {
             helper.setText(R.id.btn_follow, "已关注");
         } else {
-            helper.setText(R.id.btn_follow, "关注");
-            helper.setTextColor(R.id.btn_follow, mContext.getResources().getColor(R.color.red_300));
+            if (item.is_focused()) {
+                helper.setText(R.id.btn_follow, "已关注");
+            } else {
+                helper.setText(R.id.btn_follow, "关注");
+                helper.setTextColor(R.id.btn_follow, mContext.getResources().getColor(R.color.red_300));
+            }
         }
         helper.setTag(R.id.iv_user_icon, Integer.MAX_VALUE, item.getUser_id());
         helper.setOnClickListener(R.id.iv_user_icon, onClickListener);

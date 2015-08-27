@@ -11,6 +11,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.discover.MultiProductActivity;
 import com.tongban.im.adapter.MultipleProductAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -59,7 +60,7 @@ public class MultipleProductFragment extends BaseApiFragment implements View.OnC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mContext.startActivity(new Intent(mContext, MultiProductActivity.class));
+        TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
     }
 
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent obj) {
