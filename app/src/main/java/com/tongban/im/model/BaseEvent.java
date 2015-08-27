@@ -17,6 +17,7 @@ public class BaseEvent {
     public static class SearchTopicKeyEvent {
         public String keyword;
     }
+
     /**
      * 创建话题Event
      */
@@ -223,25 +224,45 @@ public class BaseEvent {
         public boolean isFocus;
     }
     //--------------------------------------商品模块-------------------------------------------------
-
     /**
      * 收藏专题的Event
      */
-    public static class CollectMultiProductEvent {
-        public List<MultiProduct> multiProductList;
+    public static class CollectThemeEvent {
+
     }
 
     /**
      * 取消收藏专题的Event
      */
-    public static class NoCollectMultiProductEvent {
+    public static class NoCollectThemeEvent {
 
     }
 
     /**
-     * 收藏单品的Event
+     * 收藏商品的Event
      */
-    public static class CollectSingleProductEvent {
+    public static class CollectProductEvent {
+
+    }
+
+    /**
+     * 取消收藏专题的Event
+     */
+    public static class NoCollectProductEvent {
+
+    }
+
+    /**
+     * 获取已经收藏的专题列表的Event
+     */
+    public static class FetchCollectedThemeEvent {
+        public List<MultiProduct> multiProductList;
+    }
+
+    /**
+     * 获取已经收藏的单品的Event
+     */
+    public static class FetchCollectedProductEvent {
         public List<ProductBook> singleProductList;
 
         public List<ProductBook> getSingleProductList() {
