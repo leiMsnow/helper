@@ -40,9 +40,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
 
     private String mKeys;
 
-    private int mCursor = 0;
-    private int mPageSize = 10;
-
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_topic_search;
@@ -186,7 +183,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     }
 
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
-
         llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
         searchView.onActionViewCollapsed();

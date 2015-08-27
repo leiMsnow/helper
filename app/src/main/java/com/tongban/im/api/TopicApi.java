@@ -134,8 +134,7 @@ public class TopicApi extends BaseApi {
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override
@@ -151,7 +150,7 @@ public class TopicApi extends BaseApi {
                         callback.onComplete(topicListEvent);
                 } else {
                     if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
+                        callback.onFailure(DisplayType.None, "暂无话题信息,快来创建第一条话题吧");
                 }
             }
 
@@ -159,7 +158,7 @@ public class TopicApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
 
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, getErrorMessage());
+                    callback.onFailure(DisplayType.None, getErrorMessage());
             }
         });
     }
@@ -291,16 +290,16 @@ public class TopicApi extends BaseApi {
     }
 
     /**
-     * 回复话题/某评论
+     * 评论话题/回复评论
      *
      * @param topicId          话题Id
-     * @param commentContent   回复内容
+     * @param commentContent   评论/回复内容
      * @param repliedCommentId 被回复评论的Id
      * @param repliedName      被回复评论的用户昵称
      * @param repliedUserId    被回复评论的用户Id
      * @param callback
      */
-    public void createCommentForTopic(String topicId, String commentContent,
+    public void createCommentForTopic(final String topicId, String commentContent,
                                       @Nullable String repliedCommentId,
                                       @Nullable String repliedName,
                                       @Nullable String repliedUserId,
@@ -310,7 +309,7 @@ public class TopicApi extends BaseApi {
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_id", topicId);
         mParams.put("comment_content", commentContent);
-        //回复评论用到的字段，如果不传这三个值，将视为回复话题
+        //回复评论用到的字段，如果不传这三个值，将视为评论话题
         if (repliedName != null && repliedUserId != null && repliedCommentId != null) {
             mParams.put("replied_comment_id", repliedCommentId);
             mParams.put("replied_nick_name", repliedName);
@@ -329,7 +328,7 @@ public class TopicApi extends BaseApi {
                     public void onComplete(Object obj) {
 
                         BaseEvent.CreateTopicCommentEvent event = new BaseEvent.CreateTopicCommentEvent();
-                        event.message = ("回复成功");
+                        event.topic_id = topicId;
                         if (callback != null)
                             callback.onComplete(event);
                     }
@@ -351,7 +350,7 @@ public class TopicApi extends BaseApi {
      * @param topicId  话题Id
      * @param callback
      */
-    public void collectTopic(final boolean collect, String topicId, final ApiCallback callback) {
+    public void collectTopic(final boolean collect, final String topicId, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_id", topicId);
@@ -365,9 +364,12 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onComplete(Object obj) {
-
-                        if (callback != null)
-                            callback.onComplete(new BaseEvent.TopicCollect(collect));
+                        BaseEvent.TopicCollect topicCollect = new BaseEvent.TopicCollect();
+                        topicCollect.topic_id = topicId;
+                        topicCollect.status = collect;
+                        if (callback != null) {
+                            callback.onComplete(topicCollect);
+                        }
                     }
 
                     @Override

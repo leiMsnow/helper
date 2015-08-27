@@ -10,17 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -30,9 +25,14 @@ import de.greenrobot.event.EventBus;
  */
 public abstract class BaseApiActivity extends BaseTemplateActivity implements ApiCallback {
 
-    private static List<Request> failedRequest = null;
+    private RequestApiListener requestApiListener;
 
     private View mEmptyView;
+
+
+    public void setRequestApiListener(RequestApiListener requestApiListener) {
+        this.requestApiListener = requestApiListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     @Override
     protected void onPause() {
         super.onPause();
-        // 清空失败请求的队列
-        if (failedRequest != null)
-            failedRequest.clear();
     }
 
     @Override
@@ -59,18 +56,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     public void onEventMainThread(Object obj) {
 
-    }
-
-    /**
-     * 获取失败请求的队列
-     *
-     * @return
-     */
-    public static List<Request> getFailedRequest() {
-        if (failedRequest == null) {
-            failedRequest = new ArrayList<>();
-        }
-        return failedRequest;
     }
 
     @Override
@@ -151,11 +136,8 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             tvMsg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 将失败请求队列里的请求重新加入Volley队列
-                    if (getFailedRequest().size() > 0) {
-                        for (Request request : getFailedRequest()) {
-                            BaseApplication.getInstance().getRequestQueue().add(request);
-                        }
+                    if (requestApiListener != null) {
+                        requestApiListener.onRequest();
                     }
                 }
             });

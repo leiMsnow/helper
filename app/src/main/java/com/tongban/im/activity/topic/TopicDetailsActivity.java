@@ -260,7 +260,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
 
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount(), this);
-        ToastUtil.getInstance(mContext).showToast(obj.message);
     }
 
     /**
@@ -272,11 +271,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         int collectCount = Integer.parseInt(tvCollect.getText().toString());
         mTopicInfo.setCollect_status(obj.status);
         if (obj.status) {
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.collect_success));
             ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
             tvCollect.setText(String.valueOf(collectCount + 1));
         } else {
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.un_collect));
             ivCollect.setImageResource(R.drawable.selector_topic_collect);
             tvCollect.setText(String.valueOf(collectCount - 1));
         }

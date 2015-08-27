@@ -142,10 +142,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
 
     public void onEventMainThread(User user) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mPhoneNum);
-        ToastUtil.getInstance(mContext).showToast(getString(R.string.login_success));
-        startActivity(new Intent(mContext, MainActivity.class));
-        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-        finish();
+        connectIM(user.getIm_bind_token());
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
-import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.user.LoginActivity;
 import com.tongban.im.api.AccountApi;
@@ -26,7 +25,6 @@ import com.tongban.im.utils.LocationUtils;
 public class LoadingActivity extends BaseToolBarActivity {
 
 
-    private String mToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +53,12 @@ public class LoadingActivity extends BaseToolBarActivity {
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.ADDRESS, "").toString())) {
             LocationUtils.get(mContext).start();
         }
-        mToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
-        if (mToken.equals("")) {
+        String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+        if (freeAuthToken.equals("")) {
             startActivity(new Intent(mContext, LoginActivity.class));
             finish();
         } else {
-            AccountApi.getInstance().tokenLogin(mToken, new ApiCallback() {
+            AccountApi.getInstance().tokenLogin(freeAuthToken, new ApiCallback() {
                 @Override
                 public void onStartApi() {
 
@@ -74,18 +72,13 @@ public class LoadingActivity extends BaseToolBarActivity {
                         finish();
                     } else if (obj instanceof User) {
                         User user = (User) obj;
-                        RongCloudEvent.getInstance().connectIM(user.getIm_bind_token());
-                        startActivity(new Intent(mContext, MainActivity.class));
-                        finish();
+                        connectIM(user.getIm_bind_token());
                     }
                 }
 
                 @Override
                 public void onFailure(DisplayType displayType, Object errorObj) {
-                    RongCloudEvent.getInstance().
-                            connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
-                    startActivity(new Intent(mContext, MainActivity.class));
-                    finish();
+                    connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
                 }
             });
         }

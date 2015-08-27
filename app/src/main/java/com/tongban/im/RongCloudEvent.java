@@ -110,26 +110,6 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //        RongIM.setPushMessageBehaviorListener(this);//自定义 push 通知。
     }
 
-    public void connectIM(String token) {
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                LogUtil.d(TAG, "onTokenIncorrect");
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                LogUtil.d(TAG, "连接RongIM成功，当前用户：" + s);
-                setOtherListener();
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                LogUtil.d(TAG, "连接RongIM失败：" + errorCode.toString());
-            }
-        });
-    }
-
     /*
      * 连接成功注册。
      * <p/>

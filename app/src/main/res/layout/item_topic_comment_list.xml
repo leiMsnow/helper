@@ -8,14 +8,15 @@
     <View
         android:layout_width="2dp"
         android:layout_height="16dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="36dp"
         android:background="@color/white" />
 
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="16dp"
+        android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
         android:src="@drawable/rc_default_portrait" />
 
@@ -24,7 +25,7 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/rl_reply_right"
         android:layout_below="@+id/iv_user_portrait"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="36dp"
         android:background="@color/white" />
 
 
@@ -32,8 +33,9 @@
         android:id="@+id/rl_reply_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
+        android:layout_toRightOf="@+id/iv_user_portrait"
         android:layout_marginRight="16dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_topic_comment">
 

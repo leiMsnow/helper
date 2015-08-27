@@ -12,24 +12,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.tongban.corelib.base.BaseApplication;
+
 import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.ToastUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
+/**
+ * 基础fragment的api通用类
+ */
 public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallback {
 
     private ProgressDialog mDialog;
     private View mEmptyView;
-    private static List<Request> failedRequest = null;
+    private RequestApiListener requestListener;
+
+    public void setRequestListener(RequestApiListener requestListener) {
+        this.requestListener = requestListener;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +95,8 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
         }
         ApiErrorResult errorResult = new ApiErrorResult();
         errorResult.setErrorMessage(errorMsg);
-        EventBus.getDefault().post(errorResult);    }
+        EventBus.getDefault().post(errorResult);
+    }
 
     public void onEventMainThread(Object obj) {
 
@@ -109,11 +114,13 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
      *
      * @param msg 提示信息
      */
-    private void createEmptyView(final String msg) {
+    protected void createEmptyView(final String msg) {
 
         mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);
+            TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
+            tvMsg.setText(msg);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
             objectAnimator.start();
         } else {
@@ -123,11 +130,8 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
             tvMsg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 将失败请求队列里的请求重新加入Volley队列
-                    if (getFailedRequest().size() > 0) {
-                        for (Request request : getFailedRequest()) {
-                            BaseApplication.getInstance().getRequestQueue().add(request);
-                        }
+                    if (requestListener != null) {
+                        requestListener.onRequest();
                     }
                 }
             });
@@ -136,20 +140,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
             objectAnimator.start();
-            ((ViewGroup)mView).addView(mEmptyView, layoutParams);
+            ((ViewGroup) mView).addView(mEmptyView, layoutParams);
         }
     }
-
-    /**
-     * 获取失败请求的队列
-     *
-     * @return
-     */
-    public static List<Request> getFailedRequest() {
-        if (failedRequest == null) {
-            failedRequest = new ArrayList<>();
-        }
-        return failedRequest;
-    }
-
 }

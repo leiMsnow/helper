@@ -64,18 +64,16 @@ public class BaseEvent {
      * 创建话题评论Event
      */
     public static class CreateTopicCommentEvent {
-        public String message;
+        public String topic_id;
     }
 
     /**
      * 收藏话题Event
      */
     public static class TopicCollect {
-        public boolean status;
 
-        public TopicCollect(boolean status) {
-            this.status = status;
-        }
+        public String topic_id;
+        public boolean status;
     }
 
     //--------------------------------------圈子模块-------------------------------------------------
