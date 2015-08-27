@@ -43,9 +43,10 @@ import java.util.Calendar;
  */
 public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
 
+    //选择位置
     public static int SELECT_LOCATION = 310;
+    //选择标签
     public static int SELECT_LABEL = 320;
-
 
     private ImageView ivSetGroupIcon;
     private EditText etGroupName, etDesc;

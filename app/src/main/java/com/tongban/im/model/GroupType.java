@@ -44,18 +44,10 @@ public class GroupType {
      */
     public final static int TALENT = 6;
 
-    private int icon = R.drawable.shape_group_icon_pressed_red;
+    private int src = R.mipmap.ic_group_create;
     private String groupTypeName;
     private String groupDesc;
     private int groupType;
-
-    public int getIcon() {
-        return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
 
     public String getGroupTypeName() {
         return groupTypeName;
@@ -81,6 +73,14 @@ public class GroupType {
         this.groupType = groupType;
     }
 
+    public int getSrc() {
+        return src;
+    }
+
+    public void setSrc(int src) {
+        this.src = src;
+    }
+
     /**
      * 创建圈子类型数据
      *
@@ -92,21 +92,23 @@ public class GroupType {
         group.setGroupTypeName("同城圈");
         group.setGroupDesc("同一个城市的宝爸爸宝妈妈们");
         group.setGroupType(CITY);
-        group.setIcon(R.drawable.shape_group_icon_pressed_deep_purple);
+        group.setSrc(R.mipmap.ic_group_city);
+
         groupTypes.add(group);
 
         group = new GroupType();
         group.setGroupTypeName("同龄圈");
         group.setGroupDesc("同一个年龄的宝贝圈，喜好、成长会不会相同呢");
         group.setGroupType(AGE);
-        group.setIcon(R.drawable.shape_group_icon_pressed_pink);
+        group.setSrc(R.mipmap.ic_group_age);
+
         groupTypes.add(group);
 
         group = new GroupType();
         group.setGroupTypeName("同学圈");
         group.setGroupDesc("同一个班级的宝贝家长们，他们有什么经验分享呢");
         group.setGroupType(CLASSMATE);
-        group.setIcon(R.drawable.shape_group_icon_pressed_light_blue);
+        group.setSrc(R.mipmap.ic_group_classmate);
 
         groupTypes.add(group);
 
@@ -114,7 +116,7 @@ public class GroupType {
         group.setGroupTypeName("生活圈");
         group.setGroupDesc("购物、宝宝日用品");
         group.setGroupType(LIFE);
-        group.setIcon(R.drawable.shape_group_icon_pressed_light_green);
+        group.setSrc(R.mipmap.ic_group_life);
 
         groupTypes.add(group);
 
@@ -122,7 +124,8 @@ public class GroupType {
         group.setGroupTypeName("活动圈");
         group.setGroupDesc("宝宝面对面，从此不孤单");
         group.setGroupType(ACTIVITY);
-        group.setIcon(R.drawable.shape_group_icon_pressed_yellow);
+        group.setSrc(R.mipmap.ic_group_activity);
+
         groupTypes.add(group);
 
         return groupTypes;

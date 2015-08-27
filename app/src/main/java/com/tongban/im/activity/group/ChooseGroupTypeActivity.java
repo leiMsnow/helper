@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.group.CreateGroupActivity;
 import com.tongban.im.adapter.ChooseGroupTypeAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.GroupType;
@@ -34,7 +33,7 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.activity_choice_group_type;
+        return R.layout.activity_choose_group_type;
     }
 
     @Override
@@ -50,7 +49,6 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
     @Override
     protected void initData() {
         List<GroupType> groupTypes = GroupType.createGroupType();
-
 
         mAdapter = new ChooseGroupTypeAdapter(mContext, R.layout.item_group_type, groupTypes);
         lvGroupType.setAdapter(mAdapter);

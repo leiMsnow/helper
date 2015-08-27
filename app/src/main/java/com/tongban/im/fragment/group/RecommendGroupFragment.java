@@ -50,7 +50,7 @@ public class RecommendGroupFragment extends BaseApiFragment {
         if (getArguments() != null)
             mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsFromMain) {
-            GroupApi.getInstance().recommendGroupList(mCursor, 15, this);
+            GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setOnClickListener(new GroupListenerImpl(mContext));

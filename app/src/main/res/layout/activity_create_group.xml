@@ -47,6 +47,7 @@
             <EditText
                 android:id="@+id/et_group_name"
                 style="@style/CreateGroupTextStyle"
+                android:maxLength="10"
                 android:layout_marginTop="16dp"
                 android:hint="@string/hint_group_name" />
 
@@ -57,6 +58,7 @@
                 android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_age"
+                android:paddingLeft="4dp"
                 android:visibility="gone" />
 
 
@@ -67,6 +69,7 @@
                 android:background="@drawable/selector_edit_text"
                 android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_life"
+                android:paddingLeft="4dp"
                 android:visibility="gone" />
 
             <!--圈子标签-->
@@ -82,7 +85,7 @@
                 android:id="@+id/tv_group_location"
                 style="@style/CreateGroupTextStyle"
                 android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_label"
+                android:drawableLeft="@mipmap/ic_group_location"
                 android:hint="@string/hint_group_location" />
 
             <!--圈子简介-->
@@ -90,7 +93,8 @@
                 android:id="@+id/et_group_desc"
                 style="@style/CreateGroupTextStyle"
                 android:hint="@string/hint_group_introduction"
-                android:maxLength="4"
+                android:maxLength="200"
+                android:maxLines="4"
                 android:singleLine="false" />
 
             <!-- 圈子隐私-->
