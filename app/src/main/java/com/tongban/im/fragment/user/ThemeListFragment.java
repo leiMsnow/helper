@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
@@ -103,10 +104,6 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
      * @param event
      */
     public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
-        if (event.mThemes.size() == 0) {
-            ToastUtil.getInstance(mContext).showToast("换个搜索词试试吧~");
-        } else {
-            mAdapter.replaceAll(event.mThemes);
-        }
+        mAdapter.replaceAll(event.mThemes);
     }
 }

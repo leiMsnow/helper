@@ -16,8 +16,8 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
+import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.model.BaseEvent;
 
 import java.util.ArrayList;
@@ -107,7 +107,6 @@ public class SearchResultActivity extends BaseToolBarActivity implements
             mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
             BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
             if (!TextUtils.isEmpty(mSearchKey)) {
-                searchView.setQuery(mSearchKey, false);
                 searchEvent.keyword = mSearchKey;
                 EventBus.getDefault().post(searchEvent);
             }
@@ -119,6 +118,7 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         getMenuInflater().inflate(R.menu.menu_search_topic, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchView.setQuery(mSearchKey, false);
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();

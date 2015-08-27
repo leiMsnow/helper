@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookAdapter;
@@ -72,15 +73,6 @@ public class ProductListFragment extends BaseApiFragment implements AdapterView.
     }
 
     /**
-     * 通知Fragment执行搜索
-     *
-     * @param event
-     */
-    public void onEventMainThread(BaseEvent.SearchThemeAndProductEvent event) {
-        ProductApi.getInstance().searchProduct(event.keyword, 0, 15, this);
-    }
-
-    /**
      * 获取收藏的单品列表Event
      *
      * @param event
@@ -90,15 +82,20 @@ public class ProductListFragment extends BaseApiFragment implements AdapterView.
     }
 
     /**
+     * 通知Fragment执行搜索
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.SearchThemeAndProductEvent event) {
+        ProductApi.getInstance().searchProduct(event.keyword, 0, 15, this);
+    }
+
+    /**
      * 搜索单品成功的Event
      *
      * @param event
      */
     public void onEventMainThread(BaseEvent.SearchProductResultEvent event) {
-        if (event.mProductBooks.size() == 0) {
-            ToastUtil.getInstance(mContext).showToast("换个搜索词试试吧~");
-        } else {
-            mAdapter.replaceAll(event.mProductBooks);
-        }
+        mAdapter.replaceAll(event.mProductBooks);
     }
 }
