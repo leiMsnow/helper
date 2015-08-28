@@ -31,8 +31,6 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
     private View mEmptyView;
     private RequestApiListener requestListener;
 
-    private Handler handler = new android.os.Handler();
-
 
     public void setRequestListener(RequestApiListener requestListener) {
         this.requestListener = requestListener;
@@ -70,35 +68,30 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
     }
 
     @Override
-    public void onFailure(final DisplayType displayType,final Object errorObj) {
+    public void onFailure(final DisplayType displayType, final Object errorObj) {
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String errorMsg = "网络异常，请稍后重试";
-                if (errorObj instanceof ApiResult) {
-                    errorMsg = ((ApiResult) errorObj).getStatusDesc();
-                } else if (errorObj instanceof ApiListResult) {
-                    errorMsg = ((ApiListResult) errorObj).getStatusDesc();
-                } else if (errorObj instanceof String) {
-                    errorMsg = errorObj.toString();
-                }
-                if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
-                    errorMsg = "网络异常，请稍后重试";
-                }
-                if (displayType == DisplayType.Toast) {
-                    ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
-                } else if (displayType == DisplayType.View) {
-                    showEmptyText(errorMsg, false);
-                } else if (displayType == DisplayType.ALL) {
-                    ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
-                    showEmptyText(errorMsg, false);
-                }
-                ApiErrorResult errorResult = new ApiErrorResult();
-                errorResult.setErrorMessage(errorMsg);
-                EventBus.getDefault().post(errorResult);
-            }
-        }, 1000);
+        String errorMsg = "网络异常，请稍后重试";
+        if (errorObj instanceof ApiResult) {
+            errorMsg = ((ApiResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof ApiListResult) {
+            errorMsg = ((ApiListResult) errorObj).getStatusDesc();
+        } else if (errorObj instanceof String) {
+            errorMsg = errorObj.toString();
+        }
+        if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
+            errorMsg = "网络异常，请稍后重试";
+        }
+        if (displayType == DisplayType.Toast) {
+            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+        } else if (displayType == DisplayType.View) {
+            showEmptyText(errorMsg, false);
+        } else if (displayType == DisplayType.ALL) {
+            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+            showEmptyText(errorMsg, false);
+        }
+        ApiErrorResult errorResult = new ApiErrorResult();
+        errorResult.setErrorMessage(errorMsg);
+        EventBus.getDefault().post(errorResult);
 
     }
 
