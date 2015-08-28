@@ -4,10 +4,10 @@ package com.tongban.im.fragment.user;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
 import com.tongban.im.api.ProductApi;
@@ -22,7 +22,7 @@ import com.tongban.im.model.BaseEvent;
  * @createTime 2015/8/27
  */
 public class ThemeListFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener {
     private LoadMoreListView lvTheme;
     private ThemeListAdapter mAdapter;
 

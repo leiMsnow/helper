@@ -3,21 +3,16 @@ package com.tongban.im.fragment.user;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.User;
-
-import java.util.List;
 
 /**
  * 粉丝界面
@@ -25,7 +20,7 @@ import java.util.List;
  * @author fushudi
  */
 public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener,
-        View.OnClickListener, LoadMoreListView.OnLoadMoreListener {
+        View.OnClickListener, OnLoadMoreListener {
     private LoadMoreListView lvFansList;
     private UserAdapter mAdapter;
     private int mCursor = 0;

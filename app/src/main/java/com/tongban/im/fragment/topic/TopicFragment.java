@@ -13,6 +13,7 @@ import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.adapter.TopicListAdapter;
@@ -32,7 +33,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * author: chenenyu 15/7/13
  */
 public class TopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener,
+        AdapterView.OnItemClickListener, OnLoadMoreListener,
         RequestApiListener, PtrHandler {
 
     private PtrFrameLayout ptrFrameLayout;

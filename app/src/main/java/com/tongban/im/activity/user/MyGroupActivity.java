@@ -2,11 +2,10 @@ package com.tongban.im.activity.user;
 
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
@@ -15,15 +14,13 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 
-import io.rong.imkit.RongIM;
-
 /**
  * 个人中心（我的圈子）
  *
  * @author fushudi
  */
 public class MyGroupActivity extends BaseToolBarActivity implements
-        LoadMoreListView.OnLoadMoreListener {
+        OnLoadMoreListener {
     private LoadMoreListView lvMyGroupList;
     private GroupListAdapter mAdapter;
 

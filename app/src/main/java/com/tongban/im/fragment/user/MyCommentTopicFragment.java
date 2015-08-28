@@ -4,21 +4,17 @@ package com.tongban.im.fragment.user;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
-import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.TopicComment;
-
-import java.util.List;
 
 /**
  * 我的话题 - 回复我的话题
@@ -26,7 +22,7 @@ import java.util.List;
  * @author fushudi
  */
 public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener {
     private LoadMoreListView mListView;
     private MyCommentTopicAdapter mAdapter;
 

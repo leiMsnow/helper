@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tongban.corelib.R;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 
 /**
  * 自动加载更多-listView
@@ -131,14 +132,6 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
                 tvMore.setVisibility(View.VISIBLE);
             }
         }, 300);
-    }
-
-
-    /**
-     * 定义加载更多接口
-     */
-    public interface OnLoadMoreListener {
-        void onLoadMore();
     }
 
 }

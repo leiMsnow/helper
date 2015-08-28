@@ -3,23 +3,15 @@ package com.tongban.im.fragment.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
-import com.tongban.im.activity.topic.CreateTopicActivity;
-import com.tongban.im.activity.topic.SearchTopicActivity;
-import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
@@ -31,15 +23,13 @@ import com.tongban.im.model.Topic;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * 我的话题（我的收藏中的、我发起的话题）
  *
  * @author fushudi
  */
 public class MyTopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener {
 
     private LoadMoreListView lvTopicList;
     private TopicListAdapter mAdapter;

@@ -17,6 +17,7 @@ import com.baidu.mapapi.search.poi.PoiSearch;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
@@ -28,7 +29,7 @@ import com.tongban.im.model.GroupType;
  */
 public class SearchPoiActivity extends BaseToolBarActivity implements
         OnGetPoiSearchResultListener, AdapterView.OnItemClickListener,
-        LoadMoreListView.OnLoadMoreListener, SearchView.OnQueryTextListener {
+        OnLoadMoreListener, SearchView.OnQueryTextListener {
 
     private LoadMoreListView lvLocation;
     private SearchView searchView;

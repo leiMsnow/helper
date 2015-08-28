@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
@@ -20,7 +21,7 @@ import com.tongban.im.model.BaseEvent;
  * @author fushudi
  */
 public class FocusFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener {
     private LoadMoreListView lvFocusList;
     private UserAdapter mAdapter;
 

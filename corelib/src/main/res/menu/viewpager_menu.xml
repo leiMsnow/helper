@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/menu_lock"
-        app:showAsAction="always"
-        android:title="@string/menu_lock"/>
+        app:showAsAction="always"/>
 
 </menu>
