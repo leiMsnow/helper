@@ -1,5 +1,6 @@
 package com.tongban.im.activity.discover;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,12 +19,9 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.fragment.user.ThemeListFragment;
-import com.tongban.im.model.BaseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * 搜索结果页
@@ -36,15 +34,22 @@ public class SearchResultActivity extends BaseToolBarActivity implements
 
     private SearchView searchView;
     private ViewPager mViewPager;
-    private View mIndicator;
     private FragmentPagerAdapter mAdapter;
+    private View mIndicator; // tab下的线
     private ChangeColorView ccvTheme;
     private ChangeColorView ccvProduct;
     private List<Fragment> mFragments = new ArrayList<>();
     private List<ChangeColorView> mTabs = new ArrayList<>();
+    private ThemeListFragment mThemeListFragment;
+    private ProductListFragment mProductListFragment;
 
     private int mIndicatorWidth;
     private String mSearchKey;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -85,9 +90,11 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         mTabs.add(ccvTheme);
         mTabs.add(ccvProduct);
         //专题搜索列表Fragment
-        mFragments.add(ThemeListFragment.newInstance(0));
+        mThemeListFragment = ThemeListFragment.newInstance(0);
+        mFragments.add(mThemeListFragment);
         //单品搜索列表Fragment
-        mFragments.add(ProductListFragment.newInstance(0));
+        mProductListFragment = ProductListFragment.newInstance(0);
+        mFragments.add(mProductListFragment);
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -102,13 +109,13 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         };
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
+
         // 搜索
         if (getIntent() != null) {
             mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
-            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
             if (!TextUtils.isEmpty(mSearchKey)) {
-                searchEvent.keyword = mSearchKey;
-                EventBus.getDefault().post(searchEvent);
+                mThemeListFragment.searchTheme(mSearchKey);
+                mProductListFragment.searchProduct(mSearchKey);
             }
         }
     }
@@ -118,7 +125,12 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         getMenuInflater().inflate(R.menu.menu_search_topic, menu);
         searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.setQuery(mSearchKey, false);
+        searchView.post(new Runnable() {
+            @Override
+            public void run() {
+                searchView.setQuery(mSearchKey, false);
+            }
+        });
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.onActionViewExpanded();
@@ -128,9 +140,8 @@ public class SearchResultActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            BaseEvent.SearchThemeAndProductEvent searchEvent = new BaseEvent.SearchThemeAndProductEvent();
-            searchEvent.keyword = query;
-            EventBus.getDefault().post(searchEvent);
+            mThemeListFragment.searchTheme(query);
+            mProductListFragment.searchProduct(query);
         }
         return false;
     }

@@ -7,8 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.LogUtil;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
 import com.tongban.im.api.ProductApi;
@@ -80,6 +78,10 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
         TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
     }
 
+    public void searchTheme(String keyword) {
+        ProductApi.getInstance().searchTheme(keyword, 0, 15, this);
+    }
+
     /**
      * 获取收藏的专题列表
      *
@@ -87,15 +89,6 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
      */
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent event) {
         mAdapter.replaceAll(event.mThemeList);
-    }
-
-    /**
-     * 通知Fragment执行搜索
-     *
-     * @param event
-     */
-    public void onEventMainThread(BaseEvent.SearchThemeAndProductEvent event) {
-        ProductApi.getInstance().searchTheme(event.keyword, 0, 15, this);
     }
 
     /**

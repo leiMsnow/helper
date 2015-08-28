@@ -7,8 +7,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.LogUtil;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookAdapter;
 import com.tongban.im.api.ProductApi;
@@ -72,6 +70,10 @@ public class ProductListFragment extends BaseApiFragment implements AdapterView.
         TransferCenter.getInstance().startProductBook(mAdapter.getItem(position).getProduct_id());
     }
 
+    public void searchProduct(String keyword) {
+        ProductApi.getInstance().searchProduct(keyword, 0, 15, this);
+    }
+
     /**
      * 获取收藏的单品列表Event
      *
@@ -79,15 +81,6 @@ public class ProductListFragment extends BaseApiFragment implements AdapterView.
      */
     public void onEventMainThread(BaseEvent.FetchCollectedProductEvent event) {
         mAdapter.replaceAll(event.getProductBookList());
-    }
-
-    /**
-     * 通知Fragment执行搜索
-     *
-     * @param event
-     */
-    public void onEventMainThread(BaseEvent.SearchThemeAndProductEvent event) {
-        ProductApi.getInstance().searchProduct(event.keyword, 0, 15, this);
     }
 
     /**
