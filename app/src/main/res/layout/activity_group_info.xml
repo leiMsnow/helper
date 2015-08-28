@@ -82,8 +82,8 @@
                     android:id="@+id/iv_group_creator"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_margin="4dp"
                     android:layout_centerVertical="true"
+                    android:layout_margin="4dp"
                     android:layout_toLeftOf="@+id/tv_group_creator"
                     android:src="@mipmap/ic_contact_picture" />
 
@@ -91,8 +91,8 @@
                     android:id="@+id/tv_group_creator"
                     style="@style/ChatSettingRightText"
                     android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:gravity="center_vertical"
                     android:text="创建人" />
 
@@ -128,81 +128,91 @@
                     android:text="圈子简介" />
 
             </LinearLayout>
-            <!--圈子设置-->
+
+            <!-- 只有加入该组才显示一下内容-->
             <LinearLayout
-                style="@style/ChatSettingLayout"
-                android:background="@android:color/transparent"
-                android:gravity="left|bottom">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:layout_marginBottom="4dp"
-                    android:text="圈子设置" />
-
-            </LinearLayout>
-
-            <!--消息免打扰-->
-            <RelativeLayout style="@style/ChatSettingLayout">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:layout_centerVertical="true"
-                    android:text="消息免打扰" />
-
-                <CheckBox
-                    android:id="@+id/chb_remind"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
-
-            </RelativeLayout>
-            <!-- 置顶聊天 -->
-            <RelativeLayout style="@style/ChatSettingLayout">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:layout_centerVertical="true"
-                    android:text="置顶聊天" />
-
-                <CheckBox
-                    android:id="@+id/chb_top"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
-
-            </RelativeLayout>
-            <!--清空聊天记录-->
-            <LinearLayout
-                android:id="@+id/ll_clear"
-                style="@style/ChatSettingLayout"
-                android:gravity="left|center_vertical">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:text="清空聊天记录" />
-
-            </LinearLayout>
-            <!--举报-->
-            <LinearLayout
-                android:id="@+id/ll_inform"
-                style="@style/ChatSettingLayout"
-                android:gravity="left|center_vertical">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:text="举报" />
-
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btn_quit"
+                android:id="@+id/ll_settings_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/selector_btn_bg_base_red"
-                android:text="退出并删除"
-                android:textColor="@color/white" />
+                android:orientation="vertical"
+                android:visibility="gone">
+                <!--圈子设置-->
+                <LinearLayout
+                    style="@style/ChatSettingLayout"
+                    android:background="@android:color/transparent"
+                    android:gravity="left|bottom">
+
+                    <TextView
+                        style="@style/ChatSettingLeftText"
+                        android:layout_marginBottom="4dp"
+                        android:text="圈子设置" />
+
+                </LinearLayout>
+
+                <!--消息免打扰-->
+                <RelativeLayout style="@style/ChatSettingLayout">
+
+                    <TextView
+                        style="@style/ChatSettingLeftText"
+                        android:layout_centerVertical="true"
+                        android:text="消息免打扰" />
+
+                    <CheckBox
+                        android:id="@+id/chb_remind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+                <!-- 置顶聊天 -->
+                <RelativeLayout style="@style/ChatSettingLayout">
+
+                    <TextView
+                        style="@style/ChatSettingLeftText"
+                        android:layout_centerVertical="true"
+                        android:text="置顶聊天" />
+
+                    <CheckBox
+                        android:id="@+id/chb_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+                <!--清空聊天记录-->
+                <LinearLayout
+                    android:id="@+id/ll_clear"
+                    style="@style/ChatSettingLayout"
+                    android:gravity="left|center_vertical">
+
+                    <TextView
+                        style="@style/ChatSettingLeftText"
+                        android:text="清空聊天记录" />
+
+                </LinearLayout>
+                <!--举报-->
+                <LinearLayout
+                    android:id="@+id/ll_inform"
+                    style="@style/ChatSettingLayout"
+                    android:gravity="left|center_vertical">
+
+                    <TextView
+                        style="@style/ChatSettingLeftText"
+                        android:text="举报" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_quit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/selector_btn_bg_base_red"
+                    android:text="退出并删除"
+                    android:textColor="@color/white" />
+            </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 </RelativeLayout>

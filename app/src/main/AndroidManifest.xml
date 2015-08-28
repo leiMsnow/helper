@@ -148,7 +148,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/groupinfo/"
+                    android:pathPrefix="/groupinfo"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
@@ -166,7 +166,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/searchgroup/"
+                    android:pathPrefix="/searchgroup"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
@@ -186,7 +186,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/topicdetails/"
+                    android:pathPrefix="/topicdetails"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
@@ -214,7 +214,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/searchtopic/"
+                    android:pathPrefix="/searchtopic"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
@@ -247,7 +247,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/mycenter/"
+                    android:pathPrefix="/mycenter"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>
@@ -261,7 +261,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/usercenter/"
+                    android:pathPrefix="/usercenter"
                     android:scheme="tongban"/>
             </intent-filter>
         </activity>

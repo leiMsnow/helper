@@ -42,7 +42,7 @@ public class TransferCenter {
      */
     public void startSearch(String pathPrefix, @Nullable String keyword) {
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath(pathPrefix).appendPath("search")
+                .appendPath(pathPrefix)
                 .appendQueryParameter("keyword", keyword)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -61,7 +61,7 @@ public class TransferCenter {
             pathPrefix = TransferPathPrefix.MY_CENTER;
         }
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath(pathPrefix).appendPath("user")
+                .appendPath(pathPrefix)
                 .appendQueryParameter("visitorId", visitorId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -78,7 +78,7 @@ public class TransferCenter {
         String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
 
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
-                .appendPath(pathPrefix).appendPath("topic")
+                .appendPath(pathPrefix)
                 .appendQueryParameter(Consts.KEY_TOPIC_ID, topicId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
