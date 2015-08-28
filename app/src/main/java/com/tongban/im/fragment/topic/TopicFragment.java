@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
@@ -21,14 +23,19 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.model.BaseEvent;
 
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+
 /**
  * 话题/动态页
  * author: chenenyu 15/7/13
  */
 public class TopicFragment extends BaseApiFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener,
-        RequestApiListener {
+        RequestApiListener, PtrHandler {
 
+    private PtrFrameLayout ptrFrameLayout;
     private LoadMoreListView lvTopicList;
     private TopicListAdapter mAdapter;
     private ImageButton ibSearch;
@@ -51,6 +58,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     protected void initView() {
+        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         toolbar = mView.findViewById(R.id.in_topic_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
@@ -75,8 +83,15 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsMainEvent) {
-            mIsPull = true;
-            TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
+            RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
+            header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
+            header.setPadding(0, DensityUtils.dp2px(mContext, 16), 0, DensityUtils.dp2px(mContext, 16));
+            header.setUp(ptrFrameLayout);
+
+            ptrFrameLayout.setHeaderView(header);
+            ptrFrameLayout.addPtrUIHandler(header);
+            ptrFrameLayout.setPtrHandler(this);
+            ptrFrameLayout.autoRefresh();
         } else {
             toolbar.setVisibility(View.GONE);
         }
@@ -113,7 +128,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(BaseEvent.RecommendTopicListEvent obj) {
         //下拉刷新成功
         if (mIsPull) {
-            mCursor = 0;
+            ptrFrameLayout.refreshComplete();
+            lvTopicList.resetLoad();
             mIsPull = false;
             mAdapter.clear();
         }
@@ -121,7 +137,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         else {
             lvTopicList.setResultSize(obj.topicList.size());
         }
-        mCursor++;
         mAdapter.addAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
     }
@@ -133,7 +148,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      */
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
         if (!mIsMainEvent) {
-            mCursor++;
             lvTopicList.setResultSize(obj.topicList.size());
             mAdapter.addAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
@@ -146,9 +160,10 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(ApiErrorResult obj) {
+        ptrFrameLayout.refreshComplete();
         if (mAdapter != null) {
             if (mAdapter.getCount() == 0) {
-                showEmptyText(obj.getErrorMessage(),false);
+                showEmptyText(obj.getErrorMessage(), false);
             } else {
                 lvTopicList.setFooterText(obj.getErrorMessage());
                 lvTopicList.setVisibility(View.VISIBLE);
@@ -162,8 +177,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
-        // TODO 下拉刷新操作
-        mIsPull = true;
+        ptrFrameLayout.autoRefresh();
     }
 
     /**
@@ -197,6 +211,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
 
     @Override
     public void onLoadMore() {
+        mCursor++;
         if (mIsMainEvent)
             TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
         else
@@ -232,5 +247,17 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onRequest() {
         onLoadMore();
+    }
+
+    @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout ptrFrameLayout, View view, View view1) {
+        return PtrDefaultHandler.checkContentCanBePulledDown(ptrFrameLayout, view, view1);
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frameLayout) {
+        mIsPull = true;
+        mCursor = 0;
+        TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
     }
 }

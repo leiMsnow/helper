@@ -252,7 +252,6 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiListResult<Group>>() {
                         });
                 if (apiResponse.getData().getResult().size() > 0) {
-
                     BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
                     searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)

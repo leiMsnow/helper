@@ -21,12 +21,12 @@
         <item name="android:src">@mipmap/ic_menu_moreoverflow_mtrl_alpha</item>
     </style>
     <!-- search_view-->
-    <style name="SearchView.Light" parent="Widget.AppCompat.Light.SearchView">
+    <style name="SearchView.Light" parent="Base.Widget.AppCompat.SearchView">
         <item name="queryBackground">@drawable/selector_textfield_search_material</item>
         <item name="submitBackground">@drawable/selector_textfield_search_material</item>
         <item name="closeIcon">@mipmap/ic_clear_mtrl_alpha</item>
-        <item name="searchIcon">@mipmap/ic_search_api_mtrl_alpha</item>
-        <item name="searchHintIcon">@mipmap/ic_search_api_mtrl_alpha</item>
+        <item name="searchIcon">@mipmap/ic_search_brown</item>
+        <item name="searchHintIcon">@mipmap/ic_search_brown</item>
         <item name="goIcon">@mipmap/ic_go_search_api_mtrl_alpha</item>
     </style>
 

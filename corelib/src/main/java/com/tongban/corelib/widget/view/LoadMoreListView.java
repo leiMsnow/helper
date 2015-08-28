@@ -103,10 +103,16 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
             tvMore.setText("数据已经全部加载");
             tvMore.setVisibility(View.VISIBLE);
         } else if (resultSize == pageSize) {
-            isLoadFull = false;
-            tvMore.setVisibility(View.GONE);
+            resetLoad();
         }
+    }
 
+    /**
+     * 重置刷新
+     */
+    public void resetLoad() {
+        isLoadFull = false;
+        tvMore.setVisibility(View.GONE);
     }
 
 

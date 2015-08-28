@@ -79,6 +79,7 @@
         android:id="@+id/ib_create"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:padding="8dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"

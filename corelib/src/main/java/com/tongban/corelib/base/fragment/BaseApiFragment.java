@@ -81,12 +81,12 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
             errorMsg = "网络异常，请稍后重试";
         }
         if (displayType == DisplayType.Toast) {
-            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
-            showEmptyText("", true);
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
+            showEmptyText("", false);
         } else if (displayType == DisplayType.View) {
             showEmptyText(errorMsg, false);
         } else if (displayType == DisplayType.ALL) {
-            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
             showEmptyText(errorMsg, false);
         }
         ApiErrorResult errorResult = new ApiErrorResult();
