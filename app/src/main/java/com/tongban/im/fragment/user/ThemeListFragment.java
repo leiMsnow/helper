@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
 import com.tongban.im.api.ProductApi;
@@ -21,9 +22,13 @@ import com.tongban.im.model.BaseEvent;
  * @createTime 2015/8/27
  */
 public class ThemeListFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener {
-    private ListView lvTheme;
+        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+    private LoadMoreListView lvTheme;
     private ThemeListAdapter mAdapter;
+
+    private int mCursor = 0;
+    private int mPageSize = 10;
+    private int type;
 
     /**
      * 构造方法
@@ -46,25 +51,27 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
 
     @Override
     protected void initView() {
-        lvTheme = (ListView) mView.findViewById(R.id.lv_theme);
+        lvTheme = (LoadMoreListView) mView.findViewById(R.id.lv_theme);
     }
 
     @Override
     protected void initListener() {
         mAdapter.setOnClickListener(this);
         lvTheme.setOnItemClickListener(this);
+        lvTheme.setOnLoadMoreListener(this);
     }
 
     @Override
     protected void initData() {
         mAdapter = new ThemeListAdapter(mContext, R.layout.item_theme_list, null);
         lvTheme.setAdapter(mAdapter);
-        int type = getArguments().getInt("type", 0);
+        lvTheme.setPageSize(mPageSize);
+        type = getArguments().getInt("type", 0);
         if (type == 0) {
             // Fragment用于搜索
         } else if (type == 1) {
             // Fragment用于展示收藏的专题
-            UserCenterApi.getInstance().fetchCollectMultipleTopicList(0, 10, this);
+            UserCenterApi.getInstance().fetchCollectMultipleTopicList(mCursor, mPageSize, this);
         }
     }
 
@@ -79,16 +86,18 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
     }
 
     public void searchTheme(String keyword) {
-        ProductApi.getInstance().searchTheme(keyword, 0, 15, this);
+        ProductApi.getInstance().searchTheme(keyword, mCursor, mPageSize, this);
     }
 
     /**
-     * 获取收藏的专题列表
+     * 获取收藏的专题列表Event
      *
      * @param event
      */
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent event) {
+        mCursor++;
         mAdapter.replaceAll(event.mThemeList);
+        lvTheme.setResultSize(event.mThemeList.size());
     }
 
     /**
@@ -98,5 +107,15 @@ public class ThemeListFragment extends BaseApiFragment implements View.OnClickLi
      */
     public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
         mAdapter.replaceAll(event.mThemes);
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (type == 0) {
+            // Fragment用于搜索
+        } else if (type == 1) {
+            // Fragment用于展示收藏的专题
+            UserCenterApi.getInstance().fetchCollectMultipleTopicList(mCursor, mPageSize, this);
+        }
     }
 }

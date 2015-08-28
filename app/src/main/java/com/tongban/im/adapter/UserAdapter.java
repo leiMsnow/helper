@@ -33,7 +33,11 @@ public class UserAdapter extends QuickAdapter<User> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, User item) {
-        helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
+        if (item.getPortrait_url() != null) {
+            helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
+        } else {
+            helper.setImageResource(R.id.iv_user_icon, R.drawable.rc_default_portrait);
+        }
         helper.setText(R.id.tv_user_name, item.getNick_name());
         helper.setTag(R.id.btn_follow, item.getUser_id());
         if (isFocused) {

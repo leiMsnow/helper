@@ -127,16 +127,25 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
         mUserInfo = obj.user;
-        Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin())
-                .placeholder(R.drawable.rc_default_portrait).into(ivUserPortrait);
+        if (mUserInfo.getPortrait_url() != null) {
+            Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
+        } else {
+            ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
+        }
+
         if (mUserInfo.getSex().equals("男")) {
             ivSex.setImageResource(R.mipmap.ic_boy);
         } else {
             ivSex.setImageResource(R.mipmap.ic_girl);
         }
-        tvUserName.setText(mUserInfo.getChild_info().get(0).getNick_name() + " " +
-                mUserInfo.getChild_info().get(0).getAge()
-                + " " + mUserInfo.getChild_info().get(0).getConstellation());
+        if (mUserInfo.getChild_info().size() > 0) {
+            tvUserName.setText(mUserInfo.getChild_info().get(0).getNick_name() + " " +
+                    mUserInfo.getChild_info().get(0).getAge()
+                    + " " + mUserInfo.getChild_info().get(0).getConstellation());
+        } else {
+            tvUserName.setText("");
+        }
+
         tvFansNum.setText(mUserInfo.getFans_amount());
         tvFocusNum.setText(mUserInfo.getFocused_amount());
         tvGroupNum.setText(mUserInfo.getJoined_group_amount());
