@@ -1,5 +1,6 @@
 package com.tongban.im.activity.group;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,11 +36,14 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     //圈子设置
     private CheckBox chbRemind, chbTop;
     //各条目父控件
-    private View vGroupName, vAddress, vDesc, vClear, vInform;
+    private View vGroupName, vAddress, vDesc, vClear, vInform, vSettings;
     private Button btnQuit;
 
     private MemberGridAdapter mMemberGridAdapter;
     private Group mGroup;
+
+    private String mGroupId;
+    private boolean mIsJoin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         vDesc = findViewById(R.id.ll_desc);
         vClear = findViewById(R.id.ll_clear);
         vInform = findViewById(R.id.ll_inform);
+        vSettings = findViewById(R.id.ll_settings_parent);
 
         btnQuit = (Button) findViewById(R.id.btn_quit);
     }
@@ -92,31 +97,17 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initData() {
-
-        Glide.with(GroupInfoActivity.this).
-                load("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg").
-                placeholder(io.rong.imkit.R.drawable.rc_default_portrait).into(ivCreator);
-
-        List<User> users = new ArrayList<>();
-        int i = 0;
-        while (true) {
-            if (i > 10)
-                break;
-
-            User user = new User();
-            user.setNick_name("张三" + i);
-//            user.setPortrait_url("http://www.qjis.com/uploads/allimg/120918/11305V125-21.jpg");
-//            if (i % 2 == 0) {
-//                user.setPortrait_url("http://diy.qqjay.com/u2/2012/0601/caafdf4fe2eee3b7f397922b575f46af.jpg");
-//            }
-//            users.add(user);
-            i++;
+        if (getIntent().getData() != null) {
+            Uri uri = getIntent().getData();
+            mGroupId = uri.getQueryParameter(Consts.KEY_GROUP_ID);
+            mIsJoin = getIntent().getBooleanExtra(Consts.KEY_IS_JOIN, false);
+            if (mIsJoin) {
+                vSettings.setVisibility(View.VISIBLE);
+            }
+            GroupApi.getInstance().getGroupInfo(mGroupId, this);
+            GroupApi.getInstance().getGroupMembersList(mGroupId, 0, 15, this);
         }
-        if (getIntent().getExtras() != null) {
-            String groupId = getIntent().getExtras().getString(Consts.KEY_GROUP_ID, "");
-//            GroupApi.getInstance().fetchMyGroupInfo(groupId, this);
-        }
-        mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, users);
+        mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, null);
         gvMembers.setAdapter(mMemberGridAdapter);
     }
 
@@ -134,12 +125,22 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.group;
+
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
-        Glide.with(GroupInfoActivity.this).load(mGroup.getUser_info().getPortrait_url()).
-                placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
-                .into(ivCreator);
-        tvCreator.setText(mGroup.getUser_info().getNick_name());
+        tvAttrs.setText(mGroup.getGroupType());
+//        tvDesc.setText(mGroup.getDeclaration());
 
+        if (mGroup.getUser_info() != null) {
+            Glide.with(GroupInfoActivity.this).load(mGroup.getUser_info().getPortrait_url()).
+                    placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
+                    .into(ivCreator);
+            tvCreator.setText(mGroup.getUser_info().getNick_name());
+        }
+
+    }
+
+    public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {
+        mMemberGridAdapter.addAll(obj.users);
     }
 }

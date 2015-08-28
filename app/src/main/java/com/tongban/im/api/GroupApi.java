@@ -16,6 +16,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.User;
 
 import java.util.HashMap;
 
@@ -38,13 +39,21 @@ public class GroupApi extends BaseApi {
      */
     public static final String SEARCH_GROUP_LIST = "group/search/list";
     /**
-     * 创建群组
+     * 创建群组接口
      */
     public static final String CREATE_GROUP = "group/create";
     /**
-     * 加入群组
+     * 加入群组接口
      */
     public static final String JOIN_GROUP = "/user/join/group";
+    /**
+     * 群组详情接口
+     */
+    public static final String GROUP_INFO = "group/info";
+    /**
+     * 获取群成员列表接口
+     */
+    public static final String GROUP_MEMBERS_INFO = "group/members/list";
 
 
     private GroupApi(Context context) {
@@ -258,6 +267,83 @@ public class GroupApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
                     callback.onFailure(DisplayType.View, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取圈子信息
+     *
+     * @param groupId  圈子Id
+     * @param callback
+     */
+    public void getGroupInfo(String groupId, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("group_id", groupId);
+
+        simpleRequest(GROUP_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<Group> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<Group>>() {
+                        });
+                BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
+                groupInfoEvent.group = result.getData();
+                if (callback != null)
+                    callback.onComplete(groupInfoEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(DisplayType.Toast, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 获取圈子成员列表
+     *
+     * @param groupId  圈子Id
+     * @param cursor   第几页，默认0开始
+     * @param pageSize 每页多少数据
+     * @param callback
+     */
+    public void getGroupMembersList(String groupId, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("group_id", groupId);
+        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("page_size", pageSize);
+
+        simpleRequest(GROUP_MEMBERS_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+
+                ApiListResult<User> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<User>>() {
+                        });
+                BaseEvent.GroupMemberEvent memberEvent = new BaseEvent.GroupMemberEvent();
+                memberEvent.users = result.getData().getResult();
+                if (callback != null)
+                    callback.onComplete(memberEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(DisplayType.Toast, errorMessage);
             }
         });
     }

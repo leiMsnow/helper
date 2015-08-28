@@ -129,15 +129,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            KeyBoardUtils.hideSoftKeyboard(this);
-            finish();
-        }
-        return true;
-    }
-
-    @Override
     public void onClick(View v) {
         //重置回复话题
         if (v == ivComment) {

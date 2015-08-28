@@ -28,6 +28,8 @@
                 android:verticalSpacing="4dp" />
 
 
+            <View style="@style/HorizontalLine" />
+
             <TextView
                 android:id="@+id/tv_more_member"
                 android:layout_width="match_parent"
@@ -35,6 +37,7 @@
                 android:background="@color/white"
                 android:gravity="right|center_vertical"
                 android:paddingRight="16dp"
+                android:textColor="@color/selector_grey_to_orange"
                 android:text="展开全部" />
             <!--圈子名称-->
             <LinearLayout

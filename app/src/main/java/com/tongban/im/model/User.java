@@ -187,7 +187,7 @@ public class User {
     }
 
     public String getSex() {
-        return sex;
+        return sex.equals("1") ? "男" : "女";
     }
 
     public void setSex(String sex) {

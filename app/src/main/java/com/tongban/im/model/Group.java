@@ -2,6 +2,8 @@ package com.tongban.im.model;
 
 import android.text.TextUtils;
 
+import com.tongban.im.R;
+
 /**
  * 群组
  * author: chenenyu 15/7/14
@@ -77,6 +79,24 @@ public class Group {
 
     public int getGroup_type() {
         return group_type;
+    }
+
+    public String getGroupType() {
+        switch (group_type) {
+            case GroupType.ACTIVITY:
+                return "活动圈";
+            case GroupType.AGE:
+                return "同龄圈";
+            case GroupType.CITY:
+                return "同城圈";
+            case GroupType.CLASSMATE:
+                return "同学圈";
+            case GroupType.LIFE:
+                return "生活圈";
+            case GroupType.TALENT:
+                return "达人圈";
+        }
+        return "";
     }
 
     public void setGroup_type(int group_type) {

@@ -88,6 +88,10 @@ public class Consts {
      * 圈子搜索结果
      */
     public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
+    /**
+     * 是否已经加入
+     */
+    public static final String KEY_IS_JOIN = "KEY_IS_JOIN";
 
     //------------------------------话题相关key------------------------------------------------------
     /**

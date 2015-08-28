@@ -23,6 +23,11 @@ public class MemberGridAdapter extends QuickAdapter<User> {
     @Override
     protected void convert(BaseAdapterHelper helper, User item) {
         helper.setText(R.id.tv_member_name, item.getNick_name());
-        helper.setImageBitmap(R.id.iv_member_icon, item.getPortrait_url().getMin());
+        if (item.getPortrait_url() != null) {
+            helper.setImageBitmap(R.id.iv_member_icon, item.getPortrait_url().getMin(),
+                    R.drawable.rc_default_portrait);
+        } else {
+            helper.setImageResource(R.id.iv_member_icon, R.drawable.rc_default_portrait);
+        }
     }
 }

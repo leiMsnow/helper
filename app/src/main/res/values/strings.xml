@@ -64,7 +64,7 @@
     <string name="scene_for">【适读情景】</string>
     <!--话题-->
     <string name="topic">话题</string>
-    <string name="group_settings">聊天设置</string>
+    <string name="group_settings">圈子信息</string>
 
     <!-- 圈子 -->
     <string name="group">圈子</string>

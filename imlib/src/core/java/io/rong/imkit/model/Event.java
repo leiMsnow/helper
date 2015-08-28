@@ -621,6 +621,4 @@ public class Event {
         }
     }
 
-
-
 }

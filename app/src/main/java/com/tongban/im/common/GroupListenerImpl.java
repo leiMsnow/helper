@@ -37,7 +37,8 @@ public class GroupListenerImpl implements View.OnClickListener {
                     RongIM.getInstance().startGroupChat(mContext, group.getGroup_id(),
                             group.getGroup_name());
                 }else{
-                    TransferCenter.getInstance().startGroupInfo(group.getGroup_id());
+                    TransferCenter.getInstance().startGroupInfo(group.getGroup_id(),
+                            group.isAllow_add());
                 }
                 break;
         }
