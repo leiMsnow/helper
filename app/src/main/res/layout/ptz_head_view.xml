@@ -79,7 +79,7 @@
             android:paddingLeft="16dp"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageView
@@ -91,7 +91,7 @@
         android:layout_alignTop="@+id/fl_user_head"
         android:layout_marginRight="24dp"
         android:src="@drawable/selector_chat_icon"
-        android:visibility="gone" />
+        android:visibility="visible" />
     <!--底部粉丝、关注、话题布局-->
     <LinearLayout
         android:layout_width="match_parent"

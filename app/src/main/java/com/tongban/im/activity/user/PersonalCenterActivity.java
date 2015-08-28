@@ -1,22 +1,26 @@
 package com.tongban.im.activity.user;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.AnimatorUtils;
 import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
@@ -33,6 +37,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
     private LinearLayout llMyTopic, llMyCollect;
+    private ImageView ivZoomTop, ivZoomBottom;
 
     private User user;
 
@@ -43,7 +48,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected int getLayoutRes() {
-
         return R.layout.activity_personal_center;
     }
 
@@ -57,6 +61,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
+
+        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
+        ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
 
         rlUserInfo = (RelativeLayout) headView.findViewById(R.id.rl_user_info);
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
@@ -105,6 +112,21 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFollow.setOnClickListener(this);
         tvGroup.setOnClickListener(this);
 
+        lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
+            @Override
+            public void onPullZooming(int newScrollValue) {
+                ObjectAnimator zoomBottomAnim = ObjectAnimator.ofFloat(ivZoomBottom, "alpha", 1.0f, 0.0f);
+                ObjectAnimator zoomTopAnim = ObjectAnimator.ofFloat(ivZoomTop, "alpha", 0.0f, 1.0f);
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.play(zoomBottomAnim).with(zoomTopAnim);
+                animatorSet.setDuration(500);
+                animatorSet.start();
+            }
+
+            @Override
+            public void onPullZoomEnd() {
+            }
+        });
     }
 
 
