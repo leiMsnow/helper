@@ -12,6 +12,7 @@
         <item name="createGroupIcon">@drawable/selector_group_icon_light_blue</item>
         <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
         <item name="android:textColorHint">@color/normal_grey</item>
+        <item name="searchViewStyle">@style/SearchView.Brown</item>
         <!-- 禁止item多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
