@@ -154,8 +154,18 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
      */
     public void onEventMainThread(BaseEvent.PersonalCenterEvent obj) {
         this.user = obj.user;
-        Glide.with(mContext).load(user.getPortrait_url().getMin()).
-                placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
+        if (user.getPortrait_url() != null) {
+            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+        } else {
+            ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
+        }
+        if (user.getChild_info().size() > 0) {
+            tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
+                    user.getChild_info().get(0).getAge()
+                    + " " + user.getChild_info().get(0).getConstellation());
+        } else {
+            tvUserName.setText("");
+        }
         tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
                 user.getChild_info().get(0).getAge()
                 + " " + user.getChild_info().get(0).getConstellation());

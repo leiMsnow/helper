@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="56dp"
     android:background="@drawable/selector_white_to_gray"
-    android:descendantFocusability="blocksDescendants"
-    android:minHeight="56dp">
+    android:descendantFocusability="blocksDescendants">
 
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_icon"
@@ -38,4 +37,8 @@
         android:text="@string/followed"
         android:textColor="@color/selector_join_text_color"
         android:textSize="12sp" />
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

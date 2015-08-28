@@ -12,6 +12,7 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 
 import io.rong.imkit.RongIM;
@@ -22,7 +23,7 @@ import io.rong.imkit.RongIM;
  * @author fushudi
  */
 public class MyGroupActivity extends BaseToolBarActivity implements
-        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+        LoadMoreListView.OnLoadMoreListener {
     private LoadMoreListView lvMyGroupList;
     private GroupListAdapter mAdapter;
 
@@ -57,8 +58,8 @@ public class MyGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initListener() {
-        lvMyGroupList.setOnItemClickListener(this);
         lvMyGroupList.setOnLoadMoreListener(this);
+        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     /**
@@ -70,14 +71,6 @@ public class MyGroupActivity extends BaseToolBarActivity implements
         mCursor++;
         mAdapter.addAll(obj.myGroupList);
         lvMyGroupList.setResultSize(obj.myGroupList.size());
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mAdapter.getItem(position) != null) {
-            RongIM.getInstance().startGroupChat(mContext, mAdapter.getItem(position).getGroup_id(),
-                    mAdapter.getItem(position).getGroup_name());
-        }
     }
 
     @Override

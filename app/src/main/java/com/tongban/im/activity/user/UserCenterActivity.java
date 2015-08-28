@@ -188,7 +188,8 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         }
         //私聊
         else if (v == ivPrivateChat) {
-            RongIM.getInstance().startPrivateChat(mContext, mUserInfo.getUser_id(), "单聊");
+            RongIM.getInstance().startPrivateChat(mContext, mUserInfo.getUser_id(),
+                    mUserInfo.getNick_name());
         }
         //关闭用户中心
         else if (v == ivClose) {

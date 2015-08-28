@@ -32,7 +32,7 @@ public class Group {
     //距离
     private String distance;
     //是否已经加入
-    private boolean allow_add;
+    private boolean allow_add = true;
     //成员数量
     private String member_amount;
     //年龄
