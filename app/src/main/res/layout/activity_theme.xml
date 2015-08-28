@@ -49,40 +49,45 @@
                     android:layout_height="wrap_content"/>
 
                 <!-- 发表人信息 -->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp">
                     <!-- 头像 -->
                     <com.tongban.corelib.widget.view.CircleImageView
                         android:id="@+id/iv_user_portrait"
                         android:layout_width="30dp"
-                        android:layout_height="30dp"/>
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"/>
                     <!-- 发表人昵称 -->
                     <TextView
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/iv_user_portrait"
                         android:textColor="@color/main_black"/>
                     <!-- 发表人标签 -->
                     <TextView
                         android:id="@+id/tv_user_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
+                        android:layout_toLeftOf="@+id/tv_create_time"
+                        android:layout_toRightOf="@+id/tv_user_name"
                         android:textColor="@color/normal_grey"/>
                     <!-- 发表时间 -->
                     <TextView
                         android:id="@+id/tv_create_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/normal_grey"/>
-                </LinearLayout>
+                </RelativeLayout>
                 <!-- 分割线 -->
                 <View style="@style/HorizontalLine"/>
                 <!-- 专题描述 -->
