@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.activity.topic.CreateTopicActivity;
@@ -38,10 +39,13 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 public class MyTopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener {
+        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
 
-    private ListView lvTopicList;
+    private LoadMoreListView lvTopicList;
     private TopicListAdapter mAdapter;
+
+    private int mCursor = 0;
+    private int mPageSize = 10;
 
     @Override
     protected int getLayoutRes() {
@@ -50,13 +54,13 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     @Override
     protected void initView() {
-        lvTopicList = (ListView) mView.findViewById(R.id.lv_topic_list);
-
+        lvTopicList = (LoadMoreListView) mView.findViewById(R.id.lv_topic_list);
     }
 
     @Override
     protected void initListener() {
         lvTopicList.setOnItemClickListener(this);
+        lvTopicList.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -64,17 +68,18 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
         if (getArguments() != null) {
             //我的收藏 - 话题列表
             if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_COLLECT_TOPIC_LIST) {
-                UserCenterApi.getInstance().fetchCollectTopicList(0, 10, this);
+                UserCenterApi.getInstance().fetchCollectTopicList(mCursor, mPageSize, this);
             }
             //我发起的话题列表
             else if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_SEND_TOPIC_LIST) {
-                UserCenterApi.getInstance().fetchLaunchTopicList(0, 10, this);
+                UserCenterApi.getInstance().fetchLaunchTopicList(mCursor, mPageSize, this);
             }
         }
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(this);
         lvTopicList.setAdapter(mAdapter);
+        lvTopicList.setPageSize(mPageSize);
     }
 
     @Override
@@ -118,8 +123,27 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
         TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
     }
 
+    /**
+     * 获取我的话题列表Event
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
+        mCursor++;
         mAdapter.replaceAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
+        lvTopicList.setResultSize(obj.topicList.size());
+    }
+
+    @Override
+    public void onLoadMore() {
+        //我的收藏 - 话题列表
+        if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_COLLECT_TOPIC_LIST) {
+            UserCenterApi.getInstance().fetchCollectTopicList(mCursor, mPageSize, this);
+        }
+        //我发起的话题列表
+        else if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_SEND_TOPIC_LIST) {
+            UserCenterApi.getInstance().fetchLaunchTopicList(mCursor, mPageSize, this);
+        }
     }
 }

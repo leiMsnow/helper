@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
@@ -23,10 +24,13 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-    private ListView lvFansList;
+public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener,
+        View.OnClickListener, LoadMoreListView.OnLoadMoreListener {
+    private LoadMoreListView lvFansList;
     private UserAdapter mAdapter;
-
+    private int mCursor = 0;
+    private int mPageSize = 10;
+    private String userID;
 
     @Override
     protected int getLayoutRes() {
@@ -35,16 +39,17 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
 
     @Override
     protected void initView() {
-        lvFansList = (ListView) mView.findViewById(R.id.lv_fans_list);
+        lvFansList = (LoadMoreListView) mView.findViewById(R.id.lv_fans_list);
     }
 
     @Override
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
         lvFansList.setAdapter(mAdapter);
+        lvFansList.setPageSize(mPageSize);
         if (getArguments() != null) {
-            String userID = getArguments().getString(Consts.USER_ID);
-            UserCenterApi.getInstance().fetchFansUserList(0, 10, userID, this);
+            userID = getArguments().getString(Consts.USER_ID);
+            UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
         }
     }
 
@@ -52,6 +57,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
     protected void initListener() {
         lvFansList.setOnItemClickListener(this);
         mAdapter.setOnClickListener(this);
+        lvFansList.setOnLoadMoreListener(this);
     }
 
     /**
@@ -60,7 +66,9 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
      * @param obj
      */
     public void onEventMainThread(BaseEvent.MyFansListEvent obj) {
+        mCursor++;
         mAdapter.replaceAll(obj.myFansList);
+        lvFansList.setResultSize(obj.myFansList.size());
     }
 
     /**
@@ -69,8 +77,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
      * @param obj
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
-        String userID = getArguments().getString(Consts.USER_ID);
-        UserCenterApi.getInstance().fetchFansUserList(0, 10, userID, this);
+        UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
     }
 
     @Override
@@ -86,5 +93,10 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
                 UserCenterApi.getInstance().focusUser(true, new String[]{focusId}, this);
                 break;
         }
+    }
+
+    @Override
+    public void onLoadMore() {
+        UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
     }
 }

@@ -26,6 +26,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
 
     private int mCursor = 0;
     private int mPageSize = 10;
+    private String userID;
 
     @Override
     protected int getLayoutRes() {
@@ -44,7 +45,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
         lvFocusList.setAdapter(mAdapter);
         lvFocusList.setPageSize(mPageSize);
         if (getArguments() != null) {
-            String userID = getArguments().getString(Consts.USER_ID);
+            userID = getArguments().getString(Consts.USER_ID);
             UserCenterApi.getInstance().fetchFocusUserList(mCursor, mPageSize, userID, this);
         }
     }
@@ -62,6 +63,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
         mPageSize++;
         mAdapter.replaceAll(obj.myFollowList);
+        lvFocusList.setResultSize(obj.myFollowList.size());
     }
 
     /**
@@ -99,7 +101,6 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onLoadMore() {
         if (getArguments() != null) {
-            String userID = getArguments().getString(Consts.USER_ID);
             UserCenterApi.getInstance().fetchFocusUserList(mCursor, mPageSize, userID, this);
         }
     }

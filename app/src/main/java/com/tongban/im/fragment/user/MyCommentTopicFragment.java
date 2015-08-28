@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.TopicDetailsActivity;
 import com.tongban.im.activity.user.UserCenterActivity;
@@ -24,9 +25,13 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private ListView mListView;
+public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener,
+        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+    private LoadMoreListView mListView;
     private MyCommentTopicAdapter mAdapter;
+
+    private int mCursor = 0;
+    private int mPageSize = 10;
 
     @Override
     protected int getLayoutRes() {
@@ -35,7 +40,7 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     protected void initView() {
-        mListView = (ListView) mView.findViewById(R.id.lv_receive_topic_list);
+        mListView = (LoadMoreListView) mView.findViewById(R.id.lv_receive_topic_list);
     }
 
     @Override
@@ -43,12 +48,14 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
         mAdapter = new MyCommentTopicAdapter(mContext, R.layout.item_my_comment_topic_list, null);
         mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
-        UserCenterApi.getInstance().fetchReplyTopicList(0, 10, this);
+        mListView.setPageSize(mPageSize);
+        UserCenterApi.getInstance().fetchReplyTopicList(mCursor, mPageSize, this);
     }
 
     @Override
     protected void initListener() {
         mListView.setOnItemClickListener(this);
+        mListView.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -72,10 +79,18 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
     }
 
     /**
-     * 回复我的话题Event
+     * 回复我的话题列表Event
+     *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
+        mCursor++;
         mAdapter.replaceAll(obj.commentTopicList);
+        mListView.setResultSize(obj.commentTopicList.size());
+    }
+
+    @Override
+    public void onLoadMore() {
+        UserCenterApi.getInstance().fetchReplyTopicList(mCursor, mPageSize, this);
     }
 }

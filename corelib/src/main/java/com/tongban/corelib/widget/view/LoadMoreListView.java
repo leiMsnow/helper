@@ -106,7 +106,6 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
             isLoadFull = false;
             tvMore.setVisibility(View.GONE);
         }
-
     }
 
 
