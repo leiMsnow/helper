@@ -1,17 +1,14 @@
 package com.tongban.im.activity.group;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 
 import io.rong.imkit.model.Event;

@@ -46,11 +46,6 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     private boolean mIsJoin = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.activity_group_info;
     }

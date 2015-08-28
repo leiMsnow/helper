@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="1dp"
+        android:scrollbars="none"
         android:background="@color/weak_grey">
 
         <LinearLayout
@@ -37,8 +37,8 @@
                 android:background="@color/white"
                 android:gravity="right|center_vertical"
                 android:paddingRight="16dp"
-                android:textColor="@color/selector_grey_to_orange"
-                android:text="展开全部" />
+                android:text="展开全部"
+                android:textColor="@color/selector_grey_to_orange" />
             <!--圈子名称-->
             <LinearLayout
                 android:id="@+id/ll_name"
@@ -197,7 +197,8 @@
                 <LinearLayout
                     android:id="@+id/ll_inform"
                     style="@style/ChatSettingLayout"
-                    android:gravity="left|center_vertical">
+                    android:gravity="left|center_vertical"
+                    android:visibility="gone">
 
                     <TextView
                         style="@style/ChatSettingLeftText"
