@@ -268,13 +268,12 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public UserInfo getUserInfo(String userId) {
-
-        UserCenterApi.getInstance().fetchUserCenterInfo(userId, null);
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
-            LogUtil.d("userTable-----" + userTable.getUser_id());
             return new UserInfo(userId, userTable.getNick_name(),
                     userTable.getPortrait_url() == null ? null : Uri.parse(userTable.getPortrait_url()));
+        } else {
+            UserCenterApi.getInstance().fetchUserCenterInfo(userId, null);
         }
         return null;
     }
