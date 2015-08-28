@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -83,6 +82,7 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
         }
         if (displayType == DisplayType.Toast) {
             ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+            showEmptyText("", true);
         } else if (displayType == DisplayType.View) {
             showEmptyText(errorMsg, false);
         } else if (displayType == DisplayType.ALL) {
@@ -130,9 +130,10 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
     }
 
     /**
-     * 显示空数据
+     * 显示空数据/加载条
      *
-     * @param message
+     * @param message   显示空数据的提示信息
+     * @param isLoading 是否显示加载条
      */
     protected void showEmptyText(String message, boolean isLoading) {
         createEmptyView();

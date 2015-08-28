@@ -1,6 +1,5 @@
 package com.tongban.corelib.base.activity;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 /**
