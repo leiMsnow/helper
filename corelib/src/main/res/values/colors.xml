@@ -14,6 +14,7 @@
     <!-- orange-->
     <color name="theme_orange">#FCDABE</color>
     <color name="theme_orange_200">#ffcc80</color>
+    <color name="theme_orange_700">#f57c00</color>
     <!-- deep purple-->
     <color name="theme_deep_purple">#FF9F88BE</color>
     <color name="theme_deep_purple_700">#512da8</color>

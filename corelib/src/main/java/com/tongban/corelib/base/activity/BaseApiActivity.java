@@ -4,12 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.tongban.corelib.R;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
@@ -29,6 +32,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     private View mEmptyView;
 
+    private Handler handler = new Handler();
 
     public void setRequestApiListener(RequestApiListener requestApiListener) {
         this.requestApiListener = requestApiListener;
@@ -50,8 +54,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         super.onDestroy();
         // 注销EventBus
         EventBus.getDefault().unregister(this);
-        // 销毁Dialog
-        mDialog = null;
     }
 
     public void onEventMainThread(Object obj) {
@@ -60,14 +62,11 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
 
     @Override
     public void onStartApi() {
-        mDialog.show();
-        mDialog.setMessage("请稍后...");
+        showEmptyText("", true);
     }
 
     @Override
     public void onComplete(Object obj) {
-        if (mDialog != null)
-            mDialog.dismiss();
         EventBus.getDefault().post(obj);
 
         if (mEmptyView != null) {
@@ -86,43 +85,48 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     }
 
     @Override
-    public void onFailure(DisplayType displayType, Object errorObj) {
-        if (mDialog != null)
-            mDialog.dismiss();
+    public void onFailure(final DisplayType displayType, final Object errorObj) {
 
-        String errorMsg = "";
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-        if (errorObj instanceof ApiResult) {
-            errorMsg = ((ApiResult) errorObj).getStatusDesc();
-        } else if (errorObj instanceof ApiListResult) {
-            errorMsg = ((ApiListResult) errorObj).getStatusDesc();
-        } else if (errorObj instanceof String) {
-            errorMsg = errorObj.toString();
-        }
 
-        if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
-            errorMsg = "网络异常，请稍后重试";
-        }
-        if (displayType == DisplayType.Toast) {
-            ToastUtil.getInstance(mContext).showToast(errorMsg);
-        } else if (displayType == DisplayType.View) {
-            createEmptyView(errorMsg);
-        } else if (displayType == DisplayType.ALL) {
-            ToastUtil.getInstance(mContext).showToast(errorMsg);
-            createEmptyView(errorMsg);
-        }
+                String errorMsg = "";
 
-        ApiErrorResult errorResult = new ApiErrorResult();
-        errorResult.setErrorMessage(errorMsg);
-        EventBus.getDefault().post(errorResult);
+                if (errorObj instanceof ApiResult) {
+                    errorMsg = ((ApiResult) errorObj).getStatusDesc();
+                } else if (errorObj instanceof ApiListResult) {
+                    errorMsg = ((ApiListResult) errorObj).getStatusDesc();
+                } else if (errorObj instanceof String) {
+                    errorMsg = errorObj.toString();
+                }
+
+                if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
+                    errorMsg = "网络异常，请稍后重试";
+                }
+                if (displayType == DisplayType.Toast) {
+                    ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+                    showEmptyText("", false);
+                } else if (displayType == DisplayType.View) {
+                    showEmptyText(errorMsg, false);
+                } else if (displayType == DisplayType.ALL) {
+                    ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+                    showEmptyText(errorMsg, false);
+                }
+
+                ApiErrorResult errorResult = new ApiErrorResult();
+                errorResult.setErrorMessage(errorMsg);
+                EventBus.getDefault().post(errorResult);
+
+            }
+        }, 1000);
     }
 
     /**
      * 创建空数据布局
-     *
-     * @param msg 提示信息
      */
-    private void createEmptyView(final String msg) {
+    private void createEmptyView() {
 
         mEmptyView = this.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
@@ -131,8 +135,31 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             objectAnimator.start();
         } else {
             mEmptyView = LayoutInflater.from(mContext).inflate(com.tongban.corelib.R.layout.view_empty, null);
-            TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
-            tvMsg.setText(msg);
+
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
+            objectAnimator.start();
+            this.addContentView(mEmptyView, layoutParams);
+        }
+    }
+
+    /**
+     * 显示空数据
+     *
+     * @param message
+     */
+    protected void showEmptyText(String message, boolean isLoading) {
+        createEmptyView();
+        TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
+        ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
+        if (isLoading) {
+            pb.setVisibility(View.VISIBLE);
+            tvMsg.setVisibility(View.GONE);
+        } else {
+            tvMsg.setText(message);
+            pb.setVisibility(View.GONE);
+            tvMsg.setVisibility(View.VISIBLE);
             tvMsg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -141,12 +168,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
                     }
                 }
             });
-
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
-            objectAnimator.start();
-            this.addContentView(mEmptyView, layoutParams);
         }
     }
 

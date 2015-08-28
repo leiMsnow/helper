@@ -148,15 +148,12 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
-        mDialog.setMessage("正在上传图片...");
-        mDialog.show();
+        showEmptyText("",true);
         FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0, selectedFile,
                 FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
                     public void uploadSuccess(List<ImageUrl> urls) {
-                        if (mDialog != null && mDialog.isShowing())
-                            mDialog.dismiss();
                         TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
                                 tvContent.getText().toString().trim(), urls,
                                 CreateTopicActivity.this);

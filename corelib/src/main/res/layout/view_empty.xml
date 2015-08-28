@@ -2,27 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_empty_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="96dp"
+    android:layout_height="match_parent"
     android:background="@color/transparent">
 
-    <ImageView
-        android:id="@+id/iv_empty_img"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="@style/Widget.ProgressBar.Horizontal.New"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:maxHeight="96dp"
-        android:maxWidth="96dp"
-        android:visibility="invisible"
-        android:src="@mipmap/bg_empty_data" />
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_empty_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_empty_img"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
@@ -30,6 +25,8 @@
         android:paddingTop="8dp"
         android:text="这里什么都没有"
         android:textColor="@color/theme_grey_500"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
+
 
 </RelativeLayout>

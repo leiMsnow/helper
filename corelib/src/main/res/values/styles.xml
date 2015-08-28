@@ -30,4 +30,9 @@
         <item name="goIcon">@mipmap/ic_go_search_api_mtrl_alpha</item>
     </style>
 
+    <style name="Widget.ProgressBar.Horizontal.New" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_new</item>
+        <item name="android:minHeight">4dp</item>
+    </style>
+
 </resources>
