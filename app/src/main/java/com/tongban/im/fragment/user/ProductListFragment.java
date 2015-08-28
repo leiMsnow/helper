@@ -61,7 +61,7 @@ public class ProductListFragment extends BaseApiFragment implements AdapterView.
             // 用于搜索
         } else {
             // 用于获取收藏的单品列表
-            UserCenterApi.getInstance().fetchCollectedProductList(this);
+            UserCenterApi.getInstance().fetchCollectedProductList(0,10,this);
         }
     }
 

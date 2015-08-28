@@ -19,10 +19,6 @@ public class UserAdapter extends QuickAdapter<User> {
     private View.OnClickListener onClickListener;
     private boolean isFocused = false;
 
-    public boolean isFocused() {
-        return isFocused;
-    }
-
     public void setIsFocused(boolean isFocused) {
         this.isFocused = isFocused;
     }

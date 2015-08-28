@@ -4,21 +4,15 @@ package com.tongban.im.activity.user;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
-import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
-import com.tongban.im.model.GroupType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.rong.imkit.RongIM;
 
@@ -27,9 +21,14 @@ import io.rong.imkit.RongIM;
  *
  * @author fushudi
  */
-public class MyGroupActivity extends BaseToolBarActivity implements AdapterView.OnItemClickListener {
-    private ListView lvMyGroupList;
+public class MyGroupActivity extends BaseToolBarActivity implements
+        AdapterView.OnItemClickListener, LoadMoreListView.OnLoadMoreListener {
+    private LoadMoreListView lvMyGroupList;
     private GroupListAdapter mAdapter;
+
+    private int mCursor = 0;
+    private int mPageSize = 10;
+    private String mUserId;
 
     @Override
     protected int getLayoutRes() {
@@ -39,35 +38,51 @@ public class MyGroupActivity extends BaseToolBarActivity implements AdapterView.
     @Override
     protected void initView() {
         setTitle(R.string.my_group);
-        lvMyGroupList = (ListView) findViewById(R.id.lv_my_group_list);
+        lvMyGroupList = (LoadMoreListView) findViewById(R.id.lv_my_group_list);
     }
 
     @Override
     protected void initData() {
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         lvMyGroupList.setAdapter(mAdapter);
+        lvMyGroupList.setPageSize(mPageSize);
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
-            String userId = bundle.getString(Consts.USER_ID);
-            UserCenterApi.getInstance().fetchMyGroupList(0, 10, userId, this);
+            mUserId = bundle.getString(Consts.USER_ID);
         } else {
-            UserCenterApi.getInstance().fetchMyGroupList(0, 10, SPUtils.get(mContext, Consts.USER_ID, "").toString(), this);
+            mUserId = SPUtils.get(mContext, Consts.USER_ID, "").toString();
         }
+        UserCenterApi.getInstance().fetchMyGroupList(mCursor, mPageSize, mUserId, this);
     }
 
     @Override
     protected void initListener() {
         lvMyGroupList.setOnItemClickListener(this);
+        lvMyGroupList.setOnLoadMoreListener(this);
     }
 
+    /**
+     * 获取圈子列表Event
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.MyGroupListEvent obj) {
-
-        mAdapter.replaceAll(obj.myGroupList);
+        mCursor++;
+        mAdapter.addAll(obj.myGroupList);
+        lvMyGroupList.setResultSize(obj.myGroupList.size());
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        RongIM.getInstance().startGroupChat(mContext, mAdapter.getItem(position).getGroup_id(),
-                mAdapter.getItem(position).getGroup_name());
+        if (mAdapter.getItem(position) != null) {
+            RongIM.getInstance().startGroupChat(mContext, mAdapter.getItem(position).getGroup_id(),
+                    mAdapter.getItem(position).getGroup_name());
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        UserCenterApi.getInstance().fetchMyGroupList(mCursor, mPageSize,
+                mUserId, this);
     }
 }

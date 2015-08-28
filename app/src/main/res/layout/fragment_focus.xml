@@ -1,14 +1,13 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
+    <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_focus_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:cacheColorHint="@color/transparent"
-        android:scrollbars="none"
-        />
+        android:scrollbars="none" />
 
-</FrameLayout>
+</RelativeLayout>
