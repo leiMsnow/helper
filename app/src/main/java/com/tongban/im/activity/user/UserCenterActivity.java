@@ -138,7 +138,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         } else {
             ivSex.setImageResource(R.mipmap.ic_girl);
         }
-        if (mUserInfo.getChild_info().size() > 0) {
+        if (mUserInfo.getChild_info() != null && mUserInfo.getChild_info().size() > 0) {
             tvUserName.setText(mUserInfo.getChild_info().get(0).getNick_name() + " " +
                     mUserInfo.getChild_info().get(0).getAge()
                     + " " + mUserInfo.getChild_info().get(0).getConstellation());
@@ -166,7 +166,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         if (v == chbFocus) {
             //添加/取消关注（为checkbox设置的onClick事件的原因，逻辑正好相反）
             UserCenterApi.getInstance().focusUser(chbFocus.isChecked(),
-                    new String[]{mUserInfo.getUser_id()}, this);
+                    mUserInfo.getUser_id(), this);
             chbFocus.setChecked(false);
         }
         //粉丝列表

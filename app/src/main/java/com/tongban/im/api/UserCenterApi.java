@@ -520,7 +520,7 @@ public class UserCenterApi extends BaseApi {
      * @param focusUserId 被关注的Id
      * @param callback
      */
-    public void focusUser(final boolean isFocus, final String[] focusUserId, final ApiCallback callback) {
+    public void focusUser(final boolean isFocus, final String focusUserId, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);

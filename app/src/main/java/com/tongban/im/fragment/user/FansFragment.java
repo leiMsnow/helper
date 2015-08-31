@@ -85,7 +85,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
         switch (v.getId()) {
             case R.id.btn_follow:
                 String focusId = v.getTag().toString();
-                UserCenterApi.getInstance().focusUser(true, new String[]{focusId}, this);
+                UserCenterApi.getInstance().focusUser(true, focusId, this);
                 break;
         }
     }

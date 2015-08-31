@@ -26,7 +26,8 @@ public class ModelToTable {
         userTable.setNick_name(user.getNick_name());
         userTable.setMobile_phone(user.getMobile_phone());
         userTable.setDeclaration(user.getDeclaration());
-        userTable.setPortrait_url(user.getPortrait_url().getMin());
+        if (user.getPortrait_url() != null)
+            userTable.setPortrait_url(user.getPortrait_url().getMin());
 
         return userTable;
     }

@@ -74,11 +74,9 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
         for (int i = 0; i < mAdapter.getCount(); i++) {
-            for (int j = 0; j < obj.userIds.length; j++) {
-                if (mAdapter.getItem(i).getUser_id().equals(obj.userIds[j])) {
+                if (mAdapter.getItem(i).getUser_id().equals(obj.userIds)) {
                     mAdapter.remove(i);
                 }
-            }
         }
     }
 
@@ -88,7 +86,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
             //取消关注
             case R.id.btn_follow:
                 String focusId = v.getTag().toString();
-                UserCenterApi.getInstance().focusUser(false, new String[]{focusId}, this);
+                UserCenterApi.getInstance().focusUser(false,focusId, this);
                 break;
 
         }

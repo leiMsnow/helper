@@ -45,7 +45,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private ViewPager vpChildInfo;
     private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
-    private List<Child> mChildInfoList;
     private List<View> mViewList;
 
     private User user;
@@ -77,8 +76,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
         indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
-
-        mChildInfoList = new ArrayList<>();
 
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
@@ -188,11 +185,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         } else {
             ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
         }
-        mChildInfoList = user.getChild_info();
-        mAdapter = new UserInfoAdapter(mContext, mChildInfoList);
-        vpChildInfo.setAdapter(mAdapter);
-        indicator.setViewPager(vpChildInfo);
-        vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
+        if (user.getChild_info() != null) {
+            mAdapter = new UserInfoAdapter(mContext, user.getChild_info());
+            vpChildInfo.setAdapter(mAdapter);
+            indicator.setViewPager(vpChildInfo);
+            vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
+        }
+
         tvFansCount.setText(user.getFans_amount() + "");
         tvFollowCount.setText(user.getFocused_amount() + "");
         tvGroupCount.setText(user.getJoined_group_amount() + "");

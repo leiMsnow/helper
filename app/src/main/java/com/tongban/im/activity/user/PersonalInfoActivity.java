@@ -68,10 +68,12 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         Glide.with(mContext).load(user.getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
-        tvChildAge.setText(user.getChild_info().get(0).getAge());
-        tvChildSex.setText(user.getChild_info().get(0).getSex());
-        tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
-        tvChildSchool.setText(user.getChild_info().get(0).getSchool());
+        if (user.getChild_info() != null && user.getChild_info().size() > 0) {
+            tvChildAge.setText(user.getChild_info().get(0).getAge());
+            tvChildSex.setText(user.getChild_info().get(0).getSex());
+            tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
+            tvChildSchool.setText(user.getChild_info().get(0).getSchool());
+        }
         tvAddress.setText(user.getAddress());
     }
 

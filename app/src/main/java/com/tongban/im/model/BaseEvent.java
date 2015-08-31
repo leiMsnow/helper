@@ -231,7 +231,7 @@ public class BaseEvent {
      */
     public static class FocusEvent {
         public boolean isFocus;
-        public String [] userIds;
+        public String userIds;
     }
 
     //--------------------------------------商品模块-------------------------------------------------
