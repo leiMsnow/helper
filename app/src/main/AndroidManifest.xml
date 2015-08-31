@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.tongban.im"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tongban.im">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 获取机型信息权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <!-- 查看 Wi-Fi 状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 查看网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- 录音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- 控制振动器 -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 防止设备休眠 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <!-- 获取联系人信息 -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".App"
@@ -44,18 +44,18 @@
             android:name="io.rong.push.PushService"
             android:process="io.rong.push">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <action android:name="io.rong.push"/>
+                <action android:name="io.rong.push" />
             </intent-filter>
         </service>
         <service
             android:name="io.rong.push.CommandService"
             android:process="io.rong.push">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
-                <action android:name="io.rong.command"/>
+                <action android:name="io.rong.command" />
             </intent-filter>
         </service>
 
@@ -63,34 +63,34 @@
             android:name="io.rong.push.PushReceiver"
             android:process="io.rong.push">
             <intent-filter>
-                <action android:name="io.rong.imlib.action.push.heartbeat"/>
+                <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc"/>
+            android:process=":ipc" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"
-            android:process=":ipc"/>
-        <service android:name="io.rong.imlib.ReConnectService"/>
+            android:process=":ipc" />
+        <service android:name="io.rong.imlib.ReConnectService" />
 
         <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
-                <action android:name="io.rong.push.message"/>
+                <action android:name="io.rong.push.message" />
             </intent-filter>
         </receiver>
-        <receiver android:name="io.rong.imlib.ConnectChangeReceiver"/>
+        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
 
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="3argexb6r9wse"/>
+            android:value="3argexb6r9wse" />
         <!-- end rongcloud -->
 
         <activity
@@ -98,196 +98,207 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/conversationlist"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.user.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/login"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.group.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/conversation/"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.user.RegisterActivity"
             android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.LoadingActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.group.GroupInfoActivity"
             android:label="@string/group_settings">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/groupinfo"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.group.CreateGroupActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
             android:theme="@style/AppTheme.White.Base.Translucent">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/searchgroup"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.group.ChooseGroupTypeActivity"
-            android:label="@string/choice_group_type"/>
-        <activity android:name=".activity.user.PwdResetActivity"/>
-        <activity android:name=".activity.ClipImageBorderViewActivity"/>
+            android:label="@string/choice_group_type" />
+        <activity android:name=".activity.user.PwdResetActivity" />
+        <activity android:name=".activity.ClipImageBorderViewActivity" />
         <activity
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/topicdetails"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".activity.group.SearchPoiActivity"
-            android:label="@string/select_location"/>
+            android:label="@string/select_location" />
         <activity
             android:name=".activity.group.LabelListActivity"
-            android:label="@string/group_label"/>
+            android:label="@string/group_label" />
         <activity
             android:name=".activity.topic.CreateTopicActivity"
             android:label="@string/create_topic"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.topic.SearchTopicActivity"
             android:label="@string/topic_search">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/searchtopic"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.PhotoViewPagerActivity"
-            android:label="@string/image_display"/>
+            android:label="@string/image_display" />
         <activity
             android:name=".activity.discover.SearchDiscoverActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.discover.SearchResultActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:label="@string/search"/>
+            android:label="@string/search"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.user.FindPwdActivity"
             android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".activity.user.PersonalInfoActivity"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.user.PersonalInfoActivity" />
 
-        <activity android:name=".activity.user.MyRelationshipActivity"/>
-        <activity android:name=".activity.user.MyCollectActivity"/>
-        <activity android:name=".activity.user.MyTopicActivity"/>
-        <activity android:name=".activity.user.MyGroupActivity"/>
+        <activity android:name=".activity.user.MyRelationshipActivity" />
+        <activity android:name=".activity.user.MyCollectActivity" />
+        <activity android:name=".activity.user.MyTopicActivity" />
+        <activity android:name=".activity.user.MyGroupActivity" />
         <activity
             android:name=".activity.user.PersonalCenterActivity"
             android:label="@string/user_center">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/mycenter"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.user.UserCenterActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/usercenter"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.discover.ThemeActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/theme"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.discover.ProductBookActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
 
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/productbook"
-                    android:scheme="tongban"/>
+                    android:scheme="tongban" />
             </intent-filter>
         </activity>
     </application>

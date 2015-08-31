@@ -89,24 +89,28 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
             @Override
             public void onTokenIncorrect() {
                 LogUtil.d("onTokenIncorrect");
+                startMain();
             }
 
             @Override
             public void onSuccess(String s) {
                 LogUtil.d("连接RongIM成功，当前用户：" + s);
-                RongCloudEvent.getInstance().setOtherListener();
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
+                startMain();
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                RongCloudEvent.getInstance().setOtherListener();
-                startActivity(new Intent(mContext, MainActivity.class));
-                finish();
+                startMain();
             }
         });
     }
+
+    private void startMain(){
+        RongCloudEvent.getInstance().setOtherListener();
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
+
 
 }

@@ -108,6 +108,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_TOPIC, null);
         } else if (v == ibCreate) {
+            if (!TransferCenter.getInstance().startLogin())
+                return;
             Intent intent = new Intent(mContext, CreateTopicActivity.class);
             startActivity(intent);
         }
@@ -134,10 +136,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
             mIsPull = false;
             mAdapter.clear();
         }
-        //上拉加载成功
-        else {
-            lvTopicList.setResultSize(obj.topicList.size());
-        }
+        lvTopicList.setResultSize(obj.topicList.size());
         mAdapter.addAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
     }

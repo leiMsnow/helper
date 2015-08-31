@@ -12,6 +12,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -93,6 +94,9 @@ public class GroupApi extends BaseApi {
                             ImageUrl groupAvatar, boolean isSearch,
                             final ApiCallback callback) {
 
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_name", groupName);
@@ -144,6 +148,11 @@ public class GroupApi extends BaseApi {
      * @param callback  结果回调
      */
     public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
+
+
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("group_name", groupName);
@@ -233,6 +242,7 @@ public class GroupApi extends BaseApi {
      * @param callback
      */
     public void searchGroupList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));

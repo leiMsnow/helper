@@ -39,6 +39,9 @@ public class TransferPathPrefix {
      * 圈子详情
      */
     public static final String GROUP_INFO = "groupinfo";
-
+    /**
+     * 跳转到登录
+     */
+    public static final String LOGIN = "login";
 
 }

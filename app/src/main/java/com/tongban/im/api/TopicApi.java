@@ -12,6 +12,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
@@ -87,6 +88,11 @@ public class TopicApi extends BaseApi {
      */
     public void createTopic(String title, String content, List<ImageUrl> urls,
                             final ApiCallback callback) {
+
+
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_title", title);
@@ -173,6 +179,7 @@ public class TopicApi extends BaseApi {
      * @param callback
      */
     public void searchTopicList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -305,6 +312,10 @@ public class TopicApi extends BaseApi {
                                       @Nullable String repliedName,
                                       @Nullable String repliedUserId,
                                       final ApiCallback callback) {
+
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
@@ -352,6 +363,10 @@ public class TopicApi extends BaseApi {
      * @param callback
      */
     public void collectTopic(final boolean collect, final String topicId, final ApiCallback callback) {
+
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_id", topicId);

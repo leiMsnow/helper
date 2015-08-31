@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 
@@ -121,15 +122,33 @@ public class TransferCenter {
      *
      * @param groupId 圈子Id
      */
-    public void startGroupInfo(String groupId,boolean isJoin) {
+    public void startGroupInfo(String groupId, boolean isJoin) {
         String pathPrefix = TransferPathPrefix.GROUP_INFO;
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix).appendQueryParameter(Consts.KEY_GROUP_ID, groupId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.putExtra(Consts.KEY_IS_JOIN,isJoin);
+        intent.putExtra(Consts.KEY_IS_JOIN, isJoin);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
+    }
+
+    /**
+     * 是否已经登录，没有登录则跳转到登录界面
+     *
+     * @return true 已经登录；false 未登录
+     */
+    public boolean startLogin() {
+        if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals("")) {
+            String pathPrefix = TransferPathPrefix.LOGIN;
+            Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                    .appendPath(pathPrefix).build();
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
+            return false;
+        }
+        return true;
     }
 
 }

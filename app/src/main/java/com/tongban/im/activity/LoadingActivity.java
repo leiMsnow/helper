@@ -55,8 +55,7 @@ public class LoadingActivity extends BaseToolBarActivity {
         }
         String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
         if (freeAuthToken.equals("")) {
-            startActivity(new Intent(mContext, LoginActivity.class));
-            finish();
+            connectIM("");
         } else {
             AccountApi.getInstance().tokenLogin(freeAuthToken, new ApiCallback() {
                 @Override

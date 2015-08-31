@@ -1,11 +1,13 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
 import com.tongban.im.R;
@@ -28,6 +30,18 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     private FragmentPagerAdapter mAdapter;
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();
     private ChangeColorView ccvDiscover, ccvCircle, ccvTopic;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActivityContainer.getInstance().finishActivity(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ActivityContainer.getInstance().finishActivity(this);
+    }
 
     @Override
     protected int getLayoutRes() {

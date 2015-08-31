@@ -1,6 +1,7 @@
 package com.tongban.im.api;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -12,6 +13,7 @@ import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
@@ -161,7 +163,11 @@ public class BaseApi {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("_R_C", CheckID.encode(SPUtils.contains(mContext, Consts.USER_ID)));
+                headers.put("_P", "Android");
+                headers.put("_V", AppUtils.getVersionName(mContext));
+                headers.put("_R_C", CheckID.encode(
+                        TextUtils.isEmpty(SPUtils.get(mContext,Consts.USER_ID,"").toString())));
+                headers.put("_U", SPUtils.get(mContext,Consts.USER_ID,"").toString());
                 return headers;
             }
         };

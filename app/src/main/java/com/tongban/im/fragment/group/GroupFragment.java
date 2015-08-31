@@ -91,6 +91,10 @@ public class GroupFragment extends BaseApiFragment {
         ibCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!TransferCenter.getInstance().startLogin())
+                    return;
+
                 Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
                 startActivity(intent);
             }

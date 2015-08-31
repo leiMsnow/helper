@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.KeyBoardUtils;
 
 /**
@@ -19,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityContainer.getInstance().addActivity(this);
         mContext = this;
         // 使得音量键控制媒体声音
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -30,6 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         KeyBoardUtils.hideSoftKeyboard(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityContainer.getInstance().removeActivity(this);
     }
 }
 
