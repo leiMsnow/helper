@@ -49,7 +49,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     protected void initView() {
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
-        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view, null, false);
+        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_user_center, null, false);
         View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
         lvUserCenter.setHeaderView(headView);

@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +18,14 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.Child;
 import com.tongban.im.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 个人中心
@@ -27,16 +33,19 @@ import com.tongban.im.model.User;
 public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private PullToZoomScrollViewEx lvUserCenter;
-    private ImageView ivUserIcon, ivClose;
-    private TextView tvUserName, tvDeclaration;
-    private RelativeLayout rlUserInfo;
+    private ImageView ivClose;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup;
     private LinearLayout llMyTopic, llMyCollect;
-    private ImageView ivZoomTop, ivZoomBottom;
+    private ImageView ivZoomTop, ivZoomBottom, ivUserIcon;
+    private ViewPager vpChildInfo;
+    private ImageView ivPointOne, ivPointTwo;
+    private UserInfoAdapter mAdapter;
+    private List<Child> mChildInfoList;
 
     private User user;
+    private int currentPageNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     protected void initView() {
         ivClose = (ImageView) findViewById(R.id.iv_close);
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
-        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view, null, false);
+        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
         View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
         lvUserCenter.setHeaderView(headView);
@@ -62,10 +71,28 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
         ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
 
-        rlUserInfo = (RelativeLayout) headView.findViewById(R.id.rl_user_info);
+        vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
+        vpChildInfo.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        ivPointOne.setImageResource(R.mipmap.ic_point_one);
+                        ivPointTwo.setImageResource(R.mipmap.ic_point_two);
+                        break;
+                    case 1:
+                        ivPointTwo.setImageResource(R.mipmap.ic_point_one);
+                        ivPointOne.setImageResource(R.mipmap.ic_point_two);
+                        break;
+                }
+                currentPageNum=position;
+            }
+        });
+        ivPointOne = (ImageView) findViewById(R.id.iv_point_one);
+        ivPointTwo = (ImageView) findViewById(R.id.iv_point_two);
+        mChildInfoList = new ArrayList<>();
+
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
-        tvDeclaration = (TextView) headView.findViewById(R.id.tv_declaration);
-        tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
         rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
         rlGroupNum = (RelativeLayout) headView.findViewById(R.id.rl_group_num);
@@ -97,7 +124,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     protected void initListener() {
         ivClose.setOnClickListener(this);
 
-        rlUserInfo.setOnClickListener(this);
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
@@ -129,12 +155,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     public void onClick(View v) {
-        //跳转到个人资料界面
-        if (v == rlUserInfo) {
-            startActivity(new Intent(this, PersonalInfoActivity.class));
-        }
         //跳转到粉丝界面
-        else if (v == rlFansNum || v == tvFans) {
+        if (v == rlFansNum || v == tvFans) {
             Intent intent = new Intent(this, MyRelationshipActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("Tag", "Fans");
@@ -165,8 +187,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         else if (v == ivClose) {
             finish();
         }
-
     }
+
 
     /**
      * 返回个人中心数据Event
@@ -178,17 +200,10 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         } else {
             ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
         }
-        if (user.getChild_info().size() > 0) {
-            tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
-                    user.getChild_info().get(0).getAge()
-                    + " " + user.getChild_info().get(0).getConstellation());
-        } else {
-            tvUserName.setText("");
-        }
-        tvUserName.setText(user.getChild_info().get(0).getNick_name() + " " +
-                user.getChild_info().get(0).getAge()
-                + " " + user.getChild_info().get(0).getConstellation());
-        tvDeclaration.setText(user.getTags());
+        mChildInfoList = user.getChild_info();
+        mAdapter = new UserInfoAdapter(mContext, mChildInfoList);
+        vpChildInfo.setAdapter(mAdapter);
+
         tvFansCount.setText(user.getFans_amount() + "");
         tvFollowCount.setText(user.getFocused_amount() + "");
         tvGroupCount.setText(user.getJoined_group_amount() + "");
@@ -208,4 +223,5 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             tvFollowCount.setText(String.valueOf(Integer.parseInt(tvFollowCount.getText().toString()) - 1));
         }
     }
+
 }
