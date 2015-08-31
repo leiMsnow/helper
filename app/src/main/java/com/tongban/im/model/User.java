@@ -39,6 +39,8 @@ public class User {
     private String address;
     //加入的群数量
     private String joined_group_amount;
+    //创建的群数量
+    private String created_group_amount;
     //粉丝数量
     private String fans_amount;
     //关注数量
@@ -49,6 +51,25 @@ public class User {
     private List<Child> child_info;
     //是否已经关注
     private boolean is_focused;
+
+    public String getCreated_group_amount() {
+        return created_group_amount;
+    }
+
+    public void setCreated_group_amount(String created_group_amount) {
+        this.created_group_amount = created_group_amount;
+    }
+
+    /**
+     * 返回用户加入和创建的圈子
+     *
+     * @return
+     */
+    public String getGroupAmount() {
+        int joinedAmount = Integer.parseInt(joined_group_amount);
+        int createdAmount = Integer.parseInt(created_group_amount);
+        return String.valueOf(joinedAmount + createdAmount);
+    }
 
     public boolean is_focused() {
         return is_focused;

@@ -191,11 +191,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
         }
-
-        tvFansCount.setText(user.getFans_amount() + "");
-        tvFollowCount.setText(user.getFocused_amount() + "");
-        tvGroupCount.setText(user.getJoined_group_amount() + "");
-
+        tvFansCount.setText(String.valueOf(user.getFans_amount()));
+        tvFollowCount.setText(String.valueOf(user.getFocused_amount()));
+        tvGroupCount.setText(user.getGroupAmount());
     }
 
     /**
