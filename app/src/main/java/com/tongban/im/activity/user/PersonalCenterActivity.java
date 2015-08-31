@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.widget.view.DepthPageTransformer;
+import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
+import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
@@ -40,9 +43,10 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private LinearLayout llMyTopic, llMyCollect;
     private ImageView ivZoomTop, ivZoomBottom, ivUserIcon;
     private ViewPager vpChildInfo;
-    private ImageView ivPointOne, ivPointTwo;
+    private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
     private List<Child> mChildInfoList;
+    private List<View> mViewList;
 
     private User user;
     private int currentPageNum;
@@ -72,24 +76,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
 
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
-        vpChildInfo.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        ivPointOne.setImageResource(R.mipmap.ic_point_one);
-                        ivPointTwo.setImageResource(R.mipmap.ic_point_two);
-                        break;
-                    case 1:
-                        ivPointTwo.setImageResource(R.mipmap.ic_point_one);
-                        ivPointOne.setImageResource(R.mipmap.ic_point_two);
-                        break;
-                }
-                currentPageNum=position;
-            }
-        });
-        ivPointOne = (ImageView) findViewById(R.id.iv_point_one);
-        ivPointTwo = (ImageView) findViewById(R.id.iv_point_two);
+        indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
+
         mChildInfoList = new ArrayList<>();
 
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
@@ -203,7 +191,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         mChildInfoList = user.getChild_info();
         mAdapter = new UserInfoAdapter(mContext, mChildInfoList);
         vpChildInfo.setAdapter(mAdapter);
-
+        indicator.setViewPager(vpChildInfo);
+        vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
         tvFansCount.setText(user.getFans_amount() + "");
         tvFollowCount.setText(user.getFocused_amount() + "");
         tvGroupCount.setText(user.getJoined_group_amount() + "");

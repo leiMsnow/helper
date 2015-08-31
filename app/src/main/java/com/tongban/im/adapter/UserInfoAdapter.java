@@ -25,6 +25,7 @@ public class UserInfoAdapter extends PagerAdapter {
     private Context mContext;
     private List<Child> mChildInfoList;
     private LayoutInflater mInflater;
+    private View view;
 
     private View.OnClickListener onClickListener;
 
@@ -61,7 +62,7 @@ public class UserInfoAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = mInflater.inflate(R.layout.view_child_info, container, false);
+        view = mInflater.inflate(R.layout.view_child_info, container, false);
         rlUserInfo = (RelativeLayout) view.findViewById(R.id.rl_user_info);
         tvDeclaration = (TextView) view.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) view.findViewById(R.id.tv_user_name);

@@ -34,27 +34,13 @@
         android:layout_alignTop="@+id/fl_user_head"
         android:gravity="center_vertical" />
 
-    <FrameLayout
-        android:layout_marginBottom="80dp"
-        android:layout_centerHorizontal="true"
+    <com.tongban.corelib.widget.view.indicator.CirclePageIndicator
+        android:id="@+id/lpi_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/fl_point"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iv_point_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_point_one" />
-
-        <ImageView
-            android:id="@+id/iv_point_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:src="@mipmap/ic_point_two" />
-    </FrameLayout>
+        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/vp_container"/>
 
     <ImageView
         android:id="@+id/iv_private_chat"
