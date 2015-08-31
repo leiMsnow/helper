@@ -64,7 +64,7 @@ public class BaseApi {
     // 默认服务器地址，实际地址根据getHostUrl来获取；
     private static String DEFAULT_HOST = "http://10.255.209.67:8080/ddim/";
     //测试环境
-    private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
+    private static String TEST_HOST = "http://192.168.81.9:8081/ddim/";
 
     public BaseApi(Context context) {
         this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();
