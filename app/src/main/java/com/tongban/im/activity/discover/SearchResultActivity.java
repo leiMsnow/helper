@@ -133,7 +133,7 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         });
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
-        searchView.onActionViewExpanded();
+        searchView.onActionViewCollapsed();
         return true;
     }
 

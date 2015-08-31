@@ -226,7 +226,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.discover.SearchResultActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/search"/>
         <activity
             android:name=".activity.user.FindPwdActivity"
             android:theme="@style/AppTheme.Red.Base"
