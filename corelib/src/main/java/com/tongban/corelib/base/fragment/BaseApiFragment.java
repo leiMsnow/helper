@@ -92,7 +92,6 @@ public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallb
         ApiErrorResult errorResult = new ApiErrorResult();
         errorResult.setErrorMessage(errorMsg);
         EventBus.getDefault().post(errorResult);
-
     }
 
     public void onEventMainThread(Object obj) {

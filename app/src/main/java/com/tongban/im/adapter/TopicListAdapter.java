@@ -40,7 +40,8 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         }
 
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
-        if (item.getUser_info().getChild_info().size() > 0) {
+        if (item.getUser_info().getChild_info() != null &&
+                item.getUser_info().getChild_info().size() > 0) {
             helper.setText(R.id.tv_child_age,
                     String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
                             item.getUser_info().getChild_info().get(0).getSex() + "宝宝");

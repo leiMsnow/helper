@@ -165,9 +165,6 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
         if (mAdapter != null) {
             if (mAdapter.getCount() == 0) {
                 showEmptyText(obj.getErrorMessage(), false);
-            } else {
-                lvTopicList.setFooterText(obj.getErrorMessage());
-                lvTopicList.setVisibility(View.VISIBLE);
             }
         }
     }

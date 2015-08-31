@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -173,10 +174,20 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
                         @Override
                         public void uploadSuccess(ImageUrl url) {
-                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude, latitude, address,
+                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
+                                    latitude, address,
                                     birthday, tags, declaration, url, chbSecret.isChecked(),
                                     CreateGroupActivity.this);
                         }
+
+                        @Override
+                        public void uploadFailed(String error) {
+                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
+                                    latitude, address,
+                                    birthday, tags, declaration, null, chbSecret.isChecked(),
+                                    CreateGroupActivity.this);
+                        }
+
                     });
 
 

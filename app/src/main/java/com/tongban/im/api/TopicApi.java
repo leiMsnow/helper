@@ -151,7 +151,7 @@ public class TopicApi extends BaseApi {
                         callback.onComplete(topicListEvent);
                 } else {
                     if (callback != null)
-                        callback.onFailure(DisplayType.None, "暂无话题信息,快来创建第一条话题吧");
+                        callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
                 }
             }
 
@@ -159,7 +159,7 @@ public class TopicApi extends BaseApi {
             public void onFailure(DisplayType displayType, Object errorMessage) {
 
                 if (callback != null)
-                    callback.onFailure(DisplayType.None, getErrorMessage());
+                    callback.onFailure(DisplayType.View, getErrorMessage());
             }
         });
     }

@@ -90,8 +90,11 @@ public class FileUploadApi extends BaseApi {
      * 获取上传图片的Token
      */
     public void fetchUploadToken() {
+        //有效时间
+        long expireTime = 24 * 60 * 60;
         mParams = new HashMap<>();
         mParams.put("space_name", "tongban");
+        mParams.put("expire_time", expireTime);
         simpleRequest(UPLOAD_TOKEN, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -223,9 +226,9 @@ public class FileUploadApi extends BaseApi {
                     @Override
                     public void complete(String key, ResponseInfo info, JSONObject response) {
 
-                        if (response != null) {
-                            LogUtil.d("MultiUploadFileCallback-complete", response.toString());
-                            if (callback != null) {
+                        if (callback != null) {
+                            if (response != null) {
+                                LogUtil.d("MultiUploadFileCallback-complete", response.toString());
                                 String responseKey = response.optString("key");
                                 String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
                                 String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
@@ -240,6 +243,9 @@ public class FileUploadApi extends BaseApi {
                                 } else {
                                     uploadFile(resultUrls, newIndex, filePaths, minSize, midSize, callback, null);
                                 }
+                            } else {
+                                LogUtil.d("uploadFailed:", info.error);
+                                callback.uploadFailed(info.error);
                             }
                         }
                     }
@@ -264,15 +270,18 @@ public class FileUploadApi extends BaseApi {
 
         @Override
         public void complete(String key, ResponseInfo info, JSONObject response) {
-            if (response != null) {
-                LogUtil.d("UploadFileCallback-complete", response.toString());
-                if (mCallback != null) {
+            if (mCallback != null) {
+                if (response != null) {
+                    LogUtil.d("UploadFileCallback-complete", response.toString());
                     String responseKey = response.optString("key");
                     String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
                     String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                     String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                     ImageUrl url = new ImageUrl(min, mid, max);
                     mCallback.uploadSuccess(url);
+                } else {
+                    LogUtil.d("uploadFailed:", info.error);
+                    mCallback.uploadFailed(info.error);
                 }
             }
         }

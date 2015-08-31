@@ -97,7 +97,7 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_name", groupName);
         //(默认0，1：学校)
-        mParams.put("address_type", groupType == GroupType.CLASSMATE ? 1 : 0);
+        mParams.put("address_type", getTypeStr(groupType == GroupType.CLASSMATE));
         mParams.put("longitude", longitude);
         mParams.put("latitude", latitude);
         mParams.put("address", address);
@@ -110,7 +110,7 @@ public class GroupApi extends BaseApi {
             mParams.put("declaration", declaration);
 
         mParams.put("group_avatar", JSON.toJSON(groupAvatar));
-        mParams.put("flag_allow_search", isSearch ? 1 : 0);
+        mParams.put("flag_allow_search", getTypeStr(isSearch));
         //此处接口名称根据groupType变化
         simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new ApiCallback() {
             @Override
@@ -238,6 +238,8 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 1 ? 1 : cursor);
         mParams.put("page_size", pageSize);
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
 
         simpleRequest(SEARCH_GROUP_LIST, mParams, new ApiCallback() {
             @Override

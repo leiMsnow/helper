@@ -15,4 +15,11 @@ public interface MultiUploadFileCallback {
      * @param urls 图片数组
      */
     void uploadSuccess(List<ImageUrl> urls);
+
+    /**
+     * 上传失败
+     *
+     * @param error
+     */
+    void uploadFailed(String error);
 }

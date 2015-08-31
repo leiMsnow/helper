@@ -19,6 +19,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CheckID;
 
 import org.json.JSONObject;
@@ -178,5 +179,9 @@ public class BaseApi {
                 getStringArray(R.array.error_message).length;
         return mContext.getResources().getStringArray(R.array.error_message)
                 [random.nextInt(count)].toString();
+    }
+
+    protected String getTypeStr(boolean type) {
+        return String.valueOf(type ? 1 : 0);
     }
 }

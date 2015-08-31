@@ -3,9 +3,12 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 
 import java.util.List;
@@ -20,7 +23,7 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         return imgCount;
     }
 
-    private int imgCount = 3;
+    private int imgCount = 15;
     private View.OnClickListener onClickListener;
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -43,8 +46,12 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
             helper.setImageBitmap(R.id.iv_topic_img, item);
         }
         helper.setOnClickListener(R.id.iv_topic_img, onClickListener);
-
-
     }
 
+    @Override
+    protected void onFirstCreateView(BaseAdapterHelper helper) {
+        ViewGroup.LayoutParams layoutParams = helper.getView(R.id.iv_topic_img).getLayoutParams();
+        layoutParams.width = layoutParams.height;
+        helper.getView(R.id.iv_topic_img).setLayoutParams(layoutParams);
+    }
 }

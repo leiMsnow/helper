@@ -210,7 +210,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                 ivCollect.setImageResource(R.drawable.selector_topic_collect);
             }
             //宝宝信息
-            if (mTopicInfo.getUser_info().getChild_info().size() > 0) {
+            if (mTopicInfo.getUser_info().getChild_info() != null &&
+                    mTopicInfo.getUser_info().getChild_info().size() > 0) {
                 tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
                         mTopicInfo.getUser_info().getChild_info().get(0).getSex() + "宝宝");
             }

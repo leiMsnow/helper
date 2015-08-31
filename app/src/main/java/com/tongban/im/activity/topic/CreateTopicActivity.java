@@ -69,8 +69,8 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     protected void initData() {
         adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
         adapter.setImgCount(IMAGE_COUNT);
-        adapter.add("");
         gvTopicImg.setAdapter(adapter);
+        adapter.add("");
     }
 
     @Override
@@ -148,7 +148,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
-        showEmptyText("",true);
+        showEmptyText("", true);
         FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0, selectedFile,
                 FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
@@ -157,6 +157,11 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
                         TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
                                 tvContent.getText().toString().trim(), urls,
                                 CreateTopicActivity.this);
+                    }
+
+                    @Override
+                    public void uploadFailed(String error) {
+                        ToastUtil.getInstance(mContext).showToast("图片上传失败");
                     }
                 }, null);
     }

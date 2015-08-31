@@ -7,6 +7,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
@@ -46,16 +47,6 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
     protected void initView() {
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
-
-        StoreHouseHeader header = new StoreHouseHeader(mContext);
-        header.setTextColor(R.color.main_brown);
-        header.setPadding(0, DensityUtils.dp2px(mContext, 16), 0, 0);
-        header.initWithString("Recommending...", DensityUtils.dp2px(mContext, 10));
-
-        ptrFrameLayout.setHeaderView(header);
-        ptrFrameLayout.addPtrUIHandler(header);
-        ptrFrameLayout.setPtrHandler(this);
-
     }
 
 
@@ -64,6 +55,14 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
         if (getArguments() != null)
             mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsFromMain) {
+            StoreHouseHeader header = new StoreHouseHeader(mContext);
+            header.setTextColor(R.color.main_brown);
+            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
+                    DensityUtils.dp2px(mContext, 16), 0);
+            header.initWithString("Recommend...", DensityUtils.dp2px(mContext, 10));
+            ptrFrameLayout.setHeaderView(header);
+            ptrFrameLayout.addPtrUIHandler(header);
+            ptrFrameLayout.setPtrHandler(this);
             ptrFrameLayout.autoRefresh();
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
@@ -82,9 +81,11 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      * @param list
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
-        ptrFrameLayout.refreshComplete();
-        mAdapter.replaceAll(list.groupList);
-        lvGroupList.setVisibility(View.VISIBLE);
+        if (mIsFromMain) {
+            ptrFrameLayout.refreshComplete();
+            mAdapter.replaceAll(list.groupList);
+            lvGroupList.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
@@ -112,8 +113,10 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      * @param keyEvent
      */
     public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
-        mKeyword = keyEvent.keyword;
-        GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
+        if (!mIsFromMain) {
+            mKeyword = keyEvent.keyword;
+            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
+        }
     }
 
     /**
@@ -122,22 +125,12 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      * @param searchGroupEvent
      */
     public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        mAdapter.replaceAll(searchGroupEvent.groups);
-        lvGroupList.setVisibility(View.VISIBLE);
+        if (!mIsFromMain) {
+            mAdapter.replaceAll(searchGroupEvent.groups);
+            lvGroupList.setVisibility(View.VISIBLE);
+        }
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
-    }
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout ptrFrameLayout, View view, View view1) {

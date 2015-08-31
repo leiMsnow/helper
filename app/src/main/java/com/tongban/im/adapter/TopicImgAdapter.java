@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.model.ImageUrl;
@@ -52,9 +54,9 @@ public class TopicImgAdapter extends QuickAdapter<ImageUrl> {
     @Override
     protected void onFirstCreateView(BaseAdapterHelper helper) {
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams)
-                helper.getView(R.id.iv_topic_img).getLayoutParams();
+        ViewGroup.LayoutParams lp = helper.getView(R.id.iv_topic_img).getLayoutParams();
         lp.height = mScreenWidth;
+        lp.width = mScreenWidth;
         helper.getView(R.id.iv_topic_img).setLayoutParams(lp);
     }
 }

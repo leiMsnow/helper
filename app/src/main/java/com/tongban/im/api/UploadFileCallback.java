@@ -13,4 +13,12 @@ public interface UploadFileCallback {
      * @param url 图片对象
      */
     void uploadSuccess(ImageUrl url);
+
+    /**
+     * 上传失败
+     *
+     * @param error
+     */
+    void uploadFailed(String error);
+
 }
