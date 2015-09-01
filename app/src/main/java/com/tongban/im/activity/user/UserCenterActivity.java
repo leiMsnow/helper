@@ -17,6 +17,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -29,8 +30,7 @@ import io.rong.imkit.RongIM;
  *
  * @author fushudi
  */
-public class UserCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
-    private PullToZoomScrollViewEx lvUserCenter;
+public class UserCenterActivity extends UserBaseActivity implements View.OnClickListener {
 
     private TextView tvTags, tvUserName;
     private CheckBox chbFocus;
@@ -48,13 +48,23 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
     @Override
     protected void initView() {
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
-        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_user_center, null, false);
-        View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
-        View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+        headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_user_center, null, false);
+        zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
+        contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
 
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
+
+        //headView
+        vHeaderBottom = headView.findViewById(R.id.ll_relationship);
+        //zoomView
+        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
+
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
+                (int) (3.0F * (mScreenWidth / 4.0F)));
+        lvUserCenter.setHeaderLayoutParams(localObject);
 
         ivClose = (ImageView) findViewById(R.id.iv_close);
         tvTags = (TextView) findViewById(R.id.tv_declaration);
@@ -74,11 +84,6 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
         chbFocus = (CheckBox) headView.findViewById(R.id.chb_focus);
 
-
-        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
-        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
-                (int) (3.0F * (mScreenWidth / 4.0F)));
-        lvUserCenter.setHeaderLayoutParams(localObject);
     }
 
     @Override
@@ -105,6 +110,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
     @Override
     protected void initListener() {
+        super.initListener();
         chbFocus.setOnClickListener(this);
         tvFans.setOnClickListener(this);
         tvGroup.setOnClickListener(this);

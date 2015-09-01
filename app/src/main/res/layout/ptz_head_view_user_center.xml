@@ -94,6 +94,7 @@
         android:visibility="gone" />
     <!--底部粉丝、关注、话题布局-->
     <LinearLayout
+        android:id="@+id/ll_relationship"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

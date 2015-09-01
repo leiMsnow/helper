@@ -1,7 +1,5 @@
 package com.tongban.im.activity.user;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -13,15 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.DepthPageTransformer;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
-import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
@@ -32,28 +28,21 @@ import com.tongban.im.model.User;
 /**
  * 个人中心
  */
-public class PersonalCenterActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class PersonalCenterActivity extends UserBaseActivity implements View.OnClickListener {
 
-    private PullToZoomScrollViewEx lvUserCenter;
     private ImageView ivClose;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup, tvMyTopic, tvMyCollect, tvSettings;
-    private ImageView ivZoomTop, ivUserIcon;
+    private ImageView ivUserPortrait;
     private ViewPager vpChildInfo;
     private TextView tvSetChildInfo;
     private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
-    private View vHeaderBottom;
-
-    private float alphaValue = 1.0f;
 
     private User user;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     protected int getLayoutRes() {
@@ -62,22 +51,30 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initView() {
-        ivClose = (ImageView) findViewById(R.id.iv_close);
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
-        View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
-        View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
-        View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+        headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
+        zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
+        contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
 
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
 
+        //headView
+        vHeaderBottom = headView.findViewById(R.id.ll_relationship);
+        //zoomView
+        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
+
+        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
+        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
+                (int) (3.0F * (mScreenWidth / 4.0F)));
+        lvUserCenter.setHeaderLayoutParams(localObject);        ivClose = (ImageView) findViewById(R.id.iv_close);
+
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
         tvSetChildInfo = (TextView) findViewById(R.id.tv_set_child_info);
         indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
         //headView
-        vHeaderBottom = headView.findViewById(R.id.ll_relationship);
-        ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
+        ivUserPortrait = (ImageView) headView.findViewById(R.id.iv_user_portrait);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
         rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
         rlGroupNum = (RelativeLayout) headView.findViewById(R.id.rl_group_num);
@@ -97,11 +94,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvMyCollect.setVisibility(View.VISIBLE);
         tvSettings.setVisibility(View.VISIBLE);
 
-        int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
-        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
-                (int) (3.0F * (mScreenWidth / 4.0F)));
-        lvUserCenter.setHeaderLayoutParams(localObject);
-
     }
 
     @Override
@@ -111,6 +103,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
 
     @Override
     protected void initListener() {
+        super.initListener();
         ivClose.setOnClickListener(this);
         tvSetChildInfo.setOnClickListener(this);
 
@@ -125,39 +118,6 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFans.setOnClickListener(this);
         tvFollow.setOnClickListener(this);
         tvGroup.setOnClickListener(this);
-
-
-        lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
-            @Override
-            public void onPullZooming(int newScrollValue) {
-                float scrollValue = -newScrollValue;
-                float headerBottomHeight = vHeaderBottom.getHeight() * 2;
-                float startValue = alphaValue;
-                if (scrollValue < headerBottomHeight) {
-                    alphaValue = (headerBottomHeight - scrollValue) / headerBottomHeight;
-
-                    ObjectAnimator zoomTopAnim = ObjectAnimator.
-                            ofFloat(ivZoomTop, "alpha", startValue, alphaValue);
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.play(zoomTopAnim);
-                    animatorSet.setDuration(10);
-                    animatorSet.start();
-                }
-
-            }
-
-            @Override
-            public void onPullZoomEnd() {
-                ObjectAnimator zoomTopAnim = ObjectAnimator.
-                        ofFloat(ivZoomTop, "alpha", alphaValue, 1.0f);
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.play(zoomTopAnim);
-                animatorSet.setDuration(200);
-                animatorSet.start();
-
-                alphaValue = 1.0f;
-            }
-        });
     }
 
 
@@ -213,9 +173,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     public void onEventMainThread(BaseEvent.PersonalCenterEvent obj) {
         this.user = obj.user;
         if (user.getPortrait_url() != null) {
-            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserPortrait);
         } else {
-            ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
+            ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
         }
         if (user.getChild_info() != null) {
             mAdapter = new UserInfoAdapter(mContext, user.getChild_info());
