@@ -41,6 +41,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private TextView tvFans, tvFollow, tvGroup, tvMyTopic, tvMyCollect, tvSettings;
     private ImageView ivZoomTop, ivUserIcon;
     private ViewPager vpChildInfo;
+    private TextView tvSetChildInfo;
     private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
     private View vHeaderBottom;
@@ -72,6 +73,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         lvUserCenter.setScrollContentView(contentView);
 
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
+        tvSetChildInfo = (TextView) findViewById(R.id.tv_set_child_info);
         indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
         //headView
         vHeaderBottom = headView.findViewById(R.id.ll_relationship);
@@ -110,6 +112,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     @Override
     protected void initListener() {
         ivClose.setOnClickListener(this);
+        tvSetChildInfo.setOnClickListener(this);
 
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
@@ -197,6 +200,10 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             SPUtils.put(mContext, Consts.USER_ID, "");
             TransferCenter.getInstance().startLogin(true);
         }
+        //跳转到设置宝宝信息界面
+        else if (v == tvSetChildInfo) {
+            startActivity(new Intent(this, ChildInfoActivity.class));
+        }
     }
 
 
@@ -215,6 +222,8 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
+        } else {
+            tvSetChildInfo.setVisibility(View.VISIBLE);
         }
         tvFansCount.setText(String.valueOf(user.getFans_amount()));
         tvFollowCount.setText(String.valueOf(user.getFocused_amount()));

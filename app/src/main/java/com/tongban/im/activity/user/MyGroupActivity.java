@@ -50,7 +50,7 @@ public class MyGroupActivity extends BaseToolBarActivity implements
         } else {
             mUserId = SPUtils.get(mContext, Consts.USER_ID, "").toString();
         }
-        UserCenterApi.getInstance().fetchMyGroupList(mCursor, mPageSize, mUserId, this);
+        UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MyGroupActivity extends BaseToolBarActivity implements
     }
 
     /**
-     * 获取圈子列表Event
+     * 获取我加入的圈子列表Event
      *
      * @param obj
      */
@@ -70,9 +70,9 @@ public class MyGroupActivity extends BaseToolBarActivity implements
         lvMyGroupList.setResultSize(obj.myGroupList.size());
     }
 
+
     @Override
     public void onLoadMore() {
-        UserCenterApi.getInstance().fetchMyGroupList(mCursor, mPageSize,
-                mUserId, this);
+        UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
     }
 }

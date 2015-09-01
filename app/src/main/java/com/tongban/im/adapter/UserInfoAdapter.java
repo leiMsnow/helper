@@ -67,7 +67,7 @@ public class UserInfoAdapter extends PagerAdapter {
         tvDeclaration = (TextView) view.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
         ivSex = (ImageView) view.findViewById(R.id.iv_sex);
-
+        //跳转到个人资料界面
         rlUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
