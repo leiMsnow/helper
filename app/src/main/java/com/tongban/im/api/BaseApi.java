@@ -166,7 +166,7 @@ public class BaseApi {
                 headers.put("_P", "Android");
                 headers.put("_V", AppUtils.getVersionName(mContext));
                 headers.put("_R_C", CheckID.encode(
-                        TextUtils.isEmpty(SPUtils.get(mContext,Consts.USER_ID,"").toString())));
+                        !TextUtils.isEmpty(SPUtils.get(mContext,Consts.USER_ID,"").toString())));
                 headers.put("_U", SPUtils.get(mContext,Consts.USER_ID,"").toString());
                 return headers;
             }
