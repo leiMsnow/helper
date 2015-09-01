@@ -26,11 +26,14 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, TopicComment item) {
-        helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
-                R.drawable.rc_default_portrait);
+        if (item.getUser_info().getPortrait_url() != null) {
+            helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
+                    R.drawable.rc_default_portrait);
+        }else{
+            helper.setImageBitmap(R.id.iv_user_portrait,R.drawable.rc_default_portrait);
+        }
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
         helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
-        //TODO 缺少评论内容参数
         helper.setText(R.id.tv_comment_content, item.getComment_content());
         helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_content());
 

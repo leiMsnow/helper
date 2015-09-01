@@ -23,6 +23,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity {
     protected PullToZoomScrollViewEx lvUserCenter;
     protected View vHeaderBottom;
     protected ImageView ivZoomTop;
+    protected ImageView ivZoomBottom;
 
     protected View headView, zoomView, contentView;
 

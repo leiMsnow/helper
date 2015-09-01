@@ -64,11 +64,13 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         vHeaderBottom = headView.findViewById(R.id.ll_relationship);
         //zoomView
         ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
+        ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
                 (int) (3.0F * (mScreenWidth / 4.0F)));
-        lvUserCenter.setHeaderLayoutParams(localObject);        ivClose = (ImageView) findViewById(R.id.iv_close);
+        lvUserCenter.setHeaderLayoutParams(localObject);
+        ivClose = (ImageView) findViewById(R.id.iv_close);
 
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
         tvSetChildInfo = (TextView) findViewById(R.id.tv_set_child_info);
@@ -174,6 +176,7 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         this.user = obj.user;
         if (user.getPortrait_url() != null) {
             Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserPortrait);
+            Glide.with(mContext).load(user.getPortrait_url().getMid()).into(ivZoomBottom);
         } else {
             ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
         }
