@@ -28,10 +28,9 @@ import de.greenrobot.event.EventBus;
  */
 public abstract class BaseApiActivity extends BaseTemplateActivity implements ApiCallback {
 
-    private RequestApiListener requestApiListener;
-
     private View mEmptyView;
 
+    private RequestApiListener requestApiListener;
     public void setRequestApiListener(RequestApiListener requestApiListener) {
         this.requestApiListener = requestApiListener;
     }
@@ -95,22 +94,21 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         }
 
         if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
-            errorMsg = "网络异常，请稍后重试";
+            errorMsg = getString(R.string.api_error);
         }
         if (displayType == DisplayType.Toast) {
-            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
             showEmptyText("", false);
         } else if (displayType == DisplayType.View) {
             showEmptyText(errorMsg, false);
         } else if (displayType == DisplayType.ALL) {
-            ToastUtil.getInstance(mContext).showToast("网络异常，请稍后重试");
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
             showEmptyText(errorMsg, false);
         }
 
         ApiErrorResult errorResult = new ApiErrorResult();
         errorResult.setErrorMessage(errorMsg);
         EventBus.getDefault().post(errorResult);
-
     }
 
     /**
@@ -118,17 +116,19 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
      */
     private void createEmptyView() {
 
-        mEmptyView = this.findViewById(com.tongban.corelib.R.id.rl_empty_view);
+        mEmptyView = this.findViewById(R.id.rl_empty_view);
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
+                    .setDuration(500);
             objectAnimator.start();
         } else {
-            mEmptyView = LayoutInflater.from(mContext).inflate(com.tongban.corelib.R.layout.view_empty, null);
+            mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.view_empty, null);
 
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f).setDuration(500);
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
+                    .setDuration(500);
             objectAnimator.start();
             this.addContentView(mEmptyView, layoutParams);
         }
@@ -139,7 +139,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
      *
      * @param message
      */
-    protected void showEmptyText(String message, boolean isLoading) {
+    public void showEmptyText(String message, boolean isLoading) {
         createEmptyView();
         TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
         ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
@@ -160,5 +160,4 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             });
         }
     }
-
 }
