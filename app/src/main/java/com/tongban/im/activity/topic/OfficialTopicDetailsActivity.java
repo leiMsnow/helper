@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
-import com.tongban.im.activity.CommonImageResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.Topic;

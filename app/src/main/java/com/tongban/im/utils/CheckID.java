@@ -1,6 +1,7 @@
 package com.tongban.im.utils;
 
 
+import java.net.URLEncoder;
 import java.util.UUID;
 
 import javax.crypto.Cipher;
@@ -73,7 +74,8 @@ public class CheckID {
             Cipher c1 = Cipher.getInstance(Ciper_Algorithm);
             c1.init(Cipher.ENCRYPT_MODE, deskey);
             byte[] result = c1.doFinal(sb.toString().getBytes("UTF-8"));
-            return Base64.encodeToString(result, 0);
+            String base64String =  Base64.encodeToString(result,0);
+            return URLEncoder.encode(base64String);
         } catch (java.security.NoSuchAlgorithmException e1) {
             return null;
         } catch (javax.crypto.NoSuchPaddingException e2) {

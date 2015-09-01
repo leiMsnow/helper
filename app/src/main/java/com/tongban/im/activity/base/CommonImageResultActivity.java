@@ -1,8 +1,7 @@
-package com.tongban.im.activity;
+package com.tongban.im.activity.base;
 
 import android.content.Intent;
 
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicInputView;
 

@@ -3,7 +3,6 @@ package com.tongban.im.activity.topic;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -12,9 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.CommonImageResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
