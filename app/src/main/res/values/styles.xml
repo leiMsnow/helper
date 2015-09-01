@@ -117,8 +117,10 @@
     </style>
     <!-- 定长横向分割线-->
     <style name="FixedHorizontalLine">
-        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginRight">64dp</item>
+        <item name="android:layout_marginLeft">64dp</item>
         <item name="android:background">@color/red_300</item>
     </style>
     <!-- 纵向分割线-->
@@ -138,4 +140,15 @@
         <item name="android:paddingRight">4dp</item>
     </style>
 
+    <!-- 通用按钮样式-->
+    <style name="CommonButtonStyle">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@drawable/selector_btn_bg_orange</item>
+    </style>
 </resources>

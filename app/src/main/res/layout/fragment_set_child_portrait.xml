@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_toast_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginTop="136dp"
+        android:text="上传小萝莉最漂亮的一张照片作为头像吧" />
+
+    <ImageView
+        android:id="@+id/iv_portrait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_toast_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:src="@mipmap/ic_my_collect" />
+
+
+    <EditText
+        android:id="@+id/et_input_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/iv_portrait"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginTop="40dp"
+        android:background="@null"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:hint="宝宝昵称" />
+
+    <View
+        android:id="@+id/v_line_one"
+        style="@style/FixedHorizontalLine"
+        android:layout_below="@+id/et_input_nickname"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
