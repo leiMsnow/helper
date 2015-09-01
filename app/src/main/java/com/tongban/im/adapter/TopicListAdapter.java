@@ -30,23 +30,27 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
-        //用户信息
-        if (item.getUser_info().getPortrait_url() != null) {
-            helper.setImageBitmap(R.id.iv_user_portrait,
-                    item.getUser_info().getPortrait_url().getMin(),
-                    R.drawable.rc_default_portrait);
-        } else {
-            helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
-        }
+        if (item.getUser_info() != null) {
+            //用户信息
+            if (item.getUser_info().getPortrait_url() != null) {
+                helper.setImageBitmap(R.id.iv_user_portrait,
+                        item.getUser_info().getPortrait_url().getMin(),
+                        R.drawable.rc_default_portrait);
+            } else {
+                helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
+            }
 
-        helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
-        if (item.getUser_info().getChild_info() != null &&
-                item.getUser_info().getChild_info().size() > 0) {
-            helper.setText(R.id.tv_child_age,
-                    String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
-                            item.getUser_info().getChild_info().get(0).getSex() + "宝宝");
-        } else {
-            helper.setText(R.id.tv_child_age, "");
+            helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
+            if (item.getUser_info().getChild_info() != null &&
+                    item.getUser_info().getChild_info().size() > 0) {
+                helper.setText(R.id.tv_child_age,
+                        String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
+                                item.getUser_info().getChild_info().get(0).getSex() + "宝宝");
+            } else {
+                helper.setText(R.id.tv_child_age, "");
+            }
+            helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getUser_info().getUser_id());
+            helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
         }
         helper.setText(R.id.tv_create_time, item.getC_time(mContext));
         //话题内容
@@ -62,8 +66,6 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         helper.setText(R.id.tv_comment_count, String.valueOf(item.getComment_amount()));
         helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
 
-        helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getUser_info().getUser_id());
-        helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
     }
 
     //设置图片的显示/隐藏和src
