@@ -165,9 +165,10 @@ public class BaseApi {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("_P", "Android");
                 headers.put("_V", AppUtils.getVersionName(mContext));
-                headers.put("_R_C", CheckID.encode(
-                        !TextUtils.isEmpty(SPUtils.get(mContext,Consts.USER_ID,"").toString())));
-                headers.put("_U", SPUtils.get(mContext,Consts.USER_ID,"").toString());
+                boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString());
+                headers.put("_R_C", CheckID.encode(isLogin));
+                if (isLogin)
+                    headers.put("_U", SPUtils.get(mContext, Consts.USER_ID, "").toString());
                 return headers;
             }
         };
