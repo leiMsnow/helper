@@ -115,6 +115,12 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/normal_light_grey</item>
     </style>
+    <!-- 定长横向分割线-->
+    <style name="FixedHorizontalLine">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/red_300</item>
+    </style>
     <!-- 纵向分割线-->
     <style name="VerticalLine">
         <item name="android:layout_width">1dp</item>
