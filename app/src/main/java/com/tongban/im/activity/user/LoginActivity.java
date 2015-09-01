@@ -36,6 +36,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private Button btnLogin;
 
     private String mUser, mPwd;
+    //是否需要跳转到main界面
+    private boolean mIsOpenMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected void initData() {
+        mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
         mUser = SPUtils.get(mContext, Consts.USER_ACCOUNT, "").toString();
         etUser.setText(mUser);
     }

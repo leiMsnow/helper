@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+
+import org.w3c.dom.Text;
 
 /**
  * 跳转中心
@@ -58,10 +61,10 @@ public class TransferCenter {
      */
     public void startUserCenter(String visitorId) {
 
+        String pathPrefix = TransferPathPrefix.USER_CENTER;
         if (!startLogin())
             return;
 
-        String pathPrefix = TransferPathPrefix.USER_CENTER;
         if (visitorId.equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
             pathPrefix = TransferPathPrefix.MY_CENTER;
         }
@@ -140,19 +143,28 @@ public class TransferCenter {
     /**
      * 是否已经登录，没有登录则跳转到登录界面
      *
+     * @param isOpenMain 是否跳转到main界面，有的界面需要登录完成后返回
      * @return true 已经登录；false 未登录
      */
-    public boolean startLogin() {
+    public boolean startLogin(boolean isOpenMain) {
         if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals("")) {
-            String pathPrefix = TransferPathPrefix.LOGIN;
+            if (isOpenMain){
+                ActivityContainer.getInstance().finishActivity();
+            }
             Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
-                    .appendPath(pathPrefix).build();
+                    .appendPath(TransferPathPrefix.LOGIN).build();
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.putExtra(Consts.KEY_IS_MAIN, isOpenMain);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
             return false;
         }
         return true;
     }
+
+    public boolean startLogin() {
+        return startLogin(false);
+    }
+
 
 }

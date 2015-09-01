@@ -34,7 +34,6 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
 
     private TextView tvTags, tvUserName;
     private CheckBox chbFocus;
-    private LinearLayout llMyTopic, llMyCollect;
     private ImageView ivSex, ivPrivateChat, ivClose, ivUserPortrait;
     private TextView tvFansNum, tvFocusNum, tvGroupNum;
     private TextView tvFans, tvFocus, tvGroup;
@@ -52,6 +51,7 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_user_center, null, false);
         View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
@@ -59,10 +59,6 @@ public class UserCenterActivity extends BaseToolBarActivity implements View.OnCl
         ivClose = (ImageView) findViewById(R.id.iv_close);
         tvTags = (TextView) findViewById(R.id.tv_declaration);
         tvTags.setVisibility(View.GONE);
-        llMyTopic = (LinearLayout) contentView.findViewById(R.id.ll_my_topic);
-        llMyCollect = (LinearLayout) contentView.findViewById(R.id.ll_my_collect);
-        llMyTopic.setVisibility(View.GONE);
-        llMyCollect.setVisibility(View.GONE);
         ivSex = (ImageView) headView.findViewById(R.id.iv_sex);
         tvUserName = (TextView) headView.findViewById(R.id.tv_user_name);
         tvFansNum = (TextView) headView.findViewById(R.id.tv_fans_num);

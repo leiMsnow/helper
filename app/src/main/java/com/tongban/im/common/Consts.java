@@ -134,7 +134,7 @@ public class Consts {
 
     //------------------------------其它相关key------------------------------------------------------
     /**
-     * 是否是首页
+     * 是否进入/打开首页
      */
     public static final String KEY_IS_MAIN = "KEY_IS_MAIN";
 

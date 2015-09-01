@@ -40,19 +40,19 @@ public class GroupApi extends BaseApi {
      */
     public static final String SEARCH_GROUP_LIST = "group/search/list";
     /**
-     * 创建群组接口
+     * 创建圈子接口
      */
     public static final String CREATE_GROUP = "group/create";
     /**
-     * 加入群组接口
+     * 加入圈子接口
      */
     public static final String JOIN_GROUP = "/user/join/group";
     /**
-     * 群组详情接口
+     * 圈子详情接口
      */
     public static final String GROUP_INFO = "group/info";
     /**
-     * 获取群成员列表接口
+     * 获取圈子成员列表接口
      */
     public static final String GROUP_MEMBERS_INFO = "group/members/list";
 
@@ -73,18 +73,18 @@ public class GroupApi extends BaseApi {
     }
 
     /**
-     * 创建群组
+     * 创建圈子
      * modified by chen
      *
-     * @param groupName   群组名字
-     * @param groupType   群组类型{@link GroupType}
+     * @param groupName   圈子名字
+     * @param groupType   圈子类型{@link GroupType}
      * @param longitude   经度
      * @param latitude    纬度
      * @param address     详细地址
      * @param birthday    出生日期(y-m-d H:i:s)
      * @param tags        群组的标签,多个用逗号分隔
-     * @param declaration 群简介
-     * @param groupAvatar 群头像
+     * @param declaration 圈子简介
+     * @param groupAvatar 圈子头像
      * @param isSearch    (true-1:允许搜索;false-0：不允许搜索)
      * @param callback    回调
      */
@@ -145,7 +145,7 @@ public class GroupApi extends BaseApi {
      * @param groupId   圈子Id
      * @param groupName 圈子名称
      * @param masterId  圈子主Id
-     * @param callback  结果回调
+     * @param callback
      */
     public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
 

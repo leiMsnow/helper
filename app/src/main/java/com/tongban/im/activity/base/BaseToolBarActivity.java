@@ -82,35 +82,42 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
 
     /**
      * 连接融云IM
+     *
      * @param token
      */
-    protected void connectIM(String token) {
+    protected void connectIM(String token, final boolean isOpenMain) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 LogUtil.d("onTokenIncorrect");
-                startMain();
+                startMain(isOpenMain);
             }
 
             @Override
             public void onSuccess(String s) {
                 LogUtil.d("连接RongIM成功，当前用户：" + s);
-                startMain();
+                startMain(isOpenMain);
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                startMain();
+                startMain(isOpenMain);
             }
         });
     }
 
-    private void startMain(){
-        RongCloudEvent.getInstance().setOtherListener();
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+    protected void connectIM(String token) {
+        connectIM(token, true);
     }
 
+
+    private void startMain(boolean isOpenMain) {
+        if (isOpenMain) {
+            RongCloudEvent.getInstance().setOtherListener();
+            startActivity(new Intent(mContext, MainActivity.class));
+        }
+        finish();
+    }
 
 }

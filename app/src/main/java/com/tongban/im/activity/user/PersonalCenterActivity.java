@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.DepthPageTransformer;
 import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
@@ -23,6 +24,8 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Child;
 import com.tongban.im.model.User;
@@ -39,16 +42,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private ImageView ivClose;
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
-    private TextView tvFans, tvFollow, tvGroup;
-    private LinearLayout llMyTopic, llMyCollect;
+    private TextView tvFans, tvFollow, tvGroup, tvMyTopic, tvMyCollect, tvSettings;
     private ImageView ivZoomTop, ivZoomBottom, ivUserIcon;
     private ViewPager vpChildInfo;
     private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
-    private List<View> mViewList;
 
     private User user;
-    private int currentPageNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +90,14 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
         tvGroup = (TextView) headView.findViewById(R.id.tv_group);
 
-        llMyTopic = (LinearLayout) contentView.findViewById(R.id.ll_my_topic);
-        llMyCollect = (LinearLayout) contentView.findViewById(R.id.ll_my_collect);
+        tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
+        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
+        tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
+
+        tvMyTopic.setVisibility(View.VISIBLE);
+        tvMyCollect.setVisibility(View.VISIBLE);
+        tvSettings.setVisibility(View.VISIBLE);
+
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -113,8 +119,9 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
 
-        llMyCollect.setOnClickListener(this);
-        llMyTopic.setOnClickListener(this);
+        tvMyCollect.setOnClickListener(this);
+        tvMyTopic.setOnClickListener(this);
+        tvSettings.setOnClickListener(this);
 
         tvFans.setOnClickListener(this);
         tvFollow.setOnClickListener(this);
@@ -161,16 +168,21 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
             startActivity(new Intent(this, MyGroupActivity.class));
         }
         //跳转到话题界面
-        else if (v == llMyTopic) {
+        else if (v == tvMyTopic) {
             startActivity(new Intent(this, MyTopicActivity.class));
         }
         //跳转到我的收藏界面
-        else if (v == llMyCollect) {
+        else if (v == tvMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
         }
         //关闭个人中心
         else if (v == ivClose) {
             finish();
+        }
+        //设置 // TODO: 9/1/15 暂时写为注销登录
+        else if (v == tvSettings) {
+            SPUtils.put(mContext, Consts.USER_ID,"");
+            TransferCenter.getInstance().startLogin(true);
         }
     }
 
