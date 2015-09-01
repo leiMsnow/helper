@@ -65,7 +65,11 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     //返回个人资料数据
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
         this.user = obj.user;
-        Glide.with(mContext).load(user.getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).into(ivUserIcon);
+        if (user.getPortrait_url()!=null){
+            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+        }else {
+            ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
+        }
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
         if (user.getChild_info() != null && user.getChild_info().size() > 0) {
