@@ -57,6 +57,10 @@ public class TransferCenter {
      * @param visitorId
      */
     public void startUserCenter(String visitorId) {
+
+        if (!startLogin())
+            return;
+
         String pathPrefix = TransferPathPrefix.USER_CENTER;
         if (visitorId.equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
             pathPrefix = TransferPathPrefix.MY_CENTER;

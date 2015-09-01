@@ -31,11 +31,16 @@ public class ActivityContainer {
      * @param activity
      */
     public void addActivity(Activity activity) {
+        for (Activity act : activityList) {
+            if (act.equals(activity)) {
+                act.finish();
+            }
+        }
         activityList.add(activity);
     }
 
     /**
-     * 在onDestory中加入
+     * 在onDestroy中加入
      *
      * @param activity
      */

@@ -8,11 +8,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.activity.user.PersonalCenterActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
@@ -71,7 +73,8 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == ivUserIcon) {
-            mContext.startActivity(new Intent(mContext, PersonalCenterActivity.class));
+            TransferCenter.getInstance().startUserCenter(
+                    SPUtils.get(mContext, Consts.USER_ID,"").toString());
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }
