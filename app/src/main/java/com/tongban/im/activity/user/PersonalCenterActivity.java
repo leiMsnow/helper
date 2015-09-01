@@ -13,10 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.DepthPageTransformer;
-import com.tongban.corelib.widget.view.ZoomOutPageTransformer;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
@@ -27,11 +27,7 @@ import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Child;
 import com.tongban.im.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 个人中心
@@ -43,10 +39,13 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
     private RelativeLayout rlFansNum, rlFollowNum, rlGroupNum;
     private TextView tvFansCount, tvFollowCount, tvGroupCount;
     private TextView tvFans, tvFollow, tvGroup, tvMyTopic, tvMyCollect, tvSettings;
-    private ImageView ivZoomTop, ivZoomBottom, ivUserIcon;
+    private ImageView ivZoomTop, ivUserIcon;
     private ViewPager vpChildInfo;
     private CirclePageIndicator indicator;
     private UserInfoAdapter mAdapter;
+    private View vHeaderBottom;
+
+    private float alphaValue = 1.0f;
 
     private User user;
 
@@ -67,37 +66,34 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         View headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
         View zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         View contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
+
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
 
-        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
-        ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
-
         vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
         indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
-
+        //headView
+        vHeaderBottom = headView.findViewById(R.id.ll_relationship);
         ivUserIcon = (ImageView) headView.findViewById(R.id.iv_user_portrait);
         rlFansNum = (RelativeLayout) headView.findViewById(R.id.rl_fans_num);
         rlFollowNum = (RelativeLayout) headView.findViewById(R.id.rl_follow_num);
         rlGroupNum = (RelativeLayout) headView.findViewById(R.id.rl_group_num);
-
         tvFansCount = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFollowCount = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupCount = (TextView) headView.findViewById(R.id.tv_group_num);
-
         tvFans = (TextView) headView.findViewById(R.id.tv_fans);
         tvFollow = (TextView) headView.findViewById(R.id.tv_follow);
         tvGroup = (TextView) headView.findViewById(R.id.tv_group);
-
+        //zoomView
+        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
+        //contentView
         tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
         tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
-
         tvMyTopic.setVisibility(View.VISIBLE);
         tvMyCollect.setVisibility(View.VISIBLE);
         tvSettings.setVisibility(View.VISIBLE);
-
 
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
@@ -127,19 +123,36 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         tvFollow.setOnClickListener(this);
         tvGroup.setOnClickListener(this);
 
+
         lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
             @Override
             public void onPullZooming(int newScrollValue) {
-                ObjectAnimator zoomBottomAnim = ObjectAnimator.ofFloat(ivZoomBottom, "alpha", 1.0f, 0.0f);
-                ObjectAnimator zoomTopAnim = ObjectAnimator.ofFloat(ivZoomTop, "alpha", 0.0f, 1.0f);
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.play(zoomBottomAnim).with(zoomTopAnim);
-                animatorSet.setDuration(500);
-                animatorSet.start();
+                float scrollValue = -newScrollValue;
+                float headerBottomHeight = vHeaderBottom.getHeight() * 2;
+                float startValue = alphaValue;
+                if (scrollValue < headerBottomHeight) {
+                    alphaValue = (headerBottomHeight - scrollValue) / headerBottomHeight;
+
+                    ObjectAnimator zoomTopAnim = ObjectAnimator.
+                            ofFloat(ivZoomTop, "alpha", startValue, alphaValue);
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.play(zoomTopAnim);
+                    animatorSet.setDuration(10);
+                    animatorSet.start();
+                }
+
             }
 
             @Override
             public void onPullZoomEnd() {
+                ObjectAnimator zoomTopAnim = ObjectAnimator.
+                        ofFloat(ivZoomTop, "alpha", alphaValue, 1.0f);
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.play(zoomTopAnim);
+                animatorSet.setDuration(200);
+                animatorSet.start();
+
+                alphaValue = 1.0f;
             }
         });
     }
@@ -181,7 +194,7 @@ public class PersonalCenterActivity extends BaseToolBarActivity implements View.
         }
         //设置 // TODO: 9/1/15 暂时写为注销登录
         else if (v == tvSettings) {
-            SPUtils.put(mContext, Consts.USER_ID,"");
+            SPUtils.put(mContext, Consts.USER_ID, "");
             TransferCenter.getInstance().startLogin(true);
         }
     }
