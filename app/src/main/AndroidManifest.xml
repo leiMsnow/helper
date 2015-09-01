@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tongban.im">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -201,7 +200,6 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.group.SearchPoiActivity"
             android:label="@string/select_location" />
@@ -244,7 +242,6 @@
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalInfoActivity" />
-
         <activity android:name=".activity.user.MyRelationshipActivity" />
         <activity android:name=".activity.user.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
@@ -301,6 +298,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.user.ChildInfoActivity" />
     </application>
 
 </manifest>
