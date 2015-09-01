@@ -22,6 +22,8 @@ public class CheckID {
     private static final String Algorithm = "DESede";
     private static final String Ciper_Algorithm = "DESede/ECB/PKCS5Padding";
 
+    public static long difMills = 0;
+
     static public class CheckResult {
         private boolean logined = false;
         private boolean expired = true;
@@ -68,13 +70,13 @@ public class CheckID {
         } else {
             sb.append('0').append(',');
         }
-        sb.append(System.currentTimeMillis());
+        sb.append(System.currentTimeMillis() + difMills);
         try {
             SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
             Cipher c1 = Cipher.getInstance(Ciper_Algorithm);
             c1.init(Cipher.ENCRYPT_MODE, deskey);
             byte[] result = c1.doFinal(sb.toString().getBytes("UTF-8"));
-            String base64String =  Base64.encodeToString(result,0);
+            String base64String = Base64.encodeToString(result, 0);
             return URLEncoder.encode(base64String);
         } catch (java.security.NoSuchAlgorithmException e1) {
             return null;

@@ -50,6 +50,10 @@ public class BaseApi {
      */
     public final static int API_FAILD = -1;
     /**
+     * 客户端与服务器时间不同步
+     */
+    public final static int TIME_DISMATCH = 10069;
+    /**
      * 获取Volley请求队列
      */
     protected static RequestQueue mRequestQueue;
@@ -142,6 +146,12 @@ public class BaseApi {
                         if (apiResult == API_SUCCESS) {
                             // 请求成功,数据回调给调用方
                             callback.onComplete(jsonObject);
+                        } else if (apiResult == TIME_DISMATCH) {
+                            // 保存客户端与服务器的时间差
+                            long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
+                            LogUtil.d("TIME_DISMATCH", dif + "");
+                            CheckID.difMills = dif;
+                            callback.onFailure(ApiCallback.DisplayType.Toast, "请重试");
                         } else {
                             ApiResult apiResponse = new ApiResult();
                             apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
