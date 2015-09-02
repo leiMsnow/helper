@@ -40,7 +40,7 @@ public class ProductBook {
     // 图书目录
     private String book_catalog;
     // 推荐指数
-    private int recommend_expo;
+    private String recommend_expo;
     // 推荐理由
     private String recommend_cause;
     // 缺点
@@ -182,11 +182,11 @@ public class ProductBook {
         this.book_catalog = book_catalog;
     }
 
-    public int getRecommend_expo() {
+    public String getRecommend_expo() {
         return recommend_expo;
     }
 
-    public void setRecommend_expo(int recommend_expo) {
+    public void setRecommend_expo(String recommend_expo) {
         this.recommend_expo = recommend_expo;
     }
 

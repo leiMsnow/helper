@@ -78,6 +78,10 @@ public class ProductPriceAdapter extends BaseAdapter {
             str = "苏宁";
         } else if ("amazon".equals(platform)) {
             str = "亚马逊";
+        } else if ("dangdang".equals(platform)) {
+            str = "当当";
+        } else if ("jingdong".equals(platform)) {
+            str = "京东";
         } else {
             str = platform;
         }
