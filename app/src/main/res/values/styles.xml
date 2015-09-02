@@ -1,4 +1,12 @@
 <resources>
+    <!-- 首页底部menu样式-->
+    <style name="MainBottomMenu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">4dp</item>
+    </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
