@@ -16,6 +16,7 @@ import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
+import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
@@ -184,7 +185,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info());
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
-            vpChildInfo.setPageTransformer(true, new DepthPageTransformer());
+            vpChildInfo.setPageTransformer(true, new ScalePageTransformer());
         } else {
             tvSetChildInfo.setVisibility(View.VISIBLE);
         }
