@@ -33,7 +33,11 @@ public class ThemeListAdapter extends QuickAdapter<Theme> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, Theme item) {
-        helper.setImageBitmap(R.id.iv_product, item.getTheme_img_url().get(0).getMin());
+        if (item.getTheme_img_url() != null && item.getTheme_img_url().get(0).getMin() != null) {
+            helper.setImageBitmap(R.id.iv_product, item.getTheme_img_url().get(0).getMin());
+        } else {
+            helper.setVisible(R.id.iv_product, View.GONE);
+        }
         helper.setText(R.id.tv_product_desc, item.getTheme_content());
         helper.setText(R.id.tv_product_name, item.getTheme_title());
         helper.setText(R.id.tv_collect_count, item.getCollect_amount());
