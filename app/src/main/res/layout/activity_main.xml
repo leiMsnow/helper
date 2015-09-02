@@ -18,28 +18,22 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="4dp"
         android:background="@color/white"
         android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView
             android:id="@+id/ccv_discover"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="4dp"
+            style="@style/MainBottomMenu"
             app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_discover_normal"
             app:changeText="@string/discover"
             app:changeTextSize="12sp"
             app:defaultColor="@color/main_brown" />
 
+
         <com.tongban.corelib.widget.view.ChangeColorView
             android:id="@+id/ccv_topic"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="4dp"
+            style="@style/MainBottomMenu"
             app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_circle_normal"
             app:changeText="@string/topic"
@@ -48,10 +42,7 @@
 
         <com.tongban.corelib.widget.view.ChangeColorView
             android:id="@+id/ccv_circle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="4dp"
+            style="@style/MainBottomMenu"
             app:changeColor="@color/main_deep_orange"
             app:changeIcon="@mipmap/ic_menu_recommend_normal"
             app:changeText="@string/group"
