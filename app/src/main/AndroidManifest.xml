@@ -320,7 +320,9 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.user.ChildInfoActivity" />
+        <activity
+            android:name=".activity.user.ChildInfoActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>
