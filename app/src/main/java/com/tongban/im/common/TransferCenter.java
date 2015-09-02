@@ -148,7 +148,7 @@ public class TransferCenter {
      */
     public boolean startLogin(boolean isOpenMain) {
         if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals("")) {
-            if (isOpenMain){
+            if (isOpenMain) {
                 ActivityContainer.getInstance().finishActivity();
             }
             Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
@@ -164,6 +164,45 @@ public class TransferCenter {
 
     public boolean startLogin() {
         return startLogin(false);
+    }
+
+    /**
+     * 打开关注、粉丝界面
+     *
+     * @param tag    标记{@link Consts TAG_FANS TAG_FOLLOW}
+     * @param userId 用户Id
+     */
+    public void startRelationship(String tag, String userId) {
+
+        if (!startLogin())
+            return;
+
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(TransferPathPrefix.RELATIONSHIP).appendQueryParameter(Consts.KEY_TAG,
+                        tag).appendQueryParameter(Consts.USER_ID, userId).build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+
+    }
+
+    /**
+     * 打开我的圈子列表
+     *
+     * @param userId 用户Id
+     */
+    public void startMyGroupList(String userId) {
+
+        if (!startLogin())
+            return;
+
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(TransferPathPrefix.MY_GROUP_LIST)
+                .appendQueryParameter(Consts.USER_ID, userId).build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+
     }
 
 

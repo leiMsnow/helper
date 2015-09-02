@@ -1,12 +1,14 @@
 package com.tongban.im.activity.user;
 
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.FrameLayout;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FansFragment;
 import com.tongban.im.fragment.user.FocusFragment;
 
@@ -16,9 +18,8 @@ import com.tongban.im.fragment.user.FocusFragment;
  * @author fushudi
  */
 public class MyRelationshipActivity extends BaseToolBarActivity {
-    private FrameLayout flReplasedFragment;
-    private FansFragment mFansFragment;
-    private FocusFragment mFocusFragment;
+
+    private Fragment mFragment;
 
     @Override
     protected int getLayoutRes() {
@@ -27,25 +28,29 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-        flReplasedFragment = (FrameLayout) findViewById(R.id.fl_container);
     }
 
     @Override
     protected void initData() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = getIntent().getExtras();
-        String tag = bundle.getString("Tag");
-        if (tag.equals("Fans")) {
-            setTitle("粉丝");
-            mFansFragment = new FansFragment();
-            mFansFragment.setArguments(bundle);
-            transaction.replace(R.id.fl_container, mFansFragment);
-            transaction.commit();
-        } else if (tag.equals("Follow")) {
-            setTitle("关注");
-            mFocusFragment = new FocusFragment();
-            mFocusFragment.setArguments(bundle);
-            transaction.replace(R.id.fl_container, mFocusFragment);
+        if (getIntent().getData() != null) {
+
+            Uri uri = getIntent().getData();
+            String tag = uri.getQueryParameter(Consts.KEY_TAG);
+            String userId = uri.getQueryParameter(Consts.USER_ID);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString(Consts.USER_ID, userId);
+
+            if (tag.equals(Consts.TAG_FANS)) {
+                setTitle("粉丝");
+                mFragment = new FansFragment();
+            } else if (tag.equals(Consts.TAG_Follow)) {
+                setTitle("关注");
+                mFragment = new FocusFragment();
+            }
+
+            mFragment.setArguments(bundle);
+            transaction.replace(R.id.fl_container, mFragment);
             transaction.commit();
         }
     }

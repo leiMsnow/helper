@@ -1,9 +1,8 @@
 package com.tongban.im.activity.user;
 
 
-import android.os.Bundle;
+import android.net.Uri;
 
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -35,7 +34,7 @@ public class MyGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
-        setTitle(R.string.my_group);
+        setTitle(R.string.group);
         lvMyGroupList = (LoadMoreListView) findViewById(R.id.lv_my_group_list);
     }
 
@@ -44,13 +43,11 @@ public class MyGroupActivity extends BaseToolBarActivity implements
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         lvMyGroupList.setAdapter(mAdapter);
         lvMyGroupList.setPageSize(mPageSize);
-        if (getIntent().getExtras() != null) {
-            Bundle bundle = getIntent().getExtras();
-            mUserId = bundle.getString(Consts.USER_ID);
-        } else {
-            mUserId = SPUtils.get(mContext, Consts.USER_ID, "").toString();
+        if (getIntent().getData() != null) {
+            Uri uri = getIntent().getData();
+            mUserId = uri.getQueryParameter(Consts.USER_ID);
+            UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
         }
-        UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
     }
 
     @Override

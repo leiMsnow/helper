@@ -121,6 +121,18 @@ public class Consts {
      * 被关注者的Id
      */
     public static final int KEY_FOCUS_ID = 1;
+    /**
+     * 区分粉丝、关注界面的key
+     */
+    public static final String KEY_TAG = "TAG";
+    /**
+     * 粉丝
+     */
+    public static final String TAG_FANS = "TAG_FANS";
+    /**
+     * 关注
+     */
+    public static final String TAG_Follow = "TAG_Follow";
 
     //------------------------------商品相关key------------------------------------------------------
     /**
