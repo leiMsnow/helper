@@ -39,7 +39,8 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
         helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
         helper.setText(R.id.tv_comment_content, item.getComment_content());
         helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_title());
-
+        helper.setTag(R.id.tv_comment, item);
         helper.setOnClickListener(R.id.tv_comment, onClickListener);
+
     }
 }
