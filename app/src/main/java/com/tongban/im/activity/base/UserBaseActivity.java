@@ -19,6 +19,7 @@ import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.im.R;
+import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.activity.user.MyGroupActivity;
 import com.tongban.im.activity.user.MyRelationshipActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
@@ -161,6 +162,11 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         //我的圈子
         if (v == rlGroupNum) {
             TransferCenter.getInstance().startMyGroupList(mUserInfo.getUser_id());
+        }else {
+            if (v.getId() == R.id.tv_name) {
+                startActivity(new Intent(this, ChildInfoActivity.class));
+
+            }
         }
     }
 
