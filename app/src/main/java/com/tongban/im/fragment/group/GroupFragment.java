@@ -46,6 +46,7 @@ public class GroupFragment extends BaseApiFragment {
         rgCircle = (RadioGroup) mView.findViewById(R.id.rg_circle);
         rgCircle.setVisibility(View.VISIBLE);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
+        ibSearch.setVisibility(View.GONE);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
 
         fm = getChildFragmentManager();
@@ -61,7 +62,8 @@ public class GroupFragment extends BaseApiFragment {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Consts.KEY_IS_MAIN, true);
         recommendFragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.fl_container, chatFragment).add(R.id.fl_container, recommendFragment)
+        fm.beginTransaction().add(R.id.fl_container, chatFragment).
+                add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
     }
 
@@ -73,9 +75,11 @@ public class GroupFragment extends BaseApiFragment {
                 switch (checkedId) {
                     case R.id.rb_chat:
                         fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
+                        ibSearch.setVisibility(View.GONE);
                         break;
                     case R.id.rb_recommend:
                         fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
+                        ibSearch.setVisibility(View.VISIBLE);
                         break;
                 }
             }

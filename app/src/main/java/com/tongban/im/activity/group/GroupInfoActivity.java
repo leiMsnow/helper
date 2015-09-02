@@ -1,7 +1,6 @@
 package com.tongban.im.activity.group;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,10 +18,6 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
-import com.tongban.im.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 群组信息/设置
@@ -43,7 +38,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     private Group mGroup;
 
     private String mGroupId;
-    private boolean mIsJoin = false;
+    //是否可以加入,根据此值来判断是否显示设置圈子信息
+    private boolean mAllowAdd = false;
 
     @Override
     protected int getLayoutRes() {
@@ -95,8 +91,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         if (getIntent().getData() != null) {
             Uri uri = getIntent().getData();
             mGroupId = uri.getQueryParameter(Consts.KEY_GROUP_ID);
-            mIsJoin = getIntent().getBooleanExtra(Consts.KEY_IS_JOIN, false);
-            if (mIsJoin) {
+            mAllowAdd = getIntent().getBooleanExtra(Consts.KEY_IS_JOIN, false);
+            if (!mAllowAdd) {
                 vSettings.setVisibility(View.VISIBLE);
             }
             GroupApi.getInstance().getGroupInfo(mGroupId, this);

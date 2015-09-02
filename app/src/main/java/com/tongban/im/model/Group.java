@@ -33,7 +33,7 @@ public class Group {
     private String constellation;
     //距离
     private String distance;
-    //是否已经加入
+    //是否可以加入
     private boolean allow_add = true;
     //成员数量
     private String member_amount;

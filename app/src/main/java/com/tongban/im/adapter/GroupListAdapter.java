@@ -77,8 +77,8 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
         helper.setText(R.id.tv_group_name, item.getGroup_name());
 
-        //判断是否可以加入
-        if (item.isAllow_add()) {
+        //判断是否已经加入
+        if (!item.isAllow_add()) {
             helper.getView(R.id.btn_join).setEnabled(false);
             helper.setText(R.id.btn_join, mContext.getResources().getString(R.string.joined));
             helper.setOnClickListener(R.id.btn_join, null);

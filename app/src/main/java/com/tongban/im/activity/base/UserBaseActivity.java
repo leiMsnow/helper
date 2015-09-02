@@ -48,7 +48,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     protected View headView, zoomView, contentView;
     protected TextView tvSetChildInfo;
 
-    protected User mUserInfo;
+    protected User mUserInfo = new User();
 
     private float alphaValue = 1.0f;
 
@@ -81,6 +81,11 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         rlFansNum =  headView.findViewById(R.id.rl_fans_num);
         rlFollowNum =  headView.findViewById(R.id.rl_follow_num);
         rlGroupNum =  headView.findViewById(R.id.rl_group_num);
+
+        rlFansNum.setEnabled(false);
+        rlFollowNum.setEnabled(false);
+        rlGroupNum.setEnabled(false);
+
         ivUserPortrait = (ImageView) headView.findViewById(R.id.iv_user_portrait);
         //zoomView
         ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
@@ -161,6 +166,11 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
 
     protected void setDataInfo(User user) {
         mUserInfo = user;
+
+        rlFansNum.setEnabled(true);
+        rlFollowNum.setEnabled(true);
+        rlGroupNum.setEnabled(true);
+
         if (mUserInfo.getPortrait_url() != null) {
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMid()).into(ivZoomBottom);
