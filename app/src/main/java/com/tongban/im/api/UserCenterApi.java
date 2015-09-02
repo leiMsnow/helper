@@ -15,6 +15,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.Child;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
@@ -94,6 +95,11 @@ public class UserCenterApi extends BaseApi {
      */
     public static final String FETCH_USER_CENTER_INFO = "user/card";
 
+    /**
+     * 设置宝宝信息
+     */
+    public static final String SET_CHILD_INFO = "user/childinfo/update";
+
     public UserCenterApi(Context context) {
         super(context);
     }
@@ -130,8 +136,8 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                BaseEvent.PersonalCenterEvent personalCenterEvent=new BaseEvent.PersonalCenterEvent();
-                personalCenterEvent.user=apiResponse.getData();
+                BaseEvent.PersonalCenterEvent personalCenterEvent = new BaseEvent.PersonalCenterEvent();
+                personalCenterEvent.user = apiResponse.getData();
                 callback.onComplete(personalCenterEvent);
             }
 
@@ -208,8 +214,8 @@ public class UserCenterApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                BaseEvent.UserInfoEvent userInfoEvent=new BaseEvent.UserInfoEvent();
-                userInfoEvent.user=apiResponse.getData();
+                BaseEvent.UserInfoEvent userInfoEvent = new BaseEvent.UserInfoEvent();
+                userInfoEvent.user = apiResponse.getData();
                 callback.onComplete(userInfoEvent);
             }
 
@@ -258,6 +264,7 @@ public class UserCenterApi extends BaseApi {
 //            }
 //        });
 //    }
+
     /**
      * 获取个人中心我创建/加入的群组列表（圈子）
      *
@@ -587,6 +594,37 @@ public class UserCenterApi extends BaseApi {
                 focusEvent.isFocus = isFocus;
                 focusEvent.userIds = focusUserId;
                 callback.onComplete(focusEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 设置宝宝信息
+     *
+     * @param childInfo
+     * @param callback
+     */
+    public void setChildInfo(String[] childInfo, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("child_info", childInfo);
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+
+
+        simpleRequest(SET_CHILD_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                callback.onComplete(obj);
             }
 
             @Override

@@ -95,4 +95,8 @@
         android:paddingTop="8dp"
         android:text="女宝宝"
         android:textSize="12sp" />
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/CommonButtonStyle"
+        android:text="OK" />
 </RelativeLayout>
