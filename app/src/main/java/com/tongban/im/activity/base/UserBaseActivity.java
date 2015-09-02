@@ -61,10 +61,8 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     protected void initView() {
 
         ivClose = (ImageView) findViewById(R.id.iv_close);
-        vpChildInfo = (ViewPager) findViewById(R.id.vp_container);
-        indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
-        lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
 
+        lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
         headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
         zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
@@ -73,6 +71,8 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
         //headView
+        vpChildInfo = (ViewPager) headView.findViewById(R.id.vp_container);
+        indicator = (CirclePageIndicator) headView.findViewById(R.id.lpi_indicator);
         tvSetChildInfo = (TextView) headView.findViewById(R.id.tv_set_child_info);
         vHeaderBottom = headView.findViewById(R.id.ll_relationship);
         tvFansCount = (TextView) headView.findViewById(R.id.tv_fans_num);
