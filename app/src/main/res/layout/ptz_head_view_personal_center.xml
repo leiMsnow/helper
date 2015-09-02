@@ -26,6 +26,21 @@
             android:button="@null"
             android:visibility="gone" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_set_child_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_relationship"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/fl_user_head"
+        android:layout_alignTop="@+id/fl_user_head"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="请设置宝宝信息"
+        android:textColor="@drawable/selector_usercenter_text_color"
+        android:visibility="gone" />
+
     <!-- 用户信息布局-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_container"
@@ -41,17 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/vp_container" />
 
-    <TextView
-        android:id="@+id/tv_set_child_info"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_relationship"
-        android:layout_alignBottom="@id/fl_user_head"
-        android:layout_alignTop="@+id/fl_user_head"
-        android:gravity="center"
-        android:text="请设置宝宝信息"
-        android:textColor="@drawable/selector_usercenter_text_color"
-        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_private_chat"

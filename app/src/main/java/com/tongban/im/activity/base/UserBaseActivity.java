@@ -79,9 +79,9 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         tvFansCount = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFollowCount = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupCount = (TextView) headView.findViewById(R.id.tv_group_num);
-        rlFansNum =  headView.findViewById(R.id.rl_fans_num);
-        rlFollowNum =  headView.findViewById(R.id.rl_follow_num);
-        rlGroupNum =  headView.findViewById(R.id.rl_group_num);
+        rlFansNum = headView.findViewById(R.id.rl_fans_num);
+        rlFollowNum = headView.findViewById(R.id.rl_follow_num);
+        rlGroupNum = headView.findViewById(R.id.rl_group_num);
 
         rlFansNum.setEnabled(false);
         rlFollowNum.setEnabled(false);
@@ -162,7 +162,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         //我的圈子
         if (v == rlGroupNum) {
             TransferCenter.getInstance().startMyGroupList(mUserInfo.getUser_id());
-        }else {
+        } else {
             if (v.getId() == R.id.tv_name) {
                 startActivity(new Intent(this, ChildInfoActivity.class));
 
@@ -183,7 +183,8 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         } else {
             ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
         }
-        if (mUserInfo.getChild_info() != null) {
+        if (mUserInfo.getChild_info() != null &&
+                mUserInfo.getChild_info().size() > 0) {
             mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info());
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
