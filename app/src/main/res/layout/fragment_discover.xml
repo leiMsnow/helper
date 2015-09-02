@@ -9,21 +9,34 @@
         android:layout_marginLeft="24dp"
         android:background="@color/normal_light_grey"/>
 
-    <ListView
-        android:id="@+id/lv_discover"
+    <in.srain.cube.views.ptr.PtrFrameLayout
+        android:id="@+id/fragment_ptr_home_ptr_frame"
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_toolbar"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:divider="@null"
-        android:scrollbars="none"/>
+        android:layout_below="@+id/rl_toolbar"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="1000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+        <ListView
+            android:id="@+id/lv_discover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:divider="@null"
+            android:scrollbars="none"/>
+    </in.srain.cube.views.ptr.PtrFrameLayout>
 
     <RelativeLayout
         android:id="@+id/rl_toolbar"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
@@ -42,27 +55,12 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user_portrait"
             android:gravity="center"
-            android:text="小鹿妈妈"
+            android:text="游客"
             android:textColor="@color/main_brown"
             android:textSize="16sp"/>
 
         <TextView
-            android:id="@+id/tv_user_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_user_name"
-            android:layout_alignTop="@+id/tv_user_name"
-            android:layout_toLeftOf="@+id/iv_search_all"
-            android:layout_toRightOf="@+id/tv_user_name"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="4dp"
-            android:singleLine="true"
-            android:text="宝宝5岁零1个月，1年纪预备生，伊顿国际小学"
-            android:textColor="@color/main_deep_orange"
-            android:textSize="12sp"/>
-
-        <TextView
-            android:id="@+id/tv_user_more_info"
+            android:id="@+id/tv_user_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_user_portrait"
@@ -70,9 +68,10 @@
             android:layout_marginLeft="8dp"
             android:layout_toLeftOf="@+id/iv_search_all"
             android:layout_toRightOf="@+id/iv_user_portrait"
+            android:ellipsize="end"
             android:gravity="center_vertical"
-            android:text="依然淘气 | 体能发育快"
-            android:textColor="@color/normal_grey"
+            android:singleLine="true"
+            android:textColor="@color/main_deep_orange"
             android:textSize="12sp"/>
 
         <ImageView
@@ -80,8 +79,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
             android:background="@drawable/selector_white_to_gray"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_discover_search"/>
