@@ -171,7 +171,7 @@ public class ThemeActivity extends BaseToolBarActivity {
             collectMenu.setIcon(R.mipmap.ic_theme_collected);
         }
         setTitle(mTheme.getTheme_title());
-        if (mTheme.getTheme_img_url().size() > 0) {
+        if (mTheme.getTheme_img_url() != null && mTheme.getTheme_img_url().size() > 0) {
             Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMid()).into(headImg);
         }
         title.setText(mTheme.getTheme_title());
