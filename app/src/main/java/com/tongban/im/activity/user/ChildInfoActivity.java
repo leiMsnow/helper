@@ -1,22 +1,20 @@
 package com.tongban.im.activity.user;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.FrameLayout;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.InputChildInfoFragment;
 import com.tongban.im.fragment.user.SetChildPortraitFragment;
 import com.tongban.im.model.BaseEvent;
 
-public class ChildInfoActivity extends BaseToolBarActivity {
+public class ChildInfoActivity extends CameraResultActivity {
+
     private InputChildInfoFragment mInputChildInfoFragment;
     private SetChildPortraitFragment mSetChildPortraitFragment;
-    private FrameLayout flReplacedFragment;
 
     @Override
     protected int getLayoutRes() {
@@ -25,7 +23,6 @@ public class ChildInfoActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-        flReplacedFragment = (FrameLayout) findViewById(R.id.fl_replaced);
     }
 
     @Override
@@ -39,6 +36,7 @@ public class ChildInfoActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
+
     }
 
     /**
@@ -58,6 +56,5 @@ public class ChildInfoActivity extends BaseToolBarActivity {
         transaction.replace(R.id.fl_replaced, mSetChildPortraitFragment);
         transaction.commit();
     }
-
 
 }

@@ -1,10 +1,11 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,18 +15,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.ClipImageBorderViewActivity;
+import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.Child;
-import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
 
-import java.io.File;
 
-
-public class SetChildPortraitFragment extends BaseApiFragment implements TextWatcher, View.OnClickListener {
+public class SetChildPortraitFragment extends BaseApiFragment implements
+        TextWatcher, View.OnClickListener, CameraResultActivity.IPhotoListener {
     private ImageView ivSetChildPortrait;
     private EditText etChildSchool;
     private Button btnSubmit;
@@ -34,6 +35,14 @@ public class SetChildPortraitFragment extends BaseApiFragment implements TextWat
 
 
     private CameraView mCameraView;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof CameraResultActivity) {
+            ((CameraResultActivity) activity).setmPhotoListener(this);
+        }
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -103,5 +112,13 @@ public class SetChildPortraitFragment extends BaseApiFragment implements TextWat
             mCameraView = new CameraView(mContext);
         }
         mCameraView.show();
+    }
+
+
+    @Override
+    public void sendPhoto(byte[] bytes) {
+//        byte[] bytes = file.getBytes();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        ivSetChildPortrait.setImageBitmap(bitmap);
     }
 }

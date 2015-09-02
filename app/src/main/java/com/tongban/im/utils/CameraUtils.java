@@ -21,6 +21,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class CameraUtils {
     }
 
     public static String searchUriFile(Context context, Intent data) {
-        String filelocal = null;
+        String localFile = null;
         if (null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -52,10 +53,10 @@ public class CameraUtils {
             }
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            filelocal = cursor.getString(columnIndex);
+            localFile = cursor.getString(columnIndex);
             cursor.close();
         }
-        return filelocal;
+        return localFile;
     }
 
     public static Bitmap stringtoBitmap(String string) {
