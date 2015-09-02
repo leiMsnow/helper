@@ -14,7 +14,6 @@ public class TransferPathPrefix {
      * 圈子搜索
      */
     public static final String SEARCH_GROUP = "searchgroup";
-
     /**
      * 用户中心/他人
      */
@@ -43,5 +42,13 @@ public class TransferPathPrefix {
      * 跳转到登录
      */
     public static final String LOGIN = "login";
+    /**
+     * 我的圈子列表
+     */
+    public static final String MY_GROUP_LIST = "mygrouplist";
+    /**
+     * 粉丝、关注界面
+     */
+    public static final String RELATIONSHIP = "relationship";
 
 }

@@ -14,8 +14,8 @@
             android:id="@+id/iv_user_portrait"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
 
         <CheckBox
             android:id="@+id/chb_focus"
@@ -52,8 +52,8 @@
         android:layout_alignTop="@+id/fl_user_head"
         android:gravity="center"
         android:text="请设置宝宝信息"
-        android:visibility="gone"
-        android:textColor="@drawable/selector_usercenter_text_color" />
+        android:textColor="@drawable/selector_usercenter_text_color"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_private_chat"
@@ -65,24 +65,25 @@
         android:layout_marginTop="24dp"
         android:src="@drawable/selector_chat_icon"
         android:visibility="gone" />
-    <!--底部粉丝、关注、话题布局-->
+
+    <!--底部粉丝布局-->
     <LinearLayout
         android:id="@+id/ll_relationship"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="32dp"
         android:background="#50ffffff"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <!-- 粉丝、关注、话题数量布局-->
         <LinearLayout
-            style="@style/UserInfoAttrParent"
-            android:layout_marginTop="8dp">
+            android:id="@+id/rl_fans_num"
+            style="@style/UserInfoAttrParent">
+
+
             <!-- 粉丝数量布局-->
-            <RelativeLayout
-                android:id="@+id/rl_fans_num"
-                style="@style/UserInfoAttrLayout">
+            <RelativeLayout style="@style/UserInfoAttrLayout">
                 <!-- 粉丝数量文本-->
                 <TextView
                     android:id="@+id/tv_fans_num"
@@ -95,10 +96,21 @@
                     android:layout_toRightOf="@+id/tv_fans_num"
                     android:visibility="gone" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_fans"
+                style="@style/UserInfoAttrBottomText"
+                android:text="@string/fans" />
+
+        </LinearLayout>
+
+        <!--底部关注布局-->
+        <LinearLayout
+            android:id="@+id/rl_follow_num"
+            style="@style/UserInfoAttrParent">
+
             <!-- 关注数量布局-->
-            <RelativeLayout
-                android:id="@+id/rl_follow_num"
-                style="@style/UserInfoAttrLayout">
+            <RelativeLayout style="@style/UserInfoAttrLayout">
                 <!-- 关注数量-->
                 <TextView
                     android:id="@+id/tv_follow_num"
@@ -112,10 +124,20 @@
                     android:visibility="gone" />
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/tv_follow"
+                style="@style/UserInfoAttrBottomText"
+                android:text="@string/follow" />
+
+        </LinearLayout>
+
+        <!-- 圈子布局-->
+        <LinearLayout
+            android:id="@+id/rl_group_num"
+            style="@style/UserInfoAttrParent">
+
             <!-- 圈子数量布局-->
-            <RelativeLayout
-                android:id="@+id/rl_group_num"
-                style="@style/UserInfoAttrLayout">
+            <RelativeLayout style="@style/UserInfoAttrLayout">
                 <!-- 圈子数量-->
                 <TextView
                     android:id="@+id/tv_group_num"
@@ -125,24 +147,10 @@
                 <View
                     android:id="@+id/badge_topic"
                     style="@style/UserInfoBadge"
-                    android:layout_toRightOf="@+id/tv_group_num" />
+                    android:layout_toRightOf="@+id/tv_group_num"
+                    android:visibility="gone" />
+
             </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/UserInfoAttrParent"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/tv_fans"
-                style="@style/UserInfoAttrBottomText"
-                android:text="@string/fans" />
-
-            <TextView
-                android:id="@+id/tv_follow"
-                style="@style/UserInfoAttrBottomText"
-                android:text="@string/follow" />
 
             <TextView
                 android:id="@+id/tv_group"

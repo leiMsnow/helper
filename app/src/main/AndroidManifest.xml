@@ -242,10 +242,32 @@
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalInfoActivity" />
-        <activity android:name=".activity.user.MyRelationshipActivity" />
+        <activity android:name=".activity.user.MyRelationshipActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/relationship"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.user.MyCollectActivity" />
         <activity android:name=".activity.user.MyTopicActivity" />
-        <activity android:name=".activity.user.MyGroupActivity" />
+        <activity android:name=".activity.user.MyGroupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/mygrouplist"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.user.PersonalCenterActivity"
             android:label="@string/user_center">
