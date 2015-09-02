@@ -1,10 +1,39 @@
 package com.tongban.im.fragment.user;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.activity.ClipImageBorderViewActivity;
+import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
+import com.tongban.im.model.Child;
+import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.widget.view.CameraView;
 
-public class SetChildPortraitFragment extends BaseApiFragment {
+import java.io.File;
+
+
+public class SetChildPortraitFragment extends BaseApiFragment implements TextWatcher, View.OnClickListener {
+    private ImageView ivSetChildPortrait;
+    private EditText etChildSchool;
+    private Button btnSubmit;
+
+    private String mChildSchool;
+
+
+    private CameraView mCameraView;
 
     @Override
     protected int getLayoutRes() {
@@ -13,7 +42,9 @@ public class SetChildPortraitFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
-
+        ivSetChildPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
+        etChildSchool = (EditText) mView.findViewById(R.id.et_input_school);
+        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }
 
     @Override
@@ -23,6 +54,54 @@ public class SetChildPortraitFragment extends BaseApiFragment {
 
     @Override
     protected void initListener() {
+        ivSetChildPortrait.setOnClickListener(this);
+        etChildSchool.addTextChangedListener(this);
+        btnSubmit.setOnClickListener(this);
+    }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        mChildSchool = etChildSchool.getText().toString().trim();
+        if (!TextUtils.isEmpty(mChildSchool)) {
+            btnSubmit.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        //设置头像
+        if (v == ivSetChildPortrait) {
+            createDialog();
+        }
+        //点击提交按钮
+        else if (v == btnSubmit) {
+            String childName = getArguments().getString(Consts.KEY_CHILD_NAME);
+            String childSex = getArguments().getString(Consts.KEY_CHILD_SEX);
+            String childBirthday = getArguments().getString(Consts.KEY_CHILD_BIRTHDAY);
+            Child childInfo = new Child();
+            childInfo.setBirthday(childBirthday);
+            childInfo.setNick_name(childName);
+            childInfo.setSex(childSex);
+            childInfo.setSchool(mChildSchool);
+            UserCenterApi.getInstance().setChildInfo(new String[]{}, this);
+        }
+    }
+
+    // 打开相机的提示框
+    private void createDialog() {
+        if (mCameraView == null) {
+            mCameraView = new CameraView(mContext);
+        }
+        mCameraView.show();
     }
 }

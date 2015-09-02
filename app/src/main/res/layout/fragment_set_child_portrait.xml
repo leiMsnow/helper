@@ -23,7 +23,7 @@
 
 
     <EditText
-        android:id="@+id/et_input_nickname"
+        android:id="@+id/et_input_school"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/iv_portrait"
@@ -33,13 +33,17 @@
         android:layout_marginTop="40dp"
         android:background="@null"
         android:gravity="center"
-        android:textSize="12sp"
-        android:hint="宝宝昵称" />
+        android:hint="宝宝学校/幼儿园"
+        android:textSize="12sp" />
 
     <View
         android:id="@+id/v_line_one"
         style="@style/FixedHorizontalLine"
-        android:layout_below="@+id/et_input_nickname"
+        android:layout_below="@+id/et_input_school"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/CommonButtonStyle"
+        android:text="OK" />
 </RelativeLayout>

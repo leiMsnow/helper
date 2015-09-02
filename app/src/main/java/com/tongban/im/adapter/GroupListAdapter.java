@@ -73,8 +73,9 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
                 break;
         }
-
-        helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+        if (item.getGroup_avatar() != null) {
+            helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+        }
         helper.setText(R.id.tv_group_name, item.getGroup_name());
 
         //判断是否已经加入
