@@ -172,7 +172,13 @@ public class ThemeActivity extends BaseToolBarActivity {
         }
         setTitle(mTheme.getTheme_title());
         if (mTheme.getTheme_img_url() != null && mTheme.getTheme_img_url().size() > 0) {
-            Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMid()).into(headImg);
+            if (mTheme.getTheme_img_url().get(0).getMid() != null) {
+                Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMid()).into(headImg);
+            } else if (mTheme.getTheme_img_url().get(0).getMin() != null) {
+                Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMin()).into(headImg);
+            } else if (mTheme.getTheme_img_url().get(0).getMax() != null) {
+                Glide.with(mContext).load(mTheme.getTheme_img_url().get(0).getMax()).into(headImg);
+            }
         }
         title.setText(mTheme.getTheme_title());
         themeTag.removeAllViews();
