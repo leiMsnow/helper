@@ -76,6 +76,7 @@
             android:layout_below="@+id/tv_user_name"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/normal_dark_grey" />
 
         <TextView
@@ -84,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_comment_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:drawableLeft="@mipmap/ic_topic_comment"
             android:padding="4dp"
             android:text="回复"
