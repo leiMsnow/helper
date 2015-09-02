@@ -249,7 +249,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
 
-        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount(), this);
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 
     /**
