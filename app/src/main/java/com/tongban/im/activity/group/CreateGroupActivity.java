@@ -21,6 +21,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.ClipImageBorderViewActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.UploadFileCallback;
@@ -42,7 +43,8 @@ import java.util.Calendar;
  *
  * @author fushudi
  */
-public class CreateGroupActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class CreateGroupActivity extends CameraResultActivity implements View.OnClickListener,
+        CameraResultActivity.IPhotoListener {
 
     //选择位置
     public static int SELECT_LOCATION = 310;
@@ -129,6 +131,9 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initListener() {
+
+        setmPhotoListener(this);
+
         ivSetGroupIcon.setOnClickListener(this);
 
         tvLocation.setOnClickListener(this);
@@ -137,6 +142,8 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         tvLife.setOnClickListener(this);
 
         btnSubmit.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -216,31 +223,7 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
         if (RESULT_OK != resultCode) {
             return;
         }
-        if (requestCode == CameraUtils.OPEN_CAMERA) {
-            File file = CameraUtils.getImageFile();
-            if (file.exists()) {
-                if (file.length() > 100) {
-                    String newFile = CameraUtils.saveToSD(file
-                            .getAbsolutePath());
-                    Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-                    intent.putExtra("newFile", newFile);
-                    startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
-                }
-            }
-        } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            String picturePath = CameraUtils.searchUriFile(mContext, data);
-            if (picturePath == null) {
-                picturePath = data.getData().getPath();
-            }
-            String newFile = CameraUtils.saveToSD(picturePath);
-            Intent intent = new Intent(mContext, ClipImageBorderViewActivity.class);
-            intent.putExtra("newFile", newFile);
-            startActivityForResult(intent, CameraUtils.PHOTO_REQUEST_CUT);
-        } else if (requestCode == CameraUtils.PHOTO_REQUEST_CUT) {
-            mGroupIcon = data.getByteArrayExtra("bitmap");
-            Bitmap bitmap = BitmapFactory.decodeByteArray(mGroupIcon, 0, mGroupIcon.length);
-            ivSetGroupIcon.setImageBitmap(bitmap);
-        } else if (requestCode == SELECT_LOCATION) {
+        if (requestCode == SELECT_LOCATION) {
             longitude = data.getDoubleExtra(Consts.LONGITUDE, -1.0D);
             latitude = data.getDoubleExtra(Consts.LATITUDE, -1.0D);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
@@ -308,5 +291,11 @@ public class CreateGroupActivity extends BaseToolBarActivity implements View.OnC
     //拼接当前位置，用于接口接收[省，市，区，详细地址]
     private void setLocationInfo() {
         address = province + "," + city + "," + county + "," + address;
+    }
+
+    @Override
+    public void sendPhoto(byte[] bytes) {
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        ivSetGroupIcon.setImageBitmap(bitmap);
     }
 }
