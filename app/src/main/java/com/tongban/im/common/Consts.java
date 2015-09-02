@@ -133,6 +133,18 @@ public class Consts {
      * 关注
      */
     public static final String TAG_Follow = "TAG_Follow";
+    /**
+     * 宝宝昵称
+     */
+    public static final String KEY_CHILD_NAME = "KEY_CHILD_NAME";
+    /**
+     * 宝宝生日
+     */
+    public static final String KEY_CHILD_BIRTHDAY = "KEY_CHILD_BIRTHDAY";
+    /**
+     * 宝宝性别
+     */
+    public static final String KEY_CHILD_SEX = "KEY_CHILD_SEX";
 
     //------------------------------商品相关key------------------------------------------------------
     /**
