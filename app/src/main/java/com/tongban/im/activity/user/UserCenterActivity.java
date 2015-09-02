@@ -81,7 +81,7 @@ public class UserCenterActivity extends UserBaseActivity implements View.OnClick
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
         setDataInfo(obj.user);
-        tvSetChildInfo.setText("暂无宝宝信息");
+        tvSetChildInfo.setVisibility(View.GONE);
         chbFocus.setVisibility(View.VISIBLE);
         chbFocus.setChecked(mUserInfo.is_focused());
         if (mUserInfo.is_focused()) {
