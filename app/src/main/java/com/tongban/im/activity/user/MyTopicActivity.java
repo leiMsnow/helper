@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
+import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
@@ -100,6 +101,7 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         };
         vpResult.setAdapter(mAdapter);
         vpResult.addOnPageChangeListener(this);
+        vpResult.setPageTransformer(true, new DepthPageTransformer());
     }
 
     @Override

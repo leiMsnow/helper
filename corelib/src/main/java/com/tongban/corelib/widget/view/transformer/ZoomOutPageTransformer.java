@@ -1,4 +1,4 @@
-package com.tongban.corelib.widget.view;
+package com.tongban.corelib.widget.view.transformer;
 
 import android.annotation.SuppressLint;
 import android.support.v4.view.ViewPager;
