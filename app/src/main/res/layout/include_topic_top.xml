@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
+        android:singleLine="true"
         android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/tv_child_age"
         android:textColor="@color/main_black" />
