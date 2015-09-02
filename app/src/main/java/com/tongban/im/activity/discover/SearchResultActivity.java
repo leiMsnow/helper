@@ -19,6 +19,9 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.fragment.user.ThemeListFragment;
+import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Theme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,13 @@ public class SearchResultActivity extends BaseToolBarActivity implements
 
     private int mIndicatorWidth;
     private String mSearchKey;
+
+    // 是否是第一次在该页面进行搜索
+    private boolean isFirstSearch = true;
+    // 存储搜索结果
+    private List<Theme> mThemeList;
+    // 存储搜索结果
+    private List<ProductBook> mProductBookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +198,35 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         } else if (v == ccvProduct) {
             if (mViewPager.getCurrentItem() != 1)
                 resetTabs(1);
+        }
+    }
+
+    /**
+     * 搜索专题成功的Event,用于确定切换到专题列表还是单品列表,只有第一次搜索有效
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
+        mThemeList = event.mThemes;
+        if (mThemeList != null && mThemeList.size() > 0) {
+            if (mProductBookList == null || mProductBookList.size() == 0 || isFirstSearch) {
+                ccvTheme.performClick();
+                isFirstSearch = false;
+            }
+        }
+    }
+
+    /**
+     * 搜索单品成功的Event,用于确定切换到专题列表还是单品列表
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.SearchProductResultEvent event) {
+        mProductBookList = event.mProductBooks;
+        if (mProductBookList != null && mProductBookList.size() > 0) {
+            if (mThemeList == null || mThemeList.size() == 0) {
+                ccvProduct.performClick();
+            }
         }
     }
 }
