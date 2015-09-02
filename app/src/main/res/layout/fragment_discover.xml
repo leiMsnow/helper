@@ -44,7 +44,7 @@
             android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/rc_default_portrait"/>
 
         <TextView

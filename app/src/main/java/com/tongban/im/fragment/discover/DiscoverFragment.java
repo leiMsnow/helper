@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
@@ -130,7 +131,18 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
                 mAdapter.notifyDataSetChanged();
             }
         }
-        ptrFrameLayout.refreshComplete();
+        if (ptrFrameLayout.isRefreshing())
+            ptrFrameLayout.refreshComplete();
+    }
+
+    /**
+     * 接口返回错误回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(ApiErrorResult obj) {
+        if (ptrFrameLayout.isRefreshing())
+            ptrFrameLayout.refreshComplete();
     }
 
     @Override
