@@ -13,8 +13,8 @@ import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.group.GroupFragment;
 import com.tongban.im.fragment.discover.DiscoverFragment;
+import com.tongban.im.fragment.group.GroupFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
 
 import java.util.ArrayList;

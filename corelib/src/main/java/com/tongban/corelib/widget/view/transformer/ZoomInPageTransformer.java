@@ -8,9 +8,9 @@ import android.view.View;
 /**
  * viewpager过场动画
  */
-public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
-    private static final float MIN_SCALE = 0.85f;
-    private static final float MIN_ALPHA = 0.5f;
+public class ZoomInPageTransformer implements ViewPager.PageTransformer {
+    private static final float MIN_SCALE = 0.7f;
+    private static final float MIN_ALPHA = 0.2f;
 
     @SuppressLint("NewApi")
     public void transformPage(View view, float position) {
@@ -20,19 +20,23 @@ public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
             // This page is way off-screen to the left.
             view.setAlpha(0);
 
-        } else if (position <= 1) //a页滑动至b页 ； a页从 0.0 -1 ；b页从1 ~ 0.0
-        { // [-1,1]
-            // Modify the default slide transition to shrink the page as well
-            float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
-            float vertMargin = pageHeight * (1 - scaleFactor) / 2;
-            float horzMargin = pageWidth * (1 - scaleFactor) / 2;
-            if (position < 0) {
-                view.setTranslationX(horzMargin - vertMargin / 2);
-            } else {
-                view.setTranslationX(-horzMargin + vertMargin / 2);
-            }
+        } else if (position <= 0) {
+            // Use the default slide transition when moving to the left page
+            view.setAlpha(1 + position);
+            float scaleFactor = MIN_SCALE
+                    + (1 - MIN_SCALE) * (1 - Math.abs(position));
+            view.setScaleX(scaleFactor);
+            view.setScaleY(scaleFactor);
+        }
+        //a页滑动至b页 ； a页从 0.0 -1 ；b页从1 ~ 0.0
+        else if (position <= 1) {
 
-            // Scale the page down (between MIN_SCALE and 1)
+            view.setAlpha(1 - position);
+
+            // [-1,1]
+            // Modify the default slide transition to shrink the page as well
+            float scaleFactor = MIN_SCALE
+                    + (1 - MIN_SCALE) * (1 - Math.abs(position));
             view.setScaleX(scaleFactor);
             view.setScaleY(scaleFactor);
 
