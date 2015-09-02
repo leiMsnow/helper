@@ -1,4 +1,12 @@
 <resources>
+    <!-- 首页底部menu样式-->
+    <style name="MainBottomMenu">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">4dp</item>
+    </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
@@ -43,17 +51,17 @@
 
     <!-- 用户信息父容器-->
     <style name="UserInfoAttrParent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_marginLeft">48dp</item>
-        <item name="android:layout_marginRight">48dp</item>
-        <item name="android:orientation">horizontal</item>
+        <!--<item name="android:layout_marginLeft">48dp</item>-->
+        <!--<item name="android:layout_marginRight">48dp</item>-->
+        <item name="android:orientation">vertical</item>
     </style>
     <!-- 用户信息：粉丝、关注、话题相关-->
     <style name="UserInfoAttrBottomText">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
@@ -72,8 +80,8 @@
     </style>
 
     <style name="UserInfoAttrLayout">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:padding">2dp</item>
     </style>
