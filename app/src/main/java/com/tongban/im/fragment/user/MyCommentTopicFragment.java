@@ -1,7 +1,6 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -10,7 +9,6 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.UserCenterActivity;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
@@ -58,10 +56,11 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_user_portrait:
-                String visitorId = v.getTag().toString();
-                Intent intent = new Intent(mContext, UserCenterActivity.class);
-                intent.putExtra("visitorId", visitorId);
-                startActivity(intent);
+                String visitorId = v.getTag(Integer.MAX_VALUE).toString();
+//                Intent intent = new Intent(mContext, UserCenterActivity.class);
+//                intent.putExtra("visitorId", visitorId);
+//                startActivity(intent);
+                TransferCenter.getInstance().startUserCenter(visitorId);
                 break;
             case R.id.tv_comment:
                 ToastUtil.getInstance(mContext).showToast("回复");
@@ -71,7 +70,8 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getUser_info().getUser_id());
+        TransferCenter.getInstance()
+                .startTopicDetails(mAdapter.getItem(position).getTopic_info().getTopic_id());
     }
 
     /**

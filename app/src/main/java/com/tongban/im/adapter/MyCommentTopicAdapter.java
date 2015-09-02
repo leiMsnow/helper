@@ -27,17 +27,19 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
     @Override
     protected void convert(BaseAdapterHelper helper, TopicComment item) {
         if (item.getUser_info().getPortrait_url() != null) {
+            helper.setTag(R.id.iv_user_portrait,
+                    Integer.MAX_VALUE, item.getUser_info().getUser_id());
             helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
                     R.drawable.rc_default_portrait);
-        }else{
-            helper.setImageBitmap(R.id.iv_user_portrait,R.drawable.rc_default_portrait);
+            helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
+        } else {
+            helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
         }
         helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
         helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
         helper.setText(R.id.tv_comment_content, item.getComment_content());
-        helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_content());
+        helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_title());
 
-        helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
         helper.setOnClickListener(R.id.tv_comment, onClickListener);
     }
 }
