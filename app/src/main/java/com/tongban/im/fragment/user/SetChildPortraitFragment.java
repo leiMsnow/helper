@@ -104,6 +104,7 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
             List<Child> children = new ArrayList<>();
             children.add(childInfo);
             UserCenterApi.getInstance().setChildInfo(children, this);
+            getActivity().finish();
         }
     }
 

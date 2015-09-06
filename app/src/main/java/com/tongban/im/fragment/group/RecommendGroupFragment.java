@@ -7,6 +7,7 @@ import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
@@ -99,13 +100,14 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      * @param joinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
-                joinGroupEvent.group_name);
-        if (mIsFromMain) {
-            GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
-        } else {
-            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
-        }
+        ToastUtil.getInstance(mContext).showToast("已申请,等圈主确认后方可加入");
+//        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
+//                joinGroupEvent.group_name);
+//        if (mIsFromMain) {
+//            GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
+//        } else {
+//            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
+//        }
     }
 
     /**

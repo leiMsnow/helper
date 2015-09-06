@@ -245,9 +245,13 @@ public class BaseEvent {
         public String childBirthday;
         public String childSex;
         public String childSchool;
+    }
+    /**
+     * 设置宝宝信息成功Event
+     */
+    public static class ChildCreateSuccessEvent {
         public boolean isSetSuccess;
     }
-
     //--------------------------------------商品模块-------------------------------------------------
 
     /**

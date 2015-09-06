@@ -277,8 +277,8 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 

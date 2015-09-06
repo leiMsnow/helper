@@ -48,7 +48,6 @@ public class GroupFragment extends BaseApiFragment {
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibSearch.setVisibility(View.GONE);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
-        ibCreate.setVisibility(View.GONE);
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()

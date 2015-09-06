@@ -11,6 +11,11 @@ import com.tongban.im.fragment.user.InputChildInfoFragment;
 import com.tongban.im.fragment.user.SetChildPortraitFragment;
 import com.tongban.im.model.BaseEvent;
 
+/**
+ * 设置宝宝信息界面
+ *
+ * @author fushudi
+ */
 public class ChildInfoActivity extends CameraResultActivity {
 
     private InputChildInfoFragment mInputChildInfoFragment;
@@ -56,5 +61,12 @@ public class ChildInfoActivity extends CameraResultActivity {
         transaction.replace(R.id.fl_replaced, mSetChildPortraitFragment);
         transaction.commit();
     }
-
+    /**
+     * 宝宝信息Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.ChildCreateSuccessEvent obj) {
+       finish();
+    }
 }

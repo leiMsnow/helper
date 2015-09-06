@@ -6,6 +6,8 @@ package com.tongban.im.common;
  */
 public class Consts {
 
+
+    public static final double DETAULT_DOUBLE= -1;
     /**
      * 图片服务器地址前缀
      */
