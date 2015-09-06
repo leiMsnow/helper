@@ -17,6 +17,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.Child;
 import com.tongban.im.widget.view.CameraView;
 
@@ -94,14 +95,14 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
         //点击提交按钮
         else if (v == btnSubmit) {
             String childName = getArguments().getString(Consts.KEY_CHILD_NAME);
-            String childSex = getArguments().getString(Consts.KEY_CHILD_SEX);
+            int childSex = getArguments().getInt(Consts.KEY_CHILD_SEX);
             String childBirthday = getArguments().getString(Consts.KEY_CHILD_BIRTHDAY);
-            Child childInfo = new Child();
+            AddChildInfo childInfo = new AddChildInfo();
             childInfo.setBirthday(childBirthday);
             childInfo.setNick_name(childName);
             childInfo.setSex(childSex);
             childInfo.setSchool(mChildSchool);
-            List<Child> children = new ArrayList<>();
+            List<AddChildInfo> children = new ArrayList<>();
             children.add(childInfo);
             UserCenterApi.getInstance().setChildInfo(children, this);
             getActivity().finish();

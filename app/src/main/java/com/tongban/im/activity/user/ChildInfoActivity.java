@@ -55,7 +55,7 @@ public class ChildInfoActivity extends CameraResultActivity {
         Bundle bundle = new Bundle();
         bundle.putString(Consts.KEY_CHILD_NAME, obj.childName);
         bundle.putString(Consts.KEY_CHILD_BIRTHDAY, obj.childBirthday);
-        bundle.putString(Consts.KEY_CHILD_SEX, obj.childSex);
+        bundle.putInt(Consts.KEY_CHILD_SEX,obj.childSex);
         mSetChildPortraitFragment.setArguments(bundle);
         transaction.addToBackStack(null);
         transaction.replace(R.id.fl_replaced, mSetChildPortraitFragment);

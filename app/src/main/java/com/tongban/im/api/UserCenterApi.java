@@ -14,6 +14,7 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
+import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Child;
 import com.tongban.im.model.Group;
@@ -610,7 +611,7 @@ public class UserCenterApi extends BaseApi {
      * @param children
      * @param callback
      */
-    public void setChildInfo(List<Child> children, final ApiCallback callback) {
+    public void setChildInfo(List<AddChildInfo> children, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("child_info", JSON.toJSON(children));
