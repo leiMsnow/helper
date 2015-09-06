@@ -130,7 +130,7 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
         }
         // 注册成功，自动登录
         else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
-            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
+//            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
             AccountApi.getInstance().login(mPhoneNum, mPwd, this);
         }
     }
@@ -142,7 +142,8 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
 
     public void onEventMainThread(User user) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mPhoneNum);
-        connectIM(user.getIm_bind_token());
+        connectIM(user, true);
+
     }
 
     @Override

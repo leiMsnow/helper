@@ -105,7 +105,8 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
     }
 
     @Override
-    public void onClickComment(String commentContent, String repliedCommentId, String repliedName, String repliedUserId) {
+    public void onClickComment(String commentContent, String repliedCommentId,
+                               String repliedName, String repliedUserId) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
                 repliedName, repliedUserId, this);
     }

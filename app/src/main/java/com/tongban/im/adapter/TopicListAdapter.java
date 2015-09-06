@@ -36,6 +36,8 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
                 helper.setImageBitmap(R.id.iv_user_portrait,
                         item.getUser_info().getPortrait_url().getMin(),
                         R.drawable.rc_default_portrait);
+                helper.setTag(R.id.iv_user_portrait,
+                        Integer.MAX_VALUE, item.getUser_info().getUser_id());
             } else {
                 helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
             }
@@ -45,7 +47,7 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
                     item.getUser_info().getChild_info().size() > 0) {
                 helper.setText(R.id.tv_child_age,
                         String.valueOf(item.getUser_info().getChild_info().get(0).getAge()) + "岁" +
-                                item.getUser_info().getChild_info().get(0).getSex() + "宝宝");
+                                item.getUser_info().getChild_info().get(0).StrSex() + "宝宝");
             } else {
                 helper.setText(R.id.tv_child_age, "");
             }

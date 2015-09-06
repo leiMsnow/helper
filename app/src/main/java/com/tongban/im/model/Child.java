@@ -40,8 +40,15 @@ public class Child {
     }
 
     public String getSex() {
+        return sex;
+    }
+    public String StrSex() {
+        if (TextUtils.isEmpty(sex)){
+            return "0";
+        }
         return sex.equals("0") ? "男" : "女";
     }
+
 
     public void setSex(String sex) {
         this.sex = sex;

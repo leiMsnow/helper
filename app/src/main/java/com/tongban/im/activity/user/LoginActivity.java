@@ -115,7 +115,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     //登录成功
     public void onEventMainThread(User user) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
-        connectIM(user.getIm_bind_token());
+        connectIM(user);
     }
 
     @Override

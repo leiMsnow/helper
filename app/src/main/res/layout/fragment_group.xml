@@ -6,7 +6,7 @@
     <include
         android:id="@+id/in_topic_toolbar"
         layout="@layout/include_topic_group_toolbar" />
-
+    
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
