@@ -110,7 +110,9 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     public void onEventMainThread(BaseEvent.PersonalCenterEvent userInfo) {
         User user = userInfo.user;
         if (user != null) {
-            Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+            if (user.getPortrait_url() != null && user.getPortrait_url().getMin() != null) {
+                Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+            }
             tvUsername.setText(user.getNick_name());
             tvUserTag.setText(user.getTags());
         }
