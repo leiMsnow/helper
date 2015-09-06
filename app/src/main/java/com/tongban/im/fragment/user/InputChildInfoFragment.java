@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -19,11 +21,18 @@ import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 
+/**
+ * 输入宝宝信息界面
+ *
+ * @author fushudi
+ */
 
 public class InputChildInfoFragment extends BaseApiFragment implements TextWatcher, View.OnClickListener {
     private EditText etChildNickName;
     private TextView tvChildBirthday;
     private Button btnSubmit;
+    private FrameLayout flContainerBoy, flContainerGirl;
+    private CheckBox chbBoy, chbGirl;
 
     private String mChildNickName, mChildBirthday, mChildSex;
     private DatePickerDialog mDatePickerDialog;
@@ -37,6 +46,10 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     protected void initView() {
         etChildNickName = (EditText) mView.findViewById(R.id.et_input_nickname);
         tvChildBirthday = (TextView) mView.findViewById(R.id.tv_input_birthday);
+        flContainerBoy = (FrameLayout) mView.findViewById(R.id.fl_container_boy);
+        flContainerGirl = (FrameLayout) mView.findViewById(R.id.fl_container_girl);
+        chbBoy = (CheckBox) mView.findViewById(R.id.chb_boy);
+        chbGirl = (CheckBox) mView.findViewById(R.id.chb_girl);
         btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }
 
@@ -52,6 +65,8 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
         tvChildBirthday.setOnClickListener(this);
         tvChildBirthday.addTextChangedListener(this);
         etChildNickName.addTextChangedListener(this);
+        flContainerBoy.setOnClickListener(this);
+        flContainerGirl.setOnClickListener(this);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +102,18 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     public void onClick(View v) {
         if (v == tvChildBirthday) {
             openDatePicker();
+        }
+        //选择宝宝性别 - 男
+        else if (v == flContainerBoy) {
+            chbBoy.setChecked(true);
+            chbGirl.setChecked(false);
+            mChildSex="0";
+        }
+        //选择宝宝性别 - 女
+        else if (v == flContainerGirl) {
+            chbGirl.setChecked(true);
+            chbBoy.setChecked(false);
+            mChildSex="1";
         }
     }
 
