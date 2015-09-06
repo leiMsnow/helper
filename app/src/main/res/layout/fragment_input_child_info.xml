@@ -86,7 +86,7 @@
                     android:layout_gravity="bottom|right"
                     android:background="@drawable/selector_user_focus"
                     android:button="@null"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </FrameLayout>
 
             <FrameLayout
@@ -112,7 +112,7 @@
                     android:layout_gravity="bottom|right"
                     android:background="@drawable/selector_user_focus"
                     android:button="@null"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </FrameLayout>
 
             <TextView

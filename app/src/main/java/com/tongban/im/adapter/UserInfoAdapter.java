@@ -46,7 +46,7 @@ public class UserInfoAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mChildInfoList.size();
+        return 1;
     }
 
     @Override

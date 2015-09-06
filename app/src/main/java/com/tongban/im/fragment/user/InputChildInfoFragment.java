@@ -34,7 +34,8 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     private FrameLayout flContainerBoy, flContainerGirl;
     private CheckBox chbBoy, chbGirl;
 
-    private String mChildNickName, mChildBirthday, mChildSex;
+    private String mChildNickName, mChildBirthday;
+    private int mChildSex;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
@@ -105,15 +106,15 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
         }
         //选择宝宝性别 - 男
         else if (v == flContainerBoy) {
-            chbBoy.setChecked(true);
-            chbGirl.setChecked(false);
-            mChildSex="0";
+            chbBoy.setVisibility(View.VISIBLE);
+            chbGirl.setVisibility(View.GONE);
+            mChildSex=0;
         }
         //选择宝宝性别 - 女
         else if (v == flContainerGirl) {
-            chbGirl.setChecked(true);
-            chbBoy.setChecked(false);
-            mChildSex="1";
+            chbGirl.setVisibility(View.VISIBLE);
+            chbBoy.setVisibility(View.GONE);
+            mChildSex=1;
         }
     }
 

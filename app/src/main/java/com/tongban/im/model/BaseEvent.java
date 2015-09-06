@@ -244,7 +244,7 @@ public class BaseEvent {
     public static class ChildCreateEvent {
         public String childName;
         public String childBirthday;
-        public String childSex;
+        public int childSex;
         public String childSchool;
     }
     /**
