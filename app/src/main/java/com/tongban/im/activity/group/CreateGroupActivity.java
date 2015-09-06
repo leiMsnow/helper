@@ -224,8 +224,8 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             return;
         }
         if (requestCode == SELECT_LOCATION) {
-            longitude = data.getDoubleExtra(Consts.LONGITUDE, -1.0D);
-            latitude = data.getDoubleExtra(Consts.LATITUDE, -1.0D);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE,Consts.DETAULT_DOUBLE);
+            latitude = data.getDoubleExtra(Consts.LATITUDE, Consts.DETAULT_DOUBLE);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             tvLocation.setText(address);
 
@@ -278,8 +278,8 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
     }
 
     public void onEventMainThread(BDLocation obj) {
-        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, -1.0D);
-        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, -1.0D);
+        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE);
+        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE);
         province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
         city = (String) SPUtils.get(mContext, Consts.CITY, "");
         county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
@@ -295,6 +295,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
 
     @Override
     public void sendPhoto(byte[] bytes) {
+        mGroupIcon = bytes;
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivSetGroupIcon.setImageBitmap(bitmap);
     }
