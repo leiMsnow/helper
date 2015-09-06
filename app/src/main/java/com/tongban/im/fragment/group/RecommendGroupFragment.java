@@ -9,13 +9,18 @@ import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
+import com.tongban.corelib.widget.view.viewpager.JellyViewPager;
 import com.tongban.im.R;
+import com.tongban.im.adapter.GroupDisplayAdapter;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -30,11 +35,15 @@ import io.rong.imkit.RongIM;
  */
 public class RecommendGroupFragment extends BaseApiFragment implements PtrHandler {
 
-    private PtrFrameLayout ptrFrameLayout;
-    private ListView lvGroupList;
+//    private PtrFrameLayout ptrFrameLayout;
+//    private ListView lvGroupList;
 
-    private GroupListAdapter mAdapter;
+    private JellyViewPager jellyViewPager;
 
+    //    private GroupListAdapter mAdapter;
+    private GroupDisplayAdapter mAdapter;
+
+    private List<Group> mGroupList;
     private boolean mIsFromMain = false;
     private String mKeyword;
     private int mCursor = 0;
@@ -46,8 +55,9 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
 
     @Override
     protected void initView() {
-        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
+//        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
+//        lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
+        jellyViewPager = (JellyViewPager) mView.findViewById(R.id.vp_group);
     }
 
 
@@ -55,26 +65,30 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
     protected void initData() {
         if (getArguments() != null)
             mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
-        if (mIsFromMain) {
-            StoreHouseHeader header = new StoreHouseHeader(mContext);
-            header.setTextColor(R.color.main_brown);
-            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
-                    DensityUtils.dp2px(mContext, 16), 0);
-//            header.initWithString("Recommend...", DensityUtils.dp2px(mContext, 10));
-            header.initWithPointList(getPointList());
-            ptrFrameLayout.setHeaderView(header);
-            ptrFrameLayout.addPtrUIHandler(header);
-            ptrFrameLayout.setPtrHandler(this);
-            ptrFrameLayout.autoRefresh();
-        }
-        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
-        mAdapter.setDisplayModel(false);
-        lvGroupList.setAdapter(mAdapter);
+//        if (mIsFromMain) {
+//            StoreHouseHeader header = new StoreHouseHeader(mContext);
+//            header.setTextColor(R.color.main_brown);
+//            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
+//                    DensityUtils.dp2px(mContext, 16), 0);
+////            header.initWithString("Recommend...", DensityUtils.dp2px(mContext, 10));
+//            header.initWithPointList(getPointList());
+//            ptrFrameLayout.setHeaderView(header);
+//            ptrFrameLayout.addPtrUIHandler(header);
+//            ptrFrameLayout.setPtrHandler(this);
+//            ptrFrameLayout.autoRefresh();
+//        }
+//        mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
+//        mAdapter.setDisplayModel(false);
+//        lvGroupList.setAdapter(mAdapter);
+        GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
+        mGroupList = new ArrayList<>();
+        mAdapter = new GroupDisplayAdapter(getChildFragmentManager(), mGroupList);
+        jellyViewPager.setAdapter(mAdapter);
     }
 
     @Override
     protected void initListener() {
-        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
+//        mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     /**
@@ -84,14 +98,19 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
         if (mIsFromMain) {
-            ptrFrameLayout.refreshComplete();
-            mAdapter.replaceAll(list.groupList);
-            lvGroupList.setVisibility(View.VISIBLE);
+//            ptrFrameLayout.refreshComplete();
+            mAdapter = new GroupDisplayAdapter(getChildFragmentManager(), list.groupList);
+            jellyViewPager.setAdapter(mAdapter);
+//            mGroupList.clear();
+//            mGroupList.addAll(list.groupList);
+//            mAdapter.notifyDataSetChanged();
+//            mAdapter.replaceAll(list.groupList);
+//            lvGroupList.setVisibility(View.VISIBLE);
         }
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
-        ptrFrameLayout.refreshComplete();
+//        ptrFrameLayout.refreshComplete();
     }
 
     /**
@@ -133,8 +152,10 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      */
     public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
         if (!mIsFromMain) {
-            mAdapter.replaceAll(searchGroupEvent.groups);
-            lvGroupList.setVisibility(View.VISIBLE);
+//            jellyViewPager.setAdapter(new GroupDisplayAdapter(getChildFragmentManager(),
+//                    searchGroupEvent.groups));
+//            mAdapter.replaceAll(searchGroupEvent.groups);
+//            lvGroupList.setVisibility(View.VISIBLE);
         }
     }
 

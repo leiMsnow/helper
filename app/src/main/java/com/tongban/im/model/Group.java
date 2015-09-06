@@ -4,11 +4,13 @@ import android.text.TextUtils;
 
 import com.tongban.im.R;
 
+import java.io.Serializable;
+
 /**
  * 群组
  * author: chenenyu 15/7/14
  */
-public class Group {
+public class Group implements Serializable {
     //群Id
     private String group_id;
     //群名称
