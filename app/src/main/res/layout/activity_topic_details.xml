@@ -6,7 +6,7 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <ListView
+    <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_reply_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

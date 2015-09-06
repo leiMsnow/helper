@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
@@ -33,7 +35,7 @@ import java.util.List;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener {
+        TopicInputView.onClickCommentListener, OnLoadMoreListener {
 
     //头布局控件
     private View mHeader;
@@ -53,7 +55,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private TextView tvCollect;
 
 
-    private ListView lvReplyList;
+    private LoadMoreListView lvReplyList;
 
     private TopicImgAdapter mTopicImgAdapter;
     private TopicCommentAdapter mAdapter;
@@ -62,6 +64,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private String mTopicId;
 
     private int mCursor = 0;
+    private int mPage = 10;
 
     @Override
     protected int getLayoutRes() {
@@ -71,7 +74,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     @Override
     protected void initView() {
 
-        lvReplyList = (ListView) findViewById(R.id.lv_reply_list);
+        lvReplyList = (LoadMoreListView) findViewById(R.id.lv_reply_list);
 
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
 
@@ -105,11 +108,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
             if (!TextUtils.isEmpty(mTopicId)) {
                 TopicApi.getInstance().getTopicInfo(mTopicId, this);
-                TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, 10, this);
+                TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
 
                 mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
                 mAdapter.setOnClickListener(this);
                 lvReplyList.setAdapter(mAdapter);
+                lvReplyList.setResultSize(mPage);
 
                 mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
                         null);
@@ -124,6 +128,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         ivCollect.setOnClickListener(this);
+        lvReplyList.setOnLoadMoreListener(this);
+
     }
 
     @Override
@@ -266,6 +272,14 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         } else {
             ivCollect.setImageResource(R.drawable.selector_topic_collect);
             tvCollect.setText(String.valueOf(collectCount - 1));
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        if (mTopicInfo != null) {
+            TopicApi.getInstance().
+                    getTopicCommentList(mTopicId, mCursor, mPage, this);
         }
     }
 }

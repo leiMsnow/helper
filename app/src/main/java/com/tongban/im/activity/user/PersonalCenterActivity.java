@@ -60,7 +60,7 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         }
         //设置 // TODO: 9/1/15 暂时写为注销登录
         else if (v == tvSettings) {
-            SPUtils.put(mContext, Consts.USER_ID, "");
+            SPUtils.clear(mContext);
             TransferCenter.getInstance().startLogin(true);
         }
         //跳转到设置宝宝信息界面
