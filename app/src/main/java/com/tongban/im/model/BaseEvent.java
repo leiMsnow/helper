@@ -245,16 +245,21 @@ public class BaseEvent {
         public String childBirthday;
         public String childSex;
         public String childSchool;
+    }
+    /**
+     * 设置宝宝信息成功Event
+     */
+    public static class ChildCreateSuccessEvent {
         public boolean isSetSuccess;
     }
-
     //--------------------------------------商品模块-------------------------------------------------
 
     /**
-     * 搜索专题和单品的Event
+     * 获取专题收藏数量
      */
-    public static class SearchThemeAndProductEvent {
-        public String keyword;
+    public static class FetchThemeCollectedAmount {
+        public int floor;
+        public int amount;
     }
 
     /**
@@ -293,7 +298,7 @@ public class BaseEvent {
     }
 
     /**
-     * 取消收藏专题的Event
+     * 取消收藏商品的Event
      */
     public static class NoCollectProductEvent {
 

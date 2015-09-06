@@ -132,13 +132,14 @@ public class DiscoverAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
-        TextView tip;
-        TextView title;
-        TextView description;
-        ImageView img1;
-        ImageView img2;
-        ImageView img3;
-        TextView collectAmount;
+    public static class ViewHolder {
+        public TextView tip;
+        public TextView title;
+        public TextView description;
+        public ImageView img1;
+        public ImageView img2;
+        public ImageView img3;
+        public TextView collectAmount;
     }
+
 }

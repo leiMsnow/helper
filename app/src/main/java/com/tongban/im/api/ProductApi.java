@@ -9,6 +9,7 @@ import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
@@ -16,6 +17,8 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,9 @@ public class ProductApi extends BaseApi {
 
     // 获取首页数据
     private static final String FETCH_HOME_INFO = "home/template/require";
+
+    // 获取专题收藏数量
+    private static final String FETCH_THEME_COLLECTED_AMOUNT = "theme/collected/amount";
 
     // 获取专题详情信息
     private static final String FETCH_THEME_INFO = "theme/info";
@@ -106,14 +112,46 @@ public class ProductApi extends BaseApi {
     }
 
     /**
+     * 获取专题的收藏数量
+     *
+     * @param floor   楼层
+     * @param themeId 专题id
+     * @param calback 回调
+     */
+    public void fetchThemeCollectedAmount(final int floor, @NonNull String themeId, final ApiCallback calback) {
+        mParams = new HashMap<>();
+        mParams.put("theme_id", themeId);
+        simpleRequest(FETCH_THEME_COLLECTED_AMOUNT, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                int amount = ((JSONObject) obj).optJSONObject("data").optInt("collect_amount");
+                BaseEvent.FetchThemeCollectedAmount event = new BaseEvent.FetchThemeCollectedAmount();
+                event.floor = floor;
+                event.amount = amount;
+                calback.onComplete(event);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+                LogUtil.d("fetchThemeCollectedAmount", "获取专题收藏数量失败");
+            }
+        });
+    }
+
+    /**
      * 获取专题详情
      *
-     * @param multiProductId 专题id
-     * @param callback       回调
+     * @param themeId  专题id
+     * @param callback 回调
      */
-    public void fetchThemeInfo(@NonNull String multiProductId, final ApiCallback callback) {
+    public void fetchThemeInfo(@NonNull String themeId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", multiProductId);
+        mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(FETCH_THEME_INFO, mParams, new ApiCallback() {
             @Override
@@ -140,15 +178,15 @@ public class ProductApi extends BaseApi {
     /**
      * 根据专题id获取专题下的单品列表
      *
-     * @param multiProductId 专题id
-     * @param cursor         游标
-     * @param pageSize       每页的数量
-     * @param callback       回调
+     * @param themeID  专题id
+     * @param cursor   游标
+     * @param pageSize 每页的数量
+     * @param callback 回调
      */
-    public void fetchProductListByThemeId(@NonNull String multiProductId, int cursor, int pageSize,
+    public void fetchProductListByThemeId(@NonNull String themeID, int cursor, int pageSize,
                                           final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", multiProductId);
+        mParams.put("theme_id", themeID);
         mParams.put("cursor", cursor);
         mParams.put("page_size", pageSize);
         simpleRequest(FETCH_THEME_PRODUCTS, mParams, new ApiCallback() {
@@ -178,12 +216,12 @@ public class ProductApi extends BaseApi {
     /**
      * 收藏专题
      *
-     * @param multiId  专题id
+     * @param themeId  专题id
      * @param callback 回调
      */
-    public void collectTheme(String multiId, final ApiCallback callback) {
+    public void collectTheme(String themeId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", multiId);
+        mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(COLLECT_MULTI_PRODUCT, mParams, new ApiCallback() {
             @Override
@@ -206,12 +244,12 @@ public class ProductApi extends BaseApi {
     /**
      * 取消收藏专题
      *
-     * @param multiId  专题id
+     * @param themeId  专题id
      * @param callback 回调
      */
-    public void noCollectTheme(String multiId, final ApiCallback callback) {
+    public void noCollectTheme(String themeId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("theme_id", multiId);
+        mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new ApiCallback() {
             @Override
@@ -292,14 +330,14 @@ public class ProductApi extends BaseApi {
     }
 
     /**
-     * 取消收藏专题
+     * 取消收藏商品
      *
-     * @param multiId  专题id
-     * @param callback 回调
+     * @param productId 专题id
+     * @param callback  回调
      */
-    public void noCollectProduct(String multiId, final ApiCallback callback) {
+    public void noCollectProduct(String productId, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("product_id", multiId);
+        mParams.put("product_id", productId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(NO_COLLECT_PRODUCT, mParams, new ApiCallback() {
             @Override

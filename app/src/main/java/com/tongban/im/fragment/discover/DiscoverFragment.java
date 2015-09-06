@@ -130,9 +130,31 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
             } else {
                 mAdapter.notifyDataSetChanged();
             }
+            // 请求收藏数量数据并更新
+            int floor = 0; // 楼层
+            for (Discover discover : mDiscovers) {
+                ProductApi.getInstance().fetchThemeCollectedAmount(floor, discover.getTheme_id(), this);
+                floor++;
+            }
         }
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
+    }
+
+    /**
+     * 获取专题收藏数量成功的回调
+     *
+     * @param event
+     */
+    public void onEventMainThread(BaseEvent.FetchThemeCollectedAmount event) {
+        Discover discover = mDiscovers.get(event.floor);
+        discover.setCollect_amount(event.amount);
+        // 得到要更新的item的view
+        View view = mListView.getChildAt(event.floor);
+        // 从view中取得holder
+        DiscoverAdapter.ViewHolder holder = (DiscoverAdapter.ViewHolder) view.getTag();
+        // 设置收藏数量
+        holder.collectAmount.setText(String.valueOf(event.amount));
     }
 
     /**
