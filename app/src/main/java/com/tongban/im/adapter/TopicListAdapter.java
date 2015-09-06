@@ -36,6 +36,8 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
                 helper.setImageBitmap(R.id.iv_user_portrait,
                         item.getUser_info().getPortrait_url().getMin(),
                         R.drawable.rc_default_portrait);
+                helper.setTag(R.id.iv_user_portrait,
+                        Integer.MAX_VALUE, item.getUser_info().getUser_id());
             } else {
                 helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
             }
