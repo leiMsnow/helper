@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-
     android:id="@+id/rl_toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -15,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:layout_toLeftOf="@+id/ib_search"
+        android:layout_toLeftOf="@+id/rl_action_parent"
         android:paddingBottom="4dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
@@ -33,8 +31,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rb_chat"
@@ -65,26 +62,38 @@
     </RadioGroup>
 
 
-    <ImageButton
-        android:id="@+id/ib_search"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/ib_create"
-        android:background="@drawable/selector_white_to_gray"
-        android:src="@mipmap/ic_menu_search" />
+    <RelativeLayout
+        android:id="@+id/rl_action_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true">
 
+        <ImageButton
+            android:id="@+id/ib_search"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/ib_create"
+            android:layout_toStartOf="@+id/ib_create"
+            android:background="@drawable/selector_white_to_gray"
+            android:padding="8dp"
+            android:src="@mipmap/ic_menu_search" />
 
-    <ImageButton
-        android:id="@+id/ib_create"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:padding="8dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/selector_white_to_gray"
-        android:src="@mipmap/ic_menu_topic_add" />
+        <ImageButton
+            android:id="@+id/ib_create"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/selector_white_to_gray"
+            android:padding="8dp"
+            android:src="@mipmap/ic_menu_topic_add" />
+
+    </RelativeLayout>
 
     <View
         style="@style/HorizontalLine"
