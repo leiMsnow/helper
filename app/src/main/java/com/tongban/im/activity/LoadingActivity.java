@@ -25,7 +25,6 @@ import com.tongban.im.utils.LocationUtils;
 public class LoadingActivity extends BaseToolBarActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +54,7 @@ public class LoadingActivity extends BaseToolBarActivity {
         }
         String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
         if (freeAuthToken.equals("")) {
-            connectIM("");
+            connectIM();
         } else {
             AccountApi.getInstance().tokenLogin(freeAuthToken, new ApiCallback() {
                 @Override
@@ -71,13 +70,13 @@ public class LoadingActivity extends BaseToolBarActivity {
                         finish();
                     } else if (obj instanceof User) {
                         User user = (User) obj;
-                        connectIM(user.getIm_bind_token());
+                        connectIM(user);
                     }
                 }
 
                 @Override
                 public void onFailure(DisplayType displayType, Object errorObj) {
-                    connectIM(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString());
+                    connectIM();
                 }
             });
         }

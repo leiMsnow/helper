@@ -74,7 +74,7 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
         tvPhoneNum.setText(user.getMobile_phone());
         if (user.getChild_info() != null && user.getChild_info().size() > 0) {
             tvChildAge.setText(user.getChild_info().get(0).getAge());
-            tvChildSex.setText(user.getChild_info().get(0).getSex());
+            tvChildSex.setText(user.getChild_info().get(0).StrSex());
             tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
             tvChildSchool.setText(user.getChild_info().get(0).getSchool());
         }

@@ -10,7 +10,9 @@ import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
+import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.model.GroupType;
+import com.tongban.im.model.User;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -83,37 +85,70 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     /**
      * 连接融云IM
      *
-     * @param token
+     * @param user       用户信息
+     * @param isOpenMain 是否打开主界面
      */
-    protected void connectIM(String token, final boolean isOpenMain) {
-        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+    protected void connectIM(final User user, final boolean isOpenMain) {
+        RongIM.connect(user.getIm_bind_token(), new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 LogUtil.d("onTokenIncorrect");
-                startMain(isOpenMain);
+                startMain(isOpenMain, user.getChild_info() == null);
             }
 
             @Override
             public void onSuccess(String s) {
                 LogUtil.d("连接RongIM成功，当前用户：" + s);
-                startMain(isOpenMain);
+                startMain(isOpenMain, user.getChild_info() == null);
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                startMain(isOpenMain);
+                startMain(isOpenMain, user.getChild_info() == null);
             }
         });
     }
 
-    protected void connectIM(String token) {
-        connectIM(token, true);
+    /**
+     * 连接后跳转到主界面
+     *
+     * @param user
+     */
+    protected void connectIM(User user) {
+        connectIM(user, true);
+    }
+
+    /**
+     * 未登录连接
+     */
+    protected void connectIM() {
+        RongIM.connect("", new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                LogUtil.d("onTokenIncorrect");
+                startMain(true, false);
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                LogUtil.d("连接RongIM成功，当前用户：" + s);
+                startMain(true, false);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtil.d("连接RongIM失败：" + errorCode.toString());
+                startMain(true, false);
+            }
+        });
     }
 
 
-    private void startMain(boolean isOpenMain) {
-        if (isOpenMain) {
+    private void startMain(boolean isOpenMain, boolean isSetChildInfo) {
+        if (isSetChildInfo) {
+            startActivity(new Intent(this, ChildInfoActivity.class));
+        } else if (isOpenMain) {
             RongCloudEvent.getInstance().setOtherListener();
             startActivity(new Intent(mContext, MainActivity.class));
         }

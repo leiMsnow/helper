@@ -24,6 +24,7 @@ import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 用户中心api
@@ -606,13 +607,13 @@ public class UserCenterApi extends BaseApi {
     /**
      * 设置宝宝信息
      *
-     * @param childInfo
+     * @param children
      * @param callback
      */
-    public void setChildInfo(String[] childInfo, final ApiCallback callback) {
+    public void setChildInfo(List<Child> children, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("child_info", childInfo);
+        mParams.put("child_info", JSON.toJSON(children));
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
 

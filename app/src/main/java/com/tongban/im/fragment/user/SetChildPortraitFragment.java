@@ -20,6 +20,9 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.Child;
 import com.tongban.im.widget.view.CameraView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SetChildPortraitFragment extends BaseApiFragment implements
         TextWatcher, View.OnClickListener, CameraResultActivity.IPhotoListener {
@@ -98,7 +101,9 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
             childInfo.setNick_name(childName);
             childInfo.setSex(childSex);
             childInfo.setSchool(mChildSchool);
-            UserCenterApi.getInstance().setChildInfo(new String[]{}, this);
+            List<Child> children = new ArrayList<>();
+            children.add(childInfo);
+            UserCenterApi.getInstance().setChildInfo(children, this);
         }
     }
 

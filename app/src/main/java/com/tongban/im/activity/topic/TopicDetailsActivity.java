@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -217,7 +216,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             if (mTopicInfo.getUser_info().getChild_info() != null &&
                     mTopicInfo.getUser_info().getChild_info().size() > 0) {
                 tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
-                        mTopicInfo.getUser_info().getChild_info().get(0).getSex() + "宝宝");
+                        mTopicInfo.getUser_info().getChild_info().get(0).StrSex() + "宝宝");
             }
             tvTime.setText(mTopicInfo.getC_time(mContext));
 

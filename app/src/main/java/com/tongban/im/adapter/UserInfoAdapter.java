@@ -1,6 +1,5 @@
 package com.tongban.im.adapter;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -76,7 +75,7 @@ public class UserInfoAdapter extends PagerAdapter {
         });
 
         child = mChildInfoList.get(position);
-        if (child.getSex().equals("男")) {
+        if (child.StrSex().equals("男")) {
             ivSex.setImageResource(R.mipmap.ic_boy);
         } else {
             ivSex.setImageResource(R.mipmap.ic_girl);
