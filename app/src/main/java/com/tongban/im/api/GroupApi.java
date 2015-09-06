@@ -145,9 +145,11 @@ public class GroupApi extends BaseApi {
      * @param groupId   圈子Id
      * @param groupName 圈子名称
      * @param masterId  圈子主Id
+     * @param isVerify  是否需要验证 true需要 false 不需要
      * @param callback
      */
-    public void joinGroup(String groupId, String groupName, String masterId, final ApiCallback callback) {
+    public void joinGroup(String groupId, String groupName, String masterId, final boolean isVerify,
+                          final ApiCallback callback) {
 
 
         if (!TransferCenter.getInstance().startLogin())
@@ -172,6 +174,7 @@ public class GroupApi extends BaseApi {
                 ApiResult<BaseEvent.JoinGroupEvent> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<BaseEvent.JoinGroupEvent>>() {
                         });
+                result.getData().is_verify = isVerify;
                 if (callback != null)
                     callback.onComplete(result.getData());
                 else

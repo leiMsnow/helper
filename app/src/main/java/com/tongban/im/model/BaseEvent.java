@@ -105,6 +105,7 @@ public class BaseEvent {
     public static class JoinGroupEvent {
         public String group_id;
         public String group_name;
+        public boolean is_verify;
     }
 
     /**

@@ -38,8 +38,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     private Group mGroup;
 
     private String mGroupId;
-    //是否可以加入,根据此值来判断是否显示设置圈子信息
-    private boolean mAllowAdd = false;
+    //根据此值来判断是否显示设置圈子信息 true,未加入；false已经加入
+    private boolean mAllowAdd = true;
 
     @Override
     protected int getLayoutRes() {

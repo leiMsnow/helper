@@ -65,7 +65,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_group_info) {
-            TransferCenter.getInstance().startGroupInfo(mTargetId, true);
+            TransferCenter.getInstance().startGroupInfo(mTargetId, false);
         }
         return super.onOptionsItemSelected(item);
     }

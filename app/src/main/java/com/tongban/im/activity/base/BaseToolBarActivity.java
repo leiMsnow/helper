@@ -7,10 +7,12 @@ import android.view.MenuItem;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.User;
 
@@ -123,7 +125,8 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
      * 未登录连接
      */
     protected void connectIM() {
-        RongIM.connect("", new RongIMClient.ConnectCallback() {
+        RongIM.connect(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString(),
+                new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 LogUtil.d("onTokenIncorrect");

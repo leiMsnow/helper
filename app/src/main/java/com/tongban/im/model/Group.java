@@ -33,7 +33,7 @@ public class Group {
     private String constellation;
     //距离
     private String distance;
-    //是否可以加入
+    //是否可以加入;true 可以加入；false 已经属于这个圈子
     private boolean allow_add = true;
     //成员数量
     private String member_amount;
@@ -41,6 +41,8 @@ public class Group {
     private int age;
     //最后一级地址
     private String lastAddress;
+    //是否需要验证
+    private boolean verify_user;
 
     public String getLastAddress() {
         if (!TextUtils.isEmpty(address)) {
@@ -51,6 +53,14 @@ public class Group {
             }
         }
         return "";
+    }
+
+    public boolean isVerify_user() {
+        return verify_user;
+    }
+
+    public void setVerify_user(boolean verify_user) {
+        this.verify_user = verify_user;
     }
 
     public int getAge() {

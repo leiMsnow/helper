@@ -100,14 +100,18 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      * @param joinGroupEvent
      */
     public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        ToastUtil.getInstance(mContext).showToast("已申请,等圈主确认后方可加入");
-//        RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
-//                joinGroupEvent.group_name);
-//        if (mIsFromMain) {
-//            GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
-//        } else {
-//            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
-//        }
+        if (joinGroupEvent.is_verify) {
+            ToastUtil.getInstance(mContext).showToast("已申请,等圈主确认后方可加入");
+        } else {
+            ToastUtil.getInstance(mContext).showToast("加入成功");
+            RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
+                    joinGroupEvent.group_name);
+            if (mIsFromMain) {
+                GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
+            } else {
+                GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
+            }
+        }
     }
 
     /**
