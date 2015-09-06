@@ -36,6 +36,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     private int mCursor = 0;
     private int mPageSize = 10;
+    private Topic topic;
 
     @Override
     protected int getLayoutRes() {
@@ -86,6 +87,10 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
             case R.id.iv_small_img_3:
                 imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
                 startPhotoView(setImageUrls(imageUrls), 2);
+                break;
+            case R.id.iv_user_portrait:
+                String userId = v.getTag(Integer.MAX_VALUE).toString();
+                TransferCenter.getInstance().startUserCenter(userId);
                 break;
         }
     }

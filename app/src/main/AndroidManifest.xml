@@ -255,7 +255,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.user.MyCollectActivity" />
-        <activity android:name=".activity.user.MyTopicActivity" />
+        <activity android:name=".activity.user.MyTopicActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.user.MyGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
