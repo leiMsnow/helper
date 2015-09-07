@@ -19,6 +19,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ImageUrl;
@@ -91,7 +92,7 @@ public class FileUploadApi extends BaseApi {
      */
     public void fetchUploadToken() {
         //有效时间
-        long expireTime = 24 * 60 * 60;
+        long expireTime = 7 * 24 * 60 * 60;
         mParams = new HashMap<>();
         mParams.put("space_name", "tongban");
         mParams.put("expire_time", expireTime);
@@ -144,7 +145,7 @@ public class FileUploadApi extends BaseApi {
     public void uploadFile(@NonNull byte[] data, @Nullable String key, String minSize, String midSize,
                            @NonNull final UploadFileCallback callback,
                            @Nullable UploadOptions options) {
-        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        String token = getToken();
         mUploadManager.put(data, key, token, new MyUpCompletionHandler(minSize, midSize, callback), options);
     }
 
@@ -203,7 +204,7 @@ public class FileUploadApi extends BaseApi {
     public void uploadFile(@NonNull File file, @Nullable String key, String minSize, String midSize,
                            @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
-        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        String token = getToken();
         mUploadManager.put(file, key, token, new MyUpCompletionHandler(minSize, midSize, callback), options);
     }
 
@@ -219,7 +220,7 @@ public class FileUploadApi extends BaseApi {
     public void uploadFile(final List<ImageUrl> resultUrls, final int index,
                            @NonNull final List<String> filePaths, final String minSize, final String midSize,
                            @NonNull final MultiUploadFileCallback callback, UploadOptions options) {
-        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        String token = getToken();
         mUploadManager.put(new File(filePaths.get(index)), null, token,
                 new UpCompletionHandler() {
 
@@ -287,4 +288,16 @@ public class FileUploadApi extends BaseApi {
         }
     }
 
+    /**
+     * token为空时,再次获取
+     *
+     * @return
+     */
+    private String getToken() {
+        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        if ("".equals(token)) {
+            fetchUploadToken();
+        }
+        return token;
+    }
 }
