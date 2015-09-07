@@ -18,7 +18,6 @@ import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.AddChildInfo;
-import com.tongban.im.model.Child;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
