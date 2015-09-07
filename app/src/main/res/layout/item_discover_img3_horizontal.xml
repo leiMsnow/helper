@@ -23,6 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="@color/main_black"
             android:textSize="16sp"/>
         <!-- 内容 -->
@@ -31,9 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/normal_dark_grey"
             android:ellipsize="end"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:textColor="@color/normal_dark_grey"/>
         <!-- 3张单品图 -->
         <LinearLayout
             android:layout_width="match_parent"

@@ -23,6 +23,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textColor="@color/main_black"
             android:textSize="16sp"/>
         <!-- 内容 -->
