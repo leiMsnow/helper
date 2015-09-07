@@ -4,19 +4,20 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.ExpandableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ProductBook;
 
@@ -28,11 +29,15 @@ import com.tongban.im.model.ProductBook;
  */
 public class ProductBookActivity extends BaseApiActivity implements View.OnClickListener {
     private ImageView ivBack, ivShare, ivCollect;
-    private ViewPager mViewPager;
-    private TextView title;
-    private FlowLayout flTag;
-    private TextView desc;
-    private GridView mGridView;
+    private ViewPager mViewPager; // 图集
+    private TextView title;  // 名称
+    private FlowLayout flTag;  // 标签
+    private TextView author; // 作者
+    private TextView desc;  // 简介
+    private TextView publisher;  // 出版社
+    private TextView isbn;  // isbn
+    private TextView suitable;  // 适度人群
+    private ExpandableGridView mGridView;
 
     // 图书id
     private String productBookId;
@@ -53,8 +58,13 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         mViewPager = (ViewPager) findViewById(R.id.vp_img);
         title = (TextView) findViewById(R.id.tv_title);
         flTag = (FlowLayout) findViewById(R.id.fl_tag);
+        author = (TextView) findViewById(R.id.tv_author);
         desc = (TextView) findViewById(R.id.tv_desc);
-        mGridView = (GridView) findViewById(R.id.gv_platform);
+        publisher = (TextView) findViewById(R.id.tv_publisher);
+        isbn = (TextView) findViewById(R.id.tv_isbn);
+        suitable = (TextView) findViewById(R.id.tv_suitable_for);
+        mGridView = (ExpandableGridView) findViewById(R.id.gv_platform);
+        mGridView.setExpanded(true);
     }
 
     @Override
@@ -79,6 +89,9 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         if (v == ivBack) {
             finish();
         } else if (v == ivCollect) {
+            if (!TransferCenter.getInstance().startLogin()) {
+                return;
+            }
             if (mProductBook != null && mProductBook.isCollect_status()) {
                 ProductApi.getInstance().noCollectProduct(productBookId, this);
             } else if (mProductBook != null && !mProductBook.isCollect_status()) {
@@ -102,8 +115,12 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);
         title.setText(mProductBook.getProduct_name());
-        desc.setText(mProductBook.getBook_content_desc());
         flTag.removeAllViews();
+        author.setText(mProductBook.getBook_author());
+        publisher.setText(mProductBook.getPublisher());
+        isbn.setText(mProductBook.getIsbn());
+        suitable.setText(mProductBook.getSuitable_for());
+        desc.setText(mProductBook.getBook_content_desc());
         String[] productTags = mProductBook.getProduct_tags().split(",");
         if (productTags.length > 0) {
             for (String tag : productTags) {

@@ -153,10 +153,14 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
         discover.setCollect_amount(event.amount);
         // 得到要更新的item的view
         View view = mListView.getChildAt(event.floor);
-        // 从view中取得holder
-        DiscoverAdapter.ViewHolder holder = (DiscoverAdapter.ViewHolder) view.getTag();
-        // 设置收藏数量
-        holder.collectAmount.setText(String.valueOf(event.amount));
+        try {
+            // 从view中取得holder
+            DiscoverAdapter.ViewHolder holder = (DiscoverAdapter.ViewHolder) view.getTag();
+            // 设置收藏数量
+            holder.collectAmount.setText(String.valueOf(event.amount));
+        } catch (NullPointerException e) {
+
+        }
     }
 
     /**

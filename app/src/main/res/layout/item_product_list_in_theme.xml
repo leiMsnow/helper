@@ -37,6 +37,22 @@
         android:layout_marginTop="8dp"
         android:orientation="vertical"/>
 
+    <!-- 【作者】 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/book_author"
+        android:textColor="@color/main_deep_orange"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"/>
+
     <!-- 【图书简介】 -->
     <TextView
         android:layout_width="wrap_content"
@@ -53,17 +69,17 @@
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"/>
 
-    <!-- 【作者简介】 -->
+    <!-- 【适读人群】 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/author_desc"
+        android:text="@string/suitable_for"
         android:textColor="@color/main_deep_orange"
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/tv_author_desc"
+        android:id="@+id/tv_suitable_for"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
@@ -80,22 +96,6 @@
 
     <TextView
         android:id="@+id/tv_recommend_cause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"/>
-
-    <!-- 【适读情景】 -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/scene_for"
-        android:textColor="@color/main_deep_orange"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/tv_scene_for"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"

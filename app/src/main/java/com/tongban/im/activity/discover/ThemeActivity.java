@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.DateUtils;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
@@ -120,6 +121,9 @@ public class ThemeActivity extends BaseToolBarActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.collect) {
+            if (!TransferCenter.getInstance().startLogin()) {
+                return true;
+            }
             if (mTheme != null && !mTheme.isCollect_status()) {
                 // 未收藏时,点击收藏
                 ProductApi.getInstance().collectTheme(themeId, this);
@@ -164,7 +168,7 @@ public class ThemeActivity extends BaseToolBarActivity {
         StringBuilder sb = new StringBuilder(mTheme.getTheme_title());
         if (mTheme.getTheme_tags() != null && mTheme.getTheme_tags().length() > 0)
             sb.append(",").append(mTheme.getTheme_tags());
-        TopicApi.getInstance().searchTopicList(sb.toString(), 0, 3, this);
+        TopicApi.getInstance().searchTopicList(sb.toString(), 0, 5, this);
 
         // 判断是否是收藏状态
         if (mTheme.isCollect_status()) {
@@ -232,9 +236,9 @@ public class ThemeActivity extends BaseToolBarActivity {
                 TextView cursor = (TextView) view.findViewById(R.id.tv_cursor);
                 TextView title = (TextView) view.findViewById(R.id.tv_title);
                 LinearLayout productImgs = (LinearLayout) view.findViewById(R.id.ll_product_img);
+                TextView author = (TextView) view.findViewById(R.id.tv_author);
                 TextView productDesc = (TextView) view.findViewById(R.id.tv_product_desc);
-                TextView authorDesc = (TextView) view.findViewById(R.id.tv_author_desc);
-                TextView sceneFor = (TextView) view.findViewById(R.id.tv_scene_for);
+                TextView suitable_for = (TextView) view.findViewById(R.id.tv_suitable_for);
                 TextView recommendCause = (TextView) view.findViewById(R.id.tv_recommend_cause);
                 Button productDetail = (Button) view.findViewById(R.id.btn_detail);
                 cursor.setText(String.valueOf(pos));
@@ -252,10 +256,10 @@ public class ThemeActivity extends BaseToolBarActivity {
                         productImgs.addView(imageView);
                     }
                 }
-                productDesc.setText(productBook.getBook_content_desc());
-                authorDesc.setText(productBook.getAuthor_desc());
-                sceneFor.setText(productBook.getScene_for());
-                recommendCause.setText(productBook.getRecommend_cause());
+                productDesc.setText(productBook.getBook_content_desc().trim());
+                author.setText(productBook.getBook_author().trim());
+                suitable_for.setText(productBook.getSuitable_for().trim());
+                recommendCause.setText(productBook.getRecommend_cause().trim());
                 productDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

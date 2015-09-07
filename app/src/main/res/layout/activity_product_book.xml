@@ -6,7 +6,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
                 android:id="@+id/vp_img"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
-
+            <!-- title -->
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -26,8 +26,8 @@
                 android:layout_below="@id/vp_img"
                 android:layout_margin="10dp"
                 android:textColor="@color/main_black"
-                android:textSize="16sp"/>
-
+                android:textSize="18sp"/>
+            <!-- 标签 -->
             <com.tongban.corelib.widget.view.FlowLayout
                 android:id="@+id/fl_tag"
                 android:layout_width="wrap_content"
@@ -36,27 +36,115 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
 
+            <!-- 作者 -->
+            <TextView
+                android:id="@+id/tv_author_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fl_tag"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/book_author"
+                android:textColor="@color/main_deep_orange"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_author_indicator"
+                android:layout_margin="10dp"/>
+
+            <!-- 图书简介 -->
+            <TextView
+                android:id="@+id/tv_desc_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_author"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/book_desc"
+                android:textColor="@color/main_deep_orange"
+                android:textSize="16sp"/>
+
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fl_tag"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_below="@id/tv_desc_indicator"
+                android:layout_margin="10dp"
+                android:lineSpacingExtra="2dp"
                 android:textColor="@color/normal_dark_grey"/>
 
-            <GridView
+            <!-- 出版社 -->
+            <TextView
+                android:id="@+id/tv_publisher_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_desc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/publisher"
+                android:textColor="@color/main_deep_orange"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_publisher_indicator"
+                android:layout_margin="10dp"/>
+
+            <!-- isbn -->
+            <TextView
+                android:id="@+id/tv_isbn_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_publisher"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/isbn"
+                android:textColor="@color/main_deep_orange"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_isbn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_isbn_indicator"
+                android:layout_margin="10dp"/>
+
+            <!-- 适读人群 -->
+            <TextView
+                android:id="@+id/tv_suitable_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_isbn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/suitable_for"
+                android:textColor="@color/main_deep_orange"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_suitable_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_suitable_indicator"
+                android:layout_margin="10dp"/>
+
+            <!-- 各个平台的价格 -->
+            <com.tongban.corelib.widget.view.ExpandableGridView
                 android:id="@+id/gv_platform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_desc"
+                android:layout_below="@+id/tv_suitable_for"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:gravity="center"
                 android:horizontalSpacing="20dp"
+                android:isScrollContainer="false"
                 android:listSelector="@color/transparent"
                 android:numColumns="2"
                 android:scrollbars="none"
