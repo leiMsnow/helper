@@ -1,10 +1,12 @@
 package com.tongban.im.model;
 
+import java.io.Serializable;
+
 /**
  * 图片地址model
  * Created by zhangleilei on 8/20/15.
  */
-public class ImageUrl {
+public class ImageUrl implements Serializable{
 
     //小图
     private String min;

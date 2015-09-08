@@ -2,11 +2,13 @@ package com.tongban.im.model;
 
 import android.text.TextUtils;
 
+import java.io.Serializable;
+
 /**
  * 孩子信息model
  * Created by zhangleilei on 8/22/15.
  */
-public class Child {
+public class Child implements Serializable{
 
     private String nick_name;
     private String birthday;

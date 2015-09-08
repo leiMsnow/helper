@@ -156,8 +156,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                     break;
                 case R.id.iv_topic_img:
                     List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    int position = (int) v.getTag(Integer.MIN_VALUE);
                     TopicListenerImpl.startPhotoView(mContext,
-                            TopicListenerImpl.setImageUrls(imageUrls), 0);
+                            TopicListenerImpl.setImageUrls(imageUrls), position);
                     break;
                 case R.id.iv_user_portrait:
                     String userId = v.getTag(Integer.MAX_VALUE).toString();

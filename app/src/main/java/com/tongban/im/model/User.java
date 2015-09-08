@@ -1,12 +1,13 @@
 package com.tongban.im.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 用户信息model
  * Created by zhangleilei on 15/7/3.
  */
-public class User {
+public class User implements Serializable{
     // 用户id
     private String user_id;
     // 手机号码

@@ -11,12 +11,16 @@ import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
 
 import io.rong.imkit.RongIM;
 
+/**
+ * 圈子展示界面
+ */
 public class GroupDisplayFragment extends BaseApiFragment {
 
 
@@ -25,6 +29,7 @@ public class GroupDisplayFragment extends BaseApiFragment {
     private TextView tvGroupIntroduce;
     private Button btnJoin;
     private ImageView ivGroupPortrait;
+    private View vGroupItem;
 
     private Group groupInfo;
 
@@ -35,6 +40,7 @@ public class GroupDisplayFragment extends BaseApiFragment {
 
     @Override
     protected void initView() {
+        vGroupItem = mView.findViewById(R.id.rl_group_item);
         tvGroupStatus = (TextView) mView.findViewById(R.id.tv_group_status);
         tvGroupName = (TextView) mView.findViewById(R.id.tv_group_name);
         tvGroupIntroduce = (TextView) mView.findViewById(R.id.tv_group_introduce);
@@ -47,33 +53,23 @@ public class GroupDisplayFragment extends BaseApiFragment {
         Bundle bundle = getArguments();
         if (bundle.getSerializable(Consts.KEY_GROUP_INFO) != null) {
             groupInfo = (Group) bundle.getSerializable(Consts.KEY_GROUP_INFO);
-
+            vGroupItem.setTag(groupInfo);
+            btnJoin.setTag(groupInfo);
             setGroupType();
-            if (groupInfo.getGroup_avatar()!=null) {
-                Glide.with(mContext).load(groupInfo.getGroup_avatar().getMid()).
+            if (groupInfo.getGroup_avatar() != null) {
+                Glide.with(mContext).load(groupInfo.getGroup_avatar().getMax()).
                         placeholder(R.drawable.rc_default_group_portrait).into(ivGroupPortrait);
-            }else{
+            } else {
                 ivGroupPortrait.setImageResource(R.drawable.rc_default_group_portrait);
             }
             tvGroupName.setText(groupInfo.getGroup_name());
-            ivGroupPortrait.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    if (!groupInfo.isAllow_add()) {
-//                        RongIM.getInstance().startGroupChat(mContext, groupInfo.getGroup_id(),
-//                                groupInfo.getGroup_name());
-//                    } else {
-//                        TransferCenter.getInstance().startGroupInfo(groupInfo.getGroup_id(),
-//                                groupInfo.isAllow_add());
-//                    }
-                }
-            });
         }
     }
 
     @Override
     protected void initListener() {
-
+        vGroupItem.setOnClickListener(new GroupListenerImpl(mContext));
+        btnJoin.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
     private void setGroupType() {
@@ -117,6 +113,5 @@ public class GroupDisplayFragment extends BaseApiFragment {
         tvGroupStatus.setTextColor(
                 mContext.getResources().getColor(tagsColor));
     }
-
 
 }

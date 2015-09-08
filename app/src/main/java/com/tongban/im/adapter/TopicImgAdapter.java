@@ -28,7 +28,6 @@ public class TopicImgAdapter extends QuickAdapter<ImageUrl> {
 
 
     private View.OnClickListener imgClickListener;
-    private int tagKey = Integer.MAX_VALUE;
 
     /**
      * 图片点击监听
@@ -47,7 +46,8 @@ public class TopicImgAdapter extends QuickAdapter<ImageUrl> {
     protected void convert(final BaseAdapterHelper helper, final ImageUrl item) {
         helper.setImageBitmap(R.id.iv_topic_img, item.getMid(), R.drawable.rc_ic_def_rich_content);
 
-        helper.setTag(R.id.iv_topic_img, tagKey, getDataAll());
+        helper.setTag(R.id.iv_topic_img, Integer.MAX_VALUE, getDataAll());
+        helper.setTag(R.id.iv_topic_img, Integer.MIN_VALUE, helper.getPosition());
         helper.setOnClickListener(R.id.iv_topic_img, imgClickListener);
     }
 
