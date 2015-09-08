@@ -3,12 +3,14 @@ package com.tongban.im.fragment.group;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
@@ -46,6 +48,10 @@ public class GroupDisplayFragment extends BaseApiFragment {
         tvGroupIntroduce = (TextView) mView.findViewById(R.id.tv_group_introduce);
         btnJoin = (Button) mView.findViewById(R.id.btn_join);
         ivGroupPortrait = (ImageView) mView.findViewById(R.id.iv_group_portrait);
+
+        ViewGroup.LayoutParams lp = ivGroupPortrait.getLayoutParams();
+        lp.height = ScreenUtils.getScreenWidth(mContext) / 4 * 3;
+        ivGroupPortrait.setLayoutParams(lp);
     }
 
     @Override
@@ -61,6 +67,12 @@ public class GroupDisplayFragment extends BaseApiFragment {
                         placeholder(R.drawable.rc_default_group_portrait).into(ivGroupPortrait);
             } else {
                 ivGroupPortrait.setImageResource(R.drawable.rc_default_group_portrait);
+            }
+
+            if (!groupInfo.isAllow_add()){
+                btnJoin.setEnabled(false);
+            }else{
+                btnJoin.setEnabled(true);
             }
             tvGroupName.setText(groupInfo.getGroup_name());
         }
@@ -82,19 +94,19 @@ public class GroupDisplayFragment extends BaseApiFragment {
             case GroupType.AGE:
                 setGroupTags("同龄圈", R.color.theme_pink);
                 tvGroupStatus.setBackgroundResource(R.drawable.shape_corners_bg_pink);
-                tvGroupIntroduce.setText("-" + groupInfo.getAge() + "岁," +
+                tvGroupIntroduce.setText(groupInfo.getAge() + "岁," +
                         groupInfo.getConstellation());
                 break;
             case GroupType.CITY:
                 setGroupTags("同城圈", R.color.theme_deep_purple);
                 tvGroupStatus.setBackgroundResource(R.drawable.shape_corners_bg_purple);
-                tvGroupIntroduce.setText("-" + groupInfo.getLastAddress() + "<" +
+                tvGroupIntroduce.setText(groupInfo.getLastAddress() + "<" +
                         groupInfo.getDistance());
                 break;
             case GroupType.CLASSMATE:
                 setGroupTags("同学圈", R.color.theme_light_blue);
                 tvGroupStatus.setBackgroundResource(R.drawable.shape_corners_bg_blue);
-                tvGroupIntroduce.setText("-" + groupInfo.getLastAddress());
+                tvGroupIntroduce.setText(groupInfo.getLastAddress());
                 break;
             case GroupType.LIFE:
                 setGroupTags("生活圈", R.color.theme_light_green);

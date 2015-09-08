@@ -4,23 +4,20 @@
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_group_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_margin="8dp"
-        android:background="@drawable/selector_corner_bg">
+        android:background="@drawable/selector_corner_bg"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_group_portrait"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_above="@+id/iv_group_portrait"
             android:layout_alignParentTop="true"
             android:background="@color/translucent_a80">
             <!--群标签-->
@@ -42,13 +39,22 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/tv_group_status"
                 android:singleLine="true"
-                android:textColor="@color/main_black"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_group_portrait"
+            android:layout_width="match_parent"
+            android:layout_height="144dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_above="@+id/iv_group_portrait"
             android:layout_alignParentBottom="true"
             android:background="@color/translucent_a80">
             <!-- 群描述-->
@@ -79,7 +85,7 @@
                 android:textSize="12sp" />
 
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>
 
 

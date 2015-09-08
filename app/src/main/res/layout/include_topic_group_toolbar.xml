@@ -13,8 +13,8 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:layout_toLeftOf="@+id/rl_action_parent"
         android:paddingBottom="4dp"
+        android:layout_toLeftOf="@+id/rl_action_parent"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
@@ -22,7 +22,7 @@
         android:text="标题"
         android:textColor="?attr/actionMenuTextColor"
         android:textSize="18sp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
 
     <RadioGroup
@@ -32,7 +32,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <RadioButton
             android:id="@+id/rb_chat"
@@ -64,6 +64,7 @@
 
 
     <RelativeLayout
+        android:layout_toRightOf="@+id/rg_circle"
         android:id="@+id/rl_action_parent"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
