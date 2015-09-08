@@ -17,6 +17,10 @@ public class Consts {
      */
     public static final String IM_BIND_TOKEN = "IM_BIND_TOKEN";
     /**
+     * 第一次安装APP标记
+     */
+    public static final String FIRST_INSTALL = "FIRST_INSTALL";
+    /**
      * 免认证登录Token
      */
     public static final String FREEAUTH_TOKEN = "FREEAUTH_TOKEN";
