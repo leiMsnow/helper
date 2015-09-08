@@ -18,8 +18,8 @@
         android:src="@drawable/rc_ic_extend"
         android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/et_comment"
+    <RelativeLayout
+        android:id="@+id/rl_comment_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -28,21 +28,43 @@
         android:layout_marginTop="8dp"
         android:layout_toLeftOf="@+id/btn_comment"
         android:layout_toRightOf="@+id/iv_add_img"
-        android:background="@drawable/shape_join_btn_enabled"
-        android:gravity="center_vertical"
-        android:hint="@string/create_comment"
-        android:minHeight="40dp"
-        android:maxLength="500"
-        android:maxLines="5"
-        android:paddingLeft="8dp"
-        android:textColorHint="@color/normal_grey"
-        android:textSize="14sp" />
+        android:background="@drawable/shape_join_btn_enabled">
+
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/tv_comment_length"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/create_comment"
+            android:maxLength="500"
+            android:maxLines="5"
+            android:minHeight="40dp"
+            android:paddingLeft="8dp"
+            android:textColorHint="@color/normal_grey"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_comment_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_comment"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:text="500"
+            android:textColor="@color/normal_grey"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/btn_comment"
         android:layout_width="48dp"
         android:layout_height="40dp"
-        android:layout_alignBottom="@+id/et_comment"
+        android:layout_alignBottom="@+id/rl_comment_parent"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

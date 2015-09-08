@@ -1,6 +1,8 @@
 package com.tongban.im.widget.view;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.LogUtil;
@@ -19,12 +22,14 @@ import com.tongban.im.adapter.CreateTopicImgAdapter;
  * 话题评论自定义控件
  * Created by fushudi on 2015/8/14.
  */
-public class TopicInputView extends LinearLayout implements View.OnClickListener {
+public class TopicInputView extends LinearLayout implements View.OnClickListener,
+        TextWatcher {
 
     private View rootView;
     private ImageView ivAddImg;
     private EditText etComment;
     private ImageView ivComment;
+    private TextView tvCommentLength;
     private GridView gvReplyImg;
 
     private CameraView mCameraView;
@@ -40,6 +45,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private boolean isFirst = true;
     private boolean isUp = false;
     private int mRootLocation;
+
+    private int mCommentLength = 500;
 
     public EditText getEtComment() {
         return etComment;
@@ -70,15 +77,18 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         rootView = findViewById(R.id.ll_input_root);
         ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
         etComment = (EditText) findViewById(R.id.et_comment);
+        tvCommentLength = (TextView) findViewById(R.id.tv_comment_length);
         ivComment = (ImageView) findViewById(R.id.btn_comment);
         gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
         mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
 
+        tvCommentLength.setText(String.valueOf(mCommentLength));
     }
 
     private void initListener() {
         ivAddImg.setOnClickListener(this);
         ivComment.setOnClickListener(this);
+        etComment.addTextChangedListener(this);
         mAdapter.setOnClickListener(this);
 
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -189,6 +199,25 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         etComment.setFocusable(true);
         etComment.requestFocus();
         KeyBoardUtils.openKeyboard(etComment, mContext);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        int currentLength = mCommentLength - etComment.getText().length();
+        if (currentLength < 0) {
+            currentLength = 0;
+        }
+        tvCommentLength.setText(String.valueOf(currentLength));
     }
 
     /**
