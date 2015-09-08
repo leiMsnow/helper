@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -37,8 +36,6 @@ import in.srain.cube.views.ptr.PtrHandler;
  */
 public class DiscoverFragment extends BaseApiFragment implements View.OnClickListener, PtrHandler {
 
-    private TextView tvUsername;
-    private TextView tvUserTag;
     private ImageView ivUserIcon;
     private ImageView ivSearchAll;
     private PtrFrameLayout ptrFrameLayout;
@@ -53,8 +50,6 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initView() {
-        tvUsername = (TextView) mView.findViewById(R.id.tv_user_name);
-        tvUserTag = (TextView) mView.findViewById(R.id.tv_user_tag);
         ivUserIcon = (ImageView) mView.findViewById(R.id.iv_user_portrait);
         ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
@@ -68,7 +63,6 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(this);
-//        ptrFrameLayout.autoRefresh();
     }
 
     @Override
@@ -113,8 +107,6 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
             if (user.getPortrait_url() != null && user.getPortrait_url().getMin() != null) {
                 Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserIcon);
             }
-            tvUsername.setText(user.getNick_name());
-            tvUserTag.setText(user.getTags());
         }
     }
 

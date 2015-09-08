@@ -48,31 +48,15 @@
             android:src="@drawable/rc_default_portrait"/>
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:id="@+id/tv_discover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/iv_user_portrait"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user_portrait"
-            android:gravity="center"
-            android:text="游客"
+            android:text="@string/discover"
             android:textColor="@color/main_brown"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/tv_user_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_user_portrait"
-            android:layout_below="@+id/tv_user_name"
-            android:layout_marginLeft="8dp"
-            android:layout_toLeftOf="@+id/iv_search_all"
-            android:layout_toRightOf="@+id/iv_user_portrait"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textColor="@color/main_deep_orange"
-            android:textSize="12sp"/>
+            android:textSize="18sp"/>
 
         <ImageView
             android:id="@+id/iv_search_all"

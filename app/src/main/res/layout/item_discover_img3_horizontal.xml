@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/rc_ic_def_rich_content"/>
 
             <ImageView
                 android:id="@+id/iv_mid"
@@ -59,7 +60,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/rc_ic_def_rich_content"/>
 
             <ImageView
                 android:id="@+id/iv_right"
@@ -67,7 +69,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/rc_ic_def_rich_content"/>
         </LinearLayout>
         <!-- 收藏数量 -->
         <TextView

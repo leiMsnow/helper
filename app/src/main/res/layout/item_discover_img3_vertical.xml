@@ -41,7 +41,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/rc_ic_def_rich_content"/>
 
             <View
                 style="@style/VerticalLine"
@@ -57,9 +58,9 @@
                 <ImageView
                     android:id="@+id/iv_top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"/>
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rc_ic_def_rich_content"/>
 
                 <View
                     style="@style/HorizontalLine"
@@ -69,9 +70,9 @@
                 <ImageView
                     android:id="@+id/iv_bottom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"/>
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rc_ic_def_rich_content"/>
 
             </LinearLayout>
 
