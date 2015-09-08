@@ -15,6 +15,7 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyCommentTopicFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
@@ -29,7 +30,8 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MyTopicActivity extends CommonImageResultActivity implements
+        ViewPager.OnPageChangeListener, View.OnClickListener {
     private ViewPager vpResult;
     private View mIndicator;
     private RelativeLayout rlMySendTopic, rlReplyTopic;
@@ -86,8 +88,9 @@ public class MyTopicActivity extends BaseToolBarActivity implements ViewPager.On
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         //回复我的话题
-        mTabs.add(new MyCommentTopicFragment());
-
+        MyCommentTopicFragment myCommentTopicFragment=new MyCommentTopicFragment();
+        mTabs.add(myCommentTopicFragment);
+//        topicInputView = myCommentTopicFragment.getTopicInputView();
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {

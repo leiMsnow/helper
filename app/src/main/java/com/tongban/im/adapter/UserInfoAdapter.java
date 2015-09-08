@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.PersonalInfoActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.Child;
 
 import java.util.List;
@@ -33,10 +35,12 @@ public class UserInfoAdapter extends PagerAdapter {
     private ImageView ivSex;
 
     private Child child;
+    private String userId;
 
-    public UserInfoAdapter(Context context, List<Child> mChildInfoList) {
+    public UserInfoAdapter(Context context, List<Child> mChildInfoList,String userId) {
         this.mContext = context;
         this.mChildInfoList = mChildInfoList;
+        this.userId=userId;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -67,12 +71,17 @@ public class UserInfoAdapter extends PagerAdapter {
         tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
         ivSex = (ImageView) view.findViewById(R.id.iv_sex);
         //跳转到个人资料界面
-        rlUserInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
-            }
-        });
+        if (SPUtils.get(mContext, Consts.USER_ID,"").equals(userId)){
+            rlUserInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
+                }
+            });
+        }else {
+            rlUserInfo.setEnabled(false);
+        }
+
 
         child = mChildInfoList.get(position);
         if (child.StrSex().equals("男")) {

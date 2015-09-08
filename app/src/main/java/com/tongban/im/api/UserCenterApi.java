@@ -204,7 +204,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchUserDetailInfo(final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id",SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
