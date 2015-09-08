@@ -51,8 +51,6 @@ public class ThemeActivity extends BaseToolBarActivity {
     private CircleImageView userPortrait;
     // 发表人姓名
     private TextView userName;
-    // 发表人标签
-    private TextView userTag;
     // 创建时间
     private TextView createTime;
     // 专题描述
@@ -85,7 +83,6 @@ public class ThemeActivity extends BaseToolBarActivity {
         themeTag = (FlowLayout) findViewById(R.id.fl_tag);
         userPortrait = (CircleImageView) findViewById(R.id.iv_user_portrait);
         userName = (TextView) findViewById(R.id.tv_user_name);
-        userTag = (TextView) findViewById(R.id.tv_user_tag);
         createTime = (TextView) findViewById(R.id.tv_create_time);
         themeDesc = (TextView) findViewById(R.id.tv_desc);
         mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
@@ -203,7 +200,7 @@ public class ThemeActivity extends BaseToolBarActivity {
             themeTag.setVisibility(View.GONE);
         }
         themeDesc.setText(mTheme.getTheme_content());
-        createTime.setText(DateUtils.longToString(mTheme.getC_time(), "MM-dd hh:mm"));
+        createTime.setText(DateUtils.formatDateTime(mTheme.getC_time(), mContext));
     }
 
     /**
@@ -214,7 +211,6 @@ public class ThemeActivity extends BaseToolBarActivity {
     public void onEventMainThread(final User user) {
         Glide.with(mContext).load(user.getPortrait_url().getMin()).into(userPortrait);
         userName.setText(user.getNick_name());
-        userTag.setText(user.getTags());
         userPortrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
