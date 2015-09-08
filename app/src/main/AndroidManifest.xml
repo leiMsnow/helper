@@ -212,7 +212,18 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/topicofficial"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.topic.SearchTopicActivity"
             android:label="@string/topic_search">
@@ -255,8 +266,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.user.MyCollectActivity" />
-        <activity android:name=".activity.user.MyTopicActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".activity.user.MyTopicActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.MyGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

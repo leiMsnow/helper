@@ -119,7 +119,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (mAdapter.getItem(position) != null) {
-            TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
+            TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position));
         }
     }
 

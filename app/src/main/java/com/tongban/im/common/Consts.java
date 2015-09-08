@@ -148,17 +148,13 @@ public class Consts {
      */
     public static final String KEY_CHILD_INFO = "KEY_CHILD_INFO";
     /**
-     * 宝宝昵称
-     */
-    public static final String KEY_CHILD_NAME = "KEY_CHILD_NAME";
-    /**
      * 宝宝生日
      */
-    public static final String KEY_CHILD_BIRTHDAY = "KEY_CHILD_BIRTHDAY";
+    public static final String CHILD_BIRTHDAY = "CHILD_BIRTHDAY";
     /**
      * 宝宝性别
      */
-    public static final String KEY_CHILD_SEX = "KEY_CHILD_SEX";
+    public static final String CHILD_SEX = "CHILD_SEX";
 
     //------------------------------商品相关key------------------------------------------------------
     /**

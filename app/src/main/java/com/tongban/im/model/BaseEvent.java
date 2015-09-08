@@ -242,10 +242,8 @@ public class BaseEvent {
      * 设置宝宝信息Event
      */
     public static class ChildCreateEvent {
-        public String childName;
         public String childBirthday;
         public int childSex;
-        public String childSchool;
     }
     /**
      * 设置宝宝信息成功Event

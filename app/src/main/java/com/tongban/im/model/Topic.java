@@ -109,11 +109,15 @@ public class Topic {
     }
 
     public int getContentType() {
-        if (topic_img_url.size() > 0) {
-            return contentType = IMAGE;
-        } else {
-            return contentType = TEXT;
+        if (topic_img_url != null) {
+            if (topic_img_url.size() > 0) {
+                return contentType = IMAGE;
+            } else {
+                return contentType = TEXT;
+            }
         }
+        return contentType = TEXT;
+
     }
 
     public void setContentType(int contentType) {

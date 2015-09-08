@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.model.Topic;
 
 import org.w3c.dom.Text;
 
@@ -80,14 +81,18 @@ public class TransferCenter {
     /**
      * 打开话题详情
      *
-     * @param topicId
+     * @param topic
      */
-    public void startTopicDetails(String topicId) {
+    public void startTopicDetails(Topic topic) {
         String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
+
+        if (topic.getTopic_type().equals("1")) {
+            pathPrefix = TransferPathPrefix.TOPIC_OFFICIAL;
+        }
 
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(Consts.KEY_TOPIC_ID, topicId)
+                .appendQueryParameter(Consts.KEY_TOPIC_ID, topic.getTopic_id())
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

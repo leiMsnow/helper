@@ -300,7 +300,7 @@ public class ThemeActivity extends BaseToolBarActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TransferCenter.getInstance().startTopicDetails(topic.getTopic_id());
+                    TransferCenter.getInstance().startTopicDetails(topic);
                 }
             });
             mTopicList.addView(view);

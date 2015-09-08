@@ -26,6 +26,7 @@ public class TransferPathPrefix {
      * 话题详情
      */
     public static final String TOPIC_DETAILS = "topicdetails";
+    public static final String TOPIC_OFFICIAL = "topicofficial";
     /**
      * 专题
      */

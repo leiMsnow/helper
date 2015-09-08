@@ -115,7 +115,7 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id());
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position));
     }
 
     /**

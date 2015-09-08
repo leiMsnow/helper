@@ -18,21 +18,22 @@ import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.AddChildInfo;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SetChildPortraitFragment extends BaseApiFragment implements
+/**
+ * 注册第二步 设置头像/填写用户昵称
+ */
+public class SecondRegisterFragment extends BaseApiFragment implements
         TextWatcher, View.OnClickListener, CameraResultActivity.IPhotoListener {
-    private ImageView ivSetChildPortrait;
-    private EditText etChildSchool;
+    private ImageView ivPortrait;
+    private EditText etNickName;
     private Button btnSubmit;
 
-    private String mChildSchool;
-
+    private String mNickName;
 
     private CameraView mCameraView;
 
@@ -46,13 +47,13 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_set_child_portrait;
+        return R.layout.fragment_second_register;
     }
 
     @Override
     protected void initView() {
-        ivSetChildPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
-        etChildSchool = (EditText) mView.findViewById(R.id.et_input_school);
+        ivPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
+        etNickName = (EditText) mView.findViewById(R.id.et_input_school);
         btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }
 
@@ -63,8 +64,8 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
 
     @Override
     protected void initListener() {
-        ivSetChildPortrait.setOnClickListener(this);
-        etChildSchool.addTextChangedListener(this);
+        ivPortrait.setOnClickListener(this);
+        etNickName.addTextChangedListener(this);
         btnSubmit.setOnClickListener(this);
     }
 
@@ -80,8 +81,8 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
 
     @Override
     public void afterTextChanged(Editable s) {
-        mChildSchool = etChildSchool.getText().toString().trim();
-        if (!TextUtils.isEmpty(mChildSchool)) {
+        mNickName = etNickName.getText().toString().trim();
+        if (!TextUtils.isEmpty(mNickName)) {
             btnSubmit.setEnabled(true);
         }
     }
@@ -89,23 +90,22 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
     @Override
     public void onClick(View v) {
         //设置头像
-        if (v == ivSetChildPortrait) {
+        if (v == ivPortrait) {
             createDialog();
         }
         //点击提交按钮
         else if (v == btnSubmit) {
-            String childName = getArguments().getString(Consts.KEY_CHILD_NAME);
-            int childSex = getArguments().getInt(Consts.KEY_CHILD_SEX);
-            String childBirthday = getArguments().getString(Consts.KEY_CHILD_BIRTHDAY);
-            AddChildInfo childInfo = new AddChildInfo();
-            childInfo.setBirthday(childBirthday);
-            childInfo.setNick_name(childName);
-            childInfo.setSex(childSex);
-            childInfo.setSchool(mChildSchool);
-            List<AddChildInfo> children = new ArrayList<>();
-            children.add(childInfo);
-            UserCenterApi.getInstance().setChildInfo(true,children, this);
-            getActivity().finish();
+//            int childSex = getArguments().getInt(Consts.CHILD_SEX);
+//            String childBirthday = getArguments().getString(Consts.CHILD_BIRTHDAY);
+//            AddChildInfo childInfo = new AddChildInfo();
+//            childInfo.setBirthday(childBirthday);
+//            childInfo.setSex(childSex);
+//            List<AddChildInfo> children = new ArrayList<>();
+//            children.add(childInfo);
+//            UserCenterApi.getInstance().setChildInfo(true, children, this);
+//            getActivity().finish();
+
+
         }
     }
 
@@ -120,9 +120,8 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
 
     @Override
     public void sendPhoto(byte[] bytes) {
-//        byte[] bytes = file.getBytes();
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        ivSetChildPortrait.setImageBitmap(bitmap);
+        ivPortrait.setImageBitmap(bitmap);
     }
 
 }
