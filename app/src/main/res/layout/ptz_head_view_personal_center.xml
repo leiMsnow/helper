@@ -103,7 +103,7 @@
             <TextView
                 android:id="@+id/tv_fans"
                 style="@style/UserInfoAttrBottomText"
-                android:text="@string/fans" />
+                android:text="@string/follow" />
 
         </LinearLayout>
 
@@ -130,7 +130,7 @@
             <TextView
                 android:id="@+id/tv_follow"
                 style="@style/UserInfoAttrBottomText"
-                android:text="@string/follow" />
+                android:text="@string/fans" />
 
         </LinearLayout>
 
