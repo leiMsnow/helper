@@ -182,7 +182,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         }
         if (mUserInfo.getChild_info() != null &&
                 mUserInfo.getChild_info().size() > 0) {
-            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info());
+            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info(),mUserInfo.getUser_id());
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new ScalePageTransformer());
