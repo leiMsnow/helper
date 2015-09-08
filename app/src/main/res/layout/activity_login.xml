@@ -8,36 +8,73 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <com.tongban.im.widget.view.ClearEditText
-        android:id="@+id/et_phone_num"
-        style="@style/ClearEditTextStyle"
-        android:layout_below="@+id/toolbar"
-        android:digits="@string/digits"
-        android:hint="@string/phone_num"
-        android:inputType="number"
-        android:maxLength="11" />
+    <!-- 手机号-->
+    <RelativeLayout
+        android:id="@+id/rl_phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/toolbar">
 
-    <View
-        style="@style/HorizontalLine"
-        android:layout_below="@+id/et_phone_num" />
+        <TextView
+            android:id="@+id/tv_phone_text"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/phone_num"
+            android:textColor="@color/normal_grey" />
 
-    <com.tongban.im.widget.view.ClearEditText
-        android:id="@+id/et_pwd"
-        style="@style/ClearEditTextStyle"
-        android:layout_below="@+id/et_phone_num"
-        android:hint="@string/pwd"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:maxLength="24" />
+        <com.tongban.im.widget.view.ClearEditText
+            android:id="@+id/et_phone_num"
+            style="@style/ClearEditTextStyle"
+            android:layout_toRightOf="@+id/tv_phone_text"
+            android:digits="@string/digits"
+            android:inputType="number"
+            android:maxLength="11" />
 
-    <View
-        style="@style/HorizontalLine"
-        android:layout_below="@+id/et_pwd" />
+        <View
+            style="@style/HorizontalLine"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <!-- 密码-->
+    <RelativeLayout
+        android:id="@+id/rl_pwd_parent"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/rl_phone_num">
+
+        <TextView
+            android:id="@+id/tv_pwd_text"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/pwd"
+            android:textColor="@color/normal_grey" />
+
+        <com.tongban.im.widget.view.ClearEditText
+            android:id="@+id/et_pwd"
+            style="@style/ClearEditTextStyle"
+            android:layout_toRightOf="@+id/tv_pwd_text"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLength="24" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tv_forget_pwd"
         style="@style/ClickTextViewStyle"
-        android:layout_below="@+id/et_pwd"
+        android:layout_below="@+id/rl_pwd_parent"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/forget_pwd" />
@@ -46,7 +83,7 @@
         android:id="@+id/tv_new_user_register"
         style="@style/ClickTextViewStyle"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/et_pwd"
+        android:layout_below="@+id/rl_pwd_parent"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/new_register" />
