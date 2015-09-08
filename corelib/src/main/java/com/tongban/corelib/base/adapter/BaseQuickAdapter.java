@@ -77,6 +77,7 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends B
         if (helper.isFirstCreate()) {
             onFirstCreateView(helper);
         }
+        helper.setmPosition(i);
         T item = getItem(i);
         //对外公布的convert抽象方法
         convert(helper, item);

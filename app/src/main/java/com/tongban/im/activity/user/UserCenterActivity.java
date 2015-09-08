@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.UserBaseActivity;
@@ -20,7 +22,7 @@ import io.rong.imkit.RongIM;
  *
  * @author fushudi
  */
-public class UserCenterActivity extends UserBaseActivity implements View.OnClickListener {
+public class UserCenterActivity extends UserBaseActivity {
 
     private CheckBox chbFocus;
     private ImageView ivPrivateChat;

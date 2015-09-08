@@ -32,12 +32,17 @@ public class BaseAdapterHelper {
 
     private final Context mContext;
     private final SparseArray<View> mViews;
+
+
     private int mPosition;
     private View mConvertView;
     private int mLayoutId;
 
     private static boolean isFirstCreate = true;
 
+    public void setmPosition(int mPosition) {
+        this.mPosition = mPosition;
+    }
     /**
      * 是否第一次创建view
      */
@@ -55,7 +60,7 @@ public class BaseAdapterHelper {
         this.mContext = context;
         this.mPosition = position;
         this.mLayoutId = layoutId;
-        this.mViews = new SparseArray<View>();
+        this.mViews = new SparseArray<>();
         this.mConvertView = LayoutInflater.from(mContext).inflate(layoutId, parent, false);
         mConvertView.setTag(this);
         isFirstCreate = true;

@@ -26,19 +26,23 @@ public class GroupListenerImpl implements View.OnClickListener {
         switch (v.getId()) {
             //加入圈子
             case R.id.btn_join:
-                Group group = (Group) v.getTag();
-                GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
-                        group.getUser_info().getUser_id(),group.isVerify_user(), null);
+                if (v.getTag() != null) {
+                    Group group = (Group) v.getTag();
+                    GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
+                            group.getUser_info().getUser_id(), group.isVerify_user(), null);
+                }
                 break;
             //打开圈子聊天页/详情页
             case R.id.rl_group_item:
-                group = (Group) v.getTag();
-                if (!group.isAllow_add()) {
-                    RongIM.getInstance().startGroupChat(mContext, group.getGroup_id(),
-                            group.getGroup_name());
-                }else{
-                    TransferCenter.getInstance().startGroupInfo(group.getGroup_id(),
-                            group.isAllow_add());
+                if (v.getTag() != null) {
+                    Group group = (Group) v.getTag();
+                    if (!group.isAllow_add()) {
+                        RongIM.getInstance().startGroupChat(mContext, group.getGroup_id(),
+                                group.getGroup_name());
+                    } else {
+                        TransferCenter.getInstance().startGroupInfo(group.getGroup_id(),
+                                group.isAllow_add());
+                    }
                 }
                 break;
         }
