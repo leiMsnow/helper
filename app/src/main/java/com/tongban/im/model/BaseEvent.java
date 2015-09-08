@@ -256,6 +256,13 @@ public class BaseEvent {
     //--------------------------------------商品模块-------------------------------------------------
 
     /**
+     * 获取热词的Event
+     */
+    public static class FetchHotwordsEvent {
+        public List<String> hotwords;
+    }
+
+    /**
      * 获取专题收藏数量
      */
     public static class FetchThemeCollectedAmount {

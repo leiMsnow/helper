@@ -1,29 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/include_toolbar" />
+        layout="@layout/include_toolbar"/>
 
     <TextView
-        android:id="@+id/tv_hot_category"
+        android:id="@+id/tv_hotwords"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/toolbar"
         android:drawableLeft="@mipmap/ic_topic_location"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:text="热门分类"
-        android:textColor="@color/normal_grey" />
+        android:text="热门搜索"
+        android:textColor="@color/normal_grey"/>
 
-    <GridView
-        android:id="@+id/gv_hot_type"
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_hotwords"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tv_hot_category"
-        android:padding="8dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_hotwords"
+        android:padding="8dp"/>
 
 
 </RelativeLayout>

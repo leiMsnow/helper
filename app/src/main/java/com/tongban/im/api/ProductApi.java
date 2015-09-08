@@ -57,6 +57,9 @@ public class ProductApi extends BaseApi {
     // 取消收藏商品
     private static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
 
+    // 返回排行前n个关键词，按照热度倒排
+    private static final String FETCH_HOTWORDS = "hotwords/require/list";
+
     // 专题搜索
     private static final String SEARCH_THEME = "theme/search/list";
 
@@ -353,6 +356,39 @@ public class ProductApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorObj) {
                 callback.onFailure(DisplayType.Toast, "收藏失败");
+            }
+        });
+    }
+
+    /**
+     * 获取热词
+     *
+     * @param limit    热词数量
+     * @param callback 回调
+     */
+    public void fetchHotwords(int limit, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("limit", limit < 1 ? 1 : limit);
+        simpleRequest(FETCH_HOTWORDS, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<List<String>> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<List<String>>>() {
+                        });
+                List<String> hotwords = result.getData();
+                BaseEvent.FetchHotwordsEvent event = new BaseEvent.FetchHotwordsEvent();
+                event.hotwords = hotwords;
+                callback.onComplete(event);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorObj) {
+
             }
         });
     }
