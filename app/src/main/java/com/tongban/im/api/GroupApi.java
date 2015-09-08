@@ -12,7 +12,10 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.db.helper.GroupDaoHelper;
+import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -307,6 +310,8 @@ public class GroupApi extends BaseApi {
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
+                // 将圈子信息保存到本地数据库
+                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(result.getData()));
                 BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
                 groupInfoEvent.group = result.getData();
                 if (callback != null)

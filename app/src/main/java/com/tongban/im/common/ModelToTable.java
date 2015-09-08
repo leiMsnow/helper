@@ -42,8 +42,9 @@ public class ModelToTable {
 
         GroupTable groupTable = new GroupTable();
         groupTable.setGroup_id(group.getGroup_id());
-//        groupTable.setGroup_avatar(group.getGroup_avatar());
         groupTable.setGroup_name(group.getGroup_name());
+        if (group.getGroup_avatar() != null)
+            groupTable.setGroup_avatar(group.getGroup_avatar().getMin());
 
         return groupTable;
     }

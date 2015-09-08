@@ -203,7 +203,7 @@ public class DateUtils {
             R.string.october, R.string.november, R.string.december};
 
 
-    public static String formatDateTime(long fromDate, Context context) {
+    public static String formatDateTime1(long fromDate, Context context) {
 
         Date date = longToDate(fromDate);
 
@@ -268,6 +268,50 @@ public class DateUtils {
                 // 不是同一月份，显示10月5日上午09：10；10月5日下午14：10
                 return context.getString(months[month]) + day
                         + context.getString(R.string.day) + result;
+            }
+        }
+    }
+
+    /**
+     * 三天内用今天、昨天、前天展示，三天外展示日期
+     *
+     * @param fromDate
+     * @param context
+     * @return
+     */
+    public static String formatDateTime(long fromDate, Context context) {
+        Date date = longToDate(fromDate);
+
+        //传递进来的时间
+        Calendar fromCalendar = Calendar.getInstance();
+        fromCalendar.setTime(date);
+
+        int year = fromCalendar.get(Calendar.YEAR);
+        int month = fromCalendar.get(Calendar.MONTH);
+        int day = fromCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //当前时间
+        Calendar currentCalendar = Calendar.getInstance();
+
+        int thisYear = currentCalendar.get(Calendar.YEAR);
+        int thisMonth = currentCalendar.get(Calendar.MONTH);
+        int thisDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+
+        //跨年
+        if (year < thisYear) {
+            return (year + 1900) + context.getString(R.string.year)
+                    + context.getString(months[month]) + day
+                    + context.getString(R.string.day);
+        } else {
+            if (thisDay - day == 0) {
+                return context.getString(R.string.today);
+            } else if (thisDay - day == 1) {
+                return context.getString(R.string.yesterday);
+            } else if (thisDay - day == 2) {
+                return context.getString(R.string.the_day_before_yesterday);
+            } else {
+                return context.getString(months[month]) + day
+                        + context.getString(R.string.day);
             }
         }
     }

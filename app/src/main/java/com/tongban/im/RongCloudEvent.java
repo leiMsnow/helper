@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.view.View;
 
+import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.AccountApi;
@@ -15,6 +16,7 @@ import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.db.helper.UserDaoHelper;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.widget.provider.ContactsProvider;
 import com.tongban.im.widget.provider.TopicProvider;
 
@@ -270,10 +272,37 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     public UserInfo getUserInfo(String userId) {
         UserTable userTable = UserDaoHelper.get(mContext).getDataById(userId);
         if (userTable != null) {
+
             return new UserInfo(userId, userTable.getNick_name(),
-                    userTable.getPortrait_url() == null ? null : Uri.parse(userTable.getPortrait_url()));
+                    userTable.getPortrait_url() == null ? null :
+                            Uri.parse(userTable.getPortrait_url()));
         } else {
-            UserCenterApi.getInstance().fetchUserCenterInfo(userId, null);
+            UserCenterApi.getInstance().fetchUserCenterInfo(userId, new ApiCallback() {
+                @Override
+                public void onStartApi() {
+
+                }
+
+                @Override
+                public void onComplete(Object obj) {
+                    if (obj instanceof BaseEvent.UserCenterEvent) {
+                        BaseEvent.UserCenterEvent userEvent = (BaseEvent.UserCenterEvent) obj;
+
+                        UserTable userTable = UserDaoHelper.get(mContext).
+                                getDataById(userEvent.user.getUser_id());
+
+                        RongIM.getInstance().refreshUserInfoCache(
+                                new UserInfo(userTable.getUser_id(), userTable.getNick_name(),
+                                        userTable.getPortrait_url() == null ? null :
+                                                Uri.parse(userTable.getPortrait_url())));
+                    }
+                }
+
+                @Override
+                public void onFailure(DisplayType displayType, Object errorObj) {
+
+                }
+            });
         }
         return null;
     }
@@ -287,14 +316,42 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
      */
     @Override
     public Group getGroupInfo(String groupId) {
+        // 先从本地数据库获取
+        GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
+        if (groupTable != null) {
+            return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
+                    groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
+        }
+        // 没有将从服务器获取
+        else {
+            GroupApi.getInstance().getGroupInfo(groupId, new ApiCallback() {
+                @Override
+                public void onStartApi() {
 
-//        GroupApi.getInstance().fetchMyGroupInfo(groupId, null);
-//        GroupTable groupTable = GroupDaoHelper.get(mContext).getDataById(groupId);
-//        if (groupTable != null) {
-//            LogUtil.d("groupTable-----" + groupTable.getGroup_id());
-//            return new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
-//                    groupTable.getGroup_avatar() == null ? null : Uri.parse(groupTable.getGroup_avatar()));
-//        }
+                }
+
+                @Override
+                public void onComplete(Object obj) {
+                    if (obj instanceof BaseEvent.GroupInfoEvent) {
+                        BaseEvent.GroupInfoEvent groupEvent = (BaseEvent.GroupInfoEvent) obj;
+
+                        GroupTable groupTable = GroupDaoHelper.
+                                get(mContext).getDataById((groupEvent.group.getGroup_id()));
+
+                        RongIM.getInstance().refreshGroupInfoCache(
+                                new Group(groupTable.getGroup_id(), groupTable.getGroup_name(),
+                                        groupTable.getGroup_avatar() == null ? null :
+                                                Uri.parse(groupTable.getGroup_avatar())));
+                    }
+
+                }
+
+                @Override
+                public void onFailure(DisplayType displayType, Object errorObj) {
+
+                }
+            });
+        }
         return null;
     }
 
