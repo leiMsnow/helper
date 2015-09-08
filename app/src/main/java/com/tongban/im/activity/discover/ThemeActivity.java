@@ -211,10 +211,16 @@ public class ThemeActivity extends BaseToolBarActivity {
      *
      * @param user User
      */
-    public void onEventMainThread(User user) {
+    public void onEventMainThread(final User user) {
         Glide.with(mContext).load(user.getPortrait_url().getMin()).into(userPortrait);
         userName.setText(user.getNick_name());
         userTag.setText(user.getTags());
+        userPortrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TransferCenter.getInstance().startUserCenter(user.getUser_id());
+            }
+        });
     }
 
     /**
