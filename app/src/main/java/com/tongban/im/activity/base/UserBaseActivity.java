@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ScreenUtils;
-import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;

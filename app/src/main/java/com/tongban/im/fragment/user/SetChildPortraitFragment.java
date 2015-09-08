@@ -18,6 +18,7 @@ import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.AddChildInfo;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
             childInfo.setSchool(mChildSchool);
             List<AddChildInfo> children = new ArrayList<>();
             children.add(childInfo);
-            UserCenterApi.getInstance().setChildInfo(children, this);
+            UserCenterApi.getInstance().setChildInfo(true,children, this);
             getActivity().finish();
         }
     }
@@ -123,4 +124,5 @@ public class SetChildPortraitFragment extends BaseApiFragment implements
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivSetChildPortrait.setImageBitmap(bitmap);
     }
+
 }

@@ -42,14 +42,6 @@ public class UserCenterApi extends BaseApi {
      */
     public static final String FETCH_USER_DETAIL_INFO = "user/info";
     /**
-     * 获取个人群组列表-我加入的群
-     */
-    public static final String FETCH_MY_JOIN_GROUP_LIST = "user/join/group/list";
-    /**
-     * 获取个人群组列表-我创建的群
-     */
-    public static final String FETCH_MY_CREATE_GROUP_LIST = "user/launch/group/list";
-    /**
      * 获取个人群组列表-我创建/加入的群
      */
     public static final String FETCH_MY_GROUPS_LIST = "user/groups/list";
@@ -204,7 +196,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchUserDetailInfo(final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id",SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -227,45 +219,6 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
-
-//    /**
-//     * 获取个人中心我加入的群组列表（圈子）
-//     *
-//     * @param cursor
-//     * @param pageSize
-//     * @param callback
-//     */
-//    public void fetchMyJoinGroupList(int cursor, int pageSize, String userId, final ApiCallback callback) {
-//
-//        mParams = new HashMap<>();
-//        mParams.put("user_id", userId);
-//        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, -1.0D));
-//        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, -1.0D));
-//        mParams.put("cursor", cursor < 0 ? 0 : cursor);
-//        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
-//
-//        simpleRequest(FETCH_MY_JOIN_GROUP_LIST, mParams, new ApiCallback() {
-//            @Override
-//            public void onStartApi() {
-//                callback.onStartApi();
-//            }
-//
-//            @Override
-//            public void onComplete(Object obj) {
-//                ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiListResult<Group>>() {
-//                        });
-//                BaseEvent.MyGroupListEvent myGroupListEvent = new BaseEvent.MyGroupListEvent();
-//                myGroupListEvent.myGroupList = (apiResponse.getData().getResult());
-//                callback.onComplete(myGroupListEvent);
-//            }
-//
-//            @Override
-//            public void onFailure(DisplayType displayType, Object errorMessage) {
-//                callback.onFailure(displayType, errorMessage);
-//            }
-//        });
-//    }
 
     /**
      * 获取个人中心我创建/加入的群组列表（圈子）
@@ -611,7 +564,7 @@ public class UserCenterApi extends BaseApi {
      * @param children
      * @param callback
      */
-    public void setChildInfo(List<AddChildInfo> children, final ApiCallback callback) {
+    public void setChildInfo(final boolean isSetSuccess,List<AddChildInfo> children, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("child_info", JSON.toJSON(children));

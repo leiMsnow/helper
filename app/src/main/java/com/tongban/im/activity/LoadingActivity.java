@@ -9,6 +9,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.activity.user.LoginActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.FileUploadApi;
@@ -53,10 +54,10 @@ public class LoadingActivity extends BaseToolBarActivity {
             LocationUtils.get(mContext).start();
         }
 
-        if ((boolean) SPUtils.get(mContext, Consts.FIRST_INSTALL, true)) {
-
+        if ((boolean) SPUtils.get(mContext, Consts.FIRST_SET_CHILD_INFO, true)) {
+            startActivity(new Intent(mContext, ChildInfoActivity.class));
+            finish();
         } else {
-
             String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
             if (freeAuthToken.equals("")) {
                 connectIM();

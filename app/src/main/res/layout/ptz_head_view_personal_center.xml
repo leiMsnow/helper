@@ -81,7 +81,7 @@
 
         <!-- 粉丝、关注、话题数量布局-->
         <LinearLayout
-            android:id="@+id/rl_fans_num"
+            android:id="@+id/rl_follow_num"
             style="@style/UserInfoAttrParent">
 
 
@@ -89,39 +89,12 @@
             <RelativeLayout style="@style/UserInfoAttrLayout">
                 <!-- 粉丝数量文本-->
                 <TextView
-                    android:id="@+id/tv_fans_num"
+                    android:id="@+id/tv_follow_num"
                     style="@style/UserInfoAttrTopText"
                     android:text="0" />
                 <!-- 粉丝badge-->
                 <View
                     android:id="@+id/badge_fans"
-                    style="@style/UserInfoBadge"
-                    android:layout_toRightOf="@+id/tv_fans_num"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_fans"
-                style="@style/UserInfoAttrBottomText"
-                android:text="@string/follow" />
-
-        </LinearLayout>
-
-        <!--底部关注布局-->
-        <LinearLayout
-            android:id="@+id/rl_follow_num"
-            style="@style/UserInfoAttrParent">
-
-            <!-- 关注数量布局-->
-            <RelativeLayout style="@style/UserInfoAttrLayout">
-                <!-- 关注数量-->
-                <TextView
-                    android:id="@+id/tv_follow_num"
-                    style="@style/UserInfoAttrTopText"
-                    android:text="0" />
-                <!-- 关注badge-->
-                <View
-                    android:id="@+id/badge_follow"
                     style="@style/UserInfoBadge"
                     android:layout_toRightOf="@+id/tv_follow_num"
                     android:visibility="gone" />
@@ -129,6 +102,33 @@
 
             <TextView
                 android:id="@+id/tv_follow"
+                style="@style/UserInfoAttrBottomText"
+                android:text="@string/follow" />
+
+        </LinearLayout>
+
+        <!--底部关注布局-->
+        <LinearLayout
+            android:id="@+id/rl_fans_num"
+            style="@style/UserInfoAttrParent">
+
+            <!-- 关注数量布局-->
+            <RelativeLayout style="@style/UserInfoAttrLayout">
+                <!-- 关注数量-->
+                <TextView
+                    android:id="@+id/tv_fans_num"
+                    style="@style/UserInfoAttrTopText"
+                    android:text="0" />
+                <!-- 关注badge-->
+                <View
+                    android:id="@+id/badge_follow"
+                    style="@style/UserInfoBadge"
+                    android:layout_toRightOf="@+id/tv_fans_num"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_fans"
                 style="@style/UserInfoAttrBottomText"
                 android:text="@string/fans" />
 

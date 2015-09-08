@@ -163,6 +163,9 @@ public class RegisterActivity extends BaseToolBarActivity implements TextWatcher
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
+                    //TODO//设置个人资料（头像、昵称（必填））
+                    //设置个人资料后，调用设置宝宝信心接口
+                    //设置宝宝信息后完成注册
                     AccountApi.getInstance().register(mPhoneNum, mPwd, regEvent.verify_id,
                             mVerifyCode, this);
                 }

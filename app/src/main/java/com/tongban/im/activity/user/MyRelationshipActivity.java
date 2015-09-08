@@ -42,12 +42,12 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
             bundle.putString(Consts.USER_ID, userId);
 
             if (tag.equals(Consts.TAG_FANS)) {
-                setTitle("关注");
-                mFragment = new FocusFragment();
-            } else if (tag.equals(Consts.TAG_Follow)) {
-
                 setTitle("粉丝");
                 mFragment = new FansFragment();
+            } else if (tag.equals(Consts.TAG_Follow)) {
+                setTitle("关注");
+                mFragment = new FocusFragment();
+
             }
 
             mFragment.setArguments(bundle);

@@ -30,9 +30,11 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
     private EditText etSetPwd;
     private Button btnSubmit;
 
-    private String mVerifyCode, mPwd;
+    private String mVerifyCode, mPwd,mInputPhone;
 
     private VerifyTimerCount mTime;
+    private BaseEvent.RegisterEvent regEvent;
+
 
 
     @Override
@@ -52,7 +54,7 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
     @Override
     protected void initData() {
         Bundle bundle = getArguments();
-        String mInputPhone = bundle.getString("mInputPhone");
+        mInputPhone = bundle.getString("mInputPhone");
         tvPhoneNum.setText(mInputPhone);
     }
 
@@ -67,7 +69,10 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (v == btnSubmit) {
-            ToastUtil.getInstance(mContext).showToast(R.string.submit);
+            AccountApi.getInstance().pwdReset(mVerifyCode,regEvent.verify_id,mInputPhone,mPwd,this);
+            ToastUtil.getInstance(mContext).showToast("重置密码成功");
+            getActivity().finish();
+            AccountApi.getInstance().login(mInputPhone, mPwd, this);
         } // 获取手机验证码
         else if (v == tvVerifyCode) {
             AccountApi.getInstance().getSMSCode(tvPhoneNum.getText().toString(), this);
@@ -75,6 +80,7 @@ public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickLis
     }
 
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {
+        regEvent=obj;
         // 获取验证码成功
         if (obj.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             //构造CountDownTimer对象

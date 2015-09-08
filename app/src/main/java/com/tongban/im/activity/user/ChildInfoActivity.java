@@ -1,9 +1,12 @@
 package com.tongban.im.activity.user;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.common.Consts;
@@ -19,7 +22,7 @@ import com.tongban.im.model.BaseEvent;
 public class ChildInfoActivity extends CameraResultActivity {
 
     private InputChildInfoFragment mInputChildInfoFragment;
-    private SetChildPortraitFragment mSetChildPortraitFragment;
+//    private SetChildPortraitFragment mSetChildPortraitFragment;
 
     @Override
     protected int getLayoutRes() {
@@ -50,23 +53,11 @@ public class ChildInfoActivity extends CameraResultActivity {
      * @param obj
      */
     public void onEventMainThread(BaseEvent.ChildCreateEvent obj) {
-        mSetChildPortraitFragment = new SetChildPortraitFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString(Consts.KEY_CHILD_NAME, obj.childName);
-        bundle.putString(Consts.KEY_CHILD_BIRTHDAY, obj.childBirthday);
-        bundle.putInt(Consts.KEY_CHILD_SEX,obj.childSex);
-        mSetChildPortraitFragment.setArguments(bundle);
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.fl_replaced, mSetChildPortraitFragment);
-        transaction.commit();
+        SPUtils.put(mContext,Consts.KEY_CHILD_BIRTHDAY,obj.childBirthday);
+        SPUtils.put(mContext,Consts.KEY_CHILD_SEX,obj.childSex);
+        SPUtils.put(mContext, Consts.FIRST_SET_CHILD_INFO, false);
+        finish();
+        connectIM();
     }
-    /**
-     * 宝宝信息Event
-     *
-     * @param obj
-     */
-    public void onEventMainThread(BaseEvent.ChildCreateSuccessEvent obj) {
-       finish();
-    }
+
 }

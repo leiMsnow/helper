@@ -7,7 +7,7 @@ package com.tongban.im.common;
 public class Consts {
 
 
-    public static final double DETAULT_DOUBLE= -1;
+    public static final double DETAULT_DOUBLE = -1;
     /**
      * 图片服务器地址前缀
      */
@@ -19,7 +19,7 @@ public class Consts {
     /**
      * 第一次安装APP标记
      */
-    public static final String FIRST_INSTALL = "FIRST_INSTALL";
+    public static final String FIRST_SET_CHILD_INFO = "FIRST_SET_CHILD_INFO";
     /**
      * 免认证登录Token
      */
@@ -143,6 +143,10 @@ public class Consts {
      * 关注
      */
     public static final String TAG_Follow = "TAG_Follow";
+    /**
+     * 宝宝信息
+     */
+    public static final String KEY_CHILD_INFO = "KEY_CHILD_INFO";
     /**
      * 宝宝昵称
      */

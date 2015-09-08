@@ -72,6 +72,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
      * @param obj
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
+
         UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
     }
 

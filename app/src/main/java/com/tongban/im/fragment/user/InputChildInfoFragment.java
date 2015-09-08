@@ -34,8 +34,8 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     private FrameLayout flContainerBoy, flContainerGirl;
     private CheckBox chbBoy, chbGirl;
 
-    private String mChildNickName, mChildBirthday;
-    private int mChildSex;
+    private String mChildBirthday;
+    private int mChildSex=0;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
@@ -56,9 +56,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
 
     @Override
     protected void initData() {
-        if (TextUtils.isEmpty(mChildBirthday) || TextUtils.isEmpty(mChildNickName)) {
 
-        }
     }
 
     @Override
@@ -73,7 +71,6 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
             @Override
             public void onClick(View v) {
                 BaseEvent.ChildCreateEvent childCreateEvent = new BaseEvent.ChildCreateEvent();
-                childCreateEvent.childName = mChildNickName;
                 childCreateEvent.childBirthday = mChildBirthday;
                 childCreateEvent.childSex = mChildSex;
                 EventBus.getDefault().post(childCreateEvent);
@@ -92,9 +89,8 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
 
     @Override
     public void afterTextChanged(Editable s) {
-        mChildNickName = etChildNickName.getText().toString().trim();
         mChildBirthday = tvChildBirthday.getText().toString().trim();
-        if (!TextUtils.isEmpty(mChildNickName) && !TextUtils.isEmpty(mChildBirthday)) {
+        if (mChildSex==0 && !TextUtils.isEmpty(mChildBirthday)) {
             btnSubmit.setEnabled(true);
         }
     }

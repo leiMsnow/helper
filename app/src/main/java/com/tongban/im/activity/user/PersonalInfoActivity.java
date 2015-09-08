@@ -51,7 +51,6 @@ public class PersonalInfoActivity extends BaseToolBarActivity implements View.On
     @Override
     protected void initListener() {
         ivUserIcon.setOnClickListener(this);
-        ivUserIcon.setOnClickListener(this);
         tvNickName.setOnClickListener(this);
         tvPhoneNum.setOnClickListener(this);
         tvChildAge.setOnClickListener(this);

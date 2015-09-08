@@ -36,7 +36,8 @@
         android:enabled="false"
         android:text="@string/followed"
         android:textColor="@color/selector_join_text_color"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone"/>
 
     <View
         style="@style/HorizontalLine"

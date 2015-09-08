@@ -42,7 +42,6 @@ public class AccountApi extends BaseApi {
      * 密码重置
      */
     public final static String PWD_RESET = "user/password/reset";
-
     /**
      * 获取用户信息
      */
@@ -237,17 +236,19 @@ public class AccountApi extends BaseApi {
     /**
      * 密码重置
      *
-     * @param oldPwd   旧密码
-     * @param newPwd   新密码
+     * @param verifyCode
+     * @param verifyId
+     * @param mobilePhone
+     * @param password 新密码
      * @param callback
      */
-    public void pwdReset(String oldPwd, String newPwd, final ApiCallback callback) {
+    public void pwdReset(String verifyCode, String verifyId, String mobilePhone, String password,
+                         final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("old_pass", oldPwd);
-        mParams.put("new_pass", newPwd);
-        // TODO 使用新接口，删除此字段
-        mParams.put("confirm_new_pass", newPwd);
+        mParams.put("verify_code", verifyCode);
+        mParams.put("verify_id", verifyId);
+        mParams.put("password", password);
+        mParams.put("mobile_phone", mobilePhone);
 
         simpleRequest(PWD_RESET, mParams, new ApiCallback() {
             @Override

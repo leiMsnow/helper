@@ -19,6 +19,7 @@ import com.tongban.im.model.BaseEvent;
  * @author fushudi
  * @createTime 2015/07/27
  */
+@Deprecated
 public class PwdResetActivity extends BaseToolBarActivity implements View.OnClickListener, TextWatcher {
     private EditText etOldPwd, etNewPwd, etConfirmNewPwd, etUserId;
     private Button btnPwdReset;
@@ -72,7 +73,7 @@ public class PwdResetActivity extends BaseToolBarActivity implements View.OnClic
                 } else {
                     if (mNewPwd.length() >= 6) {
                         if (mNewPwd.equals(mConfirmNewPwd)) {
-                            AccountApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
+//                            AccountApi.getInstance().pwdReset(mOldPwd, mNewPwd, this);
                         } else {
                             ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.twice_pwd_same));
                         }

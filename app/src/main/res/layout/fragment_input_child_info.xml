@@ -35,13 +35,15 @@
                 android:gravity="center"
                 android:hint="宝宝昵称"
                 android:singleLine="true"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone"/>
 
             <View
                 android:id="@+id/v_line_one"
                 style="@style/FixedHorizontalLine"
                 android:layout_below="@+id/et_input_nickname"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_input_birthday"
