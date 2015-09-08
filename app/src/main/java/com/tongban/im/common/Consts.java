@@ -79,6 +79,10 @@ public class Consts {
      */
     public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
     /**
+     * 圈子信息
+     */
+    public static final String KEY_GROUP_INFO = "KEY_GROUP_INFO";
+    /**
      * 圈子类型名称
      */
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";

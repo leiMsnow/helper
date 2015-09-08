@@ -108,13 +108,13 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
         else if (v == flContainerBoy) {
             chbBoy.setVisibility(View.VISIBLE);
             chbGirl.setVisibility(View.GONE);
-            mChildSex=0;
+            mChildSex=1;
         }
         //选择宝宝性别 - 女
         else if (v == flContainerGirl) {
             chbGirl.setVisibility(View.VISIBLE);
             chbBoy.setVisibility(View.GONE);
-            mChildSex=1;
+            mChildSex=2;
         }
     }
 

@@ -1,9 +1,8 @@
 package com.tongban.im.model;
 
-import android.content.Context;
-
 import com.tongban.im.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * 1:同城;2:同龄3:同学;4：生活;5:活动;6:达人
  * Created by zhangleilei on 15/7/22.
  */
-public class GroupType {
+public class GroupType implements Serializable{
 
     /**
      * 私密圈

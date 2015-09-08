@@ -210,7 +210,6 @@ public class TopicApi extends BaseApi {
                     callback.onFailure(displayType, errorMessage);
             }
 
-
         });
     }
 

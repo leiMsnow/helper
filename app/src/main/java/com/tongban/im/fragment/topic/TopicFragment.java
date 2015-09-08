@@ -149,7 +149,7 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
         if (!mIsMainEvent) {
             lvTopicList.setResultSize(obj.topicList.size());
-            mAdapter.addAll(obj.topicList);
+            mAdapter.replaceAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
         }
     }
