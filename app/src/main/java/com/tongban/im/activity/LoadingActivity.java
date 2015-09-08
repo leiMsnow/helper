@@ -52,33 +52,39 @@ public class LoadingActivity extends BaseToolBarActivity {
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.ADDRESS, "").toString())) {
             LocationUtils.get(mContext).start();
         }
-        String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
-        if (freeAuthToken.equals("")) {
-            connectIM();
+
+        if ((boolean) SPUtils.get(mContext, Consts.FIRST_INSTALL, true)) {
+
         } else {
-            AccountApi.getInstance().tokenLogin(freeAuthToken, new ApiCallback() {
-                @Override
-                public void onStartApi() {
 
-                }
+            String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+            if (freeAuthToken.equals("")) {
+                connectIM();
+            } else {
+                AccountApi.getInstance().tokenLogin(freeAuthToken, new ApiCallback() {
+                    @Override
+                    public void onStartApi() {
 
-                @Override
-                public void onComplete(Object obj) {
-                    if (obj instanceof ApiResult) {
-                        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
-                        startActivity(new Intent(mContext, LoginActivity.class));
-                        finish();
-                    } else if (obj instanceof User) {
-                        User user = (User) obj;
-                        connectIM(user);
                     }
-                }
 
-                @Override
-                public void onFailure(DisplayType displayType, Object errorObj) {
-                    connectIM();
-                }
-            });
+                    @Override
+                    public void onComplete(Object obj) {
+                        if (obj instanceof ApiResult) {
+                            SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, "");
+                            startActivity(new Intent(mContext, LoginActivity.class));
+                            finish();
+                        } else if (obj instanceof User) {
+                            User user = (User) obj;
+                            connectIM(user);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(DisplayType displayType, Object errorObj) {
+                        connectIM();
+                    }
+                });
+            }
         }
         // 获取七牛token
         FileUploadApi.getInstance().fetchUploadToken();
