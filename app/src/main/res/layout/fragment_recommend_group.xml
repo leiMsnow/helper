@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<in.srain.cube.views.ptr.PtrFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_ptr_home_ptr_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/in_topic_toolbar">
+    android:layout_below="@+id/in_topic_toolbar"
+    cube_ptr:ptr_duration_to_close="200"
+    cube_ptr:ptr_duration_to_close_header="1000"
+    cube_ptr:ptr_keep_header_when_refresh="true"
+    cube_ptr:ptr_pull_to_fresh="false"
+    cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+    cube_ptr:ptr_resistance="1.7">
 
     <ListView
         android:id="@+id/lv_group_list"
@@ -17,12 +24,5 @@
         android:scrollbars="none"
         android:visibility="gone" />
 
-    <com.tongban.corelib.widget.view.viewpager.JellyViewPager
-        android:id="@+id/vp_group"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rl_toolbar"
-        android:background="@color/main_black" />
-
-</FrameLayout>
+</in.srain.cube.views.ptr.PtrFrameLayout>
 
