@@ -153,6 +153,10 @@ public class Consts {
      * 关注
      */
     public static final String TAG_FOLLOW = "TAG_FOLLOW";
+    /**
+     * 是否进入设置昵称界面
+     */
+    public static final String KEY_EDIT_USER = "KEY_EDIT_USER";
 
     //------------------------------商品相关key------------------------------------------------------
     /**

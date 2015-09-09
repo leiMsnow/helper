@@ -3,6 +3,7 @@ package com.tongban.im.activity.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -116,9 +117,18 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     }
 
     //登录成功
-    public void onEventMainThread(BaseEvent.UserLoginEvent userEvent) {
+    public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
-        connectIM(userEvent.user.getChild_info() == null);
+        if (TextUtils.isEmpty(obj.user.getNick_name())) {
+            Intent intent = new Intent(mContext, RegisterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        } else {
+            connectIM(obj.user.getChild_info() == null);
+        }
     }
 
     @Override

@@ -3,12 +3,14 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Button;
 
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
+import com.tongban.im.activity.user.RegisterActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
@@ -25,13 +27,9 @@ import java.util.Random;
  */
 public class LoadingActivity extends BaseToolBarActivity {
 
+    private String freeAuthToken;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
+    private int tryCount = 0;
 
     @Override
     protected int getLayoutRes() {
@@ -54,13 +52,13 @@ public class LoadingActivity extends BaseToolBarActivity {
             LocationUtils.get(mContext).start();
         }
         //第一次启动APP，进入设置宝宝界面
-        if ((boolean) SPUtils.get(mContext,SPUtils.VISIT_FILE, Consts.FIRST_SET_CHILD_INFO, true)) {
+        if ((boolean) SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.FIRST_SET_CHILD_INFO, true)) {
             //为用户随机生成一个头像
             randomPortrait();
             startActivity(new Intent(mContext, ChildInfoActivity.class));
             finish();
         } else {
-            String freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+            freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
             if (freeAuthToken.equals("")) {
                 connectIM();
             } else {
@@ -85,14 +83,31 @@ public class LoadingActivity extends BaseToolBarActivity {
                 , R.mipmap.ic_default_portrait9
                 , R.mipmap.ic_default_portrait10};
         int portrait = portraits[random.nextInt(portraits.length)];
-        SPUtils.put(mContext,SPUtils.VISIT_FILE,Consts.KEY_DEFAULT_PORTRAIT, portrait);
+        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, portrait);
     }
 
+    //登录成功
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
-        connectIM(obj.user.getChild_info() == null);
+        if (TextUtils.isEmpty(obj.user.getNick_name())) {
+            Intent intent = new Intent(mContext, RegisterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        } else {
+            connectIM(obj.user.getChild_info() == null);
+        }
     }
 
+    //登录失败，重试3次
     public void onEventMainThread(ApiErrorResult obj) {
-        connectIM();
+        tryCount++;
+        if (tryCount < 3) {
+            AccountApi.getInstance().tokenLogin(freeAuthToken, this);
+            FileUploadApi.getInstance().fetchUploadToken();
+        } else {
+            connectIM();
+        }
     }
 }

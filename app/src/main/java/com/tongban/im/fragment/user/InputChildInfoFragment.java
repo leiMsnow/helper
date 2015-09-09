@@ -35,7 +35,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     private CheckBox chbBoy, chbGirl;
 
     private String mChildBirthday;
-    private int mChildSex=0;
+    private int mChildSex = 0;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
@@ -144,11 +144,11 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
-        Calendar min = Calendar.getInstance();
-        min.add(Calendar.YEAR, -10);
-        min.set(Calendar.MONTH,0);
-        min.set(Calendar.DAY_OF_MONTH,1);
-        mDatePickerDialog.getDatePicker().setMinDate(min.getTime().getTime());
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.YEAR, 0);
+        max.add(Calendar.MONTH, 0);
+        max.add(Calendar.DAY_OF_MONTH, 0);
+        mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
         mDatePickerDialog.show();
     }
 }

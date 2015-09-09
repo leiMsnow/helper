@@ -2,6 +2,7 @@ package com.tongban.im.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FirstRegisterFragment;
@@ -30,6 +32,16 @@ import java.util.List;
 public class RegisterActivity extends CameraResultActivity {
 
     private User user;
+    private boolean isSecond;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FileUploadApi.getInstance().fetchUploadToken();
+        if (isSecond) {
+            mToolbar.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     protected void initView() {
@@ -39,9 +51,16 @@ public class RegisterActivity extends CameraResultActivity {
     @Override
     protected void initData() {
         setTitle(getString(R.string.register));
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
-                new FirstRegisterFragment())
-                .commit();
+        isSecond = getIntent().getBooleanExtra(Consts.KEY_EDIT_USER, false);
+        if (!isSecond) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                    new FirstRegisterFragment())
+                    .commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                    new SecondRegisterFragment())
+                    .commit();
+        }
     }
 
     @Override
@@ -65,7 +84,8 @@ public class RegisterActivity extends CameraResultActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(mContext, LoginActivity.class));
+        if (!isSecond)
+            startActivity(new Intent(mContext, LoginActivity.class));
         finish();
     }
 
@@ -78,7 +98,11 @@ public class RegisterActivity extends CameraResultActivity {
     }
 
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        connectIM(user.getChild_info() == null);
+        if (isSecond) {
+            connectIM(true,false);
+        } else {
+            connectIM(user.getChild_info() == null);
+        }
     }
 }
 
