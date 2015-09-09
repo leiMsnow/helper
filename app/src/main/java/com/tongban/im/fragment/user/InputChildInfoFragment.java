@@ -27,7 +27,8 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 
-public class InputChildInfoFragment extends BaseApiFragment implements TextWatcher, View.OnClickListener {
+public class InputChildInfoFragment extends BaseApiFragment implements TextWatcher,
+        View.OnClickListener {
     private EditText etChildNickName;
     private TextView tvChildBirthday;
     private Button btnSubmit;
@@ -35,7 +36,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     private CheckBox chbBoy, chbGirl;
 
     private String mChildBirthday;
-    private int mChildSex=0;
+    private int mChildSex = 0;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
@@ -90,9 +91,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     @Override
     public void afterTextChanged(Editable s) {
         mChildBirthday = tvChildBirthday.getText().toString().trim();
-        if (mChildSex==0 && !TextUtils.isEmpty(mChildBirthday)) {
-            btnSubmit.setEnabled(true);
-        }
+        setBtnEnabled();
     }
 
     @Override
@@ -104,13 +103,25 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
         else if (v == flContainerBoy) {
             chbBoy.setVisibility(View.VISIBLE);
             chbGirl.setVisibility(View.GONE);
-            mChildSex=1;
+            mChildSex = 1;
+            setBtnEnabled();
+
         }
         //选择宝宝性别 - 女
         else if (v == flContainerGirl) {
             chbGirl.setVisibility(View.VISIBLE);
             chbBoy.setVisibility(View.GONE);
-            mChildSex=2;
+            mChildSex = 2;
+            setBtnEnabled();
+        }
+    }
+
+    /**
+     * 设置注册按钮可以点击
+     */
+    private void setBtnEnabled() {
+        if (mChildSex != 0 && !TextUtils.isEmpty(mChildBirthday)) {
+            btnSubmit.setEnabled(true);
         }
     }
 
