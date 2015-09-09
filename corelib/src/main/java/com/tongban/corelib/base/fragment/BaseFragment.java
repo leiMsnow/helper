@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tongban.corelib.base.BaseApplication;
+import com.tongban.corelib.utils.KeyBoardUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,12 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.mContext = getActivity();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        KeyBoardUtils.hideSoftKeyboard(getActivity());
     }
 
     @Override
