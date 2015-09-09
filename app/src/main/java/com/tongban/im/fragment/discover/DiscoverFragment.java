@@ -79,9 +79,13 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initData() {
-        // 获取顶部个人信息
-        if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, "")))
+        // 先显示默认头像
+        int defaultPortrait = (int) SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+        ivUserIcon.setImageResource(defaultPortrait);
+        // 登录后显示真实头像
+        if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
             UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
+        }
         // 获取首页数据
         ProductApi.getInstance().fetchHomeInfo(this);
     }
