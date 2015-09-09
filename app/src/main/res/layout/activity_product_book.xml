@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/fl_tag"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/book_author"
                 android:textColor="@color/main_deep_orange"
                 android:textSize="16sp"/>
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_author"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/book_desc"
                 android:textColor="@color/main_deep_orange"
                 android:textSize="16sp"/>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_desc"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/publisher"
                 android:textColor="@color/main_deep_orange"
                 android:textSize="16sp"/>
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_publisher"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/isbn"
                 android:textColor="@color/main_deep_orange"
                 android:textSize="16sp"/>
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_isbn"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/suitable_for"
                 android:textColor="@color/main_deep_orange"
                 android:textSize="16sp"/>
