@@ -70,7 +70,7 @@ public class CheckID {
         } else {
             sb.append('0').append(',');
         }
-        sb.append(System.currentTimeMillis() + difMills);
+        sb.append(System.currentTimeMillis() + difMills + "," + System.currentTimeMillis());
         try {
             SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
             Cipher c1 = Cipher.getInstance(Ciper_Algorithm);
