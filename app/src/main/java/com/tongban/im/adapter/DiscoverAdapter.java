@@ -103,29 +103,37 @@ public class DiscoverAdapter extends BaseAdapter {
                 holder.tip.setText(mList.get(position).getSoft_word());
                 holder.title.setText(mList.get(position).getTitle());
                 holder.description.setText(mList.get(position).getDescription());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).into(holder.img1);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).into(holder.img2);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).into(holder.img3);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img2);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img3);
                 holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
                 break;
             case 2:
                 holder.tip.setText(mList.get(position).getSoft_word());
                 holder.title.setText(mList.get(position).getTitle());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).into(holder.img1);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).into(holder.img2);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).into(holder.img3);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img2);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img3);
                 holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
                 break;
             case 3:
                 holder.tip.setText(mList.get(position).getSoft_word());
                 holder.title.setText(mList.get(position).getTitle());
                 holder.description.setText(mList.get(position).getDescription());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).into(holder.img1);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
                 holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
                 break;
             case 4:
                 holder.tip.setText(mList.get(position).getSoft_word());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).into(holder.img1);
+                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
+                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
                 break;
         }
 
