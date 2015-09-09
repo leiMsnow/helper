@@ -17,9 +17,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="64dp"
-                android:gravity="center"
                 android:layout_marginRight="64dp"
                 android:layout_marginTop="136dp"
+                android:gravity="center"
                 android:text="上传一张照片作为头像吧" />
 
             <com.tongban.corelib.widget.view.CircleImageView
@@ -44,6 +44,7 @@
                 android:background="@null"
                 android:gravity="center"
                 android:hint="您的昵称"
+                android:textColor="@color/main_brown"
                 android:textSize="12sp" />
 
             <View

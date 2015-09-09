@@ -76,7 +76,7 @@ public class LoadingActivity extends BaseToolBarActivity {
                             finish();
                         } else if (obj instanceof User) {
                             User user = (User) obj;
-                            connectIM(user);
+                            connectIM(user.getUser_id(), user.getChild_info() == null);
                         }
                     }
 

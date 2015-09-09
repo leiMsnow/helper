@@ -35,7 +35,7 @@ public class FirstRegisterFragment extends BaseApiFragment
     private TextView tvVerifyCode;
     private CheckBox cbAgree;
     private Button btnRegister;
-    private String mPhoneNum, mPwd, mVerifyCode;
+    private String mPhoneNum, mPwd, mVerifyId,mVerifyCode;
 
     private VerifyTimerCount mTime;
     private BaseEvent.RegisterEvent regEvent;
@@ -108,7 +108,7 @@ public class FirstRegisterFragment extends BaseApiFragment
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
                     //TODO//设置个人资料
-                    nextListener.next();
+                    nextListener.next(mPhoneNum,mPwd,mVerifyId,mVerifyCode);
                 }
             } else {
                 //提示获取验证码
@@ -149,24 +149,11 @@ public class FirstRegisterFragment extends BaseApiFragment
         regEvent = obj;
         // 获取验证码成功
         if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
+            mVerifyId = obj.verify_id;
             mTime = new VerifyTimerCount(tvVerifyCode);//构造CountDownTimer对象
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
-        // 注册成功，自动登录
-        else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
-//            ToastUtil.getInstance(mContext).showToast(getResources().getString(R.string.register_success));
-            AccountApi.getInstance().login(mPhoneNum, mPwd, this);
-        }
-    }
-
-    public void onEventMainThread(String result) {
-        ToastUtil.getInstance(mContext).showToast(result.toString());
-    }
-
-
-    public void onEventMainThread(User user) {
-        SPUtils.put(mContext, Consts.USER_ACCOUNT, mPhoneNum);
     }
 
     @Override
@@ -179,6 +166,6 @@ public class FirstRegisterFragment extends BaseApiFragment
     }
 
     public interface INextListener {
-        void next();
+        void next(String phone,String pwd,String verifyId,String verifyCode);
     }
 }

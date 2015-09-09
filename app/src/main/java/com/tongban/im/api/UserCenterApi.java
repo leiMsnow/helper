@@ -561,15 +561,15 @@ public class UserCenterApi extends BaseApi {
     /**
      * 设置宝宝信息
      *
+     * @param userId   用户ID
      * @param children
      * @param callback
      */
-    public void setChildInfo(final boolean isSetSuccess,List<AddChildInfo> children, final ApiCallback callback) {
+    public void setChildInfo(String userId, List<AddChildInfo> children, final ApiCallback callback) {
 
         mParams = new HashMap<>();
+        mParams.put("user_id", userId);
         mParams.put("child_info", JSON.toJSON(children));
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-
 
         simpleRequest(SET_CHILD_INFO, mParams, new ApiCallback() {
             @Override
@@ -579,12 +579,18 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                callback.onComplete(obj);
+                BaseEvent.ChildCreateSuccessEvent childSuccess =
+                        new BaseEvent.ChildCreateSuccessEvent();
+                childSuccess.isSetSuccess = true;
+                callback.onComplete(childSuccess);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                BaseEvent.ChildCreateSuccessEvent childSuccess =
+                        new BaseEvent.ChildCreateSuccessEvent();
+                childSuccess.isSetSuccess = false;
+                callback.onComplete(childSuccess);
             }
         });
     }

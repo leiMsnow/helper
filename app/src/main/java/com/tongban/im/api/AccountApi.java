@@ -117,17 +117,18 @@ public class AccountApi extends BaseApi {
      * 注册
      *
      * @param mobilePhone 手机号
+     * @param nickName    用户昵称
      * @param password    密码
      * @param verifyId    验证码Id
      * @param verifyCode  验证码
      * @param callback
      */
-    public void register(String mobilePhone, String password, String verifyId, String verifyCode,
+    public void register(String mobilePhone, String nickName, String password, String verifyId, String verifyCode,
                          final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
-        mParams.put("nick_name", mobilePhone);
+        mParams.put("nick_name", nickName);
         mParams.put("password", password);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -239,7 +240,7 @@ public class AccountApi extends BaseApi {
      * @param verifyCode
      * @param verifyId
      * @param mobilePhone
-     * @param password 新密码
+     * @param password    新密码
      * @param callback
      */
     public void pwdReset(String verifyCode, String verifyId, String mobilePhone, String password,

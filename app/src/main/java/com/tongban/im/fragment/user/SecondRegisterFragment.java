@@ -13,11 +13,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.FileUploadApi;
+import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.AddChildInfo;
+import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.User;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
@@ -33,9 +44,11 @@ public class SecondRegisterFragment extends BaseApiFragment implements
     private EditText etNickName;
     private Button btnSubmit;
 
-    private String mNickName;
+    private String mPhoneNum, mPwd, mVerifyId, mVerifyCode, mNickName;
 
     private CameraView mCameraView;
+
+    private byte[] mIcon;
 
     @Override
     public void onAttach(Activity activity) {
@@ -59,7 +72,12 @@ public class SecondRegisterFragment extends BaseApiFragment implements
 
     @Override
     protected void initData() {
-
+        if (getArguments() != null) {
+            mPhoneNum = getArguments().getString(Consts.KEY_PHONE, "");
+            mPwd = getArguments().getString(Consts.KEY_PWD, "");
+            mVerifyId = getArguments().getString(Consts.KEY_VERIFY_ID, "");
+            mVerifyCode = getArguments().getString(Consts.KEY_VERIFY_CODE, "");
+        }
     }
 
     @Override
@@ -95,17 +113,8 @@ public class SecondRegisterFragment extends BaseApiFragment implements
         }
         //点击提交按钮
         else if (v == btnSubmit) {
-//            int childSex = getArguments().getInt(Consts.CHILD_SEX);
-//            String childBirthday = getArguments().getString(Consts.CHILD_BIRTHDAY);
-//            AddChildInfo childInfo = new AddChildInfo();
-//            childInfo.setBirthday(childBirthday);
-//            childInfo.setSex(childSex);
-//            List<AddChildInfo> children = new ArrayList<>();
-//            children.add(childInfo);
-//            UserCenterApi.getInstance().setChildInfo(true, children, this);
-//            getActivity().finish();
-
-
+            AccountApi.getInstance().register(mPhoneNum, mNickName, mPwd, mVerifyId,
+                    mVerifyCode, this);
         }
     }
 
@@ -120,8 +129,47 @@ public class SecondRegisterFragment extends BaseApiFragment implements
 
     @Override
     public void sendPhoto(byte[] bytes) {
+        mIcon = bytes;
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivPortrait.setImageBitmap(bitmap);
     }
+
+    public void onEventMainThread(User user) {
+        SPUtils.put(mContext, Consts.USER_ACCOUNT, mPhoneNum);
+//        FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
+//                FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+//
+//                    @Override
+//                    public void uploadSuccess(ImageUrl url) {
+//
+//                    }
+//
+//                    @Override
+//                    public void uploadFailed(String error) {
+//
+//                    }
+//
+//                });
+    }
+
+    public void onEventMainThread(BaseEvent.RegisterEvent regEvent) {
+        // 注册成功
+        if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
+            //添加宝宝信息
+            int childSex = (int) SPUtils.get(mContext, Consts.CHILD_SEX, 1);
+            String childBirthday = SPUtils.get(mContext, Consts.CHILD_BIRTHDAY, "").toString();
+            AddChildInfo childInfo = new AddChildInfo();
+            childInfo.setBirthday(childBirthday);
+            childInfo.setSex(childSex);
+            List<AddChildInfo> children = new ArrayList<>();
+            children.add(childInfo);
+            UserCenterApi.getInstance().setChildInfo(regEvent.user_id,children, this);
+        }
+    }
+
+    public void onEventMainThread(BaseEvent.ChildCreateSuccessEvent obj) {
+        AccountApi.getInstance().login(mPhoneNum, mPwd, this);
+    }
+
 
 }

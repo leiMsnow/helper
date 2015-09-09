@@ -72,6 +72,13 @@ public class Consts {
 
     //------------------------------bundle-key-start------------------------------------------------
 
+    //------------------------------登录注册相关key---------------------------------------------------
+    public static final String KEY_PHONE = "KEY_PHONE";
+    public static final String KEY_PWD = "KEY_PWD";
+    public static final String KEY_VERIFY_ID = "KEY_VERIFY_ID";
+    public static final String KEY_VERIFY_CODE = "KEY_VERIFY_CODE";
+
+
 
     //------------------------------圈子相关key------------------------------------------------------
     /**

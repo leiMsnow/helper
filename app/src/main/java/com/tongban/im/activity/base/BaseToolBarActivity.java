@@ -87,27 +87,28 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     /**
      * 连接融云IM
      *
-     * @param user       用户信息
+     * @param userId
+     * @param isChild 是否有宝宝信息
      * @param isOpenMain 是否打开主界面
      */
-    protected void connectIM(final User user, final boolean isOpenMain) {
-        RongIM.connect(user.getIm_bind_token(), new RongIMClient.ConnectCallback() {
+    protected void connectIM(final String userId,final boolean isChild, final boolean isOpenMain) {
+        RongIM.connect(userId, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 LogUtil.d("onTokenIncorrect");
-                startMain(isOpenMain, user.getChild_info() == null);
+                startMain(isOpenMain, isChild);
             }
 
             @Override
             public void onSuccess(String s) {
                 LogUtil.d("连接RongIM成功，当前用户：" + s);
-                startMain(isOpenMain, user.getChild_info() == null);
+                startMain(isOpenMain, isChild);
             }
 
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                startMain(isOpenMain, user.getChild_info() == null);
+                startMain(isOpenMain, isChild);
             }
         });
     }
@@ -115,36 +116,37 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     /**
      * 连接后跳转到主界面
      *
-     * @param user
+     * @param userId
+     * @param isChild 是否有宝宝信息
      */
-    protected void connectIM(User user) {
-        connectIM(user, true);
+    protected void connectIM(String userId, boolean isChild) {
+        connectIM(userId,isChild, true);
     }
 
     /**
      * 未登录连接
      */
     protected void connectIM() {
-        RongIM.connect(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString(),
+        RongIM.connect("",
                 new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                LogUtil.d("onTokenIncorrect");
-                startMain(true, false);
-            }
+                    @Override
+                    public void onTokenIncorrect() {
+                        LogUtil.d("onTokenIncorrect");
+                        startMain(true, false);
+                    }
 
-            @Override
-            public void onSuccess(String s) {
-                LogUtil.d("连接RongIM成功，当前用户：" + s);
-                startMain(true, false);
-            }
+                    @Override
+                    public void onSuccess(String s) {
+                        LogUtil.d("连接RongIM成功，当前用户：" + s);
+                        startMain(true, false);
+                    }
 
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                startMain(true, false);
-            }
-        });
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        LogUtil.d("连接RongIM失败：" + errorCode.toString());
+                        startMain(true, false);
+                    }
+                });
     }
 
 
