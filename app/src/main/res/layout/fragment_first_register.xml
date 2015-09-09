@@ -55,6 +55,7 @@
             android:id="@+id/et_pwd"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_pwd_text"
+            android:hint="6-24位"
             android:inputType="textPassword"
             android:maxLength="24" />
 

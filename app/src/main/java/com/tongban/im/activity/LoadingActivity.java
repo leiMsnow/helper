@@ -50,7 +50,6 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        randomPortrait();
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.ADDRESS, "").toString())) {
             LocationUtils.get(mContext).start();
         }
