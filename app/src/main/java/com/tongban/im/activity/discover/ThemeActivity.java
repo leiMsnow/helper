@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.DateUtils;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
@@ -27,8 +26,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Theme;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.User;
 
@@ -259,7 +258,11 @@ public class ThemeActivity extends BaseToolBarActivity {
                     }
                 }
                 productDesc.setText(productBook.getBook_content_desc().trim());
-                author.setText(productBook.getBook_author().trim());
+                if (productBook.getBook_author() != null) {
+                    author.setText("——— " + productBook.getBook_author().trim());
+                } else {
+                    author.setVisibility(View.GONE);
+                }
                 suitable_for.setText(productBook.getSuitable_for().trim());
                 recommendCause.setText(productBook.getRecommend_cause().trim());
                 productDetail.setOnClickListener(new View.OnClickListener() {
