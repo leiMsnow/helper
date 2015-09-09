@@ -11,4 +11,17 @@
         <item>戳我!戳我!</item>
         <item>您操作的太频繁了!</item>
     </array>
+
+    <integer-array name="default_portrait">
+        <item>@mipmap/ic_default_portrait1</item>
+        <item>@mipmap/ic_default_portrait2</item>
+        <item>@mipmap/ic_default_portrait3</item>
+        <item>@mipmap/ic_default_portrait4</item>
+        <item>@mipmap/ic_default_portrait5</item>
+        <item>@mipmap/ic_default_portrait6</item>
+        <item>@mipmap/ic_default_portrait7</item>
+        <item>@mipmap/ic_default_portrait8</item>
+        <item>@mipmap/ic_default_portrait9</item>
+        <item>@mipmap/ic_default_portrait10</item>
+    </integer-array>
 </resources>
