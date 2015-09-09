@@ -4,6 +4,7 @@ package com.tongban.im.fragment.user;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.User;
+import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class SecondRegisterFragment extends BaseApiFragment implements
     @Override
     protected void initData() {
         ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
-                SPUtils.VISIT_FILE,Consts.KEY_DEFAULT_PORTRAIT, 0));
+                SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
     }
 
     @Override
@@ -111,25 +113,27 @@ public class SecondRegisterFragment extends BaseApiFragment implements
         }
         //点击提交按钮
         else if (v == btnSubmit) {
-            if (mIcon != null) {
-                FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                        FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
-
-                            @Override
-                            public void uploadSuccess(ImageUrl url) {
-                                editUser.setPortrait_url(url);
-                                updateUser();
-                            }
-
-                            @Override
-                            public void uploadFailed(String error) {
-                                updateUser();
-                            }
-
-                        });
-            } else {
-                updateUser();
+            if (mIcon == null) {
+                int resId = (Integer) SPUtils.get(mContext,
+                        SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
+                mIcon = CameraUtils.Bitmap2Bytes(bitmap);
             }
+            FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
+                    FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+
+                        @Override
+                        public void uploadSuccess(ImageUrl url) {
+                            editUser.setPortrait_url(url);
+                            updateUser();
+                        }
+
+                        @Override
+                        public void uploadFailed(String error) {
+                            updateUser();
+                        }
+
+                    });
 
         }
     }
