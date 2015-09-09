@@ -60,6 +60,7 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         }
         //设置 // TODO: 9/1/15 暂时写为注销登录
         else if (v == tvSettings) {
+            //只清除默认文件中的SP，VISIT不会被清除
             SPUtils.clear(mContext);
             TransferCenter.getInstance().startLogin(true);
         }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
@@ -152,7 +153,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         }
         //跳转到关注列表界面
         else if (v == rlFollowNum) {
-            TransferCenter.getInstance().startRelationship(Consts.TAG_Follow,
+            TransferCenter.getInstance().startRelationship(Consts.TAG_FOLLOW,
                     mUserInfo.getUser_id());
         }
         //我的圈子
@@ -176,8 +177,10 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMid()).into(ivZoomBottom);
         } else {
-            ivZoomBottom.setImageResource(R.drawable.rc_default_portrait);
-            ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
+            int resId = (Integer) SPUtils.
+                    get(mContext,SPUtils.VISIT_FILE,Consts.KEY_DEFAULT_PORTRAIT, 0);
+            ivZoomBottom.setImageResource(resId);
+            ivUserPortrait.setImageResource(resId);
         }
         if (mUserInfo.getChild_info() != null &&
                 mUserInfo.getChild_info().size() > 0) {

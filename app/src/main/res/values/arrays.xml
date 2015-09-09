@@ -9,19 +9,6 @@
         <item>再等一会吧，服务器要给你转100万</item>
         <item>点我刷新</item>
         <item>戳我!戳我!</item>
-        <item>您操作的太频繁了!</item>
     </array>
 
-    <integer-array name="defalut_portrait">
-        <item>@mipmap/ic_default_portrait1</item>
-        <item>@mipmap/ic_default_portrait2</item>
-        <item>@mipmap/ic_default_portrait3</item>
-        <item>@mipmap/ic_default_portrait4</item>
-        <item>@mipmap/ic_default_portrait5</item>
-        <item>@mipmap/ic_default_portrait6</item>
-        <item>@mipmap/ic_default_portrait7</item>
-        <item>@mipmap/ic_default_portrait8</item>
-        <item>@mipmap/ic_default_portrait9</item>
-        <item>@mipmap/ic_default_portrait10</item>
-    </integer-array>
 </resources>

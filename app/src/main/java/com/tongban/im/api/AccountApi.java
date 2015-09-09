@@ -117,18 +117,17 @@ public class AccountApi extends BaseApi {
      * 注册
      *
      * @param mobilePhone 手机号
-     * @param nickName    用户昵称
      * @param password    密码
      * @param verifyId    验证码Id
      * @param verifyCode  验证码
      * @param callback
      */
-    public void register(String mobilePhone, String nickName, String password, String verifyId, String verifyCode,
+    public void register(String mobilePhone, String password, String verifyId, String verifyCode,
                          final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
-        mParams.put("nick_name", nickName);
+//        mParams.put("nick_name", nickName);
         mParams.put("password", password);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -154,6 +153,8 @@ public class AccountApi extends BaseApi {
                 ApiResult apiResult = (ApiResult) errorMessage;
                 if (apiResult.getStatusCode() == ApiErrorCode.User.VCODE_NOT_SAME_OR_OUT_OF_DATE) {
                     apiResult.setStatusDesc(mContext.getResources().getString(R.string.verify_code_illegal));
+                } else if (apiResult.getStatusCode() == ApiErrorCode.User.PHONE_HAS_BEEN_REGISTED) {
+                    apiResult.setStatusDesc("手机号码已经注册");
                 }
                 callback.onFailure(displayType, errorMessage);
             }
@@ -186,9 +187,10 @@ public class AccountApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                saveUserInfo(user);
-                callback.onComplete(user);
+                BaseEvent.UserLoginEvent userEvent = new BaseEvent.UserLoginEvent();
+                userEvent.user = apiResponse.getData();
+                saveUserInfo(userEvent.user);
+                callback.onComplete(userEvent);
             }
 
             @Override
@@ -221,9 +223,10 @@ public class AccountApi extends BaseApi {
                 ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<User>>() {
                         });
-                User user = apiResponse.getData();
-                saveUserInfo(user);
-                callback.onComplete(user);
+                BaseEvent.UserLoginEvent userEvent = new BaseEvent.UserLoginEvent();
+                userEvent.user = apiResponse.getData();
+                saveUserInfo(userEvent.user);
+                callback.onComplete(userEvent);
             }
 
             @Override

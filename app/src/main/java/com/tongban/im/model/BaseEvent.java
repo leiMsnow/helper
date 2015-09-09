@@ -173,6 +173,14 @@ public class BaseEvent {
 
     }
 
+    public static class UserLoginEvent {
+        public User user;
+    }
+
+    public static class EditUserEvent {
+        public User user;
+    }
+
     /**
      * 重置密码Event
      */
@@ -245,6 +253,7 @@ public class BaseEvent {
         public String childBirthday;
         public int childSex;
     }
+
     /**
      * 设置宝宝信息成功Event
      */

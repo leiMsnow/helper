@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.DateUtils;
 import com.tongban.im.R;
 import com.tongban.im.model.BaseEvent;
 
@@ -35,7 +36,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     private CheckBox chbBoy, chbGirl;
 
     private String mChildBirthday;
-    private int mChildSex=0;
+    private int mChildSex = 0;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
@@ -90,7 +91,7 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
     @Override
     public void afterTextChanged(Editable s) {
         mChildBirthday = tvChildBirthday.getText().toString().trim();
-        if (mChildSex==0 && !TextUtils.isEmpty(mChildBirthday)) {
+        if (mChildSex == 0 && !TextUtils.isEmpty(mChildBirthday)) {
             btnSubmit.setEnabled(true);
         }
     }
@@ -104,13 +105,13 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
         else if (v == flContainerBoy) {
             chbBoy.setVisibility(View.VISIBLE);
             chbGirl.setVisibility(View.GONE);
-            mChildSex=1;
+            mChildSex = 1;
         }
         //选择宝宝性别 - 女
         else if (v == flContainerGirl) {
             chbGirl.setVisibility(View.VISIBLE);
             chbBoy.setVisibility(View.GONE);
-            mChildSex=2;
+            mChildSex = 2;
         }
     }
 
@@ -134,6 +135,11 @@ public class InputChildInfoFragment extends BaseApiFragment implements TextWatch
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.YEAR, -10);
+        min.set(Calendar.MONTH,0);
+        min.set(Calendar.DAY_OF_MONTH,1);
+        mDatePickerDialog.getDatePicker().setMinDate(min.getTime().getTime());
         mDatePickerDialog.show();
     }
 }

@@ -137,10 +137,14 @@ public class DateUtils {
         try {
             date = formatter.parse(strTime);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static long stringToLong(String strTime) {
+        Date date = stringToDate(strTime, "yyyyMMdd");
+        return  getLongTime(date);
     }
 
     public static Date stringToDate(String strTime) {
@@ -149,11 +153,11 @@ public class DateUtils {
         try {
             date = formatter.parse(strTime);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return date;
     }
+
 
     // long转换为Date类型
     // currentTime要转换的long类型的时间
@@ -195,6 +199,11 @@ public class DateUtils {
         long time = date.getTime() - predate.getTime();
         long min = time / 1000 / 60;
         return min;
+    }
+
+    public static long getLongTime(Date date) {
+        long time = Calendar.getInstance().getTime().getTime() - date.getTime();
+        return time;
     }
 
     private static int[] months = {R.string.january, R.string.february,

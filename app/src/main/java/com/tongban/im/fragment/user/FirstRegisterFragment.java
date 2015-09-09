@@ -1,9 +1,6 @@
 package com.tongban.im.fragment.user;
 
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,14 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.User;
 
 /**
  * 注册第一步
@@ -35,29 +29,10 @@ public class FirstRegisterFragment extends BaseApiFragment
     private TextView tvVerifyCode;
     private CheckBox cbAgree;
     private Button btnRegister;
-    private String mPhoneNum, mPwd, mVerifyId,mVerifyCode;
+    private String mPhoneNum, mPwd, mVerifyId, mVerifyCode;
 
     private VerifyTimerCount mTime;
     private BaseEvent.RegisterEvent regEvent;
-
-    private INextListener nextListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        try {
-            nextListener = (INextListener) activity;
-        } catch (Exception e) {
-            throw new ClassCastException(activity.toString() + "" +
-                    " must implements INextListener");
-        }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
 
     @Override
@@ -107,8 +82,8 @@ public class FirstRegisterFragment extends BaseApiFragment
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
-                    //TODO//设置个人资料
-                    nextListener.next(mPhoneNum,mPwd,mVerifyId,mVerifyCode);
+                    AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
+                            mVerifyCode, this);
                 }
             } else {
                 //提示获取验证码
@@ -154,6 +129,10 @@ public class FirstRegisterFragment extends BaseApiFragment
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
+        // 注册成功
+        else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
+            AccountApi.getInstance().login(mPhoneNum,mPwd,this);
+        }
     }
 
     @Override
@@ -165,7 +144,4 @@ public class FirstRegisterFragment extends BaseApiFragment
         }
     }
 
-    public interface INextListener {
-        void next(String phone,String pwd,String verifyId,String verifyCode);
-    }
 }

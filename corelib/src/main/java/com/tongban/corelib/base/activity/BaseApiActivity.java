@@ -97,7 +97,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
             errorMsg = getString(R.string.api_error);
         }
         if (displayType == DisplayType.Toast) {
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
             showEmptyText("", false);
         } else if (displayType == DisplayType.View) {
             showEmptyText(errorMsg, false);

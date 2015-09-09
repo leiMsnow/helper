@@ -9,6 +9,7 @@ import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FirstRegisterFragment;
@@ -26,8 +27,9 @@ import java.util.List;
  *
  * @createTime 2015/7/16
  */
-public class RegisterActivity extends CameraResultActivity
-        implements FirstRegisterFragment.INextListener {
+public class RegisterActivity extends CameraResultActivity {
+
+    private User user;
 
     @Override
     protected void initView() {
@@ -63,36 +65,21 @@ public class RegisterActivity extends CameraResultActivity
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-            KeyBoardUtils.hideSoftKeyboard(this);
-            mToolbar.setVisibility(View.VISIBLE);
-        } else {
-            startActivity(new Intent(mContext, LoginActivity.class));
-            finish();
-        }
+        startActivity(new Intent(mContext, LoginActivity.class));
+        finish();
     }
 
-    public void onEventMainThread(User user) {
-        connectIM(user.getUser_id(), user.getChild_info() == null, true);
-    }
-
-    @Override
-    public void next(String phone, String pwd, String verifyId, String verifyCode) {
-        KeyBoardUtils.hideSoftKeyboard(this);
+    public void onEventMainThread(BaseEvent.UserLoginEvent userEvent) {
+        user = userEvent.user;
         mToolbar.setVisibility(View.GONE);
-        SecondRegisterFragment secondRegister = new SecondRegisterFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(Consts.KEY_PHONE, phone);
-        bundle.putString(Consts.KEY_PWD, pwd);
-        bundle.putString(Consts.KEY_VERIFY_ID, verifyId);
-        bundle.putString(Consts.KEY_VERIFY_CODE, verifyCode);
-        secondRegister.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, secondRegister)
-                .addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                new SecondRegisterFragment())
+                .commit();
     }
 
-
+    public void onEventMainThread(BaseEvent.EditUserEvent obj) {
+        connectIM(user.getChild_info() == null);
+    }
 }
 
 

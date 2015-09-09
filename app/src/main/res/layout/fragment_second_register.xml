@@ -18,17 +18,17 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="64dp"
                 android:layout_marginRight="64dp"
-                android:layout_marginTop="136dp"
+                android:layout_marginTop="96dp"
                 android:gravity="center"
                 android:text="上传一张照片作为头像吧" />
 
             <com.tongban.corelib.widget.view.CircleImageView
                 android:id="@+id/iv_portrait"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_below="@+id/tv_toast_info"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="24dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_test" />
 
@@ -60,5 +60,5 @@
     <Button
         android:id="@+id/btn_submit"
         style="@style/CommonButtonStyle"
-        android:text="@string/register" />
+        android:text="@string/submit" />
 </RelativeLayout>

@@ -6,20 +6,44 @@ package com.tongban.im.common;
  */
 public class Consts {
 
-
-    public static final double DETAULT_DOUBLE = -1;
+    //------------------------------VisitFile相关---------------------------------------------------
+    //-----------VisitFile文件下的缓存标记{@link com.tongban.corelib.utils.SPUtils}-------------------
+    //----------------随着APP安装后,不会被清除的文件信息标记的KEY放在这里---------------------------------
+    /**
+     * 第一次安装APP标记
+     *
+     */
+    public static final String FIRST_SET_CHILD_INFO = "FIRST_SET_CHILD_INFO";
+    /**
+     * 默认头像标记
+     */
+    public static final String KEY_DEFAULT_PORTRAIT = "KEY_DEFAULT_PORTRAIT";
+    /**
+     * 宝宝生日
+     */
+    public static final String CHILD_BIRTHDAY = "CHILD_BIRTHDAY";
+    /**
+     * 宝宝性别
+     */
+    public static final String CHILD_SEX = "CHILD_SEX";
+    //------------------------------默认值相关-------------------------------------------------------
+    /**
+     * Double默认值
+     */
+    public static final double DEFAULT_DOUBLE = -1.1;
     /**
      * 图片服务器地址前缀
      */
     public static final String TONGBAN_UPLOAD_HOST_PREFIX = "http://7xkuqd.com2.z0.glb.qiniucdn.com/";
+    //------------------------------其它相关key------------------------------------------------------
+    /**
+     * 是否进入/打开首页
+     */
+    public static final String KEY_IS_MAIN = "KEY_IS_MAIN";
     /**
      * IM系统的Token
      */
     public static final String IM_BIND_TOKEN = "IM_BIND_TOKEN";
-    /**
-     * 第一次安装APP标记
-     */
-    public static final String FIRST_SET_CHILD_INFO = "FIRST_SET_CHILD_INFO";
     /**
      * 免认证登录Token
      */
@@ -28,6 +52,52 @@ public class Consts {
      * 七牛上传的token
      */
     public static final String QINIU_TOKEN = "QINIU_TOKEN";
+
+
+    //------------------------------bundle-key-start------------------------------------------------
+
+
+    //------------------------------圈子相关key------------------------------------------------------
+    /**
+     * 圈子ID
+     */
+    public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
+    /**
+     * 圈子类型
+     */
+    public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
+    /**
+     * 圈子信息
+     */
+    public static final String KEY_GROUP_INFO = "KEY_GROUP_INFO";
+    /**
+     * 圈子类型名称
+     */
+    public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
+    /**
+     * 搜索圈子POI的名称
+     */
+    public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
+    /**
+     * 圈子搜索结果
+     */
+    public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
+    /**
+     * 是否已经加入
+     */
+    public static final String KEY_IS_JOIN = "KEY_IS_JOIN";
+
+    //------------------------------话题相关key------------------------------------------------------
+    /**
+     * 话题ID
+     */
+    public static final String KEY_TOPIC_ID = "KEY_TOPIC_ID";
+    /**
+     * 历史搜索-话题搜索记录
+     */
+    public static final String HISTORY_SEARCH_TOPIC = "HISTORY_SEARCH_TOPIC";
+
+    //------------------------------用户相关key------------------------------------------------------
     /**
      * 用户id
      */
@@ -66,78 +136,11 @@ public class Consts {
      */
     public static final String ADDRESS = "ADDRESS";
     /**
-     * 历史搜索-话题搜索记录
-     */
-    public static final String HISTORY_SEARCH_TOPIC = "HISTORY_SEARCH_TOPIC";
-
-    //------------------------------bundle-key-start------------------------------------------------
-
-    //------------------------------登录注册相关key---------------------------------------------------
-    public static final String KEY_PHONE = "KEY_PHONE";
-    public static final String KEY_PWD = "KEY_PWD";
-    public static final String KEY_VERIFY_ID = "KEY_VERIFY_ID";
-    public static final String KEY_VERIFY_CODE = "KEY_VERIFY_CODE";
-
-
-
-    //------------------------------圈子相关key------------------------------------------------------
-    /**
-     * 圈子ID
-     */
-    public static final String KEY_GROUP_ID = "KEY_GROUP_ID";
-    /**
-     * 圈子类型
-     */
-    public static final String KEY_GROUP_TYPE = "KEY_GROUP_TYPE";
-    /**
-     * 圈子信息
-     */
-    public static final String KEY_GROUP_INFO = "KEY_GROUP_INFO";
-    /**
-     * 圈子类型名称
-     */
-    public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
-    /**
-     * 搜索圈子POI的名称
-     */
-    public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";
-    /**
-     * 圈子搜索结果
-     */
-    public static final String KEY_SEARCH_VALUE = "KEY_SEARCH_VALUE";
-    /**
-     * 是否已经加入
-     */
-    public static final String KEY_IS_JOIN = "KEY_IS_JOIN";
-
-    //------------------------------话题相关key------------------------------------------------------
-    /**
-     * 是否显示话题页的标题
-     */
-    public static final String KEY_TOPIC_TOOLBAR_DISPLAY = "KEY_TOPIC_TOOLBAR_DISPLAY";
-    /**
-     * 话题ID
-     */
-    public static final String KEY_TOPIC_ID = "KEY_TOPIC_ID";
-
-
-    //------------------------------用户相关key------------------------------------------------------
-    /**
      * 话题列表标记
      * 1.我的收藏列表：0 "MY_COLLECT_TOPIC_LIST"
      * 2.我发起的列表：1 "MY_SEND_TOPIC_LIST"
      */
     public static final String KEY_MY_TOPIC_LIST = "KEY_MY_TOPIC_LIST";
-    /**
-     * 是否是我已经关注的
-     * 1.已经关注的：0 "FOCUS"
-     * 2.未关注的：1 "UN_FOCUS"
-     */
-    public static final String KEY_FOCUS = "KEY_FOCUS";
-    /**
-     * 被关注者的Id
-     */
-    public static final int KEY_FOCUS_ID = 1;
     /**
      * 区分粉丝、关注界面的key
      */
@@ -149,19 +152,7 @@ public class Consts {
     /**
      * 关注
      */
-    public static final String TAG_Follow = "TAG_Follow";
-    /**
-     * 宝宝信息
-     */
-    public static final String KEY_CHILD_INFO = "KEY_CHILD_INFO";
-    /**
-     * 宝宝生日
-     */
-    public static final String CHILD_BIRTHDAY = "CHILD_BIRTHDAY";
-    /**
-     * 宝宝性别
-     */
-    public static final String CHILD_SEX = "CHILD_SEX";
+    public static final String TAG_FOLLOW = "TAG_FOLLOW";
 
     //------------------------------商品相关key------------------------------------------------------
     /**
@@ -173,11 +164,6 @@ public class Consts {
      */
     public static final String KEY_PRODUCT_BOOK_ID = "KEY_PRODUCT_BOOK_ID";
 
-    //------------------------------其它相关key------------------------------------------------------
-    /**
-     * 是否进入/打开首页
-     */
-    public static final String KEY_IS_MAIN = "KEY_IS_MAIN";
 
     //------------------------------bundle-key-end--------------------------------------------------
 

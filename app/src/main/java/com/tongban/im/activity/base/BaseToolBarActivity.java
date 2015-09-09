@@ -12,9 +12,14 @@ import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -87,73 +92,65 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     /**
      * 连接融云IM
      *
-     * @param userId
-     * @param isChild 是否有宝宝信息
      * @param isOpenMain 是否打开主界面
+     * @param isChild    是否有宝宝信息
      */
-    protected void connectIM(final String userId,final boolean isChild, final boolean isOpenMain) {
-        RongIM.connect(userId, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                LogUtil.d("onTokenIncorrect");
-                startMain(isOpenMain, isChild);
-            }
+    protected void connectIM(final boolean isOpenMain, final boolean isChild) {
+        RongIM.connect(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString(),
+                new RongIMClient.ConnectCallback() {
+                    @Override
+                    public void onTokenIncorrect() {
+                        LogUtil.d("onTokenIncorrect");
+                        startMain(isOpenMain, isChild);
+                    }
 
-            @Override
-            public void onSuccess(String s) {
-                LogUtil.d("连接RongIM成功，当前用户：" + s);
-                startMain(isOpenMain, isChild);
-            }
+                    @Override
+                    public void onSuccess(String s) {
+                        LogUtil.d("连接RongIM成功，当前用户：" + s);
+                        startMain(isOpenMain, isChild);
+                    }
 
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                startMain(isOpenMain, isChild);
-            }
-        });
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        LogUtil.d("连接RongIM失败：" + errorCode.toString());
+                        startMain(isOpenMain, isChild);
+                    }
+                });
     }
 
     /**
      * 连接后跳转到主界面
      *
-     * @param userId
      * @param isChild 是否有宝宝信息
      */
-    protected void connectIM(String userId, boolean isChild) {
-        connectIM(userId,isChild, true);
+    protected void connectIM(boolean isChild) {
+        connectIM(true, isChild);
     }
 
     /**
      * 未登录连接
      */
     protected void connectIM() {
-        RongIM.connect("",
-                new RongIMClient.ConnectCallback() {
-                    @Override
-                    public void onTokenIncorrect() {
-                        LogUtil.d("onTokenIncorrect");
-                        startMain(true, false);
-                    }
-
-                    @Override
-                    public void onSuccess(String s) {
-                        LogUtil.d("连接RongIM成功，当前用户：" + s);
-                        startMain(true, false);
-                    }
-
-                    @Override
-                    public void onError(RongIMClient.ErrorCode errorCode) {
-                        LogUtil.d("连接RongIM失败：" + errorCode.toString());
-                        startMain(true, false);
-                    }
-                });
+        connectIM(true, true);
     }
 
 
     private void startMain(boolean isOpenMain, boolean isSetChildInfo) {
         if (isSetChildInfo) {
-            startActivity(new Intent(this, ChildInfoActivity.class));
-        } else if (isOpenMain) {
+            //添加宝宝信息
+            int childSex = (int) SPUtils.get(mContext, SPUtils.VISIT_FILE,
+                    Consts.CHILD_SEX, 1);
+            String childBirthday = SPUtils.get(mContext, SPUtils.VISIT_FILE,
+                    Consts.CHILD_BIRTHDAY, "").toString();
+            AddChildInfo childInfo = new AddChildInfo();
+            childInfo.setBirthday(childBirthday);
+            childInfo.setSex(childSex);
+            List<AddChildInfo> children = new ArrayList<>();
+            children.add(childInfo);
+            UserCenterApi.getInstance().setChildInfo(SPUtils.get(mContext, Consts.USER_ID, "")
+                    .toString(), children, null);
+        }
+        if (isOpenMain) {
             RongCloudEvent.getInstance().setOtherListener();
             startActivity(new Intent(mContext, MainActivity.class));
         }

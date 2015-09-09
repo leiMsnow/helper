@@ -52,6 +52,10 @@ public class ApiErrorCode {
          * 手机验证码不一致或失效
          */
         public static int  VCODE_NOT_SAME_OR_OUT_OF_DATE= 10014;
+        /**
+         * 手机号码已经注册
+         */
+        public static int  PHONE_HAS_BEEN_REGISTED= 11502;
 
     }
 

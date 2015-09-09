@@ -18,8 +18,11 @@ import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.ClearEditText;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 登录
@@ -113,9 +116,22 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     }
 
     //登录成功
-    public void onEventMainThread(User user) {
+    public void onEventMainThread(BaseEvent.UserLoginEvent userEvent) {
         SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
-        connectIM(user.getUser_id(), user.getChild_info() == null);
+        connectIM(userEvent.user.getChild_info() == null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
     }
 
     @Override

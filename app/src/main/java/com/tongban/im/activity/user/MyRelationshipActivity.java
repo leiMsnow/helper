@@ -44,7 +44,7 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
             if (tag.equals(Consts.TAG_FANS)) {
                 setTitle("粉丝");
                 mFragment = new FansFragment();
-            } else if (tag.equals(Consts.TAG_Follow)) {
+            } else if (tag.equals(Consts.TAG_FOLLOW)) {
                 setTitle("关注");
                 mFragment = new FocusFragment();
 

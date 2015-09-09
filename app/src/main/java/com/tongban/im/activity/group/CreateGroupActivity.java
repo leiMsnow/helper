@@ -15,12 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.ClipImageBorderViewActivity;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.GroupApi;
@@ -29,13 +26,9 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -224,8 +217,8 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             return;
         }
         if (requestCode == SELECT_LOCATION) {
-            longitude = data.getDoubleExtra(Consts.LONGITUDE,Consts.DETAULT_DOUBLE);
-            latitude = data.getDoubleExtra(Consts.LATITUDE, Consts.DETAULT_DOUBLE);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE,Consts.DEFAULT_DOUBLE);
+            latitude = data.getDoubleExtra(Consts.LATITUDE, Consts.DEFAULT_DOUBLE);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             tvLocation.setText(address);
 
@@ -261,6 +254,11 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.YEAR, -10);
+        min.set(Calendar.MONTH,0);
+        min.set(Calendar.DAY_OF_MONTH,1);
+        mDatePickerDialog.getDatePicker().setMinDate(min.getTime().getTime());
         mDatePickerDialog.show();
     }
 
@@ -278,8 +276,8 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
     }
 
     public void onEventMainThread(BDLocation obj) {
-        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE);
-        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE);
+        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE);
+        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE);
         province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
         city = (String) SPUtils.get(mContext, Consts.CITY, "");
         county = (String) SPUtils.get(mContext, Consts.COUNTY, "");

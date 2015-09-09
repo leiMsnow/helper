@@ -10,12 +10,10 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
-import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.db.helper.GroupDaoHelper;
-import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.GroupType;
@@ -201,8 +199,8 @@ public class GroupApi extends BaseApi {
      */
     public void recommendGroupList(int cursor, int pageSize, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE));
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 1 ? 1 : cursor);
         mParams.put("page_size", pageSize);
@@ -254,8 +252,8 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 1 ? 1 : cursor);
         mParams.put("page_size", pageSize);
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE));
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
 
         simpleRequest(SEARCH_GROUP_LIST, mParams, new ApiCallback() {
             @Override

@@ -49,9 +49,9 @@ public class ChildInfoActivity extends CameraResultActivity {
      * @param obj
      */
     public void onEventMainThread(BaseEvent.ChildCreateEvent obj) {
-        SPUtils.put(mContext,Consts.CHILD_BIRTHDAY,obj.childBirthday);
-        SPUtils.put(mContext,Consts.CHILD_SEX,obj.childSex);
-        SPUtils.put(mContext, Consts.FIRST_SET_CHILD_INFO, false);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE,Consts.CHILD_BIRTHDAY,obj.childBirthday);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE,Consts.CHILD_SEX,obj.childSex);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE, Consts.FIRST_SET_CHILD_INFO, false);
         connectIM();
     }
 

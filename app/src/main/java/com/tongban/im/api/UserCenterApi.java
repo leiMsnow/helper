@@ -16,7 +16,7 @@ import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Child;
+import com.tongban.im.model.EditUser;
 import com.tongban.im.model.Group;
 import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
@@ -93,6 +93,10 @@ public class UserCenterApi extends BaseApi {
      * 设置宝宝信息
      */
     public static final String SET_CHILD_INFO = "user/childinfo/update";
+    /**
+     * 用户信息修改
+     */
+    public static final String USER_UPDATE = "user/update";
 
     public UserCenterApi(Context context) {
         super(context);
@@ -231,8 +235,8 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DETAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DETAULT_DOUBLE));
+        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -574,7 +578,8 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(SET_CHILD_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -582,7 +587,8 @@ public class UserCenterApi extends BaseApi {
                 BaseEvent.ChildCreateSuccessEvent childSuccess =
                         new BaseEvent.ChildCreateSuccessEvent();
                 childSuccess.isSetSuccess = true;
-                callback.onComplete(childSuccess);
+                if (callback != null)
+                    callback.onComplete(childSuccess);
             }
 
             @Override
@@ -590,7 +596,47 @@ public class UserCenterApi extends BaseApi {
                 BaseEvent.ChildCreateSuccessEvent childSuccess =
                         new BaseEvent.ChildCreateSuccessEvent();
                 childSuccess.isSetSuccess = false;
-                callback.onComplete(childSuccess);
+                if (callback != null)
+                    callback.onComplete(childSuccess);
+            }
+        });
+    }
+
+    /**
+     * 设置用户信息
+     *
+     * @param userInfo 用户信息
+     * @param callback
+     */
+    public void updateUserInfo(final EditUser userInfo, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext,Consts.USER_ID,"").toString());
+        if (userInfo.getNick_name() != null)
+            mParams.put("nick_name", userInfo.getNick_name());
+        if (userInfo.getPortrait_url() != null)
+            mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
+
+        SPUtils.put(mContext,Consts.NICK_NAME,userInfo.getNick_name());
+
+        simpleRequest(USER_UPDATE, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                BaseEvent.EditUserEvent editUserEvent = new BaseEvent.EditUserEvent();
+                if (callback != null)
+                    callback.onComplete(editUserEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
         });
     }
