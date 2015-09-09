@@ -12,7 +12,7 @@
         <item>您操作的太频繁了!</item>
     </array>
 
-    <integer-array name="defalut_portrait">
+    <integer-array name="default_portrait">
         <item>@mipmap/ic_default_portrait1</item>
         <item>@mipmap/ic_default_portrait2</item>
         <item>@mipmap/ic_default_portrait3</item>
