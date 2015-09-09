@@ -86,7 +86,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/selector_user_focus"
+                    android:background="@mipmap/ic_focus"
                     android:button="@null"
                     android:visibility="gone" />
             </FrameLayout>
@@ -112,7 +112,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/selector_user_focus"
+                    android:background="@mipmap/ic_focus"
                     android:button="@null"
                     android:visibility="gone" />
             </FrameLayout>
