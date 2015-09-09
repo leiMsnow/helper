@@ -161,7 +161,6 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         } else {
             if (v.getId() == R.id.tv_name) {
                 startActivity(new Intent(this, ChildInfoActivity.class));
-
             }
         }
     }
@@ -177,6 +176,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMid()).into(ivZoomBottom);
         } else {
+            ivZoomBottom.setImageResource(R.drawable.rc_default_portrait);
             ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
         }
         if (mUserInfo.getChild_info() != null &&
