@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +44,8 @@ import java.util.Map;
  *
  * @author fushudi
  */
-public class CreateTopicActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class CreateTopicActivity extends BaseToolBarActivity implements View.OnClickListener,
+        TextWatcher {
 
     private GridView gvTopicImg;
     private EditText tvTitle;
@@ -80,6 +83,8 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initListener() {
         adapter.setOnClickListener(this);
+        tvTitle.addTextChangedListener(this);
+        tvContent.addTextChangedListener(this);
     }
 
     @Override
@@ -95,6 +100,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         getSupportActionBar().getCustomView().setLayoutParams(lp);
         ivSend = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.iv_send);
         ivSend.setOnClickListener(this);
+        ivSend.setEnabled(false);
     }
 
     @Override
@@ -136,15 +142,12 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            if (!TextUtils.isEmpty(tvTitle.getText().toString().trim())
-                    && !TextUtils.isEmpty(tvContent.getText().toString().trim())) {
-                if (selectedFile.size() > 0) {
-                    uploadImage();
-                } else {
-                    TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                            tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
-                            CreateTopicActivity.this);
-                }
+            if (selectedFile.size() > 0) {
+                uploadImage();
+            } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
+                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
+                        CreateTopicActivity.this);
             }
         } else {
             int viewId = v.getId();
@@ -223,10 +226,32 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
             if (!TextUtils.isEmpty(adapter.getItem(i).toString()))
                 selectedFile.add(0, adapter.getItem(i).toString());
         }
+        afterTextChanged(null);
     }
 
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
         ToastUtil.getInstance(mContext).showToast("话题发表成功");
         finish();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (tvTitle.getText().toString().length() > 0 &&
+                (tvContent.getText().toString().length() > 0 ||
+                        selectedFile.size() > 0)) {
+            ivSend.setEnabled(true);
+        } else {
+            ivSend.setEnabled(false);
+        }
     }
 }
