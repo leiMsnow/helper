@@ -97,12 +97,15 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            if (selectedFile.size() > 0) {
-                uploadImage();
-            } else {
-                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
-                        CreateTopicActivity.this);
+            if (!TextUtils.isEmpty(tvTitle.getText().toString().trim())
+                    && !TextUtils.isEmpty(tvContent.getText().toString().trim())) {
+                if (selectedFile.size() > 0) {
+                    uploadImage();
+                } else {
+                    TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                            tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
+                            CreateTopicActivity.this);
+                }
             }
         } else {
             int viewId = v.getId();

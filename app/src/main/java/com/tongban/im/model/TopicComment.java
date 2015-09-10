@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.tongban.corelib.utils.DateUtils;
 
+import java.util.List;
+
 /**
  * 话题评论信息表
  * Created by fushudi on 2015/8/1.
@@ -25,6 +27,16 @@ public class TopicComment {
     private String replied_user_id;
     // 回复评论的用户昵称
     private String replied_nick_name;
+
+    private List<ImageUrl> comment_img_url;
+
+    public List<ImageUrl> getComment_img_url() {
+        return comment_img_url;
+    }
+
+    public void setComment_img_url(List<ImageUrl> comment_img_url) {
+        this.comment_img_url = comment_img_url;
+    }
 
     public String getReplied_user_id() {
         return replied_user_id;

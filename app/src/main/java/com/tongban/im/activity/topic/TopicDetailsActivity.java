@@ -34,7 +34,7 @@ import java.util.List;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener, OnLoadMoreListener {
+        TopicInputView.IOnClickCommentListener, OnLoadMoreListener {
 
     //头布局控件
     private View mHeader;
@@ -111,6 +111,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
                 mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
                 mAdapter.setOnClickListener(this);
+                mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
                 lvReplyList.setAdapter(mAdapter);
                 lvReplyList.setResultSize(mPage);
 
@@ -171,9 +172,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId) {
+                               String repliedName, String repliedUserId,List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, this);
+                repliedName, repliedUserId,selectedFile, this);
     }
 
     /**
