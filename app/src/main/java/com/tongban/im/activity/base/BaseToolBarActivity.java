@@ -93,7 +93,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
      * 连接融云IM
      *
      * @param isOpenMain 是否打开主界面
-     * @param isChild    是否有宝宝信息
+     * @param isChild    是否需要上传宝宝信息
      */
     protected void connectIM(final boolean isOpenMain, final boolean isChild) {
         RongIM.connect(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString(),
@@ -118,11 +118,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
                 });
     }
 
-    /**
-     * 连接后跳转到主界面
-     *
-     * @param isChild 是否有宝宝信息
-     */
     protected void connectIM(boolean isChild) {
         connectIM(true, isChild);
     }

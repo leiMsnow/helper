@@ -96,7 +96,7 @@ public class LoadingActivity extends BaseToolBarActivity {
             startActivity(intent);
             finish();
         } else {
-            connectIM(obj.user.getChild_info() == null);
+            connectIM(true);
         }
     }
 

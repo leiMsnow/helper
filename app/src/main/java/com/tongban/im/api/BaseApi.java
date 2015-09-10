@@ -3,6 +3,7 @@ package com.tongban.im.api;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -133,61 +134,67 @@ public class BaseApi {
             url = getRequestUrl(url);
         }
         final String requestUrl = url;
+        final String requestJson = JSON.toJSON(params).toString();
         LogUtil.d("request-url:", requestUrl);
-        LogUtil.d("request-url:", "request-params: \n " + new JSONObject(params).toString());
+        LogUtil.d("request-url:", "request-params: \n " + requestJson);
         // 创建request
-        request = new JsonObjectRequest(requestUrl, new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jsonObject) {
-                        LogUtil.d("onResponse-url:", requestUrl);
-                        LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
-                        int apiResult = jsonObject.optInt("statusCode");
-                        if (apiResult == API_SUCCESS) {
-                            // 请求成功,数据回调给调用方
-                            callback.onComplete(jsonObject);
-                        } else if (apiResult == TIME_DISMATCH) {
-                            // 保存客户端与服务器的时间差
-                            long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
-                            LogUtil.d("TIME_DISMATCH", dif + "");
-                            CheckID.difMills = dif;
-                            callback.onFailure(ApiCallback.DisplayType.Toast, "请重试");
-                        } else {
-                            ApiResult apiResponse = new ApiResult();
-                            apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
-                            apiResponse.setData(jsonObject.opt("data"));
-                            apiResponse.setStatusCode(apiResult);
-                            callback.onFailure(ApiCallback.DisplayType.Toast, apiResponse);
+        try {
+            JSONObject jsonObject = new JSONObject(requestJson);
+            request = new JsonObjectRequest(requestUrl, jsonObject,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jsonObject) {
+                            LogUtil.d("onResponse-url:", requestUrl);
+                            LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
+                            int apiResult = jsonObject.optInt("statusCode");
+                            if (apiResult == API_SUCCESS) {
+                                // 请求成功,数据回调给调用方
+                                callback.onComplete(jsonObject);
+                            } else if (apiResult == TIME_DISMATCH) {
+                                // 保存客户端与服务器的时间差
+                                long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
+                                LogUtil.d("TIME_DISMATCH", dif + "");
+                                CheckID.difMills = dif;
+                                callback.onFailure(ApiCallback.DisplayType.Toast, "请重试");
+                            } else {
+                                ApiResult apiResponse = new ApiResult();
+                                apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
+                                apiResponse.setData(jsonObject.opt("data"));
+                                apiResponse.setStatusCode(apiResult);
+                                callback.onFailure(ApiCallback.DisplayType.Toast, apiResponse);
+                            }
                         }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                LogUtil.d("onErrorResponse-url:", requestUrl);
-                LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
-                // 请求失败,错误信息回调给调用方
-                String errorMessage = getErrorMessage();
-                callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("_P", "Android");
-                headers.put("_V", AppUtils.getVersionName(mContext));
-                boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString());
-                headers.put("_R_C", CheckID.encode(isLogin));
-                if (isLogin)
-                    headers.put("_U", SPUtils.get(mContext, Consts.USER_ID, "").toString());
-                return headers;
-            }
-        };
-        // 禁用缓存
-        request.setShouldCache(false);
-        // 添加请求到Volley队列
-        mRequestQueue.add(request);
-        // 回调到方法调用方,通知请求已经开始
-        callback.onStartApi();
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtil.d("onErrorResponse-url:", requestUrl);
+                    LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
+                    // 请求失败,错误信息回调给调用方
+                    String errorMessage = getErrorMessage();
+                    callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("_P", "Android");
+                    headers.put("_V", AppUtils.getVersionName(mContext));
+                    boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString());
+                    headers.put("_R_C", CheckID.encode(isLogin));
+                    if (isLogin)
+                        headers.put("_U", SPUtils.get(mContext, Consts.USER_ID, "").toString());
+                    return headers;
+                }
+            };
+            // 禁用缓存
+            request.setShouldCache(false);
+            // 添加请求到Volley队列
+            mRequestQueue.add(request);
+            // 回调到方法调用方,通知请求已经开始
+            callback.onStartApi();
+        } catch (Exception e) {
+            LogUtil.e("onError-request-json:", "解析json异常");
+        }
     }
 
     protected String getErrorMessage() {

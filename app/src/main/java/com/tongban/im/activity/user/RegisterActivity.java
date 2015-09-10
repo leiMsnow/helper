@@ -86,6 +86,7 @@ public class RegisterActivity extends CameraResultActivity {
     public void onBackPressed() {
         if (!isSecond)
             startActivity(new Intent(mContext, LoginActivity.class));
+        SPUtils.clear(mContext);
         finish();
     }
 

@@ -18,8 +18,8 @@ import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.Group;
-import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Theme;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
@@ -573,7 +573,7 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
-        mParams.put("child_info", JSON.toJSON(children));
+        mParams.put("child_info", children);
 
         simpleRequest(SET_CHILD_INFO, mParams, new ApiCallback() {
             @Override
@@ -611,13 +611,13 @@ public class UserCenterApi extends BaseApi {
     public void updateUserInfo(final EditUser userInfo, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext,Consts.USER_ID,"").toString());
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "").toString());
         if (userInfo.getNick_name() != null)
             mParams.put("nick_name", userInfo.getNick_name());
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
 
-        SPUtils.put(mContext,Consts.NICK_NAME,userInfo.getNick_name());
+        SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
 
         simpleRequest(USER_UPDATE, mParams, new ApiCallback() {
             @Override
