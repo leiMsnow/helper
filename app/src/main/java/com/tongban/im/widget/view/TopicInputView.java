@@ -85,6 +85,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         gvReplyImg = (TopicImageView) findViewById(R.id.ll_reply_img);
         tvCommentLength.setText(String.valueOf(mCommentLength));
 
+        gvReplyImg.getmAdapter().setImgCount(3);
         ivComment.setEnabled(false);
     }
 

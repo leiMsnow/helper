@@ -63,7 +63,6 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         selectedFile.add("");
         mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, selectedFile);
         selectedFile.clear();
-        mAdapter.setImgCount(3);
     }
 
     private void initListener() {
