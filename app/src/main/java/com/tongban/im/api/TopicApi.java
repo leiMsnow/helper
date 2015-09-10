@@ -156,15 +156,10 @@ public class TopicApi extends BaseApi {
                         new TypeReference<ApiListResult<Topic>>() {
                         });
 
-                if (result.getData().getResult().size() > 0) {
-                    BaseEvent.RecommendTopicListEvent topicListEvent = new BaseEvent.RecommendTopicListEvent();
-                    topicListEvent.topicList = (result.getData().getResult());
-                    if (callback != null)
-                        callback.onComplete(topicListEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题信息,快来创建第一条话题吧");
-                }
+                BaseEvent.RecommendTopicListEvent topicListEvent = new BaseEvent.RecommendTopicListEvent();
+                topicListEvent.topicList = (result.getData().getResult());
+                if (callback != null)
+                    callback.onComplete(topicListEvent);
             }
 
             @Override
@@ -289,7 +284,7 @@ public class TopicApi extends BaseApi {
                     BaseEvent.OfficialTopicInfoEvent officialTopicInfoEvent = new BaseEvent.OfficialTopicInfoEvent();
                     officialTopicInfoEvent.productBookList = (result.getData().getResult());
                     if (callback != null) {
-                        Log.d("onComplete","onComplete1");
+                        Log.d("onComplete", "onComplete1");
                         callback.onComplete(officialTopicInfoEvent);
 
                     }

@@ -43,7 +43,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     //头布局 top
     private ImageView ivUserPortrait;
     private TextView tvUserName;
-    private TextView tvAge;
     private TextView tvTime;
     //中间布局 content
     private TextView tvTopicTitle;
@@ -81,7 +80,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         //添加头布局
         mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
         ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
-        tvAge = (TextView) mHeader.findViewById(R.id.tv_child_age);
         tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
         tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
 
@@ -212,12 +210,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             } else {
                 menuItem.setIcon(R.mipmap.ic_menu_collect);
             }
-            //宝宝信息
-            if (mTopicInfo.getUser_info().getChild_info() != null &&
-                    mTopicInfo.getUser_info().getChild_info().size() > 0) {
-                tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
-                        mTopicInfo.getUser_info().getChild_info().get(0).StrSex() + "宝宝");
-            }
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
@@ -238,7 +230,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
-        mAdapter.replaceAll(obj.topicCommentList);
+        mCursor++;
+        mAdapter.addAll(obj.topicCommentList);
+        lvReplyList.setResultSize(obj.topicCommentList.size());
     }
 
     /**
