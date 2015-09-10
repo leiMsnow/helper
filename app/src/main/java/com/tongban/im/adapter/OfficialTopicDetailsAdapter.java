@@ -31,7 +31,7 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
     @Override
     protected void convert(BaseAdapterHelper helper, OfficialTopic item) {
         //产品相关
-        if (item.getContentType() == OfficialTopic.CONTENT) {
+        if (item.getItemType() == OfficialTopic.PRODUCT) {
             if (item.getProduct() != null) {
                 if (item.getProduct().getProduct_img_url() != null) {
                     helper.setImageBitmap(R.id.iv_product_icon, item.getProduct().getProduct_img_url().get(0).getMin());
@@ -46,18 +46,16 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
                 helper.setText(R.id.tv_product_advantage_content, item.getProduct().getRecommend_cause());
                 helper.setText(R.id.tv_product_disadvantage_content, item.getProduct().getWeakness());
                 helper.setText(R.id.tv_collect_num, String.valueOf(item.getProduct().getCollect_amount()));
-            } else {
-                return;
             }
         }
         //数量（评论、点赞）相关
-        else if (item.getContentType() == OfficialTopic.REPLY_NUM) {
+        else if (item.getItemType() == OfficialTopic.REPLY_NUM) {
 //            helper.setText(R.id.tv_praise_count, item.getTopic().getTopicPraiseNum());
             helper.setText(R.id.tv_comment_count, item.getTopic().getComment_amount());
 //            helper.setText(R.id.tv_location, item.getTopic().getTopicAddress());
         }
         //评论列表相关
-        else if (item.getContentType() == OfficialTopic.REPLY) {
+        else if (item.getItemType() == OfficialTopic.REPLY) {
             if (item.getTopicReply().getUser_info().getPortrait_url() != null) {
                 helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getUser_info().getPortrait_url().getMin());
             } else {
