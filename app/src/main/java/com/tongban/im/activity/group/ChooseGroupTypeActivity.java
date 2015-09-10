@@ -61,8 +61,10 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
             Bundle bundle = new Bundle();
             int type = mAdapter.getItem(position).getGroupType();
             String typeName = mAdapter.getItem(position).getGroupTypeName();
+            int icon = mAdapter.getItem(position).getSrc();
             bundle.putInt(Consts.KEY_GROUP_TYPE, type);
             bundle.putString(Consts.KEY_GROUP_TYPE_NAME, typeName);
+            bundle.putInt(Consts.KEY_GROUP_TYPE_ICON, icon);
             intent.putExtras(bundle);
             startActivity(intent);
         }
