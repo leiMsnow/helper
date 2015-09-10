@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tongban.im" >
+    package="com.tongban.im">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -35,13 +35,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.White.Base" >
+        android:theme="@style/AppTheme.White.Base">
 
         <!-- begin rongcloud -->
 
         <service
             android:name="io.rong.push.PushService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -50,7 +50,7 @@
         </service>
         <service
             android:name="io.rong.push.CommandService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -60,7 +60,7 @@
 
         <receiver
             android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
@@ -80,7 +80,7 @@
             android:process=":ipc" />
         <service android:name="io.rong.imlib.ReConnectService" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
                 <action android:name="io.rong.push.message" />
             </intent-filter>
@@ -95,7 +95,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan" >
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -111,7 +111,7 @@
             android:name=".activity.user.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -125,7 +125,7 @@
         </activity>
         <activity
             android:name=".activity.group.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -141,7 +141,7 @@
             android:name=".activity.user.RegisterActivity"
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.LoadingActivity" >
+        <activity android:name=".activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -150,7 +150,7 @@
         </activity>
         <activity
             android:name=".activity.group.GroupInfoActivity"
-            android:label="@string/group_settings" >
+            android:label="@string/group_settings">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -168,7 +168,7 @@
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
-            android:theme="@style/AppTheme.White.Base.Translucent" >
+            android:theme="@style/AppTheme.White.Base.Translucent">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -188,7 +188,7 @@
         <activity
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -212,7 +212,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -226,7 +226,7 @@
         </activity>
         <activity
             android:name=".activity.topic.SearchTopicActivity"
-            android:label="@string/topic_search" >
+            android:label="@string/topic_search">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -253,7 +253,7 @@
             android:theme="@style/AppTheme.Red.Base"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.PersonalInfoActivity" />
-        <activity android:name=".activity.user.MyRelationshipActivity" >
+        <activity android:name=".activity.user.MyRelationshipActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -269,7 +269,7 @@
         <activity
             android:name=".activity.user.MyTopicActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.MyGroupActivity" >
+        <activity android:name=".activity.user.MyGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -283,7 +283,7 @@
         </activity>
         <activity
             android:name=".activity.user.PersonalCenterActivity"
-            android:label="@string/user_center" >
+            android:label="@string/user_center">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -297,7 +297,7 @@
         </activity>
         <activity
             android:name=".activity.user.UserCenterActivity"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -309,7 +309,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.discover.ThemeActivity" >
+        <activity android:name=".activity.discover.ThemeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -321,7 +321,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.discover.ProductBookActivity" >
+        <activity android:name=".activity.discover.ProductBookActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -336,18 +336,9 @@
         <activity
             android:name=".activity.user.ChildInfoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".activity.user.FeedbackActivity"
-            android:label="@string/title_activity_feedback" >
-        </activity>
-        <activity
-            android:name=".activity.user.SettingActivity"
-            android:label="@string/title_activity_setting" >
-        </activity>
-        <activity
-            android:name=".activity.user.AboutMeActivity"
-            android:label="@string/title_activity_about_me" >
-        </activity>
+        <activity android:name=".activity.user.FeedbackActivity"></activity>
+        <activity android:name=".activity.user.SettingActivity"></activity>
+        <activity android:name=".activity.user.AboutMeActivity"></activity>
     </application>
 
 </manifest>
