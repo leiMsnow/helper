@@ -13,7 +13,11 @@ import java.io.File;
  */
 public class CommonImageResultActivity extends BaseToolBarActivity {
     protected TopicInputView topicInputView;
+    private IPhotoListener mPhotoListener;
 
+    public void setmPhotoListener(IPhotoListener mPhotoListener) {
+        this.mPhotoListener = mPhotoListener;
+    }
     @Override
     protected int getLayoutRes() {
         return 0;
@@ -57,5 +61,7 @@ public class CommonImageResultActivity extends BaseToolBarActivity {
             topicInputView.notifyChange(newFile);
         }
     }
-
+    public interface IPhotoListener {
+        void sendPhoto(byte[] file);
+    }
 }

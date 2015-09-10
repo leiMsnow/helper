@@ -1,6 +1,7 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
@@ -17,6 +18,11 @@ import java.util.List;
  */
 public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
 
+    private View.OnClickListener onClickListener;
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public OfficialTopicDetailsAdapter(Context context, List data, IMultiItemTypeSupport multiItemTypeSupport) {
         super(context, data, multiItemTypeSupport);
@@ -26,32 +32,41 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
     protected void convert(BaseAdapterHelper helper, OfficialTopic item) {
         //产品相关
         if (item.getContentType() == OfficialTopic.CONTENT) {
-//            helper.setImageBitmap(R.id.iv_product_icon, item.getProduct().getProduct_icon_url());
-//            helper.setImageBitmap(R.id.iv_product_img, item.getProduct().getProduct_url());
-//            helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
-//            helper.setText(R.id.tv_product_introduce_content, item.getProduct().getProductIntroduction());
-//            helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProductParameter());
-//            helper.setText(R.id.tv_product_advantage_content, item.getProduct().getProductAdvantage());
-//            helper.setText(R.id.tv_product_disadvantage_content, item.getProduct().getProductDisAdvantage());
-//            helper.setText(R.id.tv_collect_num, item.getProduct().getProductCollectNum());
+            if (item.getProduct() != null) {
+                if (item.getProduct().getProduct_img_url() != null) {
+                    helper.setImageBitmap(R.id.iv_product_icon, item.getProduct().getProduct_img_url().get(0).getMin());
+                    helper.setImageBitmap(R.id.iv_product_img, item.getProduct().getProduct_img_url().get(0).getMin());
+                } else {
+                    helper.setImageResource(R.id.iv_product_icon, R.drawable.rc_default_portrait);
+                    helper.setImageResource(R.id.iv_product_img, R.drawable.rc_default_portrait);
+                }
+                helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
+                helper.setText(R.id.tv_product_introduce_content, item.getProduct().getProduct_tags());
+                helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProduct_tags());
+                helper.setText(R.id.tv_product_advantage_content, item.getProduct().getRecommend_cause());
+                helper.setText(R.id.tv_product_disadvantage_content, item.getProduct().getWeakness());
+                helper.setText(R.id.tv_collect_num, String.valueOf(item.getProduct().getCollect_amount()));
+            } else {
+                return;
+            }
         }
         //数量（评论、点赞）相关
         else if (item.getContentType() == OfficialTopic.REPLY_NUM) {
 //            helper.setText(R.id.tv_praise_count, item.getTopic().getTopicPraiseNum());
-//            helper.setText(R.id.tv_reply_count, item.getTopic().getTopicReplyNum());
+            helper.setText(R.id.tv_comment_count, item.getTopic().getComment_amount());
 //            helper.setText(R.id.tv_location, item.getTopic().getTopicAddress());
         }
-        //评论相关
+        //评论列表相关
         else if (item.getContentType() == OfficialTopic.REPLY) {
-//            helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getPortrait_url());
-//            helper.setText(R.id.tv_reply_time, item.getTopicReply().getReplyTime());
-//            helper.setText(R.id.tv_reply_content, item.getTopicReply().getComment_content());
-//            helper.setText(R.id.tv_user_name, item.getTopicReply().getReplyNickName());
+            if (item.getTopicReply().getUser_info().getPortrait_url() != null) {
+                helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getUser_info().getPortrait_url().getMin());
+            } else {
+                helper.setImageResource(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
+            }
+            helper.setText(R.id.tv_comment_time, item.getTopicReply().getC_time(mContext));
+            helper.setText(R.id.tv_comment_content, item.getTopicReply().getComment_content());
+            helper.setText(R.id.tv_user_name, item.getTopicReply().getUser_info().getNick_name());
         }
     }
 
-    @Override
-    public int getViewTypeCount() {
-        return 3;
-    }
 }
