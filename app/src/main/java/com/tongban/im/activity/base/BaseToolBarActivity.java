@@ -126,7 +126,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
      * 未登录连接
      */
     protected void connectIM() {
-        connectIM(true, true);
+        connectIM(true, false);
     }
 
 
