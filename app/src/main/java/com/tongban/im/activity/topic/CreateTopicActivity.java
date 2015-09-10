@@ -26,6 +26,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
+import com.tongban.im.widget.view.TopicImageView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,17 +40,14 @@ import java.util.List;
 public class CreateTopicActivity extends BaseToolBarActivity implements View.OnClickListener,
         TextWatcher {
 
-    private GridView gvTopicImg;
+    private TopicImageView gvTopicImg;
     private EditText tvTitle;
     private EditText tvContent;
     private ImageView ivSend;
 
-    private CreateTopicImgAdapter adapter;
     private CameraView mCameraView;
 
     private final static int IMAGE_COUNT = 15;
-    //当前选择的图片数量
-    private List<String> selectedFile = new ArrayList<>();
 
     @Override
     protected int getLayoutRes() {
@@ -61,20 +59,16 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         setTitle(R.string.create_topic);
         tvTitle = (EditText) findViewById(R.id.et_topic_name);
         tvContent = (EditText) findViewById(R.id.et_topic_content);
-        gvTopicImg = (GridView) findViewById(R.id.gv_add_img);
+        gvTopicImg = (TopicImageView) findViewById(R.id.ll_add_img);
     }
 
     @Override
     protected void initData() {
-        adapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-        adapter.setImgCount(IMAGE_COUNT);
-        gvTopicImg.setAdapter(adapter);
-        adapter.add("");
+        gvTopicImg.getmAdapter().setImgCount(IMAGE_COUNT);
     }
 
     @Override
     protected void initListener() {
-        adapter.setOnClickListener(this);
         tvTitle.addTextChangedListener(this);
         tvContent.addTextChangedListener(this);
     }
@@ -107,7 +101,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     public void onBackPressed() {
         if (tvTitle.getText().toString().length() > 0 ||
                 tvContent.getText().toString().length() > 0 ||
-                selectedFile.size() > 0) {
+                gvTopicImg.getSelectedFile().size() > 0) {
             BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
             dialog.setMessage("放弃发表?");
             dialog.setPositiveButton("我要离开",
@@ -134,7 +128,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            if (selectedFile.size() > 0) {
+            if (gvTopicImg.getSelectedFile().size() > 0) {
                 uploadImage();
             } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
                 TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
@@ -186,7 +180,8 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
         showEmptyText("", true);
-        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0, selectedFile,
+        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0,
+                gvTopicImg.getSelectedFile(),
                 FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
@@ -205,19 +200,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
-        if (adapter == null) {
-            return;
-        }
-        selectedFile.clear();
-        if (adapter.getCount() == adapter.getImgCount()) {
-            adapter.remove(adapter.getCount() - 1, false);
-        }
-        adapter.add(0, picturePath);
-
-        for (int i = 0; i < adapter.getCount(); i++) {
-            if (!TextUtils.isEmpty(adapter.getItem(i).toString()))
-                selectedFile.add(0, adapter.getItem(i).toString());
-        }
+        gvTopicImg.notifyChange(picturePath);
         afterTextChanged(null);
     }
 
@@ -240,7 +223,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     public void afterTextChanged(Editable s) {
         if (tvTitle.getText().toString().length() > 0 &&
                 (tvContent.getText().toString().length() > 0 ||
-                        selectedFile.size() > 0)) {
+                        gvTopicImg.getSelectedFile().size() > 0)) {
             ivSend.setEnabled(true);
         } else {
             ivSend.setEnabled(false);

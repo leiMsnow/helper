@@ -10,7 +10,7 @@ import android.widget.GridView;
  * Created by Cheney on 15/9/6.
  */
 public class ScrollableGridView extends GridView {
-    boolean expanded = false;
+    boolean expanded = true;
 
     public ScrollableGridView(Context context) {
         super(context);

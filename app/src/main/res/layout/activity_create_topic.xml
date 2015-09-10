@@ -41,8 +41,8 @@
             android:hint="@string/hint_topic_content"
             android:maxLength="2000"
             android:maxLines="10"
-            android:minLines="5"
             android:minHeight="80dp"
+            android:minLines="5"
             android:paddingBottom="16dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -50,16 +50,9 @@
             android:textColorHint="@color/normal_light_grey"
             android:textSize="16sp" />
 
-        <GridView
-            android:id="@+id/gv_add_img"
+        <com.tongban.im.widget.view.TopicImageView
+            android:id="@+id/ll_add_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:columnWidth="80dp"
-            android:horizontalSpacing="4dp"
-            android:numColumns="3"
-            android:scrollbars="none"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="4dp" />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </RelativeLayout>

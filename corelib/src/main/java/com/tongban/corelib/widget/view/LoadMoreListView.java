@@ -97,7 +97,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
         onLoadComplete();
         if (resultSize == 0) {
             isLoadFull = true;
-            tvMore.setText("没有更多数据");
+            tvMore.setText("");
             tvMore.setVisibility(View.VISIBLE);
         } else if (resultSize > 0 && resultSize < pageSize) {
             isLoadFull = true;

@@ -268,10 +268,11 @@ public class BaseEvent {
     //--------------------------------------商品模块-------------------------------------------------
 
     /**
-     * 获取热词的Event
+     * 获取标签的Event
      */
-    public static class FetchHotwordsEvent {
-        public List<String> hotwords;
+    public static class FetchTags {
+        public List<Tag> tags;
+        public String type;
     }
 
     /**
