@@ -2,8 +2,6 @@ package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,9 +13,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.qiniu.android.storage.UpProgressHandler;
-import com.qiniu.android.storage.UploadOptions;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -27,7 +22,6 @@ import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
@@ -35,9 +29,7 @@ import com.tongban.im.widget.view.CameraView;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 发表话题界面
