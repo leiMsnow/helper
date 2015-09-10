@@ -106,7 +106,8 @@
 
             <LinearLayout
                 style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
+                android:minHeight="48dp"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/ChatSettingLeftText"

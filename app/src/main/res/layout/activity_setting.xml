@@ -1,10 +1,134 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/weak_grey">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:id="@+id/tv_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selector_white_to_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="清除图片缓存" />
 
+    <TextView
+        android:id="@+id/tv_clear_cache_img"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_clear_cache"
+        android:drawableRight="@mipmap/ic_focus"
+        android:gravity="center_vertical|right"
+        android:paddingRight="16dp"
+        android:text="0.12M" />
+
+    <View
+        android:layout_width="16dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_clear_cache"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_clear_cache"
+        android:layout_marginLeft="16dp"
+        android:background="@color/normal_grey" />
+
+    <LinearLayout
+        android:id="@+id/ll_message_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_message_notify"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="新消息通知" />
+
+        <CheckBox
+            android:id="@+id/chb_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_message_notify"
+            android:layout_marginRight="12dp"
+            android:padding="4dp"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_current_version"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/ll_message_notify"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="当前版本" />
+
+    <TextView
+        android:id="@+id/tv_current_version_img"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_current_version"
+        android:drawableRight="@mipmap/ic_focus"
+        android:gravity="center_vertical|right"
+        android:paddingRight="16dp"
+        android:text="V1.1" />
+
+    <View
+        android:layout_width="16dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_current_version"
+        android:background="@color/white" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_current_version"
+        android:layout_marginLeft="16dp"
+        android:background="@color/normal_grey" />
+
+    <TextView
+        android:id="@+id/tv_about_me"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/line2"
+        android:background="@drawable/selector_white_to_gray"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:text="关于我们" />
+
+    <ImageView
+        android:id="@+id/iv_about_me"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_about_me"
+        android:paddingRight="16dp"
+        android:src="@mipmap/ic_focus" />
+
+    <Button
+        android:id="@+id/btn_login_or_register"
+        style="@style/CommonButtonStyle"
+        android:text="退出登录" />
 </RelativeLayout>

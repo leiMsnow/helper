@@ -1,18 +1,41 @@
 package com.tongban.im.activity.user;
 
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
-public class SettingActivity extends BaseToolBarActivity {
+import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.TransferCenter;
+
+public class SettingActivity extends BaseToolBarActivity implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
+    private TextView tvClearCache;
+    private CheckBox chbMessageNotify;
+    private TextView tvAboutMe;
+    private Button btnLogout;
 
 
     @Override
+
     protected int getLayoutRes() {
-        return 0;
+        return R.layout.activity_setting;
     }
 
     @Override
     protected void initView() {
-
+        setTitle(R.string.settings);
+        tvClearCache = (TextView) findViewById(R.id.tv_clear_cache_img);
+        chbMessageNotify = (CheckBox) findViewById(R.id.chb_notify);
+        tvAboutMe = (TextView) findViewById(R.id.tv_about_me);
+        btnLogout = (Button) findViewById(R.id.btn_login_or_register);
+        btnLogout.setEnabled(true);
     }
 
     @Override
@@ -22,6 +45,31 @@ public class SettingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
+        tvClearCache.setOnClickListener(this);
+        chbMessageNotify.setOnCheckedChangeListener(this);
+        tvAboutMe.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v == tvClearCache) {
+            ToastUtil.getInstance(mContext).showToast("清除缓存");
+            SPUtils.clear(mContext);
+        } else if (v == tvAboutMe) {
+            startActivity(new Intent(mContext, AboutMeActivity.class));
+        } else if (v == btnLogout) {
+            SPUtils.clear(mContext);
+            TransferCenter.getInstance().startLogin(true);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            ToastUtil.getInstance(mContext).showToast("新消息通知");
+        } else {
+            ToastUtil.getInstance(mContext).showToast("不要通知");
+        }
     }
 }

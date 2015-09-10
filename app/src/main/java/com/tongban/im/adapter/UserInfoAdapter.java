@@ -79,7 +79,8 @@ public class UserInfoAdapter extends PagerAdapter {
                 }
             });
         }else {
-            rlUserInfo.setEnabled(false);
+//            rlUserInfo.setEnabled(false);
+            rlUserInfo.setVisibility(View.GONE);
         }
 
 

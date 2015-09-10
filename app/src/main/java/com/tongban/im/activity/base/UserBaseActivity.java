@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     private ImageView ivZoomTop;
     private ImageView ivZoomBottom;
     private View rlFansNum, rlFollowNum, rlGroupNum;
+    private TextView tvUserName;
     private ImageView ivUserPortrait;
     private ViewPager vpChildInfo;
     private CirclePageIndicator indicator;
@@ -59,6 +61,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     protected void initView() {
 
         ivClose = (ImageView) findViewById(R.id.iv_close);
+        tvUserName = (TextView) findViewById(R.id.tv_name);
 
         lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
         headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
@@ -159,11 +162,12 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         //我的圈子
         if (v == rlGroupNum) {
             TransferCenter.getInstance().startMyGroupList(mUserInfo.getUser_id());
-        } else {
-            if (v.getId() == R.id.tv_name) {
-                startActivity(new Intent(this, ChildInfoActivity.class));
-            }
         }
+//        else {
+//            if (v.getId() == R.id.tv_name) {
+//                startActivity(new Intent(this, ChildInfoActivity.class));
+//            }
+//        }
     }
 
     protected void setDataInfo(User user) {
@@ -173,18 +177,24 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         rlFollowNum.setEnabled(true);
         rlGroupNum.setEnabled(true);
 
+        if (!TextUtils.isEmpty(mUserInfo.getNick_name())) {
+            tvUserName.setText(mUserInfo.getNick_name());
+        } else {
+            tvUserName.setText("用户还未设置昵称");
+        }
+
         if (mUserInfo.getPortrait_url() != null) {
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
             Glide.with(mContext).load(mUserInfo.getPortrait_url().getMid()).into(ivZoomBottom);
         } else {
             int resId = (Integer) SPUtils.
-                    get(mContext,SPUtils.VISIT_FILE,Consts.KEY_DEFAULT_PORTRAIT, 0);
+                    get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
             ivZoomBottom.setImageResource(resId);
             ivUserPortrait.setImageResource(resId);
         }
         if (mUserInfo.getChild_info() != null &&
                 mUserInfo.getChild_info().size() > 0) {
-            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info(),mUserInfo.getUser_id());
+            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info(), mUserInfo.getUser_id());
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new ScalePageTransformer());

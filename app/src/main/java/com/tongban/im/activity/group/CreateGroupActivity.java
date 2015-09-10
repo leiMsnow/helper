@@ -26,11 +26,14 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.Tag;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * 创建圈子界面
@@ -67,6 +70,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
      * 位置信息
      */
     private String province, city, county, address, birthday, tags, declaration;
+    private ArrayList<String> selectTagId = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +212,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             Intent intent = new Intent(mContext, LabelListActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
+            bundle.putStringArrayList("selectTag", selectTagId);
             intent.putExtras(bundle);
             startActivityForResult(intent, SELECT_LABEL);
         } else if (v == tvBirthday) {
@@ -246,19 +251,19 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             Calendar c = Calendar.getInstance();
             mDatePickerDialog = new DatePickerDialog(mContext,
                     new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
-                    String month = String.valueOf(monthOfYear + 1);
-                    String day = String.valueOf(dayOfMonth);
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            String month = String.valueOf(monthOfYear + 1);
+                            String day = String.valueOf(dayOfMonth);
 
-                    if (month.length() == 1) month = "0" + month;
-                    if (day.length() == 1) day = "0" + day;
+                            if (month.length() == 1) month = "0" + month;
+                            if (day.length() == 1) day = "0" + day;
 
-                    birthday = year + "-" + month + "-" + day;
-                    tvBirthday.setText(birthday);
-                }
-            }, c.get(Calendar.YEAR),
+                            birthday = year + "-" + month + "-" + day;
+                            tvBirthday.setText(birthday);
+                        }
+                    }, c.get(Calendar.YEAR),
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
@@ -279,7 +284,14 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
 
     //标签选择完成Event
     public void onEventMainThread(BaseEvent.LabelEvent obj) {
-        tags = obj.label;
+        tags = "";
+        selectTagId.clear();
+        selectTagId.addAll(obj.label);
+        for (int i = 0; i < selectTagId.size(); i++) {
+            tags += selectTagId.get(i);
+            if ((i + 1) < selectTagId.size())
+                tags += ",";
+        }
         tvGroupLabel.setText(tags);
     }
 

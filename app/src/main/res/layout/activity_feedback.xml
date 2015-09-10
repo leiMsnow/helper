@@ -14,7 +14,7 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="160dp"
             android:background="@color/white"
             android:gravity="left"
             android:hint="@string/phone_error" />
@@ -30,7 +30,6 @@
 
     <Button
         android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        />
+        style="@style/CommonButtonStyle"
+        android:text="@string/submit" />
 </RelativeLayout>
