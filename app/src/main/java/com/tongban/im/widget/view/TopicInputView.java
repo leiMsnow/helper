@@ -2,7 +2,6 @@ package com.tongban.im.widget.view;
 
 import android.content.Context;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.MultiUploadFileCallback;
 import com.tongban.im.model.ImageUrl;
@@ -48,11 +46,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     private boolean isFirst = true;
     private boolean isUp = false;
+    private boolean isClearImage = true;
     private int mRootLocation;
 
     private int mCommentLength = 500;
-
-    private List<String> saveFile = new ArrayList<>();
 
     public EditText getEtComment() {
         return etComment;
@@ -111,7 +108,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                         //如果是up并且高度变回来了，就清除回复状态
                         if (isUp && TopicInputView.this.getTop() == mRootLocation) {
                             isUp = false;
-                            clearCommentInfo();
+                            clearCommentInfo(isClearImage);
                         }
                     }
                 });
@@ -131,16 +128,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                             repliedCommentId, repliedName, repliedUserId, null);
             }
         } else if (v == ivAddImg) {
+            isClearImage = gvReplyImg.getSelectedFile().size() == 0;
             if (gvReplyImg.getVisibility() == View.VISIBLE) {
                 gvReplyImg.setVisibility(View.GONE);
-                saveFile = gvReplyImg.getSelectedFile();
-                if (saveFile.size() < 3) {
-                    saveFile.add("");
-                }
             } else {
-                saveFile = gvReplyImg.getSelectedFile();
-                if (saveFile.size() > 0)
-                    gvReplyImg.getmAdapter().replaceAll(saveFile);
                 gvReplyImg.setVisibility(View.VISIBLE);
             }
         }
@@ -175,16 +166,19 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     /**
      * 清除回复内容
      */
-    public void clearCommentInfo() {
+    public void clearCommentInfo(boolean isClearImage) {
 
         repliedName = null;
         repliedUserId = null;
         repliedCommentId = null;
         etComment.setText("");
         etComment.setHint(mContext.getResources().getString(R.string.create_comment));
-
-        gvReplyImg.clearImageInfo();
     }
+
+    public void clearCommentInfo() {
+        clearCommentInfo(true);
+    }
+
 
     /**
      * 设置回复评论信息
@@ -200,6 +194,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         etComment.setHint(" 回复" + repliedName);
         etComment.setText("");
         focusEdit();
+        gvReplyImg.clearImageInfo();
     }
 
     /**

@@ -230,8 +230,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
+        if (mCursor == 0) {
+            mAdapter.replaceAll(obj.topicCommentList);
+        } else {
+            mAdapter.addAll(obj.topicCommentList);
+        }
         mCursor++;
-        mAdapter.addAll(obj.topicCommentList);
         lvReplyList.setResultSize(obj.topicCommentList.size());
     }
 
@@ -246,7 +250,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         tvComment.setText(String.valueOf(commentCount + 1));
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
-
+        mCursor = 0;
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 

@@ -34,10 +34,6 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
 
     private int selectIndex = 0;
 
-    public GridView getGvReplyImg() {
-        return gvReplyImg;
-    }
-
     //当前选择的图片数量
     private List<String> selectedFile = new ArrayList<>();
 
@@ -66,6 +62,7 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
         selectedFile.add("");
         mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, selectedFile);
+        selectedFile.clear();
         mAdapter.setImgCount(3);
     }
 
@@ -92,25 +89,6 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
                 break;
         }
     }
-
-
-//    public void setVisibility(int visibility) {
-//        gvReplyImg.setVisibility(visibility);
-//        if (visibility == View.GONE) {
-//            saveFile = mAdapter.getDataAll();
-//        } else {
-//            if (saveFile.size() == 0) {
-//                saveFile.add("");
-//            }
-//            mAdapter.replaceAll(saveFile);
-//            gvReplyImg.setAdapter(mAdapter);
-//        }
-//        this.invalidate();
-//    }
-//
-//    public int getVisibility() {
-//        return gvReplyImg.getVisibility();
-//    }
 
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
