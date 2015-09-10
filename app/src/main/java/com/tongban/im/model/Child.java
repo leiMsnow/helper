@@ -46,9 +46,9 @@ public class Child implements Serializable{
     }
     public String StrSex() {
         if (TextUtils.isEmpty(sex)){
-            return "0";
+            return "1";
         }
-        return sex.equals("0") ? "男" : "女";
+        return sex.equals("1") ? "男" : "女";
     }
 
 

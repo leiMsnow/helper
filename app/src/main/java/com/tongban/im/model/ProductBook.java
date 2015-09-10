@@ -43,6 +43,8 @@ public class ProductBook {
     private String recommend_expo;
     // 推荐理由
     private String recommend_cause;
+    //收藏数量
+    private int collect_amount;
     // 缺点
     private String weakness;
     // 状态 0表示无效 1表示有效
@@ -53,6 +55,14 @@ public class ProductBook {
     private long m_time;
     // 收藏状态
     private boolean collect_status;
+
+    public int getCollect_amount() {
+        return collect_amount;
+    }
+
+    public void setCollect_amount(int collect_amount) {
+        this.collect_amount = collect_amount;
+    }
 
     public String getProduct_id() {
         return product_id;

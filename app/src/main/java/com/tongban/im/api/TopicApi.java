@@ -2,6 +2,7 @@ package com.tongban.im.api;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -15,6 +16,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 
@@ -62,6 +64,10 @@ public class TopicApi extends BaseApi {
      * 取消收藏话题
      */
     public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
+    /**
+     * 官方话题评测详情
+     */
+    public static final String OFFICIAL_TOPIC_INFO = "topic/products";
 
     private TopicApi(Context context) {
         super(context);
@@ -245,6 +251,53 @@ public class TopicApi extends BaseApi {
                     if (callback != null)
                         callback.onFailure(DisplayType.View, "暂无话题数据");
                 }
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 官方话题评测详情接口
+     *
+     * @param topicId  话题Id
+     * @param callback
+     */
+    public void getOfficialTopicInfo(String topicId, int cursor, int pageSize, final ApiCallback callback) {
+        mParams = new HashMap<>();
+        mParams.put("topic_id", topicId);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+
+        simpleRequest(OFFICIAL_TOPIC_INFO, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiListResult<ProductBook> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<ProductBook>>() {
+                        });
+                if (result.getData() != null) {
+                    BaseEvent.OfficialTopicInfoEvent officialTopicInfoEvent = new BaseEvent.OfficialTopicInfoEvent();
+                    officialTopicInfoEvent.productBookList = (result.getData().getResult());
+                    if (callback != null) {
+                        Log.d("onComplete","onComplete1");
+                        callback.onComplete(officialTopicInfoEvent);
+
+                    }
+                } else {
+                    if (callback != null)
+                        callback.onFailure(DisplayType.View, "暂无话题数据");
+                }
+                callback.onComplete(obj);
             }
 
             @Override
