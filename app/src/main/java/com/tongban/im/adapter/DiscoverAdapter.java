@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.tongban.im.R;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.Discover;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class DiscoverAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
         int type = getItemViewType(position);
         if (convertView == null) {
@@ -82,6 +83,27 @@ public class DiscoverAdapter extends BaseAdapter {
                     holder.img2 = (ImageView) convertView.findViewById(R.id.iv_top);
                     holder.img3 = (ImageView) convertView.findViewById(R.id.iv_bottom);
                     holder.collectAmount = (TextView) convertView.findViewById(R.id.tv_collect_amount);
+                    holder.img1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
+                                    getImg_map().get(0).getLink_url());
+                        }
+                    });
+                    holder.img2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
+                                    getImg_map().get(1).getLink_url());
+                        }
+                    });
+                    holder.img3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
+                                    getImg_map().get(2).getLink_url());
+                        }
+                    });
                     break;
                 case 3:// 图文单图
                     convertView = mInflater.inflate(R.layout.item_discover_text_img, parent, false);

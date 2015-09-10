@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ExpandableListView;
 
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.DiscoverTagListAdapter;
@@ -17,6 +16,7 @@ import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Tag;
+import com.tongban.im.model.TagType;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     @Override
     protected void initData() {
         // 获取商品相关的标签
-        ProductApi.getInstance().fetchTags(0, 12, "5", this);
+        ProductApi.getInstance().fetchTags(0, 12, TagType.PRODUCT_TAG, this);
     }
 
 
@@ -57,7 +57,6 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
         mTagListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                LogUtil.d("onGroupClick", "111111111");
                 return true;
             }
         });
@@ -72,7 +71,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("搜索关键字");
         searchView.setOnQueryTextListener(this);
-        searchView.onActionViewExpanded();
+        searchView.onActionViewCollapsed();
         return true;
     }
 

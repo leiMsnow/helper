@@ -129,7 +129,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
                 tv.setTextColor(getResources().getColor(R.color.main_deep_orange));
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 10, 0);
+                layoutParams.setMargins(0, 0, 10, 10);
                 tv.setLayoutParams(layoutParams);
                 tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
                 flTag.addView(tv);

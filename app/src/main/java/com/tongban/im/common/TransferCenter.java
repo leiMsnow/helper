@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.model.Topic;
-
-import org.w3c.dom.Text;
 
 /**
  * 跳转中心
@@ -212,5 +210,23 @@ public class TransferCenter {
 
     }
 
-
+    /**
+     * 点击图片链接跳转
+     *
+     * @param linkUrl
+     */
+    public void startLinkUrl(String linkUrl) {
+        if (linkUrl == null || "".equals(linkUrl.trim())) {
+            return;
+        }
+        String[] split = linkUrl.split("://");
+        if (split.length == 2) {
+            LogUtil.d("split", split[0] + "," + split[1]);
+            if ("theme".equals(split[0])) {
+                startThemeDetails(split[1]);
+            } else if ("productbook".equals(split[0])) {
+                startProductBook(split[1]);
+            }
+        }
+    }
 }
