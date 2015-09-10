@@ -138,7 +138,7 @@ public class BaseEvent {
      * 选择标签Event
      */
     public static class LabelEvent {
-        public String label;
+        public List<String> label;
     }
     //--------------------------------------用户模块-------------------------------------------------
 

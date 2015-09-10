@@ -11,8 +11,11 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.Tag;
+import com.tongban.im.model.TagType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +28,20 @@ import de.greenrobot.event.EventBus;
 public class LabelListActivity extends BaseToolBarActivity implements View.OnClickListener {
 
     private FlowLayout flLabelList;
-    private String labelNameList[] = {"同龄圈1", "达人圈2", "生活圈3", "男宝宝4", "女宝宝5",
-            "混血宝宝6", "宝宝知识圈7", "你说什么圈8", "同龄圈9", "给你什么圈10",
-            "达人圈11", "生活圈12", "混血宝宝13", "同龄圈14", "达人圈15"};
+    public List<Tag> tags;
 
     //最大选择数量
     private int mMaxCount = 0;
     private int mGroupType = 0;
-    private List<String> selectedLabel = new ArrayList<>();
+//    private List<Tag> selectedLabel = new ArrayList<>();
+
+    private List<String> selectedTagId = new ArrayList<>();
 
     @Override
     protected int getLayoutRes() {
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
+            selectedTagId = getIntent().getExtras().getStringArrayList("selectTag");
             setToolbarTheme(mGroupType);
         }
         return R.layout.activity_lable_list;
@@ -50,18 +54,12 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initData() {
-        for (int i = 0; i < labelNameList.length; i++) {
-            TextView btnLabelName = (TextView) LayoutInflater.from(mContext).
-                    inflate(R.layout.item_label_list, flLabelList, false);
-            btnLabelName.setText(labelNameList[i]);
-            btnLabelName.setTag(labelNameList[i]);
-            btnLabelName.setOnClickListener(this);
-            flLabelList.addView(btnLabelName);
-        }
+        ProductApi.getInstance().fetchTags(0, 20, TagType.GROUP_TAG, this);
     }
 
     @Override
     protected void initListener() {
+
     }
 
     @Override
@@ -74,11 +72,10 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_finish) {
             BaseEvent.LabelEvent labelEvent = new BaseEvent.LabelEvent();
-            labelEvent.label = (getSelectedLabel());
+            labelEvent.label = selectedTagId;
             EventBus.getDefault().post(labelEvent);
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -88,29 +85,37 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
             if (v.isSelected()) {
                 v.setSelected(false);
                 mMaxCount--;
-                selectedLabel.remove(mMaxCount);
+                selectedTagId.remove(v.getTag());
             } else {
                 if (mMaxCount == 3) {
                     ToastUtil.getInstance(mContext).showToast(R.string.select_label_max);
                     return;
                 }
                 v.setSelected(true);
-                selectedLabel.add(v.getTag().toString());
+                selectedTagId.add(v.getTag().toString());
                 mMaxCount++;
             }
         }
     }
 
-    private String getSelectedLabel() {
-        String selected = "";
-        if (selectedLabel.size() > 0) {
-            for (int i = 0; i < selectedLabel.size(); i++) {
-                selected += "," + selectedLabel.get(i);
+    public void onEventMainThread(BaseEvent.FetchTags obj) {
+        tags = obj.tags;
+        for (int i = 0; i < tags.size(); i++) {
+
+            TextView btnLabelName = (TextView) LayoutInflater.from(mContext).
+                    inflate(R.layout.item_label_list, flLabelList, false);
+            btnLabelName.setText(tags.get(i).getTag_name());
+            btnLabelName.setTag(tags.get(i).getTag_name());
+            btnLabelName.setOnClickListener(this);
+            flLabelList.addView(btnLabelName);
+            for (int j = 0; j < selectedTagId.size(); j++) {
+                if (tags.get(i).getTag_name().equals(selectedTagId.get(j))) {
+                    btnLabelName.setSelected(true);
+                    break;
+                }
             }
-            if (!TextUtils.isEmpty(selected))
-                selected = selected.substring(1);
         }
-        return selected;
+
     }
 
 }

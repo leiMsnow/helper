@@ -68,11 +68,11 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         //设置 // TODO: 9/1/15 暂时写为注销登录
         //跳转到设置界面
         else if (v == tvSettings) {
-            startActivity(new Intent(mContext, SettingActivity.class));
+//            startActivity(new Intent(mContext, SettingActivity.class));
 
 //            //只清除默认文件中的SP，VISIT不会被清除
-//            SPUtils.clear(mContext);
-//            TransferCenter.getInstance().startLogin(true);
+            SPUtils.clear(mContext);
+            TransferCenter.getInstance().startLogin(true);
         }
         //跳转到设置宝宝信息界面
         else if (v == tvSetChildInfo) {
