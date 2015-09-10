@@ -1,9 +1,9 @@
 package com.tongban.im.fragment.user;
 
 
+import android.media.Image;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
@@ -16,8 +16,11 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
+
+import java.util.List;
 
 /**
  * 我的话题 - 回复我的话题
@@ -25,7 +28,7 @@ import com.tongban.im.widget.view.TopicInputView;
  * @author fushudi
  */
 public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.onClickCommentListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.IOnClickCommentListener {
     private LoadMoreListView mListView;
     private MyCommentTopicAdapter mAdapter;
     private TopicInputView topicInputView;
@@ -106,9 +109,9 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId) {
+                               String repliedName, String repliedUserId,List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, this);
+                repliedName, repliedUserId,selectedFile, this);
     }
 
     /**

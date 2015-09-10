@@ -134,7 +134,7 @@
                 android:layout_margin="10dp"/>
 
             <!-- 各个平台的价格 -->
-            <com.tongban.corelib.widget.view.ExpandableGridView
+            <com.tongban.corelib.widget.view.ScrollableGridView
                 android:id="@+id/gv_platform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

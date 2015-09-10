@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.tongban.im.R;
 import com.tongban.im.model.Discover;
 
@@ -56,7 +59,7 @@ public class DiscoverAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         int type = getItemViewType(position);
         if (convertView == null) {
             holder = new ViewHolder();
@@ -104,7 +107,18 @@ public class DiscoverAdapter extends BaseAdapter {
                 holder.title.setText(mList.get(position).getTitle());
                 holder.description.setText(mList.get(position).getDescription());
                 Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
+                        placeholder(R.drawable.rc_ic_def_rich_content).listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        setImageHeight(1, holder);
+                        return false;
+                    }
+                }).into(holder.img1);
                 Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).
                         placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img2);
                 Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).
@@ -148,6 +162,20 @@ public class DiscoverAdapter extends BaseAdapter {
         public ImageView img2;
         public ImageView img3;
         public TextView collectAmount;
+    }
+
+    /**
+     * 动态设置图片高度,1:1
+     *
+     * @param type
+     * @param holder
+     */
+    private void setImageHeight(int type, ViewHolder holder) {
+        if (type == 1) {
+            holder.img1.getLayoutParams().height = holder.img1.getMeasuredWidth();
+            holder.img2.getLayoutParams().height = holder.img2.getMeasuredWidth();
+            holder.img3.getLayoutParams().height = holder.img3.getMeasuredWidth();
+        }
     }
 
 }

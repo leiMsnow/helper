@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="48dp"
+    android:layout_marginRight="48dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:alpha="0.9"
+        android:background="@color/white"
+        android:minHeight="96dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:maxEms="15"
+                android:singleLine="true"
+                android:text="title"
+                android:textColor="@color/button_material_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/dialog_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="message"
+                android:textColor="@color/button_material_dark"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/left_bt"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_dialog_text_change"
+            android:gravity="center"
+            android:text="左键"
+            android:textColor="@color/button_material_dark"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/partline1"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/theme_grey_300" />
+
+        <TextView
+            android:id="@+id/center_bt"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_dialog_text_change"
+            android:gravity="center"
+            android:text="中键"
+            android:textColor="@color/button_material_dark"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/partline2"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/theme_grey_300" />
+
+        <TextView
+            android:id="@+id/right_bt"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_dialog_text_change"
+            android:gravity="center"
+            android:text="右键"
+            android:textColor="@color/button_material_dark"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,10 +1,13 @@
 package com.tongban.im.activity.topic;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -15,6 +18,7 @@ import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadOptions;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
@@ -93,16 +97,54 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
         ivSend.setOnClickListener(this);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (tvTitle.getText().toString().length() > 0 ||
+                tvContent.getText().toString().length() > 0 ||
+                selectedFile.size() > 0) {
+            BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
+            dialog.setMessage("放弃发表?");
+            dialog.setPositiveButton("我要离开",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            finish();
+                        }
+                    });
+            dialog.setNegativeButton("继续发表",
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+            dialog.show();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void onClick(View v) {
         if (v == ivSend) {
-            if (selectedFile.size() > 0) {
-                uploadImage();
-            } else {
-                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
-                        CreateTopicActivity.this);
+            if (!TextUtils.isEmpty(tvTitle.getText().toString().trim())
+                    && !TextUtils.isEmpty(tvContent.getText().toString().trim())) {
+                if (selectedFile.size() > 0) {
+                    uploadImage();
+                } else {
+                    TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                            tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
+                            CreateTopicActivity.this);
+                }
             }
         } else {
             int viewId = v.getId();

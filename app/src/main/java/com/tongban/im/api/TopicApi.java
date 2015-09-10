@@ -363,7 +363,7 @@ public class TopicApi extends BaseApi {
                                       @Nullable String repliedCommentId,
                                       @Nullable String repliedName,
                                       @Nullable String repliedUserId,
-//                                      List<ImageUrl> commentImgUrl,
+                                      List<ImageUrl> commentImgUrl,
                                       final ApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
@@ -374,7 +374,7 @@ public class TopicApi extends BaseApi {
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_id", topicId);
         mParams.put("comment_content", commentContent);
-//        mParams.put("comment_img_url", JSON.toJSON(commentImgUrl));
+        mParams.put("comment_img_url", JSON.toJSON(commentImgUrl));
         //回复评论用到的字段，如果不传这三个值，将视为评论话题
         if (repliedName != null && repliedUserId != null && repliedCommentId != null) {
             mParams.put("replied_comment_id", repliedCommentId);

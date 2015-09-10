@@ -168,7 +168,7 @@ public class ThemeActivity extends BaseToolBarActivity {
 
         // 判断是否是收藏状态
         if (mTheme.isCollect_status()) {
-            collectMenu.setIcon(R.mipmap.ic_theme_collected);
+            collectMenu.setIcon(R.mipmap.ic_menu_collected);
         }
         setTitle(mTheme.getTheme_title());
         if (mTheme.getTheme_img_url() != null && mTheme.getTheme_img_url().size() > 0) {
@@ -318,7 +318,7 @@ public class ThemeActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("收藏专题成功");
         mTheme.setCollect_status(true);
-        collectMenu.setIcon(R.mipmap.ic_theme_collected);
+        collectMenu.setIcon(R.mipmap.ic_menu_collected);
     }
 
     /**
@@ -329,7 +329,7 @@ public class ThemeActivity extends BaseToolBarActivity {
     public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
         ToastUtil.getInstance(mContext).showToast("已经取消收藏");
         mTheme.setCollect_status(false);
-        collectMenu.setIcon(R.mipmap.ic_theme_collect);
+        collectMenu.setIcon(R.mipmap.ic_menu_collect);
     }
 
 }

@@ -45,6 +45,8 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         } else {
             helper.setImageBitmap(R.id.iv_topic_img, item);
         }
+        helper.setTag(R.id.iv_topic_img, Integer.MAX_VALUE,TextUtils.isEmpty(item));
+        helper.setTag(R.id.iv_topic_img, Integer.MIN_VALUE, helper.getPosition());
         helper.setOnClickListener(R.id.iv_topic_img, onClickListener);
     }
 

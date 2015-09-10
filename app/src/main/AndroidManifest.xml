@@ -209,7 +209,7 @@
         <activity
             android:name=".activity.topic.CreateTopicActivity"
             android:label="@string/create_topic"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" >

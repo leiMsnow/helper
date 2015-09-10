@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.ToastUtil;
-import com.tongban.corelib.widget.view.ExpandableGridView;
+import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
@@ -37,7 +37,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
     private TextView publisher;  // 出版社
     private TextView isbn;  // isbn
     private TextView suitable;  // 适度人群
-    private ExpandableGridView mGridView;
+    private ScrollableGridView mGridView;
 
     // 图书id
     private String productBookId;
@@ -63,7 +63,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         publisher = (TextView) findViewById(R.id.tv_publisher);
         isbn = (TextView) findViewById(R.id.tv_isbn);
         suitable = (TextView) findViewById(R.id.tv_suitable_for);
-        mGridView = (ExpandableGridView) findViewById(R.id.gv_platform);
+        mGridView = (ScrollableGridView) findViewById(R.id.gv_platform);
         mGridView.setExpanded(true);
     }
 
