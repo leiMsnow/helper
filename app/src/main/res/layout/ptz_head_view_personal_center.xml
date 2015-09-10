@@ -2,13 +2,21 @@
     android:id="@+id/layout_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <!-- 头像-->
+    <com.tongban.corelib.widget.view.CircleImageView
+        android:id="@+id/iv_user_portrait"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_set_child_info"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_relationship"
+        android:layout_below="@+id/iv_user_portrait"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
         android:gravity="center"
@@ -23,49 +31,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_relationship"
-        android:layout_alignTop="@+id/fl_user_head"
-        android:gravity="center_vertical" />
+        android:layout_below="@+id/iv_user_portrait"
+        android:layout_marginTop="24dp"
+        android:gravity="center_horizontal" />
 
     <com.tongban.corelib.widget.view.indicator.CirclePageIndicator
         android:id="@+id/lpi_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/vp_container"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-    <FrameLayout
-        android:id="@+id/fl_user_head"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="72dp">
-        <!-- 头像-->
-        <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/iv_user_portrait"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop" />
+    <View
+        android:id="@+id/v_refer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/iv_user_portrait"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
 
-        <CheckBox
-            android:id="@+id/chb_focus"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="bottom|right"
-            android:background="@drawable/selector_user_focus"
-            android:button="@null"
-            android:visibility="gone" />
-    </FrameLayout>
+    <CheckBox
+        android:id="@+id/chb_focus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_user_portrait"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_toLeftOf="@+id/v_refer"
+        android:background="@drawable/selector_chat_icon"
+        android:button="@null"
+        android:visibility="gone" />
 
 
     <ImageView
         android:id="@+id/iv_private_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_above="@+id/ll_relationship"
-        android:layout_marginRight="24dp"
+        android:layout_below="@+id/iv_user_portrait"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
+        android:layout_toRightOf="@+id/v_refer"
         android:src="@drawable/selector_chat_icon"
         android:visibility="gone" />
 

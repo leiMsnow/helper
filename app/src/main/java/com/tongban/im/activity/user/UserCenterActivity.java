@@ -4,9 +4,11 @@ package com.tongban.im.activity.user;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
@@ -110,6 +112,11 @@ public class UserCenterActivity extends UserBaseActivity {
             ToastUtil.getInstance(mContext).showToast("关注成功");
         } else {
             ivPrivateChat.setVisibility(View.GONE);
+            //TODO 改变取消关注（CheckBox）的位置
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+                    (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+            chbFocus.setLayoutParams(params);
             ToastUtil.getInstance(mContext).showToast("取消成功");
         }
     }
