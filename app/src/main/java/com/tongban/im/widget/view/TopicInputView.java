@@ -8,15 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.adapter.CreateTopicImgAdapter;
+import com.tongban.im.api.FileUploadApi;
+import com.tongban.im.api.MultiUploadFileCallback;
+import com.tongban.im.model.ImageUrl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 话题评论自定义控件
@@ -30,13 +34,11 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private EditText etComment;
     private ImageView ivComment;
     private TextView tvCommentLength;
-    private GridView gvReplyImg;
+    private TopicImageView gvReplyImg;
 
-    private CameraView mCameraView;
-    private CreateTopicImgAdapter mAdapter;
     private Context mContext;
 
-    private onClickCommentListener onClickCommentListener;
+    private IOnClickCommentListener onClickCommentListener;
 
     private String repliedName;
     private String repliedUserId;
@@ -44,6 +46,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     private boolean isFirst = true;
     private boolean isUp = false;
+    private boolean isClearImage = true;
     private int mRootLocation;
 
     private int mCommentLength = 500;
@@ -52,12 +55,12 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         return etComment;
     }
 
-    public void setOnClickCommentListener(onClickCommentListener onClickCommentListener) {
+    public void setOnClickCommentListener(IOnClickCommentListener onClickCommentListener) {
         this.onClickCommentListener = onClickCommentListener;
     }
 
     public void setAdapterImgCount(int imgCount) {
-        this.mAdapter.setImgCount(imgCount);
+        gvReplyImg.setAdapterImgCount(imgCount);
     }
 
     public TopicInputView(Context context) {
@@ -73,24 +76,23 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     }
 
     private void initView() {
-        LayoutInflater.from(mContext).inflate(R.layout.include_topic_input, this);
+        LayoutInflater.from(mContext).inflate(R.layout.view_topic_input, this);
         rootView = findViewById(R.id.ll_input_root);
         ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
         etComment = (EditText) findViewById(R.id.et_comment);
         tvCommentLength = (TextView) findViewById(R.id.tv_comment_length);
         ivComment = (ImageView) findViewById(R.id.btn_comment);
-        gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
-        mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
-
+        gvReplyImg = (TopicImageView) findViewById(R.id.ll_reply_img);
         tvCommentLength.setText(String.valueOf(mCommentLength));
+
+        gvReplyImg.getmAdapter().setImgCount(3);
+        ivComment.setEnabled(false);
     }
 
     private void initListener() {
         ivAddImg.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         etComment.addTextChangedListener(this);
-        mAdapter.setOnClickListener(this);
-
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -107,74 +109,77 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                         //如果是up并且高度变回来了，就清除回复状态
                         if (isUp && TopicInputView.this.getTop() == mRootLocation) {
                             isUp = false;
-                            clearCommentInfo();
+                            clearCommentInfo(isClearImage);
                         }
                     }
                 });
     }
 
     private void initData() {
-        gvReplyImg.setAdapter(mAdapter);
     }
 
     @Override
     public void onClick(View v) {
         if (v == ivComment) {
-            if (etComment.getText().toString().length() > 0) {
+            if (gvReplyImg.getSelectedFile() != null && gvReplyImg.getSelectedFile().size() > 0) {
+                uploadImage();
+            } else {
                 if (onClickCommentListener != null)
                     onClickCommentListener.onClickComment(etComment.getText().toString(),
-                            repliedCommentId, repliedName, repliedUserId);
+                            repliedCommentId, repliedName, repliedUserId, null);
             }
         } else if (v == ivAddImg) {
+            isClearImage = gvReplyImg.getSelectedFile().size() == 0;
             if (gvReplyImg.getVisibility() == View.VISIBLE) {
                 gvReplyImg.setVisibility(View.GONE);
             } else {
-                if (mAdapter.getCount() == 0) {
-                    mAdapter.add("");
-                }
                 gvReplyImg.setVisibility(View.VISIBLE);
             }
-        } else {
-            int viewId = v.getId();
-            switch (viewId) {
-                case R.id.iv_topic_img:
-                    createDialog();
-                    break;
-            }
         }
     }
 
-    //刷新图片Adapter
+    //批量上传图片,成功后将发表评论
+
+    private void uploadImage() {
+        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0,
+                gvReplyImg.getSelectedFile(),
+                FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
+                new MultiUploadFileCallback() {
+                    @Override
+                    public void uploadSuccess(List<ImageUrl> urls) {
+                        if (onClickCommentListener != null)
+                            onClickCommentListener.onClickComment(etComment.getText().toString(),
+                                    repliedCommentId, repliedName, repliedUserId, urls);
+                    }
+
+                    @Override
+                    public void uploadFailed(String error) {
+                        ToastUtil.getInstance(mContext).showToast("图片上传失败");
+                    }
+                }, null);
+    }
+
+    //    //刷新图片Adapter
     public void notifyChange(String picturePath) {
-        if (mAdapter == null) {
-            return;
-        }
-        if (mAdapter.getCount() == mAdapter.getImgCount()) {
-            mAdapter.remove(mAdapter.getCount() - 1, false);
-        }
-        mAdapter.add(0, picturePath);
-    }
-
-    // 打开相机的提示框
-    protected void createDialog() {
-        if (mCameraView == null) {
-            mCameraView = new CameraView(mContext);
-        }
-        mCameraView.show();
+        gvReplyImg.notifyChange(picturePath);
     }
 
     /**
      * 清除回复内容
      */
-    public void clearCommentInfo() {
+    public void clearCommentInfo(boolean isClearImage) {
 
         repliedName = null;
         repliedUserId = null;
         repliedCommentId = null;
-
         etComment.setText("");
         etComment.setHint(mContext.getResources().getString(R.string.create_comment));
     }
+
+    public void clearCommentInfo() {
+        clearCommentInfo(true);
+    }
+
 
     /**
      * 设置回复评论信息
@@ -190,6 +195,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         etComment.setHint(" 回复" + repliedName);
         etComment.setText("");
         focusEdit();
+        gvReplyImg.clearImageInfo();
     }
 
     /**
@@ -213,6 +219,11 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     @Override
     public void afterTextChanged(Editable s) {
+        if (etComment.getText().length() > 0) {
+            ivComment.setEnabled(true);
+        } else {
+            ivComment.setEnabled(false);
+        }
         int currentLength = mCommentLength - etComment.getText().length();
         if (currentLength < 0) {
             currentLength = 0;
@@ -223,8 +234,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     /**
      * 回复按钮点击监听
      */
-    public interface onClickCommentListener {
+    public interface IOnClickCommentListener {
         void onClickComment(String commentContent, String repliedCommentId,
-                            String repliedName, String repliedUserId);
+                            String repliedName, String repliedUserId, List<ImageUrl> selectedFile);
     }
 }

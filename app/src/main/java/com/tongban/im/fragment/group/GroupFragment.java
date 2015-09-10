@@ -6,11 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
 import com.tongban.im.common.Consts;
@@ -24,7 +26,8 @@ import io.rong.imlib.model.Conversation;
  * 圈子页
  * author: chenenyu 15/7/13
  */
-public class GroupFragment extends BaseApiFragment {
+public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheckedChangeListener,
+        View.OnClickListener {
     // 圈子页顶部的tab
     private RadioGroup rgCircle;
     // 圈子页顶部的搜索按钮
@@ -64,44 +67,18 @@ public class GroupFragment extends BaseApiFragment {
         fm.beginTransaction().add(R.id.fl_container, chatFragment).
                 add(R.id.fl_container, recommendFragment)
                 .hide(recommendFragment).commit();
+        //没有登录删除聊天fragment
+        if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+            fm.beginTransaction().remove(chatFragment).commit();
+        }
+
     }
 
     @Override
     protected void initListener() {
-        rgCircle.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_chat:
-                        fm.beginTransaction().show(chatFragment).hide(recommendFragment).commit();
-                        ibSearch.setVisibility(View.GONE);
-                        break;
-                    case R.id.rb_recommend:
-                        fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
-                        ibSearch.setVisibility(View.VISIBLE);
-                        break;
-                }
-            }
-        });
-
-        ibSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_GROUP, "city1");
-            }
-        });
-
-        ibCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (!TransferCenter.getInstance().startLogin())
-                    return;
-
-                Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
-                startActivity(intent);
-            }
-        });
+        rgCircle.setOnCheckedChangeListener(this);
+        ibSearch.setOnClickListener(this);
+        ibCreate.setOnClickListener(this);
     }
 
     @Override
@@ -109,4 +86,36 @@ public class GroupFragment extends BaseApiFragment {
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (group == rgCircle) {
+            showEmptyText("",false);
+            switch (checkedId) {
+                case R.id.rb_chat:
+                    if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+                        fm.beginTransaction().show(chatFragment).commit();
+                    }
+                    fm.beginTransaction().hide(recommendFragment).commit();
+                    ibSearch.setVisibility(View.GONE);
+                    break;
+                case R.id.rb_recommend:
+                    fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
+                    ibSearch.setVisibility(View.VISIBLE);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == ibCreate) {
+            if (!TransferCenter.getInstance().startLogin())
+                return;
+
+            Intent intent = new Intent(mContext, ChooseGroupTypeActivity.class);
+            startActivity(intent);
+        } else if (v == ibSearch) {
+            TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_GROUP, "city1");
+        }
+    }
 }

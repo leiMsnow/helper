@@ -11,16 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <GridView
-        android:id="@+id/gv_reply_img"
+    <com.tongban.im.widget.view.TopicImageView
+        android:id="@+id/ll_reply_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="80dp"
-        android:horizontalSpacing="4dp"
-        android:numColumns="3"
-        android:padding="8dp"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="4dp"
         android:visibility="gone" />
 </LinearLayout>

@@ -6,13 +6,13 @@ package com.tongban.im.model;
  */
 public class OfficialTopic {
     //官方话题内容
-    public final static int CONTENT = 0;
+    public final static int PRODUCT = 0;
     //官方话题回复
     public final static int REPLY = 1;
     //官方话题回复数量栏
     public final static int REPLY_NUM = 2;
     //官方话题内容类型
-    private int contentType;
+    private int itemType;
     //产品
     private ProductBook product;
     //话题评论
@@ -36,19 +36,19 @@ public class OfficialTopic {
         this.product = product;
     }
 
-    public int getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
-    }
-
     public Topic getTopic() {
         return topic;
     }
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 }

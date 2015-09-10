@@ -209,7 +209,7 @@
         <activity
             android:name=".activity.topic.CreateTopicActivity"
             android:label="@string/create_topic"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -336,6 +336,9 @@
         <activity
             android:name=".activity.user.ChildInfoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".activity.user.FeedbackActivity"></activity>
+        <activity android:name=".activity.user.SettingActivity"></activity>
+        <activity android:name=".activity.user.AboutMeActivity"></activity>
     </application>
 
 </manifest>

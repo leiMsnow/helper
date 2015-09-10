@@ -26,6 +26,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.GroupType;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 
@@ -54,9 +55,10 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
 
     private int mGroupType;
     private String titleName;
+    private int mGroupIcon;
 
     private DatePickerDialog mDatePickerDialog;
-    private byte[] mGroupIcon;
+    private byte[] mGroupBytes;
     /**
      * 经纬度
      */
@@ -79,6 +81,8 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
+            mGroupIcon = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE_ICON,
+                    R.mipmap.ic_group_create);
             setToolbarTheme(mGroupType);
         }
 
@@ -142,6 +146,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
     @Override
     protected void initData() {
         LocationUtils.get(mContext).start();
+        ivSetGroupIcon.setImageResource(mGroupIcon);
     }
 
     @Override
@@ -160,16 +165,17 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
                 ToastUtil.getInstance(mContext).showToast("请勾选'" + getString(R.string.group_agreement) + "'");
                 return;
             }
-            if (mGroupIcon == null) {
-                ToastUtil.getInstance(mContext).showToast("添加一个头像吧");
-                return;
-            }
+
             if (TextUtils.isEmpty(address)) {
                 ToastUtil.getInstance(mContext).showToast("请选择一个位置");
                 return;
             }
             declaration = etDesc.getText().toString().trim();
-            FileUploadApi.getInstance().uploadFile(mGroupIcon, null, FileUploadApi.IMAGE_SIZE_300,
+            if (mGroupBytes == null) {
+                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mGroupIcon);
+                mGroupBytes = CameraUtils.Bitmap2Bytes(bitmap);
+            }
+            FileUploadApi.getInstance().uploadFile(mGroupBytes, null, FileUploadApi.IMAGE_SIZE_300,
                     FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
                         @Override
@@ -217,7 +223,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             return;
         }
         if (requestCode == SELECT_LOCATION) {
-            longitude = data.getDoubleExtra(Consts.LONGITUDE,Consts.DEFAULT_DOUBLE);
+            longitude = data.getDoubleExtra(Consts.LONGITUDE, Consts.DEFAULT_DOUBLE);
             latitude = data.getDoubleExtra(Consts.LATITUDE, Consts.DEFAULT_DOUBLE);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             tvLocation.setText(address);
@@ -238,9 +244,11 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
     private void openDatePicker() {
         if (mDatePickerDialog == null) {
             Calendar c = Calendar.getInstance();
-            mDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+            mDatePickerDialog = new DatePickerDialog(mContext,
+                    new DatePickerDialog.OnDateSetListener() {
                 @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                public void onDateSet(DatePicker view, int year,
+                                      int monthOfYear, int dayOfMonth) {
                     String month = String.valueOf(monthOfYear + 1);
                     String day = String.valueOf(dayOfMonth);
 
@@ -293,7 +301,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
 
     @Override
     public void sendPhoto(byte[] bytes) {
-        mGroupIcon = bytes;
+        mGroupBytes = bytes;
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivSetGroupIcon.setImageBitmap(bitmap);
     }

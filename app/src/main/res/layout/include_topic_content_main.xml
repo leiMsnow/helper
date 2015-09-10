@@ -43,7 +43,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:visibility="invisible" />
 
         <ImageView
@@ -53,7 +53,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:visibility="invisible" />
 
         <ImageView
@@ -63,7 +63,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:visibility="invisible" />
     </LinearLayout>
 

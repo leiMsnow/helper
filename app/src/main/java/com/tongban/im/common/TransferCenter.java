@@ -65,13 +65,15 @@ public class TransferCenter {
         String pathPrefix = TransferPathPrefix.USER_CENTER;
         if (!startLogin())
             return;
-
+        String center_tag = "visit_center";
         if (visitorId.equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
+            center_tag = "my_center";
             pathPrefix = TransferPathPrefix.MY_CENTER;
         }
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
                 .appendQueryParameter("visitorId", visitorId)
+                .appendQueryParameter("center_tag", center_tag)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

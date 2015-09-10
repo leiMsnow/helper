@@ -3,6 +3,8 @@ package com.tongban.im.activity.topic;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -34,14 +36,13 @@ import java.util.List;
  * @author fushudi
  */
 public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TopicInputView.onClickCommentListener, OnLoadMoreListener {
+        TopicInputView.IOnClickCommentListener, OnLoadMoreListener {
 
     //头布局控件
     private View mHeader;
     //头布局 top
     private ImageView ivUserPortrait;
     private TextView tvUserName;
-    private TextView tvAge;
     private TextView tvTime;
     //中间布局 content
     private TextView tvTopicTitle;
@@ -50,9 +51,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     //底布局 bottom
     private ImageView ivComment;
     private TextView tvComment;
-    private ImageView ivCollect;
-    private TextView tvCollect;
-
 
     private LoadMoreListView lvReplyList;
 
@@ -64,6 +62,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     private int mCursor = 0;
     private int mPage = 10;
+
+    private MenuItem menuItem;
 
     @Override
     protected int getLayoutRes() {
@@ -80,7 +80,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         //添加头布局
         mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
         ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
-        tvAge = (TextView) mHeader.findViewById(R.id.tv_child_age);
         tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
         tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
 
@@ -91,8 +90,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-        ivCollect = (ImageView) mHeader.findViewById(R.id.iv_collect);
-        tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
     }
@@ -111,6 +108,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
                 mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
                 mAdapter.setOnClickListener(this);
+                mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
                 lvReplyList.setAdapter(mAdapter);
                 lvReplyList.setResultSize(mPage);
 
@@ -126,9 +124,24 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     protected void initListener() {
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
-        ivCollect.setOnClickListener(this);
         lvReplyList.setOnLoadMoreListener(this);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
+        menuItem = menu.findItem(R.id.menu_collect);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_collect) {
+            menuItem.setEnabled(false);
+            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -137,10 +150,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
             topicInputView.focusEdit();
-        }
-        // 收藏话题
-        else if (v == ivCollect) {
-            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
         }
         // 用户信息查看
         else if (v == ivUserPortrait) {
@@ -171,9 +180,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId) {
+                               String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, this);
+                repliedName, repliedUserId, selectedFile, this);
     }
 
     /**
@@ -194,30 +203,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                 } else {
                     ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
                 }
-
-//                if (mTopicInfo.getUser_info().getUser_id().
-//                        equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-//                    ivCollect.setEnabled(false);
-//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-//                } else {
-//                if (mTopicInfo.isCollect_status()) {
-//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-//                } else {
-//                    ivCollect.setImageResource(R.drawable.selector_topic_collect);
-//                }
-//                }
             }
 
             if (mTopicInfo.isCollect_status()) {
-                ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+                menuItem.setIcon(R.mipmap.ic_menu_collected);
             } else {
-                ivCollect.setImageResource(R.drawable.selector_topic_collect);
-            }
-            //宝宝信息
-            if (mTopicInfo.getUser_info().getChild_info() != null &&
-                    mTopicInfo.getUser_info().getChild_info().size() > 0) {
-                tvAge.setText(mTopicInfo.getUser_info().getChild_info().get(0).getAge() + "岁" +
-                        mTopicInfo.getUser_info().getChild_info().get(0).StrSex() + "宝宝");
+                menuItem.setIcon(R.mipmap.ic_menu_collect);
             }
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
@@ -225,7 +216,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
             tvComment.setText(mTopicInfo.getComment_amount());
-            tvCollect.setText(mTopicInfo.getCollect_amount());
 
             mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
         } else {
@@ -240,7 +230,13 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
-        mAdapter.replaceAll(obj.topicCommentList);
+        if (mCursor == 0) {
+            mAdapter.replaceAll(obj.topicCommentList);
+        } else {
+            mAdapter.addAll(obj.topicCommentList);
+        }
+        mCursor++;
+        lvReplyList.setResultSize(obj.topicCommentList.size());
     }
 
     /**
@@ -254,7 +250,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         tvComment.setText(String.valueOf(commentCount + 1));
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
-
+        mCursor = 0;
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 
@@ -264,14 +260,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
-        int collectCount = Integer.parseInt(tvCollect.getText().toString());
         mTopicInfo.setCollect_status(obj.status);
+        menuItem.setEnabled(true);
         if (obj.status) {
-            ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-            tvCollect.setText(String.valueOf(collectCount + 1));
+            menuItem.setIcon(R.mipmap.ic_menu_collected);
         } else {
-            ivCollect.setImageResource(R.drawable.selector_topic_collect);
-            tvCollect.setText(String.valueOf(collectCount - 1));
+            menuItem.setIcon(R.mipmap.ic_menu_collect);
         }
     }
 
