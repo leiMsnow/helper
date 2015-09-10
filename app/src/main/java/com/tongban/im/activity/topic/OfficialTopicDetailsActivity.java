@@ -173,10 +173,10 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         tvOfficialTopicTitle.setText(obj.topic.getTopic_title());
         tvOfficialTopicContent.setText(obj.topic.getTopic_content());
 
-        OfficialTopic officialTopic=new OfficialTopic();
-        Topic topic=obj.topic;
-        topic.setContentType(OfficialTopic.REPLY_NUM);
-        officialTopic.setTopic(topic);
-        mAdapter.getDataAll().add(officialTopic);
+//        OfficialTopic officialTopic=new OfficialTopic();
+//        Topic topic=obj.topic;
+//        topic.setContentType(OfficialTopic.REPLY_NUM);
+//        officialTopic.setTopic(topic);
+//        mAdapter.getDataAll().add(officialTopic);
     }
 }
