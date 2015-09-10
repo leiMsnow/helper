@@ -3,6 +3,8 @@ package com.tongban.im.activity.topic;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -50,9 +52,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     //底布局 bottom
     private ImageView ivComment;
     private TextView tvComment;
-    private ImageView ivCollect;
-    private TextView tvCollect;
-
 
     private LoadMoreListView lvReplyList;
 
@@ -64,6 +63,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     private int mCursor = 0;
     private int mPage = 10;
+
+    private MenuItem menuItem;
 
     @Override
     protected int getLayoutRes() {
@@ -91,8 +92,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
         ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-        ivCollect = (ImageView) mHeader.findViewById(R.id.iv_collect);
-        tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 
         lvReplyList.addHeaderView(mHeader);
     }
@@ -127,9 +126,24 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     protected void initListener() {
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
-        ivCollect.setOnClickListener(this);
         lvReplyList.setOnLoadMoreListener(this);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
+        menuItem = menu.findItem(R.id.menu_collect);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_collect) {
+            menuItem.setEnabled(false);
+            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -138,10 +152,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         if (v == ivComment) {
             topicInputView.clearCommentInfo();
             topicInputView.focusEdit();
-        }
-        // 收藏话题
-        else if (v == ivCollect) {
-            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
         }
         // 用户信息查看
         else if (v == ivUserPortrait) {
@@ -172,9 +182,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId,List<ImageUrl> selectedFile) {
+                               String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId,selectedFile, this);
+                repliedName, repliedUserId, selectedFile, this);
     }
 
     /**
@@ -195,24 +205,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                 } else {
                     ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
                 }
-
-//                if (mTopicInfo.getUser_info().getUser_id().
-//                        equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-//                    ivCollect.setEnabled(false);
-//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-//                } else {
-//                if (mTopicInfo.isCollect_status()) {
-//                    ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-//                } else {
-//                    ivCollect.setImageResource(R.drawable.selector_topic_collect);
-//                }
-//                }
             }
 
             if (mTopicInfo.isCollect_status()) {
-                ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
+                menuItem.setIcon(R.mipmap.ic_menu_collected);
             } else {
-                ivCollect.setImageResource(R.drawable.selector_topic_collect);
+                menuItem.setIcon(R.mipmap.ic_menu_collect);
             }
             //宝宝信息
             if (mTopicInfo.getUser_info().getChild_info() != null &&
@@ -226,7 +224,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
             tvComment.setText(mTopicInfo.getComment_amount());
-            tvCollect.setText(mTopicInfo.getCollect_amount());
 
             mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
         } else {
@@ -265,14 +262,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicCollect obj) {
-        int collectCount = Integer.parseInt(tvCollect.getText().toString());
         mTopicInfo.setCollect_status(obj.status);
+        menuItem.setEnabled(true);
         if (obj.status) {
-            ivCollect.setImageResource(R.mipmap.ic_topic_collect_pressed);
-            tvCollect.setText(String.valueOf(collectCount + 1));
+            menuItem.setIcon(R.mipmap.ic_menu_collected);
         } else {
-            ivCollect.setImageResource(R.drawable.selector_topic_collect);
-            tvCollect.setText(String.valueOf(collectCount - 1));
+            menuItem.setIcon(R.mipmap.ic_menu_collect);
         }
     }
 
