@@ -32,7 +32,7 @@
     <ImageView
         android:id="@+id/iv_product_img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:background="@drawable/rc_default_group_portrait"
@@ -114,9 +114,9 @@
         <Button
             android:id="@+id/btn_check_detail"
             android:layout_width="88dp"
-            android:gravity="center"
             android:layout_height="48dp"
             android:background="@drawable/selector_btn_bg_check_detail"
+            android:gravity="center"
             android:text="查看详情"
             android:textColor="@color/white" />
 
@@ -129,7 +129,8 @@
             android:layout_toLeftOf="@+id/iv_share"
             android:drawableLeft="@mipmap/ic_reply_count"
             android:gravity="center_vertical"
-            android:text="233" />
+            android:text="233"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/iv_share"
@@ -137,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_menu_share" />
+            android:src="@mipmap/ic_menu_share"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

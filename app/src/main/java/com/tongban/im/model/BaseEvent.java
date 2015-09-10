@@ -31,7 +31,12 @@ public class BaseEvent {
     public static class TopicInfoEvent {
         public Topic topic;
     }
-
+    /**
+     * 官方话题信息Event
+     */
+    public static class OfficialTopicInfoEvent {
+        public List<ProductBook> productBookList;
+    }
     /**
      * 话题列表Event
      */
