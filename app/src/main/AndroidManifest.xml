@@ -243,7 +243,7 @@
             android:label="@string/image_display" />
         <activity
             android:name=".activity.discover.SearchDiscoverActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustUnspecified|stateUnchanged" />
         <activity
             android:name=".activity.discover.SearchResultActivity"
             android:label="@string/search"

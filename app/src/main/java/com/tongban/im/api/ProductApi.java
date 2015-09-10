@@ -15,8 +15,9 @@ import com.tongban.im.App;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
-import com.tongban.im.model.Theme;
 import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.Tag;
+import com.tongban.im.model.Theme;
 
 import org.json.JSONObject;
 
@@ -57,8 +58,8 @@ public class ProductApi extends BaseApi {
     // 取消收藏商品
     private static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
 
-    // 返回排行前n个关键词，按照热度倒排
-    private static final String FETCH_HOTWORDS = "hotwords/require/list";
+    // 获取发现搜索页的标签
+    private static final String FETCH_DISCOVER_TAG = "tag/list";
 
     // 专题搜索
     private static final String SEARCH_THEME = "theme/search/list";
@@ -361,15 +362,19 @@ public class ProductApi extends BaseApi {
     }
 
     /**
-     * 获取热词
+     * 获取tag
      *
-     * @param limit    热词数量
+     * @param cursor   游标
+     * @param pageSize 页容
+     * @param type     tag类型
      * @param callback 回调
      */
-    public void fetchHotwords(int limit, final ApiCallback callback) {
+    public void fetchTags(int cursor, int pageSize, final String type, final ApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("limit", limit < 1 ? 1 : limit);
-        simpleRequest(FETCH_HOTWORDS, mParams, new ApiCallback() {
+        mParams.put("cursor", cursor);
+        mParams.put("page_size", pageSize);
+        mParams.put("tag_type", type);
+        simpleRequest(FETCH_DISCOVER_TAG, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -377,12 +382,13 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<List<String>> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<String>>>() {
+                ApiListResult<Tag> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Tag>>() {
                         });
-                List<String> hotwords = result.getData();
-                BaseEvent.FetchHotwordsEvent event = new BaseEvent.FetchHotwordsEvent();
-                event.hotwords = hotwords;
+                List<Tag> tagList = result.getData().getResult();
+                BaseEvent.FetchTags event = new BaseEvent.FetchTags();
+                event.type = type;
+                event.tags = tagList;
                 callback.onComplete(event);
             }
 

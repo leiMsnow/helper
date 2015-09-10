@@ -7,16 +7,18 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
 
-import com.tongban.corelib.widget.view.FlowLayout;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.DiscoverTagListAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.Tag;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,7 +30,9 @@ import java.util.List;
 public class SearchDiscoverActivity extends BaseToolBarActivity implements SearchView.OnQueryTextListener {
 
     private SearchView searchView;
-    private FlowLayout mFlowLayout;
+    private ExpandableListView mTagListView;
+    private List<Tag> mBooks, mToys, mChildEdus;
+    private DiscoverTagListAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -37,17 +41,26 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
 
     @Override
     protected void initView() {
-        mFlowLayout = (FlowLayout) findViewById(R.id.fl_hotwords);
+        mTagListView = (ExpandableListView) findViewById(R.id.elv_tags);
     }
 
     @Override
     protected void initData() {
-        ProductApi.getInstance().fetchHotwords(20, this);
+        // 获取商品相关的标签
+        ProductApi.getInstance().fetchTags(0, 12, "5", this);
     }
 
 
     @Override
     protected void initListener() {
+        // 禁用折叠
+        mTagListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                LogUtil.d("onGroupClick", "111111111");
+                return true;
+            }
+        });
 
     }
 
@@ -81,37 +94,29 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     }
 
     /**
-     * 获取热词成功的Event
+     * 获取搜索标签成功的Event
      *
      * @param event
      */
-    public void onEventMainThread(BaseEvent.FetchHotwordsEvent event) {
-        List<String> hotwords = event.hotwords;
-        if (hotwords != null && hotwords.size() > 0) {
-            mFlowLayout.removeAllViews();
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 10, 10, 10);
-            for (final String tag : hotwords) {
-                TextView tv = new TextView(mContext);
-                tv.setSingleLine();
-                tv.setMaxEms(10);
-                tv.setEllipsize(TextUtils.TruncateAt.END);
-                tv.setText(tag);
-                tv.setTextColor(getResources().getColor(R.color.main_black));
-                tv.setLayoutParams(layoutParams);
-                tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
-                tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, SearchResultActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Consts.KEY_SEARCH_VALUE, tag);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                mFlowLayout.addView(tv);
+    public void onEventMainThread(BaseEvent.FetchTags event) {
+        mBooks = new LinkedList<>();
+        mToys = new LinkedList<>();
+        mChildEdus = new LinkedList<>();
+        if ("5".equals(event.type) && event.tags != null && event.tags.size() > 0) {
+            for (Tag tag : event.tags) {
+                if ("1".equals(tag.getTag_subtype())) {
+                    mBooks.add(tag);
+                } else if ("2".equals(tag.getTag_subtype())) {
+                    mToys.add(tag);
+                } else if ("3".equals(tag.getTag_subtype())) {
+                    mChildEdus.add(tag);
+                }
+            }
+            mAdapter = new DiscoverTagListAdapter(mContext, mBooks, mToys, mChildEdus);
+            mTagListView.setAdapter(mAdapter);
+            // 默认展开
+            for (int i = 0; i < mAdapter.getGroupCount(); i++) {
+                mTagListView.expandGroup(i);
             }
         }
     }
