@@ -26,14 +26,15 @@ import io.rong.imkit.RongIM;
  */
 public class UserCenterActivity extends UserBaseActivity {
 
-    private CheckBox chbFocus;
+    private ImageView ivFocus, ivCancelFocus;
     private ImageView ivPrivateChat;
 
     @Override
     protected void initView() {
         super.initView();
         ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
-        chbFocus = (CheckBox) headView.findViewById(R.id.chb_focus);
+        ivFocus = (ImageView) headView.findViewById(R.id.iv_focus);
+        ivCancelFocus = (ImageView) headView.findViewById(R.id.iv_cancel_focus);
 
     }
 
@@ -62,7 +63,8 @@ public class UserCenterActivity extends UserBaseActivity {
     @Override
     protected void initListener() {
         super.initListener();
-        chbFocus.setOnClickListener(this);
+        ivFocus.setOnClickListener(this);
+        ivCancelFocus.setOnClickListener(this);
         ivPrivateChat.setOnClickListener(this);
     }
 
@@ -74,23 +76,29 @@ public class UserCenterActivity extends UserBaseActivity {
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
         setDataInfo(obj.user);
         tvSetChildInfo.setVisibility(View.GONE);
-        chbFocus.setVisibility(View.VISIBLE);
-        chbFocus.setChecked(mUserInfo.is_focused());
+        ivFocus.setVisibility(View.VISIBLE);
+//        ivFocus.setChecked(mUserInfo.is_focused());
         if (mUserInfo.is_focused()) {
             ivPrivateChat.setVisibility(View.VISIBLE);
+            ivCancelFocus.setVisibility(View.VISIBLE);
+            ivFocus.setVisibility(View.GONE);
         } else {
             ivPrivateChat.setVisibility(View.GONE);
+            ivCancelFocus.setVisibility(View.GONE);
+            ivFocus.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        //添加/取消关注（为checkbox设置的onClick事件的原因，逻辑正好相反）
-        if (v == chbFocus) {
-            UserCenterApi.getInstance().focusUser(chbFocus.isChecked(),
-                    mUserInfo.getUser_id(), this);
-            chbFocus.setChecked(false);
+        //关注
+        if (v == ivFocus) {
+            UserCenterApi.getInstance().focusUser(true, mUserInfo.getUser_id(), this);
+        }
+        //取消关注
+        else if (v == ivCancelFocus) {
+            UserCenterApi.getInstance().focusUser(false, mUserInfo.getUser_id(), this);
         }
         //私聊
         else if (v == ivPrivateChat) {
@@ -106,17 +114,15 @@ public class UserCenterActivity extends UserBaseActivity {
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
 
-        chbFocus.setChecked(obj.isFocus);
         if (obj.isFocus) {
             ivPrivateChat.setVisibility(View.VISIBLE);
+            ivCancelFocus.setVisibility(View.VISIBLE);
+            ivFocus.setVisibility(View.GONE);
             ToastUtil.getInstance(mContext).showToast("关注成功");
         } else {
             ivPrivateChat.setVisibility(View.GONE);
-            //TODO 改变取消关注（CheckBox）的位置
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
-                    (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            chbFocus.setLayoutParams(params);
+            ivCancelFocus.setVisibility(View.GONE);
+            ivFocus.setVisibility(View.VISIBLE);
             ToastUtil.getInstance(mContext).showToast("取消成功");
         }
     }

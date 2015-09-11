@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,7 +20,8 @@ import io.rong.imkit.RongIM;
 
 public class SettingActivity extends BaseToolBarActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
-    private TextView tvClearCache;
+    private LinearLayout llClearCache;
+    private TextView tvClearCacheNum;
     private CheckBox chbMessageNotify;
     private TextView tvAboutMe;
     private Button btnLogout;
@@ -34,7 +36,8 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     @Override
     protected void initView() {
         setTitle(R.string.settings);
-        tvClearCache = (TextView) findViewById(R.id.tv_clear_cache_img);
+        llClearCache = (LinearLayout) findViewById(R.id.ll_clear_cache);
+        tvClearCacheNum = (TextView) findViewById(R.id.tv_clear_cache_num);
         chbMessageNotify = (CheckBox) findViewById(R.id.chb_notify);
         tvAboutMe = (TextView) findViewById(R.id.tv_about_me);
         btnLogout = (Button) findViewById(R.id.btn_login_or_register);
@@ -48,7 +51,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
 
     @Override
     protected void initListener() {
-        tvClearCache.setOnClickListener(this);
+        llClearCache.setOnClickListener(this);
         chbMessageNotify.setOnCheckedChangeListener(this);
         tvAboutMe.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
@@ -56,7 +59,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        if (v == tvClearCache) {
+        if (v == llClearCache) {
             ToastUtil.getInstance(mContext).showToast("清除缓存");
         } else if (v == tvAboutMe) {
             startActivity(new Intent(mContext, AboutMeActivity.class));

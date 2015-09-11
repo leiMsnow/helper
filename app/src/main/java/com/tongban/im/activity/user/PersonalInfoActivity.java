@@ -133,10 +133,18 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivUserIcon.setImageBitmap(bitmap);
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
     }
 
     private void updateUser() {
         UserCenterApi.getInstance().updateUserInfo(editUser, PersonalInfoActivity.this);
+    }
+
+    /**
+     * 更新个人资料Event
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.EditUserEvent obj) {
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
     }
 }

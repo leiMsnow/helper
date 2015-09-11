@@ -30,7 +30,7 @@ public class UserInfoAdapter extends PagerAdapter {
 
     private View.OnClickListener onClickListener;
 
-    private TextView tvUserName, tvDeclaration;
+    private TextView tvUserName;
     private RelativeLayout rlUserInfo;
     private ImageView ivSex;
 
@@ -67,7 +67,6 @@ public class UserInfoAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         view = mInflater.inflate(R.layout.view_child_info, container, false);
         rlUserInfo = (RelativeLayout) view.findViewById(R.id.rl_user_info);
-        tvDeclaration = (TextView) view.findViewById(R.id.tv_declaration);
         tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
         ivSex = (ImageView) view.findViewById(R.id.iv_sex);
         //跳转到个人资料界面
@@ -91,17 +90,12 @@ public class UserInfoAdapter extends PagerAdapter {
             ivSex.setImageResource(R.mipmap.ic_girl);
         }
         if (child != null) {
-            tvUserName.setText(child.getNick_name() + " " +
-                    child.getAge()
-                    + " " + child.getConstellation());
+            tvUserName.setText(child.getAge() + " " + child.getConstellation());
         } else {
             tvUserName.setText("");
         }
-        tvUserName.setText(child.getNick_name() + " " +
-                child.getAge()
-                + " " + child.getConstellation());
+        tvUserName.setText(child.getAge() + " " + child.getConstellation());
 
-        tvDeclaration.setText(child.getSchool());
 
         container.addView(view, position);
         return view;
