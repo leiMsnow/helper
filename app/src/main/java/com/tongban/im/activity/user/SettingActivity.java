@@ -47,7 +47,8 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     @Override
     protected void initData() {
         long usableSpace = Glide.getPhotoCacheDir(mContext).getUsableSpace();
-        tvClearCacheNum.setText(String.valueOf(usableSpace));
+        float usableSpaceMB=usableSpace/(1024*1024*1024);
+        tvClearCacheNum.setText(String.valueOf(usableSpaceMB)+"MB");
     }
 
     @Override
@@ -61,7 +62,8 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         if (v == llClearCache) {
-            ToastUtil.getInstance(mContext).showToast("清除缓存");
+            Glide.get(mContext).clearMemory();
+            tvClearCacheNum.setText(0+"MB");
         } else if (v == tvAboutMe) {
             startActivity(new Intent(mContext, AboutMeActivity.class));
         } else if (v == btnLogout) {
