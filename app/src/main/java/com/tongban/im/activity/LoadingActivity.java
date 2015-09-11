@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.widget.Button;
 
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
@@ -43,7 +42,6 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-
     }
 
     @Override

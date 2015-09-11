@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -70,6 +71,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
             if (RongIM.getInstance() != null)
                 RongIM.getInstance().logout();
             SPUtils.clear(mContext);
+            ActivityContainer.getInstance().finishActivity();
             TransferCenter.getInstance().startLogin();
         }
     }

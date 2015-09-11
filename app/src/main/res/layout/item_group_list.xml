@@ -57,7 +57,8 @@
                 android:paddingLeft="4dp"
                 android:singleLine="true"
                 android:textColor="@color/normal_grey"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone"/>
         </RelativeLayout>
         <!--加入/已加入-->
         <Button
