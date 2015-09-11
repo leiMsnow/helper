@@ -81,7 +81,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     protected void initData() {
         // 登录后显示真实头像
         if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
+//            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
         } else {
             // 显示默认头像
             int defaultPortrait = (int) SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);

@@ -8,10 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.discover.DiscoverFragment;
 import com.tongban.im.fragment.group.GroupFragment;
@@ -35,12 +37,20 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityContainer.getInstance().finishActivity(this);
+        fetchPersonalCenter();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         ActivityContainer.getInstance().finishActivity(this);
+        fetchPersonalCenter();
+    }
+
+    private void fetchPersonalCenter() {
+        if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
+            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
+        }
     }
 
     @Override
@@ -116,7 +126,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         }
         mTabIndicator.get(index).setIconAlpha(1.0f);
         mViewPager.setCurrentItem(index, false);
-        showEmptyText("",false);
+        showEmptyText("", false);
     }
 
     @Override
