@@ -178,6 +178,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     //    //刷新图片Adapter
     public void notifyChange(String picturePath) {
         gvReplyImg.notifyChange(picturePath);
+        afterTextChanged(null);
     }
 
     /**
@@ -190,6 +191,9 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         repliedCommentId = null;
         etComment.setText("");
         etComment.setHint(mContext.getResources().getString(R.string.create_comment));
+
+        if (isClearImage)
+            gvReplyImg.clearImageInfo();
     }
 
     public void clearCommentInfo() {
@@ -235,7 +239,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (etComment.getText().length() > 0) {
+        if (etComment.getText().length() > 0 ||
+                gvReplyImg.getSelectedFile().size() > 0) {
             ivComment.setEnabled(true);
         } else {
             ivComment.setEnabled(false);

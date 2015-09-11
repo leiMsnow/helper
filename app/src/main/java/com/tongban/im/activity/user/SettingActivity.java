@@ -46,7 +46,8 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
 
     @Override
     protected void initData() {
-
+        long usableSpace = Glide.getPhotoCacheDir(mContext).getUsableSpace();
+        tvClearCacheNum.setText(String.valueOf(usableSpace));
     }
 
     @Override

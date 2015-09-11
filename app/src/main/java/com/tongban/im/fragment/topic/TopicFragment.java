@@ -162,8 +162,8 @@ public class TopicFragment extends BaseApiFragment implements View.OnClickListen
     public void onEventMainThread(ApiErrorResult obj) {
         ptrFrameLayout.refreshComplete();
         if (mAdapter != null) {
-            if (mAdapter.getCount() == 0) {
-                showEmptyText(obj.getErrorMessage(), false);
+            if (mAdapter.getCount() > 0) {
+                showEmptyText("", false);
             }
         }
     }
