@@ -117,7 +117,7 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
         title.setText(mProductBook.getProduct_name());
         flTag.removeAllViews();
         if (mProductBook.getBook_author() != null && !"".equals(mProductBook.getBook_author().trim())) {
-            author.setText("——— " + mProductBook.getBook_author());
+            author.setText(mProductBook.getBook_author());
         }
         publisher.setText(mProductBook.getPublisher());
         isbn.setText(mProductBook.getIsbn());

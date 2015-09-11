@@ -259,7 +259,7 @@ public class ThemeActivity extends BaseToolBarActivity {
                 }
                 productDesc.setText(productBook.getBook_content_desc().trim());
                 if (productBook.getBook_author() != null) {
-                    author.setText("——— " + productBook.getBook_author().trim());
+                    author.setText(productBook.getBook_author().trim());
                 } else {
                     author.setVisibility(View.GONE);
                 }
