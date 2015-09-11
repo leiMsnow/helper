@@ -42,6 +42,7 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
+
     }
 
     @Override
@@ -77,7 +78,7 @@ public class LoadingActivity extends BaseToolBarActivity {
                 }
                 FileUploadApi.getInstance().fetchUploadToken();
             }
-        }, 3 * 1000);
+        }, 5 * 1000);
     }
 
     //随机生成一个头像标记
