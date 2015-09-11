@@ -88,6 +88,9 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
 
     public void onEventMainThread(ApiErrorResult obj) {
         ptrFrameLayout.refreshComplete();
+        if (mAdapter.getCount() > 0) {
+            showEmptyText("", false);
+        }
     }
 
     /**

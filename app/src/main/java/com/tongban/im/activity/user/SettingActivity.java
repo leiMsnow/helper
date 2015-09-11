@@ -8,11 +8,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.TransferCenter;
+
+import io.rong.imkit.RongIM;
 
 public class SettingActivity extends BaseToolBarActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
@@ -55,10 +58,11 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     public void onClick(View v) {
         if (v == tvClearCache) {
             ToastUtil.getInstance(mContext).showToast("清除缓存");
-            SPUtils.clear(mContext);
         } else if (v == tvAboutMe) {
             startActivity(new Intent(mContext, AboutMeActivity.class));
         } else if (v == btnLogout) {
+            if (RongIM.getInstance() != null)
+                RongIM.getInstance().logout();
             SPUtils.clear(mContext);
             TransferCenter.getInstance().startLogin(true);
         }

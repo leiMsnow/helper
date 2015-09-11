@@ -55,7 +55,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
 
 
         ivOfficialPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
-        tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_child_age);
+        tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
         tvCreateTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
         tvOfficialTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
         tvOfficialTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
@@ -119,20 +119,16 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
      * @param obj
      */
     public void onEventMainThread(BaseEvent.OfficialTopicInfoEvent obj) {
-        Log.d("onComplete", "onComplete2");
         for (int i = 0; i < obj.productBookList.size(); i++) {
-            Log.d("onComplete", "onComplete3");
             OfficialTopic officialTopic = new OfficialTopic();
             ProductBook productBook = obj.productBookList.get(i);
             officialTopic.setItemType(OfficialTopic.PRODUCT);
             officialTopic.setProduct(productBook);
             mAdapter.getDataAll().add(officialTopic);
-            Log.d("onComplete", "onComplete4");
         }
         mAdapter.notifyDataSetChanged();
         //获取话题详情接口
         TopicApi.getInstance().getTopicInfo(mTopicId, this);
-
     }
 
     /**
@@ -158,7 +154,9 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
         if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
-            Glide.with(mContext).load(obj.topic.getUser_info().getPortrait_url().getMin()).into(ivOfficialPortrait);
+            Glide.with(mContext).load(obj.topic.getUser_info().getPortrait_url().
+
+                    getMin()).into(ivOfficialPortrait);
         } else {
             ivOfficialPortrait.setImageResource(R.drawable.rc_default_portrait);
         }
@@ -175,6 +173,5 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         mAdapter.notifyDataSetChanged();
         //获取评论接口
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
-
     }
 }

@@ -2,10 +2,12 @@ package com.tongban.im.adapter;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.model.OfficialTopic;
 
@@ -34,8 +36,10 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         if (item.getItemType() == OfficialTopic.PRODUCT) {
             if (item.getProduct() != null) {
                 if (item.getProduct().getProduct_img_url() != null) {
-                    helper.setImageBitmap(R.id.iv_product_icon, item.getProduct().getProduct_img_url().get(0).getMin());
-                    helper.setImageBitmap(R.id.iv_product_img, item.getProduct().getProduct_img_url().get(0).getMin());
+                    helper.setImageBitmap(R.id.iv_product_icon, item.getProduct()
+                            .getProduct_img_url().get(0).getMin());
+                    helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
+                            .getProduct_img_url().get(0).getMin());
                 } else {
                     helper.setImageResource(R.id.iv_product_icon, R.drawable.rc_default_portrait);
                     helper.setImageResource(R.id.iv_product_img, R.drawable.rc_default_portrait);
@@ -50,14 +54,13 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         }
         //数量（评论、点赞）相关
         else if (item.getItemType() == OfficialTopic.REPLY_NUM) {
-//            helper.setText(R.id.tv_praise_count, item.getTopic().getTopicPraiseNum());
             helper.setText(R.id.tv_comment_count, item.getTopic().getComment_amount());
-//            helper.setText(R.id.tv_location, item.getTopic().getTopicAddress());
         }
         //评论列表相关
         else if (item.getItemType() == OfficialTopic.REPLY) {
             if (item.getTopicReply().getUser_info().getPortrait_url() != null) {
-                helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply().getUser_info().getPortrait_url().getMin());
+                helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply()
+                        .getUser_info().getPortrait_url().getMin());
             } else {
                 helper.setImageResource(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
             }
@@ -67,4 +70,12 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         }
     }
 
+    @Override
+    protected void onFirstCreateView(BaseAdapterHelper helper, OfficialTopic item) {
+        if (item.getItemType() == OfficialTopic.PRODUCT) {
+            ViewGroup.LayoutParams lp = helper.getView(R.id.iv_product_img).getLayoutParams();
+            lp.height = ScreenUtils.getScreenWidth(mContext) / 4 * 3;
+            helper.getView(R.id.iv_product_img).setLayoutParams(lp);
+        }
+    }
 }
