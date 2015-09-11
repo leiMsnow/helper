@@ -6,8 +6,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
@@ -25,27 +23,15 @@ import java.util.List;
 public class UserInfoAdapter extends PagerAdapter {
     private Context mContext;
     private List<Child> mChildInfoList;
-    private LayoutInflater mInflater;
-    private View view;
 
-    private View.OnClickListener onClickListener;
+    private TextView tvChildInfo;
 
-    private TextView tvUserName;
-    private RelativeLayout rlUserInfo;
-    private ImageView ivSex;
-
-    private Child child;
     private String userId;
 
-    public UserInfoAdapter(Context context, List<Child> mChildInfoList,String userId) {
+    public UserInfoAdapter(Context context, List<Child> mChildInfoList, String userId) {
         this.mContext = context;
         this.mChildInfoList = mChildInfoList;
-        this.userId=userId;
-        mInflater = LayoutInflater.from(mContext);
-    }
-
-    public void setOnClickListener(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
+        this.userId = userId;
     }
 
     @Override
@@ -65,38 +51,25 @@ public class UserInfoAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        view = mInflater.inflate(R.layout.view_child_info, container, false);
-        rlUserInfo = (RelativeLayout) view.findViewById(R.id.rl_user_info);
-        tvUserName = (TextView) view.findViewById(R.id.tv_user_name);
-        ivSex = (ImageView) view.findViewById(R.id.iv_sex);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.view_child_info, container, false);
+        tvChildInfo = (TextView) view.findViewById(R.id.tv_child_info);
         //跳转到个人资料界面
-        if (SPUtils.get(mContext, Consts.USER_ID,"").equals(userId)){
-            rlUserInfo.setOnClickListener(new View.OnClickListener() {
+        if (SPUtils.get(mContext, Consts.USER_ID, "").equals(userId)) {
+            tvChildInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
                 }
             });
-        }else {
-//            rlUserInfo.setEnabled(false);
-            rlUserInfo.setVisibility(View.GONE);
-        }
-
-
-        child = mChildInfoList.get(position);
-        if (child.StrSex().equals("男")) {
-            ivSex.setImageResource(R.mipmap.ic_boy);
         } else {
-            ivSex.setImageResource(R.mipmap.ic_girl);
+            tvChildInfo.setVisibility(View.GONE);
         }
+        Child child = mChildInfoList.get(position);
         if (child != null) {
-            tvUserName.setText(child.getAge() + " " + child.getConstellation());
+            tvChildInfo.setText(child.getAge() + "岁 |" + child.getConstellation());
         } else {
-            tvUserName.setText("");
+            tvChildInfo.setText("");
         }
-        tvUserName.setText(child.getAge() + " " + child.getConstellation());
-
-
         container.addView(view, position);
         return view;
     }

@@ -148,10 +148,11 @@ public class TransferCenter {
     /**
      * 是否已经登录，没有登录则跳转到登录界面
      *
-     * @param isOpenMain 是否跳转到main界面，有的界面需要登录完成后返回
+     * @param isOpenMain    是否跳转到main界面，有的界面需要登录完成后返回
+     * @param isOtherClient 是否其它设备登录
      * @return true 已经登录；false 未登录
      */
-    public boolean startLogin(boolean isOpenMain) {
+    public boolean startLogin(boolean isOpenMain, boolean isOtherClient) {
         if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals("")) {
             if (isOpenMain) {
                 ActivityContainer.getInstance().finishActivity();
@@ -160,6 +161,7 @@ public class TransferCenter {
                     .appendPath(TransferPathPrefix.LOGIN).build();
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.putExtra(Consts.KEY_IS_MAIN, isOpenMain);
+            intent.putExtra(Consts.KEY_OTHER_CLIENT, isOtherClient);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
             return false;
@@ -167,8 +169,12 @@ public class TransferCenter {
         return true;
     }
 
+    public boolean startLoginOtherClient() {
+        return startLogin(true, true);
+    }
+
     public boolean startLogin() {
-        return startLogin(false);
+        return startLogin(false, false);
     }
 
     /**

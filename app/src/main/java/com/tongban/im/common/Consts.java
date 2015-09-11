@@ -41,6 +41,10 @@ public class Consts {
      */
     public static final String KEY_IS_MAIN = "KEY_IS_MAIN";
     /**
+     * 其它设备登录
+     */
+    public static final String KEY_OTHER_CLIENT = "KEY_OTHER_CLIENT";
+    /**
      * IM系统的Token
      */
     public static final String IM_BIND_TOKEN = "IM_BIND_TOKEN";

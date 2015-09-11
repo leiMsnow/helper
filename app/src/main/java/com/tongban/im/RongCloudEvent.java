@@ -1,7 +1,6 @@
 package com.tongban.im;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -10,9 +9,7 @@ import android.view.View;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.db.bean.GroupTable;
@@ -444,18 +441,11 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         LogUtil.d(TAG, "onChanged:" + status);
         if (status.getMessage().equals(ConnectionStatus.DISCONNECTED.getMessage())) {
 
-        } else if (status.equals(RongIMClient.ConnectionStatusListener.ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT)) {
-            BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
-            dialog.setMessage("您的账号已在别的设备登录");
-            dialog.setPositiveButton("确定",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            SPUtils.clear(mContext);
-                            TransferCenter.getInstance().startLogin(true);
-                        }
-                    });
-            dialog.show();
+        } else if (status.equals(RongIMClient.ConnectionStatusListener
+                .ConnectionStatus.KICKED_OFFLINE_BY_OTHER_CLIENT)) {
+            RongIM.getInstance().logout();
+            SPUtils.clear(mContext);
+            TransferCenter.getInstance().startLoginOtherClient();
         }
     }
 

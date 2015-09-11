@@ -68,7 +68,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
             if (RongIM.getInstance() != null)
                 RongIM.getInstance().logout();
             SPUtils.clear(mContext);
-            TransferCenter.getInstance().startLogin(true);
+            TransferCenter.getInstance().startLogin();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.tongban.im.activity.user;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.ClearEditText;
@@ -40,6 +43,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private Button btnLogin;
 
     private String mUser, mPwd;
+    //是否其他设备登录进入
+    private boolean isOther = false;
     //是否需要跳转到main界面
     private boolean mIsOpenMain;
 
@@ -62,7 +67,19 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     @Override
     protected void initData() {
         mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
-        mUser = SPUtils.get(mContext, Consts.USER_ACCOUNT, "").toString();
+        isOther = getIntent().getBooleanExtra(Consts.KEY_OTHER_CLIENT, false);
+        if (isOther) {
+            BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
+            dialog.setMessage("您的账号已在别的设备登录");
+            dialog.setPositiveButton("确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                        }
+                    });
+            dialog.show();
+        }
+        mUser = SPUtils.get(mContext,SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, "").toString();
         etUser.setText(mUser);
     }
 
@@ -118,7 +135,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     //登录成功
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
-        SPUtils.put(mContext, Consts.USER_ACCOUNT, mUser);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, mUser);
         if (TextUtils.isEmpty(obj.user.getNick_name())) {
             Intent intent = new Intent(mContext, RegisterActivity.class);
             Bundle bundle = new Bundle();
