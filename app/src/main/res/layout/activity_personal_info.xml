@@ -20,6 +20,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_update_user_portrait"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
@@ -119,19 +120,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
-
-                <TextView
-                    style="@style/ChatSettingLeftText"
-                    android:text="地区" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    style="@style/ChatSettingRightText" />
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
