@@ -17,7 +17,7 @@ import com.tongban.im.model.BaseEvent;
  */
 public class PersonalCenterActivity extends UserBaseActivity implements View.OnClickListener {
 
-    private TextView tvMyTopic, tvMyCollect, tvFeedBack, tvSettings;
+    private TextView tvMyTopic, tvMyCollect, tvSettings;
 
     @Override
     protected void initView() {
@@ -25,12 +25,10 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         //contentView
         tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
-        tvFeedBack = (TextView) contentView.findViewById(R.id.tv_feedback);
         tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
 
         tvMyTopic.setVisibility(View.VISIBLE);
         tvMyCollect.setVisibility(View.VISIBLE);
-        tvFeedBack.setVisibility(View.VISIBLE);
         tvSettings.setVisibility(View.VISIBLE);
     }
 
@@ -45,7 +43,6 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         tvSetChildInfo.setOnClickListener(this);
         tvMyCollect.setOnClickListener(this);
         tvMyTopic.setOnClickListener(this);
-        tvFeedBack.setOnClickListener(this);
         tvSettings.setOnClickListener(this);
     }
 
@@ -60,10 +57,6 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         //跳转到我的收藏界面
         else if (v == tvMyCollect) {
             startActivity(new Intent(this, MyCollectActivity.class));
-        }
-        //跳转到意见反馈
-        else if (v == tvFeedBack) {
-            startActivity(new Intent(mContext, FeedbackActivity.class));
         }
         //跳转到设置界面
         else if (v == tvSettings) {

@@ -336,9 +336,10 @@
         <activity
             android:name=".activity.user.ChildInfoActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.FeedbackActivity"></activity>
-        <activity android:name=".activity.user.SettingActivity"></activity>
-        <activity android:name=".activity.user.AboutMeActivity"></activity>
+        <activity android:name=".activity.user.FeedbackActivity" />
+        <activity android:name=".activity.user.SettingActivity" />
+        <activity android:name=".activity.user.AboutMeActivity" />
+        <activity android:name=".activity.user.UpdatePersonalInfoActivity"></activity>
     </application>
 
 </manifest>

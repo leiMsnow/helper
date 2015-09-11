@@ -28,7 +28,7 @@ import com.tongban.im.widget.view.CameraView;
  */
 public class PersonalInfoActivity extends CameraResultActivity implements View.OnClickListener,
         CameraResultActivity.IPhotoListener {
-    private LinearLayout llUpdateUserPortrait;
+    private LinearLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool;
@@ -48,6 +48,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     protected void initView() {
         setTitle("个人资料");
         llUpdateUserPortrait = (LinearLayout) findViewById(R.id.ll_update_user_portrait);
+        llNickName = (LinearLayout) findViewById(R.id.ll_nickname);
+        llChildSex = (LinearLayout) findViewById(R.id.ll_sex);
+        llChildAge = (LinearLayout) findViewById(R.id.ll_child_age);
+        llChildConstellation = (LinearLayout) findViewById(R.id.ll_child_constellation);
+
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
         tvNickName = (TextView) findViewById(R.id.tv_user_name);
         tvPhoneNum = (TextView) findViewById(R.id.tv_phone_num);
@@ -68,6 +73,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         setmPhotoListener(this);
 
         llUpdateUserPortrait.setOnClickListener(this);
+        llNickName.setOnClickListener(this);
+        llChildSex.setOnClickListener(this);
+        llChildAge.setOnClickListener(this);
+        llChildConstellation.setOnClickListener(this);
+
         tvNickName.setOnClickListener(this);
         tvPhoneNum.setOnClickListener(this);
         tvChildAge.setOnClickListener(this);
@@ -100,6 +110,21 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         //修改头像
         if (v == llUpdateUserPortrait) {
             createDialog();
+        }
+        //修改昵称
+        else if (v == llNickName) {
+
+        }
+        //修改性别
+        else if (v == llChildSex) {
+
+        }
+        //修改年龄
+        else if (v == llChildAge) {
+
+        }
+        //修改星座
+        else if (v == llChildConstellation) {
 
         }
     }

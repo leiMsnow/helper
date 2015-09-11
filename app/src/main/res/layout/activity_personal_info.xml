@@ -38,6 +38,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_nickname"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
@@ -64,6 +65,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_sex"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
@@ -78,6 +80,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_child_age"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
@@ -92,6 +95,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_child_constellation"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
