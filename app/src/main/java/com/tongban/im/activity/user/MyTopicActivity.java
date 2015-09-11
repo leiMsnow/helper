@@ -90,7 +90,6 @@ public class MyTopicActivity extends CommonImageResultActivity implements
         //回复我的话题
         MyCommentTopicFragment myCommentTopicFragment=new MyCommentTopicFragment();
         mTabs.add(myCommentTopicFragment);
-//        topicInputView = myCommentTopicFragment.getTopicInputView();
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public int getCount() {

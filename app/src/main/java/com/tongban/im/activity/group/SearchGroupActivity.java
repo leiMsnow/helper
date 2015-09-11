@@ -82,6 +82,11 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
         return true;
     }
 
+    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
+        searchView.onActionViewCollapsed();
+    }
+
+
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;

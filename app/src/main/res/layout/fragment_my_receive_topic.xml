@@ -6,8 +6,7 @@
         android:id="@+id/lv_receive_topic_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/topic_input"
-        android:cacheColorHint="@android:color/transparent"
+        android:cacheColorHint="@color/transparent"
         android:divider="@null"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -18,5 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:visibility="gone"/>
+        android:background="@color/transparent"
+        android:visibility="invisible"/>
 </RelativeLayout>

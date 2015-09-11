@@ -148,6 +148,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     public void onClick(View v) {
         //重置回复话题
         if (v == ivComment) {
+            if (!TransferCenter.getInstance().startLogin()) {
+                return;
+            }
             topicInputView.clearCommentInfo();
             topicInputView.focusEdit();
         }

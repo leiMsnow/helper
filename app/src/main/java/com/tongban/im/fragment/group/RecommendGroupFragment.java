@@ -117,6 +117,7 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
      */
     public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
         if (!mIsFromMain) {
+            mCursor = 0;
             mKeyword = keyEvent.keyword;
             GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
         }

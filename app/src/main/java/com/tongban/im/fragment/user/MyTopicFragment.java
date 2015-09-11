@@ -36,7 +36,6 @@ public class MyTopicFragment extends BaseApiFragment implements View.OnClickList
 
     private int mCursor = 0;
     private int mPageSize = 10;
-    private Topic topic;
 
     @Override
     protected int getLayoutRes() {

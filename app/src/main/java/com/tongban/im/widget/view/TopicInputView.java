@@ -17,6 +17,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.MultiUploadFileCallback;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.ImageUrl;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     private Context mContext;
 
+    private IKeyboardListener keyboardListener;
     private IOnClickCommentListener onClickCommentListener;
 
     private String repliedName;
@@ -50,6 +52,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private int mRootLocation;
 
     private int mCommentLength = 500;
+
+    public void setKeyboardListener(IKeyboardListener keyboardListener) {
+        this.keyboardListener = keyboardListener;
+    }
 
     public EditText getEtComment() {
         return etComment;
@@ -104,12 +110,19 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                         }
                         // 如果键盘抬起,记录up状态
                         if (TopicInputView.this.getTop() < mRootLocation) {
+                            if (!TransferCenter.getInstance().startLogin()) {
+                                return;
+                            }
                             isUp = true;
                         }
                         //如果是up并且高度变回来了，就清除回复状态
                         if (isUp && TopicInputView.this.getTop() == mRootLocation) {
                             isUp = false;
                             clearCommentInfo(isClearImage);
+                        }
+                        //键盘事件回调
+                        if (keyboardListener != null) {
+                            keyboardListener.boardStatus(isUp);
                         }
                     }
                 });
@@ -129,6 +142,9 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                             repliedCommentId, repliedName, repliedUserId, null);
             }
         } else if (v == ivAddImg) {
+            if (!TransferCenter.getInstance().startLogin()) {
+                return;
+            }
             isClearImage = gvReplyImg.getSelectedFile().size() == 0;
             if (gvReplyImg.getVisibility() == View.VISIBLE) {
                 gvReplyImg.setVisibility(View.GONE);
@@ -237,5 +253,9 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     public interface IOnClickCommentListener {
         void onClickComment(String commentContent, String repliedCommentId,
                             String repliedName, String repliedUserId, List<ImageUrl> selectedFile);
+    }
+
+    public interface IKeyboardListener {
+        void boardStatus(boolean isUp);
     }
 }

@@ -202,7 +202,7 @@ public class GroupApi extends BaseApi {
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new ApiCallback() {
@@ -250,7 +250,7 @@ public class GroupApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
@@ -335,7 +335,7 @@ public class GroupApi extends BaseApi {
     public void getGroupMembersList(String groupId, int cursor, int pageSize, final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
-        mParams.put("cursor", cursor < 1 ? 1 : cursor);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
         simpleRequest(GROUP_MEMBERS_INFO, mParams, new ApiCallback() {

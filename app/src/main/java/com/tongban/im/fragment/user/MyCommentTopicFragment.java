@@ -1,13 +1,11 @@
 package com.tongban.im.fragment.user;
 
 
-import android.media.Image;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -28,7 +26,8 @@ import java.util.List;
  * @author fushudi
  */
 public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.IOnClickCommentListener {
+        AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.IOnClickCommentListener
+        , TopicInputView.IKeyboardListener {
     private LoadMoreListView mListView;
     private MyCommentTopicAdapter mAdapter;
     private TopicInputView topicInputView;
@@ -62,6 +61,7 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
         mListView.setOnItemClickListener(this);
         mListView.setOnLoadMoreListener(this);
         topicInputView.setOnClickCommentListener(this);
+        topicInputView.setKeyboardListener(this);
     }
 
     @Override
@@ -69,9 +69,6 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
         switch (v.getId()) {
             case R.id.iv_user_portrait:
                 String visitorId = v.getTag(Integer.MAX_VALUE).toString();
-//                Intent intent = new Intent(mContext, UserCenterActivity.class);
-//                intent.putExtra("visitorId", visitorId);
-//                startActivity(intent);
                 TransferCenter.getInstance().startUserCenter(visitorId);
                 break;
             case R.id.tv_comment:
@@ -109,9 +106,9 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
 
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId,List<ImageUrl> selectedFile) {
+                               String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId,selectedFile, this);
+                repliedName, repliedUserId, selectedFile, this);
     }
 
     /**
@@ -122,6 +119,14 @@ public class MyCommentTopicFragment extends BaseApiFragment implements View.OnCl
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         topicInputView.clearCommentInfo();
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
-        ToastUtil.getInstance(mContext).showToast("回复成功");
+    }
+
+    @Override
+    public void boardStatus(boolean isUp) {
+        if (!isUp) {
+            topicInputView.setVisibility(View.INVISIBLE);
+        } else {
+            topicInputView.setVisibility(View.VISIBLE);
+        }
     }
 }
