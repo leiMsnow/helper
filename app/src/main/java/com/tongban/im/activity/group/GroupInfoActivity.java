@@ -163,9 +163,11 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         mMemberGridAdapter.addAll(obj.users);
     }
 
+
     public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {
-        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
     }
+
 
     protected String getQuitMessage() {
         Random random = new Random();

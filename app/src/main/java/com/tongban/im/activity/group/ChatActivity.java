@@ -10,6 +10,7 @@ import android.view.View;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.model.BaseEvent;
 
 import io.rong.imkit.model.Event;
 
@@ -73,6 +74,10 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {
+        finish();
     }
 
 
