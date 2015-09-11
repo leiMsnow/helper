@@ -3,14 +3,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_transparent_to_gray"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="16dp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/main_black"
         android:textSize="16sp"/>
@@ -36,4 +36,5 @@
         android:drawableLeft="@mipmap/ic_discover_collect_count"
         android:drawablePadding="4dp"
         android:textColor="@color/normal_grey"/>
+
 </RelativeLayout>
