@@ -41,7 +41,6 @@
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:layout_margin="4dp"
         android:textSize="16sp"/>
 
