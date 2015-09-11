@@ -78,7 +78,7 @@ public class LoadingActivity extends BaseToolBarActivity {
                 }
                 FileUploadApi.getInstance().fetchUploadToken();
             }
-        }, 5 * 1000);
+        }, 3 * 1000);
     }
 
     //随机生成一个头像标记
