@@ -1,6 +1,5 @@
 package com.tongban.im.activity.group;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +32,6 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
     //最大选择数量
     private int mMaxCount = 0;
     private int mGroupType = 0;
-//    private List<Tag> selectedLabel = new ArrayList<>();
 
     private List<String> selectedTagId = new ArrayList<>();
 
@@ -42,6 +40,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             selectedTagId = getIntent().getExtras().getStringArrayList("selectTag");
+            mMaxCount = selectedTagId.size();
             setToolbarTheme(mGroupType);
         }
         return R.layout.activity_lable_list;

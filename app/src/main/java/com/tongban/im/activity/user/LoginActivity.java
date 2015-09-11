@@ -144,7 +144,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
             startActivity(intent);
             finish();
         } else {
-            connectIM(obj.user.getChild_info() == null);
+            connectIM(mIsOpenMain,obj.user.getChild_info() == null);
         }
     }
 
