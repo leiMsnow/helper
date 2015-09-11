@@ -9,7 +9,6 @@
         android:id="@+id/lv_my_group_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:background="@color/weak_grey"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
