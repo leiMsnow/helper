@@ -102,6 +102,7 @@
                 android:id="@+id/ll_topic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -119,15 +120,15 @@
                     android:text="相关话题"
                     android:textColor="@color/main_brown"
                     android:textSize="16sp"/>
-                <!-- 分割线 -->
-                <View style="@style/HorizontalLine"/>
 
                 <!-- 相关话题列表 -->
                 <LinearLayout
                     android:id="@+id/ll_topic_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
+                    android:divider="@drawable/shape_horizontal_line"
+                    android:orientation="vertical"
+                    android:showDividers="middle|end|beginning"/>
             </LinearLayout>
         </LinearLayout>
 

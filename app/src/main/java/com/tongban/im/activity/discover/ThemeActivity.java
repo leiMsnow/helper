@@ -292,7 +292,8 @@ public class ThemeActivity extends BaseToolBarActivity {
         }
         mTopicContainer.setVisibility(View.VISIBLE);
         View view;
-        for (final Topic topic : topics) {
+        for (int i = 0; i < topics.size(); i++) {
+            final Topic topic = topics.get(i);
             view = getLayoutInflater().inflate(R.layout.item_topic_in_theme, null, false);
             TextView title = (TextView) view.findViewById(R.id.tv_title);
             TextView commentCount = (TextView) view.findViewById(R.id.tv_comment_count);
