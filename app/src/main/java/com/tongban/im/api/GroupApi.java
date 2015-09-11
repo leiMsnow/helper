@@ -56,6 +56,10 @@ public class GroupApi extends BaseApi {
      * 获取圈子成员列表接口
      */
     public static final String GROUP_MEMBERS_INFO = "group/members/list";
+    /**
+     * 用户退出圈子
+     */
+    public static final String USER_QUIT_GROUP = "user/quit/group";
 
 
     private GroupApi(Context context) {
@@ -355,6 +359,43 @@ public class GroupApi extends BaseApi {
                 memberEvent.users = result.getData().getResult();
                 if (callback != null)
                     callback.onComplete(memberEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(DisplayType.Toast, errorMessage);
+            }
+        });
+    }
+
+    /**
+     * 退出圈子
+     *
+     * @param groupId  圈子
+     * @param callback
+     */
+    public void quitGroup(String groupId, final ApiCallback callback) {
+
+        if (!TransferCenter.getInstance().startLogin())
+            return;
+
+        mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("group_id", groupId);
+
+        simpleRequest(USER_QUIT_GROUP, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                BaseEvent.QuitGroupEvent quit = new BaseEvent.QuitGroupEvent();
+                if (callback != null)
+                    callback.onComplete(quit);
             }
 
             @Override

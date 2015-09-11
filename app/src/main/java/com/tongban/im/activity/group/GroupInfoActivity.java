@@ -1,5 +1,7 @@
 package com.tongban.im.activity.group;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,14 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
+import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Group;
+
+import java.util.Random;
 
 /**
  * 群组信息/设置
@@ -105,7 +112,28 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == btnQuit) {
-            ToastUtil.getInstance(mContext).showToast("就不退出");
+            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mGroup.getUser_info().getUser_id())) {
+                ToastUtil.getInstance(mContext).showToast(getQuitMessage());
+                return;
+            }
+            BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
+            dialog.setMessage("退出圈子?");
+            dialog.setPositiveButton("我要退出",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            GroupApi.getInstance().quitGroup(mGroupId, GroupInfoActivity.this);
+                        }
+                    });
+            dialog.setNegativeButton("还是留下吧",
+                    new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                        }
+                    });
+            dialog.show();
         }
     }
 
@@ -122,7 +150,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         tvAttrs.setText(mGroup.getGroupType());
 //        tvDesc.setText(mGroup.getDeclaration());
 
-        if (mGroup.getUser_info() != null&&mGroup.getUser_info().getPortrait_url() != null) {
+        if (mGroup.getUser_info() != null && mGroup.getUser_info().getPortrait_url() != null) {
             Glide.with(mContext).load(mGroup.getUser_info().getPortrait_url().getMin()).
                     placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
                     .into(ivCreator);
@@ -134,4 +162,17 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {
         mMemberGridAdapter.addAll(obj.users);
     }
+
+    public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {
+        startActivity(new Intent(mContext, MainActivity.class));
+    }
+
+    protected String getQuitMessage() {
+        Random random = new Random();
+        int count = mContext.getResources().
+                getStringArray(R.array.quit_group).length;
+        return mContext.getResources().getStringArray(R.array.quit_group)
+                [random.nextInt(count)].toString();
+    }
+
 }

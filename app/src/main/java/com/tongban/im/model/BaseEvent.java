@@ -31,12 +31,14 @@ public class BaseEvent {
     public static class TopicInfoEvent {
         public Topic topic;
     }
+
     /**
      * 官方话题信息Event
      */
     public static class OfficialTopicInfoEvent {
         public List<ProductBook> productBookList;
     }
+
     /**
      * 话题列表Event
      */
@@ -111,6 +113,10 @@ public class BaseEvent {
         public String group_id;
         public String group_name;
         public boolean is_verify;
+    }
+
+    public static class QuitGroupEvent {
+
     }
 
     /**

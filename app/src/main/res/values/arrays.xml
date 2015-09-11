@@ -11,4 +11,15 @@
         <item>戳我!戳我!</item>
         <item>您操作的太频繁了!</item>
     </array>
+
+    <array name="quit_group">
+        <item>大王，您不能走啊</item>
+        <item>老大，还有好多事等您办理呢</item>
+        <item>宝妈宝爸离不开您啊</item>
+        <item>熊孩子需要您来治疗</item>
+        <item>圈子不可一日无主</item>
+        <item>您是群主，三思而后退</item>
+        <item>Are you kidding me? master</item>
+        <item>与你只若初见何须肝肠离别</item>
+    </array>
 </resources>
