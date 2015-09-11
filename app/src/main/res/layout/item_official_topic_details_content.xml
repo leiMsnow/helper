@@ -11,20 +11,22 @@
 
         <ImageView
             android:id="@+id/iv_product_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/rc_default_portrait" />
+            android:src="@drawable/shape_circle_bg_deep_orange" />
 
         <TextView
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_product_icon"
+            android:layout_alignTop="@+id/iv_product_icon"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
             android:layout_toRightOf="@+id/iv_product_icon"
-            android:text="澳大利亚品牌"
+            android:gravity="center"
             android:textColor="@color/main_black"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -35,7 +37,6 @@
         android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:background="@drawable/rc_default_group_portrait"
         android:scaleType="fitXY" />
 
     <TextView
@@ -114,7 +115,9 @@
         <Button
             android:id="@+id/btn_check_detail"
             android:layout_width="88dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
             android:background="@drawable/selector_btn_bg_check_detail"
             android:gravity="center"
             android:text="查看详情"
@@ -127,18 +130,10 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@+id/iv_share"
-            android:drawableLeft="@mipmap/ic_reply_count"
+            android:drawableLeft="@mipmap/ic_topic_comment"
+            android:drawablePadding="4dp"
             android:gravity="center_vertical"
-            android:text="233"
-            android:visibility="gone" />
+            android:text="233" />
 
-        <ImageView
-            android:id="@+id/iv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_menu_share"
-            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

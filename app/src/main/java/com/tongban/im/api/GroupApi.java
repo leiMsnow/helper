@@ -51,7 +51,7 @@ public class GroupApi extends BaseApi {
     /**
      * 圈子详情接口
      */
-    public static final String GROUP_INFO = "group/info";
+    public static final String GROUP_INFO = "group/card";
     /**
      * 获取圈子成员列表接口
      */
@@ -297,7 +297,9 @@ public class GroupApi extends BaseApi {
      * @param callback
      */
     public void getGroupInfo(String groupId, final ApiCallback callback) {
+
         mParams = new HashMap<>();
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_id", groupId);
 
         simpleRequest(GROUP_INFO, mParams, new ApiCallback() {

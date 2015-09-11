@@ -74,7 +74,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
                         new IMultiItemTypeSupport<OfficialTopic>() {
                             @Override
                             public int getLayoutId(int position, OfficialTopic o) {
-                                //官方话题内容
+                                //官方商品
                                 if (o.getItemType() == OfficialTopic.PRODUCT) {
                                     return R.layout.item_official_topic_details_content;
                                 }
