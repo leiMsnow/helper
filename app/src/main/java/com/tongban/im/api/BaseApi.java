@@ -155,7 +155,6 @@ public class BaseApi {
                                 long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
                                 LogUtil.d("TIME_DISMATCH", dif + "");
                                 CheckID.difMills = dif;
-                                callback.onFailure(ApiCallback.DisplayType.Toast, "请重试");
                             } else {
                                 ApiResult apiResponse = new ApiResult();
                                 apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));

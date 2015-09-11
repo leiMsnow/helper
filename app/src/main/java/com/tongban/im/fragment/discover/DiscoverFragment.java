@@ -168,6 +168,9 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     public void onEventMainThread(ApiErrorResult obj) {
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
+        if (mAdapter.getCount() > 0) {
+            showEmptyText("", false);
+        }
     }
 
     @Override
