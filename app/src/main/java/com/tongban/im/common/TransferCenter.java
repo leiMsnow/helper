@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.LogUtil;
@@ -73,6 +74,7 @@ public class TransferCenter {
                 .appendQueryParameter("visitorId", visitorId)
                 .appendQueryParameter("center_tag", center_tag)
                 .build();
+        Log.d("TransferCenter",visitorId);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
