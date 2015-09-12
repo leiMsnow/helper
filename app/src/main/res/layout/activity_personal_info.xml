@@ -23,18 +23,19 @@
             <RelativeLayout
                 android:id="@+id/ll_update_user_portrait"
                 style="@style/ChatSettingLayout"
-                android:minHeight="56dp">
+                android:layout_height="96dp">
 
                 <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_user_icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center" />
 
                 <TextView
                     android:id="@+id/tv_group_name"
                     style="@style/ChatSettingRightText"
                     android:text="修改头像"
+                    android:layout_alignParentTop="true"
                     android:textColor="@drawable/selector_text_color" />
             </RelativeLayout>
 
@@ -52,8 +53,7 @@
                     style="@style/ChatSettingRightText" />
             </RelativeLayout>
 
-            <RelativeLayout
-                style="@style/ChatSettingLayout">
+            <RelativeLayout style="@style/ChatSettingLayout">
 
                 <TextView
                     style="@style/ChatSettingLeftText"

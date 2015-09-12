@@ -10,7 +10,7 @@
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">48dp</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
