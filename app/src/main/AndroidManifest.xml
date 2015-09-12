@@ -338,7 +338,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.user.FeedbackActivity" />
         <activity android:name=".activity.user.SettingActivity" />
-        <activity android:name=".activity.user.AboutMeActivity" />
+        <activity android:name=".activity.user.AboutActivity" />
         <activity android:name=".activity.user.UpdatePersonalInfoActivity"></activity>
     </application>
 

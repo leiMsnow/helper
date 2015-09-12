@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:textSize="16sp"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:onClick="onClick"
         android:text="
 两罐　喝不完的啤酒　
 午后　屋顶上的Girls's Talk
@@ -39,5 +41,6 @@
 闭上眼　会看见Beautiful　
 你拥有　最体贴的朋友
 你知道　什么是Beautiful　
-失落时　温暖的双手" />
+失落时　温暖的双手"
+        android:textSize="16sp" />
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.tongban.im.activity.user;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -66,7 +65,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
             Glide.get(mContext).clearMemory();
             tvClearCacheNum.setText(0+"MB");
         } else if (v == tvAboutMe) {
-            startActivity(new Intent(mContext, AboutMeActivity.class));
+            startActivity(new Intent(mContext, AboutActivity.class));
         } else if (v == btnLogout) {
             if (RongIM.getInstance() != null)
                 RongIM.getInstance().logout();

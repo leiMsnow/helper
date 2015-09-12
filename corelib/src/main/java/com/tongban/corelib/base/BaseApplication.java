@@ -55,10 +55,10 @@ public class BaseApplication extends Application {
     }
 
     public boolean isSaveCrash() {
-        return (boolean) SPUtils.get(this, "crash", false);
+        return (boolean) SPUtils.get(this, SPUtils.VISIT_FILE, "crash", false);
     }
 
     public void saveCrash(boolean isSave) {
-        SPUtils.put(this, "crash", isSave);
+        SPUtils.put(this, SPUtils.VISIT_FILE,"crash", isSave);
     }
 }
