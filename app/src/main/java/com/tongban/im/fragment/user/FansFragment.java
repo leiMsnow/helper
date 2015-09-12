@@ -1,6 +1,7 @@
 package com.tongban.im.fragment.user;
 
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -79,18 +80,20 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
+        getActivity().finish();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_follow:
-                String focusId = v.getTag().toString();
+                String focusId = v.getTag(Integer.MAX_VALUE).toString();
                 UserCenterApi.getInstance().focusUser(true, focusId, this);
                 break;
             case R.id.iv_user_icon:
                 String userId=v.getTag().toString();
                 TransferCenter.getInstance().startUserCenter(userId);
+                getActivity().finish();
                 break;
         }
     }

@@ -89,8 +89,9 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
                 UserCenterApi.getInstance().focusUser(false,focusId, this);
                 break;
             case R.id.iv_user_icon:
-                String userId=v.getTag().toString();
+                String userId=v.getTag(Integer.MAX_VALUE).toString();
                 TransferCenter.getInstance().startUserCenter(userId);
+                getActivity().finish();
                 break;
         }
     }
@@ -98,6 +99,7 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
+        getActivity().finish();
     }
 
     @Override

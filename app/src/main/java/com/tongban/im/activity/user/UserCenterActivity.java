@@ -3,6 +3,7 @@ package com.tongban.im.activity.user;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -58,6 +59,7 @@ public class UserCenterActivity extends UserBaseActivity {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             String visitorId = uri.getQueryParameter("visitorId");
+            Log.d("UserCenterActivity",visitorId);
             UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
         }
     }
