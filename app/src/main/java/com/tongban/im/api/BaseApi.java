@@ -114,15 +114,22 @@ public class BaseApi {
         return getHostUrl() + apiName;
     }
 
+
+    protected void simpleRequest(String url, Map params, final ApiCallback callback) {
+        simpleRequest(url, params, false, callback);
+    }
+
     /**
      * 封装了JsonObjectRequest的网络请求方法
      *
-     * @param url      请求接口名称||地址
-     * @param params   请求参数
-     * @param callback 请求结果的回调
-     * @return request--当前请求对象
+     * @param url          请求接口名称||地址
+     * @param params       请求参数
+     * @param disableCache 是否获取缓存数据标示 默认为false，
+     *                     Ps:只有特定的几个接口需要新数据，大多数情况不要传递这个值
+     * @param callback     请求结果的回调
      */
-    protected void simpleRequest(String url, Map params, final ApiCallback callback) {
+    protected void simpleRequest(String url, Map params, final boolean disableCache,
+                                 final ApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
             callback.onFailure(ApiCallback.DisplayType.Toast, "网络连接失败,请稍后重试");
             return;
@@ -178,8 +185,9 @@ public class BaseApi {
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("_P", "Android");
                     headers.put("_V", AppUtils.getVersionName(mContext));
-                    boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString());
-                    headers.put("_R_C", CheckID.encode(isLogin));
+                    boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext,
+                            Consts.USER_ID, "").toString());
+                    headers.put("_R_C", CheckID.encode(isLogin, disableCache));
                     if (isLogin)
                         headers.put("_U", SPUtils.get(mContext, Consts.USER_ID, "").toString());
                     return headers;
@@ -195,6 +203,7 @@ public class BaseApi {
             LogUtil.e("onError-request-json:", "解析json异常");
         }
     }
+
 
     protected String getErrorMessage() {
         Random random = new Random();

@@ -58,23 +58,24 @@ public class CheckID {
     /**
      * 产生ID
      *
-     * @param logined
+     * @param isLogin     登录标示
+     * @param disableCache 缓存标示
      * @return
      */
-    public static String encode(boolean logined) {
+    public static String encode(boolean isLogin, boolean disableCache) {
         UUID uuid = UUID.randomUUID();
         StringBuilder sb = new StringBuilder();
-        sb.append(uuid.toString()).append(',');
-        if (logined) {
-            sb.append('1').append(',');
-        } else {
-            sb.append('0').append(',');
-        }
-        sb.append(System.currentTimeMillis() + difMills + "," + System.currentTimeMillis());
+        sb.append(uuid.toString()).append(",");
+        //是否登录标示 true 已经登录；false 未登录
+        sb.append(isLogin ? "1" : "0").append(",");
+        sb.append(System.currentTimeMillis() + difMills).append(",");
+        //是否返回缓存标示 true 获取新数据；false 获取缓存数据
+        sb.append(disableCache ? "1" : "0").append(",");
+        sb.append(System.currentTimeMillis());
         try {
-            SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
+            SecretKey desKey = new SecretKeySpec(keyBytes, Algorithm);
             Cipher c1 = Cipher.getInstance(Ciper_Algorithm);
-            c1.init(Cipher.ENCRYPT_MODE, deskey);
+            c1.init(Cipher.ENCRYPT_MODE, desKey);
             byte[] result = c1.doFinal(sb.toString().getBytes("UTF-8"));
             String base64String = Base64.encodeToString(result, 0);
             return URLEncoder.encode(base64String);
@@ -87,39 +88,6 @@ public class CheckID {
         }
 
     }
-
-//    /**
-//     * 检查ID
-//     *
-//     * @param id
-//     * @param secs
-//     * @return
-//     */
-//    public static CheckResult check(String id, long secs) {
-//        long now = System.currentTimeMillis();
-//        try {
-//            byte[] sourceBytes = Base64.decodeBase64(id);
-//            SecretKey deskey = new SecretKeySpec(keyBytes, Algorithm);
-//            Cipher c1 = Cipher.getInstance(Algorithm);
-//            c1.init(Cipher.DECRYPT_MODE, deskey);
-//            byte[] result = c1.doFinal(sourceBytes);
-//            String source = new String(result);
-//            String[] parts = source.split(",");
-//            if (parts.length != 3) {
-//                return null;
-//            }
-//            boolean logined = parts[1].equals("1") ? true : false;
-//            boolean expired = Math.abs(now - Long.parseLong(parts[2])) > secs * 1000 ? true : false;
-//            return new CheckResult(logined, expired);
-//        } catch (java.security.NoSuchAlgorithmException e1) {
-//            return null;
-//        } catch (javax.crypto.NoSuchPaddingException e2) {
-//            return null;
-//        } catch (java.lang.Exception e3) {
-//            return null;
-//        }
-//    }
-
 
 }
 
