@@ -40,7 +40,7 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取个人资料
      */
-    public static final String FETCH_USER_DETAIL_INFO = "user/info";
+    public static final String USER_INFO = "user/info";
     /**
      * 获取个人群组列表-我创建/加入的群
      */
@@ -113,17 +113,22 @@ public class UserCenterApi extends BaseApi {
         return mApi;
     }
 
-    /**
-     * 获取用户个人中心数据
-     *
-     * @param callback
-     */
+
     public void fetchPersonalCenterInfo(final ApiCallback callback) {
+        fetchPersonalCenterInfo(false,callback);
+    }
+
+        /**
+         * 获取用户个人中心数据
+         *
+         * @param callback
+         */
+    public void fetchPersonalCenterInfo(boolean disableCache,final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams,disableCache, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -192,16 +197,22 @@ public class UserCenterApi extends BaseApi {
         });
     }
 
+
+    public void fetchUserDetailInfo(final ApiCallback callback) {
+        fetchUserDetailInfo(false, callback);
+    }
+
     /**
      * 获取个人资料
      *
+     * @param disableCache 是否获取实时数据
      * @param callback
      */
-    public void fetchUserDetailInfo(final ApiCallback callback) {
+    public void fetchUserDetailInfo(boolean disableCache, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(FETCH_USER_DETAIL_INFO, mParams, new ApiCallback() {
+        simpleRequest(USER_INFO, mParams, disableCache, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();

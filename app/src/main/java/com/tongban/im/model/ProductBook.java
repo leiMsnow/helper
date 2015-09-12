@@ -55,6 +55,16 @@ public class ProductBook {
     private long m_time;
     // 收藏状态
     private boolean collect_status;
+    // 索引号,非后台返回
+    private String productIndex;
+
+    public String getProductIndex() {
+        return productIndex;
+    }
+
+    public void setProductIndex(String productIndex) {
+        this.productIndex = productIndex;
+    }
 
     public int getCollect_amount() {
         return collect_amount;

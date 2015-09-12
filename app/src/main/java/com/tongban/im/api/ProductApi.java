@@ -110,7 +110,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(displayType, errorObj);
+                callback.onFailure(DisplayType.View, errorObj);
             }
         });
     }

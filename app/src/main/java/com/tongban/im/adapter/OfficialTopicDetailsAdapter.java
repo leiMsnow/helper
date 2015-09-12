@@ -34,23 +34,18 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
     protected void convert(BaseAdapterHelper helper, OfficialTopic item) {
         //产品相关
         if (item.getItemType() == OfficialTopic.PRODUCT) {
-            if (item.getProduct() != null) {
-                if (item.getProduct().getProduct_img_url() != null) {
-                    helper.setImageBitmap(R.id.iv_product_icon, item.getProduct()
-                            .getProduct_img_url().get(0).getMin());
-                    helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
-                            .getProduct_img_url().get(0).getMin());
-                } else {
-                    helper.setImageResource(R.id.iv_product_icon, R.drawable.rc_default_portrait);
-                    helper.setImageResource(R.id.iv_product_img, R.drawable.rc_default_portrait);
-                }
-                helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
-                helper.setText(R.id.tv_product_introduce_content, item.getProduct().getProduct_tags());
-                helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProduct_tags());
-                helper.setText(R.id.tv_product_advantage_content, item.getProduct().getRecommend_cause());
-                helper.setText(R.id.tv_product_disadvantage_content, item.getProduct().getWeakness());
-                helper.setText(R.id.tv_collect_num, String.valueOf(item.getProduct().getCollect_amount()));
+            helper.setText(R.id.tv_product_index, item.getProduct().getProductIndex());
+            if (item.getProduct().getProduct_img_url() != null) {
+                helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
+                        .getProduct_img_url().get(0).getMin());
+            } else {
+                helper.setImageResource(R.id.iv_product_img, R.mipmap.ic_default_image);
             }
+            helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
+            helper.setText(R.id.tv_product_author, item.getProduct().getBook_author());
+            helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProduct_tags());
+            helper.setText(R.id.tv_recommend_cause, item.getProduct().getRecommend_cause());
+
         }
         //数量（评论、点赞）相关
         else if (item.getItemType() == OfficialTopic.REPLY_NUM) {
@@ -62,7 +57,7 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
                 helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply()
                         .getUser_info().getPortrait_url().getMin());
             } else {
-                helper.setImageResource(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
+                helper.setImageResource(R.id.iv_user_portrait, R.mipmap.ic_default_portrait1);
             }
             helper.setText(R.id.tv_comment_time, item.getTopicReply().getC_time(mContext));
             helper.setText(R.id.tv_comment_content, item.getTopicReply().getComment_content());

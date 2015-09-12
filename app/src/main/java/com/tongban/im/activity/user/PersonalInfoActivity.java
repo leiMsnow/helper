@@ -210,7 +210,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
-        UserCenterApi.getInstance().fetchUserDetailInfo(this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(true,this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(true,this);
     }
 }
