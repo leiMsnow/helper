@@ -22,7 +22,7 @@
             <LinearLayout
                 android:id="@+id/ll_update_user_portrait"
                 style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
+                android:minHeight="56dp">
 
                 <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_user_icon"

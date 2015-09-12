@@ -16,6 +16,7 @@ import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.ProductBook;
@@ -36,6 +37,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     private ImageView ivOfficialPortrait;
     private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
 
+    private Topic topicInfo;
     private String mTopicId;
     private int mCursor = 0;
     private int mPage = 10;
@@ -107,10 +109,15 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
 
     @Override
     protected void initListener() {
+        ivOfficialPortrait.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        //跳转到用户中心界面
+        if (v == ivOfficialPortrait) {
+            TransferCenter.getInstance().startUserCenter(topicInfo.getUser_info().getUser_id());
+        }
     }
 
     /**
@@ -153,6 +160,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
+        topicInfo = obj.topic;
         if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
             Glide.with(mContext).load(obj.topic.getUser_info().getPortrait_url().
 

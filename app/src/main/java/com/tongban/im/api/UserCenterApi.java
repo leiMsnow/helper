@@ -616,7 +616,8 @@ public class UserCenterApi extends BaseApi {
             mParams.put("nick_name", userInfo.getNick_name());
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
-
+//        if (userInfo.getUpdateChildInfo().getChildSex()!=0)
+//            mParams.put("",);
         SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
 
         simpleRequest(USER_UPDATE, mParams, new ApiCallback() {

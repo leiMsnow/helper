@@ -9,7 +9,6 @@ public class AddChildInfo {
     private String birthday;
     private int sex;
 
-
     public String getBirthday() {
         return birthday;
     }

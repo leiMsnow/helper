@@ -1,10 +1,84 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/normal_grey">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/include_toolbar" />
+
+    <com.tongban.im.widget.view.ClearEditText
+        android:id="@+id/et_update_nickname"
+        style="@style/ClearEditTextStyle"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/tv_phone_text"
+        android:background="@color/white"
+        android:maxLength="11"
+        android:paddingLeft="8dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_update_sex_boy"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/selector_white_to_gray"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_update_sex_boy"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="男" />
+
+        <ImageView
+            android:id="@+id/iv_select_boy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:padding="4dp"
+            android:src="@mipmap/ic_closed"
+            android:background="@color/red_300"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_update_sex_girl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_update_sex_boy"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/selector_white_to_gray"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_update_sex_gir"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="女" />
+
+        <ImageView
+            android:id="@+id/iv_select_girl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:padding="4dp"
+            android:background="@color/red_300"
+            android:src="@mipmap/ic_closed"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

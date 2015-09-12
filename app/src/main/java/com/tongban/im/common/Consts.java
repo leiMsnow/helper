@@ -11,7 +11,6 @@ public class Consts {
     //----------------随着APP安装后,不会被清除的文件信息标记的KEY放在这里---------------------------------
     /**
      * 第一次安装APP标记
-     *
      */
     public static final String FIRST_SET_CHILD_INFO = "FIRST_SET_CHILD_INFO";
     /**
@@ -165,7 +164,18 @@ public class Consts {
      * 是否进入设置昵称界面
      */
     public static final String KEY_EDIT_USER = "KEY_EDIT_USER";
-
+    /**
+     * 修改个人资料Key
+     */
+    public static final String KEY_UPDATE_PERSONAL_INFO = "KEY_UPDATE_PERSONAL_INFO";
+    /**
+     * 修改昵称
+     */
+    public static final String KEY_UPDATE_NICKNAME = "KEY_UPDATE_NICKNAME";
+    /**
+     * 修改性别
+     */
+    public static final String KEY_UPDATE_SEX = "KEY_UPDATE_SEX";
     //------------------------------商品相关key------------------------------------------------------
     /**
      * 专题id

@@ -20,6 +20,7 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.ChildInfoActivity;
+import com.tongban.im.activity.user.PersonalInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
@@ -106,6 +107,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     @Override
     protected void initListener() {
         ivClose.setOnClickListener(this);
+        ivUserPortrait.setOnClickListener(this);
 
         lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
             @Override
@@ -160,14 +162,15 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
                     mUserInfo.getUser_id());
         }
         //我的圈子
-        if (v == rlGroupNum) {
+        else if (v == rlGroupNum) {
             TransferCenter.getInstance().startMyGroupList(mUserInfo.getUser_id());
         }
-//        else {
-//            if (v.getId() == R.id.tv_name) {
-//                startActivity(new Intent(this, ChildInfoActivity.class));
-//            }
-//        }
+        //跳转到个人资料页
+        else if (v == ivUserPortrait) {
+            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserInfo.getUser_id()))
+                mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
+        }
+
     }
 
     protected void setDataInfo(User user) {

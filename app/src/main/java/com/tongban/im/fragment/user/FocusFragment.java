@@ -88,7 +88,10 @@ public class FocusFragment extends BaseApiFragment implements View.OnClickListen
                 String focusId = v.getTag().toString();
                 UserCenterApi.getInstance().focusUser(false,focusId, this);
                 break;
-
+            case R.id.iv_user_icon:
+                String userId=v.getTag().toString();
+                TransferCenter.getInstance().startUserCenter(userId);
+                break;
         }
     }
 

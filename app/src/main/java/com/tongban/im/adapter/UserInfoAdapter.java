@@ -66,7 +66,7 @@ public class UserInfoAdapter extends PagerAdapter {
         }
         Child child = mChildInfoList.get(position);
         if (child != null) {
-            tvChildInfo.setText(child.getAge() + "岁 |" + child.getConstellation());
+            tvChildInfo.setText(child.getAge() + "岁 | " + child.getConstellation());
         } else {
             tvChildInfo.setText("");
         }

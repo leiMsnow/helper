@@ -15,6 +15,17 @@ public class EditUser implements Serializable {
     // 用户头像
     private ImageUrl portrait_url;
 
+    //孩子信息
+    private UpdateChildInfo updateChildInfo;
+
+    public UpdateChildInfo getUpdateChildInfo() {
+        return updateChildInfo;
+    }
+
+    public void setUpdateChildInfo(UpdateChildInfo updateChildInfo) {
+        this.updateChildInfo = updateChildInfo;
+    }
+
     public String getNick_name() {
         return nick_name;
     }

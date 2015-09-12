@@ -1,9 +1,12 @@
 package com.tongban.im.activity.user;
 
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,11 +18,14 @@ import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.CameraView;
+
+import java.util.Calendar;
 
 /**
  * 个人资料界面
@@ -36,8 +42,10 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     private User user;
     private CameraView mCameraView;
     private EditUser editUser = new EditUser();
+    private DatePickerDialog mDatePickerDialog;
 
     private byte[] mIcon;
+    private String mChildBirthday;
 
     @Override
     protected int getLayoutRes() {
@@ -113,20 +121,52 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         }
         //修改昵称
         else if (v == llNickName) {
-
+            Intent intent = new Intent(mContext, UpdatePersonalInfoActivity.class);
+            intent.putExtra(Consts.KEY_UPDATE_PERSONAL_INFO, Consts.KEY_UPDATE_NICKNAME);
+            startActivity(intent);
         }
         //修改性别
         else if (v == llChildSex) {
-
+            Intent intent = new Intent(mContext, UpdatePersonalInfoActivity.class);
+            intent.putExtra(Consts.KEY_UPDATE_PERSONAL_INFO, Consts.KEY_UPDATE_SEX);
+            startActivity(intent);
         }
         //修改年龄
         else if (v == llChildAge) {
-
+            openDatePicker();
         }
         //修改星座
         else if (v == llChildConstellation) {
-
+            openDatePicker();
         }
+    }
+
+    //打开时间选择器
+    private void openDatePicker() {
+        if (mDatePickerDialog == null) {
+            Calendar c = Calendar.getInstance();
+            mDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    String month = String.valueOf(monthOfYear + 1);
+                    String day = String.valueOf(dayOfMonth);
+
+                    if (month.length() == 1) month = "0" + month;
+                    if (day.length() == 1) day = "0" + day;
+
+                    mChildBirthday = year + "-" + month + "-" + day;
+//                    tvChildBirthday.setText(mChildBirthday);
+                }
+            }, c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DAY_OF_MONTH));
+        }
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.YEAR, 0);
+        max.add(Calendar.MONTH, 0);
+        max.add(Calendar.DAY_OF_MONTH, 0);
+        mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
+        mDatePickerDialog.show();
     }
 
     // 打开相机的提示框
@@ -171,5 +211,6 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
         UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(this);
     }
 }
