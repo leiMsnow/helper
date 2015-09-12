@@ -1,7 +1,6 @@
 package com.tongban.im.activity.group;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,12 +10,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
-import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
@@ -148,15 +145,11 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
         tvAttrs.setText(mGroup.getGroupType());
-//        tvDesc.setText(mGroup.getDeclaration());
 
         if (mGroup.getUser_info() != null && mGroup.getUser_info().getPortrait_url() != null) {
-            Glide.with(mContext).load(mGroup.getUser_info().getPortrait_url().getMin()).
-                    placeholder(io.rong.imkit.R.drawable.rc_default_portrait)
-                    .into(ivCreator);
+            setUserPortrait(mGroup.getUser_info().getPortrait_url().getMin(), ivCreator);
             tvCreator.setText(mGroup.getUser_info().getNick_name());
         }
-
     }
 
     public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {

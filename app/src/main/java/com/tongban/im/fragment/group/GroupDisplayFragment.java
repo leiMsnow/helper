@@ -23,8 +23,8 @@ import io.rong.imkit.RongIM;
 /**
  * 圈子展示界面
  */
+@Deprecated
 public class GroupDisplayFragment extends BaseApiFragment {
-
 
     private TextView tvGroupStatus;
     private TextView tvGroupName;

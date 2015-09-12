@@ -5,6 +5,7 @@ import android.content.Context;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
 import java.util.List;
@@ -25,9 +26,9 @@ public class MemberGridAdapter extends QuickAdapter<User> {
         helper.setText(R.id.tv_member_name, item.getNick_name());
         if (item.getPortrait_url() != null) {
             helper.setImageBitmap(R.id.iv_member_icon, item.getPortrait_url().getMin(),
-                    R.drawable.rc_default_portrait);
+                    Consts.getUserDefaultPortrait());
         } else {
-            helper.setImageResource(R.id.iv_member_icon, R.drawable.rc_default_portrait);
+            helper.setImageResource(R.id.iv_member_icon,Consts.getUserDefaultPortrait());
         }
     }
 }

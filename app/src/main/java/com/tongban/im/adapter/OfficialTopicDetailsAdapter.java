@@ -1,6 +1,7 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -9,6 +10,7 @@ import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.OfficialTopic;
 
 import java.util.List;
@@ -26,7 +28,8 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         this.onClickListener = onClickListener;
     }
 
-    public OfficialTopicDetailsAdapter(Context context, List data, IMultiItemTypeSupport multiItemTypeSupport) {
+    public OfficialTopicDetailsAdapter(Context context, List data,
+                                       IMultiItemTypeSupport multiItemTypeSupport) {
         super(context, data, multiItemTypeSupport);
     }
 
@@ -43,9 +46,14 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
             }
             helper.setText(R.id.tv_product_name, item.getProduct().getProduct_name());
             helper.setText(R.id.tv_product_author, item.getProduct().getBook_author());
-            helper.setText(R.id.tv_product_parameters_content, item.getProduct().getProduct_tags());
-            helper.setText(R.id.tv_recommend_cause, item.getProduct().getRecommend_cause());
-
+            if (!TextUtils.isEmpty(item.getProduct().getRecommend_cause())) {
+                helper.setText(R.id.tv_product_recommend_cause, item.getProduct().getRecommend_cause());
+                helper.setVisible(R.id.tv_recommend_cause, View.VISIBLE);
+            } else {
+                helper.setVisible(R.id.tv_recommend_cause, View.GONE);
+            }
+            helper.setTag(R.id.btn_check_detail, item);
+            helper.setOnClickListener(R.id.btn_check_detail, onClickListener);
         }
         //数量（评论、点赞）相关
         else if (item.getItemType() == OfficialTopic.REPLY_NUM) {
@@ -57,7 +65,7 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
                 helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply()
                         .getUser_info().getPortrait_url().getMin());
             } else {
-                helper.setImageResource(R.id.iv_user_portrait, R.mipmap.ic_default_portrait1);
+                helper.setImageResource(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
             helper.setText(R.id.tv_comment_time, item.getTopicReply().getC_time(mContext));
             helper.setText(R.id.tv_comment_content, item.getTopicReply().getComment_content());

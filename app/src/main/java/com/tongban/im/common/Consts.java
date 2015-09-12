@@ -1,5 +1,9 @@
 package com.tongban.im.common;
 
+import com.tongban.im.R;
+
+import java.util.Random;
+
 /**
  * 常量
  * version:1.0  15/7/15
@@ -188,5 +192,23 @@ public class Consts {
 
 
     //------------------------------bundle-key-end--------------------------------------------------
-
+    /**
+     * 随机返回默认头像的资源ID
+     *
+     * @return
+     */
+    public static int getUserDefaultPortrait() {
+        Random random = new Random();
+        int portraits[] = new int[]{R.mipmap.ic_default_portrait1
+                , R.mipmap.ic_default_portrait2
+                , R.mipmap.ic_default_portrait3
+                , R.mipmap.ic_default_portrait4
+                , R.mipmap.ic_default_portrait5
+                , R.mipmap.ic_default_portrait6
+                , R.mipmap.ic_default_portrait7
+                , R.mipmap.ic_default_portrait8
+                , R.mipmap.ic_default_portrait9
+                , R.mipmap.ic_default_portrait10};
+        return portraits[random.nextInt(portraits.length)];
+    }
 }

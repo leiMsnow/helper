@@ -2,14 +2,12 @@ package com.tongban.im.activity.topic;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
@@ -18,11 +16,14 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
+
+import java.util.List;
 
 
 /**
@@ -30,7 +31,8 @@ import com.tongban.im.widget.view.TopicInputView;
  *
  * @author fushudi
  */
-public class OfficialTopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener {
+public class OfficialTopicDetailsActivity extends CommonImageResultActivity
+        implements View.OnClickListener, TopicInputView.IOnClickCommentListener {
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
     private View mHeader;
@@ -54,7 +56,6 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_authority_topic_details);
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
         topicInputView.setAdapterImgCount(3);
-
 
         ivOfficialPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
         tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
@@ -110,6 +111,13 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     @Override
     protected void initListener() {
         ivOfficialPortrait.setOnClickListener(this);
+        topicInputView.setOnClickCommentListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (topicInputView.gridViewVisibility(true))
+            super.onBackPressed();
     }
 
     @Override
@@ -117,6 +125,14 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         //跳转到用户中心界面
         if (v == ivOfficialPortrait) {
             TransferCenter.getInstance().startUserCenter(topicInfo.getUser_info().getUser_id());
+        } else {
+            switch (v.getId()) {
+                case R.id.btn_check_detail:
+                    OfficialTopic productBook = (OfficialTopic) v.getTag();
+                    TransferCenter.getInstance().startProductBook(productBook.
+                            getProduct().getProduct_id());
+                    break;
+            }
         }
     }
 
@@ -129,6 +145,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         for (int i = 0; i < obj.productBookList.size(); i++) {
             OfficialTopic officialTopic = new OfficialTopic();
             ProductBook productBook = obj.productBookList.get(i);
+            productBook.setProductIndex(String.valueOf(i + 1));
             officialTopic.setItemType(OfficialTopic.PRODUCT);
             officialTopic.setProduct(productBook);
             mAdapter.getDataAll().add(officialTopic);
@@ -162,11 +179,10 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
         topicInfo = obj.topic;
         if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
-            Glide.with(mContext).load(obj.topic.getUser_info().getPortrait_url().
-
-                    getMin()).into(ivOfficialPortrait);
+            setUserPortrait(obj.topic.getUser_info().getPortrait_url().
+                    getMin(), ivOfficialPortrait);
         } else {
-            ivOfficialPortrait.setImageResource(R.drawable.rc_default_portrait);
+            ivOfficialPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
         tvOfficialName.setText(obj.topic.getUser_info().getNick_name());
         tvCreateTime.setText(obj.topic.getC_time(mContext));
@@ -181,5 +197,12 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         mAdapter.notifyDataSetChanged();
         //获取评论接口
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
+    }
+
+    @Override
+    public void onClickComment(String commentContent, String repliedCommentId, String repliedName,
+                               String repliedUserId, List<ImageUrl> selectedFile) {
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
+                repliedName, repliedUserId, selectedFile, this);
     }
 }

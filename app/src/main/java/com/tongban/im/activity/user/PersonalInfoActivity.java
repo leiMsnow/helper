@@ -5,16 +5,13 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.CameraResultActivity;
@@ -22,16 +19,13 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.CameraView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * 个人资料界面
@@ -40,7 +34,7 @@ import java.util.List;
  */
 public class PersonalInfoActivity extends CameraResultActivity implements View.OnClickListener,
         CameraResultActivity.IPhotoListener {
-    private RelativeLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
+    private LinearLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool;
@@ -61,11 +55,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     @Override
     protected void initView() {
         setTitle("个人资料");
-        llUpdateUserPortrait = (RelativeLayout) findViewById(R.id.ll_update_user_portrait);
-        llNickName = (RelativeLayout) findViewById(R.id.ll_nickname);
-        llChildSex = (RelativeLayout) findViewById(R.id.ll_sex);
-        llChildAge = (RelativeLayout) findViewById(R.id.ll_child_age);
-        llChildConstellation = (RelativeLayout) findViewById(R.id.ll_child_constellation);
+        llUpdateUserPortrait = (LinearLayout) findViewById(R.id.ll_update_user_portrait);
+        llNickName = (LinearLayout) findViewById(R.id.ll_nickname);
+        llChildSex = (LinearLayout) findViewById(R.id.ll_sex);
+        llChildAge = (LinearLayout) findViewById(R.id.ll_child_age);
+        llChildConstellation = (LinearLayout) findViewById(R.id.ll_child_constellation);
 
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
         tvNickName = (TextView) findViewById(R.id.tv_user_name);
@@ -79,8 +73,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
 
     @Override
     protected void initData() {
-        //获取个人资料（实时数据）
-        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(this);
     }
 
     @Override
@@ -127,32 +120,23 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
             createDialog();
         }
         //修改昵称
-        else if (v == llNickName || v == tvNickName) {
+        else if (v == llNickName) {
             Intent intent = new Intent(mContext, UpdatePersonalInfoActivity.class);
             intent.putExtra(Consts.KEY_UPDATE_PERSONAL_INFO, Consts.KEY_UPDATE_NICKNAME);
             startActivity(intent);
         }
         //修改性别
-        else if (v == llChildSex || v == tvChildSex) {
+        else if (v == llChildSex) {
             Intent intent = new Intent(mContext, UpdatePersonalInfoActivity.class);
             intent.putExtra(Consts.KEY_UPDATE_PERSONAL_INFO, Consts.KEY_UPDATE_SEX);
             startActivity(intent);
         }
         //修改年龄
-        else if (v == llChildAge || v == tvChildAge) {
+        else if (v == llChildAge) {
             openDatePicker();
-            int childSex = (int) SPUtils.get(mContext,SPUtils.VISIT_FILE,Consts.CHILD_SEX,0);
-            AddChildInfo childInfo = new AddChildInfo();
-            childInfo.setBirthday(mChildBirthday);
-            childInfo.setSex(childSex);
-            List<AddChildInfo> children = new ArrayList<>();
-            children.add(childInfo);
-            editUser.setUpdateChildInfoList(children);
-            UserCenterApi.getInstance().updateUserInfo(editUser, this);
-            Log.d("sex","sex");
         }
         //修改星座
-        else if (v == llChildConstellation || v == tvChildConstellation) {
+        else if (v == llChildConstellation) {
             openDatePicker();
         }
     }
@@ -226,7 +210,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(true, this);
-        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(true,this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(true,this);
     }
 }

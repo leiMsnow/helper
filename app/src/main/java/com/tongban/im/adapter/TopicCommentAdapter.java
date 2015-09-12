@@ -45,9 +45,10 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
     protected void convert(BaseAdapterHelper helper, TopicComment item) {
         if (item.getUser_info() != null) {
             if (item.getUser_info().getPortrait_url() != null) {
-                helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMid());
+                helper.setImageBitmap(R.id.iv_user_portrait,
+                        item.getUser_info().getPortrait_url().getMid());
             } else {
-                helper.setImageResource(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
+                helper.setImageResource(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
             if (item.getComment_img_url() != null) {
                 setImagesVisibleAndUrl(helper, item.getComment_img_url());

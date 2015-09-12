@@ -35,6 +35,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private EditText etComment;
     private ImageView ivComment;
     private TextView tvCommentLength;
+
+
     private TopicImageView gvReplyImg;
 
     private Context mContext;
@@ -52,6 +54,10 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     private int mRootLocation;
 
     private int mCommentLength = 500;
+
+    public TopicImageView getGvReplyImg() {
+        return gvReplyImg;
+    }
 
     public void setKeyboardListener(IKeyboardListener keyboardListener) {
         this.keyboardListener = keyboardListener;
@@ -146,11 +152,18 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                 return;
             }
             isClearImage = gvReplyImg.getSelectedFile().size() == 0;
-            if (gvReplyImg.getVisibility() == View.VISIBLE) {
-                gvReplyImg.setVisibility(View.GONE);
-            } else {
+            gridViewVisibility(false);
+        }
+    }
+
+    public boolean gridViewVisibility(boolean onBackPressed) {
+        if (gvReplyImg.getVisibility() == View.VISIBLE) {
+            gvReplyImg.setVisibility(View.GONE);
+            return false;
+        } else {
+            if (!onBackPressed)
                 gvReplyImg.setVisibility(View.VISIBLE);
-            }
+            return true;
         }
     }
 
@@ -263,4 +276,5 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     public interface IKeyboardListener {
         void boardStatus(boolean isUp);
     }
+
 }

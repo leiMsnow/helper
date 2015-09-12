@@ -10,7 +10,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
@@ -182,6 +181,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     }
 
     @Override
+    public void onBackPressed() {
+        if (topicInputView.gridViewVisibility(true))
+            super.onBackPressed();
+    }
+
+    @Override
     public void onClickComment(String commentContent, String repliedCommentId,
                                String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
@@ -200,11 +205,9 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
                 if (mTopicInfo.getUser_info().getPortrait_url() != null) {
-                    Glide.with(TopicDetailsActivity.this).load(mTopicInfo.getUser_info().
-                            getPortrait_url().getMin()).placeholder(R.drawable.rc_default_portrait).
-                            into(ivUserPortrait);
+                    setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().getMin(), ivUserPortrait);
                 } else {
-                    ivUserPortrait.setImageResource(R.drawable.rc_default_portrait);
+                    ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
                 }
             }
 

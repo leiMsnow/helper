@@ -6,6 +6,7 @@ import android.view.View;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.TopicComment;
 
 import java.util.List;
@@ -31,10 +32,10 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
                 helper.setTag(R.id.iv_user_portrait,
                         Integer.MAX_VALUE, item.getUser_info().getUser_id());
                 helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
-                        R.drawable.rc_default_portrait);
+                        Consts.getUserDefaultPortrait());
                 helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
             } else {
-                helper.setImageBitmap(R.id.iv_user_portrait, R.drawable.rc_default_portrait);
+                helper.setImageBitmap(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
             helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
             helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
