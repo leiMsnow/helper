@@ -113,22 +113,17 @@ public class UserCenterApi extends BaseApi {
         return mApi;
     }
 
-
-    public void fetchPersonalCenterInfo(final ApiCallback callback) {
-        fetchPersonalCenterInfo(false, callback);
-    }
-
     /**
      * 获取用户个人中心数据
      *
      * @param callback
      */
-    public void fetchPersonalCenterInfo(boolean disableCache, final ApiCallback callback) {
+    public void fetchPersonalCenterInfo(final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, disableCache, new ApiCallback() {
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, disableCache(USER_CACHE_TIME), new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -197,22 +192,15 @@ public class UserCenterApi extends BaseApi {
         });
     }
 
-
-    public void fetchUserDetailInfo(final ApiCallback callback) {
-        fetchUserDetailInfo(false, callback);
-    }
-
     /**
      * 获取个人资料
      *
-     * @param disableCache 是否获取实时数据
      * @param callback
      */
-    public void fetchUserDetailInfo(boolean disableCache, final ApiCallback callback) {
-
+    public void fetchUserDetailInfo(final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(USER_INFO, mParams, disableCache, new ApiCallback() {
+        simpleRequest(USER_INFO, mParams, disableCache(USER_CACHE_TIME), new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -234,6 +222,7 @@ public class UserCenterApi extends BaseApi {
             }
         });
     }
+
 
     /**
      * 获取个人中心我创建/加入的群组列表（圈子）
@@ -640,6 +629,7 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(USER_CACHE_TIME);
                 BaseEvent.EditUserEvent editUserEvent = new BaseEvent.EditUserEvent();
                 if (callback != null)
                     callback.onComplete(editUserEvent);

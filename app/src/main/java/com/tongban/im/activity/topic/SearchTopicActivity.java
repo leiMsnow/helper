@@ -1,11 +1,15 @@
 package com.tongban.im.activity.topic;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
@@ -126,6 +130,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("搜索话题关键字");
+//        searchView.setSuggestionsAdapter();
         searchView.onActionViewExpanded();
         return true;
     }

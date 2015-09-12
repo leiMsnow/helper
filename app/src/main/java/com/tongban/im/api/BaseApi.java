@@ -54,6 +54,18 @@ public class BaseApi {
      * 客户端与服务器时间不同步
      */
     public final static int TIME_DISMATCH = 10069;
+    //-----------------------------接口缓存时间key----------------------------------------------------
+    //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
+    //专题时间-10min
+    protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
+    //单品时间-10min
+    protected final static String PRODUCT_CACHE_TIME = "PRODUCT_CACHE_TIME";
+    //话题时间-10min
+    protected final static String TOPIC_CACHE_TIME = "TOPIC_CACHE_TIME";
+    //圈子时间-30min
+    protected final static String GROUP_CACHE_TIME = "GROUP_CACHE_TIME";
+    //用户时间-5min
+    protected final static String USER_CACHE_TIME = "USER_CACHE_TIME";
     /**
      * 获取Volley请求队列
      */
@@ -143,6 +155,7 @@ public class BaseApi {
         final String requestUrl = url;
         final String requestJson = JSON.toJSON(params).toString();
         LogUtil.d("request-url:", requestUrl);
+        LogUtil.d("request-disableCache:", String.valueOf(disableCache));
         LogUtil.d("request-url:", "request-params: \n " + requestJson);
         // 创建request
         try {
@@ -152,6 +165,7 @@ public class BaseApi {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
                             LogUtil.d("onResponse-url:", requestUrl);
+                            LogUtil.d("request-disableCache:", String.valueOf(disableCache));
                             LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
                             int apiResult = jsonObject.optInt("statusCode");
                             if (apiResult == API_SUCCESS) {
@@ -174,6 +188,7 @@ public class BaseApi {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
                     LogUtil.d("onErrorResponse-url:", requestUrl);
+                    LogUtil.d("request-disableCache:", String.valueOf(disableCache));
                     LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
                     // 请求失败,错误信息回调给调用方
                     String errorMessage = getErrorMessage();
@@ -213,6 +228,49 @@ public class BaseApi {
                 [random.nextInt(count)].toString();
     }
 
+    /**
+     * 判断当前时间是否在disableCache内
+     *
+     * @param cacheName {@link BaseApi}
+     * @return
+     */
+    protected boolean disableCache(String cacheName) {
+        long time = (long) SPUtils.get(mContext, cacheName, 0L);
+        if (time - System.currentTimeMillis() > 0L) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 设置disableCache时间
+     *
+     * @param cacheName {@link BaseApi}
+     */
+    protected void setDisableCache(String cacheName) {
+        int min = 0;
+        if (cacheName.equals(USER_CACHE_TIME)) {
+            min = 5;
+        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
+            min = 10;
+        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
+            min = 30;
+        } else if (cacheName.equals(THEME_CACHE_TIME)) {
+            min = 10;
+        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
+            min = 10;
+        }
+        long countdown = System.currentTimeMillis() + 1000 * 60 * min;
+        SPUtils.put(mContext, cacheName, countdown);
+    }
+
+    /**
+     * 将boolean转换成string的值，系统默认转换的是int值
+     *
+     * @param type
+     * @return
+     */
     protected String getTypeStr(boolean type) {
         return String.valueOf(type ? 1 : 0);
     }

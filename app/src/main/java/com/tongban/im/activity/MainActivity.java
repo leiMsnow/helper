@@ -49,7 +49,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     private void fetchPersonalCenter() {
         if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-            UserCenterApi.getInstance().fetchPersonalCenterInfo(true,this);
+            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
         }
     }
 

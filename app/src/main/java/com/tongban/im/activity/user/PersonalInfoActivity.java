@@ -82,7 +82,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
 
     @Override
     protected void initData() {
-        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(this);
     }
 
     @Override
@@ -234,7 +234,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(true, this);
-        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(this);
     }
 }

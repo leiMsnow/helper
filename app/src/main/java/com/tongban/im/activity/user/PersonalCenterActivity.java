@@ -34,7 +34,7 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
 
     @Override
     protected void initData() {
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(true, this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
     }
 
     @Override
