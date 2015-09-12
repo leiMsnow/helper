@@ -600,6 +600,7 @@ public class UserCenterApi extends BaseApi {
                 childSuccess.isSetSuccess = true;
                 if (callback != null)
                     callback.onComplete(childSuccess);
+//                SPUtils.put(mContext, Consts.CHILD_SEX, children.get(0).getSex());
             }
 
             @Override
@@ -627,10 +628,8 @@ public class UserCenterApi extends BaseApi {
             mParams.put("nick_name", userInfo.getNick_name());
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
-        if (userInfo.getUpdateChildInfoList() != null)
-            mParams.put("child_info", userInfo.getUpdateChildInfoList());
+
         SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
-        SPUtils.put(mContext, Consts.CHILD_SEX, userInfo.getUpdateChildInfoList().get(0).getSex());
 
         simpleRequest(USER_UPDATE, mParams, new ApiCallback() {
             @Override

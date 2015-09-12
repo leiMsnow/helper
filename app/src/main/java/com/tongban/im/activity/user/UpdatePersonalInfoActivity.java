@@ -104,8 +104,8 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
                     childInfo.setSex(mChildSex);
                     List<AddChildInfo> children = new ArrayList<>();
                     children.add(childInfo);
-                    editUser.setUpdateChildInfoList(children);
-                    UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
+                    UserCenterApi.getInstance().setChildInfo(SPUtils.get(mContext, Consts.USER_ID, "")
+                            .toString(), children, null);
                     finish();
                 }
             }

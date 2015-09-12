@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -24,13 +25,16 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.User;
 import com.tongban.im.widget.view.CameraView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * 个人资料界面
@@ -78,7 +82,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
 
     @Override
     protected void initData() {
-        UserCenterApi.getInstance().fetchUserDetailInfo(this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
     }
 
     @Override
@@ -175,7 +179,16 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                LogUtil.d("onDismiss");
+                if (!SPUtils.get(mContext, Consts.CHILD_BIRTHDAY, "").equals(mChildBirthday)) {
+                    int mChildSex = (int) SPUtils.get(mContext, Consts.CHILD_SEX, 1);
+                    AddChildInfo childInfo = new AddChildInfo();
+                    childInfo.setBirthday(mChildBirthday);
+                    childInfo.setSex(mChildSex);
+                    List<AddChildInfo> children = new ArrayList<>();
+                    children.add(childInfo);
+                    UserCenterApi.getInstance().setChildInfo(SPUtils.get(mContext, Consts.USER_ID, "")
+                            .toString(), children, null);
+                }
             }
         });
     }
@@ -221,7 +234,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        UserCenterApi.getInstance().fetchPersonalCenterInfo(true,this);
-        UserCenterApi.getInstance().fetchUserDetailInfo(true,this);
+        UserCenterApi.getInstance().fetchPersonalCenterInfo(true, this);
+        UserCenterApi.getInstance().fetchUserDetailInfo(true, this);
     }
 }
