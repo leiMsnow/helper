@@ -296,8 +296,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.user.UserCenterActivity"
-            android:launchMode="singleTask">
+            android:name=".activity.user.UserCenterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

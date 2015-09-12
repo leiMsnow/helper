@@ -17,7 +17,9 @@ import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.BaseEvent;
 
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.Event;
 
 /**
  * 用户中心（他人的）
@@ -66,6 +68,20 @@ public class UserCenterActivity extends UserBaseActivity {
         ivFocus.setOnClickListener(this);
         ivCancelFocus.setOnClickListener(this);
         ivPrivateChat.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     /**
