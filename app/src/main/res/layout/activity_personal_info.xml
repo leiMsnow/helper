@@ -44,7 +44,6 @@
                 android:minHeight="48dp">
 
                 <TextView
-                    android:layout_centerVertical="true"
                     style="@style/ChatSettingLeftText"
                     android:text="昵称" />
 
@@ -54,8 +53,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                style="@style/ChatSettingLayout"
-                android:minHeight="48dp">
+                style="@style/ChatSettingLayout">
 
                 <TextView
                     style="@style/ChatSettingLeftText"

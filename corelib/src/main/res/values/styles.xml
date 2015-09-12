@@ -27,12 +27,13 @@
         <item name="closeIcon">@mipmap/ic_clear_mtrl_alpha</item>
         <item name="searchIcon">@mipmap/ic_search_api_mtrl_alpha</item>
         <item name="searchHintIcon">@mipmap/ic_search_api_mtrl_alpha</item>
-        <item name="goIcon">@mipmap/ic_go_search_api_mtrl_alpha</item>
+        <item name="goIcon">@mipmap/ic_search_api_mtrl_alpha</item>
     </style>
 
     <style name="SearchView.Brown" parent="Base.Widget.AppCompat.SearchView">
         <item name="searchIcon">@mipmap/ic_search_brown</item>
         <item name="searchHintIcon">@mipmap/ic_search_brown</item>
+        <item name="goIcon">@mipmap/ic_search_brown</item>
     </style>
 
     <style name="Widget.ProgressBar.Horizontal.New" parent="Widget.AppCompat.ProgressBar.Horizontal">

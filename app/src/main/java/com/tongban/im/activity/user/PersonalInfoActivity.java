@@ -2,9 +2,11 @@ package com.tongban.im.activity.user;
 
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -13,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.CameraResultActivity;
@@ -168,6 +172,12 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         max.add(Calendar.DAY_OF_MONTH, 0);
         mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
         mDatePickerDialog.show();
+        mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                LogUtil.d("onDismiss");
+            }
+        });
     }
 
     // 打开相机的提示框

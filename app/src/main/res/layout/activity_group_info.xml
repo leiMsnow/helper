@@ -40,7 +40,7 @@
                 android:text="展开全部"
                 android:textColor="@color/selector_grey_to_orange" />
             <!--圈子名称-->
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_name"
                 style="@style/ChatSettingLayout"
                 android:layout_marginTop="8dp">
@@ -54,9 +54,9 @@
                     style="@style/ChatSettingRightText"
                     android:text="圈子名称" />
 
-            </LinearLayout>
+            </RelativeLayout>
             <!--地点-->
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_address"
                 style="@style/ChatSettingLayout">
 
@@ -69,7 +69,7 @@
                     style="@style/ChatSettingRightText"
                     android:text="地点" />
 
-            </LinearLayout>
+            </RelativeLayout>
             <!--创建人-->
             <RelativeLayout
                 android:id="@+id/ll_creator"
@@ -101,7 +101,7 @@
 
             </RelativeLayout>
             <!--圈子属性-->
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_attrs"
                 style="@style/ChatSettingLayout">
 
@@ -114,9 +114,9 @@
                     style="@style/ChatSettingRightText"
                     android:text="圈子属性" />
 
-            </LinearLayout>
+            </RelativeLayout>
             <!--圈子简介-->
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_desc"
                 style="@style/ChatSettingLayout">
 
@@ -128,9 +128,9 @@
                     android:id="@+id/tv_group_desc"
                     style="@style/ChatSettingRightText"
                     android:singleLine="false"
-                    android:text="圈子简介" />
+                    android:text="暂无简介" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <!-- 只有加入该组才显示一下内容-->
             <LinearLayout
