@@ -82,11 +82,23 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_save) {
-            if (!TextUtils.isEmpty(mNickName)) {
-                editUser.setNick_name(mNickName);
-                UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
-                finish();
+            //修改昵称
+            if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_NICKNAME)) {
+                if (!TextUtils.isEmpty(mNickName)) {
+                    editUser.setNick_name(mNickName);
+                    UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
+                    finish();
+                }
             }
+            //修改性别
+            else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_SEX)) {
+                if (mChildSex!=0) {
+//                    editUser.setUpdateChildInfoList();
+                    UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
+                    finish();
+                }
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }
