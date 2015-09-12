@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
@@ -19,7 +18,6 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.activity.user.PersonalInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
@@ -187,8 +185,8 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         }
 
         if (mUserInfo.getPortrait_url() != null) {
-            Glide.with(mContext).load(mUserInfo.getPortrait_url().getMin()).into(ivUserPortrait);
-            Glide.with(mContext).load(mUserInfo.getPortrait_url().getMid()).into(ivZoomBottom);
+            setUserPortrait(mUserInfo.getPortrait_url().getMin(), ivUserPortrait);
+            setUserPortrait(mUserInfo.getPortrait_url().getMax(), ivZoomBottom);
         } else {
             int resId = (Integer) SPUtils.
                     get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);

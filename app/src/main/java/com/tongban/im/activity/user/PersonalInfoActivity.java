@@ -11,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UploadFileCallback;
@@ -99,9 +97,9 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
         this.user = obj.user;
         if (user.getPortrait_url() != null) {
-            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+            setUserPortrait(user.getPortrait_url().getMin(),ivUserIcon);
         } else {
-            ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
+            ivUserIcon.setImageResource(Consts.getUserDefaultPortrait());
         }
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());

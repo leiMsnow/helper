@@ -2,14 +2,12 @@ package com.tongban.im.activity.topic;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
@@ -129,6 +127,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         for (int i = 0; i < obj.productBookList.size(); i++) {
             OfficialTopic officialTopic = new OfficialTopic();
             ProductBook productBook = obj.productBookList.get(i);
+            productBook.setProductIndex(String.valueOf(i + 1));
             officialTopic.setItemType(OfficialTopic.PRODUCT);
             officialTopic.setProduct(productBook);
             mAdapter.getDataAll().add(officialTopic);
@@ -162,11 +161,10 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
         topicInfo = obj.topic;
         if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
-            Glide.with(mContext).load(obj.topic.getUser_info().getPortrait_url().
-
-                    getMin()).into(ivOfficialPortrait);
+            setUserPortrait(obj.topic.getUser_info().getPortrait_url().
+                    getMin(), ivOfficialPortrait);
         } else {
-            ivOfficialPortrait.setImageResource(R.drawable.rc_default_portrait);
+            ivOfficialPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
         tvOfficialName.setText(obj.topic.getUser_info().getNick_name());
         tvCreateTime.setText(obj.topic.getC_time(mContext));

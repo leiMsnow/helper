@@ -83,19 +83,8 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     //随机生成一个头像标记
     private void randomPortrait() {
-        Random random = new Random();
-        int portraits[] = new int[]{R.mipmap.ic_default_portrait1
-                , R.mipmap.ic_default_portrait2
-                , R.mipmap.ic_default_portrait3
-                , R.mipmap.ic_default_portrait4
-                , R.mipmap.ic_default_portrait5
-                , R.mipmap.ic_default_portrait6
-                , R.mipmap.ic_default_portrait7
-                , R.mipmap.ic_default_portrait8
-                , R.mipmap.ic_default_portrait9
-                , R.mipmap.ic_default_portrait10};
-        int portrait = portraits[random.nextInt(portraits.length)];
-        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, portrait);
+        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT,
+                Consts.getUserDefaultPortrait());
     }
 
     //登录成功

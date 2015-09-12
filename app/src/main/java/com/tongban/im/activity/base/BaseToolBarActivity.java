@@ -4,19 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
-import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.GroupType;
-import com.tongban.im.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +150,16 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
             startActivity(new Intent(mContext, MainActivity.class));
         }
         finish();
+    }
+
+    /**
+     * 设置用户头像信息
+     *
+     * @param uri  网络地址
+     * @param view imageView控件
+     */
+    public void setUserPortrait(String uri, ImageView view) {
+        Glide.with(this).load(uri).placeholder(Consts.getUserDefaultPortrait()).into(view);
     }
 
 }

@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
+import com.tongban.im.common.Consts;
 import com.tongban.im.model.User;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class UserAdapter extends QuickAdapter<User> {
         if (item.getPortrait_url() != null) {
             helper.setImageBitmap(R.id.iv_user_icon, item.getPortrait_url().getMin());
         } else {
-            helper.setImageResource(R.id.iv_user_icon, R.drawable.rc_default_portrait);
+            helper.setImageResource(R.id.iv_user_icon, Consts.getUserDefaultPortrait());
         }
         helper.setTag(R.id.iv_user_icon,item.getUser_id());
         helper.setText(R.id.tv_user_name, item.getNick_name());
