@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,7 +35,7 @@ import java.util.Calendar;
  */
 public class PersonalInfoActivity extends CameraResultActivity implements View.OnClickListener,
         CameraResultActivity.IPhotoListener {
-    private LinearLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
+    private RelativeLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvChildAge,
             tvChildSex, tvChildConstellation, tvChildSchool;
@@ -55,11 +56,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     @Override
     protected void initView() {
         setTitle("个人资料");
-        llUpdateUserPortrait = (LinearLayout) findViewById(R.id.ll_update_user_portrait);
-        llNickName = (LinearLayout) findViewById(R.id.ll_nickname);
-        llChildSex = (LinearLayout) findViewById(R.id.ll_sex);
-        llChildAge = (LinearLayout) findViewById(R.id.ll_child_age);
-        llChildConstellation = (LinearLayout) findViewById(R.id.ll_child_constellation);
+        llUpdateUserPortrait = (RelativeLayout) findViewById(R.id.ll_update_user_portrait);
+        llNickName = (RelativeLayout) findViewById(R.id.ll_nickname);
+        llChildSex = (RelativeLayout) findViewById(R.id.ll_sex);
+        llChildAge = (RelativeLayout) findViewById(R.id.ll_child_age);
+        llChildConstellation = (RelativeLayout) findViewById(R.id.ll_child_constellation);
 
         ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
         tvNickName = (TextView) findViewById(R.id.tv_user_name);
