@@ -115,20 +115,20 @@ public class UserCenterApi extends BaseApi {
 
 
     public void fetchPersonalCenterInfo(final ApiCallback callback) {
-        fetchPersonalCenterInfo(false,callback);
+        fetchPersonalCenterInfo(false, callback);
     }
 
-        /**
-         * 获取用户个人中心数据
-         *
-         * @param callback
-         */
-    public void fetchPersonalCenterInfo(boolean disableCache,final ApiCallback callback) {
+    /**
+     * 获取用户个人中心数据
+     *
+     * @param callback
+     */
+    public void fetchPersonalCenterInfo(boolean disableCache, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams,disableCache, new ApiCallback() {
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, disableCache, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -627,9 +627,10 @@ public class UserCenterApi extends BaseApi {
             mParams.put("nick_name", userInfo.getNick_name());
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
-//        if (userInfo.getUpdateChildInfo().getChildSex()!=0)
-//            mParams.put("",);
+        if (userInfo.getUpdateChildInfoList() != null)
+            mParams.put("child_info", userInfo.getUpdateChildInfoList());
         SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
+        SPUtils.put(mContext, Consts.CHILD_SEX, userInfo.getUpdateChildInfoList().get(0).getSex());
 
         simpleRequest(USER_UPDATE, mParams, new ApiCallback() {
             @Override

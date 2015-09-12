@@ -4,6 +4,7 @@ package com.tongban.im.model;
  * 修改孩子信息
  * Created by fushudi on 2015/9/11.
  */
+@Deprecated
 public class UpdateChildInfo {
     //性别
     private int childSex;

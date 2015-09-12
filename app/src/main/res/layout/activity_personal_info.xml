@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
 
     <include
         android:id="@+id/toolbar"
@@ -19,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_update_user_portrait"
                 style="@style/ChatSettingLayout"
                 android:minHeight="56dp">
@@ -35,23 +36,24 @@
                     style="@style/ChatSettingRightText"
                     android:text="修改头像"
                     android:textColor="@drawable/selector_text_color" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_nickname"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
                 <TextView
+                    android:layout_centerVertical="true"
                     style="@style/ChatSettingLeftText"
                     android:text="昵称" />
 
                 <TextView
                     android:id="@+id/tv_user_name"
                     style="@style/ChatSettingRightText" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
 
@@ -62,9 +64,9 @@
                 <TextView
                     android:id="@+id/tv_phone_num"
                     style="@style/ChatSettingRightText" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_sex"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
@@ -77,9 +79,9 @@
                     android:id="@+id/tv_child_sex"
                     style="@style/ChatSettingRightText" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_child_age"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
@@ -92,9 +94,9 @@
                     android:id="@+id/tv_child_age"
                     style="@style/ChatSettingRightText" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_child_constellation"
                 style="@style/ChatSettingLayout"
                 android:minHeight="48dp">
@@ -107,7 +109,7 @@
                     android:id="@+id/tv_child_constellation"
                     style="@style/ChatSettingRightText" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 style="@style/ChatSettingLayout"

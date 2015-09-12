@@ -16,13 +16,13 @@ public class EditUser implements Serializable {
     private ImageUrl portrait_url;
 
     //孩子信息
-    private List<UpdateChildInfo> updateChildInfoList;
+    private List<AddChildInfo> updateChildInfoList;
 
-    public List<UpdateChildInfo> getUpdateChildInfoList() {
+    public List<AddChildInfo> getUpdateChildInfoList() {
         return updateChildInfoList;
     }
 
-    public void setUpdateChildInfoList(List<UpdateChildInfo> updateChildInfoList) {
+    public void setUpdateChildInfoList(List<AddChildInfo> updateChildInfoList) {
         this.updateChildInfoList = updateChildInfoList;
     }
 

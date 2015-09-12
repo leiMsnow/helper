@@ -12,6 +12,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">1dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
         <item name="android:background">@drawable/selector_white_to_gray</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:minHeight">40dp</item>
@@ -22,17 +24,20 @@
     <style name="ChatSettingLeftText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/main_brown</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!--聊天设置右侧文本样式-->
     <style name="ChatSettingRightText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">right</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:singleLine">true</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
         <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
     </style>
     <!--提示框样式-->
     <style name="ProcessDialog" parent="@android:style/Theme.Dialog">

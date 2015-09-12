@@ -9,13 +9,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.AddChildInfo;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.UpdateChildInfo;
 import com.tongban.im.widget.view.ClearEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 修改个人信息界面
@@ -32,7 +37,6 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
     private String mNickName;
     private int mChildSex = 0;
     private EditUser editUser = new EditUser();
-    private UpdateChildInfo childInfo;
 
 
     @Override
@@ -93,7 +97,14 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
             //修改性别
             else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_SEX)) {
                 if (mChildSex!=0) {
-//                    editUser.setUpdateChildInfoList();
+                    String childBirthday = SPUtils.get(mContext, SPUtils.VISIT_FILE,
+                            Consts.CHILD_BIRTHDAY, "").toString();
+                    AddChildInfo childInfo = new AddChildInfo();
+                    childInfo.setBirthday(childBirthday);
+                    childInfo.setSex(mChildSex);
+                    List<AddChildInfo> children = new ArrayList<>();
+                    children.add(childInfo);
+                    editUser.setUpdateChildInfoList(children);
                     UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
                     finish();
                 }
@@ -125,14 +136,12 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
             ivSelectBoy.setVisibility(View.VISIBLE);
             ivSelectGirl.setVisibility(View.GONE);
             mChildSex = 1;
-//            childInfo.setChildSex(mChildSex);
         }
         //修改性别为：女
         else if (v == rlUpdateSexGirl) {
             ivSelectGirl.setVisibility(View.VISIBLE);
             ivSelectBoy.setVisibility(View.GONE);
             mChildSex = 2;
-//            childInfo.setChildSex(mChildSex);
         }
     }
 }
