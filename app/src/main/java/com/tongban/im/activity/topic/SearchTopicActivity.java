@@ -1,8 +1,6 @@
 package com.tongban.im.activity.topic;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.support.v4.widget.CursorAdapter;
+import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,16 +8,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.widget.view.SuggestionPopupWindow;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -30,7 +36,7 @@ import de.greenrobot.event.EventBus;
  * @createTime 2015/8/11
  */
 public class SearchTopicActivity extends BaseToolBarActivity implements
-        SearchView.OnQueryTextListener, View.OnClickListener {
+        SearchView.OnQueryTextListener, View.OnClickListener, SuggestionPopupWindow.OnKeywordSelectListener {
 
     //最大历史记录数
     private final static int mKeyCount = 10;
@@ -40,8 +46,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     private FlowLayout flHistorySearch;
     private View llHistoryParent;
     private View vHistoryList;
-
     private String mKeys;
+    private SuggestionPopupWindow suggestionPopupWindow;
 
     @Override
     protected int getLayoutRes() {
@@ -54,7 +60,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         tvHistory = (TextView) findViewById(R.id.tv_hot_category);
         flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
         vHistoryList = findViewById(R.id.fl_container);
-
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
                 new TopicFragment()).commit();
     }
@@ -130,8 +135,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("搜索话题关键字");
-//        searchView.setSuggestionsAdapter();
         searchView.onActionViewExpanded();
+
         return true;
     }
 
@@ -167,7 +172,14 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
+    public boolean onQueryTextChange(final String newText) {
+        if (!TextUtils.isEmpty(newText)) {
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    CommonApi.getInstance().getHotWordsList(newText, SearchTopicActivity.this);
+                }
+            }, 500);
+        }
         return false;
     }
 
@@ -190,5 +202,47 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
         searchView.onActionViewCollapsed();
+    }
+
+    public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
+        if (obj.keywords != null && obj.keywords.size() > 0) {
+            initListDirPopupWindow(obj.keywords);
+        } else {
+            if (suggestionPopupWindow != null)
+                suggestionPopupWindow.dismiss();
+        }
+    }
+
+    private void initListDirPopupWindow(List<String> data) {
+        int mScreenHeight = ScreenUtils.getScreenHeight(mContext);
+        int toolBarHeight = mToolbar.getHeight();
+        suggestionPopupWindow = new SuggestionPopupWindow(
+                ViewGroup.LayoutParams.MATCH_PARENT, (int) (mScreenHeight - toolBarHeight),
+                data, LayoutInflater.from(getApplicationContext())
+                .inflate(R.layout.view_suggestions_popup_window, null));
+
+        suggestionPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                // 设置背景颜色变暗
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 1.0f;
+                getWindow().setAttributes(lp);
+            }
+        });
+        suggestionPopupWindow.adapterUpdate(data);
+        suggestionPopupWindow.setOnKeywordSelected(this);
+        suggestionPopupWindow.showAsDropDown(mToolbar, 0, 0);
+
+        // 设置背景颜色变暗
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 1f;
+        getWindow().setAttributes(lp);
+    }
+
+    @Override
+    public void keywordSelected(String keyword) {
+        searchView.setQuery(keyword, true);
     }
 }

@@ -47,7 +47,7 @@ class VideoCaptureAndroid implements PreviewCallback, Callback,IOrientationChang
 	private int expectedFrameSize = 0;
 	private final int orientation = 0;
 	private int id = 0;
-	// C++ callback context variable.
+	// C++ callback mContext variable.
 	private long context = 0;
 	private SurfaceHolder localPreview = null;
 	// True if this class owns the preview video buffers.

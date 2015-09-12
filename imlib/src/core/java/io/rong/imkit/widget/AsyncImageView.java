@@ -91,7 +91,7 @@ public class AsyncImageView extends CacheableImageView implements Observer {
     }
 
     /**
-     * @param context
+     * @param mContext
      */
     Resource mResource;
     Future<?> mCurrentRunnable;

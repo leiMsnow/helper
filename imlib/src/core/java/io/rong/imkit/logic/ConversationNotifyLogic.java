@@ -76,7 +76,7 @@ public class ConversationNotifyLogic {
         public NotifyComposite(Context context, Message message) {
             super(context, message);
 
-//            mNotifications.add(new AppIsBackground(context, message));
+//            mNotifications.add(new AppIsBackground(mContext, message));
             mNotifications.add(new ConversationQuietHours(context, message));
 
         }

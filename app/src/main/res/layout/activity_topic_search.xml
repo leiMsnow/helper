@@ -32,17 +32,6 @@
             android:padding="8dp" />
     </LinearLayout>
 
-    <!--<ListView-->
-    <!--android:id="@+id/lv_topic_list"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@+id/toolbar"-->
-    <!--android:cacheColorHint="@android:color/transparent"-->
-    <!--android:divider="@null"-->
-    <!--android:paddingLeft="8dp"-->
-    <!--android:paddingRight="8dp"-->
-    <!--android:scrollbars="none"-->
-    <!--android:visibility="gone" />-->
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"

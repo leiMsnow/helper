@@ -23,7 +23,7 @@ public class CameraView extends Dialog {
     /**
      * constructor
      *
-     * @param context context
+     * @param context mContext
      */
     public CameraView(Context context) {
         this(context, true);

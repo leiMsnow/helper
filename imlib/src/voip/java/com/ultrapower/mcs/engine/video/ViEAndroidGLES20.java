@@ -59,7 +59,7 @@ class ViEAndroidGLES20 extends GLSurfaceView implements GLSurfaceView.Renderer {
 			this.getHolder().setFormat(PixelFormat.TRANSLUCENT);
 		}
 
-		// Setup the context factory for 2.0 rendering.
+		// Setup the mContext factory for 2.0 rendering.
 		// See ContextFactory class definition below
 		setEGLContextFactory(new ContextFactory());
 
@@ -288,7 +288,7 @@ class ViEAndroidGLES20 extends GLSurfaceView implements GLSurfaceView.Renderer {
 
 	public void ReDraw() {
 		if (surfaceCreated) {
-			// Request the renderer to redraw using the render thread context.
+			// Request the renderer to redraw using the render thread mContext.
 			this.requestRender();
 		}
 	}

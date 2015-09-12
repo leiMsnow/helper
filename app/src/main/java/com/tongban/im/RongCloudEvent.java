@@ -403,22 +403,22 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
 //         * demo 代码  开发者需替换成自己的代码。
 //         */
 //        if (message.getContent() instanceof LocationMessage) {
-//            Intent intent = new Intent(context, SOSOLocationActivity.class);
+//            Intent intent = new Intent(mContext, SOSOLocationActivity.class);
 //            intent.putExtra("location", message.getContent());
-//            context.startActivity(intent);
+//            mContext.startActivity(intent);
 //        } else if (message.getContent() instanceof RichContentMessage) {
 //            RichContentMessage mRichContentMessage = (RichContentMessage) message.getContent();
 //            LogUtil.d("Begavior", "extra:" + mRichContentMessage.getExtra());
 //
 //        } else if (message.getContent() instanceof ImageMessage) {
 //            ImageMessage imageMessage = (ImageMessage) message.getContent();
-//            Intent intent = new Intent(context, PhotoActivity.class);
+//            Intent intent = new Intent(mContext, PhotoActivity.class);
 //
 //            intent.putExtra("photo", imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri());
 //            if (imageMessage.getThumUri() != null)
 //                intent.putExtra("thumbnail", imageMessage.getThumUri());
 //
-//            context.startActivity(intent);
+//            mContext.startActivity(intent);
 //        }
 
         LogUtil.d("Begavior", message.getObjectName() + ":" + message.getMessageId());
@@ -462,7 +462,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
          * demo 代码  开发者需替换成自己的代码。
          */
 //        DemoContext.getInstance().setLastLocationCallback(callback);
-//        context.startActivity(new Intent(context, SOSOLocationActivity.class));//SOSO地图
+//        mContext.startActivity(new Intent(mContext, SOSOLocationActivity.class));//SOSO地图
     }
 
     /**

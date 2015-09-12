@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_white_to_gray">
+
+    <TextView
+        android:id="@+id/tv_suggestions_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="@string/app_name"
+        android:textColor="@color/main_black" />
+
+    <View style="@style/HorizontalLine" />
+
+</RelativeLayout>

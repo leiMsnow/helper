@@ -36,7 +36,7 @@ public class CameraUtils {
     public static int PHOTO_REQUEST_CUT = 22;
 
     public static String saveToSD(String filePath) {
-        Bitmap bitmap = decodeFile(new File(filePath), 320, 640);
+        Bitmap bitmap = decodeFile(new File(filePath), 540, 960);
         return saveToSD(bitmap, filePath);
     }
 
