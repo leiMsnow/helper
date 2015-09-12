@@ -181,6 +181,12 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     }
 
     @Override
+    public void onBackPressed() {
+        if (topicInputView.gridViewVisibility(true))
+            super.onBackPressed();
+    }
+
+    @Override
     public void onClickComment(String commentContent, String repliedCommentId,
                                String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
         TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,

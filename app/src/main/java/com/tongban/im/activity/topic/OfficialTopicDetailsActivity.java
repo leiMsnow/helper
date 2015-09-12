@@ -16,11 +16,14 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.OfficialTopic;
 import com.tongban.im.model.ProductBook;
 import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
+
+import java.util.List;
 
 
 /**
@@ -28,7 +31,8 @@ import com.tongban.im.widget.view.TopicInputView;
  *
  * @author fushudi
  */
-public class OfficialTopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener {
+public class OfficialTopicDetailsActivity extends CommonImageResultActivity
+        implements View.OnClickListener, TopicInputView.IOnClickCommentListener {
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
     private View mHeader;
@@ -52,7 +56,6 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_authority_topic_details);
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
         topicInputView.setAdapterImgCount(3);
-
 
         ivOfficialPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
         tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
@@ -108,6 +111,13 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
     @Override
     protected void initListener() {
         ivOfficialPortrait.setOnClickListener(this);
+        topicInputView.setOnClickCommentListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (topicInputView.gridViewVisibility(true))
+            super.onBackPressed();
     }
 
     @Override
@@ -115,6 +125,14 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         //跳转到用户中心界面
         if (v == ivOfficialPortrait) {
             TransferCenter.getInstance().startUserCenter(topicInfo.getUser_info().getUser_id());
+        } else {
+            switch (v.getId()) {
+                case R.id.btn_check_detail:
+                    OfficialTopic productBook = (OfficialTopic) v.getTag();
+                    TransferCenter.getInstance().startProductBook(productBook.
+                            getProduct().getProduct_id());
+                    break;
+            }
         }
     }
 
@@ -179,5 +197,12 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity impl
         mAdapter.notifyDataSetChanged();
         //获取评论接口
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
+    }
+
+    @Override
+    public void onClickComment(String commentContent, String repliedCommentId, String repliedName,
+                               String repliedUserId, List<ImageUrl> selectedFile) {
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
+                repliedName, repliedUserId, selectedFile, this);
     }
 }
