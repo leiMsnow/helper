@@ -183,7 +183,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (!SPUtils.get(mContext, Consts.CHILD_BIRTHDAY, "").equals(mChildBirthday)) {
+                if (!user.getChild_info().get(0).getBirthday().equals(mChildBirthday)) {
                     int mChildSex = (int) SPUtils.get(mContext, Consts.CHILD_SEX, 1);
                     AddChildInfo childInfo = new AddChildInfo();
                     childInfo.setBirthday(mChildBirthday);
