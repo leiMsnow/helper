@@ -31,7 +31,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
 
     //    private SuggestionPopupWindow suggestionPopupWindow;
-    private LoadMoreListView listView;
+    protected LoadMoreListView suggestionsListView;
     private QuerySuggestionsAdapter mAdapter;
 
     //是否显示搜索建议
@@ -60,18 +60,18 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     protected void initView() {
-        listView = (LoadMoreListView) findViewById(R.id.lv_tips_list);
+        suggestionsListView = (LoadMoreListView) findViewById(R.id.lv_tips_list);
         mAdapter = new QuerySuggestionsAdapter(mContext, R.layout.item_suggestions_list, null);
-        listView.setAdapter(mAdapter);
+        suggestionsListView.setAdapter(mAdapter);
     }
 
     @Override
     protected void initListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        suggestionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                listView.setVisibility(View.GONE);
+                suggestionsListView.setVisibility(View.GONE);
                 isShowSuggestions = false;
                 String keyword = mAdapter.getItem(position);
                 searchView.setQuery(keyword, true);
@@ -82,10 +82,10 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     public void onBackPressed() {
-        if (listView.getVisibility() == View.GONE) {
+        if (suggestionsListView.getVisibility() == View.GONE) {
             super.onBackPressed();
         } else {
-            listView.setVisibility(View.GONE);
+            suggestionsListView.setVisibility(View.GONE);
         }
     }
 
@@ -146,9 +146,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 //        }
         if (obj.keywords != null && obj.keywords.size() > 0) {
             adapterUpdate(mQueryText, obj.keywords);
-            listView.setVisibility(View.VISIBLE);
+            suggestionsListView.setVisibility(View.VISIBLE);
         } else {
-            listView.setVisibility(View.GONE);
+            suggestionsListView.setVisibility(View.GONE);
         }
     }
 
@@ -171,7 +171,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
                 }, 500);
             }
         } else {
-            listView.setVisibility(View.GONE);
+            suggestionsListView.setVisibility(View.GONE);
         }
 
         return false;
@@ -191,9 +191,8 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     private void gonSearchResult() {
         isShowSuggestions = true;
-        listView.setVisibility(View.GONE);
+        suggestionsListView.setVisibility(View.GONE);
         searchView.onActionViewCollapsed();
-        searchView.setQuery(mQueryText, false);
     }
 
 }

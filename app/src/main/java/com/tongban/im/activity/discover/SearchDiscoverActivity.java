@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.adapter.DiscoverTagListAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
@@ -27,9 +28,8 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/8/12
  */
-public class SearchDiscoverActivity extends BaseToolBarActivity implements SearchView.OnQueryTextListener {
+public class SearchDiscoverActivity extends SuggestionsBaseActivity  {
 
-    private SearchView searchView;
     private ExpandableListView mTagListView;
     private List<Tag> mBooks, mToys, mChildEdus;
     private DiscoverTagListAdapter mAdapter;
@@ -41,6 +41,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
 
     @Override
     protected void initView() {
+        super.initView();
         mTagListView = (ExpandableListView) findViewById(R.id.elv_tags);
     }
 
@@ -53,6 +54,7 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
 
     @Override
     protected void initListener() {
+        super.initListener();
         // 禁用折叠
         mTagListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -64,31 +66,20 @@ public class SearchDiscoverActivity extends BaseToolBarActivity implements Searc
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_topic, menu);
-        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setQueryHint("搜索关键字");
-        searchView.setOnQueryTextListener(this);
-        searchView.onActionViewCollapsed();
-        return true;
+    protected int getMenuInflate() {
+        return R.menu.menu_search_topic;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
+            suggestionsListView.setVisibility(View.GONE);
             Intent intent = new Intent(mContext, SearchResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(Consts.KEY_SEARCH_VALUE, query);
             intent.putExtras(bundle);
             startActivity(intent);
         }
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
         return false;
     }
 

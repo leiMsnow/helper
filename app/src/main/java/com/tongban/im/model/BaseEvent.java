@@ -385,6 +385,7 @@ public class BaseEvent {
 
     //--------------------------------------其它模块-------------------------------------------------
     public static class SuggestionsEvent {
+        public String keyword;
         public List<String> keywords;
     }
 }

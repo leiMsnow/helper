@@ -46,7 +46,7 @@ public class CommonApi extends BaseApi {
      * @param keyword  关键字
      * @param callback 回调
      */
-    public void getHotWordsList(String keyword, final ApiCallback callback) {
+    public void getHotWordsList(final String keyword, final ApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
@@ -63,6 +63,7 @@ public class CommonApi extends BaseApi {
                         });
 
                 BaseEvent.SuggestionsEvent suggestions = new BaseEvent.SuggestionsEvent();
+                suggestions.keyword = keyword;
                 suggestions.keywords = result.getData();
                 callback.onComplete(suggestions);
             }

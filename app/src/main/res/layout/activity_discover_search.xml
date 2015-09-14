@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -9,6 +9,7 @@
 
     <ExpandableListView
         android:id="@+id/elv_tags"
+        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="#00000000"
@@ -20,4 +21,15 @@
         android:padding="16dp"
         android:scrollbars="none"/>
 
-</LinearLayout>
+    <com.tongban.corelib.widget.view.LoadMoreListView
+        android:id="@+id/lv_tips_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
+        android:background="@color/weak_grey"
+        android:scrollbars="none"
+        android:visibility="gone"/>
+
+</RelativeLayout>
