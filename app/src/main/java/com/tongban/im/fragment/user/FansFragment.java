@@ -91,7 +91,7 @@ public class FansFragment extends BaseApiFragment implements AdapterView.OnItemC
                 UserCenterApi.getInstance().focusUser(true, focusId, this);
                 break;
             case R.id.iv_user_icon:
-                String userId=v.getTag().toString();
+                String userId = v.getTag(Integer.MAX_VALUE).toString();
                 TransferCenter.getInstance().startUserCenter(userId);
                 getActivity().finish();
                 break;

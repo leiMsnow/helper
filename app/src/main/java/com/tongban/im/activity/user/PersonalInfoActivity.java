@@ -117,15 +117,7 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         tvPhoneNum.setText(user.getMobile_phone());
         if (user.getChild_info() != null && user.getChild_info().size() > 0) {
             String childAge = user.getChild_info().get(0).getAge();
-
-            String[] age = childAge.split("\\.");
-            StringBuffer strAge = new StringBuffer();
-            strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
-            if (Integer.parseInt(age[1]) < 4 && Integer.parseInt(age[1]) > 0)
-                strAge.append(age[1] + "个月");
-            else if (Integer.parseInt(age[1]) >= 4)
-                strAge.append("半");
-            tvChildAge.setText(strAge.toString());
+            tvChildAge.setText(user.getChild_info().get(0).StrChildAge(childAge));
 
             tvChildSex.setText(user.getChild_info().get(0).StrSex());
             tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
@@ -181,17 +173,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
-        String[] value = String.valueOf(SPUtils.get(mContext, Consts.CHILD_BIRTHDAY, "")).split("\\-");
-        Log.d("child_birthday", String.valueOf(SPUtils.get(mContext, Consts.CHILD_BIRTHDAY, "")));
-        Log.d("length", value.length + "");
-        Log.d("value[0]", value[0]);
-//        Log.d("value[1]",value[1]);
-//        Log.d("value",value[2]);
-//        Integer.parseInt(value[0])
+        String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.YEAR, 0);
-        max.add(Calendar.MONTH, 0);
-        max.add(Calendar.DAY_OF_MONTH, 0);
+        max.set(Calendar.YEAR, Integer.parseInt(value[0]));
+        max.set(Calendar.MONTH, Integer.parseInt(value[1]));
+        max.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
         mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
         mDatePickerDialog.show();
         mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
