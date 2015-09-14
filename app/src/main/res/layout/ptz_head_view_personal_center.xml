@@ -72,7 +72,8 @@
         android:layout_toLeftOf="@+id/v_refer"
         android:background="@drawable/selector_corner_transparent_icon"
         android:text="取消关注"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/iv_private_chat"
@@ -87,7 +88,8 @@
         android:layout_toRightOf="@+id/v_refer"
         android:background="@drawable/selector_corner_transparent_icon"
         android:text="私聊"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
     <!--底部粉丝布局-->
     <LinearLayout
