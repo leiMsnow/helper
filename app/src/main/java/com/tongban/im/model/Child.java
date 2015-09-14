@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 孩子信息model
  * Created by zhangleilei on 8/22/15.
  */
-public class Child implements Serializable{
+public class Child implements Serializable {
 
     private String nick_name;
     private String birthday;
@@ -44,8 +44,9 @@ public class Child implements Serializable{
     public String getSex() {
         return sex;
     }
+
     public String StrSex() {
-        if (TextUtils.isEmpty(sex)){
+        if (TextUtils.isEmpty(sex)) {
             return "1";
         }
         return sex.equals("1") ? "男" : "女";
@@ -68,6 +69,17 @@ public class Child implements Serializable{
         if (TextUtils.isEmpty(age))
             return "0";
         return age;
+    }
+
+    public StringBuffer StrChildAge(String childAge) {
+        String[] age = childAge.split("\\.");
+        StringBuffer strAge = new StringBuffer();
+        strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
+        if (Integer.parseInt(age[1]) < 4 && Integer.parseInt(age[1]) > 0)
+            strAge.append(age[1] + "个月");
+        else if (Integer.parseInt(age[1]) >= 4)
+            strAge.append("半");
+        return strAge;
     }
 
     public void setAge(String age) {
