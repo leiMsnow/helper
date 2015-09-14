@@ -1,6 +1,5 @@
 package com.tongban.im.activity.topic;
 
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +32,12 @@ import java.util.List;
  */
 public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
         implements View.OnClickListener, TopicInputView.IOnClickCommentListener {
+
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
     private View mHeader;
     private ImageView ivOfficialPortrait;
     private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
-
-    //    private Topic mTopicInfo;
-//    private String mTopicId;
-    private int mCursor = 0;
-    private int mPage = 10;
 
     @Override
     protected int getLayoutRes() {
@@ -67,46 +62,44 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
 
     @Override
     protected void initData() {
-        if (getIntent() != null) {
-            Uri uri = getIntent().getData();
-            mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
-            if (!TextUtils.isEmpty(mTopicId)) {
-                //获取产品接口
-                TopicApi.getInstance().getOfficialTopicInfo(mTopicId, 0, 10, this);
-                mAdapter = new OfficialTopicDetailsAdapter(mContext, null,
-                        new IMultiItemTypeSupport<OfficialTopic>() {
-                            @Override
-                            public int getLayoutId(int position, OfficialTopic o) {
-                                //官方商品
-                                if (o.getItemType() == OfficialTopic.PRODUCT) {
-                                    return R.layout.item_official_topic_details_content;
-                                }
-                                //评论（回复）数量
-                                else if (o.getItemType() == OfficialTopic.REPLY_NUM) {
-                                    return R.layout.item_official_topic_details_reply_num;
-                                }
-                                //评论（回复）列表(o.getContentType() == OfficialTopic.REPLY)
-                                else {
-                                    return R.layout.item_topic_comment_list;
-                                }
+        super.initData();
+        if (!TextUtils.isEmpty(mTopicId)) {
+            //获取产品接口
+            TopicApi.getInstance().getOfficialTopicInfo(mTopicId, mCursor, mPage, this);
+            mAdapter = new OfficialTopicDetailsAdapter(mContext, null,
+                    new IMultiItemTypeSupport<OfficialTopic>() {
+                        @Override
+                        public int getLayoutId(int position, OfficialTopic o) {
+                            //官方商品
+                            if (o.getItemType() == OfficialTopic.PRODUCT) {
+                                return R.layout.item_official_topic_details_content;
                             }
+                            //评论（回复）数量
+                            else if (o.getItemType() == OfficialTopic.REPLY_NUM) {
+                                return R.layout.item_official_topic_details_reply_num;
+                            }
+                            //评论（回复）列表(o.getContentType() == OfficialTopic.REPLY)
+                            else {
+                                return R.layout.item_topic_comment_list;
+                            }
+                        }
 
-                            @Override
-                            public int getViewTypeCount() {
-                                return 3;
-                            }
+                        @Override
+                        public int getViewTypeCount() {
+                            return 3;
+                        }
 
-                            @Override
-                            public int getItemViewType(int position, OfficialTopic o) {
-                                return o.getItemType();
-                            }
-                        });
-                lvAuthorityTopicDetails.addHeaderView(mHeader);
-                mAdapter.setOnClickListener(this);
-                lvAuthorityTopicDetails.setAdapter(mAdapter);
-            }
+                        @Override
+                        public int getItemViewType(int position, OfficialTopic o) {
+                            return o.getItemType();
+                        }
+                    });
+            lvAuthorityTopicDetails.addHeaderView(mHeader);
+            mAdapter.setOnClickListener(this);
+            lvAuthorityTopicDetails.setAdapter(mAdapter);
         }
     }
+
 
     @Override
     protected void initListener() {
