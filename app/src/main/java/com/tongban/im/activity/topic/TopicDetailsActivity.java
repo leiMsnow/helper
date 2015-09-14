@@ -59,10 +59,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
     private TopicCommentAdapter mAdapter;
 
 
-    private int mCursor = 0;
-    private int mPage = 10;
-
-
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_topic_details;
@@ -94,27 +90,24 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     protected void initData() {
+        super.initData();
         topicInputView.setAdapterImgCount(3);
         topicInputView.setOnClickCommentListener(this);
 
-        if (getIntent() != null) {
-            Uri uri = getIntent().getData();
-            mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
-            if (!TextUtils.isEmpty(mTopicId)) {
-                TopicApi.getInstance().getTopicInfo(mTopicId, this);
-                TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
+        if (!TextUtils.isEmpty(mTopicId)) {
+            TopicApi.getInstance().getTopicInfo(mTopicId, this);
+            TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
 
-                mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
-                mAdapter.setOnClickListener(this);
-                mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
-                lvReplyList.setAdapter(mAdapter);
-                lvReplyList.setResultSize(mPage);
+            mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
+            mAdapter.setOnClickListener(this);
+            mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
+            lvReplyList.setAdapter(mAdapter);
+            lvReplyList.setResultSize(mPage);
 
-                mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                        null);
-                mTopicImgAdapter.setImgClickListener(this);
-                gvContent.setAdapter(mTopicImgAdapter);
-            }
+            mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
+                    null);
+            mTopicImgAdapter.setImgClickListener(this);
+            gvContent.setAdapter(mTopicImgAdapter);
         }
     }
 
@@ -237,8 +230,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
         mCursor = 0;
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
-
-
 
 
     @Override
