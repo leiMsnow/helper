@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 
 import io.rong.imkit.RongIM;
@@ -21,7 +23,7 @@ import io.rong.imkit.RongIM;
 public class SettingActivity extends BaseToolBarActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
     private LinearLayout llClearCache;
-    private TextView tvClearCacheNum;
+    private TextView tvClearCacheNum, tvCurrentVertion;
     private CheckBox chbMessageNotify;
     private TextView tvAboutMe;
     private Button btnLogout;
@@ -38,6 +40,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
         setTitle(R.string.settings);
         llClearCache = (LinearLayout) findViewById(R.id.ll_clear_cache);
         tvClearCacheNum = (TextView) findViewById(R.id.tv_clear_cache_num);
+        tvCurrentVertion = (TextView) findViewById(R.id.tv_current_version_img);
         chbMessageNotify = (CheckBox) findViewById(R.id.chb_notify);
         tvAboutMe = (TextView) findViewById(R.id.tv_about_me);
         btnLogout = (Button) findViewById(R.id.btn_login_or_register);
@@ -47,8 +50,9 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     @Override
     protected void initData() {
         long usableSpace = Glide.getPhotoCacheDir(mContext).getUsableSpace();
-        float usableSpaceMB=usableSpace/(1024*1024*1024);
-        tvClearCacheNum.setText(String.valueOf(usableSpaceMB)+"MB");
+        float usableSpaceMB = usableSpace / (1024 * 1024 * 1024);
+        tvClearCacheNum.setText(String.valueOf(usableSpaceMB) + "MB");
+        tvCurrentVertion.setText("V"+AppUtils.getVersionName(mContext));
     }
 
     @Override
@@ -63,7 +67,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     public void onClick(View v) {
         if (v == llClearCache) {
             Glide.get(mContext).clearMemory();
-            tvClearCacheNum.setText(0+"MB");
+            tvClearCacheNum.setText(0 + "MB");
         } else if (v == tvAboutMe) {
             startActivity(new Intent(mContext, AboutActivity.class));
         } else if (v == btnLogout) {
@@ -79,8 +83,10 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             ToastUtil.getInstance(mContext).showToast("新消息通知");
+            SPUtils.put(mContext, Consts.KEY_MESSAGE_NOTIFY,1);
         } else {
             ToastUtil.getInstance(mContext).showToast("不要通知");
+            SPUtils.put(mContext, Consts.KEY_MESSAGE_NOTIFY, 0);
         }
     }
 }

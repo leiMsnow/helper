@@ -180,6 +180,12 @@ public class Consts {
      * 修改性别
      */
     public static final String KEY_UPDATE_SEX = "KEY_UPDATE_SEX";
+    /**
+     * 消息通知
+     * 1、消息通知  1 消息通知
+     * 2、消息不通知 0 消息不通知
+     */
+    public static final String KEY_MESSAGE_NOTIFY = "KEY_MESSAGE_NOTIFY";
     //------------------------------商品相关key------------------------------------------------------
     /**
      * 专题id
@@ -192,6 +198,7 @@ public class Consts {
 
 
     //------------------------------bundle-key-end--------------------------------------------------
+
     /**
      * 随机返回默认头像的资源ID
      *
