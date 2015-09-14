@@ -29,7 +29,6 @@ public class SuggestionPopupWindow extends BasePopupWindowForListView<String> im
         mAdapter = new QuerySuggestionsAdapter(mContext, R.layout.item_suggestions_list, null);
         listView.setAdapter(mAdapter);
         listView.setFooterText("");
-
     }
 
 

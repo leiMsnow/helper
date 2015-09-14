@@ -1,31 +1,18 @@
 package com.tongban.im.activity.topic;
 
-import android.os.Handler;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
-import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.widget.view.SuggestionPopupWindow;
-
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -38,14 +25,11 @@ import de.greenrobot.event.EventBus;
 public class SearchTopicActivity extends SuggestionsBaseActivity implements
         View.OnClickListener {
 
-    //最大历史记录数
-    private final static int mKeyCount = 10;
 
     private TextView tvHistory;
     private FlowLayout flHistorySearch;
     private View llHistoryParent;
     private View vHistoryList;
-    private String mKeys;
 
 
     @Override
@@ -55,6 +39,7 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
 
     @Override
     protected void initView() {
+        super.initView();
         llHistoryParent = findViewById(R.id.ll_history_parent);
         tvHistory = (TextView) findViewById(R.id.tv_hot_category);
         flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
@@ -101,10 +86,6 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
         }
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     protected int getMenuInflate() {
@@ -143,25 +124,6 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
         return false;
     }
 
-    //保存历史搜索key
-    private void saveSearchKey(String query) {
-        if (query.contains(";"))
-            query = query.replace(";", "");
-        String[] keyList = mKeys.split(";");
-        if (!TextUtils.isEmpty(mKeys)) {
-            for (int i = 0; i < keyList.length; i++) {
-                if (keyList[i].equals(query)) {
-                    mKeys = mKeys.replace(query + ";", "");
-                    break;
-                }
-            }
-            if (keyList.length == mKeyCount) {
-                mKeys = mKeys.replace(keyList[keyList.length - 1] + ";", "");
-            }
-        }
-        mKeys = query + ";" + mKeys;
-        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
-    }
 
     @Override
     public void onClick(View v) {
@@ -185,9 +147,4 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
         vHistoryList.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void keywordSelected(String keyword) {
-        super.keywordSelected(keyword);
-        saveSearchKey(keyword);
-    }
 }

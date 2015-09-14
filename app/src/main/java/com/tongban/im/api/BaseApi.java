@@ -30,6 +30,9 @@ import java.util.Random;
 import java.util.Set;
 
 /**
+ * 输入接口：修改、创建的接口；使用完这些接口后，需要重置disableCache，使输出接口可以收到非缓存结果；
+ * 输出接口：列表、详情接口；
+ * <p/>
  * Created by zhangleilei on 15/7/8.
  */
 public class BaseApi {
@@ -71,15 +74,26 @@ public class BaseApi {
 
     private Set<String> mDisableCacheUrls;
 
+    /**
+     * 获得所有接口
+     *
+     * @return
+     */
     public Set<String> getDisableCacheUrls() {
         mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, DISABLE_CACHE, null);
         return mDisableCacheUrls;
     }
 
+    /**
+     * 记录所有接口
+     *
+     * @param url
+     */
     public void setDisableCacheUrls(String url) {
         if (mDisableCacheUrls == null)
             mDisableCacheUrls = new HashSet<>();
         this.mDisableCacheUrls.add(url);
+        SPUtils.put(mContext, DISABLE_CACHE, mDisableCacheUrls);
     }
 
 
@@ -160,6 +174,10 @@ public class BaseApi {
         }
         final String requestUrl = url;
         final String requestJson = JSON.toJSON(params).toString();
+        //读取缓存的时候，将
+        if (!disableCache) {
+            setDisableCacheUrls(requestUrl);
+        }
         LogUtil.d("request-url:", requestUrl);
         LogUtil.d("request-disableCache:", String.valueOf(disableCache));
         LogUtil.d("request-url:", "request-params: \n " + requestJson);

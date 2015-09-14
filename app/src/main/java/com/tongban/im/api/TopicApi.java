@@ -31,23 +31,11 @@ import java.util.Random;
 public class TopicApi extends BaseApi {
 
     private static TopicApi mApi;
-
+//---------------------------------------输入接口----------------------------------------------------
     /**
      * 创建话题接口
      */
     public static final String CREATE_TOPIC = "topic/create";
-    /**
-     * 话题推荐接口
-     */
-    public static final String RECOMMEND_TOPIC_LIST = "topic/recommend/list";
-    /**
-     * 话题搜索接口
-     */
-    public static final String SEARCH_TOPIC_LIST = "topic/search/list";
-    /**
-     * 话题详情接口
-     */
-    public static final String TOPIC_INFO = "topic/detail/info";
     /**
      * 话题回复列表接口
      */
@@ -64,6 +52,20 @@ public class TopicApi extends BaseApi {
      * 取消收藏话题
      */
     public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
+//---------------------------------------输出接口----------------------------------------------------
+
+    /**
+     * 话题推荐接口
+     */
+    public static final String RECOMMEND_TOPIC_LIST = "topic/recommend/list";
+    /**
+     * 话题搜索接口
+     */
+    public static final String SEARCH_TOPIC_LIST = "topic/search/list";
+    /**
+     * 话题详情接口
+     */
+    public static final String TOPIC_INFO = "topic/detail/info";
     /**
      * 官方话题评测详情
      */
