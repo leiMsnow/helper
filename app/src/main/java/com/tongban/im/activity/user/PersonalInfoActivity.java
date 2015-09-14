@@ -117,14 +117,16 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
         tvPhoneNum.setText(user.getMobile_phone());
         if (user.getChild_info() != null && user.getChild_info().size() > 0) {
             String childAge = user.getChild_info().get(0).getAge();
-            if (Integer.parseInt(childAge) < 1) {
-                String[] age = childAge.split(".");
-                Log.d("age[0]",age[0]);
-                Log.d("age[1]",age[1]);
-                tvChildAge.setText(age[1] + "个月");
-            } else {
-                tvChildAge.setText(childAge + "岁");
-            }
+
+            String[] age = childAge.split("\\.");
+            StringBuffer strAge = new StringBuffer();
+            strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
+            if (Integer.parseInt(age[1]) < 4 && Integer.parseInt(age[1]) > 0)
+                strAge.append(age[1] + "个月");
+            else if (Integer.parseInt(age[1]) >= 4)
+                strAge.append("半");
+            tvChildAge.setText(strAge.toString());
+
             tvChildSex.setText(user.getChild_info().get(0).StrSex());
             tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
             tvChildSchool.setText(user.getChild_info().get(0).getSchool());
