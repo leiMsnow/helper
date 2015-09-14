@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -29,15 +30,15 @@ import io.rong.imkit.model.Event;
  */
 public class UserCenterActivity extends UserBaseActivity {
 
-    private ImageView ivFocus, ivCancelFocus;
-    private ImageView ivPrivateChat;
+    private Button ivFocus, ivCancelFocus;
+    private Button ivPrivateChat;
 
     @Override
     protected void initView() {
         super.initView();
-        ivPrivateChat = (ImageView) headView.findViewById(R.id.iv_private_chat);
-        ivFocus = (ImageView) headView.findViewById(R.id.iv_focus);
-        ivCancelFocus = (ImageView) headView.findViewById(R.id.iv_cancel_focus);
+        ivPrivateChat = (Button) headView.findViewById(R.id.iv_private_chat);
+        ivFocus = (Button) headView.findViewById(R.id.iv_focus);
+        ivCancelFocus = (Button) headView.findViewById(R.id.iv_cancel_focus);
 
     }
 
