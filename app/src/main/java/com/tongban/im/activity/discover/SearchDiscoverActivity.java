@@ -73,11 +73,9 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity  {
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
+            isShowSuggestions = true;
             suggestionsListView.setVisibility(View.GONE);
             Intent intent = new Intent(mContext, SearchResultActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Consts.KEY_SEARCH_VALUE, query);
-            intent.putExtras(bundle);
             startActivity(intent);
         }
         return false;

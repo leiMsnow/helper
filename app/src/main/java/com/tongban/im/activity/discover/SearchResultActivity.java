@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.fragment.user.ThemeListFragment;
@@ -32,10 +34,9 @@ import java.util.List;
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class SearchResultActivity extends BaseToolBarActivity implements
-        SearchView.OnQueryTextListener, ViewPager.OnPageChangeListener, View.OnClickListener {
+public class SearchResultActivity extends SuggestionsBaseActivity implements
+        ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    private SearchView searchView;
     private ViewPager mViewPager;
     private FragmentPagerAdapter mAdapter;
     private View mIndicator; // tab下的线
@@ -47,7 +48,6 @@ public class SearchResultActivity extends BaseToolBarActivity implements
     private ProductListFragment mProductListFragment;
 
     private int mIndicatorWidth;
-    private String mSearchKey;
 
     // 是否是第一次在该页面进行搜索
     private boolean isFirstSearch = true;
@@ -68,6 +68,7 @@ public class SearchResultActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initView() {
+        super.initView();
         ccvTheme = (ChangeColorView) findViewById(R.id.ccv_theme);
         ccvProduct = (ChangeColorView) findViewById(R.id.ccv_product);
         mIndicator = findViewById(R.id.v_indicator);
@@ -91,6 +92,7 @@ public class SearchResultActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initListener() {
+        super.initListener();
         ccvTheme.setOnClickListener(this);
         ccvProduct.setOnClickListener(this);
     }
@@ -121,43 +123,26 @@ public class SearchResultActivity extends BaseToolBarActivity implements
         mViewPager.addOnPageChangeListener(this);
 
         // 搜索
-        if (getIntent() != null) {
-            mSearchKey = getIntent().getStringExtra(Consts.KEY_SEARCH_VALUE);
-            if (!TextUtils.isEmpty(mSearchKey)) {
-                mThemeListFragment.searchTheme(mSearchKey);
-                mProductListFragment.searchProduct(mSearchKey);
-            }
+        if (!TextUtils.isEmpty(mQueryText)) {
+            mThemeListFragment.searchTheme(mQueryText);
+            mProductListFragment.searchProduct(mQueryText);
         }
+
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_topic, menu);
-        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.post(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setQuery(mSearchKey, false);
-            }
-        });
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
-        searchView.onActionViewCollapsed();
-        return true;
+    protected int getMenuInflate() {
+        return R.menu.menu_search_topic;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
+            isShowSuggestions = true;
             mThemeListFragment.searchTheme(query);
             mProductListFragment.searchProduct(query);
         }
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
         return false;
     }
 
@@ -167,7 +152,7 @@ public class SearchResultActivity extends BaseToolBarActivity implements
             mTabs.get(position).setIconAlpha(1 - positionOffset);
             mTabs.get(position + 1).setIconAlpha(positionOffset);
         }
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mIndicator.getLayoutParams();
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mIndicator.getLayoutParams();
         lp.leftMargin = (int) (mIndicatorWidth * (position + positionOffset));
         mIndicator.setLayoutParams(lp);
     }

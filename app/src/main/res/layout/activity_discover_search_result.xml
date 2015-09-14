@@ -1,8 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
@@ -13,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/white"
+        android:layout_below="@+id/toolbar"
         android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView
@@ -42,11 +42,25 @@
         android:id="@+id/v_indicator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/ll_tab_result"
         android:background="@color/main_deep_orange"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_search_result"
+        android:layout_below="@+id/v_indicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+
+    <com.tongban.corelib.widget.view.LoadMoreListView
+        android:id="@+id/lv_tips_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
+        android:background="@color/weak_grey"
+        android:scrollbars="none"
+        android:visibility="gone"/>
+
+</RelativeLayout>

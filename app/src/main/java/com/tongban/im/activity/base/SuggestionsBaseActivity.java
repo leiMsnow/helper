@@ -38,7 +38,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     protected boolean isShowSuggestions = true;
     protected SearchView searchView;
 
-    private String mQueryText;
+    protected String mQueryText;
     //最大历史记录数
     private final static int mKeyCount = 10;
     protected String mKeys;
@@ -51,6 +51,12 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
+        searchView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchView.setQuery(mQueryText, false);
+            }
+        }, 500);
         searchView.setQueryHint("输入关键字");
         searchView.onActionViewExpanded();
         return true;
@@ -82,10 +88,14 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     public void onBackPressed() {
-        if (suggestionsListView.getVisibility() == View.GONE) {
-            super.onBackPressed();
+        if (suggestionsListView != null) {
+            if (suggestionsListView.getVisibility() == View.GONE) {
+                super.onBackPressed();
+            } else {
+                suggestionsListView.setVisibility(View.GONE);
+            }
         } else {
-            suggestionsListView.setVisibility(View.GONE);
+            super.onBackPressed();
         }
     }
 
@@ -111,39 +121,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
         SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
     }
 
-    //    private void initListPopupWindow(List<String> data) {
-//        int mScreenHeight = ScreenUtils.getScreenHeight(mContext);
-//        int toolBarHeight = mToolbar.getHeight();
-//        suggestionPopupWindow = new SuggestionPopupWindow(
-//                ViewGroup.LayoutParams.MATCH_PARENT, (mScreenHeight - toolBarHeight),
-//                data, LayoutInflater.from(getApplicationContext())
-//                .inflate(R.layout.view_suggestions_popup_window, null));
-//        suggestionPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//
-//            @Override
-//            public void onDismiss() {
-//                // 设置背景颜色
-//                WindowManager.LayoutParams lp = getWindow().getAttributes();
-//                lp.alpha = 1.0f;
-//                getWindow().setAttributes(lp);
-//            }
-//        });
-//        suggestionPopupWindow.adapterUpdate(mQueryText, data);
-//        suggestionPopupWindow.setOnKeywordSelected(this);
-//        suggestionPopupWindow.showAsDropDown(mToolbar, 0, 0);
-//
-//        // 设置背景颜色变暗
-//        WindowManager.LayoutParams lp = getWindow().getAttributes();
-//        lp.alpha = 1f;
-//        getWindow().setAttributes(lp);
-//    }
-
     public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
-//        if (suggestionPopupWindow != null)
-//            suggestionPopupWindow.dismiss();
-//        if (obj.keywords != null && obj.keywords.size() > 0) {
-//            initListPopupWindow(obj.keywords);
-//        }
         if (obj.keywords != null && obj.keywords.size() > 0) {
             adapterUpdate(mQueryText, obj.keywords);
             suggestionsListView.setVisibility(View.VISIBLE);
@@ -160,8 +138,8 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mQueryText = newText;
-        if (!TextUtils.isEmpty(mQueryText)) {
+        if (!TextUtils.isEmpty(newText)) {
+            mQueryText = newText;
             if (isShowSuggestions) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
@@ -188,6 +166,14 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     public void onEventMainThread(BaseEvent.SearchGroupListEvent obj) {
         gonSearchResult();
     }
+//    public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
+//        gonSearchResult();
+//    }
+//
+//    public void onEventMainThread(BaseEvent.SearchProductResultEvent event) {
+//        gonSearchResult();
+//    }
+
 
     private void gonSearchResult() {
         isShowSuggestions = true;
