@@ -35,6 +35,7 @@ import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -157,6 +158,11 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     private void openDatePicker() {
         if (mDatePickerDialog == null) {
             Calendar c = Calendar.getInstance();
+            String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
+            c.set(Calendar.YEAR, Integer.parseInt(value[0]));
+            c.set(Calendar.MONTH, Integer.parseInt(value[1]));
+            c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
+
             mDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -167,18 +173,12 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
                     if (day.length() == 1) day = "0" + day;
 
                     mChildBirthday = year + "-" + month + "-" + day;
-//                    tvChildBirthday.setText(mChildBirthday);
                 }
             }, c.get(Calendar.YEAR),
                     c.get(Calendar.MONTH),
                     c.get(Calendar.DAY_OF_MONTH));
         }
-        String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
-        Calendar max = Calendar.getInstance();
-        max.set(Calendar.YEAR, Integer.parseInt(value[0]));
-        max.set(Calendar.MONTH, Integer.parseInt(value[1]));
-        max.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
-        mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
+        mDatePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTime().getTime());
         mDatePickerDialog.show();
         mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
