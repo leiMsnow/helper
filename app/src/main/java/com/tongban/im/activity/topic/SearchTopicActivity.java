@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -48,6 +47,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     private View vHistoryList;
     private String mKeys;
     private SuggestionPopupWindow suggestionPopupWindow;
+    //点击最近搜索，将不显示搜索建议
+    private boolean isShowSuggestions = true;
 
     @Override
     protected int getLayoutRes() {
@@ -136,7 +137,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("搜索话题关键字");
         searchView.onActionViewExpanded();
-
         return true;
     }
 
@@ -174,11 +174,13 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     @Override
     public boolean onQueryTextChange(final String newText) {
         if (!TextUtils.isEmpty(newText)) {
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    CommonApi.getInstance().getHotWordsList(newText, SearchTopicActivity.this);
-                }
-            }, 500);
+            if (isShowSuggestions) {
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        CommonApi.getInstance().getHotWordsList(newText, SearchTopicActivity.this);
+                    }
+                }, 500);
+            }
         }
         return false;
     }
@@ -187,6 +189,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     public void onClick(View v) {
         //点击搜索历史
         if (v.getId() == R.id.tv_history_key) {
+            isShowSuggestions = false;
             String key = v.getTag().toString();
             searchView.setQuery(key, true);
         }
@@ -199,6 +202,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     }
 
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
+        isShowSuggestions = true;
         llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
         searchView.onActionViewCollapsed();
@@ -206,14 +210,14 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
 
     public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
         if (obj.keywords != null && obj.keywords.size() > 0) {
-            initListDirPopupWindow(obj.keywords);
+            initListPopupWindow(obj.keywords);
         } else {
             if (suggestionPopupWindow != null)
                 suggestionPopupWindow.dismiss();
         }
     }
 
-    private void initListDirPopupWindow(List<String> data) {
+    private void initListPopupWindow(List<String> data) {
         int mScreenHeight = ScreenUtils.getScreenHeight(mContext);
         int toolBarHeight = mToolbar.getHeight();
         suggestionPopupWindow = new SuggestionPopupWindow(
@@ -225,7 +229,7 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
 
             @Override
             public void onDismiss() {
-                // 设置背景颜色变暗
+                // 设置背景颜色
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
                 lp.alpha = 1.0f;
                 getWindow().setAttributes(lp);
