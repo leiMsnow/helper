@@ -24,7 +24,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
 
     private String mTargetId;
     private String mTitle;
-
+    private boolean isPrivateChat = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
             Uri uri = getIntent().getData();
             mTargetId = uri.getQueryParameter("targetId");
             mTitle = uri.getQueryParameter("title");
+            isPrivateChat = uri.toString().contains("private");
             if (!TextUtils.isEmpty(mTitle)) {
                 setTitle(mTitle);
             }
@@ -59,6 +60,11 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_chat, menu);
+        MenuItem item = menu.findItem(R.id.menu_group_info);
+        if (item != null) {
+            if (!isPrivateChat)
+                item.setVisible(true);
+        }
         return true;
     }
 

@@ -4,5 +4,6 @@
         android:id="@+id/menu_group_info"
         android:title="@string/group"
         android:icon="@mipmap/ic_menu_group_settings"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:visible="false"/>
 </menu>
