@@ -18,6 +18,7 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
@@ -34,21 +35,18 @@ import de.greenrobot.event.EventBus;
  * @author zhangleilei
  * @createTime 2015/8/11
  */
-public class SearchTopicActivity extends BaseToolBarActivity implements
-        SearchView.OnQueryTextListener, View.OnClickListener, SuggestionPopupWindow.OnKeywordSelectListener {
+public class SearchTopicActivity extends SuggestionsBaseActivity implements
+        View.OnClickListener {
 
     //最大历史记录数
     private final static int mKeyCount = 10;
 
-    private SearchView searchView;
     private TextView tvHistory;
     private FlowLayout flHistorySearch;
     private View llHistoryParent;
     private View vHistoryList;
     private String mKeys;
-    private SuggestionPopupWindow suggestionPopupWindow;
-    //点击最近搜索，将不显示搜索建议
-    private boolean isShowSuggestions = true;
+
 
     @Override
     protected int getLayoutRes() {
@@ -109,6 +107,11 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     }
 
     @Override
+    protected int getMenuInflate() {
+        return R.menu.menu_search_topic;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -121,30 +124,17 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     public void onBackPressed() {
         if (vHistoryList.getVisibility() == View.VISIBLE) {
             vHistoryList.setVisibility(View.GONE);
-            searchView.onActionViewExpanded();
             llHistoryParent.setVisibility(View.VISIBLE);
+            searchView.onActionViewExpanded();
         } else {
-            finish();
+            super.onBackPressed();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_topic, menu);
-        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("搜索话题关键字");
-        searchView.onActionViewExpanded();
-        return true;
-    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            if (query.contains(";"))
-                query = query.replace(";", "");
             saveSearchKey(query);
             BaseEvent.SearchTopicKeyEvent search = new BaseEvent.SearchTopicKeyEvent();
             search.keyword = query;
@@ -155,6 +145,8 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
 
     //保存历史搜索key
     private void saveSearchKey(String query) {
+        if (query.contains(";"))
+            query = query.replace(";", "");
         String[] keyList = mKeys.split(";");
         if (!TextUtils.isEmpty(mKeys)) {
             for (int i = 0; i < keyList.length; i++) {
@@ -169,20 +161,6 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
         }
         mKeys = query + ";" + mKeys;
         SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
-    }
-
-    @Override
-    public boolean onQueryTextChange(final String newText) {
-        if (!TextUtils.isEmpty(newText)) {
-            if (isShowSuggestions) {
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        CommonApi.getInstance().getHotWordsList(newText, SearchTopicActivity.this);
-                    }
-                }, 500);
-            }
-        }
-        return false;
     }
 
     @Override
@@ -202,51 +180,14 @@ public class SearchTopicActivity extends BaseToolBarActivity implements
     }
 
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
-        isShowSuggestions = true;
+        super.onEventMainThread(obj);
         llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
-        searchView.onActionViewCollapsed();
-    }
-
-    public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
-        if (obj.keywords != null && obj.keywords.size() > 0) {
-            initListPopupWindow(obj.keywords);
-        } else {
-            if (suggestionPopupWindow != null)
-                suggestionPopupWindow.dismiss();
-        }
-    }
-
-    private void initListPopupWindow(List<String> data) {
-        int mScreenHeight = ScreenUtils.getScreenHeight(mContext);
-        int toolBarHeight = mToolbar.getHeight();
-        suggestionPopupWindow = new SuggestionPopupWindow(
-                ViewGroup.LayoutParams.MATCH_PARENT, (int) (mScreenHeight - toolBarHeight),
-                data, LayoutInflater.from(getApplicationContext())
-                .inflate(R.layout.view_suggestions_popup_window, null));
-
-        suggestionPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            @Override
-            public void onDismiss() {
-                // 设置背景颜色
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.alpha = 1.0f;
-                getWindow().setAttributes(lp);
-            }
-        });
-        suggestionPopupWindow.adapterUpdate(data);
-        suggestionPopupWindow.setOnKeywordSelected(this);
-        suggestionPopupWindow.showAsDropDown(mToolbar, 0, 0);
-
-        // 设置背景颜色变暗
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = 1f;
-        getWindow().setAttributes(lp);
     }
 
     @Override
     public void keywordSelected(String keyword) {
-        searchView.setQuery(keyword, true);
+        super.keywordSelected(keyword);
+        saveSearchKey(keyword);
     }
 }

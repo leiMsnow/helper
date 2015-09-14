@@ -139,6 +139,11 @@ public class BaseAdapterHelper {
      * @param value
      * @return
      */
+    public BaseAdapterHelper setText(int viewId, CharSequence value) {
+        TextView view = retrieveView(viewId);
+        view.setText(value);
+        return this;
+    }
     public BaseAdapterHelper setText(int viewId, String value) {
         TextView view = retrieveView(viewId);
         view.setText(value);

@@ -41,7 +41,7 @@ public class CommonApi extends BaseApi {
     }
 
     /**
-     * 创建地理位置
+     * 热词接口
      *
      * @param keyword  关键字
      * @param callback 回调

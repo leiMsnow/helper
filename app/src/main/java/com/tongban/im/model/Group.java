@@ -40,11 +40,19 @@ public class Group implements Serializable {
     //成员数量
     private String member_amount;
     //年龄
-    private int age;
+    private String age;
     //最后一级地址
     private String lastAddress;
     //是否需要验证
     private boolean verify_user;
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getLastAddress() {
         if (!TextUtils.isEmpty(address)) {
@@ -63,14 +71,6 @@ public class Group implements Serializable {
 
     public void setVerify_user(boolean verify_user) {
         this.verify_user = verify_user;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getGroup_id() {

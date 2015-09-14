@@ -1,29 +1,14 @@
 package com.tongban.im.activity.group;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.View;
-import android.widget.ListView;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.GroupListAdapter;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.common.GroupListenerImpl;
+import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.fragment.group.RecommendGroupFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import io.rong.imkit.RongIM;
 
 /**
  * 圈子-adapter
@@ -31,11 +16,8 @@ import io.rong.imkit.RongIM;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class SearchGroupActivity extends BaseToolBarActivity implements
+public class SearchGroupActivity extends SuggestionsBaseActivity implements
         SearchView.OnQueryTextListener {
-
-    private SearchView searchView;
-    private String mKeyword;
 
     @Override
     protected int getLayoutRes() {
@@ -55,20 +37,14 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
-        if (getIntent() != null) {
-            Uri uri = getIntent().getData();
-            mKeyword = uri.getQueryParameter("keyword");
-        }
+//        if (getIntent() != null) {
+//            Uri uri = getIntent().getData();
+//        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_join_group, menu);
-        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
-        searchView.onActionViewExpanded();
-        return true;
+    protected int getMenuInflate() {
+        return R.menu.menu_join_group;
     }
 
 
@@ -80,15 +56,5 @@ public class SearchGroupActivity extends BaseToolBarActivity implements
             EventBus.getDefault().post(search);
         }
         return true;
-    }
-
-    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        searchView.onActionViewCollapsed();
-    }
-
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
     }
 }

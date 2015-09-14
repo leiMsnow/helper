@@ -3,17 +3,19 @@ package com.tongban.im.widget.view;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 import com.tongban.corelib.widget.view.BasePopupWindowForListView;
+import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.QuerySuggestionsAdapter;
 
 import java.util.List;
 
-public class SuggestionPopupWindow extends BasePopupWindowForListView<String> {
+public class SuggestionPopupWindow extends BasePopupWindowForListView<String> implements
+        OnLoadMoreListener{
 
-    private ListView listView;
+    private LoadMoreListView listView;
     private QuerySuggestionsAdapter mAdapter;
 
     public SuggestionPopupWindow(int width, int height,
@@ -23,14 +25,22 @@ public class SuggestionPopupWindow extends BasePopupWindowForListView<String> {
 
     @Override
     public void initViews() {
-        listView = (ListView) findViewById(R.id.lv_tips_list);
+        listView = (LoadMoreListView) findViewById(R.id.lv_tips_list);
         mAdapter = new QuerySuggestionsAdapter(mContext, R.layout.item_suggestions_list, null);
         listView.setAdapter(mAdapter);
+        listView.setFooterText("");
+
     }
 
 
-    public void adapterUpdate(List<String> keywords) {
+    public void adapterUpdate(String queryText,List<String> keywords) {
+        mAdapter.setQueryText(queryText);
         mAdapter.replaceAll(keywords);
+    }
+
+    @Override
+    public void onLoadMore() {
+
     }
 
     public interface OnKeywordSelectListener {
