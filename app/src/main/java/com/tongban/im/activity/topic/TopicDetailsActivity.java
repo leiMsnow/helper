@@ -1,6 +1,7 @@
 package com.tongban.im.activity.topic;
 
 import android.net.Uri;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
+import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
@@ -34,7 +36,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends CommonImageResultActivity implements View.OnClickListener,
+public class TopicDetailsActivity extends TopicDetailsBaseActivity implements View.OnClickListener,
         TopicInputView.IOnClickCommentListener, OnLoadMoreListener {
 
     //头布局控件
@@ -56,13 +58,10 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
     private TopicImgAdapter mTopicImgAdapter;
     private TopicCommentAdapter mAdapter;
 
-    private Topic mTopicInfo;
-    private String mTopicId;
 
     private int mCursor = 0;
     private int mPage = 10;
 
-    private MenuItem menuItem;
 
     @Override
     protected int getLayoutRes() {
@@ -127,21 +126,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
-        menuItem = menu.findItem(R.id.menu_collect);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_collect) {
-            menuItem.setEnabled(false);
-            TopicApi.getInstance().collectTopic(!mTopicInfo.isCollect_status(), mTopicId, this);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
@@ -199,7 +183,7 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param topicInfoEvent
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
-        mTopicInfo = topicInfoEvent.topic;
+        super.onEventMainThread(topicInfoEvent);
         if (mTopicInfo != null) {
             setTitle(mTopicInfo.getTopic_title());
             if (mTopicInfo.getUser_info() != null) {
@@ -211,11 +195,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
                 }
             }
 
-            if (mTopicInfo.isCollect_status()) {
-                menuItem.setIcon(R.mipmap.ic_menu_collected);
-            } else {
-                menuItem.setIcon(R.mipmap.ic_menu_collect);
-            }
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
@@ -251,7 +230,6 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
-
         int commentCount = Integer.parseInt(tvComment.getText().toString());
         tvComment.setText(String.valueOf(commentCount + 1));
         topicInputView.clearCommentInfo();
@@ -260,20 +238,8 @@ public class TopicDetailsActivity extends CommonImageResultActivity implements V
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 
-    /**
-     * 收藏话题事件回调
-     *
-     * @param obj
-     */
-    public void onEventMainThread(BaseEvent.TopicCollect obj) {
-        mTopicInfo.setCollect_status(obj.status);
-        menuItem.setEnabled(true);
-        if (obj.status) {
-            menuItem.setIcon(R.mipmap.ic_menu_collected);
-        } else {
-            menuItem.setIcon(R.mipmap.ic_menu_collect);
-        }
-    }
+
+
 
     @Override
     public void onLoadMore() {
