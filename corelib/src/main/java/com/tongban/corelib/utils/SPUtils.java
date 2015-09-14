@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Set;
 
 public class SPUtils {
     /**
@@ -48,6 +49,8 @@ public class SPUtils {
             editor.putLong(key, (Long) object);
         } else if (object instanceof Double) {
             editor.putLong(key, Double.doubleToRawLongBits((Double) object));
+        }else if (object instanceof Set) {
+            editor.putStringSet(key, (Set<String>) object);
         } else {
             editor.putString(key, object.toString());
         }

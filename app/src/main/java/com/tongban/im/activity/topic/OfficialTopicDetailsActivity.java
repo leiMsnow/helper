@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CommonImageResultActivity;
+import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
@@ -31,7 +31,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class OfficialTopicDetailsActivity extends CommonImageResultActivity
+public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
         implements View.OnClickListener, TopicInputView.IOnClickCommentListener {
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
@@ -39,8 +39,8 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity
     private ImageView ivOfficialPortrait;
     private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
 
-    private Topic topicInfo;
-    private String mTopicId;
+    //    private Topic mTopicInfo;
+//    private String mTopicId;
     private int mCursor = 0;
     private int mPage = 10;
 
@@ -124,7 +124,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity
     public void onClick(View v) {
         //跳转到用户中心界面
         if (v == ivOfficialPortrait) {
-            TransferCenter.getInstance().startUserCenter(topicInfo.getUser_info().getUser_id());
+            TransferCenter.getInstance().startUserCenter(mTopicInfo.getUser_info().getUser_id());
         } else {
             switch (v.getId()) {
                 case R.id.btn_check_detail:
@@ -177,7 +177,7 @@ public class OfficialTopicDetailsActivity extends CommonImageResultActivity
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
-        topicInfo = obj.topic;
+        super.onEventMainThread(obj);
         if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
             setUserPortrait(obj.topic.getUser_info().getPortrait_url().
                     getMin(), ivOfficialPortrait);

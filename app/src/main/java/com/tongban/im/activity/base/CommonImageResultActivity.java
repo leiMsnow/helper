@@ -11,32 +11,9 @@ import java.io.File;
  * 通用的图片添加父类
  * Created by fushudi on 2015/8/13.
  */
-public class CommonImageResultActivity extends BaseToolBarActivity {
+public abstract class CommonImageResultActivity extends BaseToolBarActivity {
+
     protected TopicInputView topicInputView;
-    private IPhotoListener mPhotoListener;
-
-    public void setmPhotoListener(IPhotoListener mPhotoListener) {
-        this.mPhotoListener = mPhotoListener;
-    }
-    @Override
-    protected int getLayoutRes() {
-        return 0;
-    }
-
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,7 +38,5 @@ public class CommonImageResultActivity extends BaseToolBarActivity {
             topicInputView.notifyChange(newFile);
         }
     }
-    public interface IPhotoListener {
-        void sendPhoto(byte[] file);
-    }
+
 }

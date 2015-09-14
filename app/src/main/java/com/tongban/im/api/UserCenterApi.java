@@ -123,7 +123,7 @@ public class UserCenterApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, disableCache(USER_CACHE_TIME), new ApiCallback() {
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -200,7 +200,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchUserDetailInfo(final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(USER_INFO, mParams, disableCache(USER_CACHE_TIME), new ApiCallback() {
+        simpleRequest(USER_INFO, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -629,7 +629,6 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(USER_CACHE_TIME);
                 BaseEvent.EditUserEvent editUserEvent = new BaseEvent.EditUserEvent();
                 if (callback != null)
                     callback.onComplete(editUserEvent);

@@ -5,34 +5,29 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
-import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.GroupType;
 import com.tongban.im.utils.CheckID;
 
 import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
-
-import de.greenrobot.event.EventBus;
+import java.util.Set;
 
 /**
  * Created by zhangleilei on 15/7/8.
@@ -47,13 +42,10 @@ public class BaseApi {
      */
     public final static int API_SUCCESS = 0;
     /**
-     * 接口请求失败
-     */
-    public final static int API_FAILD = -1;
-    /**
      * 客户端与服务器时间不同步
      */
-    public final static int TIME_DISMATCH = 10069;
+    public final static int TIME_DIS_MATCH = 10069;
+    public final static String DISABLE_CACHE = "DISABLE_CACHE";
     //-----------------------------接口缓存时间key----------------------------------------------------
     //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
     //专题时间-10min
@@ -76,6 +68,20 @@ public class BaseApi {
     }
 
     protected Map<String, Object> mParams;
+
+    private Set<String> mDisableCacheUrls;
+
+    public Set<String> getDisableCacheUrls() {
+        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, DISABLE_CACHE, null);
+        return mDisableCacheUrls;
+    }
+
+    public void setDisableCacheUrls(String url) {
+        if (mDisableCacheUrls == null)
+            mDisableCacheUrls = new HashSet<>();
+        this.mDisableCacheUrls.add(url);
+    }
+
 
     /**
      * 声明Request请求
@@ -171,10 +177,10 @@ public class BaseApi {
                             if (apiResult == API_SUCCESS) {
                                 // 请求成功,数据回调给调用方
                                 callback.onComplete(jsonObject);
-                            } else if (apiResult == TIME_DISMATCH) {
+                            } else if (apiResult == TIME_DIS_MATCH) {
                                 // 保存客户端与服务器的时间差
                                 long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
-                                LogUtil.d("TIME_DISMATCH", dif + "");
+                                LogUtil.d("TIME_DIS_MATCH", dif + "");
                                 CheckID.difMills = dif;
                             } else {
                                 ApiResult apiResponse = new ApiResult();
