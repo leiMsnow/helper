@@ -25,9 +25,9 @@
         <item name="queryBackground">@drawable/selector_textfield_search_material</item>
         <item name="submitBackground">@drawable/selector_textfield_search_material</item>
         <item name="closeIcon">@mipmap/ic_clear_mtrl_alpha</item>
-        <item name="searchIcon">@mipmap/ic_search_api_mtrl_alpha</item>
-        <item name="searchHintIcon">@mipmap/ic_search_api_mtrl_alpha</item>
-        <item name="goIcon">@mipmap/ic_search_api_mtrl_alpha</item>
+        <item name="searchIcon">@mipmap/ic_menu_search</item>
+        <item name="searchHintIcon">@mipmap/ic_menu_search</item>
+        <item name="goIcon">@mipmap/ic_menu_search</item>
     </style>
 
     <style name="SearchView.Brown" parent="Base.Widget.AppCompat.SearchView">

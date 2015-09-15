@@ -65,28 +65,29 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         super.onFailure(displayType, errorObj);
     }
 
+    @Deprecated
     protected void setToolbarTheme(int type) {
-        type = -1;
-        switch (type) {
-            case GroupType.CITY:
-                setTheme(R.style.AppTheme_DeepPurple_Base);
-                break;
-            case GroupType.AGE:
-                setTheme(R.style.AppTheme_Pink_Base);
-                break;
-            case GroupType.LIFE:
-                setTheme(R.style.AppTheme_LightGreen_Base);
-                break;
-            case GroupType.CLASSMATE:
-                setTheme(R.style.AppTheme_LightBlue_Base);
-                break;
-            case GroupType.ACTIVITY:
-                setTheme(R.style.AppTheme_Yellow_Base);
-                break;
-            default:
-                setTheme(R.style.AppTheme_White_Base);
-                break;
-        }
+//        type = -1;
+//        switch (type) {
+//            case GroupType.CITY:
+//                setTheme(R.style.AppTheme_DeepPurple_Base);
+//                break;
+//            case GroupType.AGE:
+//                setTheme(R.style.AppTheme_Pink_Base);
+//                break;
+//            case GroupType.LIFE:
+//                setTheme(R.style.AppTheme_LightGreen_Base);
+//                break;
+//            case GroupType.CLASSMATE:
+//                setTheme(R.style.AppTheme_LightBlue_Base);
+//                break;
+//            case GroupType.ACTIVITY:
+//                setTheme(R.style.AppTheme_Yellow_Base);
+//                break;
+//            default:
+//                setTheme(R.style.AppTheme_White_Base);
+//                break;
+//        }
     }
 
     /**

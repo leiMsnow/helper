@@ -4,12 +4,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/weak_grey">
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="24dp"
-        android:background="@color/normal_light_grey"/>
-
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/fragment_ptr_home_ptr_frame"
         android:layout_width="match_parent"
@@ -43,10 +37,11 @@
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:src="@mipmap/ic_default_portrait1"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -69,7 +64,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/selector_transparent_to_gray"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_discover_search"/>
+            android:src="@mipmap/ic_menu_discover_search"/>
     </RelativeLayout>
 
 </RelativeLayout>

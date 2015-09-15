@@ -3,10 +3,12 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="navigationIcon">@mipmap/ic_ab_back_mtrl_am_alpha</item>
+        <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="searchViewStyle">@style/SearchView.Light</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/shape_text_cursor</item>
         <!-- 禁止多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>

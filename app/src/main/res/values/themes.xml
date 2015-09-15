@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.White" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.White" >
         <item name="colorPrimary">@color/white</item>
         <item name="actionMenuTextColor">@color/main_brown</item>
-        <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="colorPrimaryDark">@color/normal_grey</item>
         <item name="colorAccent">@color/normal_dark_grey</item>
         <item name="android:textColorPrimary">@color/main_brown</item>
@@ -13,9 +12,6 @@
         <item name="labelSelectBG">@drawable/selector_label_bg_light_blue</item>
         <item name="android:textColorHint">@color/normal_grey</item>
         <item name="searchViewStyle">@style/SearchView.Brown</item>
-        <!-- 禁止item多点触摸 -->
-        <item name="android:windowEnableSplitTouch">false</item>
-        <item name="android:splitMotionEvents">false</item>
     </style>
 
     <style name="AppTheme.White.Base">
@@ -60,7 +56,7 @@
         <item name="labelSelectBG">@drawable/selector_label_bg_yellow</item>
     </style>
 
-    <style name="AppTheme.White.Base.Translucent">
+    <style name="AppTheme.Red.Base.Translucent">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/translucent_a80</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>

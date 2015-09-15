@@ -93,7 +93,7 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/selector_transparent_to_gray"
             android:padding="8dp"
-            android:src="@mipmap/ic_menu_topic_add" />
+            android:src="@mipmap/ic_menu_create" />
 
     </RelativeLayout>
 
