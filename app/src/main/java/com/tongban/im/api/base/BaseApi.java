@@ -1,4 +1,4 @@
-package com.tongban.im.api;
+package com.tongban.im.api.base;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -17,6 +17,10 @@ import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
+import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.ProductApi;
+import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.utils.CheckID;
 
@@ -51,21 +55,21 @@ public class BaseApi {
     //-----------------------------接口缓存时间key----------------------------------------------------
     //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
     protected final static String ALL_CACHE_URL = "ALL_CACHE_URL";
-    //专题时间-10min
+    //    //专题时间-10min
     protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
-    protected final static String THEME_CACHE_URL = "THEME_CACHE_URL";
-    //单品时间-10min
+    //    protected final static String THEME_CACHE_URL = "THEME_CACHE_URL";
+//    //单品时间-10min
     protected final static String PRODUCT_CACHE_TIME = "PRODUCT_CACHE_TIME";
-    protected final static String PRODUCT_CACHE_URL = "PRODUCT_CACHE_URL";
-    //话题时间-10min
+    //    protected final static String PRODUCT_CACHE_URL = "PRODUCT_CACHE_URL";
+//    //话题时间-10min
     protected final static String TOPIC_CACHE_TIME = "TOPIC_CACHE_TIME";
-    protected final static String TOPIC_CACHE_URL = "TOPIC_CACHE_URL";
-    //圈子时间-30min
+    //    protected final static String TOPIC_CACHE_URL = "TOPIC_CACHE_URL";
+//    //圈子时间-30min
     protected final static String GROUP_CACHE_TIME = "GROUP_CACHE_TIME";
-    protected final static String GROUP_CACHE_URL = "GROUP_CACHE_URL";
-    //用户时间-5min
+    //    protected final static String GROUP_CACHE_URL = "GROUP_CACHE_URL";
+//    //用户时间-5min
     protected final static String USER_CACHE_TIME = "USER_CACHE_TIME";
-    protected final static String USER_CACHE_URL = "USER_CACHE_URL";
+//    protected final static String USER_CACHE_URL = "USER_CACHE_URL";
     /**
      * 获取Volley请求队列
      */
@@ -155,8 +159,8 @@ public class BaseApi {
         final boolean disableCache = isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
 
-        LogUtil.d("request-url:", requestUrl);
-        LogUtil.d("request-disableCache:", String.valueOf(disableCache));
+        LogUtil.d("request-url:", requestUrl
+                + "  \t disableCache: " + disableCache);
         LogUtil.d("request-url:", "request-params: \n " + requestJson);
 
         // 创建request
@@ -166,8 +170,8 @@ public class BaseApi {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
-                            LogUtil.d("onResponse-url:", requestUrl);
-                            LogUtil.d("request-disableCache:", String.valueOf(disableCache));
+                            LogUtil.d("onResponse-url:", requestUrl
+                                    + "  \t disableCache:" + disableCache);
                             LogUtil.d("onResponse-url:", "onResponse-data: \n "
                                     + jsonObject.toString());
                             //获取完成后，将取消缓存的接口删掉
@@ -194,8 +198,8 @@ public class BaseApi {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    LogUtil.d("onErrorResponse-url:", requestUrl);
-                    LogUtil.d("request-disableCache:", String.valueOf(disableCache));
+                    LogUtil.d("onErrorResponse-url:", requestUrl
+                            + "  \t disableCache:" + disableCache);
                     LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
                     // 请求失败,错误信息回调给调用方
                     String errorMessage = getErrorMessage();
@@ -257,25 +261,54 @@ public class BaseApi {
      * @param cacheName {@link BaseApi}
      */
     protected void setDisableCache(String cacheName) {
-//        int disableCache = 0;
+        int disableCacheTime = 0;
         if (cacheName.equals(USER_CACHE_TIME)) {
-//            disableCache = 5;
-//            setDisableCacheUrls(User);
+            disableCacheTime = 5;
+            setDisableCacheUrls(UserCenterApi.USER_INFO);
+            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
+
         } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-//            disableCache = 10;
+            disableCacheTime = 10;
+            //话题相关
             setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
             setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
             setDisableCacheUrls(TopicApi.TOPIC_INFO);
             setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
             setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
+            //用户相关
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
+
         } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-//            disableCache = 30;
+            disableCacheTime = 30;
+            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.GROUP_INFO);
+            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
+
         } else if (cacheName.equals(THEME_CACHE_TIME)) {
-//            disableCache = 10;
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_THEME);
+            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
+
         } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-//            disableCache = 10;
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
+            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
         }
-//        SPUtils.put(mContext, cacheName, disableCache);
+
+        long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
+        SPUtils.put(mContext, cacheName, cacheTimeMillis);
     }
 
 
@@ -285,7 +318,8 @@ public class BaseApi {
      * @return
      */
     public Set<String> getDisableCacheUrls() {
-        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, ALL_CACHE_URL, null);
+        mDisableCacheUrls = new HashSet<>();
+        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, ALL_CACHE_URL, mDisableCacheUrls);
         return mDisableCacheUrls;
     }
 
@@ -297,8 +331,7 @@ public class BaseApi {
      */
     public boolean isCurrentUrl(String url) {
         getDisableCacheUrls();
-        if (mDisableCacheUrls == null)
-            return false;
+//        disableCache();
         return mDisableCacheUrls.contains(url);
     }
 
@@ -311,8 +344,6 @@ public class BaseApi {
      */
     public void setDisableCacheUrls(String url) {
         getDisableCacheUrls();
-        if (mDisableCacheUrls == null)
-            mDisableCacheUrls = new HashSet<>();
         this.mDisableCacheUrls.add(url);
         SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
     }
@@ -324,8 +355,6 @@ public class BaseApi {
      */
     public void removeDisableCacheUrls(String url) {
         getDisableCacheUrls();
-        if (mDisableCacheUrls == null)
-            return;
         this.mDisableCacheUrls.remove(url);
         SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
     }

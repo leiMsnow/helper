@@ -10,6 +10,7 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.TransferCenter;
@@ -31,15 +32,8 @@ import de.greenrobot.event.EventBus;
 public class GroupApi extends BaseApi {
 
     private static GroupApi mApi;
+//---------------------------------------输入接口----------------------------------------------------
 
-    /**
-     * 圈子推荐接口
-     */
-    public static final String RECOMMEND_GROUP_LIST = "group/recommend/list";
-    /**
-     * 圈子搜索接口
-     */
-    public static final String SEARCH_GROUP_LIST = "group/search/list";
     /**
      * 创建圈子接口
      */
@@ -49,6 +43,20 @@ public class GroupApi extends BaseApi {
      */
     public static final String JOIN_GROUP = "/user/join/group";
     /**
+     * 用户退出圈子
+     */
+    public static final String USER_QUIT_GROUP = "user/quit/group";
+
+//---------------------------------------输出接口----------------------------------------------------
+    /**
+     * 圈子推荐接口
+     */
+    public static final String RECOMMEND_GROUP_LIST = "group/recommend/list";
+    /**
+     * 圈子搜索接口
+     */
+    public static final String SEARCH_GROUP_LIST = "group/search/list";
+    /**
      * 圈子详情接口
      */
     public static final String GROUP_INFO = "group/card";
@@ -56,10 +64,6 @@ public class GroupApi extends BaseApi {
      * 获取圈子成员列表接口
      */
     public static final String GROUP_MEMBERS_INFO = "group/members/list";
-    /**
-     * 用户退出圈子
-     */
-    public static final String USER_QUIT_GROUP = "user/quit/group";
 
 
     private GroupApi(Context context) {
@@ -129,6 +133,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(GROUP_CACHE_TIME);
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
@@ -176,6 +181,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(GROUP_CACHE_TIME);
                 ApiResult<BaseEvent.JoinGroupEvent> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<BaseEvent.JoinGroupEvent>>() {
                         });
@@ -395,9 +401,9 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                BaseEvent.QuitGroupEvent quit = new BaseEvent.QuitGroupEvent();
+                setDisableCache(GROUP_CACHE_TIME);
                 if (callback != null)
-                    callback.onComplete(quit);
+                    callback.onComplete(new BaseEvent.QuitGroupEvent());
             }
 
             @Override

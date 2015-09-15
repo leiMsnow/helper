@@ -10,7 +10,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.tongban.corelib.utils.DensityUtils;
@@ -18,9 +17,8 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.adapter.CreateTopicImgAdapter;
 import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.MultiUploadFileCallback;
+import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;

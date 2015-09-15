@@ -12,11 +12,11 @@ import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 import com.tongban.im.model.ProductBook;
-import com.tongban.im.model.Tag;
 import com.tongban.im.model.Theme;
 
 import org.json.JSONObject;
@@ -30,42 +30,39 @@ import java.util.List;
  */
 public class ProductApi extends BaseApi {
     private static ProductApi mApi;
-
-    // 获取首页数据
-    private static final String FETCH_HOME_INFO = "home/template/require";
-
-    // 获取专题收藏数量
-    private static final String FETCH_THEME_COLLECTED_AMOUNT = "theme/collected/amount";
-
-    // 获取专题详情信息
-    private static final String FETCH_THEME_INFO = "theme/info";
+//---------------------------------------输入接口----------------------------------------------------
 
     // 收藏专题
-    private static final String COLLECT_MULTI_PRODUCT = "user/collect/theme";
-
+    public static final String COLLECT_MULTI_PRODUCT = "user/collect/theme";
     // 取消收藏专题
-    private static final String NO_COLLECT_MULTI_PRODUCT = "user/nocollect/theme";
-
-    // 获取专题下属的商品列表
-    private static final String FETCH_THEME_PRODUCTS = "theme/products";
-
-    // 商品的详情信息
-    private static final String FETCH_PRODUCT_DETAIL_INFO = "product/detail/info";
-
+    public static final String NO_COLLECT_MULTI_PRODUCT = "user/nocollect/theme";
     // 收藏商品
-    private static final String COLLECT_PRODUCT = "user/collect/product";
-
+    public static final String COLLECT_PRODUCT = "user/collect/product";
     // 取消收藏商品
-    private static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
+    public static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
 
-    // 获取发现搜索页的标签
-    private static final String FETCH_DISCOVER_TAG = "tag/list";
+
+//---------------------------------------输出接口----------------------------------------------------
+    // 获取首页数据
+    public static final String FETCH_HOME_INFO = "home/template/require";
+
+    // 获取专题收藏数量
+    public static final String FETCH_THEME_COLLECTED_AMOUNT = "theme/collected/amount";
+
+    // 获取专题详情信息
+    public static final String FETCH_THEME_INFO = "theme/info";
 
     // 专题搜索
-    private static final String SEARCH_THEME = "theme/search/list";
+    public static final String SEARCH_THEME = "theme/search/list";
+
+    // 获取专题下属的商品列表
+    public static final String FETCH_THEME_PRODUCTS = "theme/products";
+
+    // 商品的详情信息
+    public static final String FETCH_PRODUCT_DETAIL_INFO = "product/detail/info";
 
     // 单品搜索
-    private static final String SEARCH_PRODUCT = "product/search/list";
+    public static final String SEARCH_PRODUCT = "product/search/list";
 
     private ProductApi(Context context) {
         super(context);
@@ -191,8 +188,8 @@ public class ProductApi extends BaseApi {
                                           final ApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeID);
-        mParams.put("cursor", cursor);
-        mParams.put("page_size", pageSize);
+        mParams.put("cursor", cursor < 0 ? 0 : cursor);
+        mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(FETCH_THEME_PRODUCTS, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -235,6 +232,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(THEME_CACHE_TIME);
                 callback.onComplete(new BaseEvent.CollectThemeEvent());
             }
 
@@ -263,6 +261,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(THEME_CACHE_TIME);
                 callback.onComplete(new BaseEvent.NoCollectThemeEvent());
             }
 
@@ -323,6 +322,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(PRODUCT_CACHE_TIME);
                 callback.onComplete(new BaseEvent.CollectProductEvent());
             }
 
@@ -351,6 +351,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(PRODUCT_CACHE_TIME);
                 callback.onComplete(new BaseEvent.NoCollectProductEvent());
             }
 
@@ -361,43 +362,7 @@ public class ProductApi extends BaseApi {
         });
     }
 
-    /**
-     * 获取tag
-     *
-     * @param cursor   游标
-     * @param pageSize 页容
-     * @param type     tag类型
-     * @param callback 回调
-     */
-    public void fetchTags(int cursor, int pageSize, final String type, final ApiCallback callback) {
-        mParams = new HashMap<>();
-        mParams.put("cursor", cursor);
-        mParams.put("page_size", pageSize);
-        mParams.put("tag_type", type);
-        simpleRequest(FETCH_DISCOVER_TAG, mParams, new ApiCallback() {
-            @Override
-            public void onStartApi() {
 
-            }
-
-            @Override
-            public void onComplete(Object obj) {
-                ApiListResult<Tag> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<Tag>>() {
-                        });
-                List<Tag> tagList = result.getData().getResult();
-                BaseEvent.FetchTags event = new BaseEvent.FetchTags();
-                event.type = type;
-                event.tags = tagList;
-                callback.onComplete(event);
-            }
-
-            @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-
-            }
-        });
-    }
 
     /**
      * 搜索专题的接口
@@ -412,7 +377,7 @@ public class ProductApi extends BaseApi {
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 1 ? 1 : pageSize);
+        mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_THEME, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
@@ -450,7 +415,7 @@ public class ProductApi extends BaseApi {
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
-        mParams.put("page_size", pageSize < 1 ? 1 : pageSize);
+        mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_PRODUCT, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {

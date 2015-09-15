@@ -10,6 +10,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.api.CommonApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -53,7 +54,7 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
 
     @Override
     protected void initData() {
-        ProductApi.getInstance().fetchTags(0, 20, TagType.GROUP_TAG, this);
+        CommonApi.getInstance().fetchTags(0, 20, TagType.GROUP_TAG, this);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.tongban.im;
 import com.baidu.mapapi.SDKInitializer;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
-import com.tongban.im.api.BaseApi;
+import com.tongban.im.api.base.BaseApi;
 
 import io.rong.imkit.RongIM;
 

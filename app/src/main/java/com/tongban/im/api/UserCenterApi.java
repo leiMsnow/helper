@@ -11,6 +11,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
@@ -33,48 +34,7 @@ import java.util.List;
  */
 public class UserCenterApi extends BaseApi {
     private static UserCenterApi mApi;
-    /**
-     * 获取用户个人中心数据
-     */
-    public static final String FETCH_PERSONAL_CENTER_INFO = "user/center/info";
-    /**
-     * 获取个人资料
-     */
-    public static final String USER_INFO = "user/info";
-    /**
-     * 获取个人群组列表-我创建/加入的群
-     */
-    public static final String FETCH_MY_GROUPS_LIST = "user/groups/list";
-    /**
-     * 获取我关注的人员列表
-     */
-    public static final String FETCH_FOCUS_USER_LIST = "user/focus/user/list";
-    /**
-     * 获取我的粉丝人员列表
-     */
-    public static final String FETCH_FANS_USER_LIST = "user/befocus/user/list";
-
-    /**
-     * 获取我的收藏 - 单品列表
-     */
-    public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
-    /**
-     * 获取我的收藏 - 话题列表
-     */
-    public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
-    /**
-     * 获取我的收藏 - 专题列表
-     */
-    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST = "user/collect/theme/list";
-    /**
-     * 获取我的话题 - 回复我的话题列表
-     */
-    public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
-
-    /**
-     * 获取我的话题 - 我发起的话题列表
-     */
-    public static final String FETCH_LAUNCH_TOPIC_LIST = "user/launch/topic/list";
+//---------------------------------------输入接口----------------------------------------------------
     /**
      * 关注用户
      */
@@ -83,12 +43,6 @@ public class UserCenterApi extends BaseApi {
      * 取消关注用户
      */
     public static final String CANCEL_FOCUS_USER = "user/nofocus/user";
-
-    /**
-     * 获取用户（他人）资料
-     */
-    public static final String FETCH_USER_CENTER_INFO = "user/card";
-
     /**
      * 设置宝宝信息
      */
@@ -97,6 +51,62 @@ public class UserCenterApi extends BaseApi {
      * 用户信息修改
      */
     public static final String USER_UPDATE = "user/update";
+
+//---------------------------------------输出接口----------------------------------------------------
+
+//---------------------------------------用户接口----------------------------------------------------
+
+    /**
+     * 获取个人资料
+     */
+    public static final String USER_INFO = "user/info";
+    /**
+     * 获取我关注的人员列表
+     */
+    public static final String FETCH_FOCUS_USER_LIST = "user/focus/user/list";
+    /**
+     * 获取用户个人中心数据
+     */
+    public static final String FETCH_PERSONAL_CENTER_INFO = "user/center/info";
+    /**
+     * 获取用户（他人）资料
+     */
+    public static final String FETCH_USER_CENTER_INFO = "user/card";
+    /**
+     * 获取我的粉丝人员列表
+     */
+    public static final String FETCH_FANS_USER_LIST = "user/befocus/user/list";
+
+//---------------------------------------专题/商品接口------------------------------------------------
+    /**
+     * 获取我的收藏 - 专题列表
+     */
+    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST = "user/collect/theme/list";
+    /**
+     * 获取我的收藏 - 单品列表
+     */
+    public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
+
+//---------------------------------------话题接口----------------------------------------------------
+    /**
+     * 获取我的收藏 - 话题列表
+     */
+    public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
+    /**
+     * 获取我的话题 - 回复我的话题列表
+     */
+    public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
+    /**
+     * 获取我的话题 - 我发起的话题列表
+     */
+    public static final String FETCH_LAUNCH_TOPIC_LIST = "user/launch/topic/list";
+
+//---------------------------------------圈子接口----------------------------------------------------
+    /**
+     * 获取个人群组列表-我创建/加入的群
+     */
+    public static final String FETCH_MY_GROUPS_LIST = "user/groups/list";
+
 
     public UserCenterApi(Context context) {
         super(context);
@@ -548,7 +558,7 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-
+                setDisableCache(USER_CACHE_TIME);
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
                 focusEvent.isFocus = isFocus;
                 focusEvent.userIds = focusUserId;
@@ -584,12 +594,12 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(USER_CACHE_TIME);
                 BaseEvent.ChildCreateSuccessEvent childSuccess =
                         new BaseEvent.ChildCreateSuccessEvent();
                 childSuccess.isSetSuccess = true;
                 if (callback != null)
                     callback.onComplete(childSuccess);
-//                SPUtils.put(mContext, Consts.CHILD_SEX, children.get(0).getSex());
             }
 
             @Override
@@ -629,9 +639,9 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                BaseEvent.EditUserEvent editUserEvent = new BaseEvent.EditUserEvent();
+                setDisableCache(USER_CACHE_TIME);
                 if (callback != null)
-                    callback.onComplete(editUserEvent);
+                    callback.onComplete(new BaseEvent.EditUserEvent());
             }
 
             @Override

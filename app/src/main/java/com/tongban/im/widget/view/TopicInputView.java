@@ -16,7 +16,7 @@ import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.MultiUploadFileCallback;
+import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.ImageUrl;
 

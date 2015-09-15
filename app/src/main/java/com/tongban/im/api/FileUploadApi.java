@@ -19,8 +19,10 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.App;
+import com.tongban.im.api.base.BaseApi;
+import com.tongban.im.api.callback.MultiUploadFileCallback;
+import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.QiniuToken;
@@ -29,7 +31,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 

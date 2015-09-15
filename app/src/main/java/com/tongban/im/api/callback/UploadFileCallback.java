@@ -1,4 +1,4 @@
-package com.tongban.im.api;
+package com.tongban.im.api.callback;
 
 import com.tongban.im.model.ImageUrl;
 

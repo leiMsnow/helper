@@ -17,6 +17,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.model.Tag;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 发现页搜索标签的adapter
@@ -24,21 +25,30 @@ import java.util.List;
  */
 public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
-    private String[] type = {"童书", "玩具", "早教"};
+    private String[] type;//= {"童书", "玩具", "早教"};
 
     private Context mContext;
-    private List<Tag> mBooks, mToys, mChildEdus;
+//    private List<Tag> mBooks, mToys, mChildEdus;
 
+    private Map<String, List<Tag>> datas;
     private ViewGroup.LayoutParams lp;
-    private DiscoverTagGridAdapter mGridAdapter;
 
-    public DiscoverTagListAdapter(Context context, List<Tag> books, List<Tag> toys, List<Tag> childEdus) {
+//    public DiscoverTagListAdapter(Context context, List<Tag> books, List<Tag> toys, List<Tag> childEdus) {
+//        mContext = context;
+////        mBooks = books;
+////        mToys = toys;
+////        mChildEdus = childEdus;
+//        lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+//    }
+
+    public DiscoverTagListAdapter(Context context, Map<String, List<Tag>> datas, String[] type) {
         mContext = context;
-        mBooks = books;
-        mToys = toys;
-        mChildEdus = childEdus;
+        this.datas = datas;
+        this.type = type;
         lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+
     }
 
     @Override
@@ -48,7 +58,7 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 1;
+        return 1;//datas.get(type[groupPosition]).size();
     }
 
     @Override
@@ -58,14 +68,14 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        if (groupPosition == 0) {
-            return mBooks.get(childPosition);
-        } else if (groupPosition == 1) {
-            return mToys.get(childPosition);
-        } else if (groupPosition == 2) {
-            return mChildEdus.get(childPosition);
-        }
-        return null;
+//        if (groupPosition == 0) {
+//            return mBooks.get(childPosition);
+//        } else if (groupPosition == 1) {
+//            return mToys.get(childPosition);
+//        } else if (groupPosition == 2) {
+//            return mChildEdus.get(childPosition);
+//        }
+        return datas.get(type[groupPosition]).get(childPosition);
     }
 
     @Override
@@ -86,7 +96,7 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         TextView title = new TextView(mContext);
-        title.setText((String) getGroup(groupPosition));
+        title.setText(String.valueOf(getGroup(groupPosition)));
         title.setTextColor(mContext.getResources().getColor(R.color.main_black));
         title.setTextSize(16);
         return title;
@@ -95,7 +105,19 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild,
                              View convertView, ViewGroup parent) {
+
+        final List<Tag> childData = datas.get(type[groupPosition]);
+//        (List<Tag>) getChild(groupPosition, childPosition);
+//        if (groupPosition == 0) {
+//            mGridAdapter = new DiscoverTagGridAdapter(mContext, ));
+//        } else if (groupPosition == 1) {
+//            mGridAdapter = new DiscoverTagGridAdapter(mContext, mToys);
+//        } else if (groupPosition == 2) {
+//            mGridAdapter = new DiscoverTagGridAdapter(mContext, mChildEdus);
+//        }
         ScrollableGridView gridView = new ScrollableGridView(mContext);
+        DiscoverTagGridAdapter mGridAdapter = new DiscoverTagGridAdapter(mContext,
+                R.layout.item_disvocer_tag_grid, childData);
         gridView.setVerticalScrollBarEnabled(false);
         gridView.setHorizontalScrollBarEnabled(false);
         gridView.setLayoutParams(lp);
@@ -103,26 +125,18 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
         gridView.setHorizontalSpacing(20);
         gridView.setVerticalSpacing(20);
         gridView.setGravity(Gravity.CENTER);
-        if (groupPosition == 0) {
-            mGridAdapter = new DiscoverTagGridAdapter(mContext, mBooks);
-        } else if (groupPosition == 1) {
-            mGridAdapter = new DiscoverTagGridAdapter(mContext, mToys);
-        } else if (groupPosition == 2) {
-            mGridAdapter = new DiscoverTagGridAdapter(mContext, mChildEdus);
-        }
         gridView.setAdapter(mGridAdapter);
-
         // 子view的点击事件
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String keyword = "";
                 if (groupPosition == 0) {
-                    keyword = mBooks.get(position).getTag_name();
+                    keyword = childData.get(position).getTag_name();
                 } else if (groupPosition == 1) {
-                    keyword = mToys.get(position).getTag_name();
+                    keyword = childData.get(position).getTag_name();
                 } else if (groupPosition == 2) {
-                    keyword = mChildEdus.get(position).getTag_name();
+                    keyword = childData.get(position).getTag_name();
                 }
                 Intent intent = new Intent(mContext, SearchResultActivity.class);
                 Bundle bundle = new Bundle();
@@ -131,7 +145,6 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
                 mContext.startActivity(intent);
             }
         });
-
         return gridView;
     }
 

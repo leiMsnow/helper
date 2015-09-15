@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,8 +50,8 @@ public class SPUtils {
             editor.putLong(key, (Long) object);
         } else if (object instanceof Double) {
             editor.putLong(key, Double.doubleToRawLongBits((Double) object));
-        }else if (object instanceof Set) {
-            editor.putStringSet(key, (Set<String>) object);
+        }else if (object instanceof HashSet) {
+            editor.putStringSet(key, (HashSet<String>) object);
         } else {
             editor.putString(key, object.toString());
         }
@@ -81,7 +82,10 @@ public class SPUtils {
         } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         } else if (defaultObject instanceof Double) {
-            return Double.longBitsToDouble(sp.getLong(key, Double.doubleToRawLongBits((Double) defaultObject)));
+            return Double.longBitsToDouble(sp.getLong(key,
+                    Double.doubleToRawLongBits((Double) defaultObject)));
+        } else if (defaultObject instanceof HashSet){
+            return   sp.getStringSet(key, (Set<String>) defaultObject);
         }
         return null;
     }

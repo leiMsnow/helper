@@ -2,11 +2,8 @@ package com.tongban.im.api;
 
 import android.content.Context;
 
-import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.im.App;
-import com.tongban.im.model.BaseEvent;
-
-import java.util.HashMap;
+import com.tongban.im.api.base.BaseApi;
 
 /**
  * 消息api

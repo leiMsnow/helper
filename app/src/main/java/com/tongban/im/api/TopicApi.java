@@ -11,6 +11,7 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
@@ -46,6 +47,7 @@ public class TopicApi extends BaseApi {
      * 取消收藏话题
      */
     public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
+
 //---------------------------------------输出接口----------------------------------------------------
     /**
      * 话题回复列表接口
@@ -113,6 +115,7 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                setDisableCache(TOPIC_CACHE_TIME);
                 ApiResult<String> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<String>>() {
                         });
@@ -386,7 +389,7 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onComplete(Object obj) {
-
+                        setDisableCache(TOPIC_CACHE_TIME);
                         BaseEvent.CreateTopicCommentEvent event = new BaseEvent.CreateTopicCommentEvent();
                         event.topic_id = topicId;
                         if (callback != null)

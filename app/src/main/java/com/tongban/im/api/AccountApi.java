@@ -9,6 +9,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
@@ -28,7 +29,6 @@ import de.greenrobot.event.EventBus;
 public class AccountApi extends BaseApi {
 
     private static AccountApi mApi;
-
 
     /**
      * 登录
