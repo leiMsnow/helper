@@ -1,6 +1,7 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.LocationUtils;
+import com.tongban.im.widget.view.MetaBallsView;
 
 import java.util.Random;
 
@@ -34,6 +36,7 @@ public class LoadingActivity extends BaseToolBarActivity {
     private int tryCount = 0;
 
     private Handler handler = new Handler();
+    private MetaBallsView mbView;
 
     @Override
     protected int getLayoutRes() {
@@ -42,7 +45,8 @@ public class LoadingActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-
+        mbView = (MetaBallsView) findViewById(R.id.mb_view);
+        mbView.setPaintMode(0);
     }
 
     @Override

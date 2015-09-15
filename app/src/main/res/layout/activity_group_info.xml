@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:scrollbars="none"
-        android:background="@color/weak_grey">
+        android:background="@color/weak_grey"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,19 +76,19 @@
                 style="@style/ChatSettingLayout">
 
                 <TextView
-                    android:id="@+id/tv_creator_label"
                     style="@style/ChatSettingLeftText"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
                     android:text="创建人" />
 
-                <com.tongban.corelib.widget.view.HexagonImageView
+                <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_group_creator"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_centerVertical="true"
                     android:layout_margin="4dp"
-                    android:layout_toLeftOf="@+id/tv_group_creator"
-                    android:src="@mipmap/ic_contact_picture" />
+                    android:layout_toLeftOf="@+id/tv_group_creator" />
 
                 <TextView
                     android:id="@+id/tv_group_creator"

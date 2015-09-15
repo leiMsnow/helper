@@ -78,7 +78,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/ib_create"
             android:layout_toStartOf="@+id/ib_create"
-            android:background="@drawable/selector_white_to_gray"
+            android:background="@drawable/selector_transparent_to_gray"
             android:padding="8dp"
             android:src="@mipmap/ic_menu_search" />
 
@@ -91,7 +91,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/selector_white_to_gray"
+            android:background="@drawable/selector_transparent_to_gray"
             android:padding="8dp"
             android:src="@mipmap/ic_menu_topic_add" />
 

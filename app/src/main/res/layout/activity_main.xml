@@ -11,6 +11,7 @@
 
     <View
         style="@style/HorizontalLine"
+        android:background="?attr/colorPrimary"
         android:layout_above="@+id/ll_bottom_menu" />
 
     <LinearLayout
@@ -18,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="?attr/colorPrimary"
         android:orientation="horizontal">
 
         <com.tongban.corelib.widget.view.ChangeColorView

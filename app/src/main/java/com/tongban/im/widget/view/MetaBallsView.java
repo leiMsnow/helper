@@ -11,6 +11,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
+import com.tongban.im.R;
+
 import java.util.ArrayList;
 
 /**
@@ -62,7 +64,7 @@ public class MetaBallsView extends View {
     }
 
     private void init() {
-        paint.setColor(mContext.getResources().getColor(com.tongban.corelib.R.color.theme_red));
+        paint.setColor(mContext.getResources().getColor(R.color.main_black));
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
         Circle circlePath = new Circle();

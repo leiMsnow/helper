@@ -3,8 +3,9 @@
     android:layout_height="match_parent">
 
     <com.tongban.im.widget.view.MetaBallsView
+        android:id="@+id/mb_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="48dp" />

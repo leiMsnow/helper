@@ -13,7 +13,7 @@
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/fragment_ptr_home_ptr_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/rl_toolbar"
         ptr:ptr_duration_to_close="200"
         ptr:ptr_duration_to_close_header="1000"
@@ -39,7 +39,7 @@
         android:id="@+id/rl_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
+        android:background="?attr/colorPrimary">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
@@ -47,8 +47,7 @@
             android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/rc_default_portrait"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/tv_discover"
@@ -58,7 +57,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user_portrait"
             android:text="@string/discover"
-            android:textColor="@color/main_brown"
+            android:textColor="?attr/actionMenuTextColor"
             android:textSize="18sp"/>
 
         <ImageView
@@ -68,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
-            android:background="@drawable/selector_white_to_gray"
+            android:background="@drawable/selector_transparent_to_gray"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_discover_search"/>
     </RelativeLayout>

@@ -4,13 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.tongban.corelib.widget.view.HexagonImageView
+    <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_member_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_contact_picture" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tv_member_name"

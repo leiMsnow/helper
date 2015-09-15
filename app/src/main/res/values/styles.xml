@@ -10,7 +10,8 @@
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:minHeight">48dp</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -23,16 +24,15 @@
     <style name="ChatSettingLeftText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/main_brown</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
     <!--聊天设置右侧文本样式-->
     <style name="ChatSettingRightText">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
         <item name="android:singleLine">true</item>
         <item name="android:focusable">false</item>
         <item name="android:clickable">false</item>
@@ -162,6 +162,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/selector_btn_bg_orange</item>
+        <item name="android:background">?attr/buttonBackground</item>
     </style>
 </resources>
