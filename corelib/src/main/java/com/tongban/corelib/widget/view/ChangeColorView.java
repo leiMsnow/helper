@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -53,8 +54,8 @@ public class ChangeColorView extends View {
         setIconAlpha(1.0f);
     }
 
-    public void setIconBitmap(Bitmap mIconBitmap) {
-        this.mIconBitmap = mIconBitmap;
+    public void setIconBitmap(int mIconBitmap) {
+        this.mIconBitmap = BitmapFactory.decodeResource(getResources(),mIconBitmap);
         setIconAlpha(1.0f);
     }
 

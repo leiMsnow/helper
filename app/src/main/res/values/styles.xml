@@ -3,9 +3,13 @@
     <style name="MainBottomMenu">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginBottom">4dp</item>
+        <!--<item name="android:layout_marginBottom">4dp</item>-->
         <item name="android:layout_weight">1</item>
-        <item name="android:padding">4dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/selector_main_menu_text</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@color/transparent</item>
+        <!--<item name="android:padding">4dp</item>-->
     </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">

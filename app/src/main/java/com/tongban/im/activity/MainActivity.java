@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
@@ -30,9 +32,14 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     private ViewPager mViewPager;
     private List<Fragment> mTabs = new ArrayList<>();
     private FragmentPagerAdapter mAdapter;
-    private List<ChangeColorView> mTabIndicator = new ArrayList<>();
-    private ChangeColorView ccvDiscover, ccvCircle, ccvTopic;
-
+    private List<CheckBox> mTabIndicator = new ArrayList<>();
+//    private ChangeColorView ccvDiscover, ccvCircle, ccvTopic;
+//    private int[] mIcon = new int[]{
+//            R.mipmap.ic_menu_discover_select,
+//            R.mipmap.ic_menu_topic_select,
+//            R.mipmap.ic_menu_circle_select
+//    };
+    private CheckBox tvDiscover,tvTopic,tvGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,18 +69,22 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void initView() {
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
 
-        ccvDiscover = (ChangeColorView) findViewById(R.id.ccv_discover);
-        ccvCircle = (ChangeColorView) findViewById(R.id.ccv_circle);
-        ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
+        tvDiscover = (CheckBox) findViewById(R.id.tv_discover);
+        tvTopic = (CheckBox) findViewById(R.id.tv_topic);
+        tvGroup = (CheckBox) findViewById(R.id.tv_group);
+//        ccvDiscover = (ChangeColorView) findViewById(R.id.ccv_discover);
+//        ccvCircle = (ChangeColorView) findViewById(R.id.ccv_circle);
+//        ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
 
-        ccvDiscover.setIconAlpha(1.0f);
+//        ccvDiscover.setIconAlpha(1.0f);
+//        ccvDiscover.setIconBitmap(R.mipmap.ic_menu_discover_select);
     }
 
     @Override
     protected void initData() {
-        mTabIndicator.add(ccvDiscover);
-        mTabIndicator.add(ccvTopic);
-        mTabIndicator.add(ccvCircle);
+        mTabIndicator.add(tvDiscover);
+        mTabIndicator.add(tvTopic);
+        mTabIndicator.add(tvGroup);
         /** 发现 */
         mTabs.add(new DiscoverFragment());
         /** 话题 */
@@ -104,27 +115,27 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     protected void initListener() {
         mViewPager.addOnPageChangeListener(this);
-        ccvDiscover.setOnClickListener(this);
-        ccvTopic.setOnClickListener(this);
-        ccvCircle.setOnClickListener(this);
+        tvDiscover.setOnClickListener(this);
+        tvTopic.setOnClickListener(this);
+        tvGroup.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == ccvDiscover) {
+        if (v == tvDiscover) {
             resetTabs(0);
-        } else if (v == ccvTopic) {
+        } else if (v == tvTopic) {
             resetTabs(1);
-        } else if (v == ccvCircle) {
+        } else if (v == tvGroup) {
             resetTabs(2);
         }
     }
 
     private void resetTabs(int index) {
         for (int i = 0; i < mTabIndicator.size(); i++) {
-            mTabIndicator.get(i).setIconAlpha(0.0f);
+            mTabIndicator.get(i).setChecked(false);
         }
-        mTabIndicator.get(index).setIconAlpha(1.0f);
+        mTabIndicator.get(index).setChecked(true);
         mViewPager.setCurrentItem(index, false);
         showEmptyText("", false);
     }
@@ -137,10 +148,10 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffset > 0) {
-            mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
-            mTabIndicator.get(position + 1).setIconAlpha(positionOffset);
-        }
+//        if (positionOffset > 0) {
+//            mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
+//            mTabIndicator.get(position + 1).setIconAlpha(positionOffset);
+//        }
     }
 
     @Override

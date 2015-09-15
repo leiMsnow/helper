@@ -35,10 +35,6 @@ public class TopicApi extends BaseApi {
      */
     public static final String CREATE_TOPIC = "topic/create";
     /**
-     * 话题回复列表接口
-     */
-    public static final String TOPIC_COMMENT_LIST = "topic/contain/comment/list";
-    /**
      * 回复话题
      */
     public static final String COMMENT_CREATE = "comment/create";
@@ -51,6 +47,10 @@ public class TopicApi extends BaseApi {
      */
     public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
 //---------------------------------------输出接口----------------------------------------------------
+    /**
+     * 话题回复列表接口
+     */
+    public static final String TOPIC_COMMENT_LIST = "topic/contain/comment/list";
     /**
      * 话题推荐接口
      */

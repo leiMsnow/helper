@@ -50,6 +50,7 @@ public class BaseApi {
     public final static int TIME_DIS_MATCH = 10069;
     //-----------------------------接口缓存时间key----------------------------------------------------
     //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
+    protected final static String ALL_CACHE_URL = "ALL_CACHE_URL";
     //专题时间-10min
     protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
     protected final static String THEME_CACHE_URL = "THEME_CACHE_URL";
@@ -128,74 +129,15 @@ public class BaseApi {
         return getHostUrl() + apiName;
     }
 
-
-    /**
-     * 获得所有接口
-     *
-     * @return
-     */
-    public Set<String> getDisableCacheUrls(String cacheName) {
-        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, cacheName, null);
-        return mDisableCacheUrls;
-    }
-
-    public boolean isCurrentUrl(String cacheName, String url) {
-        getDisableCacheUrls(cacheName);
-        if (mDisableCacheUrls == null)
-            return false;
-
-        return mDisableCacheUrls.contains(url);
-    }
-
-
-    /**
-     * 记录所有url
-     * 读取缓存的时候，将url存储下来
-     *
-     * @param url
-     */
-    public void setDisableCacheUrls(String cacheName, String url) {
-        getDisableCacheUrls(cacheName);
-        if (mDisableCacheUrls == null)
-            mDisableCacheUrls = new HashSet<>();
-        this.mDisableCacheUrls.add(url);
-        SPUtils.put(mContext, cacheName, mDisableCacheUrls);
-    }
-
-    /**
-     * 删除某个缓存url
-     *
-     * @param url
-     */
-    public void removeDisableCacheUrls(String cacheName, String url) {
-        getDisableCacheUrls(cacheName);
-        if (mDisableCacheUrls == null)
-            return;
-        this.mDisableCacheUrls.remove(url);
-        SPUtils.put(mContext, cacheName, mDisableCacheUrls);
-    }
-
-    /**
-     * 删除所有的缓存url
-     */
-    public void clearDisableCacheUrls(String cacheName) {
-        SPUtils.put(mContext, cacheName, null);
-    }
-
-    protected void simpleRequest(String url, Map params, final ApiCallback callback) {
-        simpleRequest(url, params, false, callback);
-    }
-
     /**
      * 封装了JsonObjectRequest的网络请求方法
      *
-     * @param url          请求接口名称||地址
-     * @param params       请求参数
-     * @param disableCache 是否获取缓存数据标示 默认为false，
-     *                     Ps:只有特定的几个接口需要新数据，大多数情况不要传递这个值
-     * @param callback     请求结果的回调
+     * @param url      请求接口名称||地址
+     * @param params   请求参数
+     *                 Ps:只有特定的几个接口需要新数据，大多数情况不要传递这个值
+     * @param callback 请求结果的回调
      */
-    protected void simpleRequest(String url, Map params, final boolean disableCache,
+    protected void simpleRequest(final String url, Map params,
                                  final ApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
             callback.onFailure(ApiCallback.DisplayType.Toast, "网络连接失败,请稍后重试");
@@ -204,14 +146,19 @@ public class BaseApi {
         if (url == null || params == Collections.emptyMap()) {
             return;
         }
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            url = getRequestUrl(url);
+        String apiUrl = url;
+        if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
+            apiUrl = getRequestUrl(apiUrl);
         }
-        final String requestUrl = url;
+        //是否获取缓存数据标示 默认为false，
+        final String requestUrl = apiUrl;
+        final boolean disableCache = isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
+
         LogUtil.d("request-url:", requestUrl);
         LogUtil.d("request-disableCache:", String.valueOf(disableCache));
         LogUtil.d("request-url:", "request-params: \n " + requestJson);
+
         // 创建request
         try {
             JSONObject jsonObject = new JSONObject(requestJson);
@@ -221,7 +168,12 @@ public class BaseApi {
                         public void onResponse(JSONObject jsonObject) {
                             LogUtil.d("onResponse-url:", requestUrl);
                             LogUtil.d("request-disableCache:", String.valueOf(disableCache));
-                            LogUtil.d("onResponse-url:", "onResponse-data: \n " + jsonObject.toString());
+                            LogUtil.d("onResponse-url:", "onResponse-data: \n "
+                                    + jsonObject.toString());
+                            //获取完成后，将取消缓存的接口删掉
+                            if (disableCache) {
+                                removeDisableCacheUrls(url);
+                            }
                             int apiResult = jsonObject.optInt("statusCode");
                             if (apiResult == API_SUCCESS) {
                                 // 请求成功,数据回调给调用方
@@ -271,6 +223,7 @@ public class BaseApi {
             callback.onStartApi();
         } catch (Exception e) {
             LogUtil.e("onError-request-json:", "解析json异常");
+            callback.onFailure(ApiCallback.DisplayType.Toast, "解析json异常");
         }
     }
 
@@ -289,8 +242,13 @@ public class BaseApi {
      * @param cacheName {@link BaseApi}
      * @return
      */
-    protected boolean isDisableCache(String cacheName) {
-        return (boolean) SPUtils.get(mContext, cacheName, false);
+    protected boolean disableCache(String cacheName) {
+        long time = (long) SPUtils.get(mContext, cacheName, 0L);
+        if (time - System.currentTimeMillis() > 0L) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -299,19 +257,84 @@ public class BaseApi {
      * @param cacheName {@link BaseApi}
      */
     protected void setDisableCache(String cacheName) {
-        int disableCache = 0;
+//        int disableCache = 0;
         if (cacheName.equals(USER_CACHE_TIME)) {
-            disableCache = 5;
+//            disableCache = 5;
+//            setDisableCacheUrls(User);
         } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-            disableCache = 10;
+//            disableCache = 10;
+            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
         } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-            disableCache = 30;
+//            disableCache = 30;
         } else if (cacheName.equals(THEME_CACHE_TIME)) {
-            disableCache = 10;
+//            disableCache = 10;
         } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-            disableCache = 10;
+//            disableCache = 10;
         }
-        SPUtils.put(mContext, cacheName, disableCache);
+//        SPUtils.put(mContext, cacheName, disableCache);
+    }
+
+
+    /**
+     * 获得所有接口
+     *
+     * @return
+     */
+    public Set<String> getDisableCacheUrls() {
+        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, ALL_CACHE_URL, null);
+        return mDisableCacheUrls;
+    }
+
+    /**
+     * 缓存地址是否存在，如果存在将不再走缓存接口
+     *
+     * @param url
+     * @return
+     */
+    public boolean isCurrentUrl(String url) {
+        getDisableCacheUrls();
+        if (mDisableCacheUrls == null)
+            return false;
+        return mDisableCacheUrls.contains(url);
+    }
+
+
+    /**
+     * 记录所有url
+     * 读取缓存的时候，将url存储下来
+     *
+     * @param url
+     */
+    public void setDisableCacheUrls(String url) {
+        getDisableCacheUrls();
+        if (mDisableCacheUrls == null)
+            mDisableCacheUrls = new HashSet<>();
+        this.mDisableCacheUrls.add(url);
+        SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
+    }
+
+    /**
+     * 删除某个缓存url
+     *
+     * @param url
+     */
+    public void removeDisableCacheUrls(String url) {
+        getDisableCacheUrls();
+        if (mDisableCacheUrls == null)
+            return;
+        this.mDisableCacheUrls.remove(url);
+        SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
+    }
+
+    /**
+     * 删除所有的缓存url
+     */
+    public void clearDisableCacheUrls(String cacheName) {
+        SPUtils.put(mContext, cacheName, null);
     }
 
     /**
