@@ -48,19 +48,23 @@ public class BaseApi {
      * 客户端与服务器时间不同步
      */
     public final static int TIME_DIS_MATCH = 10069;
-    public final static String DISABLE_CACHE = "DISABLE_CACHE";
     //-----------------------------接口缓存时间key----------------------------------------------------
     //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
     //专题时间-10min
     protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
+    protected final static String THEME_CACHE_URL = "THEME_CACHE_URL";
     //单品时间-10min
     protected final static String PRODUCT_CACHE_TIME = "PRODUCT_CACHE_TIME";
+    protected final static String PRODUCT_CACHE_URL = "PRODUCT_CACHE_URL";
     //话题时间-10min
     protected final static String TOPIC_CACHE_TIME = "TOPIC_CACHE_TIME";
+    protected final static String TOPIC_CACHE_URL = "TOPIC_CACHE_URL";
     //圈子时间-30min
     protected final static String GROUP_CACHE_TIME = "GROUP_CACHE_TIME";
+    protected final static String GROUP_CACHE_URL = "GROUP_CACHE_URL";
     //用户时间-5min
     protected final static String USER_CACHE_TIME = "USER_CACHE_TIME";
+    protected final static String USER_CACHE_URL = "USER_CACHE_URL";
     /**
      * 获取Volley请求队列
      */
@@ -73,28 +77,6 @@ public class BaseApi {
     protected Map<String, Object> mParams;
 
     private Set<String> mDisableCacheUrls;
-
-    /**
-     * 获得所有接口
-     *
-     * @return
-     */
-    public Set<String> getDisableCacheUrls() {
-        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, DISABLE_CACHE, null);
-        return mDisableCacheUrls;
-    }
-
-    /**
-     * 记录所有接口
-     *
-     * @param url
-     */
-    public void setDisableCacheUrls(String url) {
-        if (mDisableCacheUrls == null)
-            mDisableCacheUrls = new HashSet<>();
-        this.mDisableCacheUrls.add(url);
-        SPUtils.put(mContext, DISABLE_CACHE, mDisableCacheUrls);
-    }
 
 
     /**
@@ -147,6 +129,59 @@ public class BaseApi {
     }
 
 
+    /**
+     * 获得所有接口
+     *
+     * @return
+     */
+    public Set<String> getDisableCacheUrls(String cacheName) {
+        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, cacheName, null);
+        return mDisableCacheUrls;
+    }
+
+    public boolean isCurrentUrl(String cacheName, String url) {
+        getDisableCacheUrls(cacheName);
+        if (mDisableCacheUrls == null)
+            return false;
+
+        return mDisableCacheUrls.contains(url);
+    }
+
+
+    /**
+     * 记录所有url
+     * 读取缓存的时候，将url存储下来
+     *
+     * @param url
+     */
+    public void setDisableCacheUrls(String cacheName, String url) {
+        getDisableCacheUrls(cacheName);
+        if (mDisableCacheUrls == null)
+            mDisableCacheUrls = new HashSet<>();
+        this.mDisableCacheUrls.add(url);
+        SPUtils.put(mContext, cacheName, mDisableCacheUrls);
+    }
+
+    /**
+     * 删除某个缓存url
+     *
+     * @param url
+     */
+    public void removeDisableCacheUrls(String cacheName, String url) {
+        getDisableCacheUrls(cacheName);
+        if (mDisableCacheUrls == null)
+            return;
+        this.mDisableCacheUrls.remove(url);
+        SPUtils.put(mContext, cacheName, mDisableCacheUrls);
+    }
+
+    /**
+     * 删除所有的缓存url
+     */
+    public void clearDisableCacheUrls(String cacheName) {
+        SPUtils.put(mContext, cacheName, null);
+    }
+
     protected void simpleRequest(String url, Map params, final ApiCallback callback) {
         simpleRequest(url, params, false, callback);
     }
@@ -174,10 +209,6 @@ public class BaseApi {
         }
         final String requestUrl = url;
         final String requestJson = JSON.toJSON(params).toString();
-        //读取缓存的时候，将
-        if (!disableCache) {
-            setDisableCacheUrls(requestUrl);
-        }
         LogUtil.d("request-url:", requestUrl);
         LogUtil.d("request-disableCache:", String.valueOf(disableCache));
         LogUtil.d("request-url:", "request-params: \n " + requestJson);
@@ -258,13 +289,8 @@ public class BaseApi {
      * @param cacheName {@link BaseApi}
      * @return
      */
-    protected boolean disableCache(String cacheName) {
-        long time = (long) SPUtils.get(mContext, cacheName, 0L);
-        if (time - System.currentTimeMillis() > 0L) {
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean isDisableCache(String cacheName) {
+        return (boolean) SPUtils.get(mContext, cacheName, false);
     }
 
     /**
@@ -273,20 +299,19 @@ public class BaseApi {
      * @param cacheName {@link BaseApi}
      */
     protected void setDisableCache(String cacheName) {
-        int min = 0;
+        int disableCache = 0;
         if (cacheName.equals(USER_CACHE_TIME)) {
-            min = 5;
+            disableCache = 5;
         } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-            min = 10;
+            disableCache = 10;
         } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-            min = 30;
+            disableCache = 30;
         } else if (cacheName.equals(THEME_CACHE_TIME)) {
-            min = 10;
+            disableCache = 10;
         } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-            min = 10;
+            disableCache = 10;
         }
-        long countdown = System.currentTimeMillis() + 1000 * 60 * min;
-        SPUtils.put(mContext, cacheName, countdown);
+        SPUtils.put(mContext, cacheName, disableCache);
     }
 
     /**

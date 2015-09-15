@@ -11,7 +11,6 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
-import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
@@ -22,7 +21,6 @@ import com.tongban.im.model.TopicComment;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 话题api
@@ -53,7 +51,6 @@ public class TopicApi extends BaseApi {
      */
     public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
 //---------------------------------------输出接口----------------------------------------------------
-
     /**
      * 话题推荐接口
      */
@@ -431,6 +428,7 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onComplete(Object obj) {
+                        setDisableCache(TOPIC_CACHE_TIME);
                         BaseEvent.TopicCollect topicCollect = new BaseEvent.TopicCollect();
                         topicCollect.topic_id = topicId;
                         topicCollect.status = collect;
