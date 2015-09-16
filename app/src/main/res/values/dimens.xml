@@ -1,6 +1,4 @@
 <resources>
-    <!-- 发现页顶部"toolbar"的高度 -->
-    <dimen name="discover_toolbar_height">70dp</dimen>
     <!-- 首页timeline的left margin -->
     <dimen name="discover_time_line_left_margin">16dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

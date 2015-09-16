@@ -2,6 +2,7 @@ package com.tongban.im.activity.discover;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import com.tongban.im.adapter.DiscoverTagListAdapter;
 import com.tongban.im.api.CommonApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Tag;
 import com.tongban.im.model.TagType;
@@ -24,6 +26,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 搜索首页
@@ -44,6 +48,7 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        isExpanded = false;
         mTagListView = (ExpandableListView) findViewById(R.id.elv_tags);
     }
 
@@ -75,10 +80,8 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
-            isShowSuggestions = true;
             suggestionsListView.setVisibility(View.GONE);
-            Intent intent = new Intent(mContext, SearchResultActivity.class);
-            startActivity(intent);
+            TransferCenter.getInstance().startThemeSearchResult(true,query);
         }
         return false;
     }
@@ -112,5 +115,18 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
             }
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
     }
 }

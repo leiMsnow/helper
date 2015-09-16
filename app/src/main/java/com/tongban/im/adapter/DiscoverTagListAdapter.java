@@ -14,6 +14,7 @@ import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchResultActivity;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.Tag;
 
 import java.util.List;
@@ -25,22 +26,12 @@ import java.util.Map;
  */
 public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
-    private String[] type;//= {"童书", "玩具", "早教"};
+    private String[] type;
 
     private Context mContext;
-//    private List<Tag> mBooks, mToys, mChildEdus;
 
     private Map<String, List<Tag>> datas;
     private ViewGroup.LayoutParams lp;
-
-//    public DiscoverTagListAdapter(Context context, List<Tag> books, List<Tag> toys, List<Tag> childEdus) {
-//        mContext = context;
-////        mBooks = books;
-////        mToys = toys;
-////        mChildEdus = childEdus;
-//        lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//    }
 
     public DiscoverTagListAdapter(Context context, Map<String, List<Tag>> datas, String[] type) {
         mContext = context;
@@ -48,7 +39,6 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
         this.type = type;
         lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-
     }
 
     @Override
@@ -58,7 +48,7 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 1;//datas.get(type[groupPosition]).size();
+        return 1;
     }
 
     @Override
@@ -68,13 +58,6 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-//        if (groupPosition == 0) {
-//            return mBooks.get(childPosition);
-//        } else if (groupPosition == 1) {
-//            return mToys.get(childPosition);
-//        } else if (groupPosition == 2) {
-//            return mChildEdus.get(childPosition);
-//        }
         return datas.get(type[groupPosition]).get(childPosition);
     }
 
@@ -107,14 +90,6 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
 
         final List<Tag> childData = datas.get(type[groupPosition]);
-//        (List<Tag>) getChild(groupPosition, childPosition);
-//        if (groupPosition == 0) {
-//            mGridAdapter = new DiscoverTagGridAdapter(mContext, ));
-//        } else if (groupPosition == 1) {
-//            mGridAdapter = new DiscoverTagGridAdapter(mContext, mToys);
-//        } else if (groupPosition == 2) {
-//            mGridAdapter = new DiscoverTagGridAdapter(mContext, mChildEdus);
-//        }
         ScrollableGridView gridView = new ScrollableGridView(mContext);
         DiscoverTagGridAdapter mGridAdapter = new DiscoverTagGridAdapter(mContext,
                 R.layout.item_disvocer_tag_grid, childData);
@@ -138,11 +113,7 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
                 } else if (groupPosition == 2) {
                     keyword = childData.get(position).getTag_name();
                 }
-                Intent intent = new Intent(mContext, SearchResultActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(Consts.KEY_SEARCH_VALUE, keyword);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                TransferCenter.getInstance().startThemeSearchResult(false,keyword);
             }
         });
         return gridView;

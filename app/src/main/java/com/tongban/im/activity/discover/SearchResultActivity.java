@@ -1,5 +1,6 @@
 package com.tongban.im.activity.discover;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -121,13 +122,16 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         };
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
-
+        if (getIntent() != null) {
+            Uri uri = getIntent().getData();
+            mQueryText = uri.getQueryParameter("keyword");
+            isExpanded = Boolean.parseBoolean(uri.getQueryParameter("isExpanded"));
+        }
         // 搜索
         if (!TextUtils.isEmpty(mQueryText)) {
             mThemeListFragment.searchTheme(mQueryText);
             mProductListFragment.searchProduct(mQueryText);
         }
-
     }
 
 

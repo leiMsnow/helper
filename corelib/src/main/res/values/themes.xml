@@ -3,6 +3,7 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextAppearance">@style/Widget.Toolbar.TextAppearance</item>
         <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>

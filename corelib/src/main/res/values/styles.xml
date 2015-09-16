@@ -41,4 +41,10 @@
         <item name="android:minHeight">4dp</item>
     </style>
 
+    <style name="Widget.Toolbar.TextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">?attr/actionMenuTextColor</item>
+    </style>
+
 </resources>

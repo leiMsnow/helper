@@ -55,6 +55,24 @@ public class TransferCenter {
     }
 
     /**
+     * 打开专题搜索结果界面
+     *
+     * @param isExpanded 是否展开搜索框 true展开；false不展开
+     * @param keyword    搜索的关键字
+     */
+    public void startThemeSearchResult(boolean isExpanded, @Nullable String keyword) {
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(TransferPathPrefix.THEME_SEARCH_RESULT)
+                .appendQueryParameter("keyword", keyword)
+                .appendQueryParameter("isExpanded", isExpanded ? "true" : "false")
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
+
+    /**
      * 打开用户中心界面
      *
      * @param visitorId
@@ -74,7 +92,7 @@ public class TransferCenter {
                 .appendQueryParameter("visitorId", visitorId)
                 .appendQueryParameter("center_tag", center_tag)
                 .build();
-        Log.d("TransferCenter",visitorId);
+        Log.d("TransferCenter", visitorId);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);

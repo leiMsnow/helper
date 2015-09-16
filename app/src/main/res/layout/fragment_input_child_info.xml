@@ -58,6 +58,7 @@
                 android:gravity="center"
                 android:hint="宝宝出生日期"
                 android:singleLine="true"
+                android:textColorHint="@color/main_black"
                 android:textSize="12sp" />
 
             <View
@@ -77,8 +78,9 @@
                 android:layout_marginTop="24dp"
                 android:background="@null"
                 android:gravity="center"
-                android:hint="宝宝性别"
                 android:singleLine="true"
+                android:text="宝宝性别"
+                android:textColor="@color/main_black"
                 android:textSize="12sp" />
 
             <RelativeLayout
@@ -110,9 +112,9 @@
                         android:id="@+id/chb_boy"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
                         android:layout_gravity="bottom|right"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
                         android:background="@mipmap/ic_select"
                         android:button="@null"
                         android:visibility="gone" />
@@ -136,40 +138,37 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_gravity="bottom|right"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
                         android:background="@mipmap/ic_select"
                         android:button="@null"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
                         android:visibility="gone" />
                 </FrameLayout>
+
                 <TextView
                     android:id="@+id/tv_sex_boy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_boy"
-                    android:layout_below="@+id/fl_container_girl"
-                    android:layout_alignRight="@+id/fl_container_boy"
                     android:layout_alignLeft="@+id/fl_container_boy"
-                    android:text="男宝宝 "
+                    android:layout_alignRight="@+id/fl_container_boy"
+                    android:layout_below="@+id/fl_container_girl"
+                    android:drawableLeft="@mipmap/ic_boy"
                     android:gravity="center"
+                    android:text="男宝宝 "
                     android:textColor="@color/normal_grey" />
 
                 <TextView
                     android:id="@+id/tv_sex_girl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/ic_girl"
-                    android:layout_below="@+id/fl_container_girl"
-                    android:layout_alignRight="@+id/fl_container_girl"
                     android:layout_alignLeft="@+id/fl_container_girl"
-                    android:text="女宝宝 "
+                    android:layout_alignRight="@+id/fl_container_girl"
+                    android:layout_below="@+id/fl_container_girl"
+                    android:drawableLeft="@mipmap/ic_girl"
                     android:gravity="center"
+                    android:text="女宝宝 "
                     android:textColor="@color/normal_grey" />
             </RelativeLayout>
-
-
-
-
 
         </RelativeLayout>
     </ScrollView>

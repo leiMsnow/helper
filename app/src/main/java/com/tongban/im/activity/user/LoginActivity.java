@@ -49,10 +49,8 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private boolean mIsOpenMain;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setTitle(getResources().getString(R.string.login));
-
+    protected int getLayoutRes() {
+        return R.layout.activity_login;
     }
 
     @Override
@@ -66,6 +64,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
 
     @Override
     protected void initData() {
+        setTitle(getResources().getString(R.string.login));
         mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
         isOther = getIntent().getBooleanExtra(Consts.KEY_OTHER_CLIENT, false);
         if (isOther) {
@@ -83,10 +82,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etUser.setText(mUser);
     }
 
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_login;
-    }
+
 
     @Override
     protected void initListener() {

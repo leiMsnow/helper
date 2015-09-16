@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--solid为填充颜色，如果不写，将是默认的黑色-->
-    <solid android:color="@color/brown_700" />
-    <corners android:radius="24dp" />
-
-</shape>

@@ -57,8 +57,8 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
     //初始化历史搜索key
     private void initHistoryKey() {
         //从SP中查找历史搜索记录
-        mKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
-        if (TextUtils.isEmpty(mKeys)) {
+        mHistoryKeys = SPUtils.get(mContext, Consts.HISTORY_SEARCH_TOPIC, "").toString();
+        if (TextUtils.isEmpty(mHistoryKeys)) {
             tvHistory.setVisibility(View.GONE);
             flHistorySearch.setVisibility(View.GONE);
             return;
@@ -68,7 +68,7 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
 
     //设置历史搜索key和控件
     private void setSearchKeyView() {
-        String[] keyList = mKeys.split(";");
+        String[] keyList = mHistoryKeys.split(";");
         if (keyList.length > 0) {
             for (int i = 0; i < keyList.length; i++) {
                 String key = keyList[i];

@@ -29,8 +29,6 @@ import java.util.List;
 public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener {
 
-
-    //    private SuggestionPopupWindow suggestionPopupWindow;
     protected LoadMoreListView suggestionsListView;
     private QuerySuggestionsAdapter mAdapter;
 
@@ -41,8 +39,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     protected String mQueryText;
     //最大历史记录数
     private final static int mKeyCount = 10;
-    protected String mKeys;
-
+    protected String mHistoryKeys;
+    //是否展开搜索
+    protected boolean isExpanded = true;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,14 +50,17 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
         searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
-        searchView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setQuery(mQueryText, false);
-            }
-        }, 500);
-        searchView.setQueryHint("输入关键字");
-        searchView.onActionViewExpanded();
+        if (isExpanded) {
+            searchView.onActionViewExpanded();
+            searchView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    searchView.setQuery(mQueryText, false);
+                }
+            }, 300);
+        } else {
+            searchView.onActionViewCollapsed();
+        }
         return true;
     }
 
@@ -101,24 +103,24 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     //保存历史搜索key
     protected void saveSearchKey(String query) {
-        if (TextUtils.isEmpty(mKeys))
+        if (TextUtils.isEmpty(query))
             return;
         if (query.contains(";"))
             query = query.replace(";", "");
-        String[] keyList = mKeys.split(";");
-        if (!TextUtils.isEmpty(mKeys)) {
+        String[] keyList = mHistoryKeys.split(";");
+        if (!TextUtils.isEmpty(mHistoryKeys)) {
             for (int i = 0; i < keyList.length; i++) {
                 if (keyList[i].equals(query)) {
-                    mKeys = mKeys.replace(query + ";", "");
+                    mHistoryKeys = mHistoryKeys.replace(query + ";", "");
                     break;
                 }
             }
             if (keyList.length == mKeyCount) {
-                mKeys = mKeys.replace(keyList[keyList.length - 1] + ";", "");
+                mHistoryKeys = mHistoryKeys.replace(keyList[keyList.length - 1] + ";", "");
             }
         }
-        mKeys = query + ";" + mKeys;
-        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mKeys);
+        mHistoryKeys = query + ";" + mHistoryKeys;
+        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mHistoryKeys);
     }
 
     public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
@@ -138,7 +140,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (!TextUtils.isEmpty(newText)) {
+        if (!TextUtils.isEmpty(newText) && (!newText.equals(mQueryText))) {
             mQueryText = newText;
             if (isShowSuggestions) {
                 new Handler().postDelayed(new Runnable() {
@@ -166,13 +168,6 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     public void onEventMainThread(BaseEvent.SearchGroupListEvent obj) {
         gonSearchResult();
     }
-//    public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
-//        gonSearchResult();
-//    }
-//
-//    public void onEventMainThread(BaseEvent.SearchProductResultEvent event) {
-//        gonSearchResult();
-//    }
 
 
     private void gonSearchResult() {

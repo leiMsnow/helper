@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,16 +38,20 @@ public class QuerySuggestionsAdapter extends QuickAdapter<String> {
      */
     private SpannableString addForeColorSpan(String allText) {
         SpannableString spanString = new SpannableString(allText);
-        for (int i = 0; i < queryText.toCharArray().length; i++) {
-            char text = queryText.toCharArray()[i];
-            int start = allText.indexOf(text);
-            if (start > -1) {
-                int end = start + 1;
-                ForegroundColorSpan span = new ForegroundColorSpan(
-                        mContext.getResources().getColor(R.color.main_deep_orange));
-                spanString.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (TextUtils.isEmpty(queryText)) {
+            return spanString;
+        } else {
+            for (int i = 0; i < queryText.toCharArray().length; i++) {
+                char text = queryText.toCharArray()[i];
+                int start = allText.indexOf(text);
+                if (start > -1) {
+                    int end = start + 1;
+                    ForegroundColorSpan span = new ForegroundColorSpan(
+                            mContext.getResources().getColor(R.color.main_deep_orange));
+                    spanString.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
             }
+            return spanString;
         }
-        return spanString;
     }
 }

@@ -17,7 +17,6 @@ import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
@@ -36,7 +35,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  */
 public class DiscoverFragment extends BaseApiFragment implements View.OnClickListener, PtrHandler {
 
-    private ImageView ivUserIcon;
+    private ImageView ivUserPortrait;
     private ImageView ivSearchAll;
     private PtrFrameLayout ptrFrameLayout;
     private ListView mListView;
@@ -50,7 +49,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initView() {
-        ivUserIcon = (ImageView) mView.findViewById(R.id.iv_user_portrait);
+        ivUserPortrait = (ImageView) mView.findViewById(R.id.iv_user_portrait);
         ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         mListView = (ListView) mView.findViewById(R.id.lv_discover);
@@ -67,7 +66,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     protected void initListener() {
-        ivUserIcon.setOnClickListener(this);
+        ivUserPortrait.setOnClickListener(this);
         ivSearchAll.setOnClickListener(this);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,8 +83,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 //            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
         } else {
             // 显示默认头像
-            int defaultPortrait = (int) SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-            ivUserIcon.setImageResource(defaultPortrait);
+            ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
         // 获取首页数据
         ProductApi.getInstance().fetchHomeInfo(this);
@@ -93,7 +91,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v == ivUserIcon) {
+        if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
                     SPUtils.get(mContext, Consts.USER_ID, "").toString());
         } else if (v == ivSearchAll) {
@@ -110,7 +108,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
         User user = userInfo.user;
         if (user != null) {
             if (user.getPortrait_url() != null && user.getPortrait_url().getMin() != null) {
-                Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+                Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserPortrait);
             }
         }
     }

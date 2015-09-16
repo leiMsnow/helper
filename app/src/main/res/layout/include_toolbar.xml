@@ -11,6 +11,4 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
 
-
-    <View style="@style/HorizontalLine" />
 </LinearLayout>

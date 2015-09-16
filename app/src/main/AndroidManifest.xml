@@ -158,7 +158,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/groupinfo"
+                    android:pathPrefix="/group_info"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -176,7 +176,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/searchgroup"
+                    android:pathPrefix="/search_group"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -196,7 +196,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/topicdetails"
+                    android:pathPrefix="/topic_details"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -220,7 +220,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/topicofficial"
+                    android:pathPrefix="/topic_official"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -234,7 +234,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/searchtopic"
+                    android:pathPrefix="/search_topic"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -247,7 +247,18 @@
         <activity
             android:name=".activity.discover.SearchResultActivity"
             android:label="@string/search"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/theme_search_result"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.user.FindPwdActivity"
             android:theme="@style/AppTheme.Red.Base"
@@ -277,7 +288,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/mygrouplist"
+                    android:pathPrefix="/my_group_list"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -291,12 +302,11 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/mycenter"
+                    android:pathPrefix="/my_center"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.user.UserCenterActivity">
+        <activity android:name=".activity.user.UserCenterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -304,7 +314,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/usercenter"
+                    android:pathPrefix="/user_center"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -316,7 +326,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/theme"
+                    android:pathPrefix="/theme_details"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
@@ -328,7 +338,7 @@
 
                 <data
                     android:host="com.tongban.im"
-                    android:pathPrefix="/productbook"
+                    android:pathPrefix="/product_book"
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
