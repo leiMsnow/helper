@@ -1,6 +1,7 @@
 package com.tongban.im.activity.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public class RegisterActivity extends CameraResultActivity {
     private User user;
     private boolean isSecond;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +52,22 @@ public class RegisterActivity extends CameraResultActivity {
 
     @Override
     protected void initData() {
-        setTitle(getString(R.string.register));
-        isSecond = getIntent().getBooleanExtra(Consts.KEY_EDIT_USER, false);
-        if (!isSecond) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
-                    new FirstRegisterFragment())
-                    .commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
-                    new SecondRegisterFragment())
-                    .commit();
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            isSecond = bundle.getBoolean(Consts.KEY_EDIT_USER, false);
+            if (!isSecond) {
+                FirstRegisterFragment registerFragment = new FirstRegisterFragment();
+                registerFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                        registerFragment)
+                        .commit();
+            } else {
+                SecondRegisterFragment secondRegisterFragment = new SecondRegisterFragment();
+                secondRegisterFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                        secondRegisterFragment)
+                        .commit();
+            }
         }
     }
 
@@ -100,7 +108,7 @@ public class RegisterActivity extends CameraResultActivity {
 
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
         if (isSecond) {
-            connectIM(true,false);
+            connectIM(true, false);
         } else {
             connectIM(user.getChild_info() == null);
         }

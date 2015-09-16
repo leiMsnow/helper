@@ -31,8 +31,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = BaseApplication.getRefWatcher();
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = BaseApplication.getRefWatcher();
+//        refWatcher.watch(this);
     }
 
     protected ArrayList<float[]> getPointList() {

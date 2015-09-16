@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.tongban.corelib.utils.SPUtils;
 
 /**
@@ -19,7 +17,7 @@ public class BaseApplication extends Application {
      */
     private RequestQueue mRequestQueue;
 
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -27,7 +25,7 @@ public class BaseApplication extends Application {
             MCrashHandler.getInstance().init(this);
         super.onCreate();
         mApp = this;
-        refWatcher = LeakCanary.install(this);
+//        refWatcher = LeakCanary.install(this);
         /** Volley队列 */
         mRequestQueue = Volley.newRequestQueue(this);
     }
@@ -50,9 +48,9 @@ public class BaseApplication extends Application {
         return mRequestQueue;
     }
 
-    public static RefWatcher getRefWatcher() {
-        return getInstance().refWatcher;
-    }
+//    public static RefWatcher getRefWatcher() {
+//        return getInstance().refWatcher;
+//    }
 
     public boolean isSaveCrash() {
         return (boolean) SPUtils.get(this, SPUtils.VISIT_FILE, "crash", false);

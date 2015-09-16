@@ -3,13 +3,15 @@ package com.tongban.im.common;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
+import com.tongban.im.model.OtherRegister;
 import com.tongban.im.model.Topic;
 
 /**
@@ -29,7 +31,7 @@ public class TransferCenter {
         if (mApi == null) {
             synchronized (TransferCenter.class) {
                 if (mApi == null) {
-                    mApi = new TransferCenter(App.getInstance());
+                    mApi = new TransferCenter(BaseApplication.getInstance());
                 }
             }
         }
@@ -198,6 +200,36 @@ public class TransferCenter {
     }
 
     /**
+     * 打开注册界面
+     *
+     * @param isOtherRegister 是否第三方注册信息
+     * @param type            第三方类型
+     * @param editUser        编辑用户,该情况为用户注册成功后，昵称没有填写,直接进入编辑用户信息界面
+     */
+    public void startRegister(String isOtherRegister, String type, boolean editUser) {
+        Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
+                .appendPath(TransferPathPrefix.REGISTER)
+                .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        Bundle bundle = new Bundle();
+        bundle.putString(Consts.OTHER_REGISTER_INFO, isOtherRegister);
+        bundle.putString(Consts.OTHER_REGISTER_TYPE, type);
+        bundle.putBoolean(Consts.KEY_EDIT_USER, editUser);
+        intent.putExtras(bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+
+    }
+
+    public void startRegister() {
+        startRegister(false);
+    }
+
+    public void startRegister(boolean editUser) {
+        startRegister("", "", editUser);
+    }
+
+    /**
      * 打开关注、粉丝界面
      *
      * @param tag    标记{@link Consts TAG_FANS TAG_FOLLOW}
@@ -216,6 +248,7 @@ public class TransferCenter {
         mContext.startActivity(intent);
 
     }
+
 
     /**
      * 打开我的圈子列表

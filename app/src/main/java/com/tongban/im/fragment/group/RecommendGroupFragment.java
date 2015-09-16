@@ -56,7 +56,6 @@ public class RecommendGroupFragment extends BaseApiFragment implements PtrHandle
             header.setTextColor(R.color.main_brown);
             header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
                     DensityUtils.dp2px(mContext, 16), 0);
-//            header.initWithString("Recommend...", DensityUtils.dp2px(mContext, 10));
             header.initWithPointList(getPointList());
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);

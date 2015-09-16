@@ -10,13 +10,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.OtherRegister;
 
 /**
  * 注册第一步
@@ -35,6 +40,9 @@ public class FirstRegisterFragment extends BaseApiFragment
     private VerifyTimerCount mTime;
     private BaseEvent.RegisterEvent regEvent;
 
+    private String mOtherInfo;
+    private String mOtherType;
+    private OtherRegister otherRegister;
 
     @Override
     protected int getLayoutRes() {
@@ -53,7 +61,14 @@ public class FirstRegisterFragment extends BaseApiFragment
 
     @Override
     protected void initData() {
-
+        if (getArguments() != null) {
+            mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+            otherRegister = JSON.parseObject(mOtherInfo,
+                    new TypeReference<OtherRegister>() {
+                    });
+            LogUtil.d("otherRegister", otherRegister.getNickName());
+        }
     }
 
 
@@ -132,7 +147,7 @@ public class FirstRegisterFragment extends BaseApiFragment
         }
         // 注册成功
         else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
-            AccountApi.getInstance().login(mPhoneNum,mPwd,this);
+            AccountApi.getInstance().login(mPhoneNum, mPwd, this);
         }
     }
 

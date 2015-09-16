@@ -51,6 +51,10 @@ public class TransferPathPrefix {
      */
     public static final String LOGIN = "login";
     /**
+     *
+     */
+    public static final String REGISTER = "register";
+    /**
      * 我的圈子列表
      */
     public static final String MY_GROUP_LIST = "my_group_list";

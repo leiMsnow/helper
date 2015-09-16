@@ -25,6 +25,7 @@ public class App extends BaseApplication {
         RongCloudEvent.init(this);
         /** Log开关 */
         LogUtil.isDebug = true;
+        com.umeng.socialize.utils.Log.LOG = true;
         // 百度地图初始化
         SDKInitializer.initialize(getApplicationContext());
     }

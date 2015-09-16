@@ -19,7 +19,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/phone_num"
-            android:textColor="@color/normal_grey" />
+            android:textColor="@color/main_black" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_phone_num"
@@ -49,13 +49,14 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/pwd"
-            android:textColor="@color/normal_grey" />
+            android:textColor="@color/main_black" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_pwd"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_pwd_text"
             android:hint="6-24位"
+            android:textColorHint="@color/normal_grey"
             android:inputType="textPassword"
             android:maxLength="24" />
 
@@ -86,7 +87,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="@string/verify_code"
-                android:textColor="@color/normal_grey" />
+                android:textColor="@color/main_black" />
 
             <com.tongban.im.widget.view.ClearEditText
                 android:id="@+id/et_verify_code"
@@ -138,14 +139,9 @@
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
+        style="@style/CommonButtonStyle"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/selector_btn_bg_orange"
         android:enabled="false"
-        android:gravity="center"
-        android:text="@string/register"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:text="@string/register" />
 
 </RelativeLayout>

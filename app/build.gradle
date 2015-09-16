@@ -28,7 +28,7 @@ android {
         }
         release {
             signingConfig signingConfigs.release;
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -51,4 +51,5 @@ dependencies {
     compile 'de.greenrobot:greendao:1.3.7'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7.1'
     compile 'com.android.support:design:22.2.1'
+    compile project(':umengsocialsdk')
 }

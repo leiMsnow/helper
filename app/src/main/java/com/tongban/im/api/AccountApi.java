@@ -50,14 +50,19 @@ public class AccountApi extends BaseApi {
      * 注册第一步，获取手机验证码
      */
     public final static String SMS_REQUIRE = "verifycode/sms/require";
-//    /**
-//     * 注册第二步，验证手机验证码
-//     */
-//    public final static String VERIFY_CODE = "verifycode/sms/verify";
     /**
      * 注册第二步，输入手机号验证码
      */
     public final static String REGISTER = "user/register/1";
+    /**
+     * 第三方注册
+     */
+    public final static String OTHER_REGISTER = "user/register/2";
+    /**
+     * 检查手机号是否已经注册
+     */
+    public final static String CHECK_PHONE = "user/regcheck/phone";
+
 
     private AccountApi(Context context) {
         super(context);
@@ -157,6 +162,37 @@ public class AccountApi extends BaseApi {
                     apiResult.setStatusDesc("手机号码已经注册");
                 }
                 callback.onFailure(displayType, errorMessage);
+            }
+
+        });
+    }
+
+    /**
+     * 第三方注册
+     *
+     * @param callback
+     */
+    public void otherRegister(final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+
+        simpleRequest(OTHER_REGISTER, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+                if (callback != null)
+                    callback.onStartApi();
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
 
         });

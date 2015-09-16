@@ -88,6 +88,33 @@
         android:layout_marginTop="8dp"
         android:text="@string/new_register" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_login"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/iv_wechat_login"
+            android:layout_gravity="center_horizontal"
+            android:text="第三方登录" />
+
+        <ImageView
+            android:id="@+id/iv_wechat_login"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:onClick="onClick"
+            android:src="@mipmap/ic_wechat" />
+
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_login"
         style="@style/CommonButtonStyle"

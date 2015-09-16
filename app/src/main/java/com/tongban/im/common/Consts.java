@@ -59,6 +59,14 @@ public class Consts {
      * 七牛上传的token
      */
     public static final String QINIU_TOKEN = "QINIU_TOKEN";
+    /**
+     * 第三方注册信息
+     */
+    public static final String OTHER_REGISTER_INFO = "OTHER_REGISTER_INFO";
+    /**
+     * 第三方类型
+     */
+    public static final String OTHER_REGISTER_TYPE = "OTHER_REGISTER_TYPE";
 
 
     //------------------------------bundle-key-start------------------------------------------------

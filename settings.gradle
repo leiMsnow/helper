@@ -1,1 +1,1 @@
-include ':app', ':corelib', ':imlib', ':daogenerator'
+include ':app', ':corelib', ':imlib', ':daogenerator', ':umengsocialsdk'
