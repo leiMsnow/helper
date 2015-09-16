@@ -8,8 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.SPUtils;
@@ -33,7 +36,7 @@ public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheck
     // 圈子页顶部的搜索按钮
     private ImageButton ibSearch;
     private ImageButton ibCreate;
-
+    private ImageView ivIndicator;
     private FragmentManager fm;
     private ConversationListFragment chatFragment;
     private Fragment recommendFragment;
@@ -51,6 +54,8 @@ public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheck
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibSearch.setVisibility(View.GONE);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
+        ivIndicator = (ImageView) mView.findViewById(R.id.iv_indicator);
+
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()
@@ -89,7 +94,7 @@ public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheck
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (group == rgCircle) {
-            showEmptyText("",false);
+            showEmptyText("", false);
             switch (checkedId) {
                 case R.id.rb_chat:
                     if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
@@ -97,10 +102,12 @@ public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheck
                     }
                     fm.beginTransaction().hide(recommendFragment).commit();
                     ibSearch.setVisibility(View.GONE);
+                    setIndicator(0);
                     break;
                 case R.id.rb_recommend:
                     fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
                     ibSearch.setVisibility(View.VISIBLE);
+                    setIndicator(1);
                     break;
             }
         }
@@ -117,5 +124,11 @@ public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheck
         } else if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_GROUP, "city1");
         }
+    }
+
+    private void setIndicator(int position) {
+        int mIndicatorWidth = ivIndicator.getWidth();
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivIndicator.getLayoutParams();
+        lp.leftMargin = (mIndicatorWidth * (position));
     }
 }

@@ -2,103 +2,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary">
+    android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:id="@+id/rl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:paddingBottom="4dp"
-        android:layout_toLeftOf="@+id/rl_action_parent"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:paddingTop="4dp"
-        android:singleLine="true"
-        android:text="标题"
-        android:textColor="?attr/actionMenuTextColor"
-        android:textSize="18sp"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:singleLine="true"
+            android:maxLength="14"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="16sp"
+            android:visibility="gone"/>
 
+        <RelativeLayout
+            android:id="@+id/rl_action_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_title"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@+id/ib_search"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_toLeftOf="@+id/ib_create"
+                android:layout_toStartOf="@+id/ib_create"
+                android:background="@drawable/selector_transparent_to_gray"
+                android:src="@mipmap/ic_menu_search" />
+
+            <ImageButton
+                android:id="@+id/ib_create"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/selector_transparent_to_gray"
+                android:src="@mipmap/ic_menu_create"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
 
     <RadioGroup
         android:id="@+id/rg_circle"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <RadioButton
             android:id="@+id/rb_chat"
-            android:layout_width="wrap_content"
+            android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:text="@string/chat"
-            android:textColor="@drawable/selector_main_tab_text_color"
-            android:textSize="16sp" />
+            android:textColor="@color/selector_orange_to_white"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/rb_recommend"
-            android:layout_width="wrap_content"
+            android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:button="@null"
             android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:text="@string/recommend"
-            android:textColor="@drawable/selector_main_tab_text_color"
-            android:textSize="16sp" />
+            android:textColor="@color/selector_orange_to_white"
+            android:textSize="14sp" />
     </RadioGroup>
 
-
-    <RelativeLayout
-        android:layout_toRightOf="@+id/rg_circle"
-        android:id="@+id/rl_action_parent"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
-
-        <ImageButton
-            android:id="@+id/ib_search"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/ib_create"
-            android:layout_toStartOf="@+id/ib_create"
-            android:background="@drawable/selector_transparent_to_gray"
-            android:padding="8dp"
-            android:src="@mipmap/ic_menu_search" />
-
-        <ImageButton
-            android:id="@+id/ib_create"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/selector_transparent_to_gray"
-            android:padding="8dp"
-            android:src="@mipmap/ic_menu_create" />
-
-    </RelativeLayout>
-
-    <View
-        style="@style/HorizontalLine"
-        android:layout_alignParentBottom="true" />
+    <ImageView
+        android:id="@+id/iv_indicator"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/rg_circle"
+        android:layout_below="@+id/rg_circle"
+        android:src="@mipmap/ic_main_indicator" />
 </RelativeLayout>
 
