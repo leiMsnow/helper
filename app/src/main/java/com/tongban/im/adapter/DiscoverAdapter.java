@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.tongban.corelib.base.adapter.BaseAdapterHelper;
+import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
+import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.Discover;
@@ -22,181 +25,87 @@ import java.util.List;
  * 首页的Adapter
  * Created by Cheney on 15/8/14.
  */
-public class DiscoverAdapter extends BaseAdapter {
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private List<Discover> mList;
+public class DiscoverAdapter extends QuickAdapter<Discover> {
 
-    public DiscoverAdapter(Context context, List<Discover> list) {
-        mContext = context;
-        mInflater = LayoutInflater.from(context);
-        mList = list;
+    private ThemeImageOnCliCkListener onCliCkListener;
+
+    public DiscoverAdapter(Context context, List data, IMultiItemTypeSupport multiItemTypeSupport) {
+        super(context, data, multiItemTypeSupport);
+        onCliCkListener = new ThemeImageOnCliCkListener();
     }
 
     @Override
-    public int getCount() {
-        return mList.size();
+    protected void convert(BaseAdapterHelper helper, Discover item) {
+        switch (Integer.parseInt(item.getComponent_id())) {
+            case 1:// 横排3图
+                helper.setText(R.id.tv_tip, item.getSoft_word());
+                helper.setText(R.id.tv_title, item.getTitle());
+                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+                helper.setText(R.id.tv_description, item.getDescription());
+
+                helper.setImageBitmap(R.id.iv_left, item.getImg_map().get(0).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                helper.setImageBitmap(R.id.iv_mid, item.getImg_map().get(1).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                helper.setImageBitmap(R.id.iv_right, item.getImg_map().get(2).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+
+                break;
+            case 2:// 左1右2图
+                helper.setText(R.id.tv_tip, item.getSoft_word());
+                helper.setText(R.id.tv_title, item.getTitle());
+                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+
+                helper.setImageBitmap(R.id.iv_left, item.getImg_map().get(0).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                helper.setImageBitmap(R.id.iv_top, item.getImg_map().get(1).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                helper.setImageBitmap(R.id.iv_bottom, item.getImg_map().get(2).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+
+                helper.setTag(R.id.iv_left, Integer.MAX_VALUE, item.getImg_map().get(0).getLink_url());
+                helper.setOnClickListener(R.id.iv_left, onCliCkListener);
+                helper.setTag(R.id.iv_top, Integer.MAX_VALUE, item.getImg_map().get(1).getLink_url());
+                helper.setOnClickListener(R.id.iv_left, onCliCkListener);
+                helper.setTag(R.id.iv_bottom, Integer.MAX_VALUE, item.getImg_map().get(2).getLink_url());
+                helper.setOnClickListener(R.id.iv_left, onCliCkListener);
+                break;
+            case 3:// 图文单图
+                helper.setText(R.id.tv_tip, item.getSoft_word());
+                helper.setText(R.id.tv_title, item.getTitle());
+                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+                helper.setText(R.id.tv_description, item.getDescription());
+
+                helper.setImageBitmap(R.id.iv_img, item.getImg_map().get(0).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                break;
+            case 4:// 单图
+                helper.setText(R.id.tv_tip, item.getSoft_word());
+                helper.setImageBitmap(R.id.iv_img, item.getImg_map().get(0).getImg_url(),
+                        R.drawable.rc_ic_def_rich_content);
+                break;
+
+        }
+
     }
 
-    @Override
-    public Object getItem(int position) {
-        return mList.get(position);
-    }
+    class ThemeImageOnCliCkListener implements View.OnClickListener {
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 5;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return Integer.parseInt(mList.get(position).getComponent_id());
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
-        int type = getItemViewType(position);
-        if (convertView == null) {
-            holder = new ViewHolder();
-            switch (type) {
-                case 1:// 横排3图
-                    convertView = mInflater.inflate(R.layout.item_discover_img3_horizontal, parent, false);
-                    holder.tip = (TextView) convertView.findViewById(R.id.tv_tip);
-                    holder.title = (TextView) convertView.findViewById(R.id.tv_title);
-                    holder.description = (TextView) convertView.findViewById(R.id.tv_description);
-                    holder.img1 = (ImageView) convertView.findViewById(R.id.iv_left);
-                    holder.img2 = (ImageView) convertView.findViewById(R.id.iv_mid);
-                    holder.img3 = (ImageView) convertView.findViewById(R.id.iv_right);
-                    holder.collectAmount = (TextView) convertView.findViewById(R.id.tv_collect_amount);
+        @Override
+        public void onClick(View v) {
+            String item = v.getTag(Integer.MAX_VALUE).toString();
+            switch (v.getId()) {
+                case R.id.iv_left:
+                    TransferCenter.getInstance().startLinkUrl(item);
                     break;
-                case 2:// 竖排3图
-                    convertView = mInflater.inflate(R.layout.item_discover_img3_vertical, parent, false);
-                    holder.tip = (TextView) convertView.findViewById(R.id.tv_tip);
-                    holder.title = (TextView) convertView.findViewById(R.id.tv_title);
-                    holder.img1 = (ImageView) convertView.findViewById(R.id.iv_left);
-                    holder.img2 = (ImageView) convertView.findViewById(R.id.iv_top);
-                    holder.img3 = (ImageView) convertView.findViewById(R.id.iv_bottom);
-                    holder.collectAmount = (TextView) convertView.findViewById(R.id.tv_collect_amount);
-                    holder.img1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
-                                    getImg_map().get(0).getLink_url());
-                        }
-                    });
-                    holder.img2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
-                                    getImg_map().get(1).getLink_url());
-                        }
-                    });
-                    holder.img3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            TransferCenter.getInstance().startLinkUrl(mList.get(position).
-                                    getImg_map().get(2).getLink_url());
-                        }
-                    });
+                case R.id.iv_top:
+                    TransferCenter.getInstance().startLinkUrl(item);
                     break;
-                case 3:// 图文单图
-                    convertView = mInflater.inflate(R.layout.item_discover_text_img, parent, false);
-                    holder.tip = (TextView) convertView.findViewById(R.id.tv_tip);
-                    holder.title = (TextView) convertView.findViewById(R.id.tv_title);
-                    holder.description = (TextView) convertView.findViewById(R.id.tv_description);
-                    holder.img1 = (ImageView) convertView.findViewById(R.id.iv_img);
-                    holder.collectAmount = (TextView) convertView.findViewById(R.id.tv_collect_amount);
+                case R.id.iv_bottom:
+                    TransferCenter.getInstance().startLinkUrl(item);
                     break;
-                case 4:// 单图
-                    convertView = mInflater.inflate(R.layout.item_discover_img, parent, false);
-                    holder.tip = (TextView) convertView.findViewById(R.id.tv_tip);
-                    holder.img1 = (ImageView) convertView.findViewById(R.id.iv_img);
-                    break;
+
             }
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        switch (type) {
-            case 1:
-                holder.tip.setText(mList.get(position).getSoft_word());
-                holder.title.setText(mList.get(position).getTitle());
-                holder.description.setText(mList.get(position).getDescription());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        setImageHeight(1, holder);
-                        return false;
-                    }
-                }).into(holder.img1);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img2);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img3);
-                holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
-                break;
-            case 2:
-                holder.tip.setText(mList.get(position).getSoft_word());
-                holder.title.setText(mList.get(position).getTitle());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(1).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img2);
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(2).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img3);
-                holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
-                break;
-            case 3:
-                holder.tip.setText(mList.get(position).getSoft_word());
-                holder.title.setText(mList.get(position).getTitle());
-                holder.description.setText(mList.get(position).getDescription());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
-                holder.collectAmount.setText(String.valueOf(mList.get(position).getCollect_amount()));
-                break;
-            case 4:
-                holder.tip.setText(mList.get(position).getSoft_word());
-                Glide.with(mContext).load(mList.get(position).getImg_map().get(0).getImg_url()).
-                        placeholder(R.drawable.rc_ic_def_rich_content).into(holder.img1);
-                break;
-        }
-
-        return convertView;
-    }
-
-    public static class ViewHolder {
-        public TextView tip;
-        public TextView title;
-        public TextView description;
-        public ImageView img1;
-        public ImageView img2;
-        public ImageView img3;
-        public TextView collectAmount;
-    }
-
-    /**
-     * 动态设置图片高度,1:1
-     *
-     * @param type
-     * @param holder
-     */
-    private void setImageHeight(int type, ViewHolder holder) {
-        if (type == 1) {
-            holder.img1.getLayoutParams().height = holder.img1.getMeasuredWidth();
-            holder.img2.getLayoutParams().height = holder.img2.getMeasuredWidth();
-            holder.img3.getLayoutParams().height = holder.img3.getMeasuredWidth();
         }
     }
 

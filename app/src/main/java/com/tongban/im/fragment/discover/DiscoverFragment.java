@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.SPUtils;
@@ -40,7 +41,6 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     private PtrFrameLayout ptrFrameLayout;
     private ListView mListView;
     private DiscoverAdapter mAdapter;
-    private List<Discover> mDiscovers;
 
     @Override
     protected int getLayoutRes() {
@@ -71,7 +71,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TransferCenter.getInstance().startThemeDetails(mDiscovers.get(position).getTheme_id());
+                TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
             }
         });
     }
@@ -83,6 +83,36 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
             // 显示默认头像
             ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
+        mAdapter = new DiscoverAdapter(mContext, null, new IMultiItemTypeSupport<Discover>() {
+            @Override
+            public int getLayoutId(int position, Discover discover) {
+                switch (Integer.parseInt(discover.getComponent_id())) {
+                    case 1: // 横排3图
+                        return R.layout.item_discover_img3_horizontal;
+                    case 2:// 竖排3图
+                        return R.layout.item_discover_img3_vertical;
+                    case 3:// 图文单图
+                        return R.layout.item_discover_text_img;
+                    case 4:// 单图
+                        return R.layout.item_discover_img;
+                    default:
+                        return 0;
+
+                }
+
+            }
+
+            @Override
+            public int getViewTypeCount() {
+                return 4;
+            }
+
+            @Override
+            public int getItemViewType(int position, Discover discover) {
+                return Integer.parseInt(discover.getComponent_id()) - 1;
+            }
+        });
+        mListView.setAdapter(mAdapter);
         // 获取首页数据
         ProductApi.getInstance().fetchHomeInfo(this);
     }
@@ -115,23 +145,19 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
      * @param homeInfo {@link BaseEvent.FetchHomeInfo}
      */
     public void onEventMainThread(BaseEvent.FetchHomeInfo homeInfo) {
-        mDiscovers = homeInfo.getList();
-        if (mDiscovers != null && mDiscovers.size() > 0) {
-            if (mAdapter == null) {
-                mAdapter = new DiscoverAdapter(mContext, mDiscovers);
-                mListView.setAdapter(mAdapter);
-            } else {
-                mAdapter.notifyDataSetChanged();
-            }
+        if (ptrFrameLayout.isRefreshing())
+            ptrFrameLayout.refreshComplete();
+
+        if (homeInfo != null && homeInfo.getList().size() > 0) {
+            mAdapter.replaceAll(homeInfo.getList());
             // 请求收藏数量数据并更新
             int floor = 0; // 楼层
-            for (Discover discover : mDiscovers) {
+            for (Discover discover : homeInfo.getList()) {
                 ProductApi.getInstance().fetchThemeCollectedAmount(floor, discover.getTheme_id(), this);
                 floor++;
             }
         }
-        if (ptrFrameLayout.isRefreshing())
-            ptrFrameLayout.refreshComplete();
+
     }
 
     /**
@@ -140,18 +166,8 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
      * @param event
      */
     public void onEventMainThread(BaseEvent.FetchThemeCollectedAmount event) {
-        Discover discover = mDiscovers.get(event.floor);
-        discover.setCollect_amount(event.amount);
-        // 得到要更新的item的view
-        View view = mListView.getChildAt(event.floor);
-        try {
-            // 从view中取得holder
-            DiscoverAdapter.ViewHolder holder = (DiscoverAdapter.ViewHolder) view.getTag();
-            // 设置收藏数量
-            holder.collectAmount.setText(String.valueOf(event.amount));
-        } catch (NullPointerException e) {
-
-        }
+        mAdapter.getItem(event.floor).setCollect_amount(event.amount);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**

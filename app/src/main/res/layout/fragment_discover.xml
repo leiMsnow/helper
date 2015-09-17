@@ -20,11 +20,9 @@
             android:id="@+id/lv_discover"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:clipToPadding="false"
-            android:divider="@null"
-            android:paddingBottom="16dp"
+            android:dividerHeight="1dp"
+            android:divider="@color/normal_grey"
             android:scrollbars="none"/>
 
     </in.srain.cube.views.ptr.PtrFrameLayout>
