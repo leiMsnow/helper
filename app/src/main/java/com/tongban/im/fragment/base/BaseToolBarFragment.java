@@ -13,8 +13,6 @@ import com.tongban.im.common.Consts;
  */
 public abstract class BaseToolBarFragment extends BaseApiFragment implements ApiCallback {
 
-
-
     /**
      * 设置用户头像信息
      *
@@ -22,6 +20,6 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements Api
      * @param view imageView控件
      */
     public void setUserPortrait(String uri, ImageView view) {
-        Glide.with(this).load(uri).placeholder(Consts.getUserDefaultPortrait()).into(view);
+        Glide.with(BaseToolBarFragment.this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
     }
 }

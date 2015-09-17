@@ -63,7 +63,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
      * @param view imageView控件
      */
     public void setUserPortrait(String uri, ImageView view) {
-        Glide.with(this).load(uri).placeholder(Consts.getUserDefaultPortrait()).into(view);
+        Glide.with(this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
     }
 
 }

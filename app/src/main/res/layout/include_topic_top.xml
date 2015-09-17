@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
 
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_default_portrait2"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -19,6 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
         android:singleLine="true"
+        android:text="UserName"
         android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/iv_user_portrait"
         android:textColor="@color/main_black" />
@@ -31,5 +34,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
+        android:text="Time"
         android:textColor="@color/normal_grey" />
 </RelativeLayout>

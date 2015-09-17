@@ -1,17 +1,14 @@
 package com.tongban.im.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
@@ -27,29 +24,18 @@ import java.util.List;
 /**
  * 主界面
  */
-public class MainActivity extends BaseToolBarActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseToolBarActivity implements View.OnClickListener
+        , ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
     private List<Fragment> mTabs = new ArrayList<>();
     private FragmentPagerAdapter mAdapter;
     private List<CheckBox> mTabIndicator = new ArrayList<>();
-//    private ChangeColorView ccvDiscover, ccvCircle, ccvTopic;
-//    private int[] mIcon = new int[]{
-//            R.mipmap.ic_menu_discover_select,
-//            R.mipmap.ic_menu_topic_select,
-//            R.mipmap.ic_menu_circle_select
-//    };
-    private CheckBox tvDiscover,tvTopic,tvGroup;
+    private CheckBox tvDiscover, tvTopic, tvGroup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityContainer.getInstance().finishActivity(this);
-        fetchPersonalCenter();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
         ActivityContainer.getInstance().finishActivity(this);
         fetchPersonalCenter();
     }
@@ -72,12 +58,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         tvDiscover = (CheckBox) findViewById(R.id.tv_discover);
         tvTopic = (CheckBox) findViewById(R.id.tv_topic);
         tvGroup = (CheckBox) findViewById(R.id.tv_group);
-//        ccvDiscover = (ChangeColorView) findViewById(R.id.ccv_discover);
-//        ccvCircle = (ChangeColorView) findViewById(R.id.ccv_circle);
-//        ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
-
-//        ccvDiscover.setIconAlpha(1.0f);
-//        ccvDiscover.setIconBitmap(R.mipmap.ic_menu_discover_select);
     }
 
     @Override
@@ -85,15 +65,15 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         mTabIndicator.add(tvDiscover);
         mTabIndicator.add(tvTopic);
         mTabIndicator.add(tvGroup);
-        /** 发现 */
+        // 发现
         mTabs.add(new DiscoverFragment());
-        /** 话题 */
+        // 话题
         TopicFragment topicFragment = new TopicFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean(Consts.KEY_IS_MAIN, true);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
-        /** 圈子 */
+        // 圈子
         mTabs.add(new GroupFragment());
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -148,10 +128,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//        if (positionOffset > 0) {
-//            mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
-//            mTabIndicator.get(position + 1).setIconAlpha(positionOffset);
-//        }
+
     }
 
     @Override

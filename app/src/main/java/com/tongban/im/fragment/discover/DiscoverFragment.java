@@ -79,9 +79,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     @Override
     protected void initData() {
         // 登录后显示真实头像
-        if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-//            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
-        } else {
+        if ("".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
             // 显示默认头像
             ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
@@ -93,7 +91,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     public void onClick(View v) {
         if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
-                    SPUtils.get(mContext, Consts.USER_ID, "").toString(),true);
+                    SPUtils.get(mContext, Consts.USER_ID, "").toString(), true);
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }
@@ -106,10 +104,8 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
      */
     public void onEventMainThread(BaseEvent.PersonalCenterEvent userInfo) {
         User user = userInfo.user;
-        if (user != null) {
-            if (user.getPortrait_url() != null && user.getPortrait_url().getMin() != null) {
-                Glide.with(this).load(user.getPortrait_url().getMin()).into(ivUserPortrait);
-            }
+        if (user != null && user.getPortrait_url() != null) {
+            setUserPortrait(user.getPortrait_url().getMin(), ivUserPortrait);
         }
     }
 

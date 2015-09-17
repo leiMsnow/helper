@@ -241,13 +241,13 @@ public class AccountApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 if (callback != null)
-                    callback.onComplete(new BaseEvent.CheckPhoneEvent());
+                    callback.onComplete(new BaseEvent.CheckPhoneEvent(true));
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(displayType, "手机号已经注册");
+                    callback.onComplete(new BaseEvent.CheckPhoneEvent(false));
             }
 
         });

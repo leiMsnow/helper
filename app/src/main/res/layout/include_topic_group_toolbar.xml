@@ -91,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rg_circle"
         android:layout_below="@+id/rg_circle"
+        android:visibility="gone"
         android:src="@mipmap/ic_main_indicator" />
 </RelativeLayout>
 

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;

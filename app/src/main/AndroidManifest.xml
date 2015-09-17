@@ -101,7 +101,6 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

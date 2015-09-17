@@ -24,8 +24,6 @@
             android:layout_height="wrap_content"
             android:cacheColorHint="@android:color/transparent"
             android:divider="@null"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:scrollbars="none"
             android:visibility="gone" />
 

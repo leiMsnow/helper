@@ -31,6 +31,11 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
+        if (helper.getPosition() % 2 == 0) {
+            helper.getConvertView().setBackgroundResource(R.color.white);
+        } else {
+            helper.getConvertView().setBackgroundResource(R.color.weak_grey);
+        }
         if (item.getUser_info() != null) {
             //用户信息
             if (item.getUser_info().getPortrait_url() != null) {

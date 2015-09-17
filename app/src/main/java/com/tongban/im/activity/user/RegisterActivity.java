@@ -25,7 +25,7 @@ import io.rong.imkit.RongIM;
 public class RegisterActivity extends CameraResultActivity {
 
     private User user;
-    //是否直接打开编辑资料界面
+    //是否打开编辑资料界面
     private boolean isSecond;
     private Bundle bundle;
 
@@ -79,8 +79,6 @@ public class RegisterActivity extends CameraResultActivity {
     @Override
     public void onBackPressed() {
         if (!isSecond) {
-            if (RongIM.getInstance().getRongIMClient() != null)
-                RongIM.getInstance().logout();
             startActivity(new Intent(mContext, LoginActivity.class));
         } else {
             connectIM(true, true);
@@ -114,6 +112,7 @@ public class RegisterActivity extends CameraResultActivity {
     private void openSecondFragment() {
         if (mToolbar != null)
             mToolbar.setVisibility(View.GONE);
+        isSecond = true;
         SecondRegisterFragment secondRegisterFragment = new SecondRegisterFragment();
         secondRegisterFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,

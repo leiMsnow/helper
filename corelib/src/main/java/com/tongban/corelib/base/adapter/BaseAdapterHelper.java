@@ -196,7 +196,7 @@ public class BaseAdapterHelper {
 
     public BaseAdapterHelper setImageBitmap(int viewId, String url,int defaultResId) {
         ImageView view = retrieveView(viewId);
-        Glide.with(mContext).load(url).placeholder(defaultResId).into(view);
+        Glide.with(mContext).load(url).error(defaultResId).into(view);
         return this;
     }
 

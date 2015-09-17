@@ -186,6 +186,11 @@ public class BaseEvent {
 
 
     public static class CheckPhoneEvent {
+        public CheckPhoneEvent(boolean isRegister) {
+            this.isRegister = isRegister;
+        }
+
+        public boolean isRegister;
     }
 
     public static class UserLoginEvent {

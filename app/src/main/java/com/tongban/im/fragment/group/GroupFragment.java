@@ -54,7 +54,7 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
         ibSearch.setVisibility(View.GONE);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
         ivIndicator = (ImageView) mView.findViewById(R.id.iv_indicator);
-
+        ivIndicator.setVisibility(View.VISIBLE);
         fm = getChildFragmentManager();
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()

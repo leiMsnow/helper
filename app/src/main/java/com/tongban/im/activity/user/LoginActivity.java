@@ -189,7 +189,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
 
     @Override
     public void onFailure(DisplayType displayType, Object errorObj) {
-        super.onFailure(DisplayType.None, errorObj);
+        super.onFailure(displayType, errorObj);
         startLoadingAnimation(-1);
     }
 

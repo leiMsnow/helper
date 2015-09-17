@@ -147,6 +147,11 @@ public class FirstRegisterFragment extends BaseToolBarFragment
                 mVerifyId, mVerifyCode, this);
     }
 
+    /**
+     * 注册成功
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {
         regEvent = obj;
         // 获取验证码成功

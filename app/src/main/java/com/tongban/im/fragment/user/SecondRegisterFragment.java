@@ -80,7 +80,7 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
                 setUserPortrait(otherRegister.getUrls().getMid(), ivPortrait);
                 etNickName.setText(otherRegister.getNickName());
                 mNickName = etNickName.getText().toString().trim();
-                updateUser(otherRegister.getUrls(),false);
+                updateUser(otherRegister.getUrls(), false);
             } else {
                 ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
                         SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
@@ -158,17 +158,19 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
 
     /**
      * 修改用户信息
-     * @param url 头像地址
+     *
+     * @param url        头像地址
      * @param isCallback 是否需要回调
      */
-    private void updateUser(ImageUrl url,boolean isCallback) {
+    private void updateUser(ImageUrl url, boolean isCallback) {
         editUser.setPortrait_url(url);
         editUser.setNick_name(mNickName);
         UserCenterApi.getInstance().updateUserInfo(editUser,
-                isCallback ?SecondRegisterFragment.this:null);
+                isCallback ? SecondRegisterFragment.this : null);
     }
+
     private void updateUser(ImageUrl url) {
-        updateUser(url,true);
+        updateUser(url, true);
     }
 
 
@@ -183,7 +185,7 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
     @Override
     public void sendPhoto(byte[] bytes) {
         mIcon = bytes;
-        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivPortrait.setImageBitmap(bitmap);
     }
 
