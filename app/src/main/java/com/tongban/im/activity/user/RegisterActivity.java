@@ -34,6 +34,8 @@ public class RegisterActivity extends CameraResultActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FileUploadApi.getInstance().fetchUploadToken();
+        if (isSecond)
+            mToolbar.setVisibility(View.GONE);
     }
 
     @Override
@@ -101,7 +103,6 @@ public class RegisterActivity extends CameraResultActivity {
     }
 
     private void openSecondFragment() {
-        mToolbar.setVisibility(View.GONE);
         SecondRegisterFragment secondRegisterFragment = new SecondRegisterFragment();
         secondRegisterFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
