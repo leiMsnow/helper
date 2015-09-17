@@ -3,7 +3,6 @@ package com.tongban.im.fragment.group;
 import android.view.View;
 import android.widget.ListView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
@@ -12,6 +11,7 @@ import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -24,7 +24,7 @@ import io.rong.imkit.RongIM;
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
-public class RecommendGroupFragment extends BaseApiFragment implements PtrHandler {
+public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHandler {
 
     private PtrFrameLayout ptrFrameLayout;
     private ListView lvGroupList;

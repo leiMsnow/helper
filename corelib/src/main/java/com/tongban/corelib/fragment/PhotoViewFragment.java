@@ -5,15 +5,14 @@ import android.support.v4.view.ViewPager;
 
 import com.tongban.corelib.R;
 import com.tongban.corelib.adapter.PhotoViewPagerAdapter;
-import com.tongban.corelib.base.fragment.BaseUIFragment;
+import com.tongban.corelib.base.fragment.BaseTemplateFragment;
 import com.tongban.corelib.widget.view.HackyViewPager;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
-import com.tongban.corelib.widget.view.indicator.LinePageIndicator;
 
 import java.util.ArrayList;
 
 
-public class PhotoViewFragment extends BaseUIFragment implements ViewPager.OnPageChangeListener {
+public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager.OnPageChangeListener {
 
     public static final String KEY_URL = "KEY_URL";
     public static final String KEY_CURRENT_INDEX = "KEY_CURRENT_INDEX";

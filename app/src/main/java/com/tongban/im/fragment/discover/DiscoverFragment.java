@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.SPUtils;
@@ -19,6 +18,7 @@ import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 import com.tongban.im.model.User;
@@ -33,7 +33,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 发现页
  * author: chenenyu 15/7/13
  */
-public class DiscoverFragment extends BaseApiFragment implements View.OnClickListener, PtrHandler {
+public class DiscoverFragment extends BaseToolBarFragment implements View.OnClickListener, PtrHandler {
 
     private ImageView ivUserPortrait;
     private ImageView ivSearchAll;

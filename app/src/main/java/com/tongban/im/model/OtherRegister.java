@@ -1,5 +1,7 @@
 package com.tongban.im.model;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -17,7 +19,25 @@ public class OtherRegister implements Serializable {
     private String openId;
     private String nickName;
     private String headimgurl;
+
     private String type;
+
+    private ImageUrl urls;
+
+    public ImageUrl getUrls() {
+        if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(headimgurl)) {
+            if (type.equals(WECHAT)) {
+                urls = new ImageUrl();
+                String min = headimgurl.substring(0, headimgurl.length() - 2) + "64";
+                String mid = headimgurl.substring(0, headimgurl.length() - 2) + "132";
+                urls.setMin(min);
+                urls.setMin(mid);
+                urls.setMin(headimgurl);
+            }
+        }
+        return urls;
+    }
+
     public String getOpenId() {
         return openId;
     }

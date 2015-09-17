@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
 import com.tongban.im.activity.user.RegisterActivity;
@@ -25,7 +26,7 @@ import de.greenrobot.event.EventBus;
  *
  * @createTime 2015/7/16
  */
-public class LoadingActivity extends BaseToolBarActivity {
+public class LoadingActivity extends AccountBaseActivity {
 
     private String freeAuthToken;
 

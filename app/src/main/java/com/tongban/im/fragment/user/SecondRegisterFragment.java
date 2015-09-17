@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
@@ -20,8 +21,10 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.EditUser;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.OtherRegister;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
 
@@ -29,7 +32,7 @@ import com.tongban.im.widget.view.CameraView;
 /**
  * 注册第二步 设置头像/填写用户昵称
  */
-public class SecondRegisterFragment extends BaseApiFragment implements
+public class SecondRegisterFragment extends BaseToolBarFragment implements
         TextWatcher, View.OnClickListener, CameraResultActivity.IPhotoListener {
     private ImageView ivPortrait;
     private EditText etNickName;
@@ -41,6 +44,9 @@ public class SecondRegisterFragment extends BaseApiFragment implements
     private byte[] mIcon;
     private EditUser editUser = new EditUser();
 
+    private String mOtherInfo;
+    private String mOtherType;
+    private OtherRegister otherRegister;
 
     @Override
     public void onAttach(Activity activity) {
@@ -64,8 +70,20 @@ public class SecondRegisterFragment extends BaseApiFragment implements
 
     @Override
     protected void initData() {
-        ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
-                SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
+        if (getArguments() != null) {
+            mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            if (!TextUtils.isEmpty(mOtherInfo)) {
+                mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                otherRegister = JSON.parseObject(mOtherInfo,
+                        new TypeReference<OtherRegister>() {
+                        });
+                otherRegister.setType(mOtherType);
+            }
+
+        } else {
+            ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
+                    SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
+        }
     }
 
     @Override

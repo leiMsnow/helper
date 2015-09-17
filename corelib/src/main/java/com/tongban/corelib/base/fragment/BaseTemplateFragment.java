@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 /**
  * Created by Cheney on 15/7/7 18:54.
  */
-public abstract class BaseUIFragment extends BaseFragment {
+public abstract class BaseTemplateFragment extends BaseFragment {
 
     protected View mView;
 

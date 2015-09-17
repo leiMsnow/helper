@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 import java.util.Calendar;
@@ -27,7 +27,7 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 
-public class InputChildInfoFragment extends BaseApiFragment implements TextWatcher, View.OnClickListener {
+public class InputChildInfoFragment extends BaseToolBarFragment implements TextWatcher, View.OnClickListener {
     private EditText etChildNickName;
     private TextView tvChildBirthday;
     private Button btnSubmit;

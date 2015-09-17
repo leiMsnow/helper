@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.api.RequestApiListener;
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
@@ -22,6 +21,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -32,7 +32,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 话题/动态页
  * author: chenenyu 15/7/13
  */
-public class TopicFragment extends BaseApiFragment implements View.OnClickListener,
+public class TopicFragment extends BaseToolBarFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener, OnLoadMoreListener,
         RequestApiListener, PtrHandler {
 

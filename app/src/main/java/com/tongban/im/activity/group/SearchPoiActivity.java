@@ -54,7 +54,6 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             mSelected = getIntent().getExtras().getString(Consts.KEY_SELECTED_POI_NAME, "");
-            setToolbarTheme(mGroupType);
         }
         return R.layout.activity_poisearch;
     }

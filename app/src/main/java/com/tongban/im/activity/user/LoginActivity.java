@@ -19,6 +19,7 @@ import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
@@ -44,7 +45,7 @@ import de.greenrobot.event.EventBus;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class LoginActivity extends BaseToolBarActivity implements TextWatcher, View.OnClickListener,
+public class LoginActivity extends AccountBaseActivity implements TextWatcher, View.OnClickListener,
         SocializeListeners.UMAuthListener {
 
     private ClearEditText etUser;

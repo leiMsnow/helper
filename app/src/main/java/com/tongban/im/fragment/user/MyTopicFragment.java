@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
@@ -16,6 +15,7 @@ import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.Topic;
@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyTopicFragment extends BaseApiFragment implements View.OnClickListener,
+public class MyTopicFragment extends BaseToolBarFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener, OnLoadMoreListener {
 
     private LoadMoreListView lvTopicList;

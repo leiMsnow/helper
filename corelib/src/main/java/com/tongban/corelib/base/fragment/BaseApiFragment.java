@@ -13,7 +13,7 @@ import de.greenrobot.event.EventBus;
  * 基础fragment的api通用类
  * 目前都复用activity中的处理方式
  */
-public abstract class BaseApiFragment extends BaseUIFragment implements ApiCallback {
+public abstract class BaseApiFragment extends BaseTemplateFragment implements ApiCallback {
 
     private BaseApiActivity mBaseApiActivity;
 

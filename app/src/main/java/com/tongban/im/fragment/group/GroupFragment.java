@@ -8,19 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -29,7 +28,7 @@ import io.rong.imlib.model.Conversation;
  * 圈子页
  * author: chenenyu 15/7/13
  */
-public class GroupFragment extends BaseApiFragment implements RadioGroup.OnCheckedChangeListener,
+public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
     // 圈子页顶部的tab
     private RadioGroup rgCircle;

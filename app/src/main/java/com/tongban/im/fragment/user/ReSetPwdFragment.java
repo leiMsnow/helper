@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.VerifyTimerCount;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -22,7 +22,7 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class ReSetPwdFragment extends BaseApiFragment implements View.OnClickListener, TextWatcher {
+public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClickListener, TextWatcher {
 
     private TextView tvPhoneNum;
     private EditText etVerifyCode;

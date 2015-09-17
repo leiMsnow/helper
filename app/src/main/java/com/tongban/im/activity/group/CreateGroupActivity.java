@@ -85,7 +85,6 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
             mGroupIcon = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE_ICON,
                     R.mipmap.ic_group_create);
-            setToolbarTheme(mGroupType);
         }
 
         return R.layout.activity_create_group;

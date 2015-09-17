@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -19,7 +19,7 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class ProductListFragment extends BaseApiFragment implements AdapterView.OnItemClickListener {
+public class ProductListFragment extends BaseToolBarFragment implements AdapterView.OnItemClickListener {
     private ProductBookAdapter mAdapter;
     private GridView mGridView;
 

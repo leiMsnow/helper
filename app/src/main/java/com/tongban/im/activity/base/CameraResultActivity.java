@@ -17,7 +17,7 @@ import java.io.File;
  * 相册
  * Created by fushudi on 2015/8/13.
  */
-public class CameraResultActivity extends BaseToolBarActivity {
+public class CameraResultActivity extends AccountBaseActivity {
 
 
     private IPhotoListener mPhotoListener;

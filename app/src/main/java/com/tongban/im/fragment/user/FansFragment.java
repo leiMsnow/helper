@@ -1,11 +1,9 @@
 package com.tongban.im.fragment.user;
 
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -13,6 +11,7 @@ import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -20,7 +19,7 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class FansFragment extends BaseApiFragment implements AdapterView.OnItemClickListener,
+public class FansFragment extends BaseToolBarFragment implements AdapterView.OnItemClickListener,
         View.OnClickListener, OnLoadMoreListener {
     private LoadMoreListView lvFansList;
     private UserAdapter mAdapter;

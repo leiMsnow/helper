@@ -18,7 +18,6 @@ import com.tongban.im.model.BaseEvent;
 public class ChildInfoActivity extends CameraResultActivity {
 
     private InputChildInfoFragment mInputChildInfoFragment;
-//    private SetChildPortraitFragment mSetChildPortraitFragment;
 
     @Override
     protected int getLayoutRes() {

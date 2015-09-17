@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -13,6 +12,7 @@ import com.tongban.im.adapter.ThemeListAdapter;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 /**
@@ -21,7 +21,7 @@ import com.tongban.im.model.BaseEvent;
  * @author Cheneey
  * @createTime 2015/8/27
  */
-public class ThemeListFragment extends BaseApiFragment implements View.OnClickListener,
+public class ThemeListFragment extends BaseToolBarFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener, OnLoadMoreListener {
     private LoadMoreListView lvTheme;
     private ThemeListAdapter mAdapter;

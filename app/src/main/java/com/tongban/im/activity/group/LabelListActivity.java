@@ -42,7 +42,6 @@ public class LabelListActivity extends BaseToolBarActivity implements View.OnCli
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             selectedTagId = getIntent().getExtras().getStringArrayList("selectTag");
             mMaxCount = selectedTagId.size();
-            setToolbarTheme(mGroupType);
         }
         return R.layout.activity_lable_list;
     }

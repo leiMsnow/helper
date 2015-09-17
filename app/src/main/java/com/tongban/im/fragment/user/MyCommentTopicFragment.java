@@ -4,7 +4,6 @@ package com.tongban.im.fragment.user;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
@@ -13,6 +12,7 @@ import com.tongban.im.adapter.MyCommentTopicAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.TopicComment;
@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class MyCommentTopicFragment extends BaseApiFragment implements View.OnClickListener,
+public class MyCommentTopicFragment extends BaseToolBarFragment implements View.OnClickListener,
         AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.IOnClickCommentListener
         , TopicInputView.IKeyboardListener {
     private LoadMoreListView mListView;

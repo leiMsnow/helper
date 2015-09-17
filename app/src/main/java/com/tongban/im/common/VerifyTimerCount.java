@@ -14,7 +14,7 @@ public class VerifyTimerCount extends CountDownTimer {
 
     private TextView tvVerifyCode;
     //倒计时时间，毫秒
-    private static long millisInFuture = 10 * 1000;
+    private static long millisInFuture = 6 * 10 * 1000;
     //倒计时隔间，毫秒
     private static long countDownInterval = 1 * 1000;
 
