@@ -29,8 +29,7 @@
                 android:layout_below="@+id/tv_toast_info"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="24dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_test" />
+                android:scaleType="centerCrop" />
 
             <EditText
                 android:id="@+id/et_input_school"
@@ -60,5 +59,6 @@
     <Button
         android:id="@+id/btn_submit"
         style="@style/CommonButtonStyle"
+        android:enabled="true"
         android:text="@string/submit" />
 </RelativeLayout>

@@ -28,11 +28,12 @@ public class OtherRegister implements Serializable {
         if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(headimgurl)) {
             if (type.equals(WECHAT)) {
                 urls = new ImageUrl();
-                String min = headimgurl.substring(0, headimgurl.length() - 2) + "64";
-                String mid = headimgurl.substring(0, headimgurl.length() - 2) + "132";
+                String min = headimgurl.substring(0, headimgurl.length() - 4) + "64";
+                String mid = headimgurl.substring(0, headimgurl.length() - 4) + "132";
+                String max = headimgurl.substring(0, headimgurl.length() - 4) + "0";
                 urls.setMin(min);
-                urls.setMin(mid);
-                urls.setMin(headimgurl);
+                urls.setMid(mid);
+                urls.setMax(max);
             }
         }
         return urls;

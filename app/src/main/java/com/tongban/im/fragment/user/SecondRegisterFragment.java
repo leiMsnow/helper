@@ -79,7 +79,8 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
                 otherRegister.setType(mOtherType);
                 setUserPortrait(otherRegister.getUrls().getMid(), ivPortrait);
                 etNickName.setText(otherRegister.getNickName());
-                updateUser(otherRegister.getUrls());
+                mNickName = etNickName.getText().toString().trim();
+                updateUser(otherRegister.getUrls(),false);
             } else {
                 ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
                         SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
@@ -155,12 +156,21 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
 
     }
 
-    private void updateUser(ImageUrl url) {
+    /**
+     * 修改用户信息
+     * @param url 头像地址
+     * @param isCallback 是否需要回调
+     */
+    private void updateUser(ImageUrl url,boolean isCallback) {
         editUser.setPortrait_url(url);
         editUser.setNick_name(mNickName);
         UserCenterApi.getInstance().updateUserInfo(editUser,
-                SecondRegisterFragment.this);
+                isCallback ?SecondRegisterFragment.this:null);
     }
+    private void updateUser(ImageUrl url) {
+        updateUser(url,true);
+    }
+
 
     // 打开相机的提示框
     private void createDialog() {

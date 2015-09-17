@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.base.api.ApiCallback;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
@@ -17,7 +18,9 @@ import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Random;
 
 import de.greenrobot.event.EventBus;
 
@@ -186,8 +189,7 @@ public class AccountApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("password", password);
-        //oChniwH9WE475gIBD2ARWQuMQXoE
-        mParams.put("thirdparty_token", "oChniwH9WE475gIBD2ARWQuMQXoE1");
+        mParams.put("thirdparty_token", thirdToken + new Random().nextInt(10000));
         mParams.put("thirdparty_type", thirdType);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -261,7 +263,7 @@ public class AccountApi extends BaseApi {
     public void otherLogin(String thirdToken, String thirdType, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("thirdparty_token", thirdToken);
+        mParams.put("thirdparty_token", 1 + thirdToken);
         mParams.put("thirdparty_type", thirdType);
 
         simpleRequest(OTHER_LOGIN, mParams, new ApiCallback() {
@@ -400,7 +402,6 @@ public class AccountApi extends BaseApi {
                 }
                 callback.onFailure(displayType, apiResult);
             }
-
 
         });
 

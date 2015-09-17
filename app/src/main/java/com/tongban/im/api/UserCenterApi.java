@@ -25,6 +25,8 @@ import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -623,8 +625,15 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "").toString());
-        if (userInfo.getNick_name() != null)
-            mParams.put("nick_name", userInfo.getNick_name());
+        if (userInfo.getNick_name() != null) {
+            String nickName;
+            try {
+                nickName = new String(userInfo.getNick_name().getBytes("GBK"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                nickName = "";
+            }
+            mParams.put("nick_name", nickName);
+        }
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
 
@@ -647,7 +656,7 @@ public class UserCenterApi extends BaseApi {
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onComplete(new BaseEvent.EditUserEvent());
             }
         });
     }

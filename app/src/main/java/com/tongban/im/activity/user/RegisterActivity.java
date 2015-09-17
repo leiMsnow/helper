@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
@@ -26,16 +25,14 @@ import io.rong.imkit.RongIM;
 public class RegisterActivity extends CameraResultActivity {
 
     private User user;
+    //是否直接打开编辑资料界面
     private boolean isSecond;
-
     private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FileUploadApi.getInstance().fetchUploadToken();
-        if (isSecond)
-            mToolbar.setVisibility(View.GONE);
     }
 
     @Override
@@ -81,19 +78,31 @@ public class RegisterActivity extends CameraResultActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isSecond)
+        if (!isSecond) {
+            if (RongIM.getInstance().getRongIMClient() != null)
+                RongIM.getInstance().logout();
             startActivity(new Intent(mContext, LoginActivity.class));
-        if (RongIM.getInstance() != null)
-            RongIM.getInstance().logout();
-        SPUtils.clear(mContext);
+        } else {
+            connectIM(true, true);
+        }
         finish();
     }
 
+    /**
+     * 登录成功回调
+     *
+     * @param userEvent
+     */
     public void onEventMainThread(BaseEvent.UserLoginEvent userEvent) {
         user = userEvent.user;
         openSecondFragment();
     }
 
+    /**
+     * 修改资料回调
+     *
+     * @param obj
+     */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
         if (isSecond) {
             connectIM(true, false);
@@ -103,6 +112,8 @@ public class RegisterActivity extends CameraResultActivity {
     }
 
     private void openSecondFragment() {
+        if (mToolbar != null)
+            mToolbar.setVisibility(View.GONE);
         SecondRegisterFragment secondRegisterFragment = new SecondRegisterFragment();
         secondRegisterFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
