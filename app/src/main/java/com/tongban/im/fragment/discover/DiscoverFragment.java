@@ -93,7 +93,7 @@ public class DiscoverFragment extends BaseApiFragment implements View.OnClickLis
     public void onClick(View v) {
         if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
-                    SPUtils.get(mContext, Consts.USER_ID, "").toString());
+                    SPUtils.get(mContext, Consts.USER_ID, "",true).toString());
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }

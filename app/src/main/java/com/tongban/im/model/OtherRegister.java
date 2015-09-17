@@ -9,12 +9,15 @@ import java.io.Serializable;
 public class OtherRegister implements Serializable {
 
 
-    public static final String WECHAT = "weChat";
+    public static final String DANG = "1";
+    public static final String WECHAT = "2";
+    public static final String QQ = "3";
+    public static final String SINA = "4";
 
     private String openId;
     private String nickName;
     private String headimgurl;
-
+    private String type;
     public String getOpenId() {
         return openId;
     }
@@ -37,5 +40,13 @@ public class OtherRegister implements Serializable {
 
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

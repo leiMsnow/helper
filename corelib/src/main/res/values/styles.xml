@@ -35,7 +35,9 @@
         <item name="searchHintIcon">@mipmap/ic_search_brown</item>
         <item name="goIcon">@mipmap/ic_search_brown</item>
     </style>
-
+    <style name="Widget.ProgressBar.Red" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progress_medium_red</item>
+    </style>
     <style name="Widget.ProgressBar.Horizontal.New" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_new</item>
         <item name="android:minHeight">4dp</item>

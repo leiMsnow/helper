@@ -8,7 +8,7 @@
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="searchViewStyle">@style/SearchView.Light</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/theme_grey_300</item>
         <item name="android:textCursorDrawable">@drawable/shape_text_cursor</item>
         <!-- 禁止多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>

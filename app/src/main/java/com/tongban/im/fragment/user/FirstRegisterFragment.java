@@ -63,11 +63,14 @@ public class FirstRegisterFragment extends BaseApiFragment
     protected void initData() {
         if (getArguments() != null) {
             mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
-            mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
-            otherRegister = JSON.parseObject(mOtherInfo,
-                    new TypeReference<OtherRegister>() {
-                    });
-            LogUtil.d("otherRegister", otherRegister.getNickName());
+            if (!TextUtils.isEmpty(mOtherInfo)) {
+                mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                otherRegister = JSON.parseObject(mOtherInfo,
+                        new TypeReference<OtherRegister>() {
+                        });
+                otherRegister.setType(mOtherType);
+                LogUtil.d("otherRegister", otherRegister.getNickName());
+            }
         }
     }
 
@@ -98,8 +101,14 @@ public class FirstRegisterFragment extends BaseApiFragment
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
-                    AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
-                            mVerifyCode, this);
+                    if (otherRegister == null) {
+                        AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
+                                mVerifyCode, this);
+                    } else {
+                        AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
+                                otherRegister.getOpenId(), otherRegister.getType(),
+                                mVerifyId, mVerifyCode, this);
+                    }
                 }
             } else {
                 //提示获取验证码

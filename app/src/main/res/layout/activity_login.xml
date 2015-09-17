@@ -24,7 +24,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/phone_num"
-            android:textColor="@color/normal_grey" />
+            android:textColor="@color/main_black" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_phone_num"
@@ -55,7 +55,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/pwd"
-            android:textColor="@color/normal_grey" />
+            android:textColor="@color/main_black" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_pwd"
@@ -115,9 +115,10 @@
 
     </LinearLayout>
 
-    <Button
+    <com.dd.CircularProgressButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btn_login"
-        style="@style/CommonButtonStyle"
-        android:text="@string/login" />
+        app:cpb_textIdle="@string/login"
+        style="@style/CommonButtonStyle" />
 
 </RelativeLayout>

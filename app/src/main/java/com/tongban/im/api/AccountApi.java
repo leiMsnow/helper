@@ -132,7 +132,6 @@ public class AccountApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
-//        mParams.put("nick_name", nickName);
         mParams.put("password", password);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -172,9 +171,21 @@ public class AccountApi extends BaseApi {
      *
      * @param callback
      */
-    public void otherRegister(final ApiCallback callback) {
+    public void otherRegister(String mobilePhone,
+                              String password,
+                              String thirdToken,
+                              String thirdType,
+                              String verifyId,
+                              String verifyCode,
+                              final ApiCallback callback) {
 
         mParams = new HashMap<>();
+        mParams.put("mobile_phone", mobilePhone);
+        mParams.put("password", password);
+        mParams.put("thirdparty_token", thirdToken);
+        mParams.put("thirdparty_type", thirdType);
+        mParams.put("verify_id", verifyId);
+        mParams.put("verify_code", verifyCode);
 
         simpleRequest(OTHER_REGISTER, mParams, new ApiCallback() {
             @Override

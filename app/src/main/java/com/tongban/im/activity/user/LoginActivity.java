@@ -10,10 +10,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
+import com.dd.CircularProgressButton;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -34,7 +35,6 @@ import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import java.util.Map;
-import java.util.Set;
 
 import de.greenrobot.event.EventBus;
 
@@ -51,7 +51,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     private ClearEditText etPwd;
     private TextView tvFindPwd;
     private TextView tvRegister;
-    private Button btnLogin;
+    private CircularProgressButton btnLogin;
 
     private String mUser, mPwd;
     //是否其他设备登录进入
@@ -79,12 +79,14 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
         etPwd = (ClearEditText) findViewById(R.id.et_pwd);
         tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin = (CircularProgressButton) findViewById(R.id.btn_login);
+
+        btnLogin.setIndeterminateProgressMode(true);
+
     }
 
     @Override
     protected void initData() {
-        setTitle(getResources().getString(R.string.login));
         mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
         isOther = getIntent().getBooleanExtra(Consts.KEY_OTHER_CLIENT, false);
         if (isOther) {
@@ -180,9 +182,10 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void onClick(View v) {
         if (v == btnLogin) {
             AccountApi.getInstance().login(mUser, mPwd, this);
+            startLoadingAnimation(true);
         } else if (v == tvRegister) {
-//            startActivity(new Intent(mContext, RegisterActivity.class));
             TransferCenter.getInstance().startRegister();
+            finish();
         } else if (v == tvFindPwd) {
             startActivity(new Intent(mContext, FindPwdActivity.class));
         } else {
@@ -229,7 +232,7 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
                         if (status == 200 && info != null) {
                             String userInfoJson = JSON.toJSONString(info);
                             TransferCenter.getInstance()
-                                    .startRegister(userInfoJson,OtherRegister.WECHAT,false);
+                                    .startRegister(userInfoJson, OtherRegister.WECHAT, false);
                             LogUtil.d("TestData", userInfoJson);
                         } else {
                             LogUtil.d("TestData", "发生错误：" + status);
@@ -248,6 +251,41 @@ public class LoginActivity extends BaseToolBarActivity implements TextWatcher, V
     public void onCancel(SHARE_MEDIA share_media) {
         showEmptyText("", false);
         LogUtil.d("onCancel:" + share_media.toString());
+    }
+
+    @Override
+    public void onFailure(DisplayType displayType, Object errorObj) {
+        super.onFailure(DisplayType.None, errorObj);
+        startLoadingAnimation(false);
+    }
+
+    /**
+     * 执行加载动画
+     *
+     * @param isScale true收起按钮 ； false 展开按钮
+     */
+    private void startLoadingAnimation(final boolean isScale) {
+//        float startF = isScale ? 1.0f : 0.0f;
+//        float endF = isScale ? 0.0f : 1.0f;
+//        if (!isScale)
+//            btnLogin.setVisibility(View.VISIBLE);
+//        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", startF, endF);
+//        ObjectAnimator objectAnimator = ObjectAnimator.ofPropertyValuesHolder(btnLogin,scaleX);
+//        objectAnimator.setDuration(500);
+//        objectAnimator.start();
+//        objectAnimator.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                if (isScale)
+//                    btnLogin.setVisibility(View.INVISIBLE);
+//            }
+//        });
+
+        if (btnLogin.getProgress() == 0) {
+            btnLogin.setProgress(50);
+        } else {
+            btnLogin.setProgress(-1);
+        }
     }
 
 }

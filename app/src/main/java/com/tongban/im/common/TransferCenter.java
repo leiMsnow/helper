@@ -73,16 +73,15 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
-
     /**
      * 打开用户中心界面
      *
      * @param visitorId
      */
-    public void startUserCenter(String visitorId) {
+    public void startUserCenter(String visitorId,boolean isOpenMain) {
 
         String pathPrefix = TransferPathPrefix.USER_CENTER;
-        if (!startLogin())
+        if (!startLogin(isOpenMain,false))
             return;
         String center_tag = "visit_center";
         if (visitorId.equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
@@ -100,11 +99,16 @@ public class TransferCenter {
         mContext.startActivity(intent);
     }
 
-    /**
-     * 打开话题详情
-     *
-     * @param topic
-     */
+    public void startUserCenter(String visitorId) {
+        startUserCenter(visitorId,false);
+    }
+
+
+        /**
+         * 打开话题详情
+         *
+         * @param topic
+         */
     public void startTopicDetails(Topic topic) {
         String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
 

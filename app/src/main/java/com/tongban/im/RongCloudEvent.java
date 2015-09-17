@@ -367,7 +367,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType
             conversationType, UserInfo userInfo) {
         if (userInfo != null) {
-            TransferCenter.getInstance().startUserCenter(userInfo.getUserId());
+            TransferCenter.getInstance().startUserCenter(userInfo.getUserId(),true);
             LogUtil.d(TAG, "onUserPortraitClick: " + userInfo.getUserId());
         }
 

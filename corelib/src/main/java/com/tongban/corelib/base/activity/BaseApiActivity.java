@@ -31,6 +31,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     private View mEmptyView;
 
     private RequestApiListener requestApiListener;
+
     public void setRequestApiListener(RequestApiListener requestApiListener) {
         this.requestApiListener = requestApiListener;
     }
@@ -104,6 +105,8 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
         } else if (displayType == DisplayType.ALL) {
             ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
             showEmptyText(errorMsg, false);
+        } else {
+            showEmptyText("", false);
         }
 
         ApiErrorResult errorResult = new ApiErrorResult();
