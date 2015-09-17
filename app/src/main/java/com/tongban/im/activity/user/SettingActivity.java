@@ -79,7 +79,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
                 RongIM.getInstance().logout();
             SPUtils.clear(mContext);
             ActivityContainer.getInstance().finishActivity();
-            TransferCenter.getInstance().startLogin();
+            TransferCenter.getInstance().startLogin(true,false);
         } else if (v == tvCurrentVersion) {
             BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
             dialog.setMessage("切换环境");
