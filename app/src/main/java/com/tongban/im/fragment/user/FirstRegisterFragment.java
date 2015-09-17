@@ -94,7 +94,6 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         //校验手机验证码
         else if (v == btnRegister) {
             if (regEvent != null) {
-                //校验手机验证码接口
                 if (!cbAgree.isChecked()) {
                     ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
                 } else {
@@ -104,9 +103,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
                     }
                     // 第三方注册
                     else {
-                        AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
-                                otherRegister.getOpenId(), otherRegister.getType(),
-                                mVerifyId, mVerifyCode, this);
+                        AccountApi.getInstance().checkPhone(mPhoneNum, this);
                     }
                 }
             } else {
@@ -142,6 +139,12 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         } else {
             btnRegister.setEnabled(false);
         }
+    }
+
+    public void onEventMainThread(BaseEvent.CheckPhoneEvent obj) {
+        AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
+                otherRegister.getOpenId(), otherRegister.getType(),
+                mVerifyId, mVerifyCode, this);
     }
 
     public void onEventMainThread(BaseEvent.RegisterEvent obj) {

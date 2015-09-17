@@ -2,12 +2,9 @@ package com.tongban.im.activity.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
@@ -16,8 +13,9 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FirstRegisterFragment;
 import com.tongban.im.fragment.user.SecondRegisterFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.OtherRegister;
 import com.tongban.im.model.User;
+
+import io.rong.imkit.RongIM;
 
 /**
  * 注册
@@ -29,10 +27,6 @@ public class RegisterActivity extends CameraResultActivity {
 
     private User user;
     private boolean isSecond;
-
-//    private String mOtherInfo;
-//    private String mOtherType;
-//    private OtherRegister otherRegister;
 
     private Bundle bundle;
 
@@ -87,6 +81,8 @@ public class RegisterActivity extends CameraResultActivity {
     public void onBackPressed() {
         if (!isSecond)
             startActivity(new Intent(mContext, LoginActivity.class));
+        if (RongIM.getInstance() != null)
+            RongIM.getInstance().logout();
         SPUtils.clear(mContext);
         finish();
     }

@@ -78,10 +78,10 @@ public class TransferCenter {
      *
      * @param visitorId
      */
-    public void startUserCenter(String visitorId,boolean isOpenMain) {
+    public void startUserCenter(String visitorId, boolean isOpenMain) {
 
         String pathPrefix = TransferPathPrefix.USER_CENTER;
-        if (!startLogin(isOpenMain,false))
+        if (!startLogin(isOpenMain, false))
             return;
         String center_tag = "visit_center";
         if (visitorId.equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
@@ -100,15 +100,15 @@ public class TransferCenter {
     }
 
     public void startUserCenter(String visitorId) {
-        startUserCenter(visitorId,false);
+        startUserCenter(visitorId, false);
     }
 
 
-        /**
-         * 打开话题详情
-         *
-         * @param topic
-         */
+    /**
+     * 打开话题详情
+     *
+     * @param topic
+     */
     public void startTopicDetails(Topic topic) {
         String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
 
@@ -206,17 +206,17 @@ public class TransferCenter {
     /**
      * 打开注册界面
      *
-     * @param isOtherRegister 是否第三方注册信息
-     * @param type            第三方类型
-     * @param editUser        编辑用户,该情况为用户注册成功后，昵称没有填写,直接进入编辑用户信息界面
+     * @param otherRegister 第三方注册信息
+     * @param type          第三方类型
+     * @param editUser      编辑用户,该情况为用户注册成功后，昵称没有填写,所以需要进入编辑用户信息界面
      */
-    public void startRegister(String isOtherRegister, String type, boolean editUser) {
+    public void startRegister(String otherRegister, String type, boolean editUser) {
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(TransferPathPrefix.REGISTER)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         Bundle bundle = new Bundle();
-        bundle.putString(Consts.OTHER_REGISTER_INFO, isOtherRegister);
+        bundle.putString(Consts.OTHER_REGISTER_INFO, otherRegister);
         bundle.putString(Consts.OTHER_REGISTER_TYPE, type);
         bundle.putBoolean(Consts.KEY_EDIT_USER, editUser);
         intent.putExtras(bundle);

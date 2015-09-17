@@ -184,6 +184,10 @@ public class BaseEvent {
 
     }
 
+
+    public static class CheckPhoneEvent {
+    }
+
     public static class UserLoginEvent {
         public User user;
     }

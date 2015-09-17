@@ -62,6 +62,10 @@ public class AccountApi extends BaseApi {
      * 检查手机号是否已经注册
      */
     public final static String CHECK_PHONE = "user/regcheck/phone";
+    /**
+     * 第三方登录
+     */
+    public final static String OTHER_LOGIN = "user/login/3";
 
 
     private AccountApi(Context context) {
@@ -182,7 +186,8 @@ public class AccountApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("password", password);
-        mParams.put("thirdparty_token", thirdToken);
+        //oChniwH9WE475gIBD2ARWQuMQXoE
+        mParams.put("thirdparty_token", "oChniwH9WE475gIBD2ARWQuMQXoE1");
         mParams.put("thirdparty_type", thirdType);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -196,8 +201,79 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
+                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
+                        });
+                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
+                registerEvent.registerEnum = (BaseEvent.RegisterEvent.RegisterEnum.REGISTER);
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(registerEvent);
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
+            }
+
+        });
+    }
+
+    /**
+     * 检测手机是否存在
+     *
+     * @param mobilePhone
+     * @param callback
+     */
+    public void checkPhone(String mobilePhone, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("mobile_phone", mobilePhone);
+
+        simpleRequest(CHECK_PHONE, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    callback.onComplete(new BaseEvent.CheckPhoneEvent());
+            }
+
+            @Override
+            public void onFailure(DisplayType displayType, Object errorMessage) {
+                if (callback != null)
+                    callback.onFailure(displayType, "手机号已经注册");
+            }
+
+        });
+    }
+
+    /**
+     * 第三方登录
+     *
+     * @param thirdToken
+     * @param thirdType
+     * @param callback
+     */
+    public void otherLogin(String thirdToken, String thirdType, final ApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("thirdparty_token", thirdToken);
+        mParams.put("thirdparty_type", thirdType);
+
+        simpleRequest(OTHER_LOGIN, mParams, new ApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                if (callback != null)
+                    loginSuccess(obj, callback);
             }
 
             @Override
@@ -226,23 +302,20 @@ public class AccountApi extends BaseApi {
         simpleRequest(LOGIN, mParams, new ApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                BaseEvent.UserLoginEvent userEvent = new BaseEvent.UserLoginEvent();
-                userEvent.user = apiResponse.getData();
-                saveUserInfo(userEvent.user);
-                callback.onComplete(userEvent);
+                if (callback != null)
+                    loginSuccess(obj, callback);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
 
         });
@@ -267,22 +340,19 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<User>>() {
-                        });
-                BaseEvent.UserLoginEvent userEvent = new BaseEvent.UserLoginEvent();
-                userEvent.user = apiResponse.getData();
-                saveUserInfo(userEvent.user);
-                callback.onComplete(userEvent);
+                if (callback != null)
+                    loginSuccess(obj, callback);
             }
 
             @Override
             public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+                if (callback != null)
+                    callback.onFailure(displayType, errorMessage);
             }
 
         });
     }
+
 
     /**
      * 密码重置
@@ -372,6 +442,20 @@ public class AccountApi extends BaseApi {
 
         });
 
+    }
+
+    // 三种登录成功后，统一处理
+    public BaseEvent.UserLoginEvent loginSuccess(Object obj, ApiCallback callback) {
+        ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
+                new TypeReference<ApiResult<User>>() {
+                });
+        BaseEvent.UserLoginEvent userEvent = new BaseEvent.UserLoginEvent();
+        userEvent.user = apiResponse.getData();
+        saveUserInfo(userEvent.user);
+        if (callback != null)
+            callback.onComplete(userEvent);
+
+        return userEvent;
     }
 
     /**

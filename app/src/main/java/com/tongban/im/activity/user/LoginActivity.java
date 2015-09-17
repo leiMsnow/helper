@@ -9,33 +9,21 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.dd.CircularProgressButton;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.listener.UMSocializeOauthBackListener;
+import com.tongban.im.listener.UMSocializeOauthListenerImpl;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.OtherRegister;
 import com.tongban.im.widget.view.ClearEditText;
-import com.tongban.umeng.UMConstant;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.controller.listener.SocializeListeners;
-import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
-
-import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -45,8 +33,8 @@ import de.greenrobot.event.EventBus;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class LoginActivity extends AccountBaseActivity implements TextWatcher, View.OnClickListener,
-        SocializeListeners.UMAuthListener {
+public class LoginActivity extends AccountBaseActivity implements TextWatcher, View.OnClickListener
+,UMSocializeOauthBackListener {
 
     private ClearEditText etUser;
     private ClearEditText etPwd;
@@ -60,13 +48,12 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     //是否需要跳转到main界面
     private boolean mIsOpenMain;
 
-
-    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
+    private UMSocializeOauthListenerImpl authListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addWeChatHandler();
+        authListener = new UMSocializeOauthListenerImpl(mContext,this);
     }
 
     @Override
@@ -182,8 +169,8 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
+            startLoadingAnimation(0);
             AccountApi.getInstance().login(mUser, mPwd, this);
-            startLoadingAnimation(true);
         } else if (v == tvRegister) {
             TransferCenter.getInstance().startRegister();
             finish();
@@ -192,101 +179,39 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         } else {
             switch (v.getId()) {
                 case R.id.iv_wechat_login:
-
-                    mController.doOauthVerify(mContext, SHARE_MEDIA.WEIXIN, this);
+                    authListener.doWeCHatOauth();
                     break;
             }
         }
     }
 
-    //添加微信平台
-    private void addWeChatHandler() {
-        // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(mContext,
-                UMConstant.weChatAPPID,
-                UMConstant.weChatAppSecret);
-        wxHandler.addToSocialSDK();
-        wxHandler.setRefreshTokenAvailable(false);
-    }
 
-    @Override
-    public void onStart(SHARE_MEDIA share_media) {
-        showEmptyText("", true);
-    }
-
-    @Override
-    public void onComplete(Bundle bundle, SHARE_MEDIA share_media) {
-        showEmptyText("", false);
-        LogUtil.d("onComplete:" + bundle.getString("uid"));
-        //获取相关授权信息
-        mController.getPlatformInfo(mContext, SHARE_MEDIA.WEIXIN,
-                new SocializeListeners.UMDataListener() {
-                    @Override
-                    public void onStart() {
-                        showEmptyText("", true);
-                        LogUtil.d("onStart-getPlatformInfo");
-                    }
-
-                    @Override
-                    public void onComplete(int status, Map<String, Object> info) {
-                        showEmptyText("", false);
-                        if (status == 200 && info != null) {
-                            String userInfoJson = JSON.toJSONString(info);
-                            TransferCenter.getInstance()
-                                    .startRegister(userInfoJson, OtherRegister.WECHAT, false);
-                            LogUtil.d("TestData", userInfoJson);
-                        } else {
-                            LogUtil.d("TestData", "发生错误：" + status);
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void onError(SocializeException e, SHARE_MEDIA share_media) {
-        showEmptyText("", false);
-        LogUtil.d("onError:" + e.getMessage());
-    }
-
-    @Override
-    public void onCancel(SHARE_MEDIA share_media) {
-        showEmptyText("", false);
-        LogUtil.d("onCancel:" + share_media.toString());
-    }
 
     @Override
     public void onFailure(DisplayType displayType, Object errorObj) {
         super.onFailure(DisplayType.None, errorObj);
-        startLoadingAnimation(false);
+        startLoadingAnimation(-1);
     }
 
     /**
      * 执行加载动画
-     *
-     * @param isScale true收起按钮 ； false 展开按钮
      */
-    private void startLoadingAnimation(final boolean isScale) {
-//        float startF = isScale ? 1.0f : 0.0f;
-//        float endF = isScale ? 0.0f : 1.0f;
-//        if (!isScale)
-//            btnLogin.setVisibility(View.VISIBLE);
-//        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", startF, endF);
-//        ObjectAnimator objectAnimator = ObjectAnimator.ofPropertyValuesHolder(btnLogin,scaleX);
-//        objectAnimator.setDuration(500);
-//        objectAnimator.start();
-//        objectAnimator.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                if (isScale)
-//                    btnLogin.setVisibility(View.INVISIBLE);
-//            }
-//        });
-
-        if (btnLogin.getProgress() == 0) {
-            btnLogin.setProgress(50);
-        } else {
-            btnLogin.setProgress(-1);
-        }
+    private void startLoadingAnimation(int index) {
+        btnLogin.setProgress(index);
     }
 
+    @Override
+    public void oauthSuccess() {
+        finish();
+    }
+
+    @Override
+    public void oauthFailure() {
+        ToastUtil.getInstance(mContext).showToast("授权登录失败");
+    }
+
+    @Override
+    public void oauthNewAccount() {
+        finish();
+    }
 }

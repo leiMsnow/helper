@@ -119,6 +119,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btn_login"
         app:cpb_textIdle="@string/login"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_selectorComplete="@drawable/complete_state_selector"
+        app:cpb_selectorError="@drawable/error_state_selector"
         style="@style/CommonButtonStyle" />
 
 </RelativeLayout>

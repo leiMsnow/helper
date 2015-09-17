@@ -4,9 +4,7 @@ package com.tongban.im.fragment.user;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +13,12 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.EditUser;
@@ -33,7 +32,7 @@ import com.tongban.im.widget.view.CameraView;
  * 注册第二步 设置头像/填写用户昵称
  */
 public class SecondRegisterFragment extends BaseToolBarFragment implements
-        TextWatcher, View.OnClickListener, CameraResultActivity.IPhotoListener {
+        View.OnClickListener, CameraResultActivity.IPhotoListener {
     private ImageView ivPortrait;
     private EditText etNickName;
     private Button btnSubmit;
@@ -78,37 +77,20 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
                         new TypeReference<OtherRegister>() {
                         });
                 otherRegister.setType(mOtherType);
+                setUserPortrait(otherRegister.getUrls().getMid(), ivPortrait);
+                etNickName.setText(otherRegister.getNickName());
+                updateUser(otherRegister.getUrls());
+            } else {
+                ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
+                        SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
             }
-
-        } else {
-            ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
-                    SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
         }
     }
 
     @Override
     protected void initListener() {
         ivPortrait.setOnClickListener(this);
-        etNickName.addTextChangedListener(this);
         btnSubmit.setOnClickListener(this);
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        mNickName = etNickName.getText().toString().trim();
-        if (!TextUtils.isEmpty(mNickName)) {
-            btnSubmit.setEnabled(true);
-        }
     }
 
     @Override
@@ -119,32 +101,62 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
         }
         //点击提交按钮
         else if (v == btnSubmit) {
-            if (mIcon == null) {
-                int resId = (Integer) SPUtils.get(mContext,
-                        SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
-                mIcon = CameraUtils.Bitmap2Bytes(bitmap);
+            mNickName = etNickName.getText().toString().trim();
+            if (TextUtils.isEmpty(mNickName)) {
+                ToastUtil.getInstance(mContext).showToast("请输入昵称");
+                return;
             }
-            FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                    FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+            // 使用用户上传的资料
+            if (mIcon != null) {
+                FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
+                        FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
-                        @Override
-                        public void uploadSuccess(ImageUrl url) {
-                            editUser.setPortrait_url(url);
-                            updateUser();
-                        }
+                            @Override
+                            public void uploadSuccess(ImageUrl url) {
+                                updateUser(url);
+                            }
 
-                        @Override
-                        public void uploadFailed(String error) {
-                            updateUser();
-                        }
+                            @Override
+                            public void uploadFailed(String error) {
+                                updateUser(null);
+                            }
 
-                    });
+                        });
+            } else {
+                //使用第三方资料
+                if (otherRegister != null) {
+                    updateUser(otherRegister.getUrls());
+                }
+                //使用系统默认资料
+                else {
+                    int resId = (Integer) SPUtils.get(mContext,
+                            SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
+                    mIcon = CameraUtils.Bitmap2Bytes(bitmap);
+                    FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
+                            FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+
+                                @Override
+                                public void uploadSuccess(ImageUrl url) {
+                                    updateUser(url);
+                                }
+
+                                @Override
+                                public void uploadFailed(String error) {
+                                    updateUser(null);
+                                }
+
+                            });
+                }
+            }
+
 
         }
+
     }
 
-    private void updateUser() {
+    private void updateUser(ImageUrl url) {
+        editUser.setPortrait_url(url);
         editUser.setNick_name(mNickName);
         UserCenterApi.getInstance().updateUserInfo(editUser,
                 SecondRegisterFragment.this);
