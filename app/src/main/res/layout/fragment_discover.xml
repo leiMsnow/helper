@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:dividerHeight="1dp"
-            android:divider="@color/normal_grey"
+            android:divider="@color/normal_light_grey"
             android:scrollbars="none"/>
 
     </in.srain.cube.views.ptr.PtrFrameLayout>

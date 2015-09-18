@@ -40,7 +40,8 @@ public class DiscoverAdapter extends QuickAdapter<Discover> {
             case 1:// 横排3图
                 helper.setText(R.id.tv_tip, item.getSoft_word());
                 helper.setText(R.id.tv_title, item.getTitle());
-                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+                helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
+
                 helper.setText(R.id.tv_description, item.getDescription());
 
                 helper.setImageBitmap(R.id.iv_left, item.getImg_map().get(0).getImg_url(),
@@ -54,7 +55,7 @@ public class DiscoverAdapter extends QuickAdapter<Discover> {
             case 2:// 左1右2图
                 helper.setText(R.id.tv_tip, item.getSoft_word());
                 helper.setText(R.id.tv_title, item.getTitle());
-                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+                helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
 
                 helper.setImageBitmap(R.id.iv_left, item.getImg_map().get(0).getImg_url(),
                         R.drawable.rc_ic_def_rich_content);
@@ -73,7 +74,8 @@ public class DiscoverAdapter extends QuickAdapter<Discover> {
             case 3:// 图文单图
                 helper.setText(R.id.tv_tip, item.getSoft_word());
                 helper.setText(R.id.tv_title, item.getTitle());
-                helper.setText(R.id.tv_collect_amount, String.valueOf(item.getCollect_amount()));
+                helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
+
                 helper.setText(R.id.tv_description, item.getDescription());
 
                 helper.setImageBitmap(R.id.iv_img, item.getImg_map().get(0).getImg_url(),

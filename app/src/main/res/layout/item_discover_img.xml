@@ -5,14 +5,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
-    <include layout="@layout/item_discover_timeline"/>
+    <include layout="@layout/item_discover_theme_type"/>
 
-    <com.tongban.corelib.widget.view.RoundImageView
+    <ImageView
         android:id="@+id/iv_img"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="210dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/rc_ic_def_rich_content"/>
 </LinearLayout>
