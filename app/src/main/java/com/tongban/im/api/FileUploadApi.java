@@ -57,7 +57,7 @@ public class FileUploadApi extends BaseApi {
     private static UploadManager mUploadManager;
 
     // 获取上传token的url
-    private String UPLOAD_TOKEN = "token/require/qiniu/upload";
+    private String UPLOAD_TOKEN = "/token/require/qiniu/upload";
 
     private FileUploadApi(Context context) {
         super(context);

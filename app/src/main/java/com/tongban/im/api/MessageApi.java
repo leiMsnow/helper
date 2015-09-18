@@ -18,7 +18,7 @@ public class MessageApi extends BaseApi {
     /**
      * 加入群组
      */
-    public static final String JOIN_GROUP = "msg/system/joingroup";
+    public static final String JOIN_GROUP = "/msg/system/joingroup";
 
     private MessageApi(Context context) {
         super(context);

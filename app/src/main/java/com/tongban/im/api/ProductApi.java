@@ -33,36 +33,36 @@ public class ProductApi extends BaseApi {
 //---------------------------------------输入接口----------------------------------------------------
 
     // 收藏专题
-    public static final String COLLECT_MULTI_PRODUCT = "user/collect/theme";
+    public static final String COLLECT_MULTI_PRODUCT = "/user/collect/theme";
     // 取消收藏专题
-    public static final String NO_COLLECT_MULTI_PRODUCT = "user/nocollect/theme";
+    public static final String NO_COLLECT_MULTI_PRODUCT = "/user/nocollect/theme";
     // 收藏商品
-    public static final String COLLECT_PRODUCT = "user/collect/product";
+    public static final String COLLECT_PRODUCT = "/user/collect/product";
     // 取消收藏商品
-    public static final String NO_COLLECT_PRODUCT = "user/nocollect/product";
+    public static final String NO_COLLECT_PRODUCT = "/user/nocollect/product";
 
 
 //---------------------------------------输出接口----------------------------------------------------
     // 获取首页数据
-    public static final String FETCH_HOME_INFO = "home/template/require";
+    public static final String FETCH_HOME_INFO = "/home/template/require";
 
     // 获取专题收藏数量
-    public static final String FETCH_THEME_COLLECTED_AMOUNT = "theme/collected/amount";
+    public static final String FETCH_THEME_COLLECTED_AMOUNT = "/theme/collected/amount";
 
     // 获取专题详情信息
-    public static final String FETCH_THEME_INFO = "theme/info";
+    public static final String FETCH_THEME_INFO = "/theme/info";
 
     // 专题搜索
-    public static final String SEARCH_THEME = "theme/search/list";
+    public static final String SEARCH_THEME = "/theme/search/list";
 
     // 获取专题下属的商品列表
-    public static final String FETCH_THEME_PRODUCTS = "theme/products";
+    public static final String FETCH_THEME_PRODUCTS = "/theme/products";
 
     // 商品的详情信息
-    public static final String FETCH_PRODUCT_DETAIL_INFO = "product/detail/info";
+    public static final String FETCH_PRODUCT_DETAIL_INFO = "/product/detail/info";
 
     // 单品搜索
-    public static final String SEARCH_PRODUCT = "product/search/list";
+    public static final String SEARCH_PRODUCT = "/product/search/list";
 
     private ProductApi(Context context) {
         super(context);

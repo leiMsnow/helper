@@ -18,6 +18,7 @@ import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.listener.UMSocializeOauthBackListener;
@@ -34,7 +35,7 @@ import de.greenrobot.event.EventBus;
  * @createTime 2015/7/16
  */
 public class LoginActivity extends AccountBaseActivity implements TextWatcher, View.OnClickListener
-,UMSocializeOauthBackListener {
+        , UMSocializeOauthBackListener {
 
     private ClearEditText etUser;
     private ClearEditText etPwd;
@@ -53,7 +54,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authListener = new UMSocializeOauthListenerImpl(mContext,this);
+        authListener = new UMSocializeOauthListenerImpl(mContext, this);
     }
 
     @Override
@@ -186,7 +187,6 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     }
 
 
-
     @Override
     public void onFailure(DisplayType displayType, Object errorObj) {
         super.onFailure(displayType, errorObj);
@@ -213,5 +213,47 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void oauthNewAccount() {
         finish();
+    }
+
+    private int clickCount = 0;
+    private long firstTime = 0;
+    private long timeConsuming = 0;
+
+    public void setApiUrl(View v) {
+        if (clickCount == 0) {
+            firstTime = System.currentTimeMillis();
+            clickCount++;
+        } else if (clickCount == 1) {
+            timeConsuming = System.currentTimeMillis();
+            clickCount++;
+        } else if (clickCount == 2) {
+            if (timeConsuming - firstTime < 800) {
+                final BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
+                dialog.setPositiveButton("修改",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                BaseApi.getInstance().setHostUrl(mContext, dialog.getEditText());
+                            }
+                        });
+                dialog.setNegativeButton("关闭",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+
+                dialog.setIsEditMode(true);
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                dialog.setEditText(BaseApi.getInstance().getHostUrl());
+                clickCount = 0;
+                timeConsuming = 0;
+                firstTime = 0;
+            }
+        }
     }
 }

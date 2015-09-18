@@ -40,19 +40,19 @@ public class UserCenterApi extends BaseApi {
     /**
      * 关注用户
      */
-    public static final String FOCUS_USER = "user/focus/user";
+    public static final String FOCUS_USER = "/user/focus/user";
     /**
      * 取消关注用户
      */
-    public static final String CANCEL_FOCUS_USER = "user/nofocus/user";
+    public static final String CANCEL_FOCUS_USER = "/user/nofocus/user";
     /**
      * 设置宝宝信息
      */
-    public static final String SET_CHILD_INFO = "user/childinfo/update";
+    public static final String SET_CHILD_INFO = "/user/childinfo/update";
     /**
      * 用户信息修改
      */
-    public static final String USER_UPDATE = "user/update";
+    public static final String USER_UPDATE = "/user/update";
 
 //---------------------------------------输出接口----------------------------------------------------
 
@@ -61,53 +61,53 @@ public class UserCenterApi extends BaseApi {
     /**
      * 获取个人资料
      */
-    public static final String USER_INFO = "user/info";
+    public static final String USER_INFO = "/user/info";
     /**
      * 获取我关注的人员列表
      */
-    public static final String FETCH_FOCUS_USER_LIST = "user/focus/user/list";
+    public static final String FETCH_FOCUS_USER_LIST = "/user/focus/user/list";
     /**
      * 获取用户个人中心数据
      */
-    public static final String FETCH_PERSONAL_CENTER_INFO = "user/center/info";
+    public static final String FETCH_PERSONAL_CENTER_INFO = "/user/center/info";
     /**
      * 获取用户（他人）资料
      */
-    public static final String FETCH_USER_CENTER_INFO = "user/card";
+    public static final String FETCH_USER_CENTER_INFO = "/user/card";
     /**
      * 获取我的粉丝人员列表
      */
-    public static final String FETCH_FANS_USER_LIST = "user/befocus/user/list";
+    public static final String FETCH_FANS_USER_LIST = "/user/befocus/user/list";
 
 //---------------------------------------专题/商品接口------------------------------------------------
     /**
      * 获取我的收藏 - 专题列表
      */
-    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST = "user/collect/theme/list";
+    public static final String FETCH_COLLECT_MULTIPLE_PRODUCT_LIST = "/user/collect/theme/list";
     /**
      * 获取我的收藏 - 单品列表
      */
-    public static final String FETCH_SINGLE_PRODUCT_LIST = "user/collect/product/list";
+    public static final String FETCH_SINGLE_PRODUCT_LIST = "/user/collect/product/list";
 
 //---------------------------------------话题接口----------------------------------------------------
     /**
      * 获取我的收藏 - 话题列表
      */
-    public static final String FETCH_COLLECT_TOPIC_LIST = "user/collect/topic/list";
+    public static final String FETCH_COLLECT_TOPIC_LIST = "/user/collect/topic/list";
     /**
      * 获取我的话题 - 回复我的话题列表
      */
-    public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "user/bereply/comment/list";
+    public static final String FETCH_COLLECT_REPLY_TOPIC_LIST = "/user/bereply/comment/list";
     /**
      * 获取我的话题 - 我发起的话题列表
      */
-    public static final String FETCH_LAUNCH_TOPIC_LIST = "user/launch/topic/list";
+    public static final String FETCH_LAUNCH_TOPIC_LIST = "/user/launch/topic/list";
 
 //---------------------------------------圈子接口----------------------------------------------------
     /**
      * 获取个人群组列表-我创建/加入的群
      */
-    public static final String FETCH_MY_GROUPS_LIST = "user/groups/list";
+    public static final String FETCH_MY_GROUPS_LIST = "/user/groups/list";
 
 
     public UserCenterApi(Context context) {

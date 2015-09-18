@@ -26,10 +26,10 @@ public class CommonApi extends BaseApi {
     /**
      * 创建地理位置
      */
-    public static final String HOT_WORDS_LIST = "hotwords/tipHotWords/list";
+    public static final String HOT_WORDS_LIST = "/hotwords/tipHotWords/list";
 
     // 获取发现搜索页的标签
-    public static final String FETCH_DISCOVER_TAG = "tag/list";
+    public static final String FETCH_DISCOVER_TAG = "/tag/list";
 
     private CommonApi(Context context) {
         super(context);

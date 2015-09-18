@@ -34,41 +34,41 @@ public class TopicApi extends BaseApi {
     /**
      * 创建话题接口
      */
-    public static final String CREATE_TOPIC = "topic/create";
+    public static final String CREATE_TOPIC = "/topic/create";
     /**
      * 回复话题
      */
-    public static final String COMMENT_CREATE = "comment/create";
+    public static final String COMMENT_CREATE = "/comment/create";
     /**
      * 收藏话题
      */
-    public static final String COLLECT_CREATE = "user/collect/topic";
+    public static final String COLLECT_CREATE = "/user/collect/topic";
     /**
      * 取消收藏话题
      */
-    public static final String NO_COLLECT_CREATE = "user/nocollect/topic";
+    public static final String NO_COLLECT_CREATE = "/user/nocollect/topic";
 
 //---------------------------------------输出接口----------------------------------------------------
     /**
      * 话题回复列表接口
      */
-    public static final String TOPIC_COMMENT_LIST = "topic/contain/comment/list";
+    public static final String TOPIC_COMMENT_LIST = "/topic/contain/comment/list";
     /**
      * 话题推荐接口
      */
-    public static final String RECOMMEND_TOPIC_LIST = "topic/recommend/list";
+    public static final String RECOMMEND_TOPIC_LIST = "/topic/recommend/list";
     /**
      * 话题搜索接口
      */
-    public static final String SEARCH_TOPIC_LIST = "topic/search/list";
+    public static final String SEARCH_TOPIC_LIST = "/topic/search/list";
     /**
      * 话题详情接口
      */
-    public static final String TOPIC_INFO = "topic/detail/info";
+    public static final String TOPIC_INFO = "/topic/detail/info";
     /**
      * 官方话题评测详情
      */
-    public static final String OFFICIAL_TOPIC_INFO = "topic/products";
+    public static final String OFFICIAL_TOPIC_INFO = "/topic/products";
 
     private TopicApi(Context context) {
         super(context);

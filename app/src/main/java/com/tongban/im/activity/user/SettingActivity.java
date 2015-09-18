@@ -87,7 +87,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            BaseApi.setHostUrl(mContext, 0);
+                            BaseApi.getInstance().setHostUrl(mContext, 0);
                         }
                     });
             dialog.setNegativeButton("测试环境",
@@ -95,7 +95,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            BaseApi.setHostUrl(mContext, 1);
+                            BaseApi.getInstance().setHostUrl(mContext, 1);
                         }
                     });
             dialog.show();

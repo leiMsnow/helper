@@ -97,10 +97,13 @@
         android:padding="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_above="@+id/iv_wechat_login"
             android:layout_gravity="center_horizontal"
+            android:onClick="setApiUrl"
+            android:clickable="true"
+            android:gravity="center"
             android:text="第三方登录" />
 
         <ImageView
@@ -108,7 +111,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="8dp"
             android:onClick="onClick"
             android:src="@mipmap/ic_wechat" />
 

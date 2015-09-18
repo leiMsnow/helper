@@ -18,14 +18,12 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         mApp = this;
-
-        BaseApi.setHostUrl(mApp,0);
-
+        // 融云初始化
         RongIM.init(this);
+        // 融云事件初始化
         RongCloudEvent.init(this);
-        /** Log开关 */
+        // Log开关
         LogUtil.isDebug = true;
-        com.umeng.socialize.utils.Log.LOG = true;
         // 百度地图初始化
         SDKInitializer.initialize(getApplicationContext());
     }

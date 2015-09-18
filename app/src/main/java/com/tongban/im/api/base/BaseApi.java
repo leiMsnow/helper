@@ -16,6 +16,7 @@ import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.im.App;
 import com.tongban.im.R;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.ProductApi;
@@ -36,12 +37,13 @@ import java.util.Set;
 /**
  * 输入接口：修改、创建的接口；使用完这些接口后，需要重置disableCache，使输出接口可以收到非缓存结果；
  * 输出接口：列表、详情接口；
- * <p/>
+ * <p>
  * Created by zhangleilei on 15/7/8.
  */
 public class BaseApi {
 
     protected Context mContext;
+    private static BaseApi mApi;
     // 服务器地址存储标示
     private static final String HOST_FLAG = "HOST_FLAG";
     /**
@@ -55,34 +57,35 @@ public class BaseApi {
     //-----------------------------接口缓存时间key----------------------------------------------------
     //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
     protected final static String ALL_CACHE_URL = "ALL_CACHE_URL";
-    //    //专题时间-10min
+    //专题时间-10min
     protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
-    //    protected final static String THEME_CACHE_URL = "THEME_CACHE_URL";
-//    //单品时间-10min
+    //单品时间-10min
     protected final static String PRODUCT_CACHE_TIME = "PRODUCT_CACHE_TIME";
-    //    protected final static String PRODUCT_CACHE_URL = "PRODUCT_CACHE_URL";
-//    //话题时间-10min
+    //话题时间-10min
     protected final static String TOPIC_CACHE_TIME = "TOPIC_CACHE_TIME";
-    //    protected final static String TOPIC_CACHE_URL = "TOPIC_CACHE_URL";
-//    //圈子时间-30min
+    //圈子时间-30min
     protected final static String GROUP_CACHE_TIME = "GROUP_CACHE_TIME";
-    //    protected final static String GROUP_CACHE_URL = "GROUP_CACHE_URL";
-//    //用户时间-5min
+    //用户时间-5min
     protected final static String USER_CACHE_TIME = "USER_CACHE_TIME";
-//    protected final static String USER_CACHE_URL = "USER_CACHE_URL";
     /**
      * 获取Volley请求队列
      */
-    protected static RequestQueue mRequestQueue;
-
-    public RequestQueue getRequestQueue() {
-        return mRequestQueue;
-    }
+    private static RequestQueue mRequestQueue;
 
     protected Map<String, Object> mParams;
 
     private Set<String> mDisableCacheUrls;
 
+    public static BaseApi getInstance() {
+        if (mApi == null) {
+            synchronized (BaseApi.class) {
+                if (mApi == null) {
+                    mApi = new BaseApi(App.getInstance());
+                }
+            }
+        }
+        return mApi;
+    }
 
     /**
      * 声明Request请求
@@ -93,9 +96,9 @@ public class BaseApi {
     //测试环境
     private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
 
-    public BaseApi(Context context) {
-        this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();
+    protected BaseApi(Context context) {
         this.mContext = context;
+        this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();
     }
 
     /**
@@ -103,7 +106,7 @@ public class BaseApi {
      *
      * @return 服务器地址
      */
-    protected String getHostUrl() {
+    public String getHostUrl() {
         return SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
@@ -112,7 +115,7 @@ public class BaseApi {
      *
      * @param flag 0线上；1test；2+其他开发人员地址
      */
-    public static void setHostUrl(Context mContext, int flag) {
+    public void setHostUrl(Context mContext, int flag) {
         String saveUrl;
         switch (flag) {
             case 0:
@@ -124,6 +127,10 @@ public class BaseApi {
                 break;
         }
         SPUtils.put(mContext, HOST_FLAG, saveUrl);
+    }
+
+    public void setHostUrl(Context mContext, String url) {
+        SPUtils.put(mContext, HOST_FLAG, url);
     }
 
     /**
@@ -255,61 +262,7 @@ public class BaseApi {
         }
     }
 
-    /**
-     * 设置disableCache时间
-     *
-     * @param cacheName {@link BaseApi}
-     */
-    protected void setDisableCache(String cacheName) {
-        int disableCacheTime = 0;
-        if (cacheName.equals(USER_CACHE_TIME)) {
-            disableCacheTime = 5;
-            setDisableCacheUrls(UserCenterApi.USER_INFO);
-            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
 
-        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-            disableCacheTime = 10;
-            //话题相关
-            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
-            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
-            setDisableCacheUrls(TopicApi.TOPIC_INFO);
-            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
-            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
-            //用户相关
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
-
-        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-            disableCacheTime = 30;
-            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
-            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
-            setDisableCacheUrls(GroupApi.GROUP_INFO);
-            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
-
-        } else if (cacheName.equals(THEME_CACHE_TIME)) {
-            disableCacheTime = 10;
-            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
-            setDisableCacheUrls(ProductApi.SEARCH_THEME);
-            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
-
-        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-            disableCacheTime = 10;
-            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
-            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
-            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
-        }
-
-        long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
-        SPUtils.put(mContext, cacheName, cacheTimeMillis);
-    }
 
 
     /**
@@ -374,5 +327,62 @@ public class BaseApi {
      */
     protected String getTypeStr(boolean type) {
         return String.valueOf(type ? 1 : 0);
+    }
+
+
+    /**
+     * 设置disableCache时间
+     *
+     * @param cacheName {@link BaseApi}
+     */
+    protected void setDisableCache(String cacheName) {
+        int disableCacheTime = 0;
+        if (cacheName.equals(USER_CACHE_TIME)) {
+            disableCacheTime = 5;
+            setDisableCacheUrls(UserCenterApi.USER_INFO);
+            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
+
+        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
+            disableCacheTime = 10;
+            //话题相关
+            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
+            //用户相关
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
+
+        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
+            disableCacheTime = 30;
+            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.GROUP_INFO);
+            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
+
+        } else if (cacheName.equals(THEME_CACHE_TIME)) {
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_THEME);
+            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
+
+        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
+            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
+        }
+
+        long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
+        SPUtils.put(mContext, cacheName, cacheTimeMillis);
     }
 }

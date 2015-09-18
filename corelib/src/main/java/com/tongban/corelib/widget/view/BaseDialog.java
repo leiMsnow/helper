@@ -5,37 +5,40 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tongban.corelib.R;
 
 /**
- * 统一样式
- * @author maxiaolong
+ * 统一样式dialog
  *
+ * @author zhangleilei
  */
 public class BaseDialog extends Dialog {
 
-    public BaseDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected BaseDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
-    public BaseDialog(Context context, int theme) {
+    protected BaseDialog(Context context, int theme) {
         super(context, theme);
     }
 
-    public BaseDialog(Context context) {
+    protected BaseDialog(Context context) {
         super(context);
         this.mContext = context;
     }
 
-    // 先调用构造方法在调用oncreate方法
+    // 先调用构造方法在调用onCreate方法
     private static boolean isShow = true;
     private static boolean mCancel = true; //默认点击空白区域，隐藏dialog
     private Context mContext;
@@ -54,6 +57,9 @@ public class BaseDialog extends Dialog {
         private Context mContext;
         private String mTitle;
         private String mMessage;
+        private EditText etDialog;
+        private boolean isEditMode = false;
+
         private String mPositiveButtonText;
         private String mNegativeButtonText;
         private String mNeutralButtonText;
@@ -66,104 +72,39 @@ public class BaseDialog extends Dialog {
             this.mContext = context;
         }
 
-        public Builder setMessage(String message) {
-            this.mMessage = message;
-            return this;
+        /**
+         * create之前调用有效
+         *
+         * @param isEditMode 是否是编辑模式
+         */
+        public void setIsEditMode(boolean isEditMode) {
+            this.isEditMode = isEditMode;
         }
 
-        public Builder setMessage(int message) {
-            this.mMessage = (String) mContext.getText(message);
-            return this;
+        public String getEditText() {
+            if (etDialog == null)
+                return null;
+            return etDialog.getText().toString().trim();
         }
 
-        public Builder setTitle(int title) {
-            this.mTitle = (String) mContext.getText(title);
-            return this;
+        public void setEditText(String text) {
+            if (etDialog == null)
+                return;
+            etDialog.setText(text);
         }
 
-        public Builder setTitle(String title) {
-            this.mTitle = title;
-            return this;
-        }
-
-        public Builder setContentView(View v) {
-            this.mContentView = v;
-            return this;
-        }
-
-        public Builder setPositiveButton(int positiveButtonText,
-                OnClickListener listener) {
-            this.mPositiveButtonText = (String) mContext.getText(positiveButtonText);
-            this.mPositiveButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setPositiveButton(String positiveButtonText,
-                OnClickListener listener) {
-            this.mPositiveButtonText = positiveButtonText;
-            this.mPositiveButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setNegativeButton(int negativeButtonText,
-                OnClickListener listener) {
-            this.mNegativeButtonText = (String) mContext.getText(negativeButtonText);
-            this.mNegativeButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setNegativeButton(String negativeButtonText,
-                OnClickListener listener) {
-            this.mNegativeButtonText = negativeButtonText;
-            this.mNegativeButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setNeutralButton(int neutralButtonText,
-                OnClickListener listener) {
-            this.mNeutralButtonText = (String) mContext.getText(neutralButtonText);
-            this.mNeutralButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setNeutralButton(String neutralButtonText,
-                OnClickListener listener) {
-            this.mNeutralButtonText = neutralButtonText;
-            this.mNeutralButtonClickListener = listener;
-            return this;
-        }
-
-        public Builder setCancelable(boolean cancelable) {
-            isShow = cancelable;
-            return this;
-        }
-        
-        public Builder setCanceledOnTouchOutside(boolean cancel) {
-            mCancel = cancel;
-            return this;
-        }
-
-        
-        
-        public BaseDialog show() {
-            BaseDialog dialog = create();
-            dialog.show();
-            initWindow(dialog);
-            return dialog;
-        }
-        
         private BaseDialog create() {
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.view_dialog, null);
-            
+
             final BaseDialog dialog = new BaseDialog(mContext);
             dialog.setCanceledOnTouchOutside(mCancel);
             dialog.setCancelable(isShow);
-            
+
             //隐藏标题栏,必须在setContentView()前调用
-            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);;
-            
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
             // 设置title
             TextView dialogTitle = (TextView) layout.findViewById(R.id.dialog_title);
             if (TextUtils.isEmpty(mTitle)) {
@@ -178,8 +119,16 @@ public class BaseDialog extends Dialog {
             if (!TextUtils.isEmpty(mMessage)) {
                 dialogMessage.setText(mMessage);
                 dialogMessage.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 dialogMessage.setVisibility(View.GONE);
+            }
+
+            // 编辑框
+            etDialog = (EditText) layout.findViewById(R.id.et_dialog);
+            if (isEditMode) {
+                etDialog.setVisibility(View.VISIBLE);
+            } else {
+                etDialog.setVisibility(View.GONE);
             }
 
             // 设置右按钮
@@ -234,7 +183,7 @@ public class BaseDialog extends Dialog {
             } else {
                 mCenterBT.setVisibility(View.GONE);
             }
-            
+
             // 设置按钮线显示,隐藏
             View partline1 = layout.findViewById(R.id.partline1);
             View partline2 = layout.findViewById(R.id.partline2);
@@ -252,15 +201,15 @@ public class BaseDialog extends Dialog {
             } else {
                 partline2.setVisibility(View.GONE);
             }
-            
-            
+
+
             // 设置自定义布局
             if (mContentView != null) {
                 dialog.setContentView(mContentView);
                 return dialog;
             }
 
-            if(mCancel){//点击透明区域是否添加取消监听
+            if (mCancel) {//点击透明区域是否添加取消监听
                 layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -268,10 +217,10 @@ public class BaseDialog extends Dialog {
                     }
                 });
                 layout.findViewById(R.id.top_layout).setOnClickListener(new View.OnClickListener() {
-                    
+
                     @Override
                     public void onClick(View v) {
-                      //防止往下传
+                        //防止往下传
                     }
                 });
             }
@@ -279,10 +228,96 @@ public class BaseDialog extends Dialog {
             return dialog;
         }
 
+        public Builder setMessage(String message) {
+            this.mMessage = message;
+            return this;
+        }
+
+        public Builder setMessage(int message) {
+            this.mMessage = (String) mContext.getText(message);
+            return this;
+        }
+
+        public Builder setTitle(int title) {
+            this.mTitle = (String) mContext.getText(title);
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.mTitle = title;
+            return this;
+        }
+
+        public Builder setContentView(View v) {
+            this.mContentView = v;
+            return this;
+        }
+
+        public Builder setPositiveButton(int positiveButtonText,
+                                         OnClickListener listener) {
+            this.mPositiveButtonText = (String) mContext.getText(positiveButtonText);
+            this.mPositiveButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setPositiveButton(String positiveButtonText,
+                                         OnClickListener listener) {
+            this.mPositiveButtonText = positiveButtonText;
+            this.mPositiveButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButton(int negativeButtonText,
+                                         OnClickListener listener) {
+            this.mNegativeButtonText = (String) mContext.getText(negativeButtonText);
+            this.mNegativeButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setNegativeButton(String negativeButtonText,
+                                         OnClickListener listener) {
+            this.mNegativeButtonText = negativeButtonText;
+            this.mNegativeButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButton(int neutralButtonText,
+                                        OnClickListener listener) {
+            this.mNeutralButtonText = (String) mContext.getText(neutralButtonText);
+            this.mNeutralButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setNeutralButton(String neutralButtonText,
+                                        OnClickListener listener) {
+            this.mNeutralButtonText = neutralButtonText;
+            this.mNeutralButtonClickListener = listener;
+            return this;
+        }
+
+        public Builder setCancelable(boolean cancelable) {
+            isShow = cancelable;
+            return this;
+        }
+
+        public Builder setCanceledOnTouchOutside(boolean cancel) {
+            mCancel = cancel;
+            return this;
+        }
+
+
+        public BaseDialog show() {
+            BaseDialog dialog = create();
+            dialog.show();
+            initWindow(dialog);
+            return dialog;
+        }
+
         private void initWindow(Dialog dialog) {
 
             /*
-             * 获取框的窗口对象及参数对象以修改对话框的布局设置, 可以直接调用getWindow(),表示获得这个Activity的Window
+             * 获取框的窗口对象及参数对象以修改对话框的布局设置,
+             * 可以直接调用getWindow(),表示获得这个Activity的Window
              * 对象,这样这可以以同样的方式改变这个Activity的属性.
              */
             Window dialogWindow = dialog.getWindow();
@@ -294,9 +329,9 @@ public class BaseDialog extends Dialog {
             lp.y = 0; // 新位置Y坐标
             lp.height = WindowManager.LayoutParams.MATCH_PARENT; // 高度
             lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 高度
-//            lp.alpha = 0.7f; // 透明度
 
-            // 当Window的Attributes改变时系统会调用此函数,可以直接调用以应用上面对窗口参数的更改,也可以用setAttributes
+            // 当Window的Attributes改变时系统会调用此函数,
+            // 可以直接调用以应用上面对窗口参数的更改,也可以用setAttributes
             dialogWindow.setAttributes(lp);
         }
     }

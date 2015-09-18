@@ -37,7 +37,7 @@ public class GroupApi extends BaseApi {
     /**
      * 创建圈子接口
      */
-    public static final String CREATE_GROUP = "group/create";
+    public static final String CREATE_GROUP = "/group/create";
     /**
      * 加入圈子接口
      */
@@ -45,25 +45,25 @@ public class GroupApi extends BaseApi {
     /**
      * 用户退出圈子
      */
-    public static final String USER_QUIT_GROUP = "user/quit/group";
+    public static final String USER_QUIT_GROUP = "/user/quit/group";
 
 //---------------------------------------输出接口----------------------------------------------------
     /**
      * 圈子推荐接口
      */
-    public static final String RECOMMEND_GROUP_LIST = "group/recommend/list";
+    public static final String RECOMMEND_GROUP_LIST = "/group/recommend/list";
     /**
      * 圈子搜索接口
      */
-    public static final String SEARCH_GROUP_LIST = "group/search/list";
+    public static final String SEARCH_GROUP_LIST = "/group/search/list";
     /**
      * 圈子详情接口
      */
-    public static final String GROUP_INFO = "group/card";
+    public static final String GROUP_INFO = "/group/card";
     /**
      * 获取圈子成员列表接口
      */
-    public static final String GROUP_MEMBERS_INFO = "group/members/list";
+    public static final String GROUP_MEMBERS_INFO = "/group/members/list";
 
 
     private GroupApi(Context context) {

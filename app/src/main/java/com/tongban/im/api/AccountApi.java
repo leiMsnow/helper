@@ -36,39 +36,39 @@ public class AccountApi extends BaseApi {
     /**
      * 登录
      */
-    public final static String LOGIN = "user/login/1";
+    public final static String LOGIN = "/user/login/1";
     /**
      * token登录
      */
-    public final static String TOKEN_LOGIN = "user/login/2";
+    public final static String TOKEN_LOGIN = "/user/login/2";
     /**
      * 密码重置
      */
-    public final static String PWD_RESET = "user/password/reset";
+    public final static String PWD_RESET = "/user/password/reset";
     /**
      * 获取用户信息
      */
-    public final static String GET_USER_INFO = "user/info";
+    public final static String GET_USER_INFO = "/user/info";
     /**
      * 注册第一步，获取手机验证码
      */
-    public final static String SMS_REQUIRE = "verifycode/sms/require";
+    public final static String SMS_REQUIRE = "/verifycode/sms/require";
     /**
      * 注册第二步，输入手机号验证码
      */
-    public final static String REGISTER = "user/register/1";
+    public final static String REGISTER = "/user/register/1";
     /**
      * 第三方注册
      */
-    public final static String OTHER_REGISTER = "user/register/2";
+    public final static String OTHER_REGISTER = "/user/register/2";
     /**
      * 检查手机号是否已经注册
      */
-    public final static String CHECK_PHONE = "user/regcheck/phone";
+    public final static String CHECK_PHONE = "/user/regcheck/phone";
     /**
      * 第三方登录
      */
-    public final static String OTHER_LOGIN = "user/login/3";
+    public final static String OTHER_LOGIN = "/user/login/3";
 
 
     private AccountApi(Context context) {
@@ -189,7 +189,7 @@ public class AccountApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("password", password);
-        mParams.put("thirdparty_token", thirdToken + new Random().nextInt(10000));
+        mParams.put("thirdparty_token", thirdToken);
         mParams.put("thirdparty_type", thirdType);
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
@@ -263,7 +263,7 @@ public class AccountApi extends BaseApi {
     public void otherLogin(String thirdToken, String thirdType, final ApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("thirdparty_token", 1 + thirdToken);
+        mParams.put("thirdparty_token", thirdToken);
         mParams.put("thirdparty_type", thirdType);
 
         simpleRequest(OTHER_LOGIN, mParams, new ApiCallback() {

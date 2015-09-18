@@ -116,7 +116,7 @@
         <activity
             android:name=".activity.user.LoginActivity"
             android:label="@string/login"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
