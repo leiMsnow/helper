@@ -21,7 +21,7 @@
 
     <!-- 较弱色-->
     <!-- 用户较弱可点击文字，如注册登录、忘记密码等-->
-    <color name="weak_orange">#f7dfc5</color>
+    <color name="weak_orange">#e3aa84</color>
     <!-- 用户整体背景色和搜索背景色-->
     <color name="weak_grey">#f4f2f0</color>
 

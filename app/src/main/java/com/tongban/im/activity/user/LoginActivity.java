@@ -3,6 +3,7 @@ package com.tongban.im.activity.user;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -170,8 +171,13 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            startLoadingAnimation(0);
-            AccountApi.getInstance().login(mUser, mPwd, this);
+            startLoadingAnimation(50);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AccountApi.getInstance().login(mUser, mPwd, LoginActivity.this);
+                }
+            }, 3 * 1000);
         } else if (v == tvRegister) {
             TransferCenter.getInstance().startRegister();
             finish();
@@ -190,7 +196,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void onFailure(DisplayType displayType, Object errorObj) {
         super.onFailure(displayType, errorObj);
-        startLoadingAnimation(-1);
+        startLoadingAnimation(0);
     }
 
     /**

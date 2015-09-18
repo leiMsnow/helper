@@ -101,29 +101,31 @@
             android:layout_height="40dp"
             android:layout_above="@+id/iv_wechat_login"
             android:layout_gravity="center_horizontal"
-            android:onClick="setApiUrl"
             android:clickable="true"
             android:gravity="center"
+            android:textColor="@color/normal_grey"
+            android:textSize="12sp"
+            android:onClick="setApiUrl"
             android:text="第三方登录" />
 
         <ImageView
             android:id="@+id/iv_wechat_login"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal"
             android:onClick="onClick"
             android:src="@mipmap/ic_wechat" />
 
-
     </LinearLayout>
 
-    <com.dd.CircularProgressButton
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.dd.CircularProgressButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btn_login"
-        app:cpb_textIdle="@string/login"
+        style="@style/CommonButtonStyle"
         app:cpb_selectorIdle="@drawable/idle_state_selector"
-        app:cpb_selectorComplete="@drawable/complete_state_selector"
-        app:cpb_selectorError="@drawable/error_state_selector"
-        style="@style/CommonButtonStyle" />
+        app:cpb_colorProgress="@drawable/idle_state_selector"
+        app:cpb_colorIndicator="@drawable/idle_state_selector"
+        app:cpb_colorIndicatorBackground="@color/white"
+        app:cpb_textIdle="@string/login" />
 
 </RelativeLayout>
