@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_submit">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_toast_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
+                android:layout_marginTop="96dp"
+                android:gravity="center"
+                android:text="上传一张照片作为头像吧" />
+
+            <com.tongban.corelib.widget.view.CircleImageView
+                android:id="@+id/iv_portrait"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_below="@+id/tv_toast_info"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop" />
+
+            <EditText
+                android:id="@+id/et_input_school"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/iv_portrait"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
+                android:layout_marginTop="40dp"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="您的昵称"
+                android:textColor="@color/main_brown"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/v_line_one"
+                style="@style/FixedHorizontalLine"
+                android:layout_below="@+id/et_input_school"
+                android:layout_centerHorizontal="true" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/CommonButtonStyle"
+        android:enabled="true"
+        android:text="@string/submit" />
+</RelativeLayout>

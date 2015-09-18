@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.tongban.corelib.R;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
@@ -26,7 +25,7 @@ import de.greenrobot.event.EventBus;
  * 基础activity，处理通用功能：
  * 1.统一api回调方法
  */
-public abstract class BaseApiActivity extends BaseTemplateActivity implements ApiCallback {
+public abstract class BaseApiActivity extends BaseTemplateActivity implements IApiCallback {
 
     private View mEmptyView;
 
@@ -83,35 +82,32 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements Ap
     }
 
     @Override
-    public void onFailure(final DisplayType displayType, final Object errorObj) {
-        String errorMsg = "";
-
-        if (errorObj instanceof ApiResult) {
-            errorMsg = ((ApiResult) errorObj).getStatusDesc();
-        } else if (errorObj instanceof ApiListResult) {
-            errorMsg = ((ApiListResult) errorObj).getStatusDesc();
-        } else if (errorObj instanceof String) {
-            errorMsg = errorObj.toString();
-        }
+    public void onFailure(ApiErrorResult result) {
+        String errorMsg = result.getErrorMessage();
 
         if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
             errorMsg = getString(R.string.api_error);
         }
-        if (displayType == DisplayType.Toast) {
+        // toast提示
+        if (result.getDisplayType() == DisplayType.Toast) {
             ToastUtil.getInstance(mContext).showToast(errorMsg);
             showEmptyText("", false);
-        } else if (displayType == DisplayType.View) {
+        }
+        // 视图提示
+        else if (result.getDisplayType() == DisplayType.View) {
             showEmptyText(errorMsg, false);
-        } else if (displayType == DisplayType.ALL) {
+        }
+        // 全部提示
+        else if (result.getDisplayType() == DisplayType.ALL) {
             ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
             showEmptyText(errorMsg, false);
-        } else {
+        }
+        // 不提示
+        else {
             showEmptyText("", false);
         }
 
-        ApiErrorResult errorResult = new ApiErrorResult();
-        errorResult.setErrorMessage(errorMsg);
-        EventBus.getDefault().post(errorResult);
+        EventBus.getDefault().post(result);
     }
 
     /**

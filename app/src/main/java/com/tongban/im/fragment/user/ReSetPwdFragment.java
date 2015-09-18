@@ -68,6 +68,10 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v == btnSubmit) {
+            if (regEvent == null) {
+                ToastUtil.getInstance(mContext).showToast("请获取验证码");
+                return;
+            }
             AccountApi.getInstance().pwdReset(mVerifyCode, regEvent.verify_id, mInputPhone, mPwd, this);
             ToastUtil.getInstance(mContext).showToast("重置密码成功");
             getActivity().finish();

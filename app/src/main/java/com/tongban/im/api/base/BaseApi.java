@@ -10,7 +10,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
@@ -37,7 +38,7 @@ import java.util.Set;
 /**
  * 输入接口：修改、创建的接口；使用完这些接口后，需要重置disableCache，使输出接口可以收到非缓存结果；
  * 输出接口：列表、详情接口；
- * <p>
+ * <p/>
  * Created by zhangleilei on 15/7/8.
  */
 public class BaseApi {
@@ -149,9 +150,13 @@ public class BaseApi {
      * @param callback 请求结果的回调
      */
     protected void simpleRequest(final String url, Map params,
-                                 final ApiCallback callback) {
+                                 final IApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
-            callback.onFailure(ApiCallback.DisplayType.Toast, "网络连接失败,请稍后重试");
+            ApiErrorResult errorResult = new ApiErrorResult();
+            errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+            errorResult.setErrorMessage("网络连接失败,请稍后重试");
+            errorResult.setApiName(url);
+            callback.onFailure(errorResult);
             return;
         }
         if (url == null || params == Collections.emptyMap()) {
@@ -177,40 +182,53 @@ public class BaseApi {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
+
                             LogUtil.d("onResponse-url:", requestUrl
                                     + "  \t disableCache:" + disableCache);
                             LogUtil.d("onResponse-url:", "onResponse-data: \n "
                                     + jsonObject.toString());
+
                             //获取完成后，将取消缓存的接口删掉
                             if (disableCache) {
                                 removeDisableCacheUrls(url);
                             }
-                            int apiResult = jsonObject.optInt("statusCode");
-                            if (apiResult == API_SUCCESS) {
-                                // 请求成功,数据回调给调用方
+                            int statusCode = jsonObject.optInt("statusCode");
+                            // 请求成功,数据回调给调用方
+                            if (statusCode == API_SUCCESS) {
                                 callback.onComplete(jsonObject);
-                            } else if (apiResult == TIME_DIS_MATCH) {
-                                // 保存客户端与服务器的时间差
+                            }
+                            // 请求成功,与服务器时间有差异
+                            else if (statusCode == TIME_DIS_MATCH) {
                                 long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
-                                LogUtil.d("TIME_DIS_MATCH", dif + "");
                                 CheckID.difMills = dif;
-                            } else {
-                                ApiResult apiResponse = new ApiResult();
-                                apiResponse.setStatusDesc(jsonObject.optString("statusDesc"));
-                                apiResponse.setData(jsonObject.opt("data"));
-                                apiResponse.setStatusCode(apiResult);
-                                callback.onFailure(ApiCallback.DisplayType.Toast, apiResponse);
+                                LogUtil.d("onResponse-TIME_DIS_MATCH", String.valueOf(dif));
+                            }
+                            // 请求成功，但有错误信息返回
+                            else {
+                                ApiErrorResult errorResult = new ApiErrorResult();
+                                errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+                                errorResult.setErrorMessage(jsonObject.optString("statusDesc"));
+                                errorResult.setErrorCode(statusCode);
+                                errorResult.setApiName(url);
+                                callback.onFailure(errorResult);
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
+
                     LogUtil.d("onErrorResponse-url:", requestUrl
                             + "  \t disableCache:" + disableCache);
-                    LogUtil.d("onErrorResponse-url:", "onErrorResponse-info: volleyError-ServerError");
+                    LogUtil.d("onErrorResponse-info:", "volleyError-ServerError");
+
                     // 请求失败,错误信息回调给调用方
                     String errorMessage = getErrorMessage();
-                    callback.onFailure(ApiCallback.DisplayType.Toast, errorMessage);
+                    ApiErrorResult errorResult = new ApiErrorResult();
+                    errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+                    errorResult.setErrorMessage(errorMessage);
+                    errorResult.setApiName(url);
+                    callback.onFailure(errorResult);
+
                 }
             }) {
                 @Override
@@ -234,11 +252,19 @@ public class BaseApi {
             callback.onStartApi();
         } catch (Exception e) {
             LogUtil.e("onError-request-json:", "解析json异常");
-            callback.onFailure(ApiCallback.DisplayType.Toast, "解析json异常");
+            ApiErrorResult errorResult = new ApiErrorResult();
+            errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+            errorResult.setErrorMessage("解析json异常");
+            errorResult.setApiName(url);
+            callback.onFailure(errorResult);
         }
     }
 
-
+    /**
+     * 服务器异常的错误提示，随机提示
+     *
+     * @return
+     */
     protected String getErrorMessage() {
         Random random = new Random();
         int count = mContext.getResources().
@@ -263,8 +289,6 @@ public class BaseApi {
     }
 
 
-
-
     /**
      * 获得所有接口
      *
@@ -284,7 +308,6 @@ public class BaseApi {
      */
     public boolean isCurrentUrl(String url) {
         getDisableCacheUrls();
-//        disableCache();
         return mDisableCacheUrls.contains(url);
     }
 

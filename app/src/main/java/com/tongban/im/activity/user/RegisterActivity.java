@@ -10,11 +10,9 @@ import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FirstRegisterFragment;
-import com.tongban.im.fragment.user.SecondRegisterFragment;
+import com.tongban.im.fragment.user.EditUserFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
-
-import io.rong.imkit.RongIM;
 
 /**
  * 注册
@@ -26,7 +24,7 @@ public class RegisterActivity extends CameraResultActivity {
 
     private User user;
     //是否打开编辑资料界面
-    private boolean isSecond;
+    private boolean isEditUser;
     private Bundle bundle;
 
     @Override
@@ -44,8 +42,8 @@ public class RegisterActivity extends CameraResultActivity {
     protected void initData() {
         if (getIntent().getExtras() != null) {
             bundle = getIntent().getExtras();
-            isSecond = bundle.getBoolean(Consts.KEY_EDIT_USER, false);
-            if (!isSecond) {
+            isEditUser = bundle.getBoolean(Consts.KEY_EDIT_USER, false);
+            if (!isEditUser) {
                 FirstRegisterFragment registerFragment = new FirstRegisterFragment();
                 registerFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
@@ -78,7 +76,7 @@ public class RegisterActivity extends CameraResultActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isSecond) {
+        if (!isEditUser) {
             startActivity(new Intent(mContext, LoginActivity.class));
         } else {
             connectIM(true, true);
@@ -102,7 +100,7 @@ public class RegisterActivity extends CameraResultActivity {
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        if (isSecond) {
+        if (isEditUser) {
             connectIM(true, false);
         } else {
             connectIM(user.getChild_info() == null);
@@ -112,8 +110,8 @@ public class RegisterActivity extends CameraResultActivity {
     private void openSecondFragment() {
         if (mToolbar != null)
             mToolbar.setVisibility(View.GONE);
-        isSecond = true;
-        SecondRegisterFragment secondRegisterFragment = new SecondRegisterFragment();
+        isEditUser = true;
+        EditUserFragment secondRegisterFragment = new EditUserFragment();
         secondRegisterFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
                 secondRegisterFragment)

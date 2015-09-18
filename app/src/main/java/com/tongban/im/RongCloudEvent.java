@@ -6,7 +6,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.view.View;
 
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.api.GroupApi;
@@ -277,7 +278,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                     userTable.getPortrait_url() == null ? null :
                             Uri.parse(userTable.getPortrait_url()));
         } else {
-            UserCenterApi.getInstance().fetchUserCenterInfo(userId, new ApiCallback() {
+            UserCenterApi.getInstance().fetchUserCenterInfo(userId, new IApiCallback() {
                 @Override
                 public void onStartApi() {
 
@@ -299,7 +300,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                 }
 
                 @Override
-                public void onFailure(DisplayType displayType, Object errorObj) {
+                public void onFailure(ApiErrorResult result) {
 
                 }
             });
@@ -324,7 +325,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
         }
         // 没有将从服务器获取
         else {
-            GroupApi.getInstance().getGroupInfo(groupId, new ApiCallback() {
+            GroupApi.getInstance().getGroupInfo(groupId, new IApiCallback() {
                 @Override
                 public void onStartApi() {
 
@@ -347,7 +348,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                 }
 
                 @Override
-                public void onFailure(DisplayType displayType, Object errorObj) {
+                public void onFailure(ApiErrorResult result) {
 
                 }
             });

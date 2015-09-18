@@ -6,7 +6,8 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
@@ -94,7 +95,7 @@ public class TopicApi extends BaseApi {
      * @param callback
      */
     public void createTopic(String title, String content, List<ImageUrl> urls,
-                            final ApiCallback callback) {
+                            final IApiCallback callback) {
 
 
         if (!TransferCenter.getInstance().startLogin())
@@ -106,7 +107,7 @@ public class TopicApi extends BaseApi {
         mParams.put("topic_content", content);
         mParams.put("topic_img_url", JSON.toJSON(urls));
 
-        simpleRequest(CREATE_TOPIC, mParams, new ApiCallback() {
+        simpleRequest(CREATE_TOPIC, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -127,9 +128,9 @@ public class TopicApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.Toast, "发表失败");
+                    callback.onFailure(result);
             }
         });
     }
@@ -139,13 +140,13 @@ public class TopicApi extends BaseApi {
      *
      * @param callback
      */
-    public void recommendTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void recommendTopicList(int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new ApiCallback() {
+        simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -165,10 +166,9 @@ public class TopicApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, getErrorMessage());
+                    callback.onFailure(result);
             }
         });
     }
@@ -181,7 +181,7 @@ public class TopicApi extends BaseApi {
      * @param pageSize 每页数量 最少1条
      * @param callback
      */
-    public void searchTopicList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+    public void searchTopicList(String keyword, int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
@@ -189,7 +189,7 @@ public class TopicApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(SEARCH_TOPIC_LIST, mParams, new ApiCallback() {
+        simpleRequest(SEARCH_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -208,9 +208,9 @@ public class TopicApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
 
         });
@@ -222,12 +222,12 @@ public class TopicApi extends BaseApi {
      * @param topicId  话题Id
      * @param callback
      */
-    public void getTopicInfo(String topicId, final ApiCallback callback) {
+    public void getTopicInfo(String topicId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(TOPIC_INFO, mParams, new ApiCallback() {
+        simpleRequest(TOPIC_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -239,21 +239,17 @@ public class TopicApi extends BaseApi {
                 ApiResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Topic>>() {
                         });
-                if (result.getData() != null) {
-                    BaseEvent.TopicInfoEvent topicEvent = new BaseEvent.TopicInfoEvent();
-                    topicEvent.topic = (result.getData());
-                    if (callback != null)
-                        callback.onComplete(topicEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题数据");
-                }
+                BaseEvent.TopicInfoEvent topicEvent = new BaseEvent.TopicInfoEvent();
+                topicEvent.topic = (result.getData());
+                if (callback != null)
+                    callback.onComplete(topicEvent);
+
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -264,13 +260,13 @@ public class TopicApi extends BaseApi {
      * @param topicId  话题Id
      * @param callback
      */
-    public void getOfficialTopicInfo(String topicId, int cursor, int pageSize, final ApiCallback callback) {
+    public void getOfficialTopicInfo(String topicId, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(OFFICIAL_TOPIC_INFO, mParams, new ApiCallback() {
+        simpleRequest(OFFICIAL_TOPIC_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -282,25 +278,20 @@ public class TopicApi extends BaseApi {
                 ApiListResult<ProductBook> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
-                if (result.getData() != null) {
-                    BaseEvent.OfficialTopicInfoEvent officialTopicInfoEvent = new BaseEvent.OfficialTopicInfoEvent();
-                    officialTopicInfoEvent.productBookList = (result.getData().getResult());
-                    if (callback != null) {
-                        Log.d("onComplete", "onComplete1");
-                        callback.onComplete(officialTopicInfoEvent);
+                BaseEvent.OfficialTopicInfoEvent officialTopicInfoEvent = new BaseEvent.OfficialTopicInfoEvent();
+                officialTopicInfoEvent.productBookList = (result.getData().getResult());
+                if (callback != null) {
+                    Log.d("onComplete", "onComplete1");
+                    callback.onComplete(officialTopicInfoEvent);
 
-                    }
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无话题数据");
                 }
-                callback.onComplete(obj);
+
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -313,13 +304,13 @@ public class TopicApi extends BaseApi {
      * @param pageSize 每页数量 最少1条
      * @param callback
      */
-    public void getTopicCommentList(String topicId, int cursor, int pageSize, final ApiCallback callback) {
+    public void getTopicCommentList(String topicId, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(TOPIC_COMMENT_LIST, mParams, new ApiCallback() {
+        simpleRequest(TOPIC_COMMENT_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -339,9 +330,9 @@ public class TopicApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -361,7 +352,7 @@ public class TopicApi extends BaseApi {
                                       @Nullable String repliedName,
                                       @Nullable String repliedUserId,
                                       List<ImageUrl> commentImgUrl,
-                                      final ApiCallback callback) {
+                                      final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
             return;
@@ -380,7 +371,7 @@ public class TopicApi extends BaseApi {
         }
 
 
-        simpleRequest(COMMENT_CREATE, mParams, new ApiCallback() {
+        simpleRequest(COMMENT_CREATE, mParams, new IApiCallback() {
                     @Override
                     public void onStartApi() {
                         if (callback != null)
@@ -397,9 +388,9 @@ public class TopicApi extends BaseApi {
                     }
 
                     @Override
-                    public void onFailure(DisplayType displayType, Object errorMessage) {
+                    public void onFailure(ApiErrorResult result) {
                         if (callback != null)
-                            callback.onFailure(displayType, errorMessage);
+                            callback.onFailure(result);
                     }
                 }
 
@@ -413,7 +404,7 @@ public class TopicApi extends BaseApi {
      * @param topicId  话题Id
      * @param callback
      */
-    public void collectTopic(final boolean collect, final String topicId, final ApiCallback callback) {
+    public void collectTopic(final boolean collect, final String topicId, final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
             return;
@@ -422,7 +413,7 @@ public class TopicApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_id", topicId);
 
-        simpleRequest(collect ? COLLECT_CREATE : NO_COLLECT_CREATE, mParams, new ApiCallback() {
+        simpleRequest(collect ? COLLECT_CREATE : NO_COLLECT_CREATE, mParams, new IApiCallback() {
                     @Override
                     public void onStartApi() {
                         if (callback != null)
@@ -441,9 +432,9 @@ public class TopicApi extends BaseApi {
                     }
 
                     @Override
-                    public void onFailure(DisplayType displayType, Object errorMessage) {
+                    public void onFailure(ApiErrorResult result) {
                         if (callback != null)
-                            callback.onFailure(displayType, errorMessage);
+                            callback.onFailure(result);
                     }
                 }
         );

@@ -5,7 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
@@ -101,7 +102,7 @@ public class GroupApi extends BaseApi {
                             double latitude, final String address, @Nullable String birthday,
                             @Nullable String tags, @Nullable final String declaration,
                             ImageUrl groupAvatar, boolean isSearch,
-                            final ApiCallback callback) {
+                            final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
             return;
@@ -125,7 +126,7 @@ public class GroupApi extends BaseApi {
         mParams.put("group_avatar", JSON.toJSON(groupAvatar));
         mParams.put("flag_allow_search", getTypeStr(isSearch));
         //此处接口名称根据groupType变化
-        simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new ApiCallback() {
+        simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -143,8 +144,8 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
         });
     }
@@ -159,7 +160,7 @@ public class GroupApi extends BaseApi {
      * @param callback
      */
     public void joinGroup(String groupId, String groupName, String masterId, final boolean isVerify,
-                          final ApiCallback callback) {
+                          final IApiCallback callback) {
 
 
         if (!TransferCenter.getInstance().startLogin())
@@ -171,7 +172,7 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_owner_id", masterId);
 
-        simpleRequest(JOIN_GROUP, mParams, new ApiCallback() {
+        simpleRequest(JOIN_GROUP, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -193,9 +194,9 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -207,7 +208,7 @@ public class GroupApi extends BaseApi {
      * @param pageSize 每页多少数据
      * @param callback
      */
-    public void recommendGroupList(int cursor, int pageSize, final ApiCallback callback) {
+    public void recommendGroupList(int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
@@ -215,7 +216,7 @@ public class GroupApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
-        simpleRequest(RECOMMEND_GROUP_LIST, mParams, new ApiCallback() {
+        simpleRequest(RECOMMEND_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -228,21 +229,17 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiListResult<Group>>() {
                         });
 
-                if (listResult.getData().getResult().size() > 0) {
-                    BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
-                    listEvent.groupList = listResult.getData().getResult();
-                    if (callback != null)
-                        callback.onComplete(listEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.View, "暂无圈子信息,快来创建第一个圈子吧");
-                }
+                BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
+                listEvent.groupList = listResult.getData().getResult();
+                if (callback != null)
+                    callback.onComplete(listEvent);
+
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, getErrorMessage());
+                    callback.onFailure(result);
             }
         });
     }
@@ -255,7 +252,7 @@ public class GroupApi extends BaseApi {
      * @param pageSize 每页多少数据
      * @param callback
      */
-    public void searchGroupList(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+    public void searchGroupList(String keyword, int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
@@ -265,7 +262,7 @@ public class GroupApi extends BaseApi {
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
 
-        simpleRequest(SEARCH_GROUP_LIST, mParams, new ApiCallback() {
+        simpleRequest(SEARCH_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -277,21 +274,17 @@ public class GroupApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
-                if (apiResponse.getData().getResult().size() > 0) {
                     BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
                     searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)
                         callback.onComplete(searchGroupEvent);
-                } else {
-                    if (callback != null)
-                        callback.onFailure(DisplayType.Toast, "没有符合条件的圈子");
-                }
+
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -302,13 +295,13 @@ public class GroupApi extends BaseApi {
      * @param groupId  圈子Id
      * @param callback
      */
-    public void getGroupInfo(String groupId, final ApiCallback callback) {
+    public void getGroupInfo(String groupId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_id", groupId);
 
-        simpleRequest(GROUP_INFO, mParams, new ApiCallback() {
+        simpleRequest(GROUP_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -329,9 +322,9 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.Toast, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -344,13 +337,13 @@ public class GroupApi extends BaseApi {
      * @param pageSize 每页多少数据
      * @param callback
      */
-    public void getGroupMembersList(String groupId, int cursor, int pageSize, final ApiCallback callback) {
+    public void getGroupMembersList(String groupId, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
-        simpleRequest(GROUP_MEMBERS_INFO, mParams, new ApiCallback() {
+        simpleRequest(GROUP_MEMBERS_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -370,9 +363,9 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.Toast, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -383,7 +376,7 @@ public class GroupApi extends BaseApi {
      * @param groupId  圈子
      * @param callback
      */
-    public void quitGroup(String groupId, final ApiCallback callback) {
+    public void quitGroup(String groupId, final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
             return;
@@ -392,7 +385,7 @@ public class GroupApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("group_id", groupId);
 
-        simpleRequest(USER_QUIT_GROUP, mParams, new ApiCallback() {
+        simpleRequest(USER_QUIT_GROUP, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -407,9 +400,9 @@ public class GroupApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.Toast, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }

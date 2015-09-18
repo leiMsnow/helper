@@ -175,5 +175,4 @@ public class FirstRegisterFragment extends BaseToolBarFragment
             mTime = null;
         }
     }
-
 }

@@ -12,7 +12,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -22,10 +25,11 @@ import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
-import com.tongban.im.listener.UMSocializeOauthBackListener;
-import com.tongban.im.listener.UMSocializeOauthListenerImpl;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.OtherRegister;
 import com.tongban.im.widget.view.ClearEditText;
+import com.tongban.umeng.listener.UMSocializeOauthBackListener;
+import com.tongban.umeng.listener.UMSocializeOauthListenerImpl;
 
 import de.greenrobot.event.EventBus;
 
@@ -51,6 +55,8 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     private boolean mIsOpenMain;
 
     private UMSocializeOauthListenerImpl authListener;
+    private String userInfoJson;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,21 +146,6 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
-    //登录成功
-    public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
-        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, mUser);
-        if (TextUtils.isEmpty(obj.user.getNick_name())) {
-            Intent intent = new Intent(mContext, RegisterActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            finish();
-        } else {
-            connectIM(mIsOpenMain, obj.user.getChild_info() == null);
-        }
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -193,12 +184,6 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     }
 
 
-    @Override
-    public void onFailure(DisplayType displayType, Object errorObj) {
-        super.onFailure(displayType, errorObj);
-        startLoadingAnimation(0);
-    }
-
     /**
      * 执行加载动画
      */
@@ -206,25 +191,65 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         btnLogin.setProgress(index);
     }
 
-    @Override
-    public void oauthSuccess() {
-        finish();
+
+    /**
+     * 登录成功
+     */
+    public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
+        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, mUser);
+        if (TextUtils.isEmpty(obj.user.getNick_name())) {
+            Intent intent = new Intent(mContext, RegisterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
+        } else {
+            connectIM(mIsOpenMain, obj.user.getChild_info() == null);
+        }
     }
+
+    /**
+     * 接口出错
+     *
+     * @param obj
+     */
+    public void onEventMainThread(ApiErrorResult obj) {
+        // 登录出错
+        if (obj.getApiName().equals(AccountApi.LOGIN)) {
+            startLoadingAnimation(0);
+        }
+        // 授权登录错误
+        else if (obj.getApiName().equals(AccountApi.OTHER_LOGIN)) {
+            TransferCenter.getInstance().startRegister(userInfoJson, type, false);
+            finish();
+        }
+    }
+
+    @Override
+    public void oauthSuccess(final String userInfoJson, final String type) {
+        this.userInfoJson = userInfoJson;
+        this.type = type;
+        OtherRegister otherRegister = JSON.parseObject(userInfoJson,
+                new TypeReference<OtherRegister>() {
+                });
+
+        AccountApi.getInstance().otherLogin(otherRegister.getOpenId(), type, this);
+    }
+
 
     @Override
     public void oauthFailure() {
         ToastUtil.getInstance(mContext).showToast("授权登录失败");
     }
 
-    @Override
-    public void oauthNewAccount() {
-        finish();
-    }
 
     private int clickCount = 0;
     private long firstTime = 0;
     private long timeConsuming = 0;
 
+
+    // 设置服务器地址 test
     public void setApiUrl(View v) {
         if (clickCount == 0) {
             firstTime = System.currentTimeMillis();

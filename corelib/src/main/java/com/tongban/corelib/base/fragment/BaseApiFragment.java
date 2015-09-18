@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
+import com.tongban.corelib.model.ApiErrorResult;
 
 import de.greenrobot.event.EventBus;
 
@@ -13,7 +14,7 @@ import de.greenrobot.event.EventBus;
  * 基础fragment的api通用类
  * 目前都复用activity中的处理方式
  */
-public abstract class BaseApiFragment extends BaseTemplateFragment implements ApiCallback {
+public abstract class BaseApiFragment extends BaseTemplateFragment implements IApiCallback {
 
     private BaseApiActivity mBaseApiActivity;
 
@@ -38,9 +39,9 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements Ap
     }
 
     @Override
-    public void onFailure(final DisplayType displayType, final Object errorObj) {
+    public void onFailure(ApiErrorResult result) {
         if (mBaseApiActivity != null)
-            mBaseApiActivity.onFailure(displayType, errorObj);
+            mBaseApiActivity.onFailure(result);
     }
 
     public void onEventMainThread(Object obj) {

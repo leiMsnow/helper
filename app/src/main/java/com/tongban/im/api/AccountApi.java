@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.R;
@@ -18,9 +18,7 @@ import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.User;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Random;
 
 import de.greenrobot.event.EventBus;
 
@@ -92,13 +90,13 @@ public class AccountApi extends BaseApi {
      * @param mobilePhone 手机号
      * @param callback    回调结果
      */
-    public void getSMSCode(String mobilePhone, final ApiCallback callback) {
+    public void getSMSCode(String mobilePhone, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
         mParams.put("verify_type", 1);
 
-        simpleRequest(SMS_REQUIRE, mParams, new ApiCallback() {
+        simpleRequest(SMS_REQUIRE, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -115,11 +113,8 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(DisplayType.None, errorMessage);
-                if (errorMessage instanceof ApiResult) {
-                    EventBus.getDefault().post(((ApiResult) errorMessage).getStatusDesc());
-                }
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
 
         });
@@ -135,7 +130,7 @@ public class AccountApi extends BaseApi {
      * @param callback
      */
     public void register(String mobilePhone, String password, String verifyId, String verifyCode,
-                         final ApiCallback callback) {
+                         final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
@@ -143,7 +138,7 @@ public class AccountApi extends BaseApi {
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
 
-        simpleRequest(REGISTER, mParams, new ApiCallback() {
+        simpleRequest(REGISTER, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -160,14 +155,8 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                ApiResult apiResult = (ApiResult) errorMessage;
-                if (apiResult.getStatusCode() == ApiErrorCode.User.VCODE_NOT_SAME_OR_OUT_OF_DATE) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.verify_code_illegal));
-                } else if (apiResult.getStatusCode() == ApiErrorCode.User.PHONE_HAS_BEEN_REGISTED) {
-                    apiResult.setStatusDesc("手机号码已经注册");
-                }
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
 
         });
@@ -184,7 +173,7 @@ public class AccountApi extends BaseApi {
                               String thirdType,
                               String verifyId,
                               String verifyCode,
-                              final ApiCallback callback) {
+                              final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
@@ -194,7 +183,7 @@ public class AccountApi extends BaseApi {
         mParams.put("verify_id", verifyId);
         mParams.put("verify_code", verifyCode);
 
-        simpleRequest(OTHER_REGISTER, mParams, new ApiCallback() {
+        simpleRequest(OTHER_REGISTER, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -213,9 +202,8 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
 
         });
@@ -227,12 +215,12 @@ public class AccountApi extends BaseApi {
      * @param mobilePhone
      * @param callback
      */
-    public void checkPhone(String mobilePhone, final ApiCallback callback) {
+    public void checkPhone(String mobilePhone, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
 
-        simpleRequest(CHECK_PHONE, mParams, new ApiCallback() {
+        simpleRequest(CHECK_PHONE, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -245,7 +233,7 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
                     callback.onComplete(new BaseEvent.CheckPhoneEvent(false));
             }
@@ -260,13 +248,13 @@ public class AccountApi extends BaseApi {
      * @param thirdType
      * @param callback
      */
-    public void otherLogin(String thirdToken, String thirdType, final ApiCallback callback) {
+    public void otherLogin(String thirdToken, String thirdType, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("thirdparty_token", thirdToken);
         mParams.put("thirdparty_type", thirdType);
 
-        simpleRequest(OTHER_LOGIN, mParams, new ApiCallback() {
+        simpleRequest(OTHER_LOGIN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -279,9 +267,9 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
 
         });
@@ -295,13 +283,13 @@ public class AccountApi extends BaseApi {
      * @param password 密码
      * @param callback 回调结果
      */
-    public void login(String phone, String password, final ApiCallback callback) {
+    public void login(String phone, String password, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", phone);
         mParams.put("password", password);
 
-        simpleRequest(LOGIN, mParams, new ApiCallback() {
+        simpleRequest(LOGIN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -315,9 +303,9 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(DisplayType.View, errorMessage);
+                    callback.onFailure(result);
             }
 
         });
@@ -330,12 +318,12 @@ public class AccountApi extends BaseApi {
      * @param token    令牌
      * @param callback
      */
-    public void tokenLogin(String token, final ApiCallback callback) {
+    public void tokenLogin(String token, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("freeauth_token", token);
 
-        simpleRequest(TOKEN_LOGIN, mParams, new ApiCallback() {
+        simpleRequest(TOKEN_LOGIN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
             }
@@ -347,9 +335,9 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
 
         });
@@ -366,14 +354,14 @@ public class AccountApi extends BaseApi {
      * @param callback
      */
     public void pwdReset(String verifyCode, String verifyId, String mobilePhone, String password,
-                         final ApiCallback callback) {
+                         final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("verify_code", verifyCode);
         mParams.put("verify_id", verifyId);
         mParams.put("password", password);
         mParams.put("mobile_phone", mobilePhone);
 
-        simpleRequest(PWD_RESET, mParams, new ApiCallback() {
+        simpleRequest(PWD_RESET, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -387,20 +375,8 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                ApiResult apiResult = (ApiResult) errorMessage;
-                if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_OLD_PWD_ERROR) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.old_pwd_error));
-                } else if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_PWD_CONTAIN_EMPTY) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.pwd_contain_empty));
-                } else if (apiResult.getStatusCode() == ApiErrorCode.User.RESET_PWD_FAIL) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.pwd_reset_fail));
-                } else if (apiResult.getStatusCode() == ApiErrorCode.User.NEW_PWD_NOT_SANME_CONFIRM_PWD) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.twice_pwd_same));
-                } else if (apiResult.getStatusCode() == ApiErrorCode.User.OBTAIN_OLD_PWD_FAIL) {
-                    apiResult.setStatusDesc(mContext.getResources().getString(R.string.obtain_old_pwd_fail));
-                }
-                callback.onFailure(displayType, apiResult);
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
 
         });
@@ -413,11 +389,11 @@ public class AccountApi extends BaseApi {
      * @param userId   用户ID
      * @param callback 回调
      */
-    public void getUserInfoByUserId(final String userId, final ApiCallback callback) {
+    public void getUserInfoByUserId(final String userId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
 
-        simpleRequest(GET_USER_INFO, mParams, new ApiCallback() {
+        simpleRequest(GET_USER_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -436,9 +412,9 @@ public class AccountApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
 
         });
@@ -446,7 +422,7 @@ public class AccountApi extends BaseApi {
     }
 
     // 三种登录成功后，统一处理
-    public BaseEvent.UserLoginEvent loginSuccess(Object obj, ApiCallback callback) {
+    public BaseEvent.UserLoginEvent loginSuccess(Object obj, IApiCallback callback) {
         ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                 new TypeReference<ApiResult<User>>() {
                 });

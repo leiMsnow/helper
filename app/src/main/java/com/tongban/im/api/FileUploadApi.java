@@ -14,7 +14,8 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
 import com.qiniu.android.storage.Zone;
 import com.qiniu.android.storage.persistent.FileRecorder;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SDCardUtils;
@@ -97,7 +98,7 @@ public class FileUploadApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("space_name", "tongban");
         mParams.put("expire_time", expireTime);
-        simpleRequest(UPLOAD_TOKEN, mParams, new ApiCallback() {
+        simpleRequest(UPLOAD_TOKEN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -113,7 +114,7 @@ public class FileUploadApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
+            public void onFailure(ApiErrorResult result) {
 
             }
         });

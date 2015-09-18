@@ -5,29 +5,29 @@ package com.tongban.corelib.model;
  */
 public class ApiResult<T> {
 
-    protected int statusCode;
-    protected String statusDesc;
+//    protected int statusCode;
+//    protected String statusDesc;
     /**
      * 泛型，根据的接口返回不同对象
      */
     protected T data;
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-
-    public String getStatusDesc() {
-        return statusDesc;
-    }
-
-    public void setStatusDesc(String statusDesc) {
-        this.statusDesc = statusDesc;
-    }
+//    public int getStatusCode() {
+//        return statusCode;
+//    }
+//
+//    public void setStatusCode(int statusCode) {
+//        this.statusCode = statusCode;
+//    }
+//
+//
+//    public String getStatusDesc() {
+//        return statusDesc;
+//    }
+//
+//    public void setStatusDesc(String statusDesc) {
+//        this.statusDesc = statusDesc;
+//    }
 
     public T getData() {
         return data;

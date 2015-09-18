@@ -1,17 +1,9 @@
 package com.tongban.im.activity.base;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.tongban.corelib.base.ActivityContainer;
-import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.R;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.api.UserCenterApi;

@@ -4,7 +4,8 @@ import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.im.App;
@@ -52,12 +53,12 @@ public class CommonApi extends BaseApi {
      * @param keyword  关键字
      * @param callback 回调
      */
-    public void getHotWordsList(final String keyword, final ApiCallback callback) {
+    public void getHotWordsList(final String keyword, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
 
-        simpleRequest(HOT_WORDS_LIST, mParams, new ApiCallback() {
+        simpleRequest(HOT_WORDS_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
             }
@@ -75,8 +76,8 @@ public class CommonApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                callback.onFailure(result);
             }
         });
     }
@@ -89,12 +90,12 @@ public class CommonApi extends BaseApi {
      * @param type     tag类型{@link com.tongban.im.model.TagType}
      * @param callback 回调
      */
-    public void fetchTags(int cursor, int pageSize, final String type, final ApiCallback callback) {
+    public void fetchTags(int cursor, int pageSize, final String type, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("cursor", cursor);
         mParams.put("page_size", pageSize);
         mParams.put("tag_type", type);
-        simpleRequest(FETCH_DISCOVER_TAG, mParams, new ApiCallback() {
+        simpleRequest(FETCH_DISCOVER_TAG, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -113,7 +114,7 @@ public class CommonApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
+            public void onFailure(ApiErrorResult result) {
 
             }
         });

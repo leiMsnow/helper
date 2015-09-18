@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
@@ -147,7 +146,6 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
      * @param event CollectProductEvent
      */
     public void onEventMainThread(BaseEvent.CollectProductEvent event) {
-        ToastUtil.getInstance(mContext).showToast("收藏成功");
         mProductBook.setCollect_status(true);
         ivCollect.setSelected(true);
     }
@@ -158,7 +156,6 @@ public class ProductBookActivity extends BaseApiActivity implements View.OnClick
      * @param event NoCollectProductEvent
      */
     public void onEventMainThread(BaseEvent.NoCollectProductEvent event) {
-        ToastUtil.getInstance(mContext).showToast("已经取消收藏");
         mProductBook.setCollect_status(false);
         ivCollect.setSelected(false);
     }

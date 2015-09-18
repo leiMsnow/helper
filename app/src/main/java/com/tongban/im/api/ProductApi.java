@@ -5,7 +5,8 @@ import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
@@ -84,11 +85,11 @@ public class ProductApi extends BaseApi {
      *
      * @param callback 回调
      */
-    public void fetchHomeInfo(final ApiCallback callback) {
+    public void fetchHomeInfo(final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("client_version", AppUtils.getVersionName(mContext));
         mParams.put("paltform", "0");
-        simpleRequest(FETCH_HOME_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_HOME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -106,8 +107,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.View, errorObj);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -117,12 +119,13 @@ public class ProductApi extends BaseApi {
      *
      * @param floor   楼层
      * @param themeId 专题id
-     * @param calback 回调
+     * @param callback 回调
      */
-    public void fetchThemeCollectedAmount(final int floor, @NonNull String themeId, final ApiCallback calback) {
+    public void fetchThemeCollectedAmount(final int floor, @NonNull String themeId
+            , final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
-        simpleRequest(FETCH_THEME_COLLECTED_AMOUNT, mParams, new ApiCallback() {
+        simpleRequest(FETCH_THEME_COLLECTED_AMOUNT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -134,12 +137,13 @@ public class ProductApi extends BaseApi {
                 BaseEvent.FetchThemeCollectedAmount event = new BaseEvent.FetchThemeCollectedAmount();
                 event.floor = floor;
                 event.amount = amount;
-                calback.onComplete(event);
+                callback.onComplete(event);
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                LogUtil.d("fetchThemeCollectedAmount", "获取专题收藏数量失败");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -150,11 +154,11 @@ public class ProductApi extends BaseApi {
      * @param themeId  专题id
      * @param callback 回调
      */
-    public void fetchThemeInfo(@NonNull String themeId, final ApiCallback callback) {
+    public void fetchThemeInfo(@NonNull String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(FETCH_THEME_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_THEME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -170,8 +174,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(displayType, errorObj);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -185,12 +190,12 @@ public class ProductApi extends BaseApi {
      * @param callback 回调
      */
     public void fetchProductListByThemeId(@NonNull String themeID, int cursor, int pageSize,
-                                          final ApiCallback callback) {
+                                          final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeID);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
-        simpleRequest(FETCH_THEME_PRODUCTS, mParams, new ApiCallback() {
+        simpleRequest(FETCH_THEME_PRODUCTS, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -208,8 +213,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(displayType, errorObj);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -220,11 +226,11 @@ public class ProductApi extends BaseApi {
      * @param themeId  专题id
      * @param callback 回调
      */
-    public void collectTheme(String themeId, final ApiCallback callback) {
+    public void collectTheme(String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(COLLECT_MULTI_PRODUCT, mParams, new ApiCallback() {
+        simpleRequest(COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -237,8 +243,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.Toast, "收藏失败");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -249,11 +256,11 @@ public class ProductApi extends BaseApi {
      * @param themeId  专题id
      * @param callback 回调
      */
-    public void noCollectTheme(String themeId, final ApiCallback callback) {
+    public void noCollectTheme(String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new ApiCallback() {
+        simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -266,8 +273,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.Toast, "收藏失败");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -278,11 +286,11 @@ public class ProductApi extends BaseApi {
      * @param productId 单品id
      * @param callback  回调
      */
-    public void fetchProductDetailInfo(String productId, final ApiCallback callback) {
+    public void fetchProductDetailInfo(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -298,8 +306,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.ALL, "请重试");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -310,11 +319,11 @@ public class ProductApi extends BaseApi {
      * @param productId 商品id
      * @param callback  回调
      */
-    public void collectProduct(String productId, final ApiCallback callback) {
+    public void collectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(COLLECT_PRODUCT, mParams, new ApiCallback() {
+        simpleRequest(COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -327,8 +336,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.Toast, "收藏失败");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -339,11 +349,11 @@ public class ProductApi extends BaseApi {
      * @param productId 专题id
      * @param callback  回调
      */
-    public void noCollectProduct(String productId, final ApiCallback callback) {
+    public void noCollectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(NO_COLLECT_PRODUCT, mParams, new ApiCallback() {
+        simpleRequest(NO_COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -356,8 +366,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(DisplayType.Toast, "收藏失败");
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -372,13 +383,13 @@ public class ProductApi extends BaseApi {
      * @param pageSize 每页大小
      * @param callback 回调
      */
-    public void searchTheme(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+    public void searchTheme(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
-        simpleRequest(SEARCH_THEME, mParams, new ApiCallback() {
+        simpleRequest(SEARCH_THEME, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -396,8 +407,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(displayType, errorObj);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -410,13 +422,13 @@ public class ProductApi extends BaseApi {
      * @param pageSize 每页大小
      * @param callback 回调
      */
-    public void searchProduct(String keyword, int cursor, int pageSize, final ApiCallback callback) {
+    public void searchProduct(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
-        simpleRequest(SEARCH_PRODUCT, mParams, new ApiCallback() {
+        simpleRequest(SEARCH_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
 
@@ -434,8 +446,9 @@ public class ProductApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorObj) {
-                callback.onFailure(displayType, errorObj);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }

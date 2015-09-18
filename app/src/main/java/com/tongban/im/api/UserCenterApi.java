@@ -5,7 +5,8 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.base.api.ApiCallback;
+import com.tongban.corelib.base.api.IApiCallback;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
@@ -26,7 +27,6 @@ import com.tongban.im.model.TopicComment;
 import com.tongban.im.model.User;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -130,12 +130,12 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchPersonalCenterInfo(final ApiCallback callback) {
+    public void fetchPersonalCenterInfo(final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -152,8 +152,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -164,13 +165,13 @@ public class UserCenterApi extends BaseApi {
      * @param visiterId 被关注者的ID
      * @param callback
      */
-    public void fetchUserCenterInfo(String visiterId, final ApiCallback callback) {
+    public void fetchUserCenterInfo(String visiterId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("visiter_id", visiterId);
 
-        simpleRequest(FETCH_USER_CENTER_INFO, mParams, new ApiCallback() {
+        simpleRequest(FETCH_USER_CENTER_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -197,9 +198,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onFailure(displayType, errorMessage);
+                    callback.onFailure(result);
             }
         });
     }
@@ -209,10 +210,10 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchUserDetailInfo(final ApiCallback callback) {
+    public void fetchUserDetailInfo(final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
-        simpleRequest(USER_INFO, mParams, new ApiCallback() {
+        simpleRequest(USER_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -229,8 +230,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -243,7 +245,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchMyGroupsList(int cursor, int pageSize, String userId, final ApiCallback callback) {
+    public void fetchMyGroupsList(int cursor, int pageSize, String userId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
@@ -252,7 +254,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_MY_GROUPS_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_MY_GROUPS_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -269,8 +271,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -283,7 +286,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFocusUserList(int cursor, int pageSize, String userId, final ApiCallback callback) {
+    public void fetchFocusUserList(int cursor, int pageSize, String userId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ?
@@ -291,7 +294,7 @@ public class UserCenterApi extends BaseApi {
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -308,8 +311,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -321,14 +325,14 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFansUserList(int cursor, int pageSize, String userId, final ApiCallback callback) {
+    public void fetchFansUserList(int cursor, int pageSize, String userId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ? SPUtils.get(mContext, Consts.USER_ID, "") :
                 userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_FANS_USER_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_FANS_USER_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -345,8 +349,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -356,14 +361,14 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchCollectedProductList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchCollectedProductList(int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
-        simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -380,8 +385,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -393,14 +399,14 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchCollectTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchCollectTopicList(int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_COLLECT_TOPIC_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_COLLECT_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -418,8 +424,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -431,14 +438,14 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchCollectMultipleTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchCollectMultipleTopicList(int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_COLLECT_MULTIPLE_PRODUCT_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_COLLECT_MULTIPLE_PRODUCT_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -456,8 +463,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -469,14 +477,14 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchReplyTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchReplyTopicList(int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_COLLECT_REPLY_TOPIC_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_COLLECT_REPLY_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -493,8 +501,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -506,14 +515,14 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchLaunchTopicList(int cursor, int pageSize, final ApiCallback callback) {
+    public void fetchLaunchTopicList(int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
-        simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new ApiCallback() {
+        simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -532,8 +541,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -545,14 +555,14 @@ public class UserCenterApi extends BaseApi {
      * @param focusUserId 被关注的Id
      * @param callback
      */
-    public void focusUser(final boolean isFocus, final String focusUserId, final ApiCallback callback) {
+    public void focusUser(final boolean isFocus, final String focusUserId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
 
 
-        simpleRequest(isFocus ? FOCUS_USER : CANCEL_FOCUS_USER, mParams, new ApiCallback() {
+        simpleRequest(isFocus ? FOCUS_USER : CANCEL_FOCUS_USER, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 callback.onStartApi();
@@ -568,8 +578,9 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
-                callback.onFailure(displayType, errorMessage);
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
             }
         });
     }
@@ -581,13 +592,13 @@ public class UserCenterApi extends BaseApi {
      * @param children
      * @param callback
      */
-    public void setChildInfo(String userId, List<AddChildInfo> children, final ApiCallback callback) {
+    public void setChildInfo(String userId, List<AddChildInfo> children, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
         mParams.put("child_info", children);
 
-        simpleRequest(SET_CHILD_INFO, mParams, new ApiCallback() {
+        simpleRequest(SET_CHILD_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -605,7 +616,7 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 BaseEvent.ChildCreateSuccessEvent childSuccess =
                         new BaseEvent.ChildCreateSuccessEvent();
                 childSuccess.isSetSuccess = false;
@@ -621,7 +632,7 @@ public class UserCenterApi extends BaseApi {
      * @param userInfo 用户信息
      * @param callback
      */
-    public void updateUserInfo(final EditUser userInfo, final ApiCallback callback) {
+    public void updateUserInfo(final EditUser userInfo, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "").toString());
@@ -639,7 +650,7 @@ public class UserCenterApi extends BaseApi {
 
         SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
 
-        simpleRequest(USER_UPDATE, mParams, new ApiCallback() {
+        simpleRequest(USER_UPDATE, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
                 if (callback != null)
@@ -654,7 +665,7 @@ public class UserCenterApi extends BaseApi {
             }
 
             @Override
-            public void onFailure(DisplayType displayType, Object errorMessage) {
+            public void onFailure(ApiErrorResult result) {
                 if (callback != null)
                     callback.onComplete(new BaseEvent.EditUserEvent());
             }

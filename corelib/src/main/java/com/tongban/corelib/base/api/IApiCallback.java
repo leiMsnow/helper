@@ -1,9 +1,11 @@
 package com.tongban.corelib.base.api;
 
+import com.tongban.corelib.model.ApiErrorResult;
+
 /**
  * api回调接口
  */
-public interface ApiCallback {
+public interface IApiCallback {
 
     /**
      * Toast:toast提示
@@ -12,7 +14,6 @@ public interface ApiCallback {
     enum DisplayType {
         Toast, View, None, ALL
     }
-
     /**
      * api启动做的操作,比如加载dialog
      */
@@ -28,9 +29,8 @@ public interface ApiCallback {
     /**
      * api调用失败回调
      *
-     * @param displayType 错误提示方式
-     * @param errorObj    错误信息
+     * @param result 回调失败对象
      */
-    void onFailure(DisplayType displayType, Object errorObj);
+    void onFailure(ApiErrorResult result);
 
 }

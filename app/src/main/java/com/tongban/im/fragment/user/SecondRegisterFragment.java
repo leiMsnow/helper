@@ -1,59 +1,47 @@
 package com.tongban.im.fragment.user;
 
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CameraResultActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.api.callback.UploadFileCallback;
+import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.EditUser;
-import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.OtherRegister;
-import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.CameraView;
-
 
 /**
- * 注册第二步 设置头像/填写用户昵称
+ * 注册第二步
  */
-public class SecondRegisterFragment extends BaseToolBarFragment implements
-        View.OnClickListener, CameraResultActivity.IPhotoListener {
-    private ImageView ivPortrait;
-    private EditText etNickName;
-    private Button btnSubmit;
+@Deprecated
+public class SecondRegisterFragment extends BaseToolBarFragment
+        implements TextWatcher, View.OnClickListener {
 
-    private CameraView mCameraView;
+    private EditText etPhoneNum;
+    private EditText etPwd;
+    private EditText etVerifyCode;
+    private TextView tvVerifyCode;
+    private CheckBox cbAgree;
+    private Button btnRegister;
+    private String mPhoneNum, mPwd, mVerifyId, mVerifyCode;
 
-    private String mNickName;
-    private byte[] mIcon;
-    private EditUser editUser = new EditUser();
+    private VerifyTimerCount mTime;
+    private BaseEvent.RegisterEvent regEvent;
 
     private String mOtherInfo;
     private String mOtherType;
     private OtherRegister otherRegister;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof CameraResultActivity) {
-            ((CameraResultActivity) activity).setmPhotoListener(this);
-        }
-    }
 
     @Override
     protected int getLayoutRes() {
@@ -62,9 +50,12 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
 
     @Override
     protected void initView() {
-        ivPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
-        etNickName = (EditText) mView.findViewById(R.id.et_input_school);
-        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
+        etPhoneNum = (EditText) mView.findViewById(R.id.et_phone_num);
+        etPwd = (EditText) mView.findViewById(R.id.et_pwd);
+        etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
+        tvVerifyCode = (TextView) mView.findViewById(R.id.tv_verify_code);
+        cbAgree = (CheckBox) mView.findViewById(R.id.cb_agree);
+        btnRegister = (Button) mView.findViewById(R.id.btn_register);
     }
 
     @Override
@@ -77,116 +68,113 @@ public class SecondRegisterFragment extends BaseToolBarFragment implements
                         new TypeReference<OtherRegister>() {
                         });
                 otherRegister.setType(mOtherType);
-                setUserPortrait(otherRegister.getUrls().getMid(), ivPortrait);
-                etNickName.setText(otherRegister.getNickName());
-                mNickName = etNickName.getText().toString().trim();
-                updateUser(otherRegister.getUrls(), false);
-            } else {
-                ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
-                        SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
             }
         }
     }
 
+
     @Override
     protected void initListener() {
-        ivPortrait.setOnClickListener(this);
-        btnSubmit.setOnClickListener(this);
+        etPhoneNum.addTextChangedListener(this);
+        etPwd.addTextChangedListener(this);
+        etVerifyCode.addTextChangedListener(this);
+        tvVerifyCode.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        //设置头像
-        if (v == ivPortrait) {
-            createDialog();
-        }
-        //点击提交按钮
-        else if (v == btnSubmit) {
-            mNickName = etNickName.getText().toString().trim();
-            if (TextUtils.isEmpty(mNickName)) {
-                ToastUtil.getInstance(mContext).showToast("请输入昵称");
-                return;
-            }
-            // 使用用户上传的资料
-            if (mIcon != null) {
-                FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                        FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
-
-                            @Override
-                            public void uploadSuccess(ImageUrl url) {
-                                updateUser(url);
-                            }
-
-                            @Override
-                            public void uploadFailed(String error) {
-                                updateUser(null);
-                            }
-
-                        });
+        // 获取手机验证码
+        if (v == tvVerifyCode) {
+            if (mPhoneNum.length() != 11) {
+                ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
             } else {
-                //使用第三方资料
-                if (otherRegister != null) {
-                    updateUser(otherRegister.getUrls());
-                }
-                //使用系统默认资料
-                else {
-                    int resId = (Integer) SPUtils.get(mContext,
-                            SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
-                    mIcon = CameraUtils.Bitmap2Bytes(bitmap);
-                    FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                            FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
-
-                                @Override
-                                public void uploadSuccess(ImageUrl url) {
-                                    updateUser(url);
-                                }
-
-                                @Override
-                                public void uploadFailed(String error) {
-                                    updateUser(null);
-                                }
-
-                            });
-                }
+                AccountApi.getInstance().getSMSCode(mPhoneNum, this);
             }
-
-
         }
-
-    }
-
-    /**
-     * 修改用户信息
-     *
-     * @param url        头像地址
-     * @param isCallback 是否需要回调
-     */
-    private void updateUser(ImageUrl url, boolean isCallback) {
-        editUser.setPortrait_url(url);
-        editUser.setNick_name(mNickName);
-        UserCenterApi.getInstance().updateUserInfo(editUser,
-                isCallback ? SecondRegisterFragment.this : null);
-    }
-
-    private void updateUser(ImageUrl url) {
-        updateUser(url, true);
-    }
-
-
-    // 打开相机的提示框
-    private void createDialog() {
-        if (mCameraView == null) {
-            mCameraView = new CameraView(mContext);
+        //校验手机验证码
+        else if (v == btnRegister) {
+            if (regEvent != null) {
+                if (!cbAgree.isChecked()) {
+                    ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
+                } else {
+                    if (otherRegister == null) {
+                        AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
+                                mVerifyCode, this);
+                    }
+                    // 第三方注册
+                    else {
+                        AccountApi.getInstance().checkPhone(mPhoneNum, this);
+                    }
+                }
+            } else {
+                //提示获取验证码
+                ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);
+            }
         }
-        mCameraView.show();
     }
 
     @Override
-    public void sendPhoto(byte[] bytes) {
-        mIcon = bytes;
-        final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        ivPortrait.setImageBitmap(bitmap);
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        mPhoneNum = etPhoneNum.getText().toString();
+        mPwd = etPwd.getText().toString();
+        mVerifyCode = etVerifyCode.getText().toString();
+        if (!TextUtils.isEmpty(mPhoneNum)) {
+            tvVerifyCode.setEnabled(true);
+        } else {
+            tvVerifyCode.setEnabled(false);
+        }
+        if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mVerifyCode)
+                && mPwd.length() > 5) {
+            btnRegister.setEnabled(true);
+        } else {
+            btnRegister.setEnabled(false);
+        }
+    }
+
+    public void onEventMainThread(BaseEvent.CheckPhoneEvent obj) {
+        AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
+                otherRegister.getOpenId(), otherRegister.getType(),
+                mVerifyId, mVerifyCode, this);
+    }
+
+    /**
+     * 注册成功
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.RegisterEvent obj) {
+        regEvent = obj;
+        // 获取验证码成功
+        if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
+            mVerifyId = obj.verify_id;
+            mTime = new VerifyTimerCount(tvVerifyCode);//构造CountDownTimer对象
+            mTime.start();
+            ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
+        }
+        // 注册成功
+        else if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.REGISTER) {
+            AccountApi.getInstance().login(mPhoneNum, mPwd, this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mTime != null) {
+            mTime.cancel();
+            mTime = null;
+        }
     }
 
 }
