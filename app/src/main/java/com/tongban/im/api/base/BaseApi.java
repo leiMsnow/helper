@@ -153,7 +153,7 @@ public class BaseApi {
                                  final IApiCallback callback) {
         if (!NetUtils.isConnected(mContext)) {
             ApiErrorResult errorResult = new ApiErrorResult();
-            errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+            errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
             errorResult.setErrorMessage(mContext.getResources()
                     .getString(com.tongban.corelib.R.string.api_error));
             errorResult.setApiName(url);
@@ -207,7 +207,7 @@ public class BaseApi {
                                     LogUtil.d("onResponse-TIME_DIS_MATCH", String.valueOf(dif));
                                 }
                                 ApiErrorResult errorResult = new ApiErrorResult();
-                                errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+                                errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
                                 errorResult.setErrorMessage(jsonObject.optString("statusDesc"));
                                 errorResult.setErrorCode(statusCode);
                                 errorResult.setApiName(url);

@@ -30,6 +30,7 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     public void setRequestApiListener(RequestApiListener requestApiListener) {
         this.requestApiListener = requestApiListener;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,6 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
         }
         if (mBaseApiActivity != null)
             mBaseApiActivity.onFailure(result);
-
     }
 
     public void onEventMainThread(Object obj) {
@@ -90,16 +90,6 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     protected void hidEmptyText() {
         if (mBaseApiActivity != null)
             mBaseApiActivity.hideProgress();
-    }
-
-    /**
-     * 重新请求接口监听
-     * <p/>
-     * //     * @param requestListener
-     */
-    protected void setRequestListener(RequestApiListener requestListener) {
-        if (mBaseApiActivity != null)
-            mBaseApiActivity.setRequestApiListener(requestListener);
     }
 
     @Override
@@ -129,7 +119,11 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
                     .setDuration(500);
             objectAnimator.start();
-            ((ViewGroup) mView).addView(mEmptyView, layoutParams);
+            if (mView.getParent() == null) {
+                ((ViewGroup) mView).addView(mEmptyView, layoutParams);
+            } else {
+                ((ViewGroup) mView.getParent()).addView(mEmptyView, layoutParams);
+            }
         }
     }
 }

@@ -12,7 +12,10 @@ public interface IApiCallback {
      * View:错误页展示
      */
     enum DisplayType {
-        Toast, View, None, ALL
+        Toast,
+        View,
+        None,
+        ALL
     }
     /**
      * api启动做的操作,比如加载dialog

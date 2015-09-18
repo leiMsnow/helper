@@ -8,7 +8,9 @@ import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.im.R;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.ProductApi;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 
 /**
@@ -33,6 +35,10 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
         int resId = 0;
         if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
+        } else if (result.getApiName().equals(TopicApi.RECOMMEND_TOPIC_LIST)) {
+            resId = R.mipmap.bg_empty_topic;
+        }else if (result.getApiName().equals(GroupApi.RECOMMEND_GROUP_LIST)) {
+            resId = R.mipmap.bg_empty_group;
         }
         ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
         if (resId == 0) {
