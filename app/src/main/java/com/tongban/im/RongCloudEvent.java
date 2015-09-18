@@ -440,6 +440,7 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public void onChanged(ConnectionStatus status) {
         LogUtil.d(TAG, "onChanged:" + status);
+
         if (status.getMessage().equals(ConnectionStatus.DISCONNECTED.getMessage())) {
 
         } else if (status.equals(RongIMClient.ConnectionStatusListener
@@ -447,6 +448,9 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
             RongIM.getInstance().logout();
             SPUtils.clear(mContext);
             TransferCenter.getInstance().startLoginOtherClient();
+        } else if (status.equals(
+                ConnectionStatus.NETWORK_UNAVAILABLE)) {
+
         }
     }
 

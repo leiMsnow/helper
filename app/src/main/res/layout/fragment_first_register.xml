@@ -56,9 +56,9 @@
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_pwd_text"
             android:hint="6-24位"
-            android:textColorHint="@color/normal_grey"
             android:inputType="textPassword"
-            android:maxLength="24" />
+            android:maxLength="24"
+            android:textColorHint="@color/normal_grey" />
 
         <View
             style="@style/HorizontalLine"
@@ -76,7 +76,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_toLeftOf="@+id/tv_verify_code">
+            android:layout_toLeftOf="@+id/btn_verify_code">
 
             <TextView
                 android:id="@+id/tv_verify_text"
@@ -99,15 +99,16 @@
         </RelativeLayout>
 
 
-        <TextView
-            android:id="@+id/tv_verify_code"
+        <Button
+            android:id="@+id/btn_verify_code"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
+            android:background="@null"
+            android:clickable="true"
             android:enabled="false"
+            android:focusable="true"
             android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
             android:text="@string/get_verify_code"
             android:textColor="@color/selector_text_color" />
 

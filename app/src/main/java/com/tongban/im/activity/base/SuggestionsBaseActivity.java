@@ -105,10 +105,11 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     protected void saveSearchKey(String query) {
         if (TextUtils.isEmpty(query))
             return;
+
         if (query.contains(";"))
             query = query.replace(";", "");
-        String[] keyList = mHistoryKeys.split(";");
         if (!TextUtils.isEmpty(mHistoryKeys)) {
+            String[] keyList = mHistoryKeys.split(";");
             for (int i = 0; i < keyList.length; i++) {
                 if (keyList[i].equals(query)) {
                     mHistoryKeys = mHistoryKeys.replace(query + ";", "");

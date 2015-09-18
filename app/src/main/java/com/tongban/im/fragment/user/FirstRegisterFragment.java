@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -30,7 +29,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
     private EditText etPhoneNum;
     private EditText etPwd;
     private EditText etVerifyCode;
-    private TextView tvVerifyCode;
+    private Button btnGetSMSCode;
     private CheckBox cbAgree;
     private Button btnRegister;
     private String mPhoneNum, mPwd, mVerifyId, mVerifyCode;
@@ -52,7 +51,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         etPhoneNum = (EditText) mView.findViewById(R.id.et_phone_num);
         etPwd = (EditText) mView.findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
-        tvVerifyCode = (TextView) mView.findViewById(R.id.tv_verify_code);
+        btnGetSMSCode = (Button) mView.findViewById(R.id.btn_verify_code);
         cbAgree = (CheckBox) mView.findViewById(R.id.cb_agree);
         btnRegister = (Button) mView.findViewById(R.id.btn_register);
     }
@@ -77,14 +76,14 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         etPhoneNum.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         etVerifyCode.addTextChangedListener(this);
-        tvVerifyCode.setOnClickListener(this);
+        btnGetSMSCode.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         // 获取手机验证码
-        if (v == tvVerifyCode) {
+        if (v == btnGetSMSCode) {
             if (mPhoneNum.length() != 11) {
                 ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
             } else {
@@ -129,9 +128,9 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         mPwd = etPwd.getText().toString();
         mVerifyCode = etVerifyCode.getText().toString();
         if (!TextUtils.isEmpty(mPhoneNum)) {
-            tvVerifyCode.setEnabled(true);
+            btnGetSMSCode.setEnabled(true);
         } else {
-            tvVerifyCode.setEnabled(false);
+            btnGetSMSCode.setEnabled(false);
         }
         if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mVerifyCode)
                 && mPwd.length() > 5) {
@@ -157,7 +156,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         // 获取验证码成功
         if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             mVerifyId = obj.verify_id;
-            mTime = new VerifyTimerCount(tvVerifyCode);//构造CountDownTimer对象
+            mTime = new VerifyTimerCount(btnGetSMSCode);//构造CountDownTimer对象
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }

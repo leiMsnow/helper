@@ -68,9 +68,8 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
         Bundle bundle = new Bundle();
         bundle.putBoolean(Consts.KEY_IS_MAIN, true);
         recommendFragment.setArguments(bundle);
-        fm.beginTransaction().add(R.id.fl_container, chatFragment).
-                add(R.id.fl_container, recommendFragment)
-                .hide(recommendFragment).commit();
+        fm.beginTransaction().replace(R.id.fl_container, chatFragment)
+                .commit();
         //没有登录删除聊天fragment
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
             fm.beginTransaction().remove(chatFragment).commit();
@@ -93,18 +92,17 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if (group == rgCircle) {
-            showEmptyText("", false);
             switch (checkedId) {
                 case R.id.rb_chat:
                     if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-                        fm.beginTransaction().show(chatFragment).commit();
+                        fm.beginTransaction().replace(R.id.fl_container, chatFragment).commit();
                     }
-                    fm.beginTransaction().hide(recommendFragment).commit();
+                    fm.beginTransaction().replace(R.id.fl_container, chatFragment).commit();
                     ibSearch.setVisibility(View.GONE);
                     setIndicator(0);
                     break;
                 case R.id.rb_recommend:
-                    fm.beginTransaction().show(recommendFragment).hide(chatFragment).commit();
+                    fm.beginTransaction().replace(R.id.fl_container, recommendFragment).commit();
                     ibSearch.setVisibility(View.VISIBLE);
                     setIndicator(1);
                     break;

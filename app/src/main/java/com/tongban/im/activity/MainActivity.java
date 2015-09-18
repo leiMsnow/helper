@@ -117,7 +117,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
         }
         mTabIndicator.get(index).setChecked(true);
         mViewPager.setCurrentItem(index, false);
-        showEmptyText("", false);
     }
 
     @Override

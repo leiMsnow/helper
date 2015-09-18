@@ -12,9 +12,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:hint="@string/your_phone_num"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:hint="@string/your_phone_num" />
+            android:paddingRight="8dp" />
 
         <TextView
             android:id="@+id/tv_phone_num"
@@ -49,16 +49,17 @@
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
             style="@style/ClearEditTextStyle"
-            android:layout_toLeftOf="@+id/tv_verify_code"
+            android:layout_toLeftOf="@+id/btn_verify_code"
             android:layout_toRightOf="@+id/tv_verify_hint"
             android:inputType="number"
             android:maxLength="6" />
 
-        <TextView
-            android:id="@+id/tv_verify_code"
+        <Button
+            android:id="@+id/btn_verify_code"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:background="@null"
             android:gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -83,9 +84,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:hint="@string/re_set_pwd"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:hint="@string/re_set_pwd" />
+            android:paddingRight="8dp" />
 
         <com.tongban.im.widget.view.ClearEditText
             android:id="@+id/et_set_pwd"

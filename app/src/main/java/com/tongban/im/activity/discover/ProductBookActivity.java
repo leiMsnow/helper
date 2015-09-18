@@ -26,7 +26,7 @@ import com.tongban.im.model.ProductBook;
  * @author Cheney
  * @date 8/20
  */
-public class ProductBookActivity extends BaseApiActivity implements View.OnClickListener {
+public abstract class ProductBookActivity extends BaseApiActivity implements View.OnClickListener {
     private ImageView ivBack, ivShare, ivCollect;
     private ViewPager mViewPager; // 图集
     private TextView title;  // 名称

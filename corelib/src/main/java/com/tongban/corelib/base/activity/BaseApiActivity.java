@@ -8,15 +8,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.tongban.corelib.R;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.model.ApiListResult;
-import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.ToastUtil;
 
 import de.greenrobot.event.EventBus;
@@ -27,9 +25,8 @@ import de.greenrobot.event.EventBus;
  */
 public abstract class BaseApiActivity extends BaseTemplateActivity implements IApiCallback {
 
-    private View mEmptyView;
-
-    private RequestApiListener requestApiListener;
+    protected View mEmptyView;
+    protected RequestApiListener requestApiListener;
 
     public void setRequestApiListener(RequestApiListener requestApiListener) {
         this.requestApiListener = requestApiListener;
@@ -59,7 +56,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
 
     @Override
     public void onStartApi() {
-        showEmptyText("", true);
+        showProgress();
     }
 
     @Override
@@ -68,7 +65,8 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
 
         if (mEmptyView != null) {
             if (mEmptyView.getVisibility() == View.VISIBLE) {
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
+                ObjectAnimator objectAnimator = ObjectAnimator
+                        .ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
                 objectAnimator.start();
                 objectAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -83,37 +81,31 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
 
     @Override
     public void onFailure(ApiErrorResult result) {
+        hideProgress();
+        EventBus.getDefault().post(result);
         String errorMsg = result.getErrorMessage();
-
         if (TextUtils.isEmpty(errorMsg) || errorMsg.contains("volley")) {
             errorMsg = getString(R.string.api_error);
         }
         // toast提示
         if (result.getDisplayType() == DisplayType.Toast) {
             ToastUtil.getInstance(mContext).showToast(errorMsg);
-            showEmptyText("", false);
         }
         // 视图提示
         else if (result.getDisplayType() == DisplayType.View) {
-            showEmptyText(errorMsg, false);
+            setEmptyView(result);
         }
         // 全部提示
         else if (result.getDisplayType() == DisplayType.ALL) {
             ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
-            showEmptyText(errorMsg, false);
+            setEmptyView(result);
         }
-        // 不提示
-        else {
-            showEmptyText("", false);
-        }
-
-        EventBus.getDefault().post(result);
     }
 
     /**
      * 创建空数据布局
      */
-    private void createEmptyView() {
+    protected void createEmptyView() {
 
         mEmptyView = this.findViewById(R.id.rl_empty_view);
         if (mEmptyView != null) {
@@ -134,29 +126,27 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
     }
 
     /**
-     * 显示空数据
-     *
-     * @param message
+     * 显示进度条
      */
-    public void showEmptyText(String message, boolean isLoading) {
+    public void showProgress() {
         createEmptyView();
-        TextView tvMsg = (TextView) mEmptyView.findViewById(com.tongban.corelib.R.id.tv_empty_msg);
         ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
-        if (isLoading) {
-            pb.setVisibility(View.VISIBLE);
-            tvMsg.setVisibility(View.GONE);
-        } else {
-            tvMsg.setText(message);
-            pb.setVisibility(View.GONE);
-            tvMsg.setVisibility(View.VISIBLE);
-            tvMsg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (requestApiListener != null) {
-                        requestApiListener.onRequest();
-                    }
-                }
-            });
-        }
+        pb.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * 隐藏进度条
+     */
+    public void hideProgress() {
+        createEmptyView();
+        ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
+        pb.setVisibility(View.GONE);
+    }
+
+    public void hidEmptyView() {
+        createEmptyView();
+        mEmptyView.setVisibility(View.GONE);
+    }
+
+    public abstract void setEmptyView(ApiErrorResult result);
 }

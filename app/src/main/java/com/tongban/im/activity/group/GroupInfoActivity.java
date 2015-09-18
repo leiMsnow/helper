@@ -109,6 +109,9 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == btnQuit) {
+            if (mGroup == null) {
+                return;
+            }
             if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mGroup.getUser_info().getUser_id())) {
                 ToastUtil.getInstance(mContext).showToast(getQuitMessage());
                 return;

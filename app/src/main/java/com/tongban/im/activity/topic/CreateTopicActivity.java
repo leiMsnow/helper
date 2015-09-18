@@ -177,7 +177,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
-        showEmptyText("", true);
+        showProgress();
         FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0,
                 gvTopicImg.getSelectedFile(),
                 FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,

@@ -89,7 +89,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         ptrFrameLayout.refreshComplete();
         if (mAdapter != null) {
             if (mAdapter.getCount() > 0) {
-                showEmptyText("", false);
+                hidEmptyText();
             }
         }
     }

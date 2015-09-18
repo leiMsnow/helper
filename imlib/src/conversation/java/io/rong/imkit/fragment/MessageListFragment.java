@@ -480,6 +480,10 @@ public class MessageListFragment extends UriFragment implements AbsListView.OnSc
     @Override
     public void onResume() {
         super.onResume();
+        if (RongIM.getInstance() == null && RongIM.getInstance().getRongIMClient() == null) {
+            showNotification(getResources().getString(R.string.rc_notice_network_unavailable));
+            return;
+        }
         RongIMClient.ConnectionStatusListener.ConnectionStatus status = RongIM.getInstance().getRongIMClient().getCurrentConnectionStatus();
         if (status.equals(RongIMClient.ConnectionStatusListener.ConnectionStatus.NETWORK_UNAVAILABLE)) {
             showNotification(getResources().getString(R.string.rc_notice_network_unavailable));

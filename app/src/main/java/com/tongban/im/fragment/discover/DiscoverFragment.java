@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
@@ -23,8 +22,6 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Discover;
 import com.tongban.im.model.User;
-
-import java.util.List;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -179,7 +176,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
         if (mAdapter.getCount() > 0) {
-            showEmptyText("", false);
+                hidEmptyText();
         }
     }
 

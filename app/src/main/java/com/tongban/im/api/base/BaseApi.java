@@ -154,7 +154,8 @@ public class BaseApi {
         if (!NetUtils.isConnected(mContext)) {
             ApiErrorResult errorResult = new ApiErrorResult();
             errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
-            errorResult.setErrorMessage("网络连接失败,请稍后重试");
+            errorResult.setErrorMessage(mContext.getResources()
+                    .getString(com.tongban.corelib.R.string.api_error));
             errorResult.setApiName(url);
             callback.onFailure(errorResult);
             return;
@@ -197,14 +198,14 @@ public class BaseApi {
                             if (statusCode == API_SUCCESS) {
                                 callback.onComplete(jsonObject);
                             }
-                            // 请求成功,与服务器时间有差异
-                            else if (statusCode == TIME_DIS_MATCH) {
-                                long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
-                                CheckID.difMills = dif;
-                                LogUtil.d("onResponse-TIME_DIS_MATCH", String.valueOf(dif));
-                            }
                             // 请求成功，但有错误信息返回
                             else {
+                                // 请求成功,与服务器时间有差异
+                                if (statusCode == TIME_DIS_MATCH) {
+                                    long dif = ((JSONObject) jsonObject.opt("data")).optLong("mark");
+                                    CheckID.difMills = dif;
+                                    LogUtil.d("onResponse-TIME_DIS_MATCH", String.valueOf(dif));
+                                }
                                 ApiErrorResult errorResult = new ApiErrorResult();
                                 errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
                                 errorResult.setErrorMessage(jsonObject.optString("statusDesc"));
@@ -213,7 +214,11 @@ public class BaseApi {
                                 callback.onFailure(errorResult);
                             }
                         }
-                    }, new Response.ErrorListener() {
+                    }
+
+                    , new Response.ErrorListener()
+
+            {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
 
@@ -230,7 +235,11 @@ public class BaseApi {
                     callback.onFailure(errorResult);
 
                 }
-            }) {
+            }
+
+            )
+
+            {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     HashMap<String, String> headers = new HashMap<>();
@@ -243,7 +252,9 @@ public class BaseApi {
                         headers.put("_U", SPUtils.get(mContext, Consts.USER_ID, "").toString());
                     return headers;
                 }
-            };
+            }
+
+            ;
             // 禁用缓存
             request.setShouldCache(false);
             // 添加请求到Volley队列
@@ -265,6 +276,7 @@ public class BaseApi {
      *
      * @return
      */
+
     protected String getErrorMessage() {
         Random random = new Random();
         int count = mContext.getResources().

@@ -1,10 +1,14 @@
 package com.tongban.im.fragment.base;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.im.R;
+import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 
 /**
@@ -22,4 +26,29 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
     public void setUserPortrait(String uri, ImageView view) {
         Glide.with(BaseToolBarFragment.this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
     }
+
+    @Override
+    public void setEmptyView(ApiErrorResult result) {
+
+        int resId = 0;
+        if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
+            resId = R.mipmap.bg_empty_discover;
+        }
+        ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
+        if (resId == 0) {
+            ivEmpty.setVisibility(View.GONE);
+            return;
+        }
+        ivEmpty.setVisibility(View.VISIBLE);
+        ivEmpty.setImageResource(resId);
+        ivEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (requestApiListener != null) {
+                    requestApiListener.onRequest();
+                }
+            }
+        });
+    }
+
 }

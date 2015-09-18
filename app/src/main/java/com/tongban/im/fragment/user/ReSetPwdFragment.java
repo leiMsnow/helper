@@ -26,7 +26,7 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
 
     private TextView tvPhoneNum;
     private EditText etVerifyCode;
-    private TextView tvVerifyCode;
+    private Button tvVerifyCode;
     private EditText etSetPwd;
     private Button btnSubmit;
 
@@ -45,7 +45,7 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
     protected void initView() {
         tvPhoneNum = (TextView) mView.findViewById(R.id.tv_phone_num);
         etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
-        tvVerifyCode = (TextView) mView.findViewById(R.id.tv_verify_code);
+        tvVerifyCode = (Button) mView.findViewById(R.id.btn_verify_code);
         etSetPwd = (EditText) mView.findViewById(R.id.et_set_pwd);
         btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }

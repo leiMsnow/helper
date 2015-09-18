@@ -194,7 +194,7 @@ public class MCrashHandler implements UncaughtExceptionHandler {
 	public void saveCrashLogToFile(Throwable paramThrowable) {
 		// 保存文件，设置文件名
 		final String time = DateUtils.longToString(System.currentTimeMillis()
-				, "yyyy-MM-dd-HH-mm-ss:SSS");
+				, "yyyy-MM-dd HH:mm:ss");
 		saveCrashLogToFile(paramThrowable, String.valueOf(time));
 	}
 
@@ -211,7 +211,7 @@ public class MCrashHandler implements UncaughtExceptionHandler {
 		paramThrowable.printStackTrace();
 		Throwable mThrowable = paramThrowable.getCause();
 		final String time = DateUtils.longToString(System.currentTimeMillis()
-				, "yyyy-MM-dd-HH-mm-ss:SSS");
+				, "yyyy-MM-dd HH:mm:ss");
 		mPrintWriter.append("\r\n-----------------------\r\n");
 		mPrintWriter.append("当前时间：[" + time + "]\r\n");
 		// 迭代栈队列把所有的异常信息写入writer中
@@ -232,7 +232,7 @@ public class MCrashHandler implements UncaughtExceptionHandler {
 			try {
 				// 文件存储路径
 				String filePath =  Environment.getExternalStorageDirectory().toString();
-				File mDirectory = new File(filePath+"/LOGS");
+				File mDirectory = new File(filePath+"/A_LOGS");
 				if (!mDirectory.exists())
 					mDirectory.mkdir();
 				FileOutputStream mFileOutputStream = new FileOutputStream(

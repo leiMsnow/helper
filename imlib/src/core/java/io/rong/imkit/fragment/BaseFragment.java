@@ -55,27 +55,33 @@ public abstract class BaseFragment extends Fragment implements Handler.Callback 
 
                 @Override
                 public void onError(RongIMClient.ErrorCode e) {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(), "connect_auto_fail", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+//                    mHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getActivity(), "connect_auto_fail", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 }
 
                 @Override
                 public void onTokenIncorrect() {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(), "connect_auto_fail", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+//                    mHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(getActivity(), "connect_auto_fail", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
                 }
             });
         }
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     @Override
