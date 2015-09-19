@@ -157,6 +157,6 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:text="@string/view_details"
-        android:textColor="@color/selector_orange_to_white"
+        android:textColor="@color/selector_red_to_white"
         android:textSize="14sp" />
 </LinearLayout>

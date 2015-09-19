@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="40dp"
-             android:background="@drawable/selector_corner_white_to_grey">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:background="@drawable/selector_corner_white_to_grey"
+    android:minHeight="96dp"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/tv_platform"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/selector_red_to_white" />
 
-        <TextView
-            android:id="@+id/tv_platform"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="4dp"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/selector_red_to_white" />
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:textColor="@color/theme_red"/>
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

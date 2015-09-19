@@ -61,7 +61,7 @@ public class ProductPriceAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.platform.setText(getPlatform(mList.get(position).getPlatform()));
-        holder.price.setText(getPrice(mList.get(position).getPrice()));
+        holder.price.setText(mList.get(position).getPrice());
         return convertView;
     }
 
@@ -88,14 +88,14 @@ public class ProductPriceAdapter extends BaseAdapter {
         return str;
     }
 
-    private SpannableStringBuilder getPrice(String price) {
-        SpannableStringBuilder sb = new SpannableStringBuilder(price);
-        int index = price.indexOf(".");
-        if (index != -1) {
-            sb.setSpan(new RelativeSizeSpan(1.5f), 0, index,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        sb.insert(0, "￥");
-        return sb;
-    }
+//    private SpannableStringBuilder getPrice(String price) {
+//        SpannableStringBuilder sb = new SpannableStringBuilder(price);
+//        int index = price.indexOf(".");
+//        if (index != -1) {
+//            sb.setSpan(new RelativeSizeSpan(1.5f), 0, index,
+//                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        }
+//        sb.insert(0, "￥");
+//        return sb;
+//    }
 }
