@@ -34,7 +34,7 @@
                 style="@style/CreateGroupTextStyle"
                 android:layout_marginTop="16dp"
                 android:hint="@string/hint_group_name"
-                android:maxLength="10" />
+                android:maxLength="20" />
 
             <!-- 同龄 - 选择年龄-->
             <TextView

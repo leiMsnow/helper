@@ -20,6 +20,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
+import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.base.BaseApi;
@@ -183,6 +184,11 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        finish();
+    }
 
     /**
      * 执行加载动画
