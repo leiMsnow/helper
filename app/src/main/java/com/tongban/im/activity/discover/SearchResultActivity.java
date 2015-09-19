@@ -144,6 +144,7 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
     @Override
     public boolean onQueryTextSubmit(String query) {
         if (!TextUtils.isEmpty(query)) {
+            suggestionsListView.setVisibility(View.GONE);
             isShowSuggestions = true;
             mThemeListFragment.searchTheme(query);
             mProductListFragment.searchProduct(query);

@@ -45,6 +45,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_topic_detail, menu);
         menuItem = menu.findItem(R.id.menu_collect);
+        menuItem.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -58,8 +59,14 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 话题获取成功事件回调
+     *
+     * @param topicInfoEvent
+     */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.topic;
+        menuItem.setVisible(true);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

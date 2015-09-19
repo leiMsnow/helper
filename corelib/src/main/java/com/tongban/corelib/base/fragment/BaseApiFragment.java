@@ -50,23 +50,10 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     @Override
     public void onComplete(Object obj) {
+        hidEmptyView();
         if (mBaseApiActivity != null)
             mBaseApiActivity.onComplete(obj);
 
-        if (mEmptyView != null) {
-            if (mEmptyView.getVisibility() == View.VISIBLE) {
-                ObjectAnimator objectAnimator = ObjectAnimator
-                        .ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
-                objectAnimator.start();
-                objectAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        mEmptyView.setVisibility(View.GONE);
-                    }
-                });
-            }
-        }
     }
 
     @Override
@@ -91,8 +78,8 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
      * 隐藏空数据
      */
     protected void hidEmptyView() {
-        createEmptyView();
-        mEmptyView.findViewById(R.id.iv_empty).setVisibility(View.GONE);
+        if (createEmptyView())
+            mEmptyView.findViewById(R.id.iv_empty).setVisibility(View.GONE);
     }
 
     @Override

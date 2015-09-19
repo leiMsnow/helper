@@ -179,11 +179,13 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
      * @param obj
      */
     public void onEventMainThread(ApiErrorResult obj) {
-        if (ptrFrameLayout.isRefreshing())
-            ptrFrameLayout.refreshComplete();
-        if (mAdapter != null) {
-            if (mAdapter.getCount() > 0) {
-                hidEmptyView();
+        if (obj.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
+            if (ptrFrameLayout.isRefreshing())
+                ptrFrameLayout.refreshComplete();
+            if (mAdapter != null) {
+                if (mAdapter.getCount() > 0) {
+                    hidEmptyView();
+                }
             }
         }
     }

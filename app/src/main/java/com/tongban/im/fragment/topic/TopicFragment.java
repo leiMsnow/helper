@@ -80,8 +80,13 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     @Override
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
+
+        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
+        mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
+
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
+
         if (mIsMainEvent) {
             RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
             header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
@@ -96,8 +101,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             mToolbar.setVisibility(View.GONE);
         }
 
-        mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
-        mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
         lvTopicList.setAdapter(mAdapter);
         lvTopicList.setPageSize(mPageSize);
     }
@@ -159,11 +162,14 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
      * @param obj
      */
     public void onEventMainThread(ApiErrorResult obj) {
-        ptrFrameLayout.refreshComplete();
-        if (mAdapter != null) {
-            if (mAdapter.getCount() > 0) {
+        if (mIsMainEvent) {
+            ptrFrameLayout.refreshComplete();
+            if (mAdapter != null && mAdapter.getCount() > 0) {
                 hidEmptyView();
             }
+        } else {
+            mAdapter.clear();
+            lvTopicList.setVisibility(View.GONE);
         }
     }
 
@@ -192,17 +198,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         updateCurrentData(obj.topic_id, false, false);
-    }
-
-    /**
-     * 话题搜索关键字回调
-     *
-     * @param obj
-     */
-    public void onEventMainThread(BaseEvent.SearchTopicKeyEvent obj) {
-        mCursor = 0;
-        mKeyword = obj.keyword;
-        TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mAdapter.getCount(), this);
     }
 
     @Override

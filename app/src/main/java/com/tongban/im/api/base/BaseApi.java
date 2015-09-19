@@ -56,7 +56,7 @@ public class BaseApi {
      */
     public final static int API_NO_NETWORK = -1;
     /**
-     * 服务器地址错误
+     * 服务器地址错误/无数据
      */
     public final static int API_URL_ERROR = -404;
     /**
@@ -374,6 +374,14 @@ public class BaseApi {
         return String.valueOf(type ? 1 : 0);
     }
 
+    protected ApiErrorResult createEmptyResult(String apiName) {
+        ApiErrorResult errorResult = new ApiErrorResult();
+        errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
+        errorResult.setErrorCode(API_URL_ERROR);
+        errorResult.setErrorMessage("没有更多数据");
+        errorResult.setApiName(apiName);
+        return errorResult;
+    }
 
     /**
      * 设置disableCache时间
@@ -430,4 +438,6 @@ public class BaseApi {
         long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
         SPUtils.put(mContext, cacheName, cacheTimeMillis);
     }
+
+
 }

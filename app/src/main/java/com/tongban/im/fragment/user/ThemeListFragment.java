@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -98,6 +99,14 @@ public class ThemeListFragment extends BaseToolBarFragment implements View.OnCli
         mCursor++;
         mAdapter.replaceAll(event.mThemeList);
         lvTheme.setResultSize(event.mThemeList.size());
+        lvTheme.setVisibility(View.VISIBLE);
+    }
+
+    public void onEventMainThread(ApiErrorResult obj) {
+        if (obj.getApiName().equals(ProductApi.SEARCH_THEME)) {
+            mAdapter.clear();
+            lvTheme.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -107,6 +116,7 @@ public class ThemeListFragment extends BaseToolBarFragment implements View.OnCli
      */
     public void onEventMainThread(BaseEvent.SearchThemeResultEvent event) {
         mAdapter.replaceAll(event.mThemes);
+        lvTheme.setVisibility(View.VISIBLE);
     }
 
     @Override

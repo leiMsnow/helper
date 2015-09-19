@@ -97,7 +97,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         }
         // 全部提示
         else if (result.getDisplayType() == DisplayType.ALL) {
-            ToastUtil.getInstance(mContext).showToast(getString(R.string.api_error));
+            ToastUtil.getInstance(mContext).showToast(errorMsg);
             setEmptyView(result);
         }
     }

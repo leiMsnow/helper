@@ -31,9 +31,13 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     private GroupListAdapter mAdapter;
 
-    private boolean mIsFromMain = false;
+    private boolean mIsMainEvent = false;
     private String mKeyword;
     private int mCursor = 0;
+
+    public void setmKeyword(String mKeyword) {
+        this.mKeyword = mKeyword;
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -49,8 +53,8 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     @Override
     protected void initData() {
         if (getArguments() != null)
-            mIsFromMain = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
-        if (mIsFromMain) {
+            mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
+        if (mIsMainEvent) {
             StoreHouseHeader header = new StoreHouseHeader(mContext);
             header.setTextColor(R.color.main_brown);
             header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
@@ -77,7 +81,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
      * @param list
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
-        if (mIsFromMain) {
+        if (mIsMainEvent) {
             ptrFrameLayout.refreshComplete();
             mAdapter.replaceAll(list.groupList);
             lvGroupList.setVisibility(View.VISIBLE);
@@ -85,10 +89,15 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
-        ptrFrameLayout.refreshComplete();
-        if (mAdapter != null) {
-            if (mAdapter.getCount() > 0) {
+        if (mIsMainEvent) {
+            ptrFrameLayout.refreshComplete();
+            if (mAdapter != null && mAdapter.getCount() > 0) {
                 hidEmptyView();
+            }
+        } else {
+            if (mAdapter != null) {
+                mAdapter.clear();
+                lvGroupList.setVisibility(View.GONE);
             }
         }
     }
@@ -105,24 +114,11 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
             ToastUtil.getInstance(mContext).showToast("加入成功");
             RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
                     joinGroupEvent.group_name);
-            if (mIsFromMain) {
+            if (mIsMainEvent) {
                 GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
             } else {
                 GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);
             }
-        }
-    }
-
-    /**
-     * 搜索keyword事件回调
-     *
-     * @param keyEvent
-     */
-    public void onEventMainThread(BaseEvent.SearchGroupKeyEvent keyEvent) {
-        if (!mIsFromMain) {
-            mCursor = 0;
-            mKeyword = keyEvent.keyword;
-            GroupApi.getInstance().searchGroupList(mKeyword, mCursor, 15, this);
         }
     }
 
@@ -132,7 +128,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
      * @param searchGroupEvent
      */
     public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        if (!mIsFromMain) {
+        if (!mIsMainEvent) {
             mAdapter.replaceAll(searchGroupEvent.groups);
             lvGroupList.setVisibility(View.VISIBLE);
         }

@@ -11,6 +11,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
@@ -120,10 +121,10 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
             return false;
         }
         if (!TextUtils.isEmpty(query)) {
+            suggestionsListView.setVisibility(View.GONE);
             saveSearchKey(query);
-            BaseEvent.SearchTopicKeyEvent search = new BaseEvent.SearchTopicKeyEvent();
-            search.keyword = query;
-            EventBus.getDefault().post(search);
+
+            TopicApi.getInstance().searchTopicList(query, 0, 15, this);
         }
         return false;
     }

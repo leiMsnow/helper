@@ -6,10 +6,8 @@ import android.text.TextUtils;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.fragment.group.RecommendGroupFragment;
-import com.tongban.im.model.BaseEvent;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * 圈子-adapter
@@ -20,6 +18,8 @@ import de.greenrobot.event.EventBus;
 public class SearchGroupActivity extends SuggestionsBaseActivity implements
         SearchView.OnQueryTextListener {
 
+
+   private RecommendGroupFragment recommendGroupFragment;
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_join_group;
@@ -28,16 +28,14 @@ public class SearchGroupActivity extends SuggestionsBaseActivity implements
     @Override
     protected void initView() {
         super.initView();
-        RecommendGroupFragment recommendGroupFragment = new RecommendGroupFragment();
+        recommendGroupFragment = new RecommendGroupFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
                 recommendGroupFragment).commit();
     }
 
     @Override
     protected void initData() {
-//        if (getIntent() != null) {
-//            Uri uri = getIntent().getData();
-//        }
+
     }
 
     @Override
@@ -52,9 +50,8 @@ public class SearchGroupActivity extends SuggestionsBaseActivity implements
             return false;
         }
         if (!TextUtils.isEmpty(query)) {
-            BaseEvent.SearchGroupKeyEvent search = new BaseEvent.SearchGroupKeyEvent();
-            search.keyword = query;
-            EventBus.getDefault().post(search);
+            GroupApi.getInstance().searchGroupList(query, 0, 15, this);
+            recommendGroupFragment.setmKeyword(query);
         }
         return true;
     }

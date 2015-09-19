@@ -12,13 +12,6 @@ public class BaseEvent {
 
 
     /**
-     * 搜索话题关键字Event
-     */
-    public static class SearchTopicKeyEvent {
-        public String keyword;
-    }
-
-    /**
      * 创建话题Event
      */
     public static class CreateTopicEvent {
@@ -84,13 +77,6 @@ public class BaseEvent {
     }
 
     //--------------------------------------圈子模块-------------------------------------------------
-
-    /**
-     * 搜索圈子关键字Event
-     */
-    public static class SearchGroupKeyEvent {
-        public String keyword;
-    }
 
     /**
      * 搜索圈子结果的Event

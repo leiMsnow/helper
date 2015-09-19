@@ -129,6 +129,7 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -149,8 +150,7 @@ public class TopicApi extends BaseApi {
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override
@@ -158,11 +158,14 @@ public class TopicApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-
-                BaseEvent.RecommendTopicListEvent topicListEvent = new BaseEvent.RecommendTopicListEvent();
-                topicListEvent.topicList = (result.getData().getResult());
-                if (callback != null)
-                    callback.onComplete(topicListEvent);
+                if (result.getData().getResult().size() > 0) {
+                    BaseEvent.RecommendTopicListEvent topicListEvent = new BaseEvent.RecommendTopicListEvent();
+                    topicListEvent.topicList = (result.getData().getResult());
+                    if (callback != null)
+                        callback.onComplete(topicListEvent);
+                } else {
+                    onFailure(createEmptyResult(RECOMMEND_TOPIC_LIST));
+                }
             }
 
             @Override
@@ -202,10 +205,15 @@ public class TopicApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-                BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
-                topicListEvent.topicList = (result.getData().getResult());
-                if (callback != null)
-                    callback.onComplete(topicListEvent);
+
+                if (result.getData().getResult().size() > 0) {
+                    BaseEvent.SearchTopicListEvent topicListEvent = new BaseEvent.SearchTopicListEvent();
+                    topicListEvent.topicList = (result.getData().getResult());
+                    if (callback != null)
+                        callback.onComplete(topicListEvent);
+                } else {
+                    onFailure(createEmptyResult(SEARCH_TOPIC_LIST));
+                }
             }
 
             @Override
@@ -216,6 +224,7 @@ public class TopicApi extends BaseApi {
 
         });
     }
+
 
     /**
      * 话题详情接口
@@ -332,6 +341,7 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.None);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -390,6 +400,7 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onFailure(ApiErrorResult result) {
+                        result.setDisplayType(DisplayType.Toast);
                         if (callback != null)
                             callback.onFailure(result);
                     }
@@ -434,6 +445,7 @@ public class TopicApi extends BaseApi {
 
                     @Override
                     public void onFailure(ApiErrorResult result) {
+                        result.setDisplayType(DisplayType.Toast);
                         if (callback != null)
                             callback.onFailure(result);
                     }

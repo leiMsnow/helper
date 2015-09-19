@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookAdapter;
 import com.tongban.im.api.ProductApi;
@@ -61,7 +62,7 @@ public class ProductListFragment extends BaseToolBarFragment implements AdapterV
             // 用于搜索
         } else {
             // 用于获取收藏的单品列表
-            UserCenterApi.getInstance().fetchCollectedProductList(0,10,this);
+            UserCenterApi.getInstance().fetchCollectedProductList(0, 10, this);
         }
     }
 
@@ -81,7 +82,16 @@ public class ProductListFragment extends BaseToolBarFragment implements AdapterV
      */
     public void onEventMainThread(BaseEvent.FetchCollectedProductEvent event) {
         mAdapter.replaceAll(event.getProductBookList());
+        mGridView.setVisibility(View.VISIBLE);
     }
+
+    public void onEventMainThread(ApiErrorResult obj) {
+        if (obj.getApiName().equals(ProductApi.SEARCH_PRODUCT)) {
+            mAdapter.clear();
+            mGridView.setVisibility(View.GONE);
+        }
+    }
+
 
     /**
      * 搜索单品成功的Event
@@ -90,5 +100,7 @@ public class ProductListFragment extends BaseToolBarFragment implements AdapterV
      */
     public void onEventMainThread(BaseEvent.SearchProductResultEvent event) {
         mAdapter.replaceAll(event.mProductBooks);
+        mGridView.setVisibility(View.VISIBLE);
+
     }
 }

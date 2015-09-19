@@ -10,15 +10,15 @@ public class ApiListResult<T> {
     /**
      * 状态码
      */
-    public int statusCode;
+    private int statusCode;
     /**
      * 状态描述
      */
-    public String statusDesc;
+    private String statusDesc;
     /**
      * 数据(包含result和分页信息两部分)
      */
-    public Data<T> data;
+    private Data<T> data;
 
     public int getStatusCode() {
         return statusCode;
@@ -48,11 +48,11 @@ public class ApiListResult<T> {
         /**
          * 列表数据
          */
-        public List<T> result;
+        private List<T> result;
         /**
          * 分页信息
          */
-        public Pagination pagination;
+        private Pagination pagination;
 
         public List<T> getResult() {
             return result;
@@ -75,15 +75,15 @@ public class ApiListResult<T> {
         /**
          * 每页的数据量
          */
-        public int page_size;
+        private int page_size;
         /**
          * 总页数
          */
-        public int page_num;
+        private int page_num;
         /**
          * 页码-从0开始
          */
-        public int cursor;
+        private int cursor;
 
         public int getPage_size() {
             return page_size;

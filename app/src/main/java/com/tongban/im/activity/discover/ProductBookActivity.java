@@ -12,6 +12,7 @@ import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
+import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
 import com.tongban.im.api.ProductApi;
@@ -26,7 +27,7 @@ import com.tongban.im.model.ProductBook;
  * @author Cheney
  * @date 8/20
  */
-public abstract class ProductBookActivity extends BaseApiActivity implements View.OnClickListener {
+public  class ProductBookActivity extends BaseToolBarActivity implements View.OnClickListener {
     private ImageView ivBack, ivShare, ivCollect;
     private ViewPager mViewPager; // 图集
     private TextView title;  // 名称

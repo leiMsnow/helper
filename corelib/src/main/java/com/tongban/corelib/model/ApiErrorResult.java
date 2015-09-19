@@ -10,7 +10,7 @@ public class ApiErrorResult {
     // 接口名称
     private String apiName;
     // 错误码
-    private int errorCode = -1;
+    private int errorCode = -404;
     // 错误提示
     private String errorMessage;
     // 提示方式

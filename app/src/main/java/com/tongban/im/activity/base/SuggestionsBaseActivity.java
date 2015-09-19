@@ -107,7 +107,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     protected void saveSearchKey(String query) {
         if (TextUtils.isEmpty(query))
             return;
-
+        if (mHistoryKeys == null) {
+            return;
+        }
         if (query.contains(";"))
             query = query.replace(";", "");
         if (!TextUtils.isEmpty(mHistoryKeys)) {
@@ -121,9 +123,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
             if (keyList.length == mKeyCount) {
                 mHistoryKeys = mHistoryKeys.replace(keyList[keyList.length - 1] + ";", "");
             }
-            mHistoryKeys = query + ";" + mHistoryKeys;
-            SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mHistoryKeys);
         }
+        mHistoryKeys = query + ";" + mHistoryKeys;
+        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mHistoryKeys);
     }
 
     public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {

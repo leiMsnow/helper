@@ -48,12 +48,17 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
     @Override
     public void setEmptyView(ApiErrorResult result) {
         int resId = 0;
+
+        // 无网络
+        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
+            resId = R.mipmap.bg_empty_no_network;
+        }
         // 服务器不通
-        if (result.getErrorCode() == BaseApi.API_URL_ERROR) {
+        else if (result.getErrorCode() == BaseApi.API_URL_ERROR) {
             resId = R.mipmap.bg_empty_url_error;
         }
         // 专题相关
-        if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
+        else if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
         }
         // 话题相关
@@ -69,10 +74,7 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
                 result.getApiName().equals(ProductApi.SEARCH_PRODUCT)) {
             resId = R.mipmap.bg_empty_search;
         }
-        // 无网络
-        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
-            resId = R.mipmap.bg_empty_no_network;
-        }
+
 
         ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
         if (resId == 0) {

@@ -36,8 +36,7 @@
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:visibility="gone" />
+        android:layout_below="@+id/toolbar" />
 
     <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_tips_list"

@@ -43,7 +43,7 @@ public class ProductApi extends BaseApi {
     public static final String NO_COLLECT_PRODUCT = "/user/nocollect/product";
 
 
-//---------------------------------------输出接口----------------------------------------------------
+    //---------------------------------------输出接口----------------------------------------------------
     // 获取首页数据
     public static final String FETCH_HOME_INFO = "/home/template/require";
 
@@ -118,8 +118,8 @@ public class ProductApi extends BaseApi {
     /**
      * 获取专题的收藏数量
      *
-     * @param floor   楼层
-     * @param themeId 专题id
+     * @param floor    楼层
+     * @param themeId  专题id
      * @param callback 回调
      */
     public void fetchThemeCollectedAmount(final int floor, @NonNull String themeId
@@ -143,6 +143,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.None);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -245,6 +246,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -275,6 +277,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -338,6 +341,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -368,12 +372,12 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
         });
     }
-
 
 
     /**
@@ -401,16 +405,20 @@ public class ProductApi extends BaseApi {
                 ApiListResult<Theme> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Theme>>() {
                         });
-                List<Theme> themeList = result.getData().getResult();
-                BaseEvent.SearchThemeResultEvent event = new BaseEvent.SearchThemeResultEvent();
-                event.mThemes = themeList;
-                callback.onComplete(event);
+
+                if (result.getData().getResult().size() > 0) {
+                    List<Theme> themeList = result.getData().getResult();
+                    BaseEvent.SearchThemeResultEvent event = new BaseEvent.SearchThemeResultEvent();
+                    event.mThemes = themeList;
+                    callback.onComplete(event);
+                } else {
+                    onFailure(createEmptyResult(SEARCH_THEME));
+                }
             }
 
             @Override
             public void onFailure(ApiErrorResult result) {
-                if (callback != null)
-                    callback.onFailure(result);
+                callback.onFailure(result);
             }
         });
     }
@@ -440,10 +448,14 @@ public class ProductApi extends BaseApi {
                 ApiListResult<ProductBook> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
-                List<ProductBook> productBooks = result.getData().getResult();
-                BaseEvent.SearchProductResultEvent event = new BaseEvent.SearchProductResultEvent();
-                event.mProductBooks = productBooks;
-                callback.onComplete(event);
+                if (result.getData().getResult().size() > 0) {
+                    List<ProductBook> productBooks = result.getData().getResult();
+                    BaseEvent.SearchProductResultEvent event = new BaseEvent.SearchProductResultEvent();
+                    event.mProductBooks = productBooks;
+                    callback.onComplete(event);
+                } else {
+                    onFailure(createEmptyResult(SEARCH_PRODUCT));
+                }
             }
 
             @Override

@@ -145,6 +145,8 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+
+                result.setDisplayType(DisplayType.Toast);
                 callback.onFailure(result);
             }
         });
@@ -195,6 +197,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
@@ -219,8 +222,7 @@ public class GroupApi extends BaseApi {
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override
@@ -275,11 +277,14 @@ public class GroupApi extends BaseApi {
                 ApiListResult<Group> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Group>>() {
                         });
+                if (apiResponse.getData().getResult().size() > 0) {
                     BaseEvent.SearchGroupListEvent searchGroupEvent = new BaseEvent.SearchGroupListEvent();
                     searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)
                         callback.onComplete(searchGroupEvent);
-
+                }else{
+                    onFailure(createEmptyResult(SEARCH_GROUP_LIST));
+                }
             }
 
             @Override
@@ -402,6 +407,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }
