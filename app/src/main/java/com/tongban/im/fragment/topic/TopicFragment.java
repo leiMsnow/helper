@@ -42,7 +42,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     private ImageButton ibSearch;
     private ImageButton ibCreate;
     private TextView tvTitle;
-    private View toolbar;
 
     private boolean mIsMainEvent = false;
 
@@ -60,7 +59,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     @Override
     protected void initView() {
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        toolbar = mView.findViewById(R.id.in_topic_toolbar);
+        mToolbar = mView.findViewById(R.id.in_topic_toolbar);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
@@ -94,7 +93,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             ptrFrameLayout.setPtrHandler(this);
             ptrFrameLayout.autoRefresh();
         } else {
-            toolbar.setVisibility(View.GONE);
+            mToolbar.setVisibility(View.GONE);
         }
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
@@ -211,8 +210,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
         mCursor++;
         if (mIsMainEvent)
             TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
-        else
-            TopicApi.getInstance().searchTopicList(mKeyword, mCursor, mPageSize, this);
     }
 
     /***
@@ -243,7 +240,8 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     @Override
     public void onRequest() {
-        onLoadMore();
+        mCursor = 0;
+        TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
     }
 
     @Override

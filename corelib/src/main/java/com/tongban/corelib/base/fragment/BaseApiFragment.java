@@ -119,11 +119,7 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
                     .setDuration(500);
             objectAnimator.start();
-            if (mView.getParent() == null) {
-                ((ViewGroup) mView).addView(mEmptyView, layoutParams);
-            } else {
-                ((ViewGroup) mView.getParent()).addView(mEmptyView, layoutParams);
-            }
+            ((ViewGroup) mView).addView(mEmptyView, layoutParams);
         }
     }
 }

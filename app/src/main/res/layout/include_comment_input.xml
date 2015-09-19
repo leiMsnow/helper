@@ -40,6 +40,7 @@
             android:maxLength="500"
             android:maxLines="5"
             android:minHeight="40dp"
+            android:textColor="@color/main_black"
             android:paddingLeft="8dp"
             android:textColorHint="@color/normal_grey"
             android:textSize="14sp" />

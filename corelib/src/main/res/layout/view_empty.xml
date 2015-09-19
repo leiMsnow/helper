@@ -17,11 +17,10 @@
         android:id="@+id/iv_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:background="@color/white"
         android:clickable="true"
         android:focusable="true"
         android:scaleType="center"
-        android:src="@mipmap/bg_empty_data"
         android:visibility="gone"/>
 
 

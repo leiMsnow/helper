@@ -46,6 +46,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected void initView() {
+        mToolbar = mView.findViewById(R.id.rl_toolbar);
         ivUserPortrait = (ImageView) mView.findViewById(R.id.iv_user_portrait);
         ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
@@ -63,6 +64,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected void initListener() {
+        setRequestApiListener(this);
         ivUserPortrait.setOnClickListener(this);
         ivSearchAll.setOnClickListener(this);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,8 +112,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
             }
         });
         mListView.setAdapter(mAdapter);
-        // 获取首页数据
-        ProductApi.getInstance().fetchHomeInfo(this);
+        onRequest();
     }
 
     @Override
@@ -144,7 +145,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     public void onEventMainThread(BaseEvent.FetchHomeInfo homeInfo) {
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
-
+        mListView.setVisibility(View.VISIBLE);
         if (homeInfo != null && homeInfo.getList().size() > 0) {
             mAdapter.replaceAll(homeInfo.getList());
             // 请求收藏数量数据并更新
@@ -187,6 +188,12 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
+        // 获取首页数据
+        ProductApi.getInstance().fetchHomeInfo(this);
+    }
+
+    @Override
+    public void onRequest() {
         // 获取首页数据
         ProductApi.getInstance().fetchHomeInfo(this);
     }

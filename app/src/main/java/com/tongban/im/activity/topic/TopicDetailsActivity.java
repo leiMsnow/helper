@@ -1,11 +1,7 @@
 package com.tongban.im.activity.topic;
 
-import android.net.Uri;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -15,7 +11,6 @@ import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
@@ -25,7 +20,6 @@ import com.tongban.im.common.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.Topic;
 import com.tongban.im.model.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
 
@@ -95,8 +89,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
         topicInputView.setOnClickCommentListener(this);
 
         if (!TextUtils.isEmpty(mTopicId)) {
-            TopicApi.getInstance().getTopicInfo(mTopicId, this);
-            TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
+            onRequest();
 
             mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
             mAdapter.setOnClickListener(this);
@@ -113,12 +106,19 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     protected void initListener() {
+        setRequestApiListener(this);
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         lvReplyList.setOnLoadMoreListener(this);
 
     }
 
+    @Override
+    public void onRequest() {
+        mCursor = 0;
+        TopicApi.getInstance().getTopicInfo(mTopicId, this);
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
+    }
 
     @Override
     public void onClick(View v) {
@@ -196,8 +196,9 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
             tvComment.setText(mTopicInfo.getComment_amount());
 
             mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
+            lvReplyList.setVisibility(View.VISIBLE);
         } else {
-            lvReplyList.removeHeaderView(mHeader);
+            lvReplyList.setVisibility(View.GONE);
         }
     }
 
@@ -215,6 +216,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
         }
         mCursor++;
         lvReplyList.setResultSize(obj.topicCommentList.size());
+        topicInputView.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -132,6 +132,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         createEmptyView();
         ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
         pb.setVisibility(View.VISIBLE);
+        mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty).setVisibility(View.GONE);
     }
 
     /**
@@ -143,10 +144,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         pb.setVisibility(View.GONE);
     }
 
-    public void hidEmptyView() {
-        createEmptyView();
-        mEmptyView.setVisibility(View.GONE);
-    }
 
     public abstract void setEmptyView(ApiErrorResult result);
 }

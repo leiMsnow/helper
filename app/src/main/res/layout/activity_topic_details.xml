@@ -14,12 +14,14 @@
         android:layout_below="@+id/toolbar"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
+        android:visibility="gone"
         android:scrollbars="none" />
 
     <com.tongban.im.widget.view.TopicInputView
         android:id="@+id/topic_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

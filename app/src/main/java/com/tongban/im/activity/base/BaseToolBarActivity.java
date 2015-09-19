@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,21 +18,22 @@ import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.api.ProductApi;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 
 /**
  * Created by zhangleilei on 15/7/8.
  */
-public abstract class BaseToolBarActivity extends BaseApiActivity {
+public abstract class BaseToolBarActivity extends BaseApiActivity implements RequestApiListener {
 
     protected Toolbar mToolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initToolbar();
     }
+
 
     protected void initToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
@@ -49,6 +51,15 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
             finish();
         }
         return true;
+    }
+
+    protected int getToolbarHeight() {
+        int height = 0;
+        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
+        if (mToolbar != null) {
+            height = DensityUtils.dp2px(mContext,56);
+        }
+        return height;
     }
 
 
@@ -72,12 +83,18 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         int resId = 0;
         if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
+        } else if (result.getApiName().equals(TopicApi.TOPIC_INFO) ||
+                result.getApiName().equals(TopicApi.TOPIC_COMMENT_LIST)) {
+            resId = R.mipmap.bg_empty_topic;
         }
         ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
         if (resId == 0) {
             ivEmpty.setVisibility(View.GONE);
             return;
         }
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivEmpty.getLayoutParams();
+        lp.topMargin = getToolbarHeight();
+        ivEmpty.setLayoutParams(lp);
         ivEmpty.setVisibility(View.VISIBLE);
         ivEmpty.setImageResource(resId);
         ivEmpty.setOnClickListener(new View.OnClickListener() {
@@ -90,4 +107,8 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         });
     }
 
+    @Override
+    public void onRequest() {
+
+    }
 }
