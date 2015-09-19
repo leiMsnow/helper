@@ -184,7 +184,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
                 ptrFrameLayout.refreshComplete();
             if (mAdapter != null) {
                 if (mAdapter.getCount() > 0) {
-                    hidEmptyView();
+                    hideEmptyView();
                 }
             }
         }

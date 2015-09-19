@@ -129,7 +129,8 @@ public class GroupApi extends BaseApi {
         simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -222,7 +223,8 @@ public class GroupApi extends BaseApi {
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -282,7 +284,7 @@ public class GroupApi extends BaseApi {
                     searchGroupEvent.groups = (apiResponse.getData().getResult());
                     if (callback != null)
                         callback.onComplete(searchGroupEvent);
-                }else{
+                } else {
                     onFailure(createEmptyResult(SEARCH_GROUP_LIST));
                 }
             }

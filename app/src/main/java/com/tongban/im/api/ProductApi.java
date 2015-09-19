@@ -92,7 +92,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(FETCH_HOME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -103,7 +104,8 @@ public class ProductApi extends BaseApi {
                 List<Discover> discoverList = result.getData();
                 BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
                 homeInfo.setList(discoverList);
-                callback.onComplete(homeInfo);
+                if (callback != null)
+                    callback.onComplete(homeInfo);
             }
 
             @Override
@@ -163,8 +165,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(FETCH_THEME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
-            }
+                if (callback != null)
+                    callback.onStartApi();            }
 
             @Override
             public void onComplete(Object obj) {
@@ -200,7 +202,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(FETCH_THEME_PRODUCTS, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -235,7 +238,6 @@ public class ProductApi extends BaseApi {
         simpleRequest(COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
             }
 
             @Override
@@ -266,7 +268,6 @@ public class ProductApi extends BaseApi {
         simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
             }
 
             @Override
@@ -297,8 +298,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
-            }
+                if (callback != null)
+                    callback.onStartApi();            }
 
             @Override
             public void onComplete(Object obj) {
@@ -330,7 +331,7 @@ public class ProductApi extends BaseApi {
         simpleRequest(COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+
             }
 
             @Override
@@ -397,7 +398,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(SEARCH_THEME, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
@@ -440,7 +442,8 @@ public class ProductApi extends BaseApi {
         simpleRequest(SEARCH_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override

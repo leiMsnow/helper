@@ -1,21 +1,13 @@
 package com.tongban.corelib.base.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.tongban.corelib.R;
 import com.tongban.corelib.base.api.IApiCallback;
-import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.BaseProgressDialog;
 
 import de.greenrobot.event.EventBus;
 
@@ -25,12 +17,7 @@ import de.greenrobot.event.EventBus;
  */
 public abstract class BaseApiActivity extends BaseTemplateActivity implements IApiCallback {
 
-    protected View mEmptyView;
-    protected RequestApiListener requestApiListener;
-
-    public void setRequestApiListener(RequestApiListener requestApiListener) {
-        this.requestApiListener = requestApiListener;
-    }
+    private BaseProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +49,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
     @Override
     public void onComplete(Object obj) {
         EventBus.getDefault().post(obj);
-
-        if (mEmptyView != null) {
-            if (mEmptyView.getVisibility() == View.VISIBLE) {
-                ObjectAnimator objectAnimator = ObjectAnimator
-                        .ofFloat(mEmptyView, "alpha", 1.0f, 0.0f).setDuration(500);
-                objectAnimator.start();
-                objectAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        mEmptyView.setVisibility(View.GONE);
-                    }
-                });
-            }
-        }
     }
 
     @Override
@@ -102,48 +74,26 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         }
     }
 
-    /**
-     * 创建空数据布局
-     */
-    protected void createEmptyView() {
-
-        mEmptyView = this.findViewById(R.id.rl_empty_view);
-        if (mEmptyView != null) {
-            mEmptyView.setVisibility(View.VISIBLE);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
-                    .setDuration(500);
-            objectAnimator.start();
-        } else {
-            mEmptyView = LayoutInflater.from(mContext).inflate(R.layout.view_empty, null);
-
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
-                    .setDuration(500);
-            objectAnimator.start();
-            this.addContentView(mEmptyView, layoutParams);
-        }
-    }
 
     /**
      * 显示进度条
      */
-    public void showProgress() {
-        createEmptyView();
-        ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
-        pb.setVisibility(View.VISIBLE);
-        mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty).setVisibility(View.GONE);
+    protected void showProgress() {
+        if (mDialog == null) {
+            mDialog = new BaseProgressDialog(mContext);
+        }
+        mDialog.show();
     }
 
     /**
      * 隐藏进度条
      */
     public void hideProgress() {
-        createEmptyView();
-        ProgressBar pb = (ProgressBar) mEmptyView.findViewById(R.id.pb_loading);
-        pb.setVisibility(View.GONE);
+        if (mDialog != null && mDialog.isShowing()) {
+            mDialog.dismiss();
+            mDialog = null;
+        }
     }
-
 
     public abstract void setEmptyView(ApiErrorResult result);
 }

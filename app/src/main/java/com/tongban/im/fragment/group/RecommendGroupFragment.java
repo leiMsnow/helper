@@ -72,6 +72,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     protected void initListener() {
+        setRequestApiListener(this);
         mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
@@ -92,7 +93,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (mIsMainEvent) {
             ptrFrameLayout.refreshComplete();
             if (mAdapter != null && mAdapter.getCount() > 0) {
-                hidEmptyView();
+                hideEmptyView();
             }
         } else {
             if (mAdapter != null) {
@@ -142,6 +143,11 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     public void onRefreshBegin(PtrFrameLayout frameLayout) {
-        GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
+        onRequest();
+    }
+
+    @Override
+    public void onRequest() {
+        GroupApi.getInstance().recommendGroupList(0, 20, this);
     }
 }

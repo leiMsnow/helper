@@ -150,7 +150,8 @@ public class TopicApi extends BaseApi {
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override

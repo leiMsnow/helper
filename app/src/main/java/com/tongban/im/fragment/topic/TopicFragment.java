@@ -165,7 +165,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
         if (mIsMainEvent) {
             ptrFrameLayout.refreshComplete();
             if (mAdapter != null && mAdapter.getCount() > 0) {
-                hidEmptyView();
+                hideEmptyView();
             }
         } else {
             mAdapter.clear();

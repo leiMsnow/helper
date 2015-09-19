@@ -1,19 +1,10 @@
 package com.tongban.corelib.base.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
-import com.tongban.corelib.R;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.IApiCallback;
-import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 
 import de.greenrobot.event.EventBus;
@@ -26,13 +17,6 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     private BaseApiActivity mBaseApiActivity;
 
-    protected View mEmptyView;
-    protected RequestApiListener requestApiListener;
-
-    public void setRequestApiListener(RequestApiListener requestApiListener) {
-        this.requestApiListener = requestApiListener;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,25 +27,21 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     @Override
     public void onStartApi() {
-        hidEmptyView();
         if (mBaseApiActivity != null)
             mBaseApiActivity.onStartApi();
     }
 
     @Override
     public void onComplete(Object obj) {
-        hidEmptyView();
         if (mBaseApiActivity != null)
             mBaseApiActivity.onComplete(obj);
-
     }
 
     @Override
     public void onFailure(ApiErrorResult result) {
         if (result.getDisplayType() == DisplayType.View ||
                 result.getDisplayType() == DisplayType.ALL) {
-            if (createEmptyView())
-                setEmptyView(result);
+            setEmptyView(result);
             result.setDisplayType(DisplayType.None);
         }
         if (mBaseApiActivity != null)
@@ -74,45 +54,11 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     public abstract void setEmptyView(ApiErrorResult result);
 
-    /**
-     * 隐藏空数据
-     */
-    protected void hidEmptyView() {
-        if (createEmptyView())
-            mEmptyView.findViewById(R.id.iv_empty).setVisibility(View.GONE);
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
 
-    /**
-     * 创建空数据布局
-     */
-    protected boolean createEmptyView() {
-        if (mView == null) {
-            return false;
-        }
-        mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
-        if (mEmptyView != null) {
-            mEmptyView.setVisibility(View.VISIBLE);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
-                    .setDuration(500);
-            objectAnimator.start();
-        } else {
 
-            mEmptyView = LayoutInflater.from(mContext)
-                    .inflate(com.tongban.corelib.R.layout.view_empty, null);
-
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mEmptyView, "alpha", 0.0f, 1.0f)
-                    .setDuration(500);
-            objectAnimator.start();
-            ((ViewGroup) mView).addView(mEmptyView, layoutParams);
-        }
-        return true;
-    }
 }

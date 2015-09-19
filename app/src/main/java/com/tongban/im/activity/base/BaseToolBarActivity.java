@@ -5,32 +5,32 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.api.CommonApi;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.Topic;
+import com.tongban.im.utils.EmptyViewUtils;
 
 /**
+ * toolbar的基础类
+ * 1 toolbar的综合封装
+ * 2 错误页的统一处理类
  * Created by zhangleilei on 15/7/8.
  */
 public abstract class BaseToolBarActivity extends BaseApiActivity implements RequestApiListener {
 
     protected Toolbar mToolbar;
+    protected View mEmptyParentView;
+    protected RequestApiListener requestApiListener;
+
+    public void setRequestApiListener(RequestApiListener requestApiListener) {
+        this.requestApiListener = requestApiListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,11 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         if (mToolbar == null) {
             return;
         }
+        //弹出菜单变成白色
         mToolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -61,7 +63,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         int height = 0;
 //        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
 //        if (mToolbar != null) {
-            height = DensityUtils.dp2px(mContext, 56);
+        height = DensityUtils.dp2px(mContext, 56);
 //        }
         return height;
     }
@@ -77,64 +79,43 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         Glide.with(this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
     }
 
-    /**
-     * 显示空数据
-     *
-     * @param result
-     */
-    @Override
-    public void setEmptyView(ApiErrorResult result) {
-        int resId = 0;
-        // 无网络
-        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
-            resId = R.mipmap.bg_empty_no_network;
-        }
-        // 服务器不通
-        else if (result.getErrorCode() == BaseApi.API_URL_ERROR) {
-            resId = R.mipmap.bg_empty_url_error;
-        }
-        // 专题相关
-        else if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
-            resId = R.mipmap.bg_empty_discover;
-        }
-        // 话题相关
-        else if (result.getApiName().equals(TopicApi.TOPIC_INFO) ||
-                result.getApiName().equals(TopicApi.TOPIC_COMMENT_LIST) ||
-                result.getApiName().equals(TopicApi.OFFICIAL_TOPIC_INFO)) {
-            resId = R.mipmap.bg_empty_topic;
-        }
-        // 圈子相关
-        else if (result.getApiName().equals(GroupApi.GROUP_INFO)) {
-            resId = R.mipmap.bg_empty_group;
-        }
-        // 搜索相关
-        else if (result.getApiName().equals(CommonApi.FETCH_DISCOVER_TAG)) {
-            resId = R.mipmap.bg_empty_search;
-        }
-
-
-        ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
-        if (resId == 0) {
-            ivEmpty.setVisibility(View.GONE);
-            return;
-        }
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivEmpty.getLayoutParams();
-        lp.topMargin = getToolbarHeight();
-        ivEmpty.setLayoutParams(lp);
-        ivEmpty.setVisibility(View.VISIBLE);
-        ivEmpty.setImageResource(resId);
-        ivEmpty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (requestApiListener != null) {
-                    requestApiListener.onRequest();
-                }
-            }
-        });
-    }
-
     @Override
     public void onRequest() {
 
+    }
+
+    @Override
+    public void onStartApi() {
+        super.onStartApi();
+        hideEmptyView();
+    }
+
+    @Override
+    public void onComplete(Object obj) {
+        super.onComplete(obj);
+        hideEmptyView();
+    }
+
+    @Override
+    public void setEmptyView(ApiErrorResult result) {
+        if (mEmptyParentView == null) {
+            mEmptyParentView =  EmptyViewUtils.getInstance()
+                    .createEmptyView(mContext);
+
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            this.addContentView(mEmptyParentView, layoutParams);
+        } else {
+            EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
+        }
+        EmptyViewUtils.getInstance().
+                showEmptyView(result, mEmptyParentView, getToolbarHeight(), requestApiListener);
+    }
+
+    /**
+     * 隐藏空数据布局
+     */
+    protected void hideEmptyView() {
+        EmptyViewUtils.getInstance().hideEmptyView(mEmptyParentView);
     }
 }

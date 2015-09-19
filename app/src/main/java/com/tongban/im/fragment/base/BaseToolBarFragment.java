@@ -1,8 +1,8 @@
 package com.tongban.im.fragment.base;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.api.IApiCallback;
@@ -10,12 +10,8 @@ import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
-import com.tongban.im.R;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.utils.EmptyViewUtils;
 
 /**
  * 基础fragment的api通用类
@@ -25,6 +21,13 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
         RequestApiListener {
 
     protected View mToolbar;
+    private View mEmptyParentView;
+
+    protected RequestApiListener requestApiListener;
+
+    public void setRequestApiListener(RequestApiListener requestApiListener) {
+        this.requestApiListener = requestApiListener;
+    }
 
     /**
      * 设置用户头像信息
@@ -47,58 +50,45 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
 
     @Override
     public void setEmptyView(ApiErrorResult result) {
-        int resId = 0;
 
-        // 无网络
-        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
-            resId = R.mipmap.bg_empty_no_network;
-        }
-        // 服务器不通
-        else if (result.getErrorCode() == BaseApi.API_URL_ERROR) {
-            resId = R.mipmap.bg_empty_url_error;
-        }
-        // 专题相关
-        else if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
-            resId = R.mipmap.bg_empty_discover;
-        }
-        // 话题相关
-        else if (result.getApiName().equals(TopicApi.RECOMMEND_TOPIC_LIST)) {
-            resId = R.mipmap.bg_empty_topic;
-        }
-        // 圈子相关
-        else if (result.getApiName().equals(GroupApi.RECOMMEND_GROUP_LIST)) {
-            resId = R.mipmap.bg_empty_group;
-        }
-        // 搜索相关
-        else if (result.getApiName().equals(ProductApi.SEARCH_THEME) ||
-                result.getApiName().equals(ProductApi.SEARCH_PRODUCT)) {
-            resId = R.mipmap.bg_empty_search;
-        }
+        if (mEmptyParentView == null) {
+            mEmptyParentView = EmptyViewUtils.getInstance()
+                    .createEmptyView(mContext);
 
-
-        ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
-        if (resId == 0) {
-            ivEmpty.setVisibility(View.GONE);
-            return;
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            ((ViewGroup) mView).addView(mEmptyParentView, layoutParams);
+        } else {
+            EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
         }
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivEmpty.getLayoutParams();
-        lp.topMargin = getToolbarHeight();
-        ivEmpty.setLayoutParams(lp);
+        EmptyViewUtils.getInstance().
+                showEmptyView(result, mEmptyParentView, getToolbarHeight(), requestApiListener);
 
-        ivEmpty.setVisibility(View.VISIBLE);
-        ivEmpty.setImageResource(resId);
-        ivEmpty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (requestApiListener != null) {
-                    requestApiListener.onRequest();
-                }
-            }
-        });
     }
 
     @Override
     public void onRequest() {
 
     }
+
+    @Override
+    public void onStartApi() {
+        hideEmptyView();
+        super.onStartApi();
+    }
+
+    @Override
+    public void onComplete(Object obj) {
+        hideEmptyView();
+        super.onComplete(obj);
+    }
+
+
+    /**
+     * 隐藏空数据布局
+     */
+    protected void hideEmptyView() {
+        EmptyViewUtils.getInstance().hideEmptyView(mEmptyParentView);
+    }
+
 }

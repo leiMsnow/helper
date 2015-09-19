@@ -46,9 +46,4 @@ public abstract class BaseTemplateFragment extends BaseFragment {
      */
     protected abstract void initListener();
 
-    @Override
-    public void onDestroyView() {
-        ((ViewGroup) mView.getParent()).removeView(mView);
-        super.onDestroyView();
-    }
 }
