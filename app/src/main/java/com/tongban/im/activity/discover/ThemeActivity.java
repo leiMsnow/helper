@@ -19,6 +19,7 @@ import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.ThemeBaseActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
@@ -37,19 +38,15 @@ import java.util.List;
  * 专题页
  * Created by Cheney on 15/8/17.
  */
-public class ThemeActivity extends BaseToolBarActivity {
-    // 收藏按钮
-    private MenuItem collectMenu;
+public class ThemeActivity extends ThemeBaseActivity {
+
+    private View mParent;
     // 专题头图
     private ImageView headImg;
     // 专题标题
     private TextView title;
     // 存在专题标题的布局
     private FlowLayout themeTag;
-    // 发表人头像
-    private CircleImageView userPortrait;
-    // 发表人姓名
-    private TextView userName;
     // 创建时间
     private TextView createTime;
     // 专题描述
@@ -77,11 +74,11 @@ public class ThemeActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
+        super.initView();
+        mParent = findViewById(R.id.sl_parent);
         headImg = (ImageView) findViewById(R.id.iv_head);
         title = (TextView) findViewById(R.id.tv_title);
         themeTag = (FlowLayout) findViewById(R.id.fl_tag);
-        userPortrait = (CircleImageView) findViewById(R.id.iv_user_portrait);
-        userName = (TextView) findViewById(R.id.tv_user_name);
         createTime = (TextView) findViewById(R.id.tv_create_time);
         themeDesc = (TextView) findViewById(R.id.tv_desc);
         mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
@@ -91,7 +88,6 @@ public class ThemeActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        setTitle("");
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             themeId = uri.getQueryParameter(Consts.KEY_THEME_ID);
@@ -103,50 +99,7 @@ public class ThemeActivity extends BaseToolBarActivity {
 
     @Override
     protected void initListener() {
-
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_theme, menu);
-        collectMenu = menu.findItem(R.id.collect);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.collect) {
-            if (!TransferCenter.getInstance().startLogin()) {
-                return true;
-            }
-            if (mTheme != null && !mTheme.isCollect_status()) {
-                // 未收藏时,点击收藏
-                ProductApi.getInstance().collectTheme(themeId, this);
-                item.setEnabled(false);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        item.setEnabled(true);
-                    }
-                }, 1500);
-            } else if (mTheme != null && mTheme.isCollect_status()) {
-                // 已收藏,点击取消收藏
-                ProductApi.getInstance().noCollectTheme(themeId, this);
-                item.setEnabled(false);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        item.setEnabled(true);
-                    }
-                }, 1500);
-            }
-            return true;
-        } else if (itemId == R.id.share) {
-            ToastUtil.getInstance(mContext).showToast("分享暂时不做~~~");
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        super.initListener();
     }
 
     /**
@@ -155,9 +108,8 @@ public class ThemeActivity extends BaseToolBarActivity {
      * @param theme Theme
      */
     public void onEventMainThread(Theme theme) {
+        mParent.setVisibility(View.VISIBLE);
         this.mTheme = theme;
-        // 获取专题发布人的信息
-        AccountApi.getInstance().getUserInfoByUserId(mTheme.getUser_id(), this);
         // 获取专题下的单品列表
         ProductApi.getInstance().fetchProductListByThemeId(mTheme.getTheme_id(), 0, 20, this);
         // 获取专题下的相关话题,直接调用话题搜索的接口
@@ -168,7 +120,7 @@ public class ThemeActivity extends BaseToolBarActivity {
 
         // 判断是否是收藏状态
         if (mTheme.isCollect_status()) {
-            collectMenu.setIcon(R.mipmap.ic_menu_collected);
+            ivCollect.setSelected(true);
         }
         setTitle(mTheme.getTheme_title());
         if (mTheme.getTheme_img_url() != null && mTheme.getTheme_img_url().size() > 0) {
@@ -187,12 +139,11 @@ public class ThemeActivity extends BaseToolBarActivity {
             for (String tag : themeTags) {
                 TextView tv = new TextView(mContext);
                 tv.setText(tag);
-                tv.setTextColor(getResources().getColor(R.color.main_deep_orange));
+                tv.setTextColor(getResources().getColor(R.color.theme_red));
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 0, 10, 10);
                 tv.setLayoutParams(layoutParams);
-                tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_corners_bg_grey));
                 themeTag.addView(tv);
             }
         } else {
@@ -200,22 +151,6 @@ public class ThemeActivity extends BaseToolBarActivity {
         }
         themeDesc.setText(mTheme.getTheme_content());
         createTime.setText(DateUtils.formatDateTime(mTheme.getC_time(), mContext));
-    }
-
-    /**
-     * 获取专题发布人信息成功的事件
-     *
-     * @param user User
-     */
-    public void onEventMainThread(final User user) {
-        Glide.with(mContext).load(user.getPortrait_url().getMin()).into(userPortrait);
-        userName.setText(user.getNick_name());
-        userPortrait.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TransferCenter.getInstance().startUserCenter(user.getUser_id());
-            }
-        });
     }
 
     /**
@@ -242,7 +177,7 @@ public class ThemeActivity extends BaseToolBarActivity {
                 TextView suitable_for = (TextView) view.findViewById(R.id.tv_suitable_for);
                 TextView recommendCause = (TextView) view.findViewById(R.id.tv_recommend_cause);
                 Button productDetail = (Button) view.findViewById(R.id.btn_detail);
-                cursor.setText(String.valueOf(pos));
+                cursor.setText(String.valueOf("0" + pos));
                 title.setText(productBook.getProduct_name());
                 List<ImageUrl> imgList = productBook.getProduct_img_url();
                 if (imgList != null && imgList.size() > 0) {
@@ -317,9 +252,8 @@ public class ThemeActivity extends BaseToolBarActivity {
      * @param event
      */
     public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
-        ToastUtil.getInstance(mContext).showToast("收藏专题成功");
         mTheme.setCollect_status(true);
-        collectMenu.setIcon(R.mipmap.ic_menu_collected);
+        ivCollect.setSelected(true);
     }
 
     /**
@@ -328,9 +262,38 @@ public class ThemeActivity extends BaseToolBarActivity {
      * @param event
      */
     public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
-        ToastUtil.getInstance(mContext).showToast("已经取消收藏");
         mTheme.setCollect_status(false);
-        collectMenu.setIcon(R.mipmap.ic_menu_collect);
+        ivCollect.setSelected(false);
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v == ivCollect) {
+            if (!TransferCenter.getInstance().startLogin()) {
+                return;
+            }
+            if (mTheme != null && !mTheme.isCollect_status()) {
+                // 未收藏时,点击收藏
+                ProductApi.getInstance().collectTheme(themeId, this);
+                ivCollect.setEnabled(false);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ivCollect.setEnabled(true);
+                    }
+                }, 1500);
+            } else if (mTheme != null && mTheme.isCollect_status()) {
+                // 已收藏,点击取消收藏
+                ProductApi.getInstance().noCollectTheme(themeId, this);
+                ivCollect.setEnabled(false);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ivCollect.setEnabled(true);
+                    }
+                }, 1500);
+            }
+        }
+    }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/transparent"
+    android:gravity="center_vertical"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_product_back" />
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:adjustViewBounds="true"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_product_share" />
+
+    <ImageView
+        android:id="@+id/iv_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/iv_share"
+        android:adjustViewBounds="true"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/selector_product_collect" />
+</RelativeLayout>

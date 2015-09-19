@@ -59,10 +59,10 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
 
     protected int getToolbarHeight() {
         int height = 0;
-        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
-        if (mToolbar != null) {
+//        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
+//        if (mToolbar != null) {
             height = DensityUtils.dp2px(mContext, 56);
-        }
+//        }
         return height;
     }
 

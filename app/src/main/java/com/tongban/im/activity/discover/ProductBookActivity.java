@@ -13,6 +13,7 @@ import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.ThemeBaseActivity;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
 import com.tongban.im.api.ProductApi;
@@ -27,8 +28,9 @@ import com.tongban.im.model.ProductBook;
  * @author Cheney
  * @date 8/20
  */
-public  class ProductBookActivity extends BaseToolBarActivity implements View.OnClickListener {
-    private ImageView ivBack, ivShare, ivCollect;
+public  class ProductBookActivity extends ThemeBaseActivity implements View.OnClickListener {
+    private View mParent;
+
     private ViewPager mViewPager; // 图集
     private TextView title;  // 名称
     private FlowLayout flTag;  // 标签
@@ -52,9 +54,8 @@ public  class ProductBookActivity extends BaseToolBarActivity implements View.On
 
     @Override
     protected void initView() {
-        ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivShare = (ImageView) findViewById(R.id.iv_share);
-        ivCollect = (ImageView) findViewById(R.id.iv_collect);
+        super.initView();
+        mParent = findViewById(R.id.sl_parent);
         mViewPager = (ViewPager) findViewById(R.id.vp_img);
         title = (TextView) findViewById(R.id.tv_title);
         flTag = (FlowLayout) findViewById(R.id.fl_tag);
@@ -86,9 +87,8 @@ public  class ProductBookActivity extends BaseToolBarActivity implements View.On
 
     @Override
     public void onClick(View v) {
-        if (v == ivBack) {
-            finish();
-        } else if (v == ivCollect) {
+        super.onClick(v);
+         if (v == ivCollect) {
             if (!TransferCenter.getInstance().startLogin()) {
                 return;
             }
@@ -112,6 +112,7 @@ public  class ProductBookActivity extends BaseToolBarActivity implements View.On
         if (mProductBook.isCollect_status()) {
             ivCollect.setSelected(true);
         }
+        mParent.setVisibility(View.VISIBLE);
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);
         title.setText(mProductBook.getProduct_name());

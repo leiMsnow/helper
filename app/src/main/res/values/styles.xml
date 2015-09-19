@@ -98,7 +98,7 @@
     <style name="UserInfoBadge">
         <item name="android:layout_width">8dp</item>
         <item name="android:layout_height">8dp</item>
-        <item name="android:background">@drawable/shape_corners_white_bg</item>
+        <item name="android:background">@drawable/shape_badge_white_bg</item>
     </style>
 
     <!-- 创建圈子文本的样式-->
