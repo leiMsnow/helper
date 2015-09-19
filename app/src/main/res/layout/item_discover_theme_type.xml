@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="玩具 · BOYS"

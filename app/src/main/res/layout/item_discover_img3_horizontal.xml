@@ -4,8 +4,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <include layout="@layout/item_discover_theme_type" />
 
@@ -14,17 +14,18 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_corners_normal"
         android:orientation="vertical"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="10dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
         <!-- 标题 -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="标题"
             android:textColor="@color/main_black"
             android:textSize="16sp" />
         <!-- 内容 -->
@@ -32,9 +33,10 @@
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:text="内容"
             android:textColor="@color/normal_dark_grey" />
         <!-- 3张单品图 -->
         <LinearLayout
@@ -72,7 +74,8 @@
                 android:src="@drawable/rc_ic_def_rich_content" />
         </LinearLayout>
 
-        <include layout="@layout/include_topic_bottom_main" />
 
     </LinearLayout>
+
+    <include layout="@layout/include_topic_bottom_main" />
 </LinearLayout>
