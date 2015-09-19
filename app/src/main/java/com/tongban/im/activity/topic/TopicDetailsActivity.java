@@ -101,7 +101,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     protected void initListener() {
-        setRequestApiListener(this);
         ivUserPortrait.setOnClickListener(this);
         ivComment.setOnClickListener(this);
         lvReplyList.setOnLoadMoreListener(this);

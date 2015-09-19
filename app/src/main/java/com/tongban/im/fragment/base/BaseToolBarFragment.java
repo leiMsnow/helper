@@ -14,6 +14,7 @@ import com.tongban.im.R;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 
 /**
@@ -21,7 +22,7 @@ import com.tongban.im.common.Consts;
  * 目前都复用activity中的处理方式
  */
 public abstract class BaseToolBarFragment extends BaseApiFragment implements IApiCallback,
-        RequestApiListener{
+        RequestApiListener {
 
     protected View mToolbar;
 
@@ -46,17 +47,38 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
 
     @Override
     public void setEmptyView(ApiErrorResult result) {
-
-        int resId = R.mipmap.bg_empty_no_network;
+        int resId = 0;
+        // 服务器不通
+        if (result.getErrorCode() == BaseApi.API_URL_ERROR) {
+            resId = R.mipmap.bg_empty_url_error;
+        }
+        // 专题相关
         if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
-        } else if (result.getApiName().equals(TopicApi.RECOMMEND_TOPIC_LIST)) {
+        }
+        // 话题相关
+        else if (result.getApiName().equals(TopicApi.RECOMMEND_TOPIC_LIST)) {
             resId = R.mipmap.bg_empty_topic;
-        } else if (result.getApiName().equals(GroupApi.RECOMMEND_GROUP_LIST)) {
+        }
+        // 圈子相关
+        else if (result.getApiName().equals(GroupApi.RECOMMEND_GROUP_LIST)) {
             resId = R.mipmap.bg_empty_group;
         }
-        ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
+        // 搜索相关
+        else if (result.getApiName().equals(ProductApi.SEARCH_THEME) ||
+                result.getApiName().equals(ProductApi.SEARCH_PRODUCT)) {
+            resId = R.mipmap.bg_empty_search;
+        }
+        // 无网络
+        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
+            resId = R.mipmap.bg_empty_no_network;
+        }
 
+        ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
+        if (resId == 0) {
+            ivEmpty.setVisibility(View.GONE);
+            return;
+        }
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivEmpty.getLayoutParams();
         lp.topMargin = getToolbarHeight();
         ivEmpty.setLayoutParams(lp);

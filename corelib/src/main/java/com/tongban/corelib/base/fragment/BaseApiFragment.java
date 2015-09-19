@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.tongban.corelib.R;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
@@ -41,6 +43,7 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     @Override
     public void onStartApi() {
+        hidEmptyView();
         if (mBaseApiActivity != null)
             mBaseApiActivity.onStartApi();
     }
@@ -85,11 +88,11 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     public abstract void setEmptyView(ApiErrorResult result);
 
     /**
-     * 显示空数据/加载条
+     * 隐藏空数据
      */
-    protected void hidEmptyText() {
-        if (mBaseApiActivity != null)
-            mBaseApiActivity.hideProgress();
+    protected void hidEmptyView() {
+        createEmptyView();
+        mEmptyView.findViewById(R.id.iv_empty).setVisibility(View.GONE);
     }
 
     @Override

@@ -162,7 +162,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
         ptrFrameLayout.refreshComplete();
         if (mAdapter != null) {
             if (mAdapter.getCount() > 0) {
-                hidEmptyText();
+                hidEmptyView();
             }
         }
     }

@@ -167,6 +167,7 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.View);
                 if (callback != null)
                     callback.onFailure(result);
             }

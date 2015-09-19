@@ -54,7 +54,11 @@ public class BaseApi {
     /**
      * 无网络
      */
-    public final static int API_NO_NETWORK = -404;
+    public final static int API_NO_NETWORK = -1;
+    /**
+     * 服务器地址错误
+     */
+    public final static int API_URL_ERROR = -404;
     /**
      * 客户端与服务器时间不同步
      */
@@ -234,8 +238,9 @@ public class BaseApi {
                     // 请求失败,错误信息回调给调用方
                     String errorMessage = getErrorMessage();
                     ApiErrorResult errorResult = new ApiErrorResult();
-                    errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
+                    errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
                     errorResult.setErrorMessage(errorMessage);
+                    errorResult.setErrorCode(API_URL_ERROR);
                     errorResult.setApiName(url);
                     callback.onFailure(errorResult);
 
