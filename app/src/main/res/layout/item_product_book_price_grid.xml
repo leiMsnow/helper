@@ -5,8 +5,8 @@
     android:background="@drawable/selector_corner_white_to_grey"
     android:minHeight="96dp"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp">
 
 
     <TextView
