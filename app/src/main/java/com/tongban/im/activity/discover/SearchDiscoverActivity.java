@@ -1,22 +1,14 @@
 package com.tongban.im.activity.discover;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ExpandableListView;
 
+import com.tongban.corelib.utils.NetUtils;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.adapter.DiscoverTagListAdapter;
 import com.tongban.im.api.CommonApi;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Tag;
@@ -54,8 +46,7 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
 
     @Override
     protected void initData() {
-        // 获取商品相关的标签
-        CommonApi.getInstance().fetchTags(0, 12, TagType.PRODUCT_TAG, this);
+        onRequest();
     }
 
 
@@ -69,7 +60,6 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
                 return true;
             }
         });
-
     }
 
     @Override
@@ -79,9 +69,12 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        if (!NetUtils.isConnected(mContext)) {
+            return false;
+        }
         if (!TextUtils.isEmpty(query)) {
             suggestionsListView.setVisibility(View.GONE);
-            TransferCenter.getInstance().startThemeSearchResult(true,query);
+            TransferCenter.getInstance().startThemeSearchResult(true, query);
         }
         return false;
     }
@@ -109,6 +102,7 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
             }
             mAdapter = new DiscoverTagListAdapter(mContext, datas, type);
             mTagListView.setAdapter(mAdapter);
+            mTagListView.setVisibility(View.VISIBLE);
             // 默认展开
             for (int i = 0; i < mAdapter.getGroupCount(); i++) {
                 mTagListView.expandGroup(i);
@@ -128,5 +122,11 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
         super.onResume();
         if (!EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onRequest() {
+        // 获取商品相关的标签
+        CommonApi.getInstance().fetchTags(0, 12, TagType.PRODUCT_TAG, this);
     }
 }

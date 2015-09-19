@@ -77,7 +77,7 @@ public class CommonApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
-                callback.onFailure(result);
+
             }
         });
     }
@@ -115,7 +115,7 @@ public class CommonApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
-
+                callback.onFailure(result);
             }
         });
     }

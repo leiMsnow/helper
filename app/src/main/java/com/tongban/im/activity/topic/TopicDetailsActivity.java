@@ -54,11 +54,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
 
     @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_topic_details;
-    }
-
-    @Override
     protected void initView() {
 
         lvReplyList = (LoadMoreListView) findViewById(R.id.lv_reply_list);

@@ -17,9 +17,13 @@ import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
+import com.tongban.im.api.CommonApi;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.Topic;
 
 /**
  * Created by zhangleilei on 15/7/8.
@@ -57,7 +61,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         int height = 0;
         mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
         if (mToolbar != null) {
-            height = DensityUtils.dp2px(mContext,56);
+            height = DensityUtils.dp2px(mContext, 56);
         }
         return height;
     }
@@ -81,12 +85,28 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
     @Override
     public void setEmptyView(ApiErrorResult result) {
         int resId = 0;
+        if (result.getErrorCode() == BaseApi.API_NO_NETWORK) {
+            resId = R.mipmap.bg_empty_no_network;
+        }
+        // 专题相关
         if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
-        } else if (result.getApiName().equals(TopicApi.TOPIC_INFO) ||
-                result.getApiName().equals(TopicApi.TOPIC_COMMENT_LIST)) {
+        }
+        // 话题相关
+        else if (result.getApiName().equals(TopicApi.TOPIC_INFO) ||
+                result.getApiName().equals(TopicApi.TOPIC_COMMENT_LIST) ||
+                result.getApiName().equals(TopicApi.OFFICIAL_TOPIC_INFO)) {
             resId = R.mipmap.bg_empty_topic;
         }
+        // 圈子相关
+        else if (result.getApiName().equals(GroupApi.GROUP_INFO)) {
+            resId = R.mipmap.bg_empty_group;
+        }
+        // 搜索相关
+        else if (result.getApiName().equals(CommonApi.FETCH_DISCOVER_TAG)) {
+            resId = R.mipmap.bg_empty_search;
+        }
+
         ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
         if (resId == 0) {
             ivEmpty.setVisibility(View.GONE);

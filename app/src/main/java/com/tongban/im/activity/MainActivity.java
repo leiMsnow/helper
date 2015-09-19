@@ -37,13 +37,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityContainer.getInstance().finishActivity(this);
-        fetchPersonalCenter();
-    }
-
-    private void fetchPersonalCenter() {
-        if (!"".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
-        }
     }
 
     @Override

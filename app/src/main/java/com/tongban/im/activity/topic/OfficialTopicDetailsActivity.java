@@ -40,15 +40,10 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
     private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
 
     @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_official_topic_details;
-    }
-
-    @Override
     protected void initView() {
         mHeader = LayoutInflater.from(mContext).
-                inflate(R.layout.activity_official_topic_details_header, null);
-        lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_authority_topic_details);
+                inflate(R.layout.header_official_topic_details, null);
+        lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_reply_list);
         topicInputView = (TopicInputView) findViewById(R.id.topic_input);
         topicInputView.setAdapterImgCount(3);
 
@@ -188,6 +183,7 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
         officialTopic.setTopic(topic);
         mAdapter.getDataAll().add(officialTopic);
         mAdapter.notifyDataSetChanged();
+        lvAuthorityTopicDetails.setVisibility(View.VISIBLE);
         //获取评论接口
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
     }

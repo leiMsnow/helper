@@ -16,6 +16,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.api.ProductApi;
+import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
@@ -77,10 +78,14 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected void initData() {
-        // 登录后显示真实头像
+
+        // 显示默认头像
         if ("".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
-            // 显示默认头像
             ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
+        }
+        // 登录后显示真实头像
+        else {
+            UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
         }
         mAdapter = new DiscoverAdapter(mContext, null, new IMultiItemTypeSupport<Discover>() {
             @Override
@@ -177,7 +182,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
         if (mAdapter.getCount() > 0) {
-                hidEmptyText();
+            hidEmptyText();
         }
     }
 

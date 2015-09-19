@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
@@ -115,6 +116,9 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        if (!NetUtils.isConnected(mContext)) {
+            return false;
+        }
         if (!TextUtils.isEmpty(query)) {
             saveSearchKey(query);
             BaseEvent.SearchTopicKeyEvent search = new BaseEvent.SearchTopicKeyEvent();

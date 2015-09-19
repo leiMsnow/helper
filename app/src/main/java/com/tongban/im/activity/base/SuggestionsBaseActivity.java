@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
@@ -75,6 +76,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     protected void initListener() {
+        setRequestApiListener(this);
         suggestionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -119,9 +121,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
             if (keyList.length == mKeyCount) {
                 mHistoryKeys = mHistoryKeys.replace(keyList[keyList.length - 1] + ";", "");
             }
+            mHistoryKeys = query + ";" + mHistoryKeys;
+            SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mHistoryKeys);
         }
-        mHistoryKeys = query + ";" + mHistoryKeys;
-        SPUtils.put(mContext, Consts.HISTORY_SEARCH_TOPIC, mHistoryKeys);
     }
 
     public void onEventMainThread(BaseEvent.SuggestionsEvent obj) {
@@ -141,6 +143,9 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if (!NetUtils.isConnected(mContext)) {
+            return false;
+        }
         if (!TextUtils.isEmpty(newText) && (!newText.equals(mQueryText))) {
             mQueryText = newText;
             if (isShowSuggestions) {

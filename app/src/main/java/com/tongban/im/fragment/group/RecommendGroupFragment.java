@@ -46,7 +46,6 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
     }
 
-
     @Override
     protected void initData() {
         if (getArguments() != null)
@@ -60,7 +59,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);
             ptrFrameLayout.setPtrHandler(this);
-            ptrFrameLayout.autoRefresh();
+            GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);

@@ -28,6 +28,8 @@ import java.util.Random;
  */
 public class GroupInfoActivity extends BaseToolBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+
+    private View mParent;
     private GridView gvMembers;
     //圈子信息
     private TextView tvGroupName, tvAddress, tvCreator, tvAttrs, tvDesc;
@@ -53,6 +55,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     protected void initView() {
 
+        mParent = findViewById(R.id.sl_parent);
         gvMembers = (GridView) findViewById(R.id.gv_members);
 
         tvGroupName = (TextView) findViewById(R.id.tv_group_name);
@@ -96,11 +99,8 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
             Uri uri = getIntent().getData();
             mGroupId = uri.getQueryParameter(Consts.KEY_GROUP_ID);
             mAllowAdd = getIntent().getBooleanExtra(Consts.KEY_IS_JOIN, false);
-            if (!mAllowAdd) {
-                vSettings.setVisibility(View.VISIBLE);
-            }
             GroupApi.getInstance().getGroupInfo(mGroupId, this);
-            GroupApi.getInstance().getGroupMembersList(mGroupId, 0, 15, this);
+
         }
         mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, null);
         gvMembers.setAdapter(mMemberGridAdapter);
@@ -144,7 +144,15 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
 
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.group;
-
+        if (mGroup != null) {
+            GroupApi.getInstance().getGroupMembersList(mGroupId, 0, 15, this);
+            mParent.setVisibility(View.VISIBLE);
+            if (!mAllowAdd) {
+                vSettings.setVisibility(View.VISIBLE);
+            }
+        } else {
+            mParent.setVisibility(View.GONE);
+        }
         tvGroupName.setText(mGroup.getGroup_name());
         tvAddress.setText(mGroup.getAddress());
         tvAttrs.setText(mGroup.getGroupType());
@@ -153,6 +161,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
             setUserPortrait(mGroup.getUser_info().getPortrait_url().getMin(), ivCreator);
             tvCreator.setText(mGroup.getUser_info().getNick_name());
         }
+
     }
 
     public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {

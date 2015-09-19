@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
@@ -142,6 +143,9 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        if (!NetUtils.isConnected(mContext)) {
+            return false;
+        }
         if (!TextUtils.isEmpty(query)) {
             isShowSuggestions = true;
             mThemeListFragment.searchTheme(query);

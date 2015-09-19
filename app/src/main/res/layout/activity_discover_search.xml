@@ -19,7 +19,8 @@
         android:groupIndicator="@null"
         android:listSelector="#00000000"
         android:padding="16dp"
-        android:scrollbars="none"/>
+        android:scrollbars="none"
+        android:visibility="gone"/>
 
     <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_tips_list"

@@ -47,7 +47,7 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
     @Override
     public void setEmptyView(ApiErrorResult result) {
 
-        int resId = 0;
+        int resId = R.mipmap.bg_empty_no_network;
         if (result.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             resId = R.mipmap.bg_empty_discover;
         } else if (result.getApiName().equals(TopicApi.RECOMMEND_TOPIC_LIST)) {
@@ -56,10 +56,6 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
             resId = R.mipmap.bg_empty_group;
         }
         ImageView ivEmpty = (ImageView) mEmptyView.findViewById(com.tongban.corelib.R.id.iv_empty);
-        if (resId == 0) {
-            ivEmpty.setVisibility(View.GONE);
-            return;
-        }
 
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivEmpty.getLayoutParams();
         lp.topMargin = getToolbarHeight();

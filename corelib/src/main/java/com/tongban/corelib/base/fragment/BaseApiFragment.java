@@ -70,8 +70,8 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     public void onFailure(ApiErrorResult result) {
         if (result.getDisplayType() == DisplayType.View ||
                 result.getDisplayType() == DisplayType.ALL) {
-            createEmptyView();
-            setEmptyView(result);
+            if (createEmptyView())
+                setEmptyView(result);
             result.setDisplayType(DisplayType.None);
         }
         if (mBaseApiActivity != null)
@@ -101,8 +101,10 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     /**
      * 创建空数据布局
      */
-    protected void createEmptyView() {
-
+    protected boolean createEmptyView() {
+        if (mView == null) {
+            return false;
+        }
         mEmptyView = mView.findViewById(com.tongban.corelib.R.id.rl_empty_view);
         if (mEmptyView != null) {
             mEmptyView.setVisibility(View.VISIBLE);
@@ -121,5 +123,6 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
             objectAnimator.start();
             ((ViewGroup) mView).addView(mEmptyView, layoutParams);
         }
+        return true;
     }
 }

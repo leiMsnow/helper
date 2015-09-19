@@ -26,6 +26,13 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
     protected int mCursor = 0;
     protected int mPage = 10;
+
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.activity_topic_details;
+    }
+
     @Override
     protected void initData() {
         if (getIntent() != null) {

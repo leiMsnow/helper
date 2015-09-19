@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.UiThread;
+
+import com.tongban.corelib.R;
 
 /**
  * 跟网络相关的工具类
@@ -36,6 +39,7 @@ public class NetUtils {
                 }
             }
         }
+        ToastUtil.getInstance(context).showToast(context.getString(R.string.api_error));
         return false;
     }
 

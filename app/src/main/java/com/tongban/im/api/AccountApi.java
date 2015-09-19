@@ -336,6 +336,7 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.None);
                 if (callback != null)
                     callback.onFailure(result);
             }

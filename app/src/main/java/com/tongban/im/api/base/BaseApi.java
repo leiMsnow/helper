@@ -52,6 +52,10 @@ public class BaseApi {
      */
     public final static int API_SUCCESS = 0;
     /**
+     * 无网络
+     */
+    public final static int API_NO_NETWORK = -404;
+    /**
      * 客户端与服务器时间不同步
      */
     public final static int TIME_DIS_MATCH = 10069;
@@ -156,6 +160,7 @@ public class BaseApi {
             errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
             errorResult.setErrorMessage(mContext.getResources()
                     .getString(com.tongban.corelib.R.string.api_error));
+            errorResult.setErrorCode(API_NO_NETWORK);
             errorResult.setApiName(url);
             callback.onFailure(errorResult);
             return;
