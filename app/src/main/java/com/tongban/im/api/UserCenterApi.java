@@ -638,12 +638,12 @@ public class UserCenterApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "").toString());
         if (userInfo.getNick_name() != null) {
-            String nickName;
-            try {
-                nickName = new String(userInfo.getNick_name().getBytes("GBK"), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                nickName = "";
-            }
+            String nickName = userInfo.getNick_name();
+//            try {
+//                nickName = new String(userInfo.getNick_name().getBytes("GBK"), "UTF-8");
+//            } catch (UnsupportedEncodingException e) {
+//                nickName = "";
+//            }
             mParams.put("nick_name", nickName);
         }
         if (userInfo.getPortrait_url() != null)
