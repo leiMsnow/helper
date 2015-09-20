@@ -21,9 +21,12 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.widget.Toast;
+
+import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.im.activity.PhotoAlbumActivity;
+
 
 /**
  * 拍照/选择相片相关工具类
@@ -79,9 +82,13 @@ public class CameraUtils {
     }
 
     public static void openPhotoAlbum(Context context) {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        openPhotoAlbum(context, 0, 1);
+    }
+
+    public static void openPhotoAlbum(Context context, int current, int maxSelect) {
+        Intent intent = new Intent(context, PhotoAlbumActivity.class);
+        intent.putExtra("current", current);
+        intent.putExtra("maxSelect", maxSelect);
         ((Activity) context).startActivityForResult(intent, OPEN_ALBUM);
     }
 
@@ -93,7 +100,7 @@ public class CameraUtils {
                 .queryIntentActivities(intent,
                         PackageManager.MATCH_DEFAULT_ONLY);
         if (infos == null || infos.size() == 0) {
-            Toast.makeText(context, "没有支持的应用", Toast.LENGTH_SHORT).show();
+            ToastUtil.getInstance(context).showToast("没有支持的应用");
         } else {
             ((Activity) context).startActivityForResult(intent, OPEN_CAMERA);
         }
@@ -174,7 +181,7 @@ public class CameraUtils {
     }
 
     private static Bitmap decodeFile(File f, int reqWidth, int reqHeight) {
-        BitmapFactory.Options o2 = null;
+        BitmapFactory.Options o2;
         try {
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
@@ -218,16 +225,17 @@ public class CameraUtils {
                 + filePath.substring(filePath.lastIndexOf("."));
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File file = new File(localPath);
-            if (!file.exists()) {
-                file.mkdirs();
+            if (file.exists()) {
+                file.delete();
             }
+            file.mkdirs();
             try {
                 File imageFile = new File(filename);
                 imageFile.createNewFile();
-                FileOutputStream fout = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fout);
-                fout.flush();
-                fout.close();
+                FileOutputStream fs = new FileOutputStream(imageFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fs);
+                fs.flush();
+                fs.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {

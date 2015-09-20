@@ -139,6 +139,8 @@
         <!-- 关于我们-->
         <activity android:name=".activity.AboutActivity" />
 
+        <activity android:name=".activity.PhotoAlbumActivity" />
+
         <!-- ******************************** account activity ***************************** -->
 
         <!-- 登录-->

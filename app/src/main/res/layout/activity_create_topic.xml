@@ -7,54 +7,60 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <EditText
-        android:id="@+id/et_topic_name"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"
-        android:gravity="center"
-        android:hint="@string/input_topic"
-        android:maxLength="30"
-        android:minHeight="80dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:singleLine="true"
-        android:textColor="@color/main_black"
-        android:textColorHint="@color/normal_light_grey"
-        android:textSize="16sp" />
+        android:scrollbars="none">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/et_topic_name"
-        android:layout_marginTop="5dp"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/et_topic_content"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="top|left"
-            android:hint="@string/hint_topic_content"
-            android:maxLength="2000"
-            android:maxLines="10"
-            android:minHeight="80dp"
-            android:minLines="5"
-            android:paddingBottom="16dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="16dp"
-            android:textColor="@color/main_black"
-            android:textColorHint="@color/normal_light_grey"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content">
 
-        <com.tongban.im.widget.view.TopicImageView
-            android:id="@+id/ll_add_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/et_topic_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/white"
+                android:gravity="center"
+                android:hint="@string/input_topic"
+                android:maxLength="30"
+                android:minHeight="56dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/main_black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_topic_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_topic_name"
+                android:layout_marginTop="8dp"
+                android:background="@color/white"
+                android:gravity="top|left"
+                android:hint="@string/hint_topic_content"
+                android:maxLength="2000"
+                android:maxLines="10"
+                android:minHeight="80dp"
+                android:minLines="3"
+                android:paddingBottom="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="16dp"
+                android:textColor="@color/main_black"
+                android:textSize="16sp" />
+
+            <com.tongban.im.widget.view.TopicImageView
+                android:id="@+id/ll_add_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/et_topic_content"
+                android:background="@color/white" />
+
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>

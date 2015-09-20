@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class TopicImageView extends LinearLayout implements View.OnClickListener {
 
-    private GridView gvReplyImg;
+    private ChildGridView gvReplyImg;
     private CameraView mCameraView;
 
     public CreateTopicImgAdapter getmAdapter() {
@@ -38,6 +39,11 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
     private List<String> selectedFile = new ArrayList<>();
 
     public List<String> getSelectedFile() {
+        selectedFile.clear();
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            if (!TextUtils.isEmpty(mAdapter.getItem(i).toString()))
+                selectedFile.add(0, mAdapter.getItem(i).toString());
+        }
         return selectedFile;
     }
 
@@ -59,7 +65,7 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
 
     private void initView() {
         LayoutInflater.from(mContext).inflate(R.layout.view_topic_image_grid, this);
-        gvReplyImg = (GridView) findViewById(R.id.gv_reply_img);
+        gvReplyImg = (ChildGridView) findViewById(R.id.gv_reply_img);
         selectedFile.add("");
         mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, selectedFile);
         selectedFile.clear();
@@ -94,25 +100,22 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         if (mAdapter == null) {
             return;
         }
-        selectedFile.clear();
+        // 清除当前选中项
         if (TextUtils.isEmpty(picturePath)) {
             if (mAdapter.getCount() == mAdapter.getImgCount()) {
                 if (!mAdapter.getItem(mAdapter.getCount() - 1).equals(""))
                     mAdapter.add("");
             }
             mAdapter.remove(selectIndex);
-        } else {
+        }
+        // 添加子项
+        else {
             if ((selectIndex + 1) == mAdapter.getImgCount()) {
                 mAdapter.set(selectIndex, picturePath);
             } else {
                 mAdapter.add(selectIndex, picturePath);
             }
         }
-        for (int i = 0; i < mAdapter.getCount(); i++) {
-            if (!TextUtils.isEmpty(mAdapter.getItem(i).toString()))
-                selectedFile.add(0, mAdapter.getItem(i).toString());
-        }
-
     }
 
     // 打开相机的提示框
@@ -120,6 +123,9 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         if (mCameraView == null) {
             mCameraView = new CameraView(mContext);
         }
+        int current = mAdapter.getCount() - 1;
+        mCameraView.setCurrent(current);
+        mCameraView.setMaxSelect(mAdapter.getImgCount());
         mCameraView.show();
     }
 

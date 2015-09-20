@@ -17,6 +17,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.CameraResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
@@ -42,8 +43,6 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     private EditText tvTitle;
     private EditText tvContent;
     private ImageView ivSend;
-
-    private CameraView mCameraView;
 
     private final static int IMAGE_COUNT = 15;
 
@@ -74,17 +73,19 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.view_create_button);
-        Toolbar.LayoutParams lp = (Toolbar.LayoutParams)
-                getSupportActionBar().getCustomView().getLayoutParams();
-        lp.gravity = Gravity.RIGHT;
-        int margins = DensityUtils.dp2px(mContext, 8);
-        lp.setMargins(margins, margins, margins, margins);
-        getSupportActionBar().getCustomView().setLayoutParams(lp);
-        ivSend = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.iv_send);
-        ivSend.setOnClickListener(this);
-        ivSend.setEnabled(false);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setCustomView(R.layout.view_create_button);
+            Toolbar.LayoutParams lp = (Toolbar.LayoutParams)
+                    getSupportActionBar().getCustomView().getLayoutParams();
+            lp.gravity = Gravity.RIGHT;
+            int margins = DensityUtils.dp2px(mContext, 8);
+            lp.setMargins(margins, margins, margins, margins);
+            getSupportActionBar().getCustomView().setLayoutParams(lp);
+            ivSend = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.iv_send);
+            ivSend.setOnClickListener(this);
+            ivSend.setEnabled(false);
+        }
     }
 
     @Override
@@ -133,22 +134,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
                         tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
                         CreateTopicActivity.this);
             }
-        } else {
-            int viewId = v.getId();
-            switch (viewId) {
-                case R.id.iv_topic_img:
-                    createDialog();
-                    break;
-            }
         }
-    }
-
-    // 打开相机的提示框
-    protected void createDialog() {
-        if (mCameraView == null) {
-            mCameraView = new CameraView(mContext);
-        }
-        mCameraView.show();
     }
 
     @Override
@@ -166,13 +152,18 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            String picturePath = CameraUtils.searchUriFile(mContext, data);
-            if (picturePath == null) {
-                picturePath = data.getData().getPath();
+            ArrayList<String> picturePaths = data.getExtras().getStringArrayList("selectedImages");
+            for (String picturePath : picturePaths) {
+                String newFile = CameraUtils.saveToSD(picturePath);
+                notifyChange(newFile);
             }
-            String newFile = CameraUtils.saveToSD(picturePath);
-            notifyChange(newFile);
         }
+    }
+
+    //刷新图片Adapter
+    public void notifyChange(String picturePath) {
+        gvTopicImg.notifyChange(picturePath);
+        afterTextChanged(null);
     }
 
     //批量上传图片,成功后将发表话题
@@ -196,11 +187,6 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
                 }, null);
     }
 
-    //刷新图片Adapter
-    public void notifyChange(String picturePath) {
-        gvTopicImg.notifyChange(picturePath);
-        afterTextChanged(null);
-    }
 
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
         ToastUtil.getInstance(mContext).showToast("话题发表成功");

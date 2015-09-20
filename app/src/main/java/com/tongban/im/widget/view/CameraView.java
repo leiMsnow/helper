@@ -20,6 +20,17 @@ public class CameraView extends Dialog {
     private TextView tvCamera;
     private TextView tvGallery;
 
+    private int current = 0;
+    private int maxSelect = 9;
+
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    public void setMaxSelect(int maxSelect) {
+        this.maxSelect = maxSelect;
+    }
+
     /**
      * constructor
      *
@@ -51,7 +62,7 @@ public class CameraView extends Dialog {
         tvGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CameraUtils.openPhotoAlbum(mContext);
+                CameraUtils.openPhotoAlbum(mContext,current,maxSelect);
                 cancel();
             }
         });

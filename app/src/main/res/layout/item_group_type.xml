@@ -27,7 +27,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@mipmap/ic_create_group" />
+                android:src="@mipmap/ic_group_create" />
 
             <LinearLayout
                 android:layout_width="match_parent"
