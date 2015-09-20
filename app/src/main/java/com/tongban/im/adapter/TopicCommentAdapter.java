@@ -10,10 +10,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicComment;
-
-import org.w3c.dom.Text;
+import com.tongban.im.model.topic.TopicComment;
 
 import java.util.List;
 

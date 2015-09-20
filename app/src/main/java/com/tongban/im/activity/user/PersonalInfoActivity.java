@@ -20,11 +20,11 @@ import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.AddChildInfo;
+import com.tongban.im.model.user.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.EditUser;
+import com.tongban.im.model.user.EditUser;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.User;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;

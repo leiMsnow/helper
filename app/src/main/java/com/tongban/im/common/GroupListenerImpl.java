@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.tongban.im.R;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.model.Group;
+import com.tongban.im.model.group.Group;
 
 import io.rong.imkit.RongIM;
 

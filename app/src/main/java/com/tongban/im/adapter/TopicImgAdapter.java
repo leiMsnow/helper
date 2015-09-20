@@ -1,22 +1,14 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
-import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
-import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.Topic;
 
 import java.util.List;
 

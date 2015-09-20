@@ -21,8 +21,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Discover;
-import com.tongban.im.model.User;
+import com.tongban.im.model.discover.Discover;
+import com.tongban.im.model.user.User;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -151,11 +151,11 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
         mListView.setVisibility(View.VISIBLE);
-        if (homeInfo != null && homeInfo.getList().size() > 0) {
-            mAdapter.replaceAll(homeInfo.getList());
+        if (homeInfo != null && homeInfo.list.size() > 0) {
+            mAdapter.replaceAll(homeInfo.list);
             // 请求收藏数量数据并更新
             int floor = 0; // 楼层
-            for (Discover discover : homeInfo.getList()) {
+            for (Discover discover : homeInfo.list) {
                 ProductApi.getInstance().fetchThemeCollectedAmount(floor, discover.getTheme_id(), this);
                 floor++;
             }

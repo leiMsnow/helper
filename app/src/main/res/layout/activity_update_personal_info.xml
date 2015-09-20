@@ -7,12 +7,11 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
-    <com.tongban.im.widget.view.ClearEditText
+    <com.tongban.corelib.widget.view.ClearEditText
         android:id="@+id/et_update_nickname"
         style="@style/ClearEditTextStyle"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@+id/tv_phone_text"
         android:background="@color/white"
         android:maxLength="11"
         android:paddingLeft="8dp"

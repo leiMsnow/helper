@@ -7,7 +7,7 @@ import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.discover.ProductBook;
 
 import java.util.List;
 

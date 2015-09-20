@@ -16,17 +16,16 @@ import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
-import com.tongban.im.model.AddChildInfo;
+import com.tongban.im.model.user.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.EditUser;
-import com.tongban.im.model.Group;
-import com.tongban.im.model.ProductBook;
-import com.tongban.im.model.Theme;
-import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicComment;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.EditUser;
+import com.tongban.im.model.group.Group;
+import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.discover.Theme;
+import com.tongban.im.model.topic.Topic;
+import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.user.User;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -379,8 +378,9 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<ProductBook> apiResponse = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<ProductBook>>() {
                         });
-                BaseEvent.FetchCollectedProductEvent collectSingleProductEvent = new BaseEvent.FetchCollectedProductEvent();
-                collectSingleProductEvent.setProductBookList(apiResponse.getData().getResult());
+                BaseEvent.FetchCollectedProductEvent collectSingleProductEvent =
+                        new BaseEvent.FetchCollectedProductEvent();
+                collectSingleProductEvent.productBookList = (apiResponse.getData().getResult());
                 callback.onComplete(collectSingleProductEvent);
             }
 

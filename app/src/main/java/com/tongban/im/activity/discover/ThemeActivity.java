@@ -3,8 +3,6 @@ package com.tongban.im.activity.discover;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,23 +12,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.DateUtils;
-import com.tongban.corelib.utils.ToastUtil;
-import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.ThemeBaseActivity;
-import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.ProductApi;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.ProductBook;
-import com.tongban.im.model.Theme;
-import com.tongban.im.model.Topic;
-import com.tongban.im.model.User;
+import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.discover.Theme;
+import com.tongban.im.model.topic.Topic;
 
 import java.util.List;
 
@@ -159,7 +152,7 @@ public class ThemeActivity extends ThemeBaseActivity {
      * @param themeProducts 单品列表
      */
     public void onEventMainThread(BaseEvent.FetchProductBooksInTheme themeProducts) {
-        mProductBooks = themeProducts.getList();
+        mProductBooks = themeProducts.list;
         if (mProductBooks != null && mProductBooks.size() > 0) {
             mProductList.removeAllViews();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(

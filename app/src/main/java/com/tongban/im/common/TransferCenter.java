@@ -11,8 +11,7 @@ import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.model.OtherRegister;
-import com.tongban.im.model.Topic;
+import com.tongban.im.model.topic.Topic;
 
 /**
  * 跳转中心

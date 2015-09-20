@@ -17,7 +17,7 @@
             android:text="@string/phone_num"
             android:textColor="@color/normal_grey" />
 
-        <com.tongban.im.widget.view.ClearEditText
+        <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_input_phone"
             style="@style/ClearEditTextStyle"
             android:layout_width="match_parent"

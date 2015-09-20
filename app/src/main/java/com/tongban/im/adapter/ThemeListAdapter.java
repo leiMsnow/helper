@@ -8,7 +8,7 @@ import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.Theme;
+import com.tongban.im.model.discover.Theme;
 
 import java.util.List;
 

@@ -14,13 +14,12 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyCommentTopicFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Topic;
+import com.tongban.im.model.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;

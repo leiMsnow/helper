@@ -10,45 +10,17 @@
         <item name="searchViewStyle">@style/SearchView.Light</item>
         <item name="android:textColorHint">@color/theme_grey_300</item>
         <item name="android:textCursorDrawable">@drawable/shape_text_cursor</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
+
         <!-- 禁止多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
-    </style>
-
-    <style name="AppTheme.LightBlue">
-        <item name="colorPrimary">@color/theme_light_blue</item>
-        <item name="colorPrimaryDark">@color/theme_light_blue</item>
-        <item name="colorAccent">@color/theme_light_blue</item>
     </style>
 
     <style name="AppTheme.Red">
         <item name="colorPrimary">@color/theme_red</item>
         <item name="colorPrimaryDark">@color/theme_red</item>
         <item name="colorAccent">@color/theme_red</item>
-    </style>
-
-    <style name="AppTheme.DeepPurple">
-        <item name="colorPrimary">@color/theme_deep_purple</item>
-        <item name="colorPrimaryDark">@color/theme_deep_purple</item>
-        <item name="colorAccent">@color/theme_deep_purple</item>
-    </style>
-
-    <style name="AppTheme.LightGreen">
-        <item name="colorPrimary">@color/theme_light_green</item>
-        <item name="colorPrimaryDark">@color/theme_light_green</item>
-        <item name="colorAccent">@color/theme_light_green</item>
-    </style>
-
-    <style name="AppTheme.Pink">
-        <item name="colorPrimary">@color/theme_pink</item>
-        <item name="colorPrimaryDark">@color/theme_pink</item>
-        <item name="colorAccent">@color/theme_pink</item>
-    </style>
-
-    <style name="AppTheme.Yellow">
-        <item name="colorPrimary">@color/theme_yellow</item>
-        <item name="colorPrimaryDark">@color/theme_yellow</item>
-        <item name="colorAccent">@color/theme_yellow</item>
     </style>
 
 </resources>

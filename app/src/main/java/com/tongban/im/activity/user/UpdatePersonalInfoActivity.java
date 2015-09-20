@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -14,10 +15,8 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.AddChildInfo;
-import com.tongban.im.model.EditUser;
-import com.tongban.im.model.UpdateChildInfo;
-import com.tongban.im.widget.view.ClearEditText;
+import com.tongban.im.model.user.AddChildInfo;
+import com.tongban.im.model.user.EditUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements TextWatcher,
         View.OnClickListener {
-    private ClearEditText cetUpdateNickName;
+    private EditText cetUpdateNickName;
     private RelativeLayout rlUpdateSexBoy;
     private RelativeLayout rlUpdateSexGirl;
     private ImageView ivSelectBoy, ivSelectGirl;
@@ -46,7 +45,7 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
 
     @Override
     protected void initView() {
-        cetUpdateNickName = (ClearEditText) findViewById(R.id.et_update_nickname);
+        cetUpdateNickName = (EditText) findViewById(R.id.et_update_nickname);
         rlUpdateSexBoy = (RelativeLayout) findViewById(R.id.rl_update_sex_boy);
         rlUpdateSexGirl = (RelativeLayout) findViewById(R.id.rl_update_sex_girl);
         ivSelectBoy = (ImageView) findViewById(R.id.iv_select_boy);

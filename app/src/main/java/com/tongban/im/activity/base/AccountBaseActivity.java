@@ -8,7 +8,7 @@ import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.AddChildInfo;
+import com.tongban.im.model.user.AddChildInfo;
 
 import java.util.ArrayList;
 import java.util.List;

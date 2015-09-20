@@ -9,7 +9,7 @@ import com.tongban.im.R;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Topic;
+import com.tongban.im.model.topic.Topic;
 
 /**
  * 通用的topicDetails父类

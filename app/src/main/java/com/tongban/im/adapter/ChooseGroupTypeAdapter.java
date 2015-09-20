@@ -5,7 +5,7 @@ import android.content.Context;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.model.GroupType;
+import com.tongban.im.model.group.GroupType;
 
 import java.util.List;
 

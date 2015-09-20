@@ -22,7 +22,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.GroupType;
+import com.tongban.im.model.group.GroupType;
 
 /**
  * poi搜索功能

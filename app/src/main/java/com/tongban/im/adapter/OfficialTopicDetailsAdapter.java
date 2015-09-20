@@ -11,7 +11,7 @@ import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.OfficialTopic;
+import com.tongban.im.model.topic.OfficialTopic;
 
 import java.util.List;
 

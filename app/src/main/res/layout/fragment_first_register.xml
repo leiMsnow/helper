@@ -21,7 +21,7 @@
             android:text="@string/phone_num"
             android:textColor="@color/main_black" />
 
-        <com.tongban.im.widget.view.ClearEditText
+        <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_phone_num"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_phone_text"
@@ -51,7 +51,7 @@
             android:text="@string/pwd"
             android:textColor="@color/main_black" />
 
-        <com.tongban.im.widget.view.ClearEditText
+        <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_pwd"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_pwd_text"
@@ -89,7 +89,7 @@
                 android:text="@string/verify_code"
                 android:textColor="@color/main_black" />
 
-            <com.tongban.im.widget.view.ClearEditText
+            <com.tongban.corelib.widget.view.ClearEditText
                 android:id="@+id/et_verify_code"
                 style="@style/ClearEditTextStyle"
                 android:layout_toRightOf="@+id/tv_verify_text"

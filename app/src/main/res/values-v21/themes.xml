@@ -1,8 +1,7 @@
 <resources>
 
-    <style name="AppTheme.White.Base" >
-        <item name="android:statusBarColor">@color/main_black</item>
-        <item name="android:navigationBarColor">@color/normal_dark_grey</item>
+    <style name="AppTheme.Red.Base" >
+
     </style>
 
 </resources>

@@ -12,7 +12,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.PersonalInfoActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.Child;
+import com.tongban.im.model.user.Child;
 
 import java.util.List;
 

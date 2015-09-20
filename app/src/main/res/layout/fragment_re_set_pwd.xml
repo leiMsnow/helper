@@ -46,7 +46,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp" />
 
-        <com.tongban.im.widget.view.ClearEditText
+        <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_verify_code"
             style="@style/ClearEditTextStyle"
             android:layout_toLeftOf="@+id/btn_verify_code"
@@ -88,7 +88,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp" />
 
-        <com.tongban.im.widget.view.ClearEditText
+        <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_set_pwd"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_reset_pwd"

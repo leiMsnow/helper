@@ -19,7 +19,7 @@ import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
+import com.tongban.im.model.group.Group;
 
 import java.util.Random;
 

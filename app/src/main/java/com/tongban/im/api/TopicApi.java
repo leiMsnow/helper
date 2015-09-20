@@ -17,9 +17,9 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.ProductBook;
-import com.tongban.im.model.Topic;
-import com.tongban.im.model.TopicComment;
+import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.topic.Topic;
+import com.tongban.im.model.topic.TopicComment;
 
 import java.util.HashMap;
 import java.util.List;

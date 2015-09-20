@@ -7,7 +7,7 @@ import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.TopicComment;
+import com.tongban.im.model.topic.TopicComment;
 
 import java.util.List;
 

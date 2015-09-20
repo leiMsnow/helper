@@ -19,7 +19,7 @@ import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Topic;
+import com.tongban.im.model.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +178,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.FetchCollectedProductEvent obj) {
-        tvSingleProductNum.setText(String.valueOf(obj.getProductBookList().size()));
+        tvSingleProductNum.setText(String.valueOf(obj.productBookList.size()));
     }
     /**
      * 我的收藏专题Event

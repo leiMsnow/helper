@@ -14,13 +14,10 @@ import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.UserDaoHelper;
-import com.tongban.im.model.ApiErrorCode;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
-
-import de.greenrobot.event.EventBus;
 
 
 /**

@@ -1,12 +1,6 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.tongban.im.R;
-import com.tongban.im.model.PriceInfo;
+import com.tongban.im.model.discover.PriceInfo;
 
 import java.util.List;
 

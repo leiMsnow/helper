@@ -22,7 +22,7 @@ import com.tongban.im.activity.user.PersonalInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.User;
 
 /**
  * 通用的用户中心父类

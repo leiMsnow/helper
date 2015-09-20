@@ -10,15 +10,14 @@ import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Discover;
-import com.tongban.im.model.ProductBook;
-import com.tongban.im.model.Theme;
+import com.tongban.im.model.discover.Discover;
+import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.discover.Theme;
 
 import org.json.JSONObject;
 
@@ -103,7 +102,7 @@ public class ProductApi extends BaseApi {
                         });
                 List<Discover> discoverList = result.getData();
                 BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
-                homeInfo.setList(discoverList);
+                homeInfo.list = (discoverList);
                 if (callback != null)
                     callback.onComplete(homeInfo);
             }
@@ -213,7 +212,7 @@ public class ProductApi extends BaseApi {
                         });
                 List<ProductBook> productList = result.getData().getResult();
                 BaseEvent.FetchProductBooksInTheme themeProducts = new BaseEvent.FetchProductBooksInTheme();
-                themeProducts.setList(productList);
+                themeProducts.list = (productList);
                 callback.onComplete(themeProducts);
             }
 

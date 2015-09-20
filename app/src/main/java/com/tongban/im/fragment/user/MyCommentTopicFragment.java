@@ -15,7 +15,7 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.TopicComment;
+import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.List;

@@ -1,5 +1,13 @@
 package com.tongban.im.model;
 
+import com.tongban.im.model.group.Group;
+import com.tongban.im.model.discover.Discover;
+import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.discover.Theme;
+import com.tongban.im.model.topic.Topic;
+import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.user.User;
+
 import java.util.List;
 
 /**
@@ -338,44 +346,20 @@ public class BaseEvent {
      */
     public static class FetchCollectedProductEvent {
         public List<ProductBook> productBookList;
-
-        public List<ProductBook> getProductBookList() {
-            return productBookList;
-        }
-
-        public void setProductBookList(List<ProductBook> productBookList) {
-            this.productBookList = productBookList;
-        }
     }
 
     /**
      * 获取首页数据的Event
      */
     public static class FetchHomeInfo {
-        private List<Discover> list;
-
-        public List<Discover> getList() {
-            return list;
-        }
-
-        public void setList(List<Discover> list) {
-            this.list = list;
-        }
+        public List<Discover> list;
     }
 
     /**
      * 获取专题下的商品列表Event
      */
     public static class FetchProductBooksInTheme {
-        private List<ProductBook> list;
-
-        public List<ProductBook> getList() {
-            return list;
-        }
-
-        public void setList(List<ProductBook> list) {
-            this.list = list;
-        }
+        public List<ProductBook> list;
     }
 
     //--------------------------------------其它模块-------------------------------------------------

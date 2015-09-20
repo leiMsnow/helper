@@ -4,15 +4,12 @@ import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.activity.base.ThemeBaseActivity;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
@@ -20,7 +17,7 @@ import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ProductBook;
+import com.tongban.im.model.discover.ProductBook;
 
 /**
  * 商品详情页(图书)

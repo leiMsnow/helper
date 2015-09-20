@@ -24,7 +24,7 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.GroupType;
+import com.tongban.im.model.group.GroupType;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.utils.LocationUtils;
@@ -206,7 +206,7 @@ public class CreateGroupActivity extends CameraResultActivity implements View.On
             intent.putExtras(bundle);
             startActivityForResult(intent, SELECT_LOCATION);
         } else if (v == tvGroupLabel) {
-            Intent intent = new Intent(mContext, LabelListActivity.class);
+            Intent intent = new Intent(mContext, GroupTipsListActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt(Consts.KEY_GROUP_TYPE, mGroupType);
             bundle.putStringArrayList("selectTag", selectTagId);

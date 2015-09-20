@@ -17,10 +17,10 @@ import com.tongban.im.common.ModelToTable;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Group;
-import com.tongban.im.model.GroupType;
+import com.tongban.im.model.group.Group;
+import com.tongban.im.model.group.GroupType;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
 

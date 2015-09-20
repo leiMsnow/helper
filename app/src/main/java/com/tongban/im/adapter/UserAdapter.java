@@ -1,15 +1,13 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.User;
+import com.tongban.im.model.user.User;
 
 import java.util.List;
 

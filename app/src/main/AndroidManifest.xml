@@ -37,7 +37,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme.Red.Base">
 
-        <!-- begin rongcloud -->
+        <!-- **********************************begin rongcloud **********************************-->
 
         <service
             android:name="io.rong.push.PushService"
@@ -90,7 +90,8 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="3argexb6r9wse" />
-        <!-- end rongcloud -->
+        <!-- **********************************end rongcloud **********************************-->
+
         <!-- 微信授权登录回调-->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -99,6 +100,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!-- ********************************* app  start ************************************** -->
+
+
+        <!-- ******************************** common activity ***************************** -->
+
+        <!-- 主界面-->
         <activity
             android:name=".activity.MainActivity"
             android:windowSoftInputMode="adjustPan">
@@ -113,8 +120,30 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <!-- 启动界面-->
+        <activity android:name=".activity.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 剪切图片-->
+        <activity android:name=".activity.ClipImageBorderViewActivity" />
+        <!-- 图片查看-->
         <activity
-            android:name=".activity.user.LoginActivity"
+            android:name=".activity.PhotoViewPagerActivity"
+            android:label="@string/image_display" />
+        <!-- 个人设置-->
+        <activity android:name=".activity.SettingActivity" />
+        <!-- 关于我们-->
+        <activity android:name=".activity.AboutActivity" />
+
+        <!-- ******************************** account activity ***************************** -->
+
+        <!-- 登录-->
+        <activity
+            android:name=".activity.account.LoginActivity"
             android:label="@string/login"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -128,6 +157,104 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 注册-->
+        <activity
+            android:name=".activity.account.RegisterActivity"
+            android:label="@string/register"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/register"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <!-- 找回密码-->
+        <activity
+            android:name=".activity.account.FindPwdActivity"
+            android:theme="@style/AppTheme.Red.Base"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
+        <!-- ******************************** user activity ***************************** -->
+
+        <!-- 个人资料 -->
+        <activity android:name=".activity.user.PersonalInfoActivity" />
+        <!-- 关注&粉丝 -->
+        <activity android:name=".activity.user.MyRelationshipActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/relationship"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <!-- 我的收藏-->
+        <activity android:name=".activity.user.MyCollectActivity" />
+        <!-- 我的话题-->
+        <activity
+            android:name=".activity.user.MyTopicActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 我的圈子-->
+        <activity android:name=".activity.user.MyGroupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/my_group_list"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <!-- 个人中心-->
+        <activity
+            android:name=".activity.user.PersonalCenterActivity"
+            android:label="@string/user_center">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/my_center"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <!-- 他人中心-->
+        <activity android:name=".activity.user.UserCenterActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/user_center"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
+        <!-- 宝宝信息填写-->
+        <activity
+            android:name=".activity.user.ChildInfoActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 修改个人资料 -->
+        <activity android:name=".activity.user.UpdatePersonalInfoActivity" />
+
+
+        <!-- ******************************** group activity ***************************** -->
+
+        <!-- 聊天-->
         <activity
             android:name=".activity.group.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -142,28 +269,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.user.RegisterActivity"
-            android:label="@string/register"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/register"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.LoadingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <!-- 圈子详情-->
         <activity
             android:name=".activity.group.GroupInfoActivity"
             android:label="@string/group_settings">
@@ -178,6 +284,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 圈子搜索-->
         <activity
             android:name=".activity.group.CreateGroupActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -196,11 +303,21 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 选择圈子类型-->
         <activity
             android:name=".activity.group.ChooseGroupTypeActivity"
             android:label="@string/choice_group_type" />
-        <activity android:name=".activity.user.PwdResetActivity" />
-        <activity android:name=".activity.ClipImageBorderViewActivity" />
+        <!-- 圈子标签选择-->
+        <activity
+            android:name=".activity.group.GroupTipsListActivity"
+            android:label="@string/group_label" />
+        <!-- 位置选择-->
+        <activity
+            android:name=".activity.group.SearchPoiActivity"
+            android:label="@string/select_location" />
+
+        <!-- ******************************** topic activity ***************************** -->
+        <!-- 话题详情-->
         <activity
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
@@ -216,16 +333,12 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.group.SearchPoiActivity"
-            android:label="@string/select_location" />
-        <activity
-            android:name=".activity.group.LabelListActivity"
-            android:label="@string/group_label" />
+        <!-- 创建话题-->
         <activity
             android:name=".activity.topic.CreateTopicActivity"
             android:label="@string/create_topic"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!-- 官方话题评测-->
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -240,6 +353,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 搜索话题-->
         <activity
             android:name=".activity.topic.SearchTopicActivity"
             android:label="@string/topic_search">
@@ -254,12 +368,14 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.PhotoViewPagerActivity"
-            android:label="@string/image_display" />
+
+
+        <!-- ******************************** discover activity ***************************** -->
+        <!-- 搜索专题-->
         <activity
             android:name=".activity.discover.SearchDiscoverActivity"
             android:windowSoftInputMode="adjustUnspecified|stateUnchanged" />
+        <!-- 专题搜索结果-->
         <activity
             android:name=".activity.discover.SearchResultActivity"
             android:label="@string/search"
@@ -275,65 +391,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.user.FindPwdActivity"
-            android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.PersonalInfoActivity" />
-        <activity android:name=".activity.user.MyRelationshipActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/relationship"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.user.MyCollectActivity" />
-        <activity
-            android:name=".activity.user.MyTopicActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.MyGroupActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/my_group_list"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.user.PersonalCenterActivity"
-            android:label="@string/user_center">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/my_center"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.user.UserCenterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/user_center"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
+        <!-- 专题-->
         <activity android:name=".activity.discover.ThemeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -346,6 +404,7 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 图书单品-->
         <activity android:name=".activity.discover.ProductBookActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -358,13 +417,9 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.user.ChildInfoActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".activity.user.FeedbackActivity" />
-        <activity android:name=".activity.user.SettingActivity" />
-        <activity android:name=".activity.user.AboutActivity" />
-        <activity android:name=".activity.user.UpdatePersonalInfoActivity"></activity>
+
+        <!-- ******************************** app end ******************************* -->
+
     </application>
 
 </manifest>
