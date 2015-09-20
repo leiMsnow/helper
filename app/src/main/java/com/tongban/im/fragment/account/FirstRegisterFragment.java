@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.dd.CircularProgressButton;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
@@ -30,8 +32,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
     private EditText etPwd;
     private EditText etVerifyCode;
     private Button btnGetSMSCode;
-    private CheckBox cbAgree;
-    private Button btnRegister;
+    private CircularProgressButton btnRegister;
     private String mPhoneNum, mPwd, mVerifyId, mVerifyCode;
 
     private VerifyTimerCount mTime;
@@ -52,8 +53,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         etPwd = (EditText) mView.findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
         btnGetSMSCode = (Button) mView.findViewById(R.id.btn_verify_code);
-        cbAgree = (CheckBox) mView.findViewById(R.id.cb_agree);
-        btnRegister = (Button) mView.findViewById(R.id.btn_register);
+        btnRegister = (CircularProgressButton) mView.findViewById(R.id.btn_register);
     }
 
     @Override
@@ -93,18 +93,16 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         //校验手机验证码
         else if (v == btnRegister) {
             if (regEvent != null) {
-                if (!cbAgree.isChecked()) {
-                    ToastUtil.getInstance(mContext).showToast("请阅读并同意用户协议");
-                } else {
-                    if (otherRegister == null) {
-                        AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
-                                mVerifyCode, this);
-                    }
-                    // 第三方注册
-                    else {
-                        AccountApi.getInstance().checkPhone(mPhoneNum, this);
-                    }
+                btnRegister.setProgress(50);
+                if (otherRegister == null) {
+                    AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
+                            mVerifyCode, this);
                 }
+                // 第三方注册
+                else {
+                    AccountApi.getInstance().checkPhone(mPhoneNum, this);
+                }
+
             } else {
                 //提示获取验证码
                 ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);
@@ -140,6 +138,13 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         }
     }
 
+
+    public void onEventMainThread(ApiErrorResult obj) {
+        if (obj.getApiName().equals(AccountApi.REGISTER)){
+            btnRegister.setProgress(0);
+        }
+    }
+
     public void onEventMainThread(BaseEvent.CheckPhoneEvent obj) {
         AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
                 otherRegister.getOpenId(), otherRegister.getType(),
@@ -156,7 +161,8 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         // 获取验证码成功
         if (regEvent.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             mVerifyId = obj.verify_id;
-            mTime = new VerifyTimerCount(btnGetSMSCode);//构造CountDownTimer对象
+            //构造CountDownTimer对象
+            mTime = new VerifyTimerCount(btnGetSMSCode);
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }

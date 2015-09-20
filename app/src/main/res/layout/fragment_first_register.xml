@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/weak_grey">
@@ -25,7 +26,6 @@
             android:id="@+id/et_phone_num"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_phone_text"
-            android:digits="@string/digits"
             android:inputType="number"
             android:maxLength="11" />
 
@@ -118,31 +118,23 @@
 
     </RelativeLayout>
 
-
-    <CheckBox
-        android:id="@+id/cb_agree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_verify_code"
-        android:checked="true" />
-
     <TextView
         android:id="@+id/tv_agree"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/cb_agree"
-        android:layout_alignTop="@+id/cb_agree"
+        android:layout_height="40dp"
+        android:paddingLeft="8dp"
         android:layout_below="@+id/rl_verify_code"
-        android:layout_toRightOf="@+id/cb_agree"
         android:gravity="center"
-        android:text="阅读并同意《用户协议》"
+        android:text="注册即表示您阅读并同意《用户协议》"
         android:textSize="12sp" />
 
-    <Button
+    <com.dd.CircularProgressButton
         android:id="@+id/btn_register"
         style="@style/CommonButtonStyle"
-        android:layout_alignParentBottom="true"
-        android:enabled="false"
-        android:text="@string/register" />
+        app:cpb_textIdle="@string/register"
+        app:cpb_colorIndicator="@drawable/idle_state_selector"
+        app:cpb_colorIndicatorBackground="@color/white"
+        app:cpb_colorProgress="@drawable/idle_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector" />
 
 </RelativeLayout>

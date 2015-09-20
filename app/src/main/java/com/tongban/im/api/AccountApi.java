@@ -111,6 +111,7 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 callback.onFailure(result);
             }
 
@@ -153,6 +154,7 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 callback.onFailure(result);
             }
 
@@ -301,6 +303,7 @@ public class AccountApi extends BaseApi {
 
             @Override
             public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.Toast);
                 if (callback != null)
                     callback.onFailure(result);
             }

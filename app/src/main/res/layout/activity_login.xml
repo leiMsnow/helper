@@ -30,7 +30,6 @@
             android:id="@+id/et_phone_num"
             style="@style/ClearEditTextStyle"
             android:layout_toRightOf="@+id/tv_phone_text"
-            android:digits="@string/digits"
             android:inputType="number"
             android:maxLength="11" />
 

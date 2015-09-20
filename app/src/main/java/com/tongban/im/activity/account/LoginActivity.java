@@ -163,7 +163,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            startLoadingAnimation(50);
+            btnLogin.setProgress(50);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -191,14 +191,6 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     }
 
     /**
-     * 执行加载动画
-     */
-    private void startLoadingAnimation(int index) {
-        btnLogin.setProgress(index);
-    }
-
-
-    /**
      * 登录成功
      */
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
@@ -223,7 +215,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     public void onEventMainThread(ApiErrorResult obj) {
         // 登录出错
         if (obj.getApiName().equals(AccountApi.LOGIN)) {
-            startLoadingAnimation(0);
+            btnLogin.setProgress(0);
         }
         // 授权登录错误
         else if (obj.getApiName().equals(AccountApi.OTHER_LOGIN)) {
