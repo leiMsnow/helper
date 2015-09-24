@@ -8,13 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.utils.EmptyViewUtils;
+
+import io.rong.imkit.RongIM;
 
 /**
  * toolbar的基础类
@@ -117,5 +122,16 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
      */
     protected void hideEmptyView() {
         EmptyViewUtils.getInstance().hideEmptyView(mEmptyParentView);
+    }
+
+    /**
+     * 注销
+     */
+    protected void logout(){
+        if (RongIM.getInstance() != null && RongIM.getInstance().getRongIMClient() != null)
+            RongIM.getInstance().logout();
+        SPUtils.clear(mContext);
+        ActivityContainer.getInstance().finishActivity();
+        TransferCenter.getInstance().startLogin(true, false);
     }
 }

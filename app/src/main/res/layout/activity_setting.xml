@@ -8,10 +8,10 @@
         layout="@layout/include_toolbar" />
 
     <LinearLayout
-        android:layout_below="@+id/toolbar"
         android:id="@+id/ll_clear_cache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="8dp"
         android:background="@drawable/selector_white_to_gray"
         android:orientation="horizontal">
@@ -35,19 +35,12 @@
             android:text="0.12M" />
     </LinearLayout>
 
-    <View
-        android:layout_width="16dp"
-        android:layout_height="1dp"
-        android:layout_below="@+id/ll_clear_cache"
-        android:background="@color/white" />
 
     <View
         android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        style="@style/HorizontalLine"
         android:layout_below="@+id/ll_clear_cache"
-        android:layout_marginLeft="16dp"
-        android:background="@color/normal_grey" />
+        android:layout_marginLeft="16dp" />
 
     <LinearLayout
         android:id="@+id/ll_message_notify"
@@ -96,22 +89,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tv_current_version"
         android:gravity="center_vertical|right"
-        android:paddingRight="16dp"
-        android:text="V1.1" />
-
-    <View
-        android:layout_width="16dp"
-        android:layout_height="1dp"
-        android:layout_below="@+id/tv_current_version"
-        android:background="@color/white" />
+        android:paddingRight="16dp" />
 
     <View
         android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+        style="@style/HorizontalLine"
         android:layout_below="@+id/tv_current_version"
-        android:layout_marginLeft="16dp"
-        android:background="@color/normal_grey" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/tv_about_me"

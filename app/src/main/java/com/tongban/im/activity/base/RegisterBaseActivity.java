@@ -1,16 +1,10 @@
 package com.tongban.im.activity.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.account.LoginActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.account.EditUserFragment;
-import com.tongban.im.fragment.account.FirstRegisterFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.user.User;
 
@@ -35,12 +29,7 @@ public abstract class RegisterBaseActivity extends AccountBaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (!isEditUser) {
-            startActivity(new Intent(mContext, LoginActivity.class));
-        } else {
-            connectIM(true, true);
-        }
-        finish();
+        logout();
     }
 
     /**

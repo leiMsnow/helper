@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/normal_grey">
+    android:background="@color/weak_grey">
 
     <include
         android:id="@+id/toolbar"
@@ -36,14 +36,13 @@
 
         <ImageView
             android:id="@+id/iv_select_boy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
-            android:padding="4dp"
-            android:src="@mipmap/ic_closed"
-            android:background="@color/red_300"
+            android:padding="8dp"
+            android:src="@mipmap/ic_poi_selected"
             android:visibility="gone" />
 
     </RelativeLayout>
@@ -67,14 +66,13 @@
 
         <ImageView
             android:id="@+id/iv_select_girl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
-            android:padding="4dp"
-            android:background="@color/red_300"
-            android:src="@mipmap/ic_closed"
+            android:padding="8dp"
+            android:src="@mipmap/ic_poi_selected"
             android:visibility="gone" />
 
     </RelativeLayout>
