@@ -3,13 +3,14 @@
     <style name="MainBottomMenu">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
-        <!--<item name="android:layout_marginBottom">4dp</item>-->
         <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">2dp</item>
         <item name="android:button">@null</item>
         <item name="android:textColor">@color/selector_main_menu_text</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@color/transparent</item>
-        <!--<item name="android:padding">4dp</item>-->
+        <item name="android:textSize">10sp</item>
     </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
@@ -63,8 +64,6 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:enabled">false</item>
-        <!--<item name="android:layout_marginLeft">48dp</item>-->
-        <!--<item name="android:layout_marginRight">48dp</item>-->
         <item name="android:orientation">vertical</item>
     </style>
     <!-- 用户信息：粉丝、关注、话题相关-->
@@ -116,7 +115,6 @@
     </style>
 
     <style name="ClearEditTextStyle">
-        <!--<item name="android:background">@drawable/selector_edit_text</item>-->
         <item name="android:background">@null</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>

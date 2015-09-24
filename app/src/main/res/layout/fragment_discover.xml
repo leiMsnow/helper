@@ -39,7 +39,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="14dp"
             android:src="@mipmap/ic_default_portrait1"
             android:scaleType="centerCrop"/>
 
@@ -54,7 +54,7 @@
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="16sp"/>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/iv_search_all"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"

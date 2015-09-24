@@ -223,8 +223,7 @@ public class GroupApi extends BaseApi {
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override

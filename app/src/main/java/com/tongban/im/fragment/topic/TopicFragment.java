@@ -47,7 +47,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     private int mCursor = 0;
     private int mPageSize = 10;
-    private String mKeyword;
     //是否是下拉刷新操作
     private boolean mIsPull = false;
 

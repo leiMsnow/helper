@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,66 +8,30 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_bottom_menu" />
 
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="4dp"-->
-        <!--android:layout_above="@+id/ll_bottom_menu"-->
-        <!--android:background="@drawable/bg_menu_bottom_light"-->
-        <!--android:visibility="gone" />-->
+    <View
+        style="@style/HorizontalLine"
+        android:layout_above="@+id/ll_bottom_menu" />
 
     <LinearLayout
         android:id="@+id/ll_bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_menu_bottom_light"
+        android:background="@color/white"
         android:orientation="horizontal">
-
-
-        <!--<com.tongban.corelib.widget.view.ChangeColorView-->
-            <!--android:id="@+id/ccv_discover"-->
-            <!--style="@style/MainBottomMenu"-->
-            <!--android:visibility="gone"-->
-            <!--app:changeColor="@color/theme_red"-->
-            <!--app:changeIcon="@mipmap/ic_menu_discover_normal"-->
-            <!--app:changeText="@string/discover"-->
-            <!--app:changeTextSize="12sp"-->
-            <!--app:defaultColor="@color/normal_grey" />-->
 
         <CheckBox
             android:id="@+id/tv_discover"
-            android:checked="true"
             style="@style/MainBottomMenu"
+            android:checked="true"
             android:drawableTop="@drawable/selector_menu_discover"
             android:text="@string/discover" />
-
-
-        <!--<com.tongban.corelib.widget.view.ChangeColorView-->
-            <!--android:id="@+id/ccv_topic"-->
-            <!--style="@style/MainBottomMenu"-->
-            <!--app:changeColor="@color/theme_red"-->
-            <!--app:changeIcon="@mipmap/ic_menu_topic_normal"-->
-            <!--app:changeText="@string/topic"-->
-            <!--app:changeTextSize="12sp"-->
-            <!--app:defaultColor="@color/selector_main_menu_text"-->
-            <!--android:visibility="gone"/>-->
 
         <CheckBox
             android:id="@+id/tv_topic"
             style="@style/MainBottomMenu"
             android:drawableTop="@drawable/selector_menu_topic"
             android:text="@string/topic" />
-
-        <!--<com.tongban.corelib.widget.view.ChangeColorView-->
-            <!--android:id="@+id/ccv_circle"-->
-            <!--style="@style/MainBottomMenu"-->
-            <!--app:changeColor="@color/theme_red"-->
-            <!--app:changeIcon="@mipmap/ic_menu_circle_select"-->
-            <!--app:changeText="@string/group"-->
-            <!--app:changeTextSize="12sp"-->
-            <!--app:defaultColor="@color/normal_grey"-->
-            <!--android:visibility="gone"/>-->
-
 
         <CheckBox
             android:id="@+id/tv_group"

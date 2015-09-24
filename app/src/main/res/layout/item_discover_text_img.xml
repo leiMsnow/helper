@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_below="@+id/in_theme_type"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:scaleType="centerCrop"
@@ -27,11 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_img"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:ellipsize="end"
-        android:maxLines="2"
+        android:layout_marginTop="16dp"
         android:text="标题"
         android:textColor="@color/main_black"
         android:textSize="16sp" />
@@ -44,9 +42,11 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:lineSpacingExtra="4dp"
+        android:maxLines="4"
         android:text="内容"
-        android:textColor="@color/normal_dark_grey" />
+        android:textColor="@color/normal_dark_grey"
+        android:textSize="12sp" />
 
     <include
         layout="@layout/include_topic_bottom_main"

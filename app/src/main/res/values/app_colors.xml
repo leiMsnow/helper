@@ -17,7 +17,7 @@
     <!-- 用于次级辅助文字信息，时间等-->
     <color name="normal_grey">#c8c8c8</color>
     <!-- 用于分割线，标签描边等-->
-    <color name="normal_light_grey">#e6e6e6</color>
+    <color name="normal_light_grey">#f0f0f0</color>
 
     <!-- 较弱色-->
     <!-- 用户较弱可点击文字，如注册登录、忘记密码等-->

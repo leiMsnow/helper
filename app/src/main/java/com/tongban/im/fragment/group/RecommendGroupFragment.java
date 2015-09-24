@@ -6,9 +6,13 @@ import android.widget.ListView;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.header.RentalsSunHeaderView;
+import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
@@ -24,16 +28,20 @@ import io.rong.imkit.RongIM;
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
-public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHandler {
+public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHandler,
+        OnLoadMoreListener {
 
     private PtrFrameLayout ptrFrameLayout;
-    private ListView lvGroupList;
+    private LoadMoreListView lvGroupList;
 
     private GroupListAdapter mAdapter;
 
     private boolean mIsMainEvent = false;
     private String mKeyword;
     private int mCursor = 0;
+    private int mPageSize = 20;
+    //是否是下拉刷新操作
+    private boolean mIsPull = false;
 
     public void setmKeyword(String mKeyword) {
         this.mKeyword = mKeyword;
@@ -47,7 +55,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     @Override
     protected void initView() {
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        lvGroupList = (ListView) mView.findViewById(R.id.lv_group_list);
+        lvGroupList = (LoadMoreListView) mView.findViewById(R.id.lv_group_list);
     }
 
     @Override
@@ -55,24 +63,38 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsMainEvent) {
-            StoreHouseHeader header = new StoreHouseHeader(mContext);
-            header.setTextColor(R.color.main_brown);
-            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
-                    DensityUtils.dp2px(mContext, 16), 0);
-            header.initWithPointList(getPointList());
+//            StoreHouseHeader header = new StoreHouseHeader(mContext);
+//            header.setTextColor(R.color.main_black);
+//            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
+//                    DensityUtils.dp2px(mContext, 16), 0);
+//            header.initWithPointList(getPointList());
+//            ptrFrameLayout.setHeaderView(header);
+//            ptrFrameLayout.addPtrUIHandler(header);
+//            ptrFrameLayout.setPtrHandler(this);
+//            GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
+
+            RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
+            header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
+            header.setPadding(0, DensityUtils.dp2px(mContext, 16),
+                    0, DensityUtils.dp2px(mContext, 16));
+            header.setUp(ptrFrameLayout);
+
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);
             ptrFrameLayout.setPtrHandler(this);
-            GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
+            ptrFrameLayout.autoRefresh();
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);
         lvGroupList.setAdapter(mAdapter);
+        lvGroupList.setPageSize(mPageSize);
+
     }
 
     @Override
     protected void initListener() {
         setRequestApiListener(this);
+        lvGroupList.setOnLoadMoreListener(this);
         mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }
 
@@ -82,11 +104,15 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
      * @param list
      */
     public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
-        if (mIsMainEvent) {
+        if (mIsPull) {
             ptrFrameLayout.refreshComplete();
-            mAdapter.replaceAll(list.groupList);
-            lvGroupList.setVisibility(View.VISIBLE);
+            lvGroupList.resetLoad();
+            mIsPull = false;
+            mAdapter.clear();
         }
+        lvGroupList.setResultSize(list.groupList.size());
+        mAdapter.addAll(list.groupList);
+        lvGroupList.setVisibility(View.VISIBLE);
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
@@ -148,6 +174,14 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     public void onRequest() {
-        GroupApi.getInstance().recommendGroupList(0, 20, this);
+        mCursor = 0;
+        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
+    }
+
+    @Override
+    public void onLoadMore() {
+        mCursor++;
+        if (mIsMainEvent)
+            GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
     }
 }

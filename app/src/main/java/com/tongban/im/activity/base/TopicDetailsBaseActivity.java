@@ -39,6 +39,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setImageResultListener(this);
+        setTitle("");
     }
 
     @Override
@@ -79,7 +80,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.topic;
-        setTitle(mTopicInfo.getTopic_title());
+//        setTitle(mTopicInfo.getTopic_title());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

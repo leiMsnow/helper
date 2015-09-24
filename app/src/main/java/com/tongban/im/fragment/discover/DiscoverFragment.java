@@ -4,6 +4,7 @@ package com.tongban.im.fragment.discover;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -35,7 +36,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 public class DiscoverFragment extends BaseToolBarFragment implements View.OnClickListener, PtrHandler {
 
     private ImageView ivUserPortrait;
-    private ImageView ivSearchAll;
+    private ImageButton ivSearchAll;
     private PtrFrameLayout ptrFrameLayout;
     private ListView mListView;
     private DiscoverAdapter mAdapter;
@@ -49,7 +50,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     protected void initView() {
         mToolbar = mView.findViewById(R.id.rl_toolbar);
         ivUserPortrait = (ImageView) mView.findViewById(R.id.iv_user_portrait);
-        ivSearchAll = (ImageView) mView.findViewById(R.id.iv_search_all);
+        ivSearchAll = (ImageButton) mView.findViewById(R.id.iv_search_all);
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         mListView = (ListView) mView.findViewById(R.id.lv_discover);
 
