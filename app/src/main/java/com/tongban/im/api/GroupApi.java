@@ -212,7 +212,7 @@ public class GroupApi extends BaseApi {
      * @param pageSize 每页多少数据
      * @param callback
      */
-    public void recommendGroupList(int cursor, int pageSize, final IApiCallback callback) {
+    public void recommendGroupList(final int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
@@ -223,7 +223,10 @@ public class GroupApi extends BaseApi {
         simpleRequest(RECOMMEND_GROUP_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override

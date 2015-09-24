@@ -20,7 +20,8 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/rl_toolbar"
             android:background="@color/weak_grey"
-            android:cacheColorHint="@android:color/transparent"
+            android:listSelector="@color/transparent"
+            android:cacheColorHint="@color/transparent"
             android:divider="@null"
             android:scrollbars="none"
             android:visibility="gone" />

@@ -65,7 +65,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     RongIMClient.ResultCallback<List<Conversation>> mCallback = new RongIMClient.ResultCallback<List<Conversation>>() {
         @Override
         public void onSuccess(List<Conversation> conversations) {
-            RLog.d(this, "ConversationListFragment", "initFragment onSuccess callback");
 
             if (mAdapter != null && mAdapter.getCount() != 0) {
                 mAdapter.clear();
@@ -90,13 +89,11 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
         @Override
         public void onError(RongIMClient.ErrorCode e) {
-            RLog.d(this, "ConversationListFragment", "initFragment onError callback, e=" + e);
         }
     };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        RLog.d(this, "ConversationListFragment", "onCreate");
         if (ConversationContext.getInstance() == null) {
             ConversationContext.init(RongContext.getInstance());
         }
@@ -112,7 +109,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     @Override
     public void onAttach(Activity activity) {
-        RLog.d(this, "ConversationListFragment", "onAttach");
         super.onAttach(activity);
     }
 
@@ -125,8 +121,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
                 Conversation.ConversationType.DISCUSSION, Conversation.ConversationType.SYSTEM,
                 Conversation.ConversationType.CUSTOMER_SERVICE, Conversation.ConversationType.CHATROOM,
                 Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE};
-
-        RLog.d(this, "ConversationListFragment", "initFragment");
 
         if (uri == null) {
             RongIM.getInstance().getRongIMClient().getConversationList(mCallback);
@@ -156,7 +150,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        RLog.d(this, "ConversationListFragment", "onCreateView");
         View view = inflater.inflate(R.layout.rc_fr_conversationlist, null);
         mList = findViewById(view, R.id.rc_list);
 
@@ -181,7 +174,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
         if (RongIM.getInstance() == null || RongIM.getInstance().getRongIMClient() == null) {
             throw new ExceptionInInitializerError("RongCloud SDK hasn't been initialized!");
         }
-        RLog.d(ConversationListFragment.this, "onResume", "current connect status is:" + RongIM.getInstance().getRongIMClient().getCurrentConnectionStatus());
         RongContext.getInstance().getPushNotificationMng().onRemoveNotification();
 
         RongIMClient.ConnectionStatusListener.ConnectionStatus status = RongIM.getInstance().getRongIMClient().getCurrentConnectionStatus();
@@ -250,24 +242,18 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     }
 
     public void onEventMainThread(Message message) {
-        RLog.d(this, "onEventMainThread", "Receive Message: name=" + message.getObjectName() +
-                ", type=" + message.getConversationType());
-
         if ((mSupportConversationList.size() != 0 && !mSupportConversationList.contains(message.getConversationType()))
                 || (mSupportConversationList.size() == 0 && (message.getConversationType() == ConversationType.CHATROOM
                 || message.getConversationType() == ConversationType.CUSTOMER_SERVICE))) {
-            RLog.d(this, "onEventBackgroundThread", "Not included in conversation list. Return directly!");
             return;
         }
 
         if (mAdapter == null) {
-            RLog.d(this, "onEventMainThread(Message)", "the conversation list adapter is null. Cache the received message firstly!!!");
             mMessageCache.add(message);
             return;
         }
 
         int originalIndex = mAdapter.findPosition(message.getConversationType(), message.getTargetId());
-        RLog.d(this, "onEventBackgroundThread", "Event.Message, originalIndex is:" + originalIndex);
 
         UIConversation uiConversation = makeUiConversation(message, originalIndex);
 
@@ -293,7 +279,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     }
 
     public void onEventMainThread(MessageContent content) {
-        RLog.d(ConversationListFragment.this, "onEventMainThread:", "MessageContent");
 
         for (int index = 0; index < mAdapter.getCount(); index++) {
             UIConversation tempUIConversation = mAdapter.getItem(index);
@@ -311,8 +296,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     }
 
     public void onEvent(final RongIMClient.ConnectionStatusListener.ConnectionStatus status) {
-
-        RLog.d(this, "ConnectionStatus", status.toString());
 
         if (isResumed())
             getHandler().post(new Runnable() {
@@ -333,7 +316,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     }
 
     public void onEventMainThread(Event.CreateDiscussionEvent createDiscussionEvent) {
-        RLog.d(ConversationListFragment.this, "onEventBackgroundThread:", "createDiscussionEvent");
         UIConversation conversation = new UIConversation();
         conversation.setConversationType(ConversationType.DISCUSSION);
         if (createDiscussionEvent.getDiscussionName() != null)
@@ -361,7 +343,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
         if (curType == null) {
             throw new IllegalArgumentException("the type of the draft is unknown!");
         }
-        RLog.i(ConversationListFragment.this, "onEventMainThread(draft)", curType.getName());
         int position = mAdapter.findPosition(curType, draft.getId());
 
         if (position >= 0) {
@@ -380,7 +361,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     /* function: 异步获取到群组信息后，在此进行相应刷新*/
     public void onEventMainThread(Group groupInfo) {
         int count = mAdapter.getCount();
-        RLog.d(ConversationListFragment.this, "onEventMainThread", "Group: name=" + groupInfo.getName() + ", id=" + groupInfo.getId());
         if(groupInfo.getName() == null){
             return;
         }
@@ -420,7 +400,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     public void onEventMainThread(Discussion discussion) {
         int count = mAdapter.getCount();
-        RLog.d(ConversationListFragment.this, "onEventMainThread", "Discussion: name=" + discussion.getName() + ", id=" + discussion.getId());
 
         for (int i = 0; i < count; i++) {
             UIConversation item = mAdapter.getItem(i);
@@ -780,7 +759,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     @Override
     public boolean handleMessage(android.os.Message msg) {
-        RLog.d("ConversationListFragment", "onEvent", "handleMessage，thread is:" + Thread.currentThread().getName());
         switch (msg.what) {
             case REFRESH_LIST:
                 mAdapter.notifyDataSetChanged();
@@ -1002,7 +980,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     @Override
     public void onDestroy() {
-        RLog.d(this, "ConversationListFragment", "onDestroy");
         RongContext.getInstance().getEventBus().unregister(this);
         getHandler().removeCallbacksAndMessages(null);
         super.onDestroy();
@@ -1010,7 +987,6 @@ public class ConversationListFragment extends UriFragment implements AdapterView
 
     @Override
     public void onPause() {
-        RLog.d(this, "ConversationListFragment", "onPause");
         super.onPause();
     }
 

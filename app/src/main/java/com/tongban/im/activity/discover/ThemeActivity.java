@@ -129,6 +129,7 @@ public class ThemeActivity extends ThemeBaseActivity {
         themeTag.removeAllViews();
         String[] themeTags = mTheme.getTheme_tags().split(",");
         if (themeTags.length > 0) {
+            findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
             for (String tag : themeTags) {
                 TextView tv = new TextView(mContext);
                 tv.setText(tag);

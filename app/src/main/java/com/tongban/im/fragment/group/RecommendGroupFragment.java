@@ -82,7 +82,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);
             ptrFrameLayout.setPtrHandler(this);
-            ptrFrameLayout.autoRefresh();
+            ptrFrameLayout.autoRefresh(true);
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);

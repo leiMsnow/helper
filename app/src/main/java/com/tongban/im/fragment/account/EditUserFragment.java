@@ -4,6 +4,7 @@ package com.tongban.im.fragment.account;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.dd.CircularProgressButton;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
@@ -35,7 +37,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
         View.OnClickListener, CommonImageResultActivity.IPhotoListener {
     private ImageView ivPortrait;
     private EditText etNickName;
-    private Button btnSubmit;
+    private CircularProgressButton btnSubmit;
 
     private CameraView mCameraView;
 
@@ -62,7 +64,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
     protected void initView() {
         ivPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
         etNickName = (EditText) mView.findViewById(R.id.et_input_school);
-        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
+        btnSubmit = (CircularProgressButton) mView.findViewById(R.id.btn_submit);
     }
 
     @Override
@@ -105,50 +107,59 @@ public class EditUserFragment extends BaseToolBarFragment implements
                 ToastUtil.getInstance(mContext).showToast("请输入昵称");
                 return;
             }
-            // 使用用户上传的资料
-            if (mIcon != null) {
-                FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                        FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // 使用用户上传的资料
+                    if (mIcon != null) {
+                        FileUploadApi.getInstance().uploadFile(mIcon, null,
+                                FileUploadApi.IMAGE_SIZE_300,
+                                FileUploadApi.IMAGE_SIZE_500,
+                                new UploadFileCallback() {
 
-                            @Override
-                            public void uploadSuccess(ImageUrl url) {
-                                updateUser(url);
-                            }
+                                    @Override
+                                    public void uploadSuccess(ImageUrl url) {
+                                        updateUser(url);
+                                    }
 
-                            @Override
-                            public void uploadFailed(String error) {
-                                updateUser(null);
-                            }
+                                    @Override
+                                    public void uploadFailed(String error) {
+                                        updateUser(null);
+                                    }
 
-                        });
-            } else {
-                //使用第三方资料
-                if (otherRegister != null) {
-                    updateUser(otherRegister.getUrls());
+                                });
+                    } else {
+                        //使用第三方资料
+                        if (otherRegister != null) {
+                            updateUser(otherRegister.getUrls());
+                        }
+                        //使用系统默认资料
+                        else {
+                            int resId = (Integer) SPUtils.get(mContext,
+                                    SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+                            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                                    resId);
+                            mIcon = CameraUtils.Bitmap2Bytes(bitmap);
+                            FileUploadApi.getInstance().uploadFile(mIcon, null,
+                                    FileUploadApi.IMAGE_SIZE_300,
+                                    FileUploadApi.IMAGE_SIZE_500,
+                                    new UploadFileCallback() {
+
+                                        @Override
+                                        public void uploadSuccess(ImageUrl url) {
+                                            updateUser(url);
+                                        }
+
+                                        @Override
+                                        public void uploadFailed(String error) {
+                                            updateUser(null);
+                                        }
+
+                                    });
+                        }
+                    }
                 }
-                //使用系统默认资料
-                else {
-                    int resId = (Integer) SPUtils.get(mContext,
-                            SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
-                    mIcon = CameraUtils.Bitmap2Bytes(bitmap);
-                    FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                            FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
-
-                                @Override
-                                public void uploadSuccess(ImageUrl url) {
-                                    updateUser(url);
-                                }
-
-                                @Override
-                                public void uploadFailed(String error) {
-                                    updateUser(null);
-                                }
-
-                            });
-                }
-            }
-
+            }, 1 * 1000);
 
         }
 

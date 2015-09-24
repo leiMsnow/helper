@@ -151,8 +151,8 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     public void onEventMainThread(BaseEvent.FetchHomeInfo homeInfo) {
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
-        mListView.setVisibility(View.VISIBLE);
-        if (homeInfo != null && homeInfo.list.size() > 0) {
+        if (homeInfo.list != null && homeInfo.list.size() > 0) {
+            mListView.setVisibility(View.VISIBLE);
             mAdapter.replaceAll(homeInfo.list);
             // 请求收藏数量数据并更新
             int floor = 0; // 楼层
@@ -183,10 +183,8 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         if (obj.getApiName().equals(ProductApi.FETCH_HOME_INFO)) {
             if (ptrFrameLayout.isRefreshing())
                 ptrFrameLayout.refreshComplete();
-            if (mAdapter != null) {
-                if (mAdapter.getCount() > 0) {
-                    hideEmptyView();
-                }
+            if (mAdapter != null && mAdapter.getCount() > 0) {
+                hideEmptyView();
             }
         }
     }
@@ -198,8 +196,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-        // 获取首页数据
-        ProductApi.getInstance().fetchHomeInfo(this);
+        onRequest();
     }
 
     @Override

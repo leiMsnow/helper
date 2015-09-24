@@ -179,7 +179,5 @@ public class ConversationListAdapter extends BaseAdapter<UIConversation> {
         } else {
             throw new IllegalArgumentException("the portrait position is wrong!");
         }
-
-        RLog.d(this, "leftImageLayout", "position:" + position + " Visibility:" + holder.leftImageLayout.getVisibility());
     }
 }

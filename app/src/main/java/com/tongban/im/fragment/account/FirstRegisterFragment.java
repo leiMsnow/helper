@@ -1,6 +1,7 @@
 package com.tongban.im.fragment.account;
 
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -75,8 +76,14 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         else if (v == btnRegister) {
             if (regEvent != null) {
                 btnRegister.setProgress(50);
-                    AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
-                            mVerifyCode, this);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
+                                mVerifyCode, FirstRegisterFragment.this);
+                    }
+                }, 2 * 1000);
+
             } else {
                 //提示获取验证码
                 ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);

@@ -123,6 +123,7 @@ public  class ProductBookActivity extends ThemeBaseActivity implements View.OnCl
         desc.setText(mProductBook.getBook_content_desc());
         String[] productTags = mProductBook.getProduct_tags().split(",");
         if (productTags.length > 0) {
+            findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
             for (String tag : productTags) {
                 TextView tv = new TextView(mContext);
                 tv.setText(tag);

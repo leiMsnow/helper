@@ -61,8 +61,8 @@ public class FocusFragment extends BaseToolBarFragment implements View.OnClickLi
      * 获取我的关注列表Event
      */
     public void onEventMainThread(BaseEvent.MyFollowListEvent obj) {
-        mPageSize++;
-        mAdapter.replaceAll(obj.myFollowList);
+        mCursor++;
+        mAdapter.addAll(obj.myFollowList);
         lvFocusList.setResultSize(obj.myFollowList.size());
     }
 
@@ -73,9 +73,9 @@ public class FocusFragment extends BaseToolBarFragment implements View.OnClickLi
      */
     public void onEventMainThread(BaseEvent.FocusEvent obj) {
         for (int i = 0; i < mAdapter.getCount(); i++) {
-                if (mAdapter.getItem(i).getUser_id().equals(obj.userIds)) {
-                    mAdapter.remove(i);
-                }
+            if (mAdapter.getItem(i).getUser_id().equals(obj.userIds)) {
+                mAdapter.remove(i);
+            }
         }
     }
 
@@ -85,10 +85,10 @@ public class FocusFragment extends BaseToolBarFragment implements View.OnClickLi
             //取消关注
             case R.id.btn_follow:
                 String focusId = v.getTag().toString();
-                UserCenterApi.getInstance().focusUser(false,focusId, this);
+                UserCenterApi.getInstance().focusUser(false, focusId, this);
                 break;
             case R.id.iv_user_icon:
-                String userId=v.getTag(Integer.MAX_VALUE).toString();
+                String userId = v.getTag(Integer.MAX_VALUE).toString();
                 TransferCenter.getInstance().startUserCenter(userId);
                 getActivity().finish();
                 break;

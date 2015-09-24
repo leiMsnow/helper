@@ -101,10 +101,14 @@ public class ProductApi extends BaseApi {
                         new TypeReference<ApiResult<List<Discover>>>() {
                         });
                 List<Discover> discoverList = result.getData();
-                BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
-                homeInfo.list = (discoverList);
-                if (callback != null)
-                    callback.onComplete(homeInfo);
+                if (discoverList != null && discoverList.size() > 0) {
+                    BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
+                    homeInfo.list = (discoverList);
+                    if (callback != null)
+                        callback.onComplete(homeInfo);
+                } else {
+                    onFailure(createEmptyResult(FETCH_HOME_INFO));
+                }
             }
 
             @Override
@@ -165,7 +169,8 @@ public class ProductApi extends BaseApi {
             @Override
             public void onStartApi() {
                 if (callback != null)
-                    callback.onStartApi();            }
+                    callback.onStartApi();
+            }
 
             @Override
             public void onComplete(Object obj) {
@@ -298,7 +303,8 @@ public class ProductApi extends BaseApi {
             @Override
             public void onStartApi() {
                 if (callback != null)
-                    callback.onStartApi();            }
+                    callback.onStartApi();
+            }
 
             @Override
             public void onComplete(Object obj) {

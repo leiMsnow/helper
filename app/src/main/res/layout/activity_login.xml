@@ -20,11 +20,11 @@
             android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/phone_num"
-            android:textColor="@color/main_black" />
+            android:textColor="@color/normal_grey" />
 
         <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_phone_num"
@@ -50,11 +50,11 @@
             android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="@string/pwd"
-            android:textColor="@color/main_black" />
+            android:textColor="@color/normal_grey" />
 
         <com.tongban.corelib.widget.view.ClearEditText
             android:id="@+id/et_pwd"

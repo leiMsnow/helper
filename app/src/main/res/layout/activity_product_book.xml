@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/fl_tag"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     android:src="@mipmap/ic_book_mark" />
                 <!-- 标签 -->
                 <com.tongban.corelib.widget.view.FlowLayout

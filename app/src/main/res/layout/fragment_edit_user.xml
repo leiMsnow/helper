@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -56,9 +57,13 @@
         </RelativeLayout>
     </ScrollView>
 
-    <Button
+    <com.dd.CircularProgressButton
         android:id="@+id/btn_submit"
         style="@style/CommonButtonStyle"
-        android:enabled="true"
-        android:text="@string/submit" />
+        app:cpb_textIdle="@string/submit"
+        app:cpb_colorIndicator="@drawable/idle_state_selector"
+        app:cpb_colorIndicatorBackground="@color/white"
+        app:cpb_colorProgress="@drawable/idle_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector" />
+
 </RelativeLayout>

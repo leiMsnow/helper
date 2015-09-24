@@ -62,7 +62,7 @@ public class FansFragment extends BaseToolBarFragment implements AdapterView.OnI
      */
     public void onEventMainThread(BaseEvent.MyFansListEvent obj) {
         mCursor++;
-        mAdapter.replaceAll(obj.myFansList);
+        mAdapter.addAll(obj.myFansList);
         lvFansList.setResultSize(obj.myFansList.size());
     }
 

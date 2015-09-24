@@ -141,7 +141,7 @@ public class TopicApi extends BaseApi {
      *
      * @param callback
      */
-    public void recommendTopicList(int cursor, int pageSize, final IApiCallback callback) {
+    public void recommendTopicList(final int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
@@ -150,8 +150,10 @@ public class TopicApi extends BaseApi {
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
+import com.tongban.corelib.widget.view.transformer.ZoomInPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.common.Consts;
@@ -87,7 +88,7 @@ public class MyTopicActivity extends CommonImageResultActivity implements
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         //回复我的话题
-        MyCommentTopicFragment myCommentTopicFragment=new MyCommentTopicFragment();
+        MyCommentTopicFragment myCommentTopicFragment = new MyCommentTopicFragment();
         mTabs.add(myCommentTopicFragment);
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -102,7 +103,7 @@ public class MyTopicActivity extends CommonImageResultActivity implements
         };
         vpResult.setAdapter(mAdapter);
         vpResult.addOnPageChangeListener(this);
-        vpResult.setPageTransformer(true, new DepthPageTransformer());
+        vpResult.setPageTransformer(true, new ZoomInPageTransformer());
     }
 
     @Override
@@ -148,7 +149,9 @@ public class MyTopicActivity extends CommonImageResultActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
-        tvMySendTopicNum.setText(String.valueOf(obj.topicList.size()));
+        int count = Integer.parseInt(tvMySendTopicNum.getText().toString()) +
+                obj.topicList.size();
+        tvMySendTopicNum.setText(String.valueOf(count));
     }
 
     /**
@@ -157,6 +160,8 @@ public class MyTopicActivity extends CommonImageResultActivity implements
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
-        tvMyCommentTopicNum.setText(String.valueOf(obj.commentTopicList.size()));
+        int count = Integer.parseInt(tvMyCommentTopicNum.getText().toString()) +
+                obj.commentTopicList.size();
+        tvMyCommentTopicNum.setText(String.valueOf(count));
     }
 }

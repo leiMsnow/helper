@@ -95,7 +95,7 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements View.
      */
     public void onEventMainThread(BaseEvent.CommentTopicListEvent obj) {
         mCursor++;
-        mAdapter.replaceAll(obj.commentTopicList);
+        mAdapter.addAll(obj.commentTopicList);
         mListView.setResultSize(obj.commentTopicList.size());
     }
 

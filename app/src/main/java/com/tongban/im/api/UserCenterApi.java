@@ -244,7 +244,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchMyGroupsList(int cursor, int pageSize, String userId, final IApiCallback callback) {
+    public void fetchMyGroupsList(final int cursor, int pageSize, String userId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
@@ -256,7 +256,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_MY_GROUPS_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -266,7 +269,8 @@ public class UserCenterApi extends BaseApi {
                         });
                 BaseEvent.MyGroupListEvent myGroupListEvent = new BaseEvent.MyGroupListEvent();
                 myGroupListEvent.myGroupList = (apiResponse.getData().getResult());
-                callback.onComplete(myGroupListEvent);
+                if (callback != null)
+                    callback.onComplete(myGroupListEvent);
             }
 
             @Override
@@ -285,7 +289,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFocusUserList(int cursor, int pageSize, String userId, final IApiCallback callback) {
+    public void fetchFocusUserList(final int cursor, int pageSize, String userId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ?
@@ -296,7 +300,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_FOCUS_USER_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -324,17 +331,20 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchFansUserList(int cursor, int pageSize, String userId, final IApiCallback callback) {
+    public void fetchFansUserList(final int cursor, int pageSize, String userId, final IApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", TextUtils.isEmpty(userId) ? SPUtils.get(mContext, Consts.USER_ID, "") :
-                userId);
+        mParams.put("user_id", TextUtils.isEmpty(userId) ?
+                SPUtils.get(mContext, Consts.USER_ID, "") : userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
         simpleRequest(FETCH_FANS_USER_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -360,7 +370,7 @@ public class UserCenterApi extends BaseApi {
      *
      * @param callback
      */
-    public void fetchCollectedProductList(int cursor, int pageSize, final IApiCallback callback) {
+    public void fetchCollectedProductList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
@@ -370,7 +380,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -399,7 +412,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchCollectTopicList(int cursor, int pageSize, final IApiCallback callback) {
+    public void fetchCollectTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -409,7 +422,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_COLLECT_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -438,7 +454,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchCollectMultipleTopicList(int cursor, int pageSize, final IApiCallback callback) {
+    public void fetchCollectMultipleTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -448,7 +464,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_COLLECT_MULTIPLE_PRODUCT_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -477,7 +496,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchReplyTopicList(int cursor, int pageSize, final IApiCallback callback) {
+    public void fetchReplyTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -487,7 +506,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_COLLECT_REPLY_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -515,7 +537,7 @@ public class UserCenterApi extends BaseApi {
      * @param pageSize
      * @param callback
      */
-    public void fetchLaunchTopicList(int cursor, int pageSize, final IApiCallback callback) {
+    public void fetchLaunchTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
@@ -525,7 +547,10 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(FETCH_LAUNCH_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (cursor == 0) {
+                    if (callback != null)
+                        callback.onStartApi();
+                }
             }
 
             @Override
@@ -565,7 +590,8 @@ public class UserCenterApi extends BaseApi {
         simpleRequest(isFocus ? FOCUS_USER : CANCEL_FOCUS_USER, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                callback.onStartApi();
+                if (callback != null)
+                    callback.onStartApi();
             }
 
             @Override
