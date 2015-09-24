@@ -137,12 +137,10 @@ public class UserCenterActivity extends UserBaseActivity {
             ivPrivateChat.setVisibility(View.VISIBLE);
             ivCancelFocus.setVisibility(View.VISIBLE);
             ivFocus.setVisibility(View.GONE);
-            ToastUtil.getInstance(mContext).showToast("关注成功");
         } else {
             ivPrivateChat.setVisibility(View.GONE);
             ivCancelFocus.setVisibility(View.GONE);
             ivFocus.setVisibility(View.VISIBLE);
-            ToastUtil.getInstance(mContext).showToast("取消成功");
         }
     }
 }

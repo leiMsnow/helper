@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_transparent_to_gray"
-                android:paddingLeft="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_transparent_to_gray">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        android:singleLine="true"
         android:textColor="@color/main_black"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/tv_comment_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
-        android:layout_marginBottom="8dp"
-        android:drawableLeft="@mipmap/ic_topic_comment_count"
-        android:drawablePadding="4dp"
-        android:textColor="@color/normal_grey"/>
-
-    <TextView
-        android:id="@+id/tv_collect_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_comment_count"
-        android:layout_alignTop="@+id/tv_comment_count"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/tv_comment_count"
-        android:drawableLeft="@mipmap/ic_discover_collect_count"
-        android:drawablePadding="4dp"
-        android:textColor="@color/normal_grey"/>
+    <include
+        layout="@layout/include_topic_bottom_main"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@+id/tv_title" />
 
 </RelativeLayout>

@@ -393,6 +393,7 @@ public class BaseApi {
         if (cacheName.equals(USER_CACHE_TIME)) {
             disableCacheTime = 5;
             setDisableCacheUrls(UserCenterApi.USER_INFO);
+            setDisableCacheUrls(UserCenterApi.FETCH_USER_CENTER_INFO);
             setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
             setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
 

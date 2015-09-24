@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:drawableLeft="@mipmap/ic_reply_count"
+            android:drawableLeft="@mipmap/ic_topic_comment_count"
             android:gravity="center"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

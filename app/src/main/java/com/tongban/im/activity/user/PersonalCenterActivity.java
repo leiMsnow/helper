@@ -20,7 +20,6 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
     @Override
     protected void initView() {
         super.initView();
-        //contentView
         tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
         tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
         tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);

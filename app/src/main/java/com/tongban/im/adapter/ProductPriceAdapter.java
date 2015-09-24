@@ -55,7 +55,7 @@ public class ProductPriceAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.platform.setText(getPlatform(mList.get(position).getPlatform()));
-        holder.price.setText(mList.get(position).getPrice());
+        holder.price.setText("￥" + mList.get(position).getPrice());
         return convertView;
     }
 

@@ -79,10 +79,11 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.topic;
-        menuItem.setVisible(true);
+        setTitle(mTopicInfo.getTopic_title());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                menuItem.setVisible(true);
                 if (mTopicInfo.isCollect_status()) {
                     menuItem.setIcon(R.mipmap.ic_menu_collected);
                 } else {

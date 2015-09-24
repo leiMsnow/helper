@@ -27,31 +27,48 @@
                 android:layout_below="@id/vp_img"
                 android:layout_margin="16dp"
                 android:textColor="@color/main_black"
-                android:textStyle="bold"
-                android:textSize="18sp" />
-            <!-- 标签 -->
-            <com.tongban.corelib.widget.view.FlowLayout
-                android:id="@+id/fl_tag"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/rl_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/fl_tag"
+                    android:layout_marginTop="4dp"
+                    android:src="@mipmap/ic_book_mark" />
+                <!-- 标签 -->
+                <com.tongban.corelib.widget.view.FlowLayout
+                    android:id="@+id/fl_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/iv_mark" />
+
+            </RelativeLayout>
 
             <!-- 作者 -->
             <TextView
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fl_tag"
+                android:layout_below="@+id/rl_tag"
                 android:layout_margin="16dp" />
 
             <!-- 图书简介 -->
             <TextView
                 android:id="@+id/tv_desc"
-                android:layout_below="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_author"
                 android:layout_margin="16dp"
                 android:textColor="@color/normal_dark_grey" />
 
@@ -87,13 +104,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tv_suitable_for"
-                android:padding="16dp"
+                android:background="@color/normal_light_grey"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
-                android:background="@color/normal_light_grey"
                 android:isScrollContainer="false"
                 android:listSelector="@color/transparent"
                 android:numColumns="2"
+                android:padding="16dp"
                 android:scrollbars="none"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="8dp" />

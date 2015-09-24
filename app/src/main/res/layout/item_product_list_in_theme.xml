@@ -4,41 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <!-- 商品名称 -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:gravity="top"
-            android:text="1111"
-            android:textColor="@color/theme_red"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-        <!-- 序号 -->
-        <TextView
-            android:id="@+id/tv_cursor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_title"
-            android:layout_marginLeft="8dp"
-            android:gravity="bottom"
-            android:text="1"
-            android:textColor="@color/theme_red"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/tv_cursor"
-            android:layout_alignTop="@+id/tv_title"
-            android:background="@color/theme_red" />
-    </RelativeLayout>
+    <include layout="@layout/include_product_no" />
 
     <!-- 商品图片的容器 -->
     <LinearLayout
@@ -152,6 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/selector_corner_white_to_grey"
         android:paddingLeft="40dp"

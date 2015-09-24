@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:padding="8dp"
-        android:src="@mipmap/ic_topic_comment" />
+        android:src="@mipmap/ic_topic_comment_count" />
 
     <TextView
         android:id="@+id/tv_comment_count"

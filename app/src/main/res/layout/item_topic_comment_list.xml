@@ -18,7 +18,7 @@
         android:layout_marginLeft="16dp"
         android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
-        android:src="@drawable/rc_default_portrait" />
+        android:src="@mipmap/ic_default_portrait1" />
 
     <View
         android:layout_width="2dp"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_comment_content"
             android:layout_marginLeft="8dp"
-            android:drawableLeft="@mipmap/ic_topic_comment"
+            android:drawableLeft="@mipmap/ic_topic_comment_count"
             android:padding="4dp"
             android:text="回复"
             android:drawablePadding="4dp"
