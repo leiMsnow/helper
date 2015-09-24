@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent">
 
     <RelativeLayout
         android:id="@+id/rl_menu"
@@ -63,25 +64,25 @@
 
         <RadioButton
             android:id="@+id/rb_chat"
-            android:layout_width="?attr/actionBarSize"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
             android:text="@string/chat"
-            android:textColor="@color/selector_orange_to_white"
+            android:textColor="@color/white"
             android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/rb_recommend"
-            android:layout_width="?attr/actionBarSize"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:button="@null"
             android:gravity="center"
             android:text="@string/recommend"
-            android:textColor="@color/selector_orange_to_white"
+            android:textColor="@color/white"
             android:textSize="14sp" />
     </RadioGroup>
 

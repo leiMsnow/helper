@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="6dp" />
 
-    <com.tongban.corelib.widget.view.HexagonImageView
+    <com.tongban.corelib.widget.view.CircleImageView
         android:id="@id/rc_left"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -26,7 +26,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rc_ic_def_msg_portrait" />
 
-    <com.tongban.corelib.widget.view.HexagonImageView
+    <com.tongban.corelib.widget.view.CircleImageView
         android:id="@id/rc_right"
         android:layout_width="40dp"
         android:layout_height="40dp"

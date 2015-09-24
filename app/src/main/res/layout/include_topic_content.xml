@@ -2,21 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
 
     <TextView
         android:id="@+id/tv_topic_title"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:ellipsize="end"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
-        android:paddingTop="8dp"
-        android:singleLine="true"
-        android:text="dddddd"
+        android:text="标题"
         android:textColor="@color/main_black"
         android:textSize="16sp" />
 
@@ -26,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_title"
         android:layout_marginBottom="8dp"
-        android:text="复反反复复"
+        android:maxLength="2000"
+        android:text="内容"
         android:textColor="@color/normal_dark_grey"
         android:textIsSelectable="true" />
 

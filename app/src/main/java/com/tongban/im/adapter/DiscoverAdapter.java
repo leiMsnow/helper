@@ -58,9 +58,9 @@ public class DiscoverAdapter extends QuickAdapter<Discover> {
                 helper.setTag(R.id.iv_left, Integer.MAX_VALUE, item.getImg_map().get(0).getLink_url());
                 helper.setOnClickListener(R.id.iv_left, onCliCkListener);
                 helper.setTag(R.id.iv_top, Integer.MAX_VALUE, item.getImg_map().get(1).getLink_url());
-                helper.setOnClickListener(R.id.iv_left, onCliCkListener);
+                helper.setOnClickListener(R.id.iv_top, onCliCkListener);
                 helper.setTag(R.id.iv_bottom, Integer.MAX_VALUE, item.getImg_map().get(2).getLink_url());
-                helper.setOnClickListener(R.id.iv_left, onCliCkListener);
+                helper.setOnClickListener(R.id.iv_bottom, onCliCkListener);
                 break;
             case 3:// 图文单图
                 helper.setText(R.id.tv_tip, item.getSoft_word());

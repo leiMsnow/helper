@@ -56,7 +56,7 @@ public class ConversationListFragment extends UriFragment implements AdapterView
     private ConversationListAdapter mAdapter;
     private ListView mList;
     private ArrayList<ConversationType> mSupportConversationList = new ArrayList<>();
-    private ArrayList<Message> mMessageCache = new ArrayList<Message>();
+    private ArrayList<Message> mMessageCache = new ArrayList<>();
 
     public static ConversationListFragment getInstance() {
         return new ConversationListFragment();
@@ -133,7 +133,7 @@ public class ConversationListFragment extends UriFragment implements AdapterView
             return;
         }
 
-        mSupportConversationList = new ArrayList<ConversationType>();
+        mSupportConversationList = new ArrayList<>();
 
         for (ConversationType type : conversationType) {
             if (uri.getQueryParameter(type.getName()) != null) {
