@@ -6,6 +6,7 @@ import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * 通用的图片添加父类
@@ -30,12 +31,17 @@ public abstract class CommonImageResultActivity extends BaseToolBarActivity {
                 }
             }
         } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            String picturePath = CameraUtils.searchUriFile(mContext, data);
-            if (picturePath == null) {
-                picturePath = data.getData().getPath();
+//            String picturePath = CameraUtils.searchUriFile(mContext, data);
+//            if (picturePath == null) {
+//                picturePath = data.getData().getPath();
+//            }
+//            String newFile = CameraUtils.saveToSD(picturePath);
+            ArrayList<String> picturePaths = data.getExtras().getStringArrayList("selectedImages");
+            for (String picturePath : picturePaths) {
+                String newFile = CameraUtils.saveToSD(picturePath);
+                topicInputView.notifyChange(newFile);
             }
-            String newFile = CameraUtils.saveToSD(picturePath);
-            topicInputView.notifyChange(newFile);
+//            topicInputView.notifyChange(newFile);
         }
     }
 

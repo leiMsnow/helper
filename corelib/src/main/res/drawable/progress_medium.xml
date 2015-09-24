@@ -18,6 +18,6 @@
 */
 -->
 <animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/shape_progress_medium_red"
+    android:drawable="@drawable/shape_progress_medium_white"
     android:pivotX="50%"
     android:pivotY="50%"/>

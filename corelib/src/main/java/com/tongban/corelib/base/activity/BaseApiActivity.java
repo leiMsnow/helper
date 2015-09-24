@@ -48,6 +48,7 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
 
     @Override
     public void onComplete(Object obj) {
+        hideProgress();
         EventBus.getDefault().post(obj);
     }
 

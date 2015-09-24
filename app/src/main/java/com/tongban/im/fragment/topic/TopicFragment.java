@@ -110,8 +110,8 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
         if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_TOPIC, null);
         } else if (v == ibCreate) {
-//            if (!TransferCenter.getInstance().startLogin())
-//                return;
+            if (!TransferCenter.getInstance().startLogin())
+                return;
             Intent intent = new Intent(mContext, CreateTopicActivity.class);
             startActivity(intent);
         }

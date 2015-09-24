@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="144dp"
-    android:layout_height="144dp"
+    android:layout_width="104dp"
+    android:layout_height="104dp"
     android:layout_gravity="center"
     android:background="@drawable/process_dialog_background"
     android:gravity="center_vertical"
@@ -12,7 +12,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerInParent="true"
-        android:indeterminateDrawable="@drawable/progress_medium_red" />
+        android:indeterminateDrawable="@drawable/progress_medium" />
 
     <TextView
         android:id="@+id/tv_msg"

@@ -86,10 +86,11 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
             case R.id.iv_topic_img:
                 boolean isEmpty = (boolean) v.getTag(Integer.MAX_VALUE);
                 selectIndex = (int) v.getTag(Integer.MIN_VALUE);
+                //判断是删除还是增加
                 if (isEmpty) {
                     createDialog();
                 } else {
-                    notifyChange("");
+                    notifyChange("item_remove");
                 }
                 break;
         }
@@ -100,8 +101,8 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         if (mAdapter == null) {
             return;
         }
-        // 清除当前选中项
-        if (TextUtils.isEmpty(picturePath)) {
+        // 如果点击的不是（加号+）清除当前选中项
+        if (picturePath.equals("item_remove")) {
             if (mAdapter.getCount() == mAdapter.getImgCount()) {
                 if (!mAdapter.getItem(mAdapter.getCount() - 1).equals(""))
                     mAdapter.add("");
@@ -115,6 +116,12 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
             } else {
                 mAdapter.add(selectIndex, picturePath);
             }
+        }
+        //是否已经达到最大数量
+        if ((mAdapter.getCount()) == (mAdapter.getImgCount() + 1)) {
+            if (mAdapter.getItem(mAdapter.getCount() - 1).equals(""))
+                mAdapter.remove(mAdapter.getCount() - 1, false);
+            return;
         }
     }
 

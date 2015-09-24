@@ -36,7 +36,7 @@
     </style>
 
     <style name="Widget.ProgressBar.Red" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:indeterminateDrawable">@drawable/progress_medium_red</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_medium</item>
     </style>
     <style name="Widget.ProgressBar.Horizontal.New" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_new</item>

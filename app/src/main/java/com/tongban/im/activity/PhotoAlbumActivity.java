@@ -126,7 +126,7 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
 
                 // 设置背景颜色变暗
                 WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.alpha = 0.8f;
+                lp.alpha = 0.7f;
                 getWindow().setAttributes(lp);
             }
         });
@@ -212,6 +212,9 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
                         imageFolder.setFirstImagePath(path);
                     }
 
+                    if (parentFile.list() == null)
+                        continue;
+
                     int picSize = parentFile.list(new FilenameFilter() {
                         @Override
                         public boolean accept(File dir, String filename) {
@@ -278,7 +281,7 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
     }
 
     private void replacePic(File file) {
-        List<String> images = Arrays.asList(mImgDir.list(new FilenameFilter() {
+        List<String> images = Arrays.asList(file.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
                 if (filename.endsWith(".jpg") || filename.endsWith(".png")
