@@ -180,11 +180,13 @@ public class BaseEvent {
 
 
     public static class CheckPhoneEvent {
-        public CheckPhoneEvent(boolean isRegister) {
+        public CheckPhoneEvent(boolean isRegister,String phone) {
             this.isRegister = isRegister;
+            this.phone = phone;
         }
 
         public boolean isRegister;
+        public String phone;
     }
 
     public static class UserLoginEvent {

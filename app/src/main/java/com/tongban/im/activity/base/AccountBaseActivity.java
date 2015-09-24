@@ -1,6 +1,7 @@
 package com.tongban.im.activity.base;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
@@ -19,7 +20,7 @@ import io.rong.imlib.RongIMClient;
 /**
  * Created by zhangleilei on 15/7/8.
  */
-public abstract class AccountBaseActivity extends BaseToolBarActivity {
+public abstract class AccountBaseActivity extends CommonImageResultActivity {
 
     /**
      * 连接融云IM

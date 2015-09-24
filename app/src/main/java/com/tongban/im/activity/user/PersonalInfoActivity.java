@@ -12,18 +12,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.api.UserCenterApi;
+import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.user.AddChildInfo;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.user.EditUser;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.user.AddChildInfo;
+import com.tongban.im.model.user.EditUser;
 import com.tongban.im.model.user.User;
 import com.tongban.im.widget.view.CameraView;
 
@@ -36,8 +35,8 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class PersonalInfoActivity extends CameraResultActivity implements View.OnClickListener,
-        CameraResultActivity.IPhotoListener {
+public class PersonalInfoActivity extends CommonImageResultActivity implements View.OnClickListener,
+        CommonImageResultActivity.IPhotoListener {
     private RelativeLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
     private ImageView ivUserIcon;
     private TextView tvNickName, tvPhoneNum, tvChildAge,
@@ -103,9 +102,9 @@ public class PersonalInfoActivity extends CameraResultActivity implements View.O
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
         this.user = obj.user;
         if (user.getPortrait_url() != null) {
-            Glide.with(mContext).load(user.getPortrait_url().getMin()).into(ivUserIcon);
+            setUserPortrait(user.getPortrait_url().getMin(), ivUserIcon);
         } else {
-            ivUserIcon.setImageResource(R.drawable.rc_default_portrait);
+            ivUserIcon.setImageResource(Consts.getUserDefaultPortrait());
         }
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());

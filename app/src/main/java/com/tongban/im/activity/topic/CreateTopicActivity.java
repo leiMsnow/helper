@@ -1,7 +1,6 @@
 package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -16,18 +15,15 @@ import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.api.TopicApi;
+import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.CameraView;
 import com.tongban.im.widget.view.TopicImageView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +32,8 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class CreateTopicActivity extends BaseToolBarActivity implements View.OnClickListener,
-        TextWatcher {
+public class CreateTopicActivity extends CommonImageResultActivity implements View.OnClickListener,
+        TextWatcher,CommonImageResultActivity.ImageResultListener {
 
     private TopicImageView gvTopicImg;
     private EditText tvTitle;
@@ -66,6 +62,7 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
 
     @Override
     protected void initListener() {
+        setImageResultListener(this);
         tvTitle.addTextChangedListener(this);
         tvContent.addTextChangedListener(this);
     }
@@ -136,30 +133,6 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
             }
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (RESULT_OK != resultCode) {
-            return;
-        }
-        if (requestCode == CameraUtils.OPEN_CAMERA) {
-            File file = CameraUtils.getImageFile();
-            if (file.exists()) {
-                if (file.length() > 100) {
-                    String newFile = CameraUtils.saveToSD(file
-                            .getAbsolutePath());
-                    notifyChange(newFile);
-                }
-            }
-        } else if (requestCode == CameraUtils.OPEN_ALBUM) {
-            ArrayList<String> picturePaths = data.getExtras().getStringArrayList("selectedImages");
-            for (String picturePath : picturePaths) {
-                String newFile = CameraUtils.saveToSD(picturePath);
-                notifyChange(newFile);
-            }
-        }
-    }
-
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
         gvTopicImg.notifyChange(picturePath);
@@ -211,6 +184,19 @@ public class CreateTopicActivity extends BaseToolBarActivity implements View.OnC
             ivSend.setEnabled(true);
         } else {
             ivSend.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void cameraResult(String newFile) {
+        notifyChange(newFile);
+    }
+
+    @Override
+    public void albumResult(ArrayList<String> picturePaths) {
+        for (String picturePath : picturePaths) {
+            String newFile = CameraUtils.saveToSD(picturePath);
+            notifyChange(newFile);
         }
     }
 }

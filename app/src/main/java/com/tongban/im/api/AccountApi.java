@@ -214,7 +214,7 @@ public class AccountApi extends BaseApi {
      * @param mobilePhone
      * @param callback
      */
-    public void checkPhone(String mobilePhone, final IApiCallback callback) {
+    public void checkPhone(final String mobilePhone, final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("mobile_phone", mobilePhone);
@@ -228,13 +228,13 @@ public class AccountApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 if (callback != null)
-                    callback.onComplete(new BaseEvent.CheckPhoneEvent(true));
+                    callback.onComplete(new BaseEvent.CheckPhoneEvent(true,mobilePhone));
             }
 
             @Override
             public void onFailure(ApiErrorResult result) {
                 if (callback != null)
-                    callback.onComplete(new BaseEvent.CheckPhoneEvent(false));
+                    callback.onComplete(new BaseEvent.CheckPhoneEvent(false,mobilePhone));
             }
 
         });

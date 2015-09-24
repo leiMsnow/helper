@@ -209,8 +209,11 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
             mAdapter.addAll(obj.topicCommentList);
         }
         mCursor++;
-        lvReplyList.setResultSize(obj.topicCommentList.size());
         topicInputView.setVisibility(View.VISIBLE);
+        lvReplyList.setResultSize(obj.topicCommentList.size());
+        if (mAdapter.getCount() > 0) {
+            lvReplyList.setSelection(1);
+        }
     }
 
     /**

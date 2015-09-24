@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weak_grey">
+
+    <!-- 手机号-->
+    <RelativeLayout
+        android:id="@+id/rl_phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/tv_phone_text"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/phone_num"
+            android:textColor="@color/normal_grey" />
+
+        <com.tongban.corelib.widget.view.ClearEditText
+            android:id="@+id/et_phone_num"
+            style="@style/ClearEditTextStyle"
+            android:layout_toRightOf="@+id/tv_phone_text"
+            android:inputType="number"
+            android:maxLength="11" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/btn_next"
+        style="@style/CommonButtonStyle"
+        app:cpb_textIdle="@string/next_step"
+        app:cpb_colorIndicator="@drawable/idle_state_selector"
+        app:cpb_colorIndicatorBackground="@color/white"
+        app:cpb_colorProgress="@drawable/idle_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector" />
+
+</RelativeLayout>

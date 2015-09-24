@@ -8,22 +8,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
+import com.tongban.im.common.Consts;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.user.OtherRegister;
 
 /**
- * 注册第一步
+ * 第三方注册第二步
  */
-public class FirstRegisterFragment extends BaseToolBarFragment
+public class OtherVerifyCodeFragment extends BaseToolBarFragment
         implements TextWatcher, View.OnClickListener {
 
-    private EditText etPhoneNum;
     private EditText etPwd;
     private EditText etVerifyCode;
     private Button btnGetSMSCode;
@@ -33,14 +36,17 @@ public class FirstRegisterFragment extends BaseToolBarFragment
     private VerifyTimerCount mTime;
     private BaseEvent.RegisterEvent regEvent;
 
+    private String mOtherInfo;
+    private String mOtherType;
+    private OtherRegister otherRegister;
+
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_first_register;
+        return R.layout.fragment_other_verfiy;
     }
 
     @Override
     protected void initView() {
-        etPhoneNum = (EditText) mView.findViewById(R.id.et_phone_num);
         etPwd = (EditText) mView.findViewById(R.id.et_pwd);
         etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
         btnGetSMSCode = (Button) mView.findViewById(R.id.btn_verify_code);
@@ -49,12 +55,26 @@ public class FirstRegisterFragment extends BaseToolBarFragment
 
     @Override
     protected void initData() {
+        if (getArguments() != null) {
+            mPhoneNum = getArguments().getString(Consts.USER_ACCOUNT);
+            //获取验证码
+            if (!TextUtils.isEmpty(mPhoneNum)) {
+                AccountApi.getInstance().getSMSCode(mPhoneNum, this);
+            }
+            mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            if (!TextUtils.isEmpty(mOtherInfo)) {
+                mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                otherRegister = JSON.parseObject(mOtherInfo,
+                        new TypeReference<OtherRegister>() {
+                        });
+                otherRegister.setType(mOtherType);
+            }
+        }
     }
 
 
     @Override
     protected void initListener() {
-        etPhoneNum.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
         etVerifyCode.addTextChangedListener(this);
         btnGetSMSCode.setOnClickListener(this);
@@ -65,18 +85,16 @@ public class FirstRegisterFragment extends BaseToolBarFragment
     public void onClick(View v) {
         // 获取手机验证码
         if (v == btnGetSMSCode) {
-            if (mPhoneNum.length() != 11) {
-                ToastUtil.getInstance(mContext).showToast("请输入正确的手机号码");
-            } else {
-                AccountApi.getInstance().getSMSCode(mPhoneNum, this);
-            }
+            AccountApi.getInstance().getSMSCode(mPhoneNum, this);
         }
         //校验手机验证码
         else if (v == btnRegister) {
             if (regEvent != null) {
                 btnRegister.setProgress(50);
-                    AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
-                            mVerifyCode, this);
+                // 第三方注册
+                AccountApi.getInstance().otherRegister(mPhoneNum, mPwd,
+                        otherRegister.getOpenId(), otherRegister.getType(),
+                        mVerifyId, mVerifyCode, this);
             } else {
                 //提示获取验证码
                 ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);
@@ -96,14 +114,8 @@ public class FirstRegisterFragment extends BaseToolBarFragment
 
     @Override
     public void afterTextChanged(Editable s) {
-        mPhoneNum = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();
         mVerifyCode = etVerifyCode.getText().toString();
-        if (!TextUtils.isEmpty(mPhoneNum)) {
-            btnGetSMSCode.setEnabled(true);
-        } else {
-            btnGetSMSCode.setEnabled(false);
-        }
         if (!TextUtils.isEmpty(mPhoneNum) && !TextUtils.isEmpty(mVerifyCode)
                 && mPwd.length() > 5) {
             btnRegister.setEnabled(true);
@@ -114,13 +126,12 @@ public class FirstRegisterFragment extends BaseToolBarFragment
 
 
     public void onEventMainThread(ApiErrorResult obj) {
-        if (obj.getApiName().equals(AccountApi.REGISTER)){
-            btnRegister.setProgress(0);
-        }
+        btnRegister.setProgress(0);
     }
 
+
     /**
-     * 注册成功
+     * 注册事件回调
      *
      * @param obj
      */
@@ -148,4 +159,5 @@ public class FirstRegisterFragment extends BaseToolBarFragment
             mTime = null;
         }
     }
+
 }

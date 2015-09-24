@@ -15,7 +15,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.api.callback.UploadFileCallback;
@@ -32,7 +32,7 @@ import com.tongban.im.widget.view.CameraView;
  * 设置头像/填写用户昵称
  */
 public class EditUserFragment extends BaseToolBarFragment implements
-        View.OnClickListener, CameraResultActivity.IPhotoListener {
+        View.OnClickListener, CommonImageResultActivity.IPhotoListener {
     private ImageView ivPortrait;
     private EditText etNickName;
     private Button btnSubmit;
@@ -43,15 +43,13 @@ public class EditUserFragment extends BaseToolBarFragment implements
     private byte[] mIcon;
     private EditUser editUser = new EditUser();
 
-    private String mOtherInfo;
-    private String mOtherType;
     private OtherRegister otherRegister;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof CameraResultActivity) {
-            ((CameraResultActivity) activity).setmPhotoListener(this);
+        if (activity instanceof CommonImageResultActivity) {
+            ((CommonImageResultActivity) activity).setmPhotoListener(this);
         }
     }
 
@@ -70,9 +68,9 @@ public class EditUserFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         if (getArguments() != null) {
-            mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
             if (!TextUtils.isEmpty(mOtherInfo)) {
-                mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                String mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
                 otherRegister = JSON.parseObject(mOtherInfo,
                         new TypeReference<OtherRegister>() {
                         });

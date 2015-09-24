@@ -14,6 +14,7 @@ import com.tongban.im.activity.account.RegisterActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.LocationUtils;
 
@@ -88,11 +89,7 @@ public class LoadingActivity extends AccountBaseActivity {
     //登录成功
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
         if (TextUtils.isEmpty(obj.user.getNick_name())) {
-            Intent intent = new Intent(mContext, RegisterActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            TransferCenter.getInstance().startRegister(true);
             finish();
         } else {
             connectIM(true);

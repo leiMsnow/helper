@@ -11,6 +11,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.ChooseGroupTypeAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.group.GroupType;
 
 import java.util.List;
@@ -68,5 +69,13 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    /**
+     * 创建成功，关闭此界面
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CreateGroupEvent obj) {
+        finish();
     }
 }

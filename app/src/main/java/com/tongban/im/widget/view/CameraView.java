@@ -21,7 +21,7 @@ public class CameraView extends Dialog {
     private TextView tvGallery;
 
     private int current = 0;
-    private int maxSelect = 9;
+    private int maxSelect = 1;
 
     public void setCurrent(int current) {
         this.current = current;

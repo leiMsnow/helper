@@ -18,7 +18,7 @@ import com.baidu.location.BDLocation;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.callback.UploadFileCallback;
@@ -38,8 +38,8 @@ import java.util.Calendar;
  *
  * @author fushudi
  */
-public class CreateGroupActivity extends CameraResultActivity implements View.OnClickListener,
-        CameraResultActivity.IPhotoListener {
+public class CreateGroupActivity extends CommonImageResultActivity implements View.OnClickListener,
+        CommonImageResultActivity.IPhotoListener {
 
     //选择位置
     public static int SELECT_LOCATION = 310;

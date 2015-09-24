@@ -176,6 +176,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         } else if (v == tvFindPwd) {
             startActivity(new Intent(mContext, FindPwdActivity.class));
         } else {
+            showProgress();
             switch (v.getId()) {
                 case R.id.iv_wechat_login:
                     authListener.doWeCHatOauth();
@@ -194,13 +195,10 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
      * 登录成功
      */
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
+        hideProgress();
         SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, mUser);
         if (TextUtils.isEmpty(obj.user.getNick_name())) {
-            Intent intent = new Intent(mContext, RegisterActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Consts.KEY_EDIT_USER, true);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            TransferCenter.getInstance().startRegister(true);
             finish();
         } else {
             connectIM(mIsOpenMain, obj.user.getChild_info() == null);
@@ -213,13 +211,14 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
      * @param obj
      */
     public void onEventMainThread(ApiErrorResult obj) {
-        // 登录出错
+        // 登录失败
         if (obj.getApiName().equals(AccountApi.LOGIN)) {
             btnLogin.setProgress(0);
         }
-        // 授权登录错误
+        // 授权登录失败
         else if (obj.getApiName().equals(AccountApi.OTHER_LOGIN)) {
-            TransferCenter.getInstance().startRegister(userInfoJson, type, false);
+            hideProgress();
+            TransferCenter.getInstance().startOtherRegister(userInfoJson, type);
             finish();
         }
     }
@@ -239,6 +238,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     public void oauthFailure() {
         ToastUtil.getInstance(mContext).showToast("授权登录失败");
+        hideProgress();
     }
 
 

@@ -175,6 +175,22 @@
                     android:scheme="tongban" />
             </intent-filter>
         </activity>
+        <!-- 第三方注册-绑定手机号-->
+        <activity
+            android:name=".activity.account.OtherRegisterActivity"
+            android:label="@string/register"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.tongban.im"
+                    android:pathPrefix="/other_register"
+                    android:scheme="tongban" />
+            </intent-filter>
+        </activity>
         <!-- 找回密码-->
         <activity
             android:name=".activity.account.FindPwdActivity"

@@ -1,6 +1,7 @@
 package com.tongban.im.activity.base;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,9 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.topic.Topic;
+import com.tongban.im.widget.view.TopicInputView;
+
+import java.util.ArrayList;
 
 /**
  * 通用的topicDetails父类
@@ -18,8 +22,11 @@ import com.tongban.im.model.topic.Topic;
  * 相册
  * Created by fushudi on 2015/8/13.
  */
-public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity {
+public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity implements
+        CommonImageResultActivity.ImageResultListener {
 
+
+    protected TopicInputView topicInputView;
     protected MenuItem menuItem;
     protected Topic mTopicInfo;
     protected String mTopicId;
@@ -27,6 +34,12 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     protected int mCursor = 0;
     protected int mPage = 10;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setImageResultListener(this);
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -94,4 +107,17 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         }
     }
 
+    @Override
+    public void cameraResult(String newFile) {
+        if (topicInputView != null) {
+            topicInputView.notifyChange(newFile);
+        }
+    }
+
+    @Override
+    public void albumResult(ArrayList<String> picturePaths) {
+        for (String newFile : picturePaths) {
+            cameraResult(newFile);
+        }
+    }
 }

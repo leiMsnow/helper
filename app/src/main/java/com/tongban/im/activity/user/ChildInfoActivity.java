@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.CameraResultActivity;
+import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.InputChildInfoFragment;
 import com.tongban.im.model.BaseEvent;
@@ -15,7 +15,7 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class ChildInfoActivity extends CameraResultActivity {
+public class ChildInfoActivity extends AccountBaseActivity {
 
     private InputChildInfoFragment mInputChildInfoFragment;
 
