@@ -38,15 +38,18 @@
     <style name="Widget.ProgressBar.Red" parent="Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateDrawable">@drawable/progress_medium</item>
     </style>
+
     <style name="Widget.ProgressBar.Horizontal.New" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_new</item>
         <item name="android:minHeight">4dp</item>
     </style>
 
-    <style name="Widget.Toolbar.TextAppearance" parent="android:TextAppearance.Small">
+    <style name="Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/Widget.Toolbar.Title</item>
+    </style>
+
+    <style name="Widget.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textColor">?attr/actionMenuTextColor</item>
     </style>
 
     <style name="WindowAnimationStyle" parent="android:Animation.Activity">

@@ -3,7 +3,6 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="actionMenuTextColor">@color/white</item>
-        <item name="actionMenuTextAppearance">@style/Widget.Toolbar.TextAppearance</item>
         <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
         <item name="android:textColorPrimary">@color/white</item>
@@ -11,7 +10,7 @@
         <item name="android:textColorHint">@color/theme_grey_300</item>
         <item name="android:textCursorDrawable">@drawable/shape_text_cursor</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
-
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
         <!-- 禁止多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
