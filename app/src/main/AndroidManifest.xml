@@ -392,12 +392,12 @@
         <!-- 搜索专题-->
         <activity
             android:name=".activity.discover.SearchDiscoverActivity"
-            android:windowSoftInputMode="adjustUnspecified|stateUnchanged" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 专题搜索结果-->
         <activity
             android:name=".activity.discover.SearchResultActivity"
             android:label="@string/search"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

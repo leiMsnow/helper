@@ -7,7 +7,7 @@
 
     <include layout="@layout/include_topic_top" />
 
-    <include layout="@layout/include_topic_content" />
+    <include layout="@layout/include_topic_content_details" />
 
     <include layout="@layout/include_topic_bottom" />
 

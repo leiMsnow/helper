@@ -15,6 +15,7 @@
         android:layout_marginTop="16dp"
         android:orientation="vertical" />
 
+    <!-- 作者-->
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
@@ -52,7 +53,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="4dp"
+        android:text="图书简介"
+        android:textColor="@color/normal_dark_grey"
+        android:textSize="12sp" />
 
     <!-- 【适读人群】 -->
     <FrameLayout
@@ -81,7 +86,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/normal_dark_grey"
+        android:textSize="12sp" />
 
     <!-- 【推荐理由】 -->
     <FrameLayout
@@ -110,7 +118,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/normal_dark_grey"
+        android:textSize="12sp" />
 
     <!-- 查看商品详情 -->
     <Button
@@ -118,8 +129,8 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/selector_corner_white_to_grey"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"

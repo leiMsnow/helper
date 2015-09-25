@@ -7,7 +7,7 @@
         layout="@layout/include_topic_top" />
 
     <include
-        layout="@layout/include_topic_content"
+        layout="@layout/include_topic_content_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/topic_top" />

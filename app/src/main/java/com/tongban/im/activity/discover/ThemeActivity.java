@@ -142,6 +142,7 @@ public class ThemeActivity extends ThemeBaseActivity {
             }
         } else {
             themeTag.setVisibility(View.GONE);
+            findViewById(R.id.iv_mark).setVisibility(View.INVISIBLE);
         }
         themeDesc.setText(mTheme.getTheme_content());
         createTime.setText(DateUtils.formatDateTime(mTheme.getC_time(), mContext));

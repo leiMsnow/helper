@@ -11,8 +11,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_default_portrait2"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_default_portrait2" />
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:singleLine="true"
-        android:text="UserName"
         android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/iv_user_portrait"
+        android:singleLine="true"
+        android:text="UserName"
         android:textColor="@color/main_black" />
 
 
@@ -35,5 +35,6 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
         android:text="Time"
-        android:textColor="@color/normal_grey" />
+        android:textColor="@color/normal_grey"
+        android:textSize="12sp" />
 </RelativeLayout>

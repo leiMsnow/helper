@@ -11,14 +11,17 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:singleLine="true"
         android:textColor="@color/main_black"
         android:textSize="16sp" />
 
     <include
+        android:id="@+id/ln_bottom"
         layout="@layout/include_topic_bottom_main"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_below="@+id/tv_title" />
 
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/ln_bottom" />
 </RelativeLayout>

@@ -409,6 +409,7 @@ public class BaseApi {
             setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
             setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
             setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
 
         } else if (cacheName.equals(GROUP_CACHE_TIME)) {
             disableCacheTime = 30;
@@ -418,6 +419,7 @@ public class BaseApi {
             setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
 
             setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
 
         } else if (cacheName.equals(THEME_CACHE_TIME)) {
             disableCacheTime = 10;
@@ -434,6 +436,7 @@ public class BaseApi {
             setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
 
             setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
+
         }
 
         long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;

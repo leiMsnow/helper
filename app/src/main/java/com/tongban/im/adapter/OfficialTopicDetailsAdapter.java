@@ -38,6 +38,7 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         //产品相关
         if (item.getItemType() == OfficialTopic.PRODUCT) {
             helper.setText(R.id.tv_cursor, item.getProduct().getProductIndex());
+            helper.setVisible(R.id.tv_cursor, View.GONE);
             if (item.getProduct().getProduct_img_url() != null) {
                 helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
                         .getProduct_img_url().get(0).getMin());
