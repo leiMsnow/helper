@@ -142,6 +142,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
             RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
                     joinGroupEvent.group_name);
             if (mIsMainEvent) {
+                mIsPull = true;
                 GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
             } else {
                 GroupApi.getInstance().searchGroupList(mKeyword, mCursor, mAdapter.getCount(), this);

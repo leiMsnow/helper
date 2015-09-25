@@ -27,10 +27,10 @@ public class CircleImageView extends BaseImageView {
 
     public static Bitmap getBitmap(int width, int height) {
         Bitmap bitmap = Bitmap.createBitmap(width, height,
-                Bitmap.Config.ARGB_8888);
+                Bitmap.Config.ARGB_4444);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         canvas.drawOval(new RectF(0.0f, 0.0f, width, height), paint);
 
         return bitmap;

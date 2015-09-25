@@ -148,6 +148,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
 
                     @Override
                     public void uploadFailed(String error) {
+                        hideProgress();
                         ToastUtil.getInstance(mContext).showToast("图片上传失败");
                     }
                 }, null);

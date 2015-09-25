@@ -15,8 +15,11 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:scaleType="centerCrop" />
+            android:layout_marginLeft="16dp"
+            android:padding="1dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/shape_group_icon_pressed_red"
+            android:src="@mipmap/ic_group_create" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -32,6 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:text="群名称"
                 android:textColor="@color/main_black"
                 android:textSize="14sp" />
             <!--群标签-->
@@ -41,9 +45,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_group_name"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/shape_corners_bg_yellow"
-                android:padding="4dp"
-                android:textSize="12sp" />
+                android:paddingBottom="2dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="2dp"
+                android:text="标签"
+                android:textSize="8sp" />
             <!-- 群描述-->
             <TextView
                 android:id="@+id/tv_group_introduce"
@@ -69,7 +78,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/selector_join_btn_bg"
             android:text="@string/join"
-            android:textColor="@color/selector_join_text_color"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
     </RelativeLayout>

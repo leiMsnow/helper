@@ -4,5 +4,5 @@
     <item android:color="@color/theme_orange_200" android:state_focused="true"></item>
     <item android:color="@color/theme_orange_200" android:state_pressed="true"></item>
     <item android:color="@color/normal_grey" android:state_enabled="false"></item>
-    <item android:color="@color/main_deep_orange"></item>
+    <item android:color="@color/theme_red"></item>
 </selector>

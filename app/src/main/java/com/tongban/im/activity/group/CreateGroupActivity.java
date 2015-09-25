@@ -51,6 +51,7 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
     private TextView tvGroupLabel, tvLocation, tvBirthday, tvLife;
     private CheckBox chbSecret, chbAgree;
     private Button btnSubmit;
+    private View mLife, mChildAge;
 
     private CameraView mCameraView;
 
@@ -109,6 +110,9 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
 
         btnSubmit = (Button) findViewById(R.id.btn_create);
 
+        mChildAge = findViewById(R.id.v_child_age);
+        mLife = findViewById(R.id.v_life);
+
         setTextVisible();
     }
 
@@ -117,9 +121,11 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
         switch (mGroupType) {
             case GroupType.AGE:
                 tvBirthday.setVisibility(View.VISIBLE);
+                mChildAge.setVisibility(View.VISIBLE);
                 break;
             case GroupType.LIFE:
 //                tvLife.setVisibility(View.VISIBLE);
+//                mLife.setVisibility(View.VISIBLE);
                 break;
             case GroupType.CLASSMATE:
                 tvLocation.setHint(R.string.create_school);
@@ -147,7 +153,7 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
     @Override
     protected void initData() {
         LocationUtils.get(mContext).start();
-        ivSetGroupIcon.setImageResource(mGroupIcon);
+//        ivSetGroupIcon.setImageResource(mGroupIcon);
     }
 
     @Override
@@ -176,6 +182,7 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
                 Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mGroupIcon);
                 mGroupBytes = CameraUtils.Bitmap2Bytes(bitmap);
             }
+            showProgress();
             FileUploadApi.getInstance().uploadFile(mGroupBytes, null, FileUploadApi.IMAGE_SIZE_300,
                     FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
@@ -189,10 +196,8 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
 
                         @Override
                         public void uploadFailed(String error) {
-                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
-                                    latitude, address,
-                                    birthday, tags, declaration, null, chbSecret.isChecked(),
-                                    CreateGroupActivity.this);
+                            hideProgress();
+                            ToastUtil.getInstance(mContext).showToast("创建失败,请重试");
                         }
 
                     });

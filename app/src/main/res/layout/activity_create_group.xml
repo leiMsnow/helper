@@ -20,14 +20,30 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <com.tongban.corelib.widget.view.CircleImageView
-                android:id="@+id/iv_group_portrait"
-                android:layout_width="104dp"
-                android:layout_height="104dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:background="?attr/createGroupIcon" />
+                android:layout_marginTop="32dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="添加圈子头像"
+                    android:textColor="@color/normal_grey"
+                    android:textSize="12sp" />
+
+                <com.tongban.corelib.widget.view.CircleImageView
+                    android:id="@+id/iv_group_portrait"
+                    android:layout_width="104dp"
+                    android:layout_height="104dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/shape_group_icon_normal"
+                    android:padding="8dp" />
+
+
+            </FrameLayout>
             <!--圈子名称-->
             <EditText
                 android:id="@+id/et_group_name"
@@ -36,14 +52,19 @@
                 android:hint="@string/hint_group_name"
                 android:maxLength="20" />
 
+            <View style="@style/HorizontalLine" />
+
             <!-- 同龄 - 选择年龄-->
             <TextView
                 android:id="@+id/tv_child_age"
                 style="@style/CreateGroupTextStyle"
-                android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_age"
-                android:paddingLeft="4dp"
+                android:visibility="gone" />
+
+
+            <View
+                android:id="@+id/v_child_age"
+                style="@style/HorizontalLine"
                 android:visibility="gone" />
 
 
@@ -51,27 +72,56 @@
             <TextView
                 android:id="@+id/tv_life"
                 style="@style/CreateGroupTextStyle"
-                android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_label"
                 android:hint="@string/create_life"
-                android:paddingLeft="4dp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/v_life"
+                style="@style/HorizontalLine"
                 android:visibility="gone" />
 
             <!--圈子标签-->
-            <TextView
-                android:id="@+id/tv_group_label"
-                style="@style/CreateGroupTextStyle"
-                android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_label"
-                android:hint="@string/group_label" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    android:src="@mipmap/ic_group_label" />
+
+                <TextView
+                    android:id="@+id/tv_group_label"
+                    style="@style/CreateGroupTextStyle"
+                    android:hint="@string/group_label" />
+
+            </RelativeLayout>
+
+            <View style="@style/HorizontalLine" />
 
             <!--圈子位置-->
-            <TextView
-                android:id="@+id/tv_group_location"
-                style="@style/CreateGroupTextStyle"
-                android:background="@drawable/selector_edit_text"
-                android:drawableLeft="@mipmap/ic_group_location"
-                android:hint="@string/hint_group_location" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dp"
+                    android:src="@mipmap/ic_group_location" />
+
+                <TextView
+                    android:id="@+id/tv_group_location"
+                    style="@style/CreateGroupTextStyle"
+                    android:hint="@string/hint_group_location" />
+
+            </RelativeLayout>
+
+            <View style="@style/HorizontalLine" />
 
             <!--圈子简介-->
             <EditText
@@ -81,6 +131,8 @@
                 android:maxLength="200"
                 android:maxLines="4"
                 android:singleLine="false" />
+
+            <View style="@style/HorizontalLine" />
 
             <!-- 圈子隐私-->
             <RelativeLayout
@@ -92,6 +144,8 @@
                     style="@style/CreateGroupTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="@string/group_secret" />
@@ -122,6 +176,8 @@
                 <TextView
                     android:id="@+id/tv_agreement"
                     style="@style/CreateGroupTextStyle"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     android:layout_toRightOf="@+id/chb_agreement"
                     android:background="@null"
                     android:gravity="center_vertical"

@@ -15,6 +15,7 @@
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:layoutAnimation="@anim/list_translate_layout"
+        android:paddingTop="2dp"
         android:scrollbars="none" />
 
 </RelativeLayout>

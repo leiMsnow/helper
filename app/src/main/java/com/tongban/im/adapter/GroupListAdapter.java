@@ -44,33 +44,40 @@ public class GroupListAdapter extends QuickAdapter<Group> {
             case GroupType.ACTIVITY:
                 setGroupTags(helper, "活动圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_yellow);
                 helper.setText(R.id.tv_group_introduce, "");
                 break;
             case GroupType.AGE:
                 setGroupTags(helper, "同龄圈", R.color.theme_pink);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_pink);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_pink);
                 helper.setText(R.id.tv_group_introduce, "-" + item.getAge() + "岁," +
                         item.getConstellation());
                 break;
             case GroupType.CITY:
                 setGroupTags(helper, "同城圈", R.color.theme_deep_purple);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_purple);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_deep_purple);
                 helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress() + "<" +
                         item.getDistance());
                 break;
             case GroupType.CLASSMATE:
                 setGroupTags(helper, "同学圈", R.color.theme_light_blue);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_blue);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_light_blue);
+
                 helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress());
                 break;
             case GroupType.LIFE:
                 setGroupTags(helper, "生活圈", R.color.theme_light_green);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_green);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_light_green);
                 helper.setText(R.id.tv_group_introduce, "");
                 break;
             case GroupType.TALENT:
                 setGroupTags(helper, "达人圈", R.color.theme_yellow);
                 helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
+                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_yellow);
                 break;
         }
         if (item.getGroup_avatar() != null) {
