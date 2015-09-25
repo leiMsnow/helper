@@ -11,6 +11,7 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.topic.Topic;
+import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.ArrayList;
@@ -80,7 +81,6 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         mTopicInfo = topicInfoEvent.topic;
-//        setTitle(mTopicInfo.getTopic_title());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -118,7 +118,8 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
     @Override
     public void albumResult(ArrayList<String> picturePaths) {
-        for (String newFile : picturePaths) {
+        for (int i = picturePaths.size() - 1; i >= 0; i--) {
+            String newFile = CameraUtils.saveToSD(picturePaths.get(i));
             cameraResult(newFile);
         }
     }

@@ -75,8 +75,7 @@ public class Child implements Serializable {
         String[] age = childAge.split("\\.");
         StringBuffer strAge = new StringBuffer();
         strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
-        if (Integer.parseInt(age[1]) < 12 && Integer.parseInt(age[1]) > 0)
-            strAge.append(age[1] + "个月");
+        strAge.append(age[1] + "个月");
         return strAge;
     }
 

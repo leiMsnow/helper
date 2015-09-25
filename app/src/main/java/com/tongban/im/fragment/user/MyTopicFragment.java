@@ -124,7 +124,7 @@ public class MyTopicFragment extends BaseToolBarFragment implements View.OnClick
      */
     public void onEventMainThread(BaseEvent.TopicListEvent obj) {
         mCursor++;
-        mAdapter.replaceAll(obj.topicList);
+        mAdapter.addAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
         lvTopicList.setResultSize(obj.topicList.size());
     }

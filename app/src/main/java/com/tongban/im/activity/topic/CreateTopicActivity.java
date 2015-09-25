@@ -33,7 +33,7 @@ import java.util.List;
  * @author fushudi
  */
 public class CreateTopicActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TextWatcher,CommonImageResultActivity.ImageResultListener {
+        TextWatcher, CommonImageResultActivity.ImageResultListener {
 
     private TopicImageView gvTopicImg;
     private EditText tvTitle;
@@ -133,6 +133,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
             }
         }
     }
+
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
         gvTopicImg.notifyChange(picturePath);
@@ -142,9 +143,12 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
     //批量上传图片,成功后将发表话题
     private void uploadImage() {
         showProgress();
-        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0,
+        FileUploadApi.getInstance().uploadFile(
+                new ArrayList<ImageUrl>(),
+                0,
                 gvTopicImg.getSelectedFile(),
-                FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
+                FileUploadApi.IMAGE_SIZE_300,
+                FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
                     public void uploadSuccess(List<ImageUrl> urls) {
@@ -194,9 +198,9 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
 
     @Override
     public void albumResult(ArrayList<String> picturePaths) {
-        for (String picturePath : picturePaths) {
-            String newFile = CameraUtils.saveToSD(picturePath);
-            notifyChange(newFile);
+        for (int i = picturePaths.size() - 1; i >= 0; i--) {
+            String newFile = CameraUtils.saveToSD(picturePaths.get(i));
+            cameraResult(newFile);
         }
     }
 }

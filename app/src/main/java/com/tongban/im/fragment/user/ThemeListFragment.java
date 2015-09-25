@@ -97,7 +97,7 @@ public class ThemeListFragment extends BaseToolBarFragment implements View.OnCli
      */
     public void onEventMainThread(BaseEvent.FetchCollectedThemeEvent event) {
         mCursor++;
-        mAdapter.replaceAll(event.mThemeList);
+        mAdapter.addAll(event.mThemeList);
         lvTheme.setResultSize(event.mThemeList.size());
         lvTheme.setVisibility(View.VISIBLE);
     }

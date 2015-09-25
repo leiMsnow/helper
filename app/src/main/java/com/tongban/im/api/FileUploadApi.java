@@ -219,9 +219,13 @@ public class FileUploadApi extends BaseApi {
      * @param callback
      * @param options
      */
-    public void uploadFile(final List<ImageUrl> resultUrls, final int index,
-                           @NonNull final List<String> filePaths, final String minSize, final String midSize,
-                           @NonNull final MultiUploadFileCallback callback, UploadOptions options) {
+    public void uploadFile(final List<ImageUrl> resultUrls,
+                           final int index,
+                           final List<String> filePaths,
+                           final String minSize,
+                           final String midSize,
+                           final MultiUploadFileCallback callback,
+                           UploadOptions options) {
         String token = getToken();
         mUploadManager.put(new File(filePaths.get(index)), null, token,
                 new UpCompletionHandler() {
@@ -237,14 +241,16 @@ public class FileUploadApi extends BaseApi {
                                 String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                                 String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                                 ImageUrl url = new ImageUrl(min, mid, max);
-                                int newIndex = index + 1;
-                                resultUrls.add(url);
+                                resultUrls.add(0, url);
                                 LogUtil.d("resultUrls:", String.valueOf(resultUrls.size()));
                                 LogUtil.d("filePaths:", String.valueOf(filePaths.size()));
+
+                                int newIndex = index + 1;
                                 if (resultUrls.size() == filePaths.size()) {
                                     callback.uploadSuccess(resultUrls);
                                 } else {
-                                    uploadFile(resultUrls, newIndex, filePaths, minSize, midSize, callback, null);
+                                    uploadFile(resultUrls, newIndex,
+                                            filePaths, minSize, midSize, callback, null);
                                 }
                             } else {
                                 LogUtil.d("uploadFailed:", info.error);

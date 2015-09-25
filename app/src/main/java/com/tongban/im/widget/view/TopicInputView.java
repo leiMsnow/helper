@@ -55,10 +55,6 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
 
     private int mCommentLength = 500;
 
-    public TopicImageView getGvReplyImg() {
-        return gvReplyImg;
-    }
-
     public void setKeyboardListener(IKeyboardListener keyboardListener) {
         this.keyboardListener = keyboardListener;
     }
@@ -170,9 +166,12 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     //批量上传图片,成功后将发表评论
 
     private void uploadImage() {
-        FileUploadApi.getInstance().uploadFile(new ArrayList<ImageUrl>(), 0,
+        FileUploadApi.getInstance().uploadFile(
+                new ArrayList<ImageUrl>(),
+                0,
                 gvReplyImg.getSelectedFile(),
-                FileUploadApi.IMAGE_SIZE_300, FileUploadApi.IMAGE_SIZE_500,
+                FileUploadApi.IMAGE_SIZE_300,
+                FileUploadApi.IMAGE_SIZE_500,
                 new MultiUploadFileCallback() {
                     @Override
                     public void uploadSuccess(List<ImageUrl> urls) {

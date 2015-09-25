@@ -81,7 +81,7 @@ public class ProductListFragment extends BaseToolBarFragment implements AdapterV
      * @param event
      */
     public void onEventMainThread(BaseEvent.FetchCollectedProductEvent event) {
-        mAdapter.replaceAll(event.productBookList);
+        mAdapter.addAll(event.productBookList);
         mGridView.setVisibility(View.VISIBLE);
     }
 
