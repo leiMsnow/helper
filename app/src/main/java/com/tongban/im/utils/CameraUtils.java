@@ -226,10 +226,9 @@ public class CameraUtils {
                 + filePath.substring(filePath.lastIndexOf("."));
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File file = new File(localPath);
-            if (file.exists()) {
-                delAllFile(localPath);
+            if (!file.exists()) {
+                file.mkdirs();
             }
-            file.mkdirs();
             try {
                 File imageFile = new File(filename);
                 imageFile.createNewFile();

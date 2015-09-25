@@ -218,9 +218,9 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
                     int picSize = parentFile.list(new FilenameFilter() {
                         @Override
                         public boolean accept(File dir, String filename) {
-                            if (filename.endsWith(".jpg")
-                                    || filename.endsWith(".png")
-                                    || filename.endsWith(".jpeg"))
+                            if (filename.toLowerCase().endsWith(".jpg") ||
+                                    filename.toLowerCase().endsWith(".png") ||
+                                    filename.toLowerCase().endsWith(".jpeg"))
                                 return true;
                             return false;
                         }
@@ -284,8 +284,9 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
         List<String> images = Arrays.asList(file.list(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
-                if (filename.endsWith(".jpg") || filename.endsWith(".png")
-                        || filename.endsWith(".jpeg"))
+                if (filename.toLowerCase().endsWith(".jpg") ||
+                        filename.toLowerCase().endsWith(".png") ||
+                        filename.toLowerCase().endsWith(".jpeg"))
                     return true;
                 return false;
             }
