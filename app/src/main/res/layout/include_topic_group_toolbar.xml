@@ -88,7 +88,7 @@
 
     <ImageView
         android:id="@+id/iv_indicator"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rg_circle"
         android:layout_below="@+id/rg_circle"

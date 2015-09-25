@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Toast;
 
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.activity.PhotoAlbumActivity;
 
@@ -226,7 +227,7 @@ public class CameraUtils {
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             File file = new File(localPath);
             if (file.exists()) {
-                file.delete();
+                delAllFile(localPath);
             }
             file.mkdirs();
             try {
@@ -249,6 +250,50 @@ public class CameraUtils {
         String localPath = Environment.getExternalStorageDirectory()
                 .getAbsoluteFile() + "/temp/";
         return saveToSDCard(localPath, bitmap, filePath);
+    }
+
+    // 删除文件内容
+    private static void delAllFile(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            return;
+        }
+        if (!file.isDirectory()) {
+            return;
+        }
+        String[] tempList = file.list();
+        File temp;
+        for (int i = 0; i < tempList.length; i++) {
+            if (path.endsWith(File.separator)) {
+                temp = new File(path + tempList[i]);
+            } else {
+                temp = new File(path + File.separator + tempList[i]);
+            }
+            if (temp.isFile()) {
+                temp.delete();
+            }
+            if (temp.isDirectory()) {
+                delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
+                delFolder(path + "/" + tempList[i]);//再删除空文件夹
+            }
+        }
+    }
+
+    // 删除文件夹
+    private static void delFolder(String folderPath) {
+        try {
+            delAllFile(folderPath);  //删除完里面所有内容
+            String filePath = folderPath;
+            filePath = filePath.toString();
+            java.io.File myFilePath = new java.io.File(filePath);
+            myFilePath.delete();  //删除空文件夹
+
+        } catch (Exception e) {
+            LogUtil.e("CameraUtils", "删除文件夹操作出错");
+            e.printStackTrace();
+
+        }
+
     }
 
 }

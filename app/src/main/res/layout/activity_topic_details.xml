@@ -12,16 +12,18 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/topic_input"
         android:layout_below="@+id/toolbar"
+        android:background="@color/weak_grey"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
-        android:visibility="gone"
-        android:scrollbars="none" />
+        android:listSelector="@color/transparent"
+        android:scrollbars="none"
+        android:visibility="gone" />
 
     <com.tongban.im.widget.view.TopicInputView
         android:id="@+id/topic_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

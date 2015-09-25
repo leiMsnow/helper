@@ -88,7 +88,7 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
         mGirdView = (GridView) findViewById(R.id.id_gridView);
         mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
         mImageCount = (TextView) findViewById(R.id.id_total_count);
-        mBottomParent = (RelativeLayout) findViewById(R.id.id_bottom_ly);
+        mBottomParent = (RelativeLayout) findViewById(R.id.rl_bottom_parent);
     }
 
     @Override

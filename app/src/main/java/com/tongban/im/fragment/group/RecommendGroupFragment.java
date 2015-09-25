@@ -169,6 +169,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     public void onRefreshBegin(PtrFrameLayout frameLayout) {
+        mIsPull = true;
         onRequest();
     }
 

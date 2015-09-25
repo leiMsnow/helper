@@ -8,8 +8,7 @@
         android:id="@+id/rl_group_item"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/selector_corner_bg">
+        android:background="@drawable/selector_white_to_gray">
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_group_portrait"
@@ -58,7 +57,7 @@
                 android:singleLine="true"
                 android:textColor="@color/normal_grey"
                 android:textSize="12sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
         </RelativeLayout>
         <!--加入/已加入-->
         <Button

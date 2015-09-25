@@ -1,11 +1,13 @@
 package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -38,8 +40,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
     private TopicImageView gvTopicImg;
     private EditText tvTitle;
     private EditText tvContent;
-    private ImageView ivSend;
-
+    private MenuItem menuCreate;
     private final static int IMAGE_COUNT = 15;
 
     @Override
@@ -68,27 +69,24 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
     }
 
     @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowCustomEnabled(true);
-            getSupportActionBar().setCustomView(R.layout.view_create_button);
-            Toolbar.LayoutParams lp = (Toolbar.LayoutParams)
-                    getSupportActionBar().getCustomView().getLayoutParams();
-            lp.gravity = Gravity.RIGHT;
-            int margins = DensityUtils.dp2px(mContext, 8);
-            lp.setMargins(margins, margins, margins, margins);
-            getSupportActionBar().getCustomView().setLayoutParams(lp);
-            ivSend = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.iv_send);
-            ivSend.setOnClickListener(this);
-            ivSend.setEnabled(false);
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_topic, menu);
+        menuCreate = menu.findItem(R.id.menu_create);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+        }else if(item.getItemId() == R.id.menu_create){
+            if (gvTopicImg.getSelectedFile().size() > 0) {
+                uploadImage();
+            } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
+                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
+                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
+                        CreateTopicActivity.this);
+            }
         }
         return true;
     }
@@ -123,15 +121,6 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        if (v == ivSend) {
-            if (gvTopicImg.getSelectedFile().size() > 0) {
-                uploadImage();
-            } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
-                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
-                        CreateTopicActivity.this);
-            }
-        }
     }
 
     //刷新图片Adapter
@@ -185,9 +174,9 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
         if (tvTitle.getText().toString().length() > 0 &&
                 (tvContent.getText().toString().length() > 0 ||
                         gvTopicImg.getSelectedFile().size() > 0)) {
-            ivSend.setEnabled(true);
+            menuCreate.setEnabled(true);
         } else {
-            ivSend.setEnabled(false);
+            menuCreate.setEnabled(false);
         }
     }
 

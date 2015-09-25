@@ -35,6 +35,7 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
     // 圈子页顶部的搜索按钮
     private ImageButton ibSearch;
     private ImageButton ibCreate;
+    // 尖角指示器
     private ImageView ivIndicator;
     private FragmentManager fm;
     private ConversationListFragment chatFragment;
@@ -74,7 +75,6 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
             fm.beginTransaction().remove(chatFragment).commit();
         }
-
     }
 
     @Override

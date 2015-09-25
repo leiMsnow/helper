@@ -116,7 +116,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     public void onClick(View v) {
-        //重置回复话题
+        // 重置回复话题
         if (v == ivComment) {
             if (!TransferCenter.getInstance().startLogin()) {
                 return;
@@ -129,19 +129,21 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
             TransferCenter.getInstance().startUserCenter(mTopicInfo.getUser_info().getUser_id());
         } else {
             switch (v.getId()) {
-                //回复评论
+                // 回复评论
                 case R.id.tv_comment:
                     TopicComment comment = (TopicComment) v.getTag();
                     topicInputView.setCommentInfo(comment.getComment_id(),
                             comment.getUser_info().getNick_name(),
                             comment.getUser_info().getUser_id());
                     break;
+                // 查看图片
                 case R.id.iv_topic_img:
                     List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
                     int position = (int) v.getTag(Integer.MIN_VALUE);
                     TopicListenerImpl.startPhotoView(mContext,
                             TopicListenerImpl.setImageUrls(imageUrls), position);
                     break;
+                // 查看用户
                 case R.id.iv_user_portrait:
                     String userId = v.getTag(Integer.MAX_VALUE).toString();
                     TransferCenter.getInstance().startUserCenter(userId);
@@ -153,6 +155,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     public void onBackPressed() {
+        // 先收起plus面板
         if (topicInputView.gridViewVisibility(true))
             super.onBackPressed();
     }
@@ -172,7 +175,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
     public void onEventMainThread(BaseEvent.TopicInfoEvent topicInfoEvent) {
         super.onEventMainThread(topicInfoEvent);
         if (mTopicInfo != null) {
-            setTitle(mTopicInfo.getTopic_title());
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
                 if (mTopicInfo.getUser_info().getPortrait_url() != null) {

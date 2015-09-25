@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/weak_grey">
+    android:layout_height="wrap_content">
 
 
     <View
@@ -16,14 +15,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="16dp"
-        android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_default_portrait1" />
 
     <View
         android:layout_width="2dp"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/rl_reply_right"
+        android:layout_alignBottom="@+id/v_bottom_line"
         android:layout_below="@+id/iv_user_portrait"
         android:layout_marginLeft="36dp"
         android:background="@color/white" />
@@ -33,10 +32,10 @@
         android:id="@+id/rl_reply_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/iv_user_portrait"
-        android:layout_marginRight="16dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/iv_user_portrait"
         android:background="@drawable/bg_topic_comment">
 
 
@@ -47,16 +46,20 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:text="昵称" />
 
         <TextView
             android:id="@+id/tv_comment_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/tv_comment_time"
             android:layout_toRightOf="@+id/tv_user_name"
             android:singleLine="true"
+            android:text="回复"
             android:textColor="@color/normal_grey"
             android:textSize="12sp" />
 
@@ -67,16 +70,18 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/normal_grey" />
+            android:text="时间"
+            android:textColor="@color/normal_grey"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_comment_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_user_name"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:textColor="@color/normal_dark_grey" />
 
         <TextView
@@ -86,11 +91,11 @@
             android:layout_below="@+id/tv_comment_content"
             android:layout_marginLeft="8dp"
             android:drawableLeft="@mipmap/ic_topic_comment_count"
+            android:drawablePadding="4dp"
             android:padding="4dp"
             android:text="回复"
-            android:drawablePadding="4dp"
             android:textColor="@color/selector_join_text_color"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
 
         <LinearLayout
@@ -136,4 +141,10 @@
 
     </RelativeLayout>
 
+    <View
+        android:id="@+id/v_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_reply_right"
+        android:layout_marginTop="8dp" />
 </RelativeLayout>
