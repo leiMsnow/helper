@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.KeyBoardUtils;

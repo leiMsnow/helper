@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!-- 颜色的定义使用material_design,每种色值完全按照官网提供的来定义，
+    命名规则：color_int[_alpha],颜色_饱和度_透明度
+    颜色定义地址:http://design.1sters.com/material_design/style/color.html-->
 <resources>
     <!-- transparent-->
     <color name="transparent">#00000000</color>
@@ -6,7 +8,7 @@
     <color name="translucent_a30">#4d000000</color>
     <color name="translucent_a10">#20e0e0e0</color>
     <!-- black-->
-    <!--<color name="black">#000000</color>-->
+    <color name="black">#000000</color>
     <!-- white-->
     <color name="white">#ffffff</color>
     <!-- grey-->
@@ -33,9 +35,9 @@
     <!-- yellow-->
     <color name="theme_yellow">#FFF7D116</color>
     <color name="theme_yellow_700">#fbc02d</color>
-
     <!-- red-->
     <color name="theme_red">#ca4944</color>
+    <color name="theme_red_300">#f36c60</color>
+    <color name="theme_red_500">#e51c23</color>
     <color name="theme_red_700">#d01716</color>
-
 </resources>
