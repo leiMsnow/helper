@@ -18,5 +18,5 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/rc_ic_def_rich_content"/>
+        android:src="@mipmap/ic_default_image"/>
 </LinearLayout>

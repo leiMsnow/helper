@@ -9,69 +9,57 @@
 
     <include layout="@layout/item_discover_theme_type" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_corners_normal"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <!-- 左侧图 -->
+        <ImageView
+            android:id="@+id/iv_left"
+            style="@style/MainImageStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1" />
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-            <!-- 左侧图 -->
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <!-- 右上方图 -->
             <ImageView
-                android:id="@+id/iv_left"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rc_ic_def_rich_content" />
+                android:id="@+id/iv_top"
+                style="@style/MainImageStyle"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp" />
 
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <!-- 右上方图 -->
-                <ImageView
-                    android:id="@+id/iv_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginLeft="2dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/rc_ic_def_rich_content" />
-
-                <!-- 右下方图 -->
-                <ImageView
-                    android:id="@+id/iv_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="96dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginTop="2dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/rc_ic_def_rich_content" />
-
-            </LinearLayout>
+            <!-- 右下方图 -->
+            <ImageView
+                android:id="@+id/iv_bottom"
+                style="@style/MainImageStyle"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp" />
 
         </LinearLayout>
-        <!-- 标题 -->
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:text="标题"
-            android:textColor="@color/main_black"
-            android:textSize="16sp" />
 
-        <include layout="@layout/include_topic_bottom_main" />
     </LinearLayout>
+    <!-- 标题 -->
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/MainTitle"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="标题" />
+
+    <include layout="@layout/include_topic_bottom_main" />
 </LinearLayout>

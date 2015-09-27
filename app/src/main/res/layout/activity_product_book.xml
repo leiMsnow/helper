@@ -44,8 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/fl_tag"
                     android:layout_marginTop="4dp"
-                    android:visibility="gone"
-                    android:src="@mipmap/ic_book_mark" />
+                    android:src="@mipmap/ic_book_mark"
+                    android:visibility="gone" />
                 <!-- 标签 -->
                 <com.tongban.corelib.widget.view.FlowLayout
                     android:id="@+id/fl_tag"
@@ -71,7 +71,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_author"
                 android:layout_margin="16dp"
-                android:textColor="@color/normal_dark_grey" />
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/normal_dark_grey"
+                android:textSize="12sp" />
 
             <!-- 出版社 -->
             <TextView
@@ -79,7 +81,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_desc"
-                android:layout_margin="16dp" />
+                android:layout_margin="16dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/normal_dark_grey"
+                android:textSize="12sp" />
 
             <!-- isbn -->
 
@@ -88,7 +93,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_publisher"
-                android:layout_margin="16dp" />
+                android:layout_margin="16dp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/normal_dark_grey"
+                android:textSize="12sp" />
 
             <!-- 适读人群 -->
 

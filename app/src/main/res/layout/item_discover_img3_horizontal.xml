@@ -25,54 +25,43 @@
 
             <ImageView
                 android:id="@+id/iv_left"
+                style="@style/MainImageStyle"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rc_ic_def_rich_content" />
+                android:layout_marginRight="2dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/iv_mid"
+                style="@style/MainImageStyle"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rc_ic_def_rich_content" />
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/iv_right"
+                style="@style/MainImageStyle"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rc_ic_def_rich_content" />
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <!-- 标题 -->
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/MainTitle"
             android:layout_marginTop="8dp"
-            android:text="标题"
-            android:textColor="@color/main_black"
-            android:textSize="16sp" />
+            android:text="标题" />
         <!-- 内容 -->
         <TextView
             android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/MainContent"
             android:layout_marginTop="8dp"
             android:maxLines="4"
-            android:text="内容"
-            android:lineSpacingExtra="4dp"
-            android:textColor="@color/normal_dark_grey"
-            android:textSize="12sp" />
+            android:text="内容" />
 
 
     </LinearLayout>

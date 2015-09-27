@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:background="@color/transparent">
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp">
 
     <ImageView
         android:id="@+id/iv_collect"
@@ -14,37 +16,30 @@
         android:src="@mipmap/ic_topic_collect_count" />
 
     <TextView
-
         android:id="@+id/tv_collect_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainContentSmall"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/iv_collect"
         android:gravity="center"
-        android:text="0"
-        android:textColor="@color/normal_grey"
-        android:textSize="10sp" />
+        android:text="0" />
 
     <ImageView
         android:id="@+id/iv_comment"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_centerVertical="true"
-        android:padding="2dp"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/tv_collect_count"
+        android:padding="2dp"
         android:src="@mipmap/ic_topic_comment_count" />
 
     <TextView
         android:id="@+id/tv_comment_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainContentSmall"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/iv_comment"
         android:gravity="center"
-        android:text="0"
-        android:textColor="@color/normal_grey"
-        android:textSize="10sp" />
+        android:text="0" />
 
 
 </RelativeLayout>

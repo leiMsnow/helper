@@ -12,6 +12,33 @@
         <item name="android:background">@color/transparent</item>
         <item name="android:textSize">10sp</item>
     </style>
+    <!-- title 通用样式-->
+    <style name="MainTitle">
+        <item name="android:textColor">@color/main_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- content通用样式-->
+    <style name="MainContent">
+        <item name="android:textColor">@color/normal_dark_grey</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- small内容样式-->
+    <style name="MainContentSmall">
+        <item name="android:textColor">@color/normal_grey</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- default image style-->
+    <style name="MainImageStyle">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/ic_default_image</item>
+    </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
