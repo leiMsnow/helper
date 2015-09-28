@@ -25,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/iv_left"
-                style="@style/MainImageStyle"
+                style="@style/MainImageContent"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
                 android:layout_marginRight="2dp"
@@ -33,7 +33,7 @@
 
             <ImageView
                 android:id="@+id/iv_mid"
-                style="@style/MainImageStyle"
+                style="@style/MainImageContent"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
                 android:layout_marginLeft="2dp"
@@ -42,7 +42,7 @@
 
             <ImageView
                 android:id="@+id/iv_right"
-                style="@style/MainImageStyle"
+                style="@style/MainImageContent"
                 android:layout_width="0dp"
                 android:layout_height="96dp"
                 android:layout_marginLeft="2dp"
@@ -66,5 +66,5 @@
 
     </LinearLayout>
 
-    <include layout="@layout/include_topic_bottom_main" />
+    <include layout="@layout/include_bottom_collect_comment" />
 </LinearLayout>

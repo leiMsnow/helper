@@ -4,64 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent">
-
+    <!-- toolBar部分-->
     <RelativeLayout
         android:id="@+id/rl_menu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
-
+        <!-- 标题-->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
+            android:maxLength="14"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:singleLine="true"
-            android:maxLength="14"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="16sp"
-            android:visibility="gone"/>
-
+            android:visibility="gone" />
+        <!-- 右侧操作按钮-->
         <RelativeLayout
             android:id="@+id/rl_action_parent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/tv_title"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true">
-
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tv_title">
+            <!-- 搜索-->
             <ImageButton
                 android:id="@+id/ib_search"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
+                style="@style/MainToolBarMenu"
                 android:layout_toLeftOf="@+id/ib_create"
                 android:layout_toStartOf="@+id/ib_create"
-                android:background="@drawable/selector_transparent_to_gray"
                 android:src="@mipmap/ic_menu_search" />
-
+            <!-- 创建-->
             <ImageButton
                 android:id="@+id/ib_create"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
+                style="@style/MainToolBarMenu"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/selector_transparent_to_gray"
-                android:src="@mipmap/ic_menu_create"/>
+                android:src="@mipmap/ic_menu_create" />
 
         </RelativeLayout>
     </RelativeLayout>
-
+    <!-- 聊天/推荐-->
     <RadioGroup
-        android:id="@+id/rg_circle"
+        android:id="@+id/rg_parent"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:visibility="gone">
-
+        <!-- 聊天-->
         <RadioButton
             android:id="@+id/rb_chat"
             android:layout_width="64dp"
@@ -73,7 +69,7 @@
             android:text="@string/chat"
             android:textColor="@color/white"
             android:textSize="14sp" />
-
+        <!-- 推荐-->
         <RadioButton
             android:id="@+id/rb_recommend"
             android:layout_width="64dp"
@@ -85,14 +81,14 @@
             android:textColor="@color/white"
             android:textSize="14sp" />
     </RadioGroup>
-
+    <!-- 指示器-->
     <ImageView
         android:id="@+id/iv_indicator"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rg_circle"
-        android:layout_below="@+id/rg_circle"
-        android:visibility="gone"
-        android:src="@mipmap/ic_main_indicator" />
+        android:layout_alignLeft="@+id/rg_parent"
+        android:layout_below="@+id/rg_parent"
+        android:src="@mipmap/ic_main_indicator"
+        android:visibility="gone" />
 </RelativeLayout>
 

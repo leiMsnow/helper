@@ -73,9 +73,11 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
                             else if (o.getItemType() == OfficialTopic.REPLY_NUM) {
                                 return R.layout.item_official_topic_details_reply_num;
                             }
-                            //评论（回复）列表(o.getContentType() == OfficialTopic.REPLY)
-                            else {
+                            //评论（回复）列表
+                            else if (o.getItemType() == OfficialTopic.REPLY) {
                                 return R.layout.item_topic_comment_list;
+                            } else {
+                                return 0;
                             }
                         }
 

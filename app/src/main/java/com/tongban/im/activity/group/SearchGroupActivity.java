@@ -51,7 +51,7 @@ public class SearchGroupActivity extends SuggestionsBaseActivity implements
         }
         if (!TextUtils.isEmpty(query)) {
             GroupApi.getInstance().searchGroupList(query, 0, 15, this);
-            recommendGroupFragment.setmKeyword(query);
+            recommendGroupFragment.setKeyword(query);
         }
         return true;
     }

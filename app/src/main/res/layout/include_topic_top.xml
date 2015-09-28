@@ -1,40 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--话题顶布局通用样式-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent">
-
+    <!-- 头像-->
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        style="@style/MainImagePortrait"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_default_portrait2" />
-
+        android:layout_marginTop="16dp" />
+    <!-- 用户昵称-->
     <TextView
         android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainTitle"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
+        android:layout_marginRight="8dp"
         android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/iv_user_portrait"
-        android:singleLine="true"
-        android:text="UserName"
-        android:textColor="@color/main_black" />
-
-
+        android:singleLine="true" />
+    <!-- 时间-->
     <TextView
         android:id="@+id/tv_create_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainContent.Tips"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="16dp"
-        android:text="Time"
-        android:textColor="@color/normal_grey"
-        android:textSize="12sp" />
+        android:layout_marginRight="16dp" />
 </RelativeLayout>

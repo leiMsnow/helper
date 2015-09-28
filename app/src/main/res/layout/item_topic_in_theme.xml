@@ -16,7 +16,7 @@
 
     <include
         android:id="@+id/ln_bottom"
-        layout="@layout/include_topic_bottom_main"
+        layout="@layout/include_bottom_collect_comment"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:layout_below="@+id/tv_title" />

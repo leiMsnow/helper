@@ -31,7 +31,7 @@ import io.rong.imlib.model.Conversation;
 public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
     // 圈子页顶部的tab
-    private RadioGroup rgCircle;
+    private RadioGroup rgParent;
     // 圈子页顶部的搜索按钮
     private ImageButton ibSearch;
     private ImageButton ibCreate;
@@ -49,8 +49,8 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
     @Override
     protected void initView() {
         // 圈子页的顶部tab
-        rgCircle = (RadioGroup) mView.findViewById(R.id.rg_circle);
-        rgCircle.setVisibility(View.VISIBLE);
+        rgParent = (RadioGroup) mView.findViewById(R.id.rg_parent);
+        rgParent.setVisibility(View.VISIBLE);
         ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
         ibSearch.setVisibility(View.GONE);
         ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
@@ -79,7 +79,7 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
 
     @Override
     protected void initListener() {
-        rgCircle.setOnCheckedChangeListener(this);
+        rgParent.setOnCheckedChangeListener(this);
         ibSearch.setOnClickListener(this);
         ibCreate.setOnClickListener(this);
     }
@@ -91,7 +91,7 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (group == rgCircle) {
+        if (group == rgParent) {
             switch (checkedId) {
                 case R.id.rb_chat:
                     if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
@@ -123,6 +123,7 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
         }
     }
 
+    // 设置指示器位置
     private void setIndicator(int position) {
         int mIndicatorWidth = ivIndicator.getWidth();
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivIndicator.getLayoutParams();

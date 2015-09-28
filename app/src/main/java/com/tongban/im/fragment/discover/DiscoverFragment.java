@@ -24,6 +24,7 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.user.User;
+import com.tongban.im.utils.PTRHeaderUtils;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -54,11 +55,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         mListView = (ListView) mView.findViewById(R.id.lv_discover);
 
-        RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
-        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, DensityUtils.dp2px(mContext, 16), 0, DensityUtils.dp2px(mContext, 16));
-        header.setUp(ptrFrameLayout);
-
+        RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
         ptrFrameLayout.setHeaderView(header);
         ptrFrameLayout.addPtrUIHandler(header);
         ptrFrameLayout.setPtrHandler(this);
@@ -196,12 +193,12 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-        onRequest();
+        // 获取首页数据
+        ProductApi.getInstance().fetchHomeInfo(this);
     }
 
     @Override
     public void onRequest() {
-        // 获取首页数据
-        ProductApi.getInstance().fetchHomeInfo(this);
+        ptrFrameLayout.autoRefresh(true);
     }
 }

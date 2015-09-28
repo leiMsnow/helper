@@ -19,7 +19,7 @@
         <!-- 左侧图 -->
         <ImageView
             android:id="@+id/iv_left"
-            style="@style/MainImageStyle"
+            style="@style/MainImageContent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="2dp"
@@ -34,7 +34,7 @@
             <!-- 右上方图 -->
             <ImageView
                 android:id="@+id/iv_top"
-                style="@style/MainImageStyle"
+                style="@style/MainImageContent"
                 android:layout_width="match_parent"
                 android:layout_height="96dp"
                 android:layout_marginBottom="2dp"
@@ -43,7 +43,7 @@
             <!-- 右下方图 -->
             <ImageView
                 android:id="@+id/iv_bottom"
-                style="@style/MainImageStyle"
+                style="@style/MainImageContent"
                 android:layout_width="match_parent"
                 android:layout_height="96dp"
                 android:layout_marginLeft="2dp"
@@ -61,5 +61,5 @@
         android:layout_marginTop="16dp"
         android:text="标题" />
 
-    <include layout="@layout/include_topic_bottom_main" />
+    <include layout="@layout/include_bottom_collect_comment" />
 </LinearLayout>

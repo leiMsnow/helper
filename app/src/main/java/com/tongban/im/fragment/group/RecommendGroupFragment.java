@@ -1,10 +1,8 @@
 package com.tongban.im.fragment.group;
 
 import android.view.View;
-import android.widget.ListView;
 
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -12,16 +10,15 @@ import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.utils.PTRHeaderUtils;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 import io.rong.imkit.RongIM;
 
 /**
@@ -43,7 +40,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     //是否是下拉刷新操作
     private boolean mIsPull = false;
 
-    public void setmKeyword(String mKeyword) {
+    public void setKeyword(String mKeyword) {
         this.mKeyword = mKeyword;
     }
 
@@ -63,26 +60,11 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsMainEvent) {
-//            StoreHouseHeader header = new StoreHouseHeader(mContext);
-//            header.setTextColor(R.color.main_black);
-//            header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
-//                    DensityUtils.dp2px(mContext, 16), 0);
-//            header.initWithPointList(getPointList());
-//            ptrFrameLayout.setHeaderView(header);
-//            ptrFrameLayout.addPtrUIHandler(header);
-//            ptrFrameLayout.setPtrHandler(this);
-//            GroupApi.getInstance().recommendGroupList(mCursor, 20, this);
-
-            RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
-            header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-            header.setPadding(0, DensityUtils.dp2px(mContext, 16),
-                    0, DensityUtils.dp2px(mContext, 16));
-            header.setUp(ptrFrameLayout);
-
+            RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);
             ptrFrameLayout.setPtrHandler(this);
-            ptrFrameLayout.autoRefresh(true);
+            onRequest();
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);
@@ -171,13 +153,13 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     @Override
     public void onRefreshBegin(PtrFrameLayout frameLayout) {
         mIsPull = true;
-        onRequest();
+        mCursor = 0;
+        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
     }
 
     @Override
     public void onRequest() {
-        mCursor = 0;
-        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
+        ptrFrameLayout.autoRefresh(true);
     }
 
     @Override

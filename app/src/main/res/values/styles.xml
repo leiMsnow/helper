@@ -27,6 +27,11 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <!-- 内容标签样式-如：时间等 -->
+    <style name="MainContent.Tips">
+        <item name="android:textColor">@color/normal_grey</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
     <!-- small内容样式-->
     <style name="MainContentSmall">
         <item name="android:textColor">@color/normal_grey</item>
@@ -34,10 +39,23 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <!-- default image style-->
-    <style name="MainImageStyle">
+    <!-- 内容图片样式-->
+    <style name="MainImageContent">
         <item name="android:scaleType">centerCrop</item>
         <item name="android:src">@mipmap/ic_default_image</item>
+    </style>
+    <!-- 用户头像-->
+    <style name="MainImagePortrait">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/ic_default_portrait1</item>
+    </style>
+    <!-- toolBar的menu样式-->
+    <style name="MainToolBarMenu">
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@drawable/selector_transparent_to_gray</item>
     </style>
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--底部通用布局 - 收藏和评论-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_marginLeft="16dp"
         android:padding="2dp"
         android:src="@mipmap/ic_topic_collect_count" />
-
+    <!-- 收藏数量-->
     <TextView
         android:id="@+id/tv_collect_count"
         style="@style/MainContentSmall"
@@ -32,7 +32,7 @@
         android:layout_toRightOf="@+id/tv_collect_count"
         android:padding="2dp"
         android:src="@mipmap/ic_topic_comment_count" />
-
+    <!-- 评论数量-->
     <TextView
         android:id="@+id/tv_comment_count"
         style="@style/MainContentSmall"

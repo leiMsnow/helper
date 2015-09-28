@@ -23,6 +23,7 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.utils.PTRHeaderUtils;
 
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -87,11 +88,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
 
         if (mIsMainEvent) {
-            RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
-            header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-            header.setPadding(0, DensityUtils.dp2px(mContext, 16), 0, DensityUtils.dp2px(mContext, 16));
-            header.setUp(ptrFrameLayout);
-
+            RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
             ptrFrameLayout.setHeaderView(header);
             ptrFrameLayout.addPtrUIHandler(header);
             ptrFrameLayout.setPtrHandler(this);

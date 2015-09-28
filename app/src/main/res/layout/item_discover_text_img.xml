@@ -13,7 +13,7 @@
     <!-- 专题头图 -->
     <ImageView
         android:id="@+id/iv_img"
-        style="@style/MainImageStyle"
+        style="@style/MainImageContent"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_below="@+id/in_theme_type"
@@ -36,7 +36,7 @@
         android:text="内容" />
 
     <include
-        layout="@layout/include_topic_bottom_main"
+        layout="@layout/include_bottom_collect_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_description" />

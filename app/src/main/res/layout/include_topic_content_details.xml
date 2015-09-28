@@ -1,35 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--话题详情内容布局-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
-
-
+    <!-- 标题-->
     <TextView
         android:id="@+id/tv_topic_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainTitle"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="标题"
-        android:textColor="@color/main_black"
-        android:textSize="16sp" />
-
+        android:text="标题" />
+    <!-- 内容-->
     <TextView
         android:id="@+id/tv_topic_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MainContent"
         android:layout_below="@+id/tv_topic_title"
         android:layout_marginBottom="8dp"
+        android:lineSpacingExtra="4dp"
         android:maxLength="2000"
         android:text="内容"
-        android:lineSpacingExtra="4dp"
-        android:textColor="@color/normal_dark_grey"
-        android:textIsSelectable="true"
-        android:textSize="12sp" />
-
+        android:textIsSelectable="true" />
+    <!-- 图片-->
     <com.tongban.im.widget.view.ChildGridView
         android:id="@+id/gv_content"
         android:layout_width="match_parent"
