@@ -22,8 +22,7 @@
             android:paddingRight="16dp"
             android:singleLine="true"
             android:textColor="?attr/actionMenuTextColor"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:textSize="16sp" />
         <!-- 右侧操作按钮-->
         <RelativeLayout
             android:id="@+id/rl_action_parent"
@@ -38,6 +37,7 @@
                 style="@style/MainToolBarMenu"
                 android:layout_toLeftOf="@+id/ib_create"
                 android:layout_toStartOf="@+id/ib_create"
+                android:paddingTop="2dp"
                 android:src="@mipmap/ic_menu_search" />
             <!-- 创建-->
             <ImageButton

@@ -291,8 +291,7 @@ public class AccountApi extends BaseApi {
         simpleRequest(LOGIN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-                if (callback != null)
-                    callback.onStartApi();
+
             }
 
             @Override

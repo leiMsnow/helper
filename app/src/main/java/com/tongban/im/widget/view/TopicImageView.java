@@ -23,15 +23,15 @@ import java.util.List;
  */
 public class TopicImageView extends LinearLayout implements View.OnClickListener {
 
+    private Context mContext;
     private ChildGridView gvReplyImg;
     private CameraView mCameraView;
 
-    public CreateTopicImgAdapter getmAdapter() {
+    private CreateTopicImgAdapter mAdapter;
+
+    public CreateTopicImgAdapter getAdapter() {
         return mAdapter;
     }
-
-    private CreateTopicImgAdapter mAdapter;
-    private Context mContext;
 
     private int selectIndex = 0;
 
@@ -67,7 +67,7 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         LayoutInflater.from(mContext).inflate(R.layout.view_topic_image_grid, this);
         gvReplyImg = (ChildGridView) findViewById(R.id.gv_reply_img);
         selectedFile.add("");
-        mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_topic_grid_img, selectedFile);
+        mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_create_grid_img, selectedFile);
         selectedFile.clear();
     }
 

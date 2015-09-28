@@ -87,7 +87,7 @@ public class PTRHeaderUtils {
                 0, DensityUtils.dp2px(mContext, 16));
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
         if (ptrFrameLayout != null) {
-            ptrFrameLayout.setLoadingMinTime(2000);
+            ptrFrameLayout.setLoadingMinTime(500);
             ptrFrameLayout.setHeaderView(header);
         }
     }

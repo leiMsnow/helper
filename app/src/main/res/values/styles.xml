@@ -20,13 +20,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!-- title-user 通用样式-->
-    <style name="MainTitle.User">
+    <style name="MainTitle.User" parent="MainTitle">
         <item name="android:textSize">12sp</item>
     </style>
     <!-- content通用样式-->
     <style name="MainContent">
         <item name="android:textColor">@color/normal_dark_grey</item>
-        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -50,8 +50,8 @@
     </style>
     <!-- 用户头像-->
     <style name="MainImagePortrait">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:src">@mipmap/ic_default_portrait1</item>
     </style>

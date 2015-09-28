@@ -3,12 +3,9 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 
 import java.util.List;
@@ -41,7 +38,7 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
     @Override
     protected void convert(final BaseAdapterHelper helper, final String item) {
         if (TextUtils.isEmpty(item)) {
-            helper.setImageBitmap(R.id.iv_topic_img, R.mipmap.ic_add_img);
+            helper.setImageResource(R.id.iv_topic_img, R.drawable.ic_add_img);
         } else {
             helper.setImageBitmap(R.id.iv_topic_img, item);
         }
@@ -50,10 +47,4 @@ public class CreateTopicImgAdapter extends QuickAdapter<String> {
         helper.setOnClickListener(R.id.iv_topic_img, onClickListener);
     }
 
-    @Override
-    protected void onFirstCreateView(BaseAdapterHelper helper) {
-        ViewGroup.LayoutParams layoutParams = helper.getView(R.id.iv_topic_img).getLayoutParams();
-        layoutParams.width = layoutParams.height;
-        helper.getView(R.id.iv_topic_img).setLayoutParams(layoutParams);
-    }
 }

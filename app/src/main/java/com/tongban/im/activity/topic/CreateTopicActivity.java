@@ -1,19 +1,14 @@
 package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 
-import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
@@ -58,7 +53,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
 
     @Override
     protected void initData() {
-        gvTopicImg.getmAdapter().setImgCount(IMAGE_COUNT);
+        gvTopicImg.getAdapter().setImgCount(IMAGE_COUNT);
     }
 
     @Override

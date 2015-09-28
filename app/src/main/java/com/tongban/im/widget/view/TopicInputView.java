@@ -30,16 +30,14 @@ import java.util.List;
 public class TopicInputView extends LinearLayout implements View.OnClickListener,
         TextWatcher {
 
+    private Context mContext;
+
     private View rootView;
     private ImageView ivAddImg;
     private EditText etComment;
     private ImageView ivComment;
     private TextView tvCommentLength;
-
-
     private TopicImageView gvReplyImg;
-
-    private Context mContext;
 
     private IKeyboardListener keyboardListener;
     private IOnClickCommentListener onClickCommentListener;
@@ -93,7 +91,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         gvReplyImg = (TopicImageView) findViewById(R.id.ll_reply_img);
         tvCommentLength.setText(String.valueOf(mCommentLength));
 
-        gvReplyImg.getmAdapter().setImgCount(3);
+        gvReplyImg.getAdapter().setImgCount(3);
         ivComment.setEnabled(false);
     }
 
@@ -205,7 +203,6 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         repliedUserId = null;
         repliedCommentId = null;
         etComment.setText("");
-        etComment.setHint(mContext.getResources().getString(R.string.create_comment));
 
         if (isClearImage)
             gvReplyImg.clearImageInfo();

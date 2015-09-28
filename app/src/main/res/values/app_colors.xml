@@ -26,4 +26,12 @@
     <color name="weak_grey">#f4f2f0</color>
 
 
+    <!-- 单独调整的颜色-->
+
+    <!-- 话题列表的背景色-->
+    <color name="weak_light_grey">#f6f6f6</color>
+    <!-- 话题按下效果-->
+    <color name="topic_list_pressed">#f1f1f1</color>
+
+
 </resources>

@@ -32,9 +32,9 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
         if (helper.getPosition() % 2 == 0) {
-            helper.getConvertView().setBackgroundResource(R.color.white);
+            helper.getConvertView().setBackgroundResource(R.drawable.selector_bg_topic_list_white);
         } else {
-            helper.getConvertView().setBackgroundResource(R.color.weak_grey);
+            helper.getConvertView().setBackgroundResource(R.drawable.selector_bg_topic_list_grey);
         }
         if (item.getUser_info() != null) {
             //用户信息
@@ -76,7 +76,7 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
             if (i < count) {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
-                        item.getTopic_img_url().get(i).getMin(), R.drawable.rc_ic_def_rich_content);
+                        item.getTopic_img_url().get(i).getMin(), R.mipmap.ic_default_image);
                 helper.setTag(images[i], Integer.MAX_VALUE,
                         item.getTopic_img_url());
                 helper.setOnClickListener(images[i], onClickListener);

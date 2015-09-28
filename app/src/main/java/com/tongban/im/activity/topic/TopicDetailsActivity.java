@@ -65,7 +65,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity
         tvTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
         tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
         gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
-        gvContent.setVisibility(View.VISIBLE);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -139,10 +138,13 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity
             tvTopicContent.setText(mTopicInfo.getTopic_content());
 
             tvComment.setText(mTopicInfo.getComment_amount());
+            if (mTopicInfo.getTopic_img_url() != null) {
+                mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
+                gvContent.setVisibility(View.VISIBLE);
+            }
 
-            mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
             lvReplyList.setVisibility(View.VISIBLE);
-
+            // 查询话题评论列表
             TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
         } else {
             lvReplyList.setVisibility(View.GONE);

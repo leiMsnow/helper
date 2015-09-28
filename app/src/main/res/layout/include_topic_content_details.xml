@@ -9,15 +9,13 @@
         android:id="@+id/tv_topic_title"
         style="@style/MainTitle"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:text="标题" />
     <!-- 内容-->
     <TextView
         android:id="@+id/tv_topic_content"
         style="@style/MainContent"
         android:layout_below="@+id/tv_topic_title"
-        android:layout_marginBottom="8dp"
-        android:lineSpacingExtra="4dp"
+        android:layout_marginTop="8dp"
         android:maxLength="2000"
         android:text="内容"
         android:textIsSelectable="true" />
@@ -27,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_topic_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:horizontalSpacing="4dp"

@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:ptr="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/weak_grey">
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weak_grey">
 
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/fragment_ptr_home_ptr_frame"
@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:dividerHeight="1dp"
             android:divider="@color/normal_light_grey"
-            android:visibility="gone"
-            android:scrollbars="none"/>
+            android:dividerHeight="1dp"
+            android:scrollbars="none"
+            android:visibility="gone" />
 
     </in.srain.cube.views.ptr.PtrFrameLayout>
 
@@ -36,23 +36,20 @@
 
         <com.tongban.corelib.widget.view.CircleImageView
             android:id="@+id/iv_user_portrait"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            style="@style/MainImagePortrait"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp"
-            android:src="@mipmap/ic_default_portrait1"
-            android:scaleType="centerCrop"/>
+            android:layout_marginLeft="14dp" />
 
         <TextView
             android:id="@+id/tv_discover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user_portrait"
             android:text="@string/discover"
-            android:layout_marginLeft="8dp"
             android:textColor="?attr/actionMenuTextColor"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/iv_search_all"
@@ -60,9 +57,9 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="centerInside"
             android:background="@drawable/selector_transparent_to_gray"
-            android:src="@mipmap/ic_menu_discover_search"/>
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_menu_discover_search" />
     </RelativeLayout>
 
 </RelativeLayout>

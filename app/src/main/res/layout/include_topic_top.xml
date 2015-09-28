@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent">
+    android:background="@color/transparent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
     <!-- 头像-->
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
         style="@style/MainImagePortrait"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp" />
     <!-- 用户昵称-->
     <TextView
@@ -17,7 +19,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="8dp"
-        android:textSize="14sp"
         android:layout_toLeftOf="@+id/tv_create_time"
         android:layout_toRightOf="@+id/iv_user_portrait"
         android:singleLine="true" />
@@ -26,6 +27,5 @@
         android:id="@+id/tv_create_time"
         style="@style/MainContent.Tips"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="16dp" />
+        android:layout_centerVertical="true" />
 </RelativeLayout>
