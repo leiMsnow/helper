@@ -8,18 +8,20 @@
         <item name="android:textColorPrimary">@color/white</item>
         <item name="searchViewStyle">@style/SearchView.Light</item>
         <item name="android:textColorHint">@color/theme_grey_300</item>
-        <item name="android:textCursorDrawable">@drawable/shape_text_cursor</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
         <item name="toolbarStyle">@style/Widget.Toolbar</item>
         <!-- 禁止多点触摸 -->
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
+        <item name="android:textViewStyle">@style/Widget.TextView.Style</item>
+        <item name="android:textCursorDrawable">@null</item>
+
     </style>
 
     <style name="AppTheme.Red">
         <item name="colorPrimary">@color/theme_red</item>
         <item name="colorPrimaryDark">@color/theme_red</item>
-        <item name="colorAccent">@color/theme_red</item>
+        <item name="colorAccent">@color/theme_red_700</item>
     </style>
 
 </resources>

@@ -18,6 +18,7 @@ import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -62,6 +63,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
         } else {
             searchView.onActionViewCollapsed();
         }
+
         return true;
     }
 

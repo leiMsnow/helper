@@ -78,7 +78,7 @@
     <string name="create_topic">发表话题</string>
     <string name="topic_search">话题搜索</string>
     <string name="create_comment">发表评论</string>
-    <string name="input_topic">输入标题（30字以内）</string>
+    <string name="input_topic">输入标题(30字以内)</string>
     <string name="hint_topic_content">话题内容...</string>
     <!-- 首页搜索-->
     <string name="multiple_product">专题</string>

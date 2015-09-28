@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/weak_grey">
-
+    <!-- toolbar-->
     <include
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <!-- 话题标题-->
             <EditText
                 android:id="@+id/et_topic_name"
                 android:layout_width="match_parent"
@@ -31,8 +31,8 @@
                 android:paddingRight="8dp"
                 android:singleLine="true"
                 android:textColor="@color/main_black"
-                android:textSize="16sp" />
-
+                android:textSize="14sp" />
+            <!-- -->
             <EditText
                 android:id="@+id/et_topic_content"
                 android:layout_width="match_parent"
@@ -44,14 +44,11 @@
                 android:hint="@string/hint_topic_content"
                 android:maxLength="2000"
                 android:maxLines="10"
-                android:minHeight="80dp"
+                android:minHeight="72dp"
                 android:minLines="3"
-                android:paddingBottom="16dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="16dp"
+                android:padding="16dp"
                 android:textColor="@color/main_black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <com.tongban.im.widget.view.TopicImageView
                 android:id="@+id/ll_add_img"

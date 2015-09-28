@@ -28,9 +28,6 @@ import java.util.List;
 
 /**
  * 通用的topicDetails父类
- * 裁剪
- * 拍照
- * 相册
  * Created by fushudi on 2015/8/13.
  */
 public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity implements
@@ -216,6 +213,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         topicInputView.clearCommentInfo();
+        topicInputView.gridViewVisibility(false);
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
     }
 
