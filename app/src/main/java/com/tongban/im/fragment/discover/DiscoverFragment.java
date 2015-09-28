@@ -55,9 +55,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         mListView = (ListView) mView.findViewById(R.id.lv_discover);
 
-        RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
-        ptrFrameLayout.setHeaderView(header);
-        ptrFrameLayout.addPtrUIHandler(header);
+        PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
         ptrFrameLayout.setPtrHandler(this);
     }
 

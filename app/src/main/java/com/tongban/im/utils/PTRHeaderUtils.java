@@ -2,6 +2,7 @@ package com.tongban.im.utils;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.view.View;
 
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.widget.header.RentalsSunHeaderView;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.header.MaterialHeader;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
@@ -19,45 +21,80 @@ import in.srain.cube.views.ptr.header.StoreHouseHeader;
  */
 public class PTRHeaderUtils {
 
+
+    private PTRHeaderUtils() {
+    }
+
+
     /**
      * 阳光小镇
-     *
-     * @param mContext
-     * @param ptrFrameLayout
-     * @return
+     * * @return
      */
-    public static RentalsSunHeaderView getSunTownView(Context mContext, PtrFrameLayout ptrFrameLayout) {
+    public static RentalsSunHeaderView getSunTownView(Context mContext,
+                                                      PtrFrameLayout ptrFrameLayout) {
 
         RentalsSunHeaderView header = new RentalsSunHeaderView(mContext);
-        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, DensityUtils.dp2px(mContext, 16),
-                0, DensityUtils.dp2px(mContext, 16));
         header.setUp(ptrFrameLayout);
-
+        ptrFrameLayout.addPtrUIHandler(header);
+        setPtrAttrs(mContext, header, ptrFrameLayout);
         return header;
     }
+
+
+    /**
+     * material的四色进度条
+     *
+     * @return
+     */
+    public static MaterialHeader getMaterialView(Context mContext, PtrFrameLayout ptrFrameLayout) {
+        MaterialHeader header = new MaterialHeader(mContext);
+        int[] colors = mContext.getResources().getIntArray(R.array.google_colors);
+        header.setColorSchemeColors(colors);
+        header.setPtrFrameLayout(ptrFrameLayout);
+        ptrFrameLayout.addPtrUIHandler(header);
+
+        setPtrAttrs(mContext, header, ptrFrameLayout);
+        return header;
+    }
+
 
     /**
      * 坐标绘制的“加载中”
      *
-     * @param mContext
-     * @param ptrFrameLayout
      * @return
      */
     public static StoreHouseHeader getPointListView(Context mContext, PtrFrameLayout ptrFrameLayout) {
 
         StoreHouseHeader header = new StoreHouseHeader(mContext);
         header.setTextColor(R.color.main_black);
-        header.setPadding(DensityUtils.dp2px(mContext, 16), DensityUtils.dp2px(mContext, 16),
-                DensityUtils.dp2px(mContext, 16), 0);
         header.initWithPointList(getPointList());
+        ptrFrameLayout.setHeaderView(header);
+        ptrFrameLayout.addPtrUIHandler(header);
+
+        setPtrAttrs(mContext, header, null);
         return header;
     }
 
+    /**
+     * 設置通用屬性
+     *
+     * @param mContext
+     * @param header
+     * @param ptrFrameLayout
+     */
+    private static void setPtrAttrs(Context mContext, View header, PtrFrameLayout ptrFrameLayout) {
+        header.setPadding(0, DensityUtils.dp2px(mContext, 16),
+                0, DensityUtils.dp2px(mContext, 16));
+        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
+        if (ptrFrameLayout != null) {
+            ptrFrameLayout.setLoadingMinTime(2000);
+            ptrFrameLayout.setHeaderView(header);
+        }
+    }
 
     private static ArrayList<float[]> getPointList() {
         // this point is taken from https://github.com/cloay/CRefreshLayout
-        List<Point> startPoints = new ArrayList<Point>();
+        List<Point> startPoints = new ArrayList<>();
         startPoints.add(new Point(240, 80));
         startPoints.add(new Point(270, 80));
         startPoints.add(new Point(265, 103));

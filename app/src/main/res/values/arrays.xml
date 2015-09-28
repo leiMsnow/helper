@@ -22,4 +22,11 @@
         <item>Are you kidding me? master</item>
         <item>与你只若初见何须肝肠离别</item>
     </array>
+
+    <integer-array name="google_colors">
+        <item>@color/theme_red</item>
+        <item>@color/theme_light_blue</item>
+        <item>@color/theme_yellow</item>
+        <item>@color/theme_light_green</item>
+    </integer-array>
 </resources>

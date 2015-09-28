@@ -88,9 +88,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
 
         if (mIsMainEvent) {
-            RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
-            ptrFrameLayout.setHeaderView(header);
-            ptrFrameLayout.addPtrUIHandler(header);
+            PTRHeaderUtils.getPointListView(mContext,ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
             ptrFrameLayout.autoRefresh();
         } else {

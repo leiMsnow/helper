@@ -60,9 +60,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
         if (mIsMainEvent) {
-            RentalsSunHeaderView header = PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
-            ptrFrameLayout.setHeaderView(header);
-            ptrFrameLayout.addPtrUIHandler(header);
+            PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
             onRequest();
         }
