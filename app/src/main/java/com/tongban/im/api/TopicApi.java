@@ -317,7 +317,10 @@ public class TopicApi extends BaseApi {
      * @param pageSize 每页数量 最少1条
      * @param callback
      */
-    public void getTopicCommentList(String topicId, int cursor, int pageSize, final IApiCallback callback) {
+    public void getTopicCommentList(String topicId,
+                                    int cursor,
+                                    int pageSize,
+                                    final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
@@ -335,11 +338,11 @@ public class TopicApi extends BaseApi {
                 ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<TopicComment>>() {
                         });
-                BaseEvent.TopicCommentListEvent topicCommentListEvent = new BaseEvent.TopicCommentListEvent();
-                topicCommentListEvent.topicCommentList = (result.getData().getResult());
+                BaseEvent.TopicCommentListEvent commentList =
+                        new BaseEvent.TopicCommentListEvent();
+                commentList.topicCommentList = (result.getData().getResult());
                 if (callback != null)
-                    callback.onComplete(topicCommentListEvent);
-
+                    callback.onComplete(commentList);
             }
 
             @Override

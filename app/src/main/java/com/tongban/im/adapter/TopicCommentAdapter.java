@@ -53,10 +53,12 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
             } else {
                 helper.setVisible(R.id.ll_small_img_parent, View.GONE);
             }
+
             helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
             String repliedName = TextUtils.isEmpty(item.getReplied_comment_id()) ? "" :
                     "回复" + item.getReplied_nick_name();
             helper.setText(R.id.tv_comment_name, repliedName);
+
             //点击头像
             helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getUser_info().getUser_id());
             helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
@@ -68,9 +69,29 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
             } else {
                 helper.setImageResource(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
+            helper.setText(R.id.tv_user_name, item.getTopicReply().getUser_info().getNick_name());
             helper.setText(R.id.tv_comment_time, item.getTopicReply().getC_time(mContext));
             helper.setText(R.id.tv_comment_content, item.getTopicReply().getComment_content());
-            helper.setText(R.id.tv_user_name, item.getTopicReply().getUser_info().getNick_name());
+
+            String repliedName = TextUtils.isEmpty(item.getTopicReply().getReplied_comment_id()) ? "" :
+                    "回复" + item.getTopicReply().getReplied_nick_name();
+            helper.setText(R.id.tv_comment_name, repliedName);
+
+            //点击头像
+            helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getTopicReply()
+                    .getUser_info().getUser_id());
+            helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
+
+            //是自己就不显示回复
+            if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals(
+                    item.getTopicReply().getUser_info().getUser_id())) {
+                helper.setVisible(R.id.tv_comment, View.GONE);
+            } else {
+                helper.setVisible(R.id.tv_comment, View.VISIBLE);
+                //回复
+                helper.setTag(R.id.tv_comment, item.getTopicReply());
+                helper.setOnClickListener(R.id.tv_comment, onClickListener);
+            }
         }
     }
 

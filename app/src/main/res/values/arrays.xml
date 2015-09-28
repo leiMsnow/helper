@@ -25,8 +25,8 @@
 
     <integer-array name="google_colors">
         <item>@color/theme_red</item>
-        <item>@color/theme_light_blue</item>
-        <item>@color/theme_yellow</item>
-        <item>@color/theme_light_green</item>
+        <item>@color/theme_red</item>
+        <item>@color/theme_red</item>
+        <item>@color/theme_red</item>
     </integer-array>
 </resources>

@@ -30,29 +30,27 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
-        implements View.OnClickListener, TopicInputView.IOnClickCommentListener {
+public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
 
+    private View mHeader;
     private ListView lvAuthorityTopicDetails;
     private OfficialTopicDetailsAdapter mAdapter;
-    private View mHeader;
     private ImageView ivOfficialPortrait;
     private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
 
     @Override
     protected void initView() {
+        super.initView();
+        lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_reply_list);
+
         mHeader = LayoutInflater.from(mContext).
                 inflate(R.layout.header_official_topic_details, null);
-        lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_reply_list);
-        topicInputView = (TopicInputView) findViewById(R.id.topic_input);
-        topicInputView.setAdapterImgCount(3);
 
         ivOfficialPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
         tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
         tvCreateTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
         tvOfficialTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
         tvOfficialTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
-
     }
 
     @Override
@@ -92,7 +90,6 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
                         }
                     });
             lvAuthorityTopicDetails.addHeaderView(mHeader);
-            mAdapter.setOnClickListener(this);
             lvAuthorityTopicDetails.setAdapter(mAdapter);
         }
     }
@@ -100,15 +97,11 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
 
     @Override
     protected void initListener() {
+        super.initListener();
+        mAdapter.setOnClickListener(this);
         ivOfficialPortrait.setOnClickListener(this);
-        topicInputView.setOnClickCommentListener(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (topicInputView.gridViewVisibility(true))
-            super.onBackPressed();
-    }
 
     @Override
     public void onClick(View v) {
@@ -116,13 +109,7 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
         if (v == ivOfficialPortrait) {
             TransferCenter.getInstance().startUserCenter(mTopicInfo.getUser_info().getUser_id());
         } else {
-            switch (v.getId()) {
-                case R.id.btn_check_detail:
-                    OfficialTopic productBook = (OfficialTopic) v.getTag();
-                    TransferCenter.getInstance().startProductBook(productBook.
-                            getProduct().getProduct_id());
-                    break;
-            }
+            super.onClick(v);
         }
     }
 
@@ -156,6 +143,17 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
             TopicComment topicComment = obj.topicCommentList.get(i);
             officialTopic.setItemType(OfficialTopic.REPLY);
             officialTopic.setTopicReply(topicComment);
+            for (int j = 0; j < mAdapter.getDataAll().size(); j++) {
+                // 判断是否是评论的数据
+                if (mAdapter.getDataAll().get(j).getItemType() != OfficialTopic.REPLY) {
+                    continue;
+                }
+                // 删除相同的评论
+                if (mAdapter.getDataAll().get(j).getTopicReply().getComment_id().equals(
+                        topicComment.getComment_id())) {
+                    mAdapter.getDataAll().remove(j);
+                }
+            }
             mAdapter.getDataAll().add(officialTopic);
         }
         mAdapter.notifyDataSetChanged();
@@ -168,32 +166,39 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity
      */
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
         super.onEventMainThread(obj);
-        if (obj.topic.getUser_info().getPortrait_url().getMin() != null) {
-            setUserPortrait(obj.topic.getUser_info().getPortrait_url().
-                    getMin(), ivOfficialPortrait);
-        } else {
-            ivOfficialPortrait.setImageResource(Consts.getUserDefaultPortrait());
+        if (mTopicInfo != null) {
+            if (mTopicInfo.getUser_info().getPortrait_url().getMin() != null) {
+                setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().
+                        getMin(), ivOfficialPortrait);
+            } else {
+                ivOfficialPortrait.setImageResource(Consts.getUserDefaultPortrait());
+            }
+            tvOfficialName.setText(mTopicInfo.getUser_info().getNick_name());
+            tvCreateTime.setText(mTopicInfo.getC_time(mContext));
+            tvOfficialTopicTitle.setText(mTopicInfo.getTopic_title());
+            tvOfficialTopicContent.setText(mTopicInfo.getTopic_content());
+
+            OfficialTopic officialTopic = new OfficialTopic();
+            Topic topic = mTopicInfo;
+            officialTopic.setItemType(OfficialTopic.REPLY_NUM);
+            officialTopic.setTopic(topic);
+            mAdapter.getDataAll().add(officialTopic);
+            mAdapter.notifyDataSetChanged();
+            lvAuthorityTopicDetails.setVisibility(View.VISIBLE);
+            //获取评论接口
+            TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
         }
-        tvOfficialName.setText(obj.topic.getUser_info().getNick_name());
-        tvCreateTime.setText(obj.topic.getC_time(mContext));
-        tvOfficialTopicTitle.setText(obj.topic.getTopic_title());
-        tvOfficialTopicContent.setText(obj.topic.getTopic_content());
-
-        OfficialTopic officialTopic = new OfficialTopic();
-        Topic topic = obj.topic;
-        officialTopic.setItemType(OfficialTopic.REPLY_NUM);
-        officialTopic.setTopic(topic);
-        mAdapter.getDataAll().add(officialTopic);
-        mAdapter.notifyDataSetChanged();
-        lvAuthorityTopicDetails.setVisibility(View.VISIBLE);
-        //获取评论接口
-        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
     }
 
-    @Override
-    public void onClickComment(String commentContent, String repliedCommentId, String repliedName,
-                               String repliedUserId, List<ImageUrl> selectedFile) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, selectedFile, this);
+    /**
+     * 话题评论成功事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
+        super.onEventMainThread(obj);
+        mCursor = 0;
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
+
 }

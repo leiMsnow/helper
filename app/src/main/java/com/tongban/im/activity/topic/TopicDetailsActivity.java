@@ -30,8 +30,8 @@ import java.util.List;
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends TopicDetailsBaseActivity implements View.OnClickListener,
-        TopicInputView.IOnClickCommentListener, OnLoadMoreListener {
+public class TopicDetailsActivity extends TopicDetailsBaseActivity
+        implements OnLoadMoreListener {
 
     //头布局控件
     private View mHeader;
@@ -44,7 +44,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
     private TextView tvTopicContent;
     private GridView gvContent;
     //底布局 bottom
-    private ImageView ivComment;
     private TextView tvComment;
 
     private LoadMoreListView lvReplyList;
@@ -55,11 +54,8 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
     @Override
     protected void initView() {
-
+        super.initView();
         lvReplyList = (LoadMoreListView) findViewById(R.id.lv_reply_list);
-
-        topicInputView = (TopicInputView) findViewById(R.id.topic_input);
-
         //添加头布局
         mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
         ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
@@ -70,8 +66,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
         tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
         gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
         gvContent.setVisibility(View.VISIBLE);
-
-        ivComment = (ImageView) mHeader.findViewById(R.id.iv_comment);
         tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
 
         lvReplyList.addHeaderView(mHeader);
@@ -80,91 +74,46 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
     @Override
     protected void initData() {
         super.initData();
-        topicInputView.setAdapterImgCount(3);
-        topicInputView.setOnClickCommentListener(this);
+
 
         if (!TextUtils.isEmpty(mTopicId)) {
             onRequest();
 
             mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
-            mAdapter.setOnClickListener(this);
-            mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
             lvReplyList.setAdapter(mAdapter);
             lvReplyList.setResultSize(mPage);
 
             mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
                     null);
-            mTopicImgAdapter.setImgClickListener(this);
             gvContent.setAdapter(mTopicImgAdapter);
         }
     }
 
     @Override
     protected void initListener() {
+        super.initListener();
+        mAdapter.setOnClickListener(this);
+        mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
+        mTopicImgAdapter.setImgClickListener(this);
         ivUserPortrait.setOnClickListener(this);
-        ivComment.setOnClickListener(this);
         lvReplyList.setOnLoadMoreListener(this);
-
     }
 
     @Override
     public void onRequest() {
         mCursor = 0;
         TopicApi.getInstance().getTopicInfo(mTopicId, this);
-        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
     }
 
     @Override
     public void onClick(View v) {
-        // 重置回复话题
-        if (v == ivComment) {
-            if (!TransferCenter.getInstance().startLogin()) {
-                return;
-            }
-            topicInputView.clearCommentInfo();
-            topicInputView.focusEdit();
-        }
         // 用户信息查看
-        else if (v == ivUserPortrait) {
+        if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(mTopicInfo.getUser_info().getUser_id());
         } else {
-            switch (v.getId()) {
-                // 回复评论
-                case R.id.tv_comment:
-                    TopicComment comment = (TopicComment) v.getTag();
-                    topicInputView.setCommentInfo(comment.getComment_id(),
-                            comment.getUser_info().getNick_name(),
-                            comment.getUser_info().getUser_id());
-                    break;
-                // 查看图片
-                case R.id.iv_topic_img:
-                    List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                    int position = (int) v.getTag(Integer.MIN_VALUE);
-                    TopicListenerImpl.startPhotoView(mContext,
-                            TopicListenerImpl.setImageUrls(imageUrls), position);
-                    break;
-                // 查看用户
-                case R.id.iv_user_portrait:
-                    String userId = v.getTag(Integer.MAX_VALUE).toString();
-                    TransferCenter.getInstance().startUserCenter(userId);
-                    break;
-            }
+            super.onClick(v);
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        // 先收起plus面板
-        if (topicInputView.gridViewVisibility(true))
-            super.onBackPressed();
-    }
-
-    @Override
-    public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, selectedFile, this);
     }
 
     /**
@@ -193,9 +142,24 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
 
             mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
             lvReplyList.setVisibility(View.VISIBLE);
+
+            TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
         } else {
             lvReplyList.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 话题评论成功事件回调
+     *
+     * @param obj
+     */
+    public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
+        super.onEventMainThread(obj);
+        int commentCount = Integer.parseInt(tvComment.getText().toString());
+        tvComment.setText(String.valueOf(commentCount + 1));
+        mCursor = 0;
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 
 
@@ -211,25 +175,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements Vi
             mAdapter.addAll(obj.topicCommentList);
         }
         mCursor++;
-        topicInputView.setVisibility(View.VISIBLE);
         lvReplyList.setResultSize(obj.topicCommentList.size());
-        if (mAdapter.getCount() > 0) {
-            lvReplyList.setSelection(1);
-        }
-    }
-
-    /**
-     * 话题评论成功事件回调
-     *
-     * @param obj
-     */
-    public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
-        int commentCount = Integer.parseInt(tvComment.getText().toString());
-        tvComment.setText(String.valueOf(commentCount + 1));
-        topicInputView.clearCommentInfo();
-        KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
-        mCursor = 0;
-        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
 
 

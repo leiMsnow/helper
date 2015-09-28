@@ -105,26 +105,29 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-                        // 第一次记录控件位置
-                        if (isFirst) {
-                            mRootLocation = TopicInputView.this.getTop();
-                            isFirst = false;
-                        }
-                        // 如果键盘抬起,记录up状态
-                        if (TopicInputView.this.getTop() < mRootLocation) {
-                            if (!TransferCenter.getInstance().startLogin()) {
-                                return;
+
+                        if (TopicInputView.this.getVisibility() == VISIBLE) {
+                            // 第一次记录控件位置
+                            if (isFirst) {
+                                mRootLocation = TopicInputView.this.getTop();
+                                isFirst = false;
                             }
-                            isUp = true;
-                        }
-                        //如果是up并且高度变回来了，就清除回复状态
-                        if (isUp && TopicInputView.this.getTop() == mRootLocation) {
-                            isUp = false;
-                            clearCommentInfo(isClearImage);
-                        }
-                        //键盘事件回调
-                        if (keyboardListener != null) {
-                            keyboardListener.boardStatus(isUp);
+                            // 如果键盘抬起,记录up状态
+                            if (TopicInputView.this.getTop() < mRootLocation) {
+                                if (!TransferCenter.getInstance().startLogin()) {
+                                    return;
+                                }
+                                isUp = true;
+                            }
+                            //如果是up并且高度变回来了，就清除回复状态
+                            if (isUp && TopicInputView.this.getTop() == mRootLocation) {
+                                isUp = false;
+                                clearCommentInfo(isClearImage);
+                            }
+                            //键盘事件回调
+                            if (keyboardListener != null) {
+                                keyboardListener.boardStatus(isUp);
+                            }
                         }
                     }
                 });

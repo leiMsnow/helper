@@ -19,6 +19,10 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <!-- title-user 通用样式-->
+    <style name="MainTitle.User">
+        <item name="android:textSize">12sp</item>
+    </style>
     <!-- content通用样式-->
     <style name="MainContent">
         <item name="android:textColor">@color/normal_dark_grey</item>

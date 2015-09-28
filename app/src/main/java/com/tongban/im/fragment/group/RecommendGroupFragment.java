@@ -68,7 +68,6 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         mAdapter.setDisplayModel(false);
         lvGroupList.setAdapter(mAdapter);
         lvGroupList.setPageSize(mPageSize);
-
     }
 
     @Override

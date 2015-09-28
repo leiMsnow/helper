@@ -55,8 +55,10 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
         mListView = (ListView) mView.findViewById(R.id.lv_discover);
 
-        PTRHeaderUtils.getSunTownView(mContext, ptrFrameLayout);
+        PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
         ptrFrameLayout.setPtrHandler(this);
+        onRequest();
+
     }
 
     @Override
@@ -113,7 +115,6 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
             }
         });
         mListView.setAdapter(mAdapter);
-        onRequest();
     }
 
     @Override

@@ -88,9 +88,9 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
 
         if (mIsMainEvent) {
-            PTRHeaderUtils.getPointListView(mContext,ptrFrameLayout);
+            PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
-            ptrFrameLayout.autoRefresh();
+            onRequest();
         } else {
             mToolbar.setVisibility(View.GONE);
         }
@@ -229,8 +229,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     @Override
     public void onRequest() {
-        mCursor = 0;
-        TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
+        ptrFrameLayout.autoRefresh(true);
     }
 
     @Override

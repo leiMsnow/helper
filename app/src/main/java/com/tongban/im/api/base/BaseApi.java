@@ -176,8 +176,8 @@ public class BaseApi {
         if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
             apiUrl = getRequestUrl(apiUrl);
         }
-        //是否获取缓存数据标示 默认为false，
         final String requestUrl = apiUrl;
+        //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
         final boolean disableCache = isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
 
