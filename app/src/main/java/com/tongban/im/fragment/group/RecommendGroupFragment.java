@@ -62,7 +62,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (mIsMainEvent) {
             PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
-            onRequest();
+            ptrFrameLayout.autoRefresh(true);
         }
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         mAdapter.setDisplayModel(false);
@@ -149,14 +149,14 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     public void onRefreshBegin(PtrFrameLayout frameLayout) {
-        mIsPull = true;
-        mCursor = 0;
-        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
+        onRequest();
     }
 
     @Override
     public void onRequest() {
-        ptrFrameLayout.autoRefresh(true);
+        mIsPull = true;
+        mCursor = 0;
+        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
     }
 
     @Override

@@ -213,7 +213,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         topicInputView.clearCommentInfo();
-        topicInputView.gridViewVisibility(false);
+        topicInputView.gridViewVisibility(true);
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
     }
 

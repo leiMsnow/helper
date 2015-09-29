@@ -57,8 +57,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
         PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
         ptrFrameLayout.setPtrHandler(this);
-        onRequest();
-
+        ptrFrameLayout.autoRefresh(true);
     }
 
     @Override
@@ -192,12 +191,13 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-        // 获取首页数据
-        ProductApi.getInstance().fetchHomeInfo(this);
+
+        onRequest();
     }
 
     @Override
     public void onRequest() {
-        ptrFrameLayout.autoRefresh(true);
+        // 获取首页数据
+        ProductApi.getInstance().fetchHomeInfo(this);
     }
 }

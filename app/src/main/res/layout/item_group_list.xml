@@ -10,24 +10,30 @@
         android:layout_height="72dp"
         android:background="@drawable/selector_white_to_gray">
 
-        <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/iv_group_portrait"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+        <FrameLayout
+            android:id="@+id/fl_group_portrait"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:padding="8dp"
-            android:scaleType="centerInside"
-            android:background="@drawable/shape_group_icon_pressed_red"
-            android:src="@mipmap/ic_group_create" />
+            android:background="@drawable/shape_group_icon_pressed_red">
+
+            <com.tongban.corelib.widget.view.CircleImageView
+                android:id="@+id/iv_group_portrait"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_group_create" />
+        </FrameLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_group_portrait"
-            android:layout_alignTop="@+id/iv_group_portrait"
+            android:layout_alignBottom="@+id/fl_group_portrait"
+            android:layout_alignTop="@+id/fl_group_portrait"
             android:layout_toLeftOf="@+id/btn_join"
-            android:layout_toRightOf="@+id/iv_group_portrait"
+            android:layout_toRightOf="@+id/fl_group_portrait"
             android:gravity="center_vertical">
             <!--群名称-->
             <TextView

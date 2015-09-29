@@ -22,6 +22,7 @@ public class ChooseGroupTypeAdapter extends QuickAdapter<GroupType> {
     @Override
     protected void convert(BaseAdapterHelper helper, GroupType item) {
 
+        helper.setBackgroundRes(R.id.fl_group_portrait,item.getGroupBGColor());
         helper.setImageBitmap(R.id.iv_group_portrait, item.getSrc());
         helper.setText(R.id.tv_group_type, item.getGroupTypeName());
         helper.setText(R.id.tv_group_desc, item.getGroupDesc());

@@ -90,7 +90,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
         if (mIsMainEvent) {
             PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
-            onRequest();
+            ptrFrameLayout.autoRefresh(true);
         } else {
             mToolbar.setVisibility(View.GONE);
         }
@@ -229,7 +229,9 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     @Override
     public void onRequest() {
-        ptrFrameLayout.autoRefresh(true);
+        mIsPull = true;
+        mCursor = 0;
+        TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
     }
 
     @Override
@@ -239,8 +241,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     @Override
     public void onRefreshBegin(PtrFrameLayout frameLayout) {
-        mIsPull = true;
-        mCursor = 0;
-        TopicApi.getInstance().recommendTopicList(mCursor, mPageSize, this);
+        onRequest();
     }
 }

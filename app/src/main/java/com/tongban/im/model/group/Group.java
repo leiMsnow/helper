@@ -106,8 +106,6 @@ public class Group implements Serializable {
                 return "同学圈";
             case GroupType.LIFE:
                 return "生活圈";
-            case GroupType.TALENT:
-                return "达人圈";
         }
         return "";
     }

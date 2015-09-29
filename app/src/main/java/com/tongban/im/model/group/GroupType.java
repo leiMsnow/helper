@@ -47,6 +47,15 @@ public class GroupType implements Serializable{
     private String groupTypeName;
     private String groupDesc;
     private int groupType;
+    private int groupBGColor;
+
+    public int getGroupBGColor() {
+        return groupBGColor;
+    }
+
+    public void setGroupBGColor(int groupBGColor) {
+        this.groupBGColor = groupBGColor;
+    }
 
     public String getGroupTypeName() {
         return groupTypeName;
@@ -88,42 +97,47 @@ public class GroupType implements Serializable{
     public static List<GroupType> createGroupType() {
         List<GroupType> groupTypes = new ArrayList<>();
         GroupType group = new GroupType();
-        group.setGroupTypeName("同城圈");
-        group.setGroupDesc("同一个城市的宝爸爸宝妈妈们");
         group.setGroupType(CITY);
+        group.setGroupTypeName("同城圈");
         group.setSrc(R.mipmap.ic_group_city);
+        group.setGroupDesc("同一个城市的宝爸爸宝妈妈们");
+        group.setGroupBGColor(R.drawable.shape_group_icon_pressed_deep_purple);
 
         groupTypes.add(group);
 
         group = new GroupType();
-        group.setGroupTypeName("同龄圈");
-        group.setGroupDesc("同一个年龄的宝贝圈，喜好、成长会不会相同呢");
         group.setGroupType(AGE);
+        group.setGroupTypeName("同龄圈");
         group.setSrc(R.mipmap.ic_group_age);
+        group.setGroupDesc("同一个年龄的宝贝圈，喜好、成长会不会相同呢");
+        group.setGroupBGColor(R.drawable.shape_group_icon_pressed_pink);
 
         groupTypes.add(group);
 
         group = new GroupType();
-        group.setGroupTypeName("同学圈");
-        group.setGroupDesc("同一个班级的宝贝家长们，他们有什么经验分享呢");
         group.setGroupType(CLASSMATE);
+        group.setGroupTypeName("同学圈");
         group.setSrc(R.mipmap.ic_group_classmate);
+        group.setGroupDesc("同一个班级的宝贝家长们，他们有什么经验分享呢");
+        group.setGroupBGColor(R.drawable.shape_group_icon_pressed_light_blue);
 
         groupTypes.add(group);
 
         group = new GroupType();
-        group.setGroupTypeName("生活圈");
-        group.setGroupDesc("购物、宝宝日用品");
         group.setGroupType(LIFE);
+        group.setGroupTypeName("生活圈");
         group.setSrc(R.mipmap.ic_group_life);
+        group.setGroupDesc("购物、宝宝日用品");
+        group.setGroupBGColor(R.drawable.shape_group_icon_pressed_light_green);
 
         groupTypes.add(group);
 
         group = new GroupType();
-        group.setGroupTypeName("活动圈");
-        group.setGroupDesc("宝宝面对面，从此不孤单");
         group.setGroupType(ACTIVITY);
+        group.setGroupTypeName("活动圈");
         group.setSrc(R.mipmap.ic_group_activity);
+        group.setGroupDesc("宝宝面对面，从此不孤单");
+        group.setGroupBGColor(R.drawable.shape_group_icon_pressed_yellow);
 
         groupTypes.add(group);
 

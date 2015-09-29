@@ -112,7 +112,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity
         } else {
             super.onClick(v);
         }
-
     }
 
     /**
@@ -126,7 +125,8 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
                 if (mTopicInfo.getUser_info().getPortrait_url() != null) {
-                    setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().getMin(), ivUserPortrait);
+                    setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().getMin()
+                            , ivUserPortrait);
                 } else {
                     ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
                 }
@@ -184,8 +184,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity
     @Override
     public void onLoadMore() {
         if (mTopicInfo != null) {
-            TopicApi.getInstance().
-                    getTopicCommentList(mTopicId, mCursor, mPage, this);
+            TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
         }
     }
 }

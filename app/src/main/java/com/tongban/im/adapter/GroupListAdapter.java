@@ -41,43 +41,40 @@ public class GroupListAdapter extends QuickAdapter<Group> {
     @Override
     protected void convert(BaseAdapterHelper helper, Group item) {
         switch (item.getGroup_type()) {
-            case GroupType.ACTIVITY:
-                setGroupTags(helper, "活动圈", R.color.theme_yellow);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_yellow);
-                helper.setText(R.id.tv_group_introduce, "");
+            case GroupType.CITY:
+                setGroupTags(helper
+                        , "同城圈"
+                        , R.color.theme_deep_purple
+                        , R.drawable.shape_corners_bg_purple
+                        , R.drawable.shape_group_icon_pressed_deep_purple);
                 break;
             case GroupType.AGE:
-                setGroupTags(helper, "同龄圈", R.color.theme_pink);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_pink);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_pink);
-                helper.setText(R.id.tv_group_introduce, "-" + item.getAge() + "岁," +
-                        item.getConstellation());
-                break;
-            case GroupType.CITY:
-                setGroupTags(helper, "同城圈", R.color.theme_deep_purple);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_purple);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_deep_purple);
-                helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress() + "<" +
-                        item.getDistance());
+                setGroupTags(helper
+                        , "同龄圈"
+                        , R.color.theme_pink
+                        , R.drawable.shape_corners_bg_pink
+                        , R.drawable.shape_group_icon_pressed_pink);
                 break;
             case GroupType.CLASSMATE:
-                setGroupTags(helper, "同学圈", R.color.theme_light_blue);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_blue);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_light_blue);
-
-                helper.setText(R.id.tv_group_introduce, "-" + item.getLastAddress());
+                setGroupTags(helper
+                        , "同学圈"
+                        , R.color.theme_light_blue
+                        , R.drawable.shape_corners_bg_blue
+                        , R.drawable.shape_group_icon_pressed_light_blue);
                 break;
             case GroupType.LIFE:
-                setGroupTags(helper, "生活圈", R.color.theme_light_green);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_green);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_light_green);
-                helper.setText(R.id.tv_group_introduce, "");
+                setGroupTags(helper
+                        , "生活圈"
+                        , R.color.theme_light_green
+                        , R.drawable.shape_corners_bg_green
+                        , R.drawable.shape_group_icon_pressed_light_green);
                 break;
-            case GroupType.TALENT:
-                setGroupTags(helper, "达人圈", R.color.theme_yellow);
-                helper.setBackgroundRes(R.id.tv_group_status, R.drawable.shape_corners_bg_yellow);
-                helper.setBackgroundRes(R.id.iv_group_portrait, R.drawable.shape_group_icon_pressed_yellow);
+            case GroupType.ACTIVITY:
+                setGroupTags(helper
+                        , "活动圈"
+                        , R.color.theme_yellow
+                        , R.drawable.shape_corners_bg_yellow
+                        , R.drawable.shape_group_icon_pressed_yellow);
                 break;
         }
         if (item.getGroup_avatar() != null) {
@@ -101,10 +98,26 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         helper.setOnClickListener(R.id.rl_group_item, onClickListener);
     }
 
-    private void setGroupTags(BaseAdapterHelper helper, String tags, int tagsColor) {
+    /**
+     * 设置属性
+     *
+     * @param helper
+     * @param tags      标签文本
+     * @param tagsColor 标签颜色
+     * @param tagsBG    标签背景色
+     * @param bgColor   图片背景色
+     */
+    private void setGroupTags(BaseAdapterHelper helper
+            , String tags
+            , int tagsColor
+            , int tagsBG
+            , int bgColor) {
         helper.setText(R.id.tv_group_status, tags);
         helper.setTextColor(R.id.tv_group_status,
                 mContext.getResources().getColor(tagsColor));
+        helper.setBackgroundRes(R.id.fl_group_portrait, bgColor);
+        helper.setBackgroundRes(R.id.tv_group_status, tagsBG);
+
     }
 
     @Override

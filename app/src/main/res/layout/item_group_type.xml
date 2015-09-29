@@ -18,26 +18,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/selector_white_to_gray">
-            <!--群头像-->
-            <com.tongban.corelib.widget.view.CircleImageView
-                android:id="@+id/iv_group_portrait"
+
+            <FrameLayout
+                android:id="@+id/fl_group_portrait"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/shape_group_icon_pressed_red"
-                android:padding="2dp"
-                android:src="@mipmap/ic_group_create" />
+                android:background="@drawable/shape_group_icon_pressed_red">
+                <!--群头像-->
+                <com.tongban.corelib.widget.view.CircleImageView
+                    android:id="@+id/iv_group_portrait"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_group_create" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignBottom="@+id/iv_group_portrait"
-                android:layout_alignTop="@+id/iv_group_portrait"
+                android:layout_alignBottom="@+id/fl_group_portrait"
+                android:layout_alignTop="@+id/fl_group_portrait"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                android:layout_toRightOf="@+id/iv_group_portrait"
+                android:layout_toRightOf="@+id/fl_group_portrait"
                 android:orientation="vertical">
                 <!--群类型-->
                 <TextView
@@ -47,7 +54,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|bottom"
                     android:singleLine="true"
-                    android:text="@string/app_name"
+                    android:text="圈子"
                     android:textColor="@color/main_black"
                     android:textSize="14sp" />
                 <!--群描述-->
@@ -58,7 +65,7 @@
                     android:layout_weight="1"
                     android:paddingTop="4dp"
                     android:singleLine="true"
-                    android:text="@string/app_name"
+                    android:text="描述"
                     android:textColor="@color/normal_grey"
                     android:textSize="12sp" />
             </LinearLayout>

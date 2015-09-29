@@ -77,22 +77,24 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         super(context, attrs);
         mContext = context;
         initView();
-        initListener();
         initData();
+        initListener();
     }
 
     private void initView() {
+
         LayoutInflater.from(mContext).inflate(R.layout.view_topic_input, this);
+
         rootView = findViewById(R.id.ll_input_root);
         ivAddImg = (ImageView) findViewById(R.id.iv_add_img);
         etComment = (EditText) findViewById(R.id.et_comment);
-        tvCommentLength = (TextView) findViewById(R.id.tv_comment_length);
         ivComment = (ImageView) findViewById(R.id.btn_comment);
         gvReplyImg = (TopicImageView) findViewById(R.id.ll_reply_img);
-        tvCommentLength.setText(String.valueOf(mCommentLength));
+        tvCommentLength = (TextView) findViewById(R.id.tv_comment_length);
 
-        gvReplyImg.getAdapter().setImgCount(3);
         ivComment.setEnabled(false);
+        gvReplyImg.getAdapter().setImgCount(3);
+        tvCommentLength.setText(String.valueOf(mCommentLength));
     }
 
     private void initListener() {
@@ -153,15 +155,28 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         }
     }
 
+    /**
+     * 是否隐藏GridView
+     *
+     * @param onBackPressed true 隐藏 ；false 如果是隐藏就显示，如果是显示就隐藏
+     * @return
+     */
     public boolean gridViewVisibility(boolean onBackPressed) {
-        if (gvReplyImg.getVisibility() == View.VISIBLE) {
-            gvReplyImg.setVisibility(View.GONE);
-            return false;
+        if (onBackPressed) {
+            if (gvReplyImg.getVisibility() == View.VISIBLE) {
+                gvReplyImg.setVisibility(View.GONE);
+                return false;
+            }
         } else {
-            if (!onBackPressed)
+            if (gvReplyImg.getVisibility() == View.VISIBLE) {
+                gvReplyImg.setVisibility(View.GONE);
+            } else {
                 gvReplyImg.setVisibility(View.VISIBLE);
-            return true;
+            }
+            return false;
         }
+        return true;
+
     }
 
     //批量上传图片,成功后将发表评论
@@ -203,7 +218,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         repliedUserId = null;
         repliedCommentId = null;
         etComment.setText("");
-
+        etComment.setHint("");
         if (isClearImage)
             gvReplyImg.clearImageInfo();
     }
@@ -224,8 +239,8 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         this.repliedCommentId = repliedCommentId;
         this.repliedName = repliedName;
         this.repliedUserId = repliedUserId;
-        etComment.setHint(" 回复" + repliedName);
         etComment.setText("");
+        etComment.setHint(" 回复" + repliedName);
         focusEdit();
         gvReplyImg.clearImageInfo();
     }
