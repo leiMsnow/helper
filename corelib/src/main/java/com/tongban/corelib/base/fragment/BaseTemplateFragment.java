@@ -6,8 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
+
 /**
- * Created by Cheney on 15/7/7 18:54.
+ * 通用模板类
+ * initData 数据统一处理
+ * Created by zhangleilei on 15/7/7 18:54.
  */
 public abstract class BaseTemplateFragment extends BaseFragment {
 
@@ -17,6 +21,7 @@ public abstract class BaseTemplateFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mView == null) {
             mView = inflater.inflate(getLayoutRes(), container, false);
+            ButterKnife.bind(this, mView);
             initView();
             initData();
             initListener();
@@ -46,4 +51,9 @@ public abstract class BaseTemplateFragment extends BaseFragment {
      */
     protected abstract void initListener();
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

@@ -14,6 +14,7 @@ import de.greenrobot.event.EventBus;
 /**
  * 基础activity，处理通用功能：
  * 1.统一api回调方法
+ * 2.使用EventBus框架来完成类之间解耦
  */
 public abstract class BaseApiActivity extends BaseTemplateActivity implements IApiCallback {
 
@@ -23,11 +24,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override

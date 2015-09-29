@@ -13,7 +13,7 @@ import com.tongban.corelib.utils.KeyBoardUtils;
 
 /**
  * 基础activity，处理通用功能：
- * 1.统一的模板方法
+ * 此类用来配置系统级的属性
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

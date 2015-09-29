@@ -53,5 +53,4 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile project(':umengsocialsdk')
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
-    compile 'com.jakewharton:butterknife-parent:7.0.1'
 }
