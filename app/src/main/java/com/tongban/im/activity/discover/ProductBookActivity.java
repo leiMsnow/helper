@@ -3,8 +3,8 @@ package com.tongban.im.activity.discover;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.widget.view.ScrollableGridView;
@@ -25,12 +25,12 @@ import com.tongban.im.model.discover.ProductBook;
  * @author Cheney
  * @date 8/20
  */
-public  class ProductBookActivity extends ThemeBaseActivity implements View.OnClickListener {
+public class ProductBookActivity extends ThemeBaseActivity implements View.OnClickListener {
     private View mParent;
 
     private ViewPager mViewPager; // 图集
     private TextView title;  // 名称
-    private FlowLayout flTag;  // 标签
+    private FlowLayout themeTag;  // 标签
     private TextView author; // 作者
     private TextView desc;  // 简介
     private TextView publisher;  // 出版社
@@ -55,7 +55,7 @@ public  class ProductBookActivity extends ThemeBaseActivity implements View.OnCl
         mParent = findViewById(R.id.sl_parent);
         mViewPager = (ViewPager) findViewById(R.id.vp_img);
         title = (TextView) findViewById(R.id.tv_title);
-        flTag = (FlowLayout) findViewById(R.id.fl_tag);
+        themeTag = (FlowLayout) findViewById(R.id.fl_tag);
         author = (TextView) findViewById(R.id.tv_author);
         desc = (TextView) findViewById(R.id.tv_desc);
         publisher = (TextView) findViewById(R.id.tv_publisher);
@@ -85,7 +85,7 @@ public  class ProductBookActivity extends ThemeBaseActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         super.onClick(v);
-         if (v == ivCollect) {
+        if (v == ivCollect) {
             if (!TransferCenter.getInstance().startLogin()) {
                 return;
             }
@@ -113,7 +113,7 @@ public  class ProductBookActivity extends ThemeBaseActivity implements View.OnCl
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);
         title.setText(mProductBook.getProduct_name());
-        flTag.removeAllViews();
+        themeTag.removeAllViews();
         if (mProductBook.getBook_author() != null && !"".equals(mProductBook.getBook_author().trim())) {
             author.setText(mProductBook.getBook_author());
         }
@@ -123,16 +123,13 @@ public  class ProductBookActivity extends ThemeBaseActivity implements View.OnCl
         desc.setText(mProductBook.getBook_content_desc());
         String[] productTags = mProductBook.getProduct_tags().split(",");
         if (productTags.length > 0) {
+            themeTag.removeAllViews();
             findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
             for (String tag : productTags) {
-                TextView tv = new TextView(mContext);
+                TextView tv = (TextView) LayoutInflater.from(mContext)
+                        .inflate(R.layout.include_theme_tips_text, themeTag, false);
                 tv.setText(tag);
-                tv.setTextColor(getResources().getColor(R.color.theme_red));
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 10, 10);
-                tv.setLayoutParams(layoutParams);
-                flTag.addView(tv);
+                themeTag.addView(tv);
             }
         }
         mPriceAdapter = new ProductPriceAdapter(mContext, mProductBook.getPrice_info());

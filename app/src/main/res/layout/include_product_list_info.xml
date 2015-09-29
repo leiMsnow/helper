@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- 作者-->
+    <TextView
+        android:id="@+id/tv_author"
+        style="@style/MainContent.NoSpacing"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/normal_grey" />
+
+    <!-- 【图书简介】 -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            style="@style/ThemeTipsLine"
+            android:layout_alignBottom="@+id/tv_product_tips"
+            android:layout_alignTop="@+id/tv_product_tips" />
+
+        <TextView
+            android:id="@+id/tv_product_tips"
+            style="@style/MainContent.NoSpacing"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="图书简介"
+            android:textColor="@color/theme_red" />
+
+        <TextView
+            android:id="@+id/tv_product_desc"
+            style="@style/MainContent.MaxSpacing"
+            android:layout_below="@+id/tv_product_tips"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:text="图书简介" />
+
+    </RelativeLayout>
+
+
+    <!-- 【适读人群】 -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            style="@style/ThemeTipsLine"
+            android:layout_alignBottom="@+id/tv_suitable_for_tips"
+            android:layout_alignTop="@+id/tv_suitable_for_tips" />
+
+        <TextView
+            android:id="@+id/tv_suitable_for_tips"
+            style="@style/MainContent.NoSpacing"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="适读人群"
+            android:textColor="@color/theme_red" />
+
+        <TextView
+            android:id="@+id/tv_suitable_for"
+            style="@style/MainContent.MaxSpacing"
+            android:layout_below="@+id/tv_suitable_for_tips"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp" />
+    </RelativeLayout>
+
+    <!-- 【推荐理由】 -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            style="@style/ThemeTipsLine"
+            android:layout_alignBottom="@+id/tv_recommend_cause_tips"
+            android:layout_alignTop="@+id/tv_recommend_cause_tips" />
+
+        <TextView
+            android:id="@+id/tv_recommend_cause_tips"
+            style="@style/MainContent.NoSpacing"
+            android:layout_marginLeft="8dp"
+            android:gravity="center"
+            android:text="推荐理由"
+            android:textColor="@color/theme_red" />
+
+        <TextView
+            android:id="@+id/tv_recommend_cause"
+            style="@style/MainContent.MaxSpacing"
+            android:layout_below="@+id/tv_recommend_cause_tips"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

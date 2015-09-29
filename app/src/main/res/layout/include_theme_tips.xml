@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/tv_title"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_toLeftOf="@+id/tv_create_time">
+
+    <ImageView
+        android:id="@+id/iv_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fl_tag"
+        android:layout_marginTop="4dp"
+        android:src="@mipmap/ic_book_mark"
+        android:visibility="invisible" />
+    <!-- 标签 -->
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/iv_mark" />
+
+</RelativeLayout>

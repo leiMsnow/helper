@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_transparent_to_gray">
+    android:background="@drawable/selector_transparent_to_gray"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        style="@style/MainTitle"
+        android:layout_marginBottom="-12dp"
+        android:layout_marginLeft="18dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/main_black"
-        android:textSize="16sp" />
+        android:layout_marginTop="16dp"
+        android:text="标题"
+        android:textColor="@color/selector_theme_topic_color"
+        android:textSize="14sp" />
 
     <include
         android:id="@+id/ln_bottom"
-        layout="@layout/include_bottom_collect_comment"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_below="@+id/tv_title" />
+        layout="@layout/include_bottom_collect_comment" />
 
     <View
         style="@style/HorizontalLine"
-        android:layout_below="@+id/ln_bottom" />
-</RelativeLayout>
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-2dp" />
+</LinearLayout>

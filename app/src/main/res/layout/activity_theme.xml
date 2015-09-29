@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-
     <ScrollView
         android:id="@+id/sl_parent"
         android:layout_width="match_parent"
@@ -14,8 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
+            android:layout_height="wrap_content">
 
             <!-- 专题头图 -->
             <ImageView
@@ -23,9 +21,10 @@
                 style="@style/MainImageContent"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
+                android:layout_marginBottom="4dp"
                 android:adjustViewBounds="true" />
 
-            <!-- title -->
+            <!-- 标题 -->
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/MainTitle"
@@ -34,54 +33,32 @@
                 android:singleLine="true" />
 
             <!-- 专题标签 -->
-            <RelativeLayout
+            <include
                 android:id="@+id/rl_tag"
-                android:layout_width="wrap_content"
+                layout="@layout/include_theme_tips"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_toLeftOf="@+id/tv_create_time">
+                android:layout_toLeftOf="@+id/tv_create_time" />
 
-                <ImageView
-                    android:id="@+id/iv_mark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/fl_tag"
-                    android:layout_marginTop="4dp"
-                    android:src="@mipmap/ic_book_mark"
-                    android:visibility="invisible" />
-                <!-- 标签 -->
-                <com.tongban.corelib.widget.view.FlowLayout
-                    android:id="@+id/fl_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/iv_mark" />
-
-            </RelativeLayout>
-
+            <!-- 时间-->
             <TextView
                 android:id="@+id/tv_create_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.Tips"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/tv_title"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16sp"
-                android:gravity="center_vertical"
-                android:textColor="@color/normal_grey"
-                android:textSize="12sp" />
-
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical" />
+            <!-- 描述-->
             <TextView
                 android:id="@+id/tv_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.MaxSpacing"
                 android:layout_below="@+id/rl_tag"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="@color/normal_dark_grey"
-                android:textSize="12sp" />
+                android:layout_margin="16dp" />
 
             <!-- 商品列表 -->
             <LinearLayout
@@ -98,13 +75,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll_product_list"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="8dp"
                     android:background="@drawable/bg_theme_shadow_holo" />
 
                 <LinearLayout
@@ -124,19 +101,23 @@
                         android:singleLine="true"
                         android:text="RELATED TOPICS"
                         android:textColor="@color/main_black"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:gravity="top|center_horizontal"
                         android:singleLine="true"
                         android:text="更多相关话题"
-                        android:textColor="@color/normal_dark_grey"
-                        android:textSize="12sp" />
+                        android:textColor="@color/normal_grey"
+                        android:textSize="10sp" />
+
                 </LinearLayout>
+
+                <View style="@style/HorizontalLine" />
 
                 <!-- 相关话题列表 -->
                 <LinearLayout
@@ -144,7 +125,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
+
             </LinearLayout>
+
         </RelativeLayout>
 
     </ScrollView>

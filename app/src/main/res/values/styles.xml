@@ -26,15 +26,24 @@
     <!-- content通用样式-->
     <style name="MainContent">
         <item name="android:textColor">@color/normal_dark_grey</item>
-        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!-- 内容标签样式-如：时间等 -->
     <style name="MainContent.Tips">
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/normal_grey</item>
         <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+    <!-- 大间距内容样式-->
+    <style name="MainContent.MaxSpacing">
+        <item name="android:lineSpacingExtra">12dp</item>
+    </style>
+    <!-- 无间距内容样式-->
+    <style name="MainContent.NoSpacing">
+        <item name="android:lineSpacingExtra">1dp</item>
     </style>
     <!-- small内容样式-->
     <style name="MainContentSmall">
@@ -48,6 +57,15 @@
         <item name="android:scaleType">centerCrop</item>
         <item name="android:src">@mipmap/ic_default_image</item>
     </style>
+    <!-- theme标签线-->
+     <style name="ThemeTipsLine">
+        <item name="android:layout_width">4dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:background">@color/theme_red</item>
+    </style>
+
     <!-- 用户头像-->
     <style name="MainImagePortrait">
         <item name="android:layout_width">36dp</item>

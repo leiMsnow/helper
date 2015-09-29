@@ -3,6 +3,7 @@ package com.tongban.im.activity.discover;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.DateUtils;
+import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.ThemeBaseActivity;
@@ -126,18 +129,14 @@ public class ThemeActivity extends ThemeBaseActivity {
             }
         }
         title.setText(mTheme.getTheme_title());
-        themeTag.removeAllViews();
-        String[] themeTags = mTheme.getTheme_tags().split(",");
+        String[] themeTags = new String[]{"夏季", "防蚊", "止痒"};//mTheme.getTheme_tags().split(",");
         if (themeTags.length > 0) {
+            themeTag.removeAllViews();
             findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
             for (String tag : themeTags) {
-                TextView tv = new TextView(mContext);
+                TextView tv = (TextView) LayoutInflater.from(mContext)
+                        .inflate(R.layout.include_theme_tips_text, themeTag, false);
                 tv.setText(tag);
-                tv.setTextColor(getResources().getColor(R.color.theme_red));
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 0, 10, 10);
-                tv.setLayoutParams(layoutParams);
                 themeTag.addView(tv);
             }
         } else {
@@ -159,7 +158,7 @@ public class ThemeActivity extends ThemeBaseActivity {
             mProductList.removeAllViews();
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins(0, 0, 0, 30);
+            layoutParams.setMargins(0, 32, 0, 32);
             View view;
             int pos = 1; // 商品序号
             for (final ProductBook productBook : mProductBooks) {
@@ -169,9 +168,13 @@ public class ThemeActivity extends ThemeBaseActivity {
                 LinearLayout productImgs = (LinearLayout) view.findViewById(R.id.ll_product_img);
                 TextView author = (TextView) view.findViewById(R.id.tv_author);
                 TextView productDesc = (TextView) view.findViewById(R.id.tv_product_desc);
-                TextView suitable_for = (TextView) view.findViewById(R.id.tv_suitable_for);
+                TextView suitableFor = (TextView) view.findViewById(R.id.tv_suitable_for);
                 TextView recommendCause = (TextView) view.findViewById(R.id.tv_recommend_cause);
                 Button productDetail = (Button) view.findViewById(R.id.btn_detail);
+                View lastLine = view.findViewById(R.id.v_last_line);
+                if (pos == mProductBooks.size()) {
+                    lastLine.setVisibility(View.GONE);
+                }
                 cursor.setText(String.valueOf("0" + pos));
                 title.setText(productBook.getProduct_name());
                 List<ImageUrl> imgList = productBook.getProduct_img_url();
@@ -180,21 +183,21 @@ public class ThemeActivity extends ThemeBaseActivity {
                         ImageView imageView = new ImageView(mContext);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(0, 0, 0, 20);
+                        lp.setMargins(0, 32, 0, 0);
                         imageView.setLayoutParams(lp);
-                        imageView.setAdjustViewBounds(true);
                         Glide.with(mContext).load(imgUrl.getMid()).into(imageView);
                         productImgs.addView(imageView);
                     }
                 }
                 productDesc.setText(productBook.getBook_content_desc().trim());
                 if (productBook.getBook_author() != null) {
-                    author.setText(productBook.getBook_author().trim());
+                    author.setText("[" + productBook.getBook_author().trim() + "]");
                 } else {
                     author.setVisibility(View.GONE);
                 }
-                suitable_for.setText(productBook.getSuitable_for().trim());
-                recommendCause.setText(productBook.getRecommend_cause().trim());
+                suitableFor.setText(productBook.getSuitable_for().trim());
+//                recommendCause.setText(productBook.getRecommend_cause().trim());
+                recommendCause.setText("1.无味,低刺激性;\n2.防蚊,长达四小时;\n3.适用于敏感及柔嫩的皮肤。");
                 productDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -221,11 +224,10 @@ public class ThemeActivity extends ThemeBaseActivity {
             return;
         }
         mTopicContainer.setVisibility(View.VISIBLE);
-        View view;
         for (int i = 0; i < topics.size(); i++) {
             final Topic topic = topics.get(i);
-            view = getLayoutInflater().inflate(R.layout.item_topic_in_theme, null, false);
-            TextView title = (TextView) view.findViewById(R.id.tv_title);
+            View view = getLayoutInflater().inflate(R.layout.item_topic_in_theme, null, false);
+            final TextView title = (TextView) view.findViewById(R.id.tv_title);
             TextView commentCount = (TextView) view.findViewById(R.id.tv_comment_count);
             TextView collectCount = (TextView) view.findViewById(R.id.tv_collect_count);
             title.setText(topic.getTopic_title());
@@ -234,6 +236,7 @@ public class ThemeActivity extends ThemeBaseActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    title.setSelected(true);
                     TransferCenter.getInstance().startTopicDetails(topic);
                 }
             });
@@ -249,6 +252,7 @@ public class ThemeActivity extends ThemeBaseActivity {
     public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
         mTheme.setCollect_status(true);
         ivCollect.setSelected(true);
+        ToastUtil.getInstance(mContext).showToast("收藏成功");
     }
 
     /**
@@ -259,6 +263,7 @@ public class ThemeActivity extends ThemeBaseActivity {
     public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
         mTheme.setCollect_status(false);
         ivCollect.setSelected(false);
+        ToastUtil.getInstance(mContext).showToast("已取消收藏");
     }
 
     @Override

@@ -6,13 +6,13 @@
         android:id="@+id/sl_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:scrollbars="none"
         android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants">
+            android:layout_height="wrap_content">
 
             <!-- 单品图集 -->
             <android.support.v4.view.ViewPager
@@ -22,90 +22,68 @@
             <!-- title -->
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainTitle"
                 android:layout_below="@id/vp_img"
-                android:layout_margin="16dp"
-                android:textColor="@color/main_black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_margin="16dp" />
 
-            <RelativeLayout
+            <!-- 专题标签 -->
+            <include
                 android:id="@+id/rl_tag"
-                android:layout_width="wrap_content"
+                layout="@layout/include_theme_tips"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
-
-                <ImageView
-                    android:id="@+id/iv_mark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/fl_tag"
-                    android:layout_marginTop="4dp"
-                    android:src="@mipmap/ic_book_mark"
-                    android:visibility="gone" />
-                <!-- 标签 -->
-                <com.tongban.corelib.widget.view.FlowLayout
-                    android:id="@+id/fl_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@+id/iv_mark" />
-
-            </RelativeLayout>
+                android:layout_marginRight="16dp" />
 
             <!-- 作者 -->
             <TextView
                 android:id="@+id/tv_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.NoSpacing"
                 android:layout_below="@+id/rl_tag"
-                android:layout_margin="16dp" />
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/normal_grey"
+                android:visibility="gone" />
 
             <!-- 图书简介 -->
             <TextView
                 android:id="@+id/tv_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.MaxSpacing"
                 android:layout_below="@+id/tv_author"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="@color/normal_dark_grey"
-                android:textSize="12sp" />
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
             <!-- 出版社 -->
             <TextView
                 android:id="@+id/tv_publisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.NoSpacing"
                 android:layout_below="@+id/tv_desc"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="@color/normal_dark_grey"
-                android:textSize="12sp" />
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
             <!-- isbn -->
 
             <TextView
                 android:id="@+id/tv_isbn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.NoSpacing"
                 android:layout_below="@+id/tv_publisher"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="4dp"
-                android:textColor="@color/normal_dark_grey"
-                android:textSize="12sp" />
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
             <!-- 适读人群 -->
-
             <TextView
                 android:id="@+id/tv_suitable_for"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainContent.NoSpacing"
                 android:layout_below="@+id/tv_isbn"
-                android:layout_margin="16dp" />
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
 
             <!-- 各个平台的价格 -->
             <com.tongban.corelib.widget.view.ScrollableGridView
@@ -113,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tv_suitable_for"
-                android:background="@color/normal_light_grey"
+                android:background="@drawable/bg_theme_shadow_holo"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
                 android:isScrollContainer="false"
@@ -130,4 +108,5 @@
     <include
         android:id="@+id/theme_toolbar"
         layout="@layout/include_theme_toolbar" />
+
 </RelativeLayout>
