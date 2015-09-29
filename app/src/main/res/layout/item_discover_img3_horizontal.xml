@@ -4,7 +4,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/item_discover_theme_type" />
@@ -12,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_corners_normal"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">

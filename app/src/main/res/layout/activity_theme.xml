@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/weak_grey">
+    android:background="@color/white">
 
 
     <ScrollView
@@ -28,13 +28,10 @@
             <!-- title -->
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/MainTitle"
                 android:layout_below="@+id/iv_head"
                 android:layout_margin="16dp"
-                android:singleLine="true"
-                android:textColor="@color/main_black"
-                android:textSize="16sp" />
+                android:singleLine="true" />
 
             <!-- 专题标签 -->
             <RelativeLayout
@@ -107,8 +104,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@color/normal_light_grey" />
+                    android:layout_height="16dp"
+                    android:background="@drawable/bg_theme_shadow_holo" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
