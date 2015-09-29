@@ -56,7 +56,7 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
 
             helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
             String repliedName = TextUtils.isEmpty(item.getReplied_comment_id()) ? "" :
-                    "回复" + item.getReplied_nick_name();
+                    "回复 " + item.getReplied_nick_name();
             helper.setText(R.id.tv_comment_name, repliedName);
 
             //点击头像
@@ -66,16 +66,16 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
             //是自己就不显示回复
             if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals(
                     item.getUser_info().getUser_id())) {
-                helper.setVisible(R.id.tv_comment, View.GONE);
+                helper.setVisible(R.id.rl_comment_parent, View.GONE);
             } else {
-                helper.setVisible(R.id.tv_comment, View.VISIBLE);
+                helper.setVisible(R.id.rl_comment_parent, View.VISIBLE);
                 //回复
-                helper.setTag(R.id.tv_comment, item);
-                helper.setOnClickListener(R.id.tv_comment, onClickListener);
+                helper.setTag(R.id.rl_comment_parent, item);
+                helper.setOnClickListener(R.id.rl_comment_parent, onClickListener);
             }
 
         } else {
-            helper.setText(R.id.tv_user_name, "找不到这个人");
+            helper.setText(R.id.tv_user_name, "");
             helper.setVisible(R.id.tv_comment, View.GONE);
         }
         helper.setText(R.id.tv_comment_content, item.getComment_content());

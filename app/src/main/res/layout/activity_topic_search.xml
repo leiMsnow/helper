@@ -17,10 +17,11 @@
         <TextView
             android:id="@+id/tv_hot_category"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:drawableLeft="@mipmap/ic_topic_location"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:drawableLeft="@mipmap/ic_topic_history"
+            android:drawablePadding="4dp"
             android:gravity="center_vertical"
-            android:padding="8dp"
             android:text="最近搜索"
             android:textColor="@color/normal_grey" />
 
@@ -28,8 +29,7 @@
             android:id="@+id/fl_history_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tv_hot_category"
-            android:padding="8dp" />
+            android:layout_marginLeft="16dp" />
     </LinearLayout>
 
     <FrameLayout
@@ -43,10 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
+        android:background="@color/weak_grey"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
-        android:background="@color/weak_grey"
         android:scrollbars="none"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

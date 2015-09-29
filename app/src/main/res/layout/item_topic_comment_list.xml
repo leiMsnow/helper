@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <View
         android:layout_width="2dp"
         android:layout_height="16dp"
@@ -31,68 +30,82 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="16dp"
         android:layout_toRightOf="@+id/iv_user_portrait"
         android:background="@drawable/bg_topic_comment">
-
-
+        <!-- 昵称-->
         <TextView
             android:id="@+id/tv_user_name"
             style="@style/MainTitle.User"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:singleLine="true"
             android:text="昵称" />
-
+        <!-- 回复-->
         <TextView
             android:id="@+id/tv_comment_name"
             style="@style/MainContent.Tips"
+            android:layout_alignBottom="@+id/tv_user_name"
+            android:layout_alignTop="@+id/tv_user_name"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:layout_toLeftOf="@+id/tv_comment_time"
             android:layout_toRightOf="@+id/tv_user_name"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:text="回复" />
-
+        <!-- 时间-->
         <TextView
             android:id="@+id/tv_comment_time"
             style="@style/MainContent.Tips"
+            android:layout_alignBottom="@+id/tv_user_name"
             android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_user_name"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
+            android:gravity="center"
             android:text="时间" />
 
         <TextView
             android:id="@+id/tv_comment_content"
             style="@style/MainContent"
             android:layout_below="@+id/tv_user_name"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="内容" />
 
-        <TextView
-            android:id="@+id/tv_comment"
+        <RelativeLayout
+            android:id="@+id/rl_comment_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_comment_content"
-            android:layout_marginLeft="8dp"
-            android:drawableLeft="@mipmap/ic_topic_comment_count"
-            android:drawablePadding="4dp"
-            android:padding="4dp"
-            android:text="回复"
-            android:textColor="@color/selector_join_text_color"
-            android:textSize="12sp"
-            android:visibility="gone"/>
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp">
 
+            <ImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:padding="2dp"
+                android:src="@mipmap/ic_topic_comment_count" />
+
+            <TextView
+                style="@style/MainContent.Tips"
+                android:layout_alignBottom="@+id/iv_comment"
+                android:layout_alignTop="@+id/iv_comment"
+                android:layout_toRightOf="@+id/iv_comment"
+                android:gravity="center_vertical"
+                android:text="回复"
+                android:textColor="@color/selector_grey_to_red" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_small_img_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_comment"
+            android:layout_below="@+id/rl_comment_parent"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"

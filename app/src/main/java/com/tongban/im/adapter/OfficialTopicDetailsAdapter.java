@@ -85,12 +85,12 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
             //是自己就不显示回复
             if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals(
                     item.getTopicReply().getUser_info().getUser_id())) {
-                helper.setVisible(R.id.tv_comment, View.GONE);
+                helper.setVisible(R.id.rl_comment_parent, View.GONE);
             } else {
-                helper.setVisible(R.id.tv_comment, View.VISIBLE);
+                helper.setVisible(R.id.rl_comment_parent, View.VISIBLE);
                 //回复
-                helper.setTag(R.id.tv_comment, item.getTopicReply());
-                helper.setOnClickListener(R.id.tv_comment, onClickListener);
+                helper.setTag(R.id.rl_comment_parent, item.getTopicReply());
+                helper.setOnClickListener(R.id.rl_comment_parent, onClickListener);
             }
         }
     }

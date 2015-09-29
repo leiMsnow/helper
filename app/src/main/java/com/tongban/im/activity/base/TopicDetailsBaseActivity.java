@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
@@ -107,7 +108,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     public void onClick(View v) {
         switch (v.getId()) {
             // 回复评论
-            case R.id.tv_comment:
+            case R.id.rl_comment_parent:
                 TopicComment comment = (TopicComment) v.getTag();
                 topicInputView.setCommentInfo(comment.getComment_id(),
                         comment.getUser_info().getNick_name(),
@@ -200,8 +201,10 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         menuItem.setEnabled(true);
         if (obj.status) {
             menuItem.setIcon(R.mipmap.ic_menu_collected);
+            ToastUtil.getInstance(mContext).showToast("收藏成功");
         } else {
             menuItem.setIcon(R.mipmap.ic_menu_collect);
+            ToastUtil.getInstance(mContext).showToast("已取消收藏");
         }
     }
 
