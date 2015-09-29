@@ -39,7 +39,7 @@
     </style>
     <!-- 大间距内容样式-->
     <style name="MainContent.MaxSpacing">
-        <item name="android:lineSpacingExtra">12dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
     </style>
     <!-- 无间距内容样式-->
     <style name="MainContent.NoSpacing">
@@ -61,10 +61,10 @@
      <style name="ThemeTipsLine">
         <item name="android:layout_width">4dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">2dp</item>
-        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
         <item name="android:background">@color/theme_red</item>
-    </style>
+     </style>
 
     <!-- 用户头像-->
     <style name="MainImagePortrait">

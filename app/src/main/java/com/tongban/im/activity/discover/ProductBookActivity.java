@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.corelib.widget.view.FlowLayout;
+import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
+import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.ThemeBaseActivity;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
@@ -18,6 +19,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.widget.view.ChildGridView;
 
 /**
  * 商品详情页(图书)
@@ -28,6 +30,7 @@ import com.tongban.im.model.discover.ProductBook;
 public class ProductBookActivity extends ThemeBaseActivity implements View.OnClickListener {
     private View mParent;
 
+    private CirclePageIndicator indicator;
     private ViewPager mViewPager; // 图集
     private TextView title;  // 名称
     private FlowLayout themeTag;  // 标签
@@ -36,7 +39,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
     private TextView publisher;  // 出版社
     private TextView isbn;  // isbn
     private TextView suitable;  // 适度人群
-    private ScrollableGridView mGridView;
+    private ChildGridView mGridView;
 
     // 图书id
     private String productBookId;
@@ -54,6 +57,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         super.initView();
         mParent = findViewById(R.id.sl_parent);
         mViewPager = (ViewPager) findViewById(R.id.vp_img);
+        indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
         title = (TextView) findViewById(R.id.tv_title);
         themeTag = (FlowLayout) findViewById(R.id.fl_tag);
         author = (TextView) findViewById(R.id.tv_author);
@@ -61,8 +65,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         publisher = (TextView) findViewById(R.id.tv_publisher);
         isbn = (TextView) findViewById(R.id.tv_isbn);
         suitable = (TextView) findViewById(R.id.tv_suitable_for);
-        mGridView = (ScrollableGridView) findViewById(R.id.gv_platform);
-        mGridView.setExpanded(true);
+        mGridView = (ChildGridView) findViewById(R.id.gv_platform);
     }
 
     @Override
@@ -91,8 +94,10 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
             }
             if (mProductBook != null && mProductBook.isCollect_status()) {
                 ProductApi.getInstance().noCollectProduct(productBookId, this);
+                setCollectEnable();
             } else if (mProductBook != null && !mProductBook.isCollect_status()) {
                 ProductApi.getInstance().collectProduct(productBookId, this);
+                setCollectEnable();
             }
         } else if (v == ivShare) {
 
@@ -110,8 +115,15 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
             ivCollect.setSelected(true);
         }
         mParent.setVisibility(View.VISIBLE);
+
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);
+        indicator.setViewPager(mViewPager);
+        if (mPagerAdapter.getCount() > 1) {
+            indicator.setVisibility(View.VISIBLE);
+        }
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+
         title.setText(mProductBook.getProduct_name());
         themeTag.removeAllViews();
         if (mProductBook.getBook_author() != null && !"".equals(mProductBook.getBook_author().trim())) {
@@ -121,7 +133,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         isbn.setText(mProductBook.getIsbn());
         suitable.setText(mProductBook.getSuitable_for());
         desc.setText(mProductBook.getBook_content_desc());
-        String[] productTags = mProductBook.getProduct_tags().split(",");
+        String[] productTags = new String[]{"夏季", "防蚊", "止痒"};//mProductBook.getProduct_tags().split(",");
         if (productTags.length > 0) {
             themeTag.removeAllViews();
             findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
@@ -132,7 +144,8 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
                 themeTag.addView(tv);
             }
         }
-        mPriceAdapter = new ProductPriceAdapter(mContext, mProductBook.getPrice_info());
+        mPriceAdapter = new ProductPriceAdapter(mContext, R.layout.item_product_book_price_grid
+                , mProductBook.getPrice_info());
         mGridView.setAdapter(mPriceAdapter);
     }
 
@@ -142,8 +155,8 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
      * @param event CollectProductEvent
      */
     public void onEventMainThread(BaseEvent.CollectProductEvent event) {
+        super.onEventMainThread(event);
         mProductBook.setCollect_status(true);
-        ivCollect.setSelected(true);
     }
 
     /**
@@ -152,7 +165,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
      * @param event NoCollectProductEvent
      */
     public void onEventMainThread(BaseEvent.NoCollectProductEvent event) {
+        super.onEventMainThread(event);
         mProductBook.setCollect_status(false);
-        ivCollect.setSelected(false);
     }
 }

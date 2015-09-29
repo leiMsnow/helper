@@ -1,8 +1,6 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +8,10 @@ import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.tongban.corelib.widget.view.ScrollableGridView;
 import com.tongban.im.R;
-import com.tongban.im.activity.discover.SearchResultActivity;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.Tag;
+import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.List;
 import java.util.Map;
@@ -90,7 +86,7 @@ public class DiscoverTagListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
 
         final List<Tag> childData = datas.get(type[groupPosition]);
-        ScrollableGridView gridView = new ScrollableGridView(mContext);
+        ChildGridView gridView = new ChildGridView(mContext);
         DiscoverTagGridAdapter mGridAdapter = new DiscoverTagGridAdapter(mContext,
                 R.layout.item_disvocer_tag_grid, childData);
         gridView.setVerticalScrollBarEnabled(false);

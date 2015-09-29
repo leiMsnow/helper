@@ -25,7 +25,7 @@
 
     <bool name="default_circle_indicator_centered">true</bool>
     <color name="default_circle_indicator_fill_color">@color/theme_orange</color>
-    <color name="default_circle_indicator_page_color">@color/transparent</color>
+    <color name="default_circle_indicator_page_color">@color/theme_orange_200</color>
     <integer name="default_circle_indicator_orientation">0</integer>
     <dimen name="default_circle_indicator_radius">4dp</dimen>
     <bool name="default_circle_indicator_snap">false</bool>

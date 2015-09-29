@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.tongban.corelib.base.adapter.BaseAdapterHelper;
+import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.model.discover.PriceInfo;
 
@@ -16,53 +18,17 @@ import java.util.List;
  * 图书单品页的价格Adapter
  * Created by Cheney on 15/8/25.
  */
-public class ProductPriceAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<PriceInfo> mList;
-    private LayoutInflater mInflater;
+public class ProductPriceAdapter extends QuickAdapter<PriceInfo> {
 
-    public ProductPriceAdapter(Context context, List<PriceInfo> list) {
-        mContext = context;
-        mList = list;
-        mInflater = LayoutInflater.from(mContext);
+    public ProductPriceAdapter(Context context, int layoutResId, List data) {
+        super(context, layoutResId, data);
     }
 
     @Override
-    public int getCount() {
-        return mList.size();
+    protected void convert(BaseAdapterHelper helper, PriceInfo item) {
+        helper.setText(R.id.tv_platform, getPlatform(item.getPlatform()) + "￥" + item.getPrice());
     }
 
-    @Override
-    public Object getItem(int position) {
-        return mList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.item_product_book_price_grid, parent, false);
-            holder.platform = (TextView) convertView.findViewById(R.id.tv_platform);
-            holder.price = (TextView) convertView.findViewById(R.id.tv_price);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        holder.platform.setText(getPlatform(mList.get(position).getPlatform()));
-        holder.price.setText("￥" + mList.get(position).getPrice());
-        return convertView;
-    }
-
-    static class ViewHolder {
-        TextView platform;
-        TextView price;
-    }
 
     private String getPlatform(String platform) {
         String str;

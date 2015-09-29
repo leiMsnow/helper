@@ -12,13 +12,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
 
             <!-- 单品图集 -->
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_img"
                 android:layout_width="match_parent"
                 android:layout_height="240dp" />
+
+            <com.tongban.corelib.widget.view.indicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/lpi_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/vp_img"
+                android:layout_marginBottom="16dp"
+                android:padding="4dp"
+                android:visibility="gone"
+                app:vpi_fillColor="@color/white"
+                app:vpi_pageColor="@color/translucent_white_a30"
+                app:vpi_strokeColor="@color/weak_grey"
+                app:vpi_strokeWidth="2px" />
+
             <!-- title -->
             <TextView
                 android:id="@+id/tv_title"
@@ -86,20 +101,17 @@
                 android:layout_marginRight="16dp" />
 
             <!-- 各个平台的价格 -->
-            <com.tongban.corelib.widget.view.ScrollableGridView
+            <com.tongban.im.widget.view.ChildGridView
                 android:id="@+id/gv_platform"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tv_suitable_for"
-                android:background="@drawable/bg_theme_shadow_holo"
                 android:gravity="center"
                 android:horizontalSpacing="8dp"
-                android:isScrollContainer="false"
                 android:listSelector="@color/transparent"
                 android:numColumns="2"
                 android:padding="16dp"
                 android:scrollbars="none"
-                android:stretchMode="columnWidth"
                 android:verticalSpacing="8dp" />
         </RelativeLayout>
     </ScrollView>

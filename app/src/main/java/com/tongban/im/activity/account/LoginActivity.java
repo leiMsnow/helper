@@ -169,7 +169,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
                 public void run() {
                     AccountApi.getInstance().login(mUser, mPwd, LoginActivity.this);
                 }
-            }, 2 * 1000);
+            }, 1 * 1000);
         } else if (v == tvRegister) {
             TransferCenter.getInstance().startRegister();
             finish();

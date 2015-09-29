@@ -6,6 +6,7 @@
     <color name="transparent">#00000000</color>
     <color name="translucent_a80">#64000000</color>
     <color name="translucent_a30">#4d000000</color>
+    <color name="translucent_white_a30">#4dffffff</color>
     <color name="translucent_a10">#20e0e0e0</color>
     <!-- black-->
     <color name="black">#000000</color>

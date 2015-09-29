@@ -118,7 +118,7 @@ public class BaseApi {
      * @return 服务器地址
      */
     public String getHostUrl() {
-        return SPUtils.get(mContext, HOST_FLAG, DEFAULT_HOST).toString();
+        return SPUtils.get(mContext, SPUtils.VISIT_FILE,HOST_FLAG, DEFAULT_HOST).toString();
     }
 
     /**
@@ -137,11 +137,11 @@ public class BaseApi {
                 saveUrl = TEST_HOST;
                 break;
         }
-        SPUtils.put(mContext, HOST_FLAG, saveUrl);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE, HOST_FLAG, saveUrl);
     }
 
     public void setHostUrl(Context mContext, String url) {
-        SPUtils.put(mContext, HOST_FLAG, url);
+        SPUtils.put(mContext,SPUtils.VISIT_FILE, HOST_FLAG, url);
     }
 
     /**

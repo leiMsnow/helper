@@ -61,8 +61,6 @@ public class ThemeActivity extends ThemeBaseActivity {
     // 商品列表
     private List<ProductBook> mProductBooks;
 
-    private Handler mHandler = new Handler();
-
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_theme;
@@ -129,7 +127,7 @@ public class ThemeActivity extends ThemeBaseActivity {
             }
         }
         title.setText(mTheme.getTheme_title());
-        String[] themeTags = new String[]{"夏季", "防蚊", "止痒"};//mTheme.getTheme_tags().split(",");
+        String[] themeTags = mTheme.getTheme_tags().split(",");
         if (themeTags.length > 0) {
             themeTag.removeAllViews();
             findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
@@ -196,8 +194,8 @@ public class ThemeActivity extends ThemeBaseActivity {
                     author.setVisibility(View.GONE);
                 }
                 suitableFor.setText(productBook.getSuitable_for().trim());
-//                recommendCause.setText(productBook.getRecommend_cause().trim());
-                recommendCause.setText("1.无味,低刺激性;\n2.防蚊,长达四小时;\n3.适用于敏感及柔嫩的皮肤。");
+                recommendCause.setText(productBook.getRecommend_cause().trim());
+//                recommendCause.setText("1.无味,低刺激性;\n2.防蚊,长达四小时;\n3.适用于敏感及柔嫩的皮肤。");
                 productDetail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -250,9 +248,8 @@ public class ThemeActivity extends ThemeBaseActivity {
      * @param event
      */
     public void onEventMainThread(BaseEvent.CollectThemeEvent event) {
+        super.onEventMainThread(event);
         mTheme.setCollect_status(true);
-        ivCollect.setSelected(true);
-        ToastUtil.getInstance(mContext).showToast("收藏成功");
     }
 
     /**
@@ -261,9 +258,8 @@ public class ThemeActivity extends ThemeBaseActivity {
      * @param event
      */
     public void onEventMainThread(BaseEvent.NoCollectThemeEvent event) {
+        super.onEventMainThread(event);
         mTheme.setCollect_status(false);
-        ivCollect.setSelected(false);
-        ToastUtil.getInstance(mContext).showToast("已取消收藏");
     }
 
     @Override
@@ -276,23 +272,11 @@ public class ThemeActivity extends ThemeBaseActivity {
             if (mTheme != null && !mTheme.isCollect_status()) {
                 // 未收藏时,点击收藏
                 ProductApi.getInstance().collectTheme(themeId, this);
-                ivCollect.setEnabled(false);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ivCollect.setEnabled(true);
-                    }
-                }, 1500);
+                setCollectEnable();
             } else if (mTheme != null && mTheme.isCollect_status()) {
                 // 已收藏,点击取消收藏
                 ProductApi.getInstance().noCollectTheme(themeId, this);
-                ivCollect.setEnabled(false);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ivCollect.setEnabled(true);
-                    }
-                }, 1500);
+                setCollectEnable();
             }
         }
     }
