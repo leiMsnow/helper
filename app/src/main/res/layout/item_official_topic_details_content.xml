@@ -4,71 +4,50 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <include layout="@layout/include_product_no" />
-
-
+    <!-- 插图-->
     <ImageView
         android:id="@+id/iv_product_img"
+        style="@style/MainImageContent"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        android:scaleType="fitXY" />
-
-
+        android:layout_height="240dp"
+        android:layout_marginTop="16dp" />
+    <!-- 作者-->
     <TextView
         android:id="@+id/tv_product_author"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/normal_dark_grey"
-        android:textSize="14sp" />
+        style="@style/MainContent.NoSpacing"
+        android:layout_marginTop="16dp"
+        android:text="作者" />
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp">
 
         <View
-            android:layout_width="4dp"
-            android:layout_height="12dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/theme_red" />
+            style="@style/ThemeTipsLine"
+            android:layout_alignBottom="@+id/tv_recommend_cause"
+            android:layout_alignTop="@+id/tv_recommend_cause" />
 
         <TextView
             android:id="@+id/tv_recommend_cause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/MainContent.NoSpacing"
             android:layout_marginLeft="8dp"
-            android:gravity="center"
             android:text="推荐理由"
-            android:textColor="@color/theme_red"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textColor="@color/theme_red" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/tv_product_recommend_cause"
+            style="@style/MainContent.MaxSpacing"
+            android:layout_below="@+id/tv_recommend_cause"
+            android:layout_marginTop="8dp" />
 
-    <TextView
-        android:id="@+id/tv_product_recommend_cause"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/normal_dark_grey"
-        android:textSize="14sp" />
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_check_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/selector_btn_bg_check_detail"
-        android:gravity="center"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:text="查看详情"
-        android:textColor="@color/selector_red_to_white" />
+        style="@style/ThemeDetailsButton" />
 </LinearLayout>

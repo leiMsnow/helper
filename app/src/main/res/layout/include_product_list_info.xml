@@ -15,7 +15,8 @@
     <!-- 【图书简介】 -->
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
 
         <View
             style="@style/ThemeTipsLine"
@@ -34,7 +35,6 @@
             android:id="@+id/tv_product_desc"
             style="@style/MainContent.MaxSpacing"
             android:layout_below="@+id/tv_product_tips"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
             android:text="图书简介" />
 

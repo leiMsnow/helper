@@ -20,7 +20,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
     <!-- title-user 通用样式-->
-    <style name="MainTitle.User" >
+    <style name="MainTitle.User">
         <item name="android:textSize">12sp</item>
     </style>
     <!-- content通用样式-->
@@ -58,14 +58,28 @@
         <item name="android:src">@mipmap/ic_default_image</item>
     </style>
     <!-- theme标签线-->
-     <style name="ThemeTipsLine">
+    <style name="ThemeTipsLine">
         <item name="android:layout_width">4dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_marginBottom">3dp</item>
         <item name="android:background">@color/theme_red</item>
-     </style>
+    </style>
 
+    <style name="ThemeDetailsButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@drawable/selector_corner_white_to_grey</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+        <item name="android:text">@string/view_details</item>
+        <item name="android:textColor">@color/theme_red</item>
+        <item name="android:textSize">12sp</item>
+    </style>
     <!-- 用户头像-->
     <style name="MainImagePortrait">
         <item name="android:layout_width">36dp</item>

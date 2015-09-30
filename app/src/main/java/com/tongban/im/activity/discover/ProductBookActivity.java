@@ -133,7 +133,7 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         isbn.setText(mProductBook.getIsbn());
         suitable.setText(mProductBook.getSuitable_for());
         desc.setText(mProductBook.getBook_content_desc());
-        String[] productTags = new String[]{"夏季", "防蚊", "止痒"};//mProductBook.getProduct_tags().split(",");
+        String[] productTags = mProductBook.getProduct_tags().split(",");
         if (productTags.length > 0) {
             themeTag.removeAllViews();
             findViewById(R.id.iv_mark).setVisibility(View.VISIBLE);
