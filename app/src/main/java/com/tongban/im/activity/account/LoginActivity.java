@@ -10,7 +10,9 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -47,6 +49,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     private EditText etPwd;
     private TextView tvFindPwd;
     private TextView tvRegister;
+    private ImageView btnWeChat;
     private CircularProgressButton btnLogin;
 
     private String mUser, mPwd;
@@ -77,9 +80,8 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
         tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
         btnLogin = (CircularProgressButton) findViewById(R.id.btn_login);
-
+        btnWeChat = (ImageView) findViewById(R.id.btn_wechat_login);
         btnLogin.setIndeterminateProgressMode(true);
-
     }
 
     @Override
@@ -109,6 +111,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
         btnLogin.setOnClickListener(this);
         tvFindPwd.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
+        btnWeChat.setOnClickListener(this);
         etPwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -175,13 +178,9 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
             finish();
         } else if (v == tvFindPwd) {
             startActivity(new Intent(mContext, FindPwdActivity.class));
-        } else {
+        } else if (v == btnWeChat) {
             showProgress();
-            switch (v.getId()) {
-                case R.id.iv_wechat_login:
-                    authListener.doWeCHatOauth();
-                    break;
-            }
+            authListener.doWeCHatOauth();
         }
     }
 
