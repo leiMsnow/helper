@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg1" />
+        android:src="@mipmap/bg_user_portrait" />
 
     <ImageView
         android:id="@+id/iv_zoom_top"
