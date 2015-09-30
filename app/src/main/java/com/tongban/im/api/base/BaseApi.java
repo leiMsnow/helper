@@ -100,11 +100,11 @@ public class BaseApi {
      */
     private JsonObjectRequest request = null;
     // 默认服务器地址，实际地址根据getHostUrl来获取；
-    private static String DEFAULT_HOST = "http://10.255.209.66:8080/ddim/";
     //测试环境
-    private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
-
-    private static String DEFAULT_HOST1 = "http://101.200.83.100/ddim/";
+    private static String TEST_HOST = "http://10.255.209.66:8080/ddim/";
+    //    private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
+    // 正式环境
+    private static String DEFAULT_HOST = "http://101.200.83.100/ddim/";
 
     protected BaseApi(Context context) {
         this.mContext = context;
@@ -183,7 +183,7 @@ public class BaseApi {
         }
         final String requestUrl = apiUrl;
         //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
-        final boolean disableCache = isCurrentUrl(url);
+        final boolean disableCache = true;//isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
 
         LogUtil.d("request-url:", requestUrl

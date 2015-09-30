@@ -199,7 +199,7 @@ public class TransferCenter {
     }
 
     public boolean startLogin() {
-        return startLogin(false, false);
+        return startLogin(true, false);
     }
 
     /**

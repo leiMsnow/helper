@@ -38,6 +38,11 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTouchFinish(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         ActivityContainer.getInstance().finishActivity(this);
     }
 
@@ -49,7 +54,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     protected void initView() {
         mViewPager = (ViewPager) findViewById(R.id.vp_content);
-
         tvDiscover = (CheckBox) findViewById(R.id.tv_discover);
         tvTopic = (CheckBox) findViewById(R.id.tv_topic);
         tvGroup = (CheckBox) findViewById(R.id.tv_group);

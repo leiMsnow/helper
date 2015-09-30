@@ -85,6 +85,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             BaseApi.getInstance().setHostUrl(mContext, 0);
+                            logout();
                         }
                     });
             dialog.setNegativeButton("测试环境",
@@ -93,6 +94,7 @@ public class SettingActivity extends BaseToolBarActivity implements View.OnClick
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             BaseApi.getInstance().setHostUrl(mContext, 1);
+                            logout();
                         }
                     });
             dialog.show();
