@@ -43,45 +43,52 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         switch (item.getGroup_type()) {
             case GroupType.CITY:
                 setGroupTags(helper
+                        , item
                         , "同城圈"
                         , R.color.theme_deep_purple
                         , R.drawable.shape_corners_bg_purple
-                        , R.drawable.shape_group_icon_pressed_deep_purple);
+                        , R.drawable.shape_group_icon_pressed_deep_purple
+                        , R.mipmap.ic_group_city);
                 break;
             case GroupType.AGE:
                 setGroupTags(helper
+                        , item
                         , "同龄圈"
                         , R.color.theme_pink
                         , R.drawable.shape_corners_bg_pink
-                        , R.drawable.shape_group_icon_pressed_pink);
+                        , R.drawable.shape_group_icon_pressed_pink
+                        , R.mipmap.ic_group_age);
                 break;
             case GroupType.CLASSMATE:
                 setGroupTags(helper
+                        , item
                         , "同学圈"
                         , R.color.theme_light_blue
                         , R.drawable.shape_corners_bg_blue
-                        , R.drawable.shape_group_icon_pressed_light_blue);
+                        , R.drawable.shape_group_icon_pressed_light_blue
+                        , R.mipmap.ic_group_classmate);
                 break;
             case GroupType.LIFE:
                 setGroupTags(helper
+                        , item
                         , "生活圈"
                         , R.color.theme_light_green
                         , R.drawable.shape_corners_bg_green
-                        , R.drawable.shape_group_icon_pressed_light_green);
+                        , R.drawable.shape_group_icon_pressed_light_green
+                        , R.mipmap.ic_group_life);
                 break;
             case GroupType.ACTIVITY:
                 setGroupTags(helper
+                        , item
                         , "活动圈"
                         , R.color.theme_yellow
                         , R.drawable.shape_corners_bg_yellow
-                        , R.drawable.shape_group_icon_pressed_yellow);
+                        , R.drawable.shape_group_icon_pressed_yellow
+                        , R.mipmap.ic_group_activity);
                 break;
         }
-        if (item.getGroup_avatar() != null) {
-            helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
-        }
-        helper.setText(R.id.tv_group_name, item.getGroup_name());
 
+        helper.setText(R.id.tv_group_name, item.getGroup_name());
         //判断是否已经加入
         if (!item.isAllow_add()) {
             helper.getView(R.id.btn_join).setEnabled(false);
@@ -108,16 +115,23 @@ public class GroupListAdapter extends QuickAdapter<Group> {
      * @param bgColor   图片背景色
      */
     private void setGroupTags(BaseAdapterHelper helper
+            , Group item
             , String tags
             , int tagsColor
             , int tagsBG
-            , int bgColor) {
+            , int bgColor
+            , int defaultPortrait) {
         helper.setText(R.id.tv_group_status, tags);
         helper.setTextColor(R.id.tv_group_status,
                 mContext.getResources().getColor(tagsColor));
-        helper.setBackgroundRes(R.id.fl_group_portrait, bgColor);
         helper.setBackgroundRes(R.id.tv_group_status, tagsBG);
-
+        if (item.getGroup_avatar() != null) {
+            helper.setBackgroundRes(R.id.fl_group_portrait, 0);
+            helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+        } else {
+            helper.setBackgroundRes(R.id.fl_group_portrait, bgColor);
+            helper.setImageBitmap(R.id.iv_group_portrait, defaultPortrait);
+        }
     }
 
     @Override

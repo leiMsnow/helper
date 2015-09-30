@@ -12,7 +12,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
@@ -118,7 +117,7 @@ public class BaseApi {
      * @return 服务器地址
      */
     public String getHostUrl() {
-        return SPUtils.get(mContext, SPUtils.VISIT_FILE,HOST_FLAG, DEFAULT_HOST).toString();
+        return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,HOST_FLAG, DEFAULT_HOST).toString();
     }
 
     /**
@@ -137,11 +136,11 @@ public class BaseApi {
                 saveUrl = TEST_HOST;
                 break;
         }
-        SPUtils.put(mContext,SPUtils.VISIT_FILE, HOST_FLAG, saveUrl);
+        SPUtils.put(mContext,SPUtils.NO_CLEAR_FILE, HOST_FLAG, saveUrl);
     }
 
     public void setHostUrl(Context mContext, String url) {
-        SPUtils.put(mContext,SPUtils.VISIT_FILE, HOST_FLAG, url);
+        SPUtils.put(mContext,SPUtils.NO_CLEAR_FILE, HOST_FLAG, url);
     }
 
     /**

@@ -96,7 +96,7 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
             //修改性别
             else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_SEX)) {
                 if (mChildSex!=0) {
-                    String childBirthday = SPUtils.get(mContext, SPUtils.VISIT_FILE,
+                    String childBirthday = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,
                             Consts.CHILD_BIRTHDAY, "").toString();
                     AddChildInfo childInfo = new AddChildInfo();
                     childInfo.setBirthday(childBirthday);

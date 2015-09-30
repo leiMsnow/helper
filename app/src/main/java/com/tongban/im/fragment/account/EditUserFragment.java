@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -83,7 +82,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                 updateUser(otherRegister.getUrls(), false);
             } else {
                 ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
-                        SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
+                        SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0));
             }
         }
     }
@@ -136,7 +135,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                         //使用系统默认资料
                         else {
                             int resId = (Integer) SPUtils.get(mContext,
-                                    SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+                                    SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
                             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
                                     resId);
                             mIcon = CameraUtils.Bitmap2Bytes(bitmap);

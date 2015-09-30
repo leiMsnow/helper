@@ -178,30 +178,37 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
                 return;
             }
             declaration = etDesc.getText().toString().trim();
+            //不选头像，将不上传
             if (mGroupBytes == null) {
-                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mGroupIcon);
-                mGroupBytes = CameraUtils.Bitmap2Bytes(bitmap);
+//                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mGroupIcon);
+//                mGroupBytes = CameraUtils.Bitmap2Bytes(bitmap);
+                GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
+                        latitude, address,
+                        birthday, tags, declaration, null, chbSecret.isChecked(),
+                        CreateGroupActivity.this);
             }
-            showProgress();
-            FileUploadApi.getInstance().uploadFile(mGroupBytes, null, FileUploadApi.IMAGE_SIZE_300,
-                    FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+            //上传头像
+            else {
+                showProgress();
+                FileUploadApi.getInstance().uploadFile(mGroupBytes, null, FileUploadApi.IMAGE_SIZE_300,
+                        FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
 
-                        @Override
-                        public void uploadSuccess(ImageUrl url) {
-                            GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
-                                    latitude, address,
-                                    birthday, tags, declaration, url, chbSecret.isChecked(),
-                                    CreateGroupActivity.this);
-                        }
+                            @Override
+                            public void uploadSuccess(ImageUrl url) {
+                                GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
+                                        latitude, address,
+                                        birthday, tags, declaration, url, chbSecret.isChecked(),
+                                        CreateGroupActivity.this);
+                            }
 
-                        @Override
-                        public void uploadFailed(String error) {
-                            hideProgress();
-                            ToastUtil.getInstance(mContext).showToast("创建失败,请重试");
-                        }
+                            @Override
+                            public void uploadFailed(String error) {
+                                hideProgress();
+                                ToastUtil.getInstance(mContext).showToast("创建失败,请重试");
+                            }
 
-                    });
-
+                        });
+            }
 
         } else if (v == tvLocation) {
             Intent intent = new Intent(mContext, SearchPoiActivity.class);

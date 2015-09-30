@@ -189,7 +189,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             setUserPortrait(mUserInfo.getPortrait_url().getMax(), ivZoomBottom);
         } else {
             int resId = (Integer) SPUtils.
-                    get(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
+                    get(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
             ivZoomBottom.setImageResource(resId);
             ivUserPortrait.setImageResource(resId);
         }

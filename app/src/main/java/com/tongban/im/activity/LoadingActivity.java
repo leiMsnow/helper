@@ -1,7 +1,6 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 
@@ -10,7 +9,6 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
-import com.tongban.im.activity.account.RegisterActivity;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
@@ -61,7 +59,7 @@ public class LoadingActivity extends AccountBaseActivity {
                     LocationUtils.get(mContext).start();
                 }
                 //第一次启动APP，进入设置宝宝界面
-                if ((boolean) SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.FIRST_SET_CHILD_INFO, true)) {
+                if ((boolean) SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Consts.FIRST_SET_CHILD_INFO, true)) {
                     //为用户随机生成一个头像
                     randomPortrait();
                     startActivity(new Intent(mContext, ChildInfoActivity.class));
@@ -82,7 +80,7 @@ public class LoadingActivity extends AccountBaseActivity {
 
     //随机生成一个头像标记
     private void randomPortrait() {
-        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.KEY_DEFAULT_PORTRAIT,
+        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT,
                 Consts.getUserDefaultPortrait());
     }
 

@@ -1,7 +1,6 @@
 package com.tongban.im.activity.base;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
@@ -65,9 +64,9 @@ public abstract class AccountBaseActivity extends CommonImageResultActivity {
     private void startMain(boolean isOpenMain, boolean isSetChildInfo) {
         if (isSetChildInfo) {
             //添加宝宝信息
-            int childSex = (int) SPUtils.get(mContext, SPUtils.VISIT_FILE,
+            int childSex = (int) SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,
                     Consts.CHILD_SEX, 1);
-            String childBirthday = SPUtils.get(mContext, SPUtils.VISIT_FILE,
+            String childBirthday = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,
                     Consts.CHILD_BIRTHDAY, "").toString();
             AddChildInfo childInfo = new AddChildInfo();
             childInfo.setBirthday(childBirthday);

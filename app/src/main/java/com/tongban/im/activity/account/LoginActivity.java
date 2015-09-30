@@ -97,7 +97,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
                     });
             dialog.show();
         }
-        mUser = SPUtils.get(mContext, SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, "").toString();
+        mUser = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, "").toString();
         etUser.setText(mUser);
     }
 
@@ -196,7 +196,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
      */
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
         hideProgress();
-        SPUtils.put(mContext, SPUtils.VISIT_FILE, Consts.USER_ACCOUNT, mUser);
+        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, mUser);
         if (TextUtils.isEmpty(obj.user.getNick_name())) {
             TransferCenter.getInstance().startRegister(true);
             finish();
