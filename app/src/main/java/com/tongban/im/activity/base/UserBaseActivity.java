@@ -1,8 +1,7 @@
 package com.tongban.im.activity.base;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tongban.corelib.utils.AnimatorUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
@@ -46,6 +46,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     protected TextView tvFansCount, tvFollowCount, tvGroupCount;
     protected View headView, zoomView, contentView;
     protected TextView tvSetChildInfo;
+    private View vActionParent;
 
     protected User mUserInfo = new User();
 
@@ -72,6 +73,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         lvUserCenter.setScrollContentView(contentView);
         //headView
         vpChildInfo = (ViewPager) headView.findViewById(R.id.vp_container);
+        vActionParent = findViewById(R.id.rl_action_parent);
         indicator = (CirclePageIndicator) headView.findViewById(R.id.lpi_indicator);
         tvSetChildInfo = (TextView) headView.findViewById(R.id.tv_set_child_info);
         vHeaderBottom = headView.findViewById(R.id.ll_relationship);
@@ -112,25 +114,25 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
                 if (scrollValue < headerBottomHeight) {
                     alphaValue = (headerBottomHeight - scrollValue) / headerBottomHeight;
 
-                    ObjectAnimator zoomTopAnim = ObjectAnimator.
-                            ofFloat(ivZoomTop, "alpha", startValue, alphaValue);
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.play(zoomTopAnim);
-                    animatorSet.setDuration(10);
-                    animatorSet.start();
+                    AnimatorUtils.animatorToAlpha(ivZoomTop, startValue, alphaValue, 10);
+                    AnimatorUtils.animatorToAlpha(ivUserPortrait, startValue, alphaValue, 10);
+                    AnimatorUtils.animatorToAlpha(vpChildInfo, startValue, alphaValue, 10);
+                    AnimatorUtils.animatorToAlpha(vActionParent, startValue, alphaValue, 10);
                 }
             }
 
             @Override
             public void onPullZoomEnd() {
-                ObjectAnimator zoomTopAnim = ObjectAnimator.
-                        ofFloat(ivZoomTop, "alpha", alphaValue, 1.0f);
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.play(zoomTopAnim);
-                animatorSet.setDuration(200);
-                animatorSet.start();
-
-                alphaValue = 1.0f;
+                AnimatorUtils.animatorToAlpha(ivZoomTop, alphaValue, 1.0f, 300);
+                AnimatorUtils.animatorToAlpha(ivUserPortrait, alphaValue, 1.0f, 300);
+                AnimatorUtils.animatorToAlpha(vpChildInfo, alphaValue, 1.0f, 300);
+                AnimatorUtils.animatorToAlpha(vActionParent, alphaValue, 1.0f, 300);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        alphaValue = 1.0f;
+                    }
+                }, 300);
             }
         });
 

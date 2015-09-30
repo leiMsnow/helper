@@ -28,11 +28,7 @@
                 android:layout_alignBottom="@+id/vp_img"
                 android:layout_marginBottom="16dp"
                 android:padding="4dp"
-                android:visibility="gone"
-                app:vpi_fillColor="@color/white"
-                app:vpi_pageColor="@color/translucent_white_a30"
-                app:vpi_strokeColor="@color/weak_grey"
-                app:vpi_strokeWidth="2px" />
+                android:visibility="gone" />
 
             <!-- title -->
             <TextView

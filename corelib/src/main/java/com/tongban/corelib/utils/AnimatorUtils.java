@@ -15,24 +15,12 @@ public class AnimatorUtils {
     /**
      * 动画透明/不透明
      *
-     * @param obj     对象
-     * @param visible 显示/隐藏
+     * @param obj 对象
      */
-    public static void animatorToAlpha(final View obj, final int visible) {
-        float start = visible == View.VISIBLE ? 0.0f : 0.0f;
-        float end = visible == View.GONE ? 1.0f : 0.0f;
-        if (visible == View.VISIBLE) {
-            obj.setVisibility(visible);
-        }
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(obj, "alpha", end, start);
-        objectAnimator.setDuration(500);
+    public static void animatorToAlpha(final View obj, float start, float end, int duration) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(obj, "alpha", start, end);
+        objectAnimator.setDuration(duration);
         objectAnimator.start();
-        objectAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                obj.setVisibility(visible);
-            }
-        });
     }
 
     /**
@@ -57,4 +45,5 @@ public class AnimatorUtils {
             }
         });
     }
+
 }

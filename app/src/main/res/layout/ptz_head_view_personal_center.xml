@@ -42,55 +42,58 @@
         android:layout_below="@+id/vp_container"
         android:visibility="gone" />
 
-    <Button
-        android:id="@+id/iv_focus"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/selector_follow_icon"
-        android:text="关注"
-        android:textColor="@color/main_black"
-        android:visibility="gone" />
+    <RelativeLayout
+        android:id="@+id/rl_action_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_user_portrait">
 
-    <View
-        android:id="@+id/v_refer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
+        <Button
+            android:id="@+id/iv_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/selector_follow_icon"
+            android:text="关注"
+            android:textColor="@color/main_black"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/iv_cancel_focus"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_toLeftOf="@+id/v_refer"
-        android:background="@drawable/selector_corner_transparent_icon"
-        android:text="取消关注"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
+        <View
+            android:id="@+id/v_refer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp" />
 
-    <Button
-        android:id="@+id/iv_private_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_marginLeft="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:drawableLeft="@mipmap/ic_private_chat"
-        android:layout_marginTop="24dp"
-        android:layout_toRightOf="@+id/v_refer"
-        android:background="@drawable/selector_corner_transparent_icon"
-        android:text="私聊"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
+        <Button
+            android:id="@+id/iv_cancel_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/v_refer"
+            android:background="@drawable/selector_corner_transparent_icon"
+            android:text="取消关注"
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
+        <Button
+            android:id="@+id/iv_private_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_below="@+id/iv_user_portrait"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_toRightOf="@+id/v_refer"
+            android:background="@drawable/selector_corner_transparent_icon"
+            android:drawableLeft="@mipmap/ic_private_chat"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="私聊"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
     <!--底部粉丝布局-->
     <LinearLayout
         android:id="@+id/ll_relationship"
@@ -118,7 +121,7 @@
                     android:id="@+id/badge_fans"
                     style="@style/UserInfoBadge"
                     android:layout_toRightOf="@+id/tv_follow_num"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <TextView
