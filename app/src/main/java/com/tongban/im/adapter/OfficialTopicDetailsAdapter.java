@@ -38,22 +38,27 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
     protected void convert(BaseAdapterHelper helper, OfficialTopic item) {
         //产品相关
         if (item.getItemType() == OfficialTopic.PRODUCT) {
-            helper.setText(R.id.tv_cursor, item.getProduct().getProductIndex());
-            helper.setVisible(R.id.tv_cursor, View.GONE);
-            if (item.getProduct().getProduct_img_url() != null) {
-                helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
-                        .getProduct_img_url().get(0).getMin());
-            } else {
-                helper.setImageResource(R.id.iv_product_img, R.mipmap.ic_default_image);
-            }
+
+
+            helper.setImageBitmap(R.id.iv_product_img, item.getProduct()
+                    .getProduct_img_url().get(0).getMin());
+
             helper.setText(R.id.tv_title, item.getProduct().getProduct_name());
+
             helper.setText(R.id.tv_product_author, item.getProduct().getBook_author());
+
             if (!TextUtils.isEmpty(item.getProduct().getRecommend_cause())) {
-                helper.setText(R.id.tv_product_recommend_cause, item.getProduct().getRecommend_cause());
+                helper.setText(R.id.tv_product_recommend_cause
+                        , item.getProduct().getRecommend_cause());
                 helper.setVisible(R.id.tv_recommend_cause, View.VISIBLE);
             } else {
-                helper.setVisible(R.id.tv_recommend_cause, View.GONE);
+                helper.setVisible(R.id.tv_recommend_cause, View.INVISIBLE);
             }
+            // 设置序号的高度为0
+            ViewGroup.LayoutParams lp = helper.getView(R.id.tv_cursor).getLayoutParams();
+            lp.height = 0;
+            helper.getView(R.id.tv_cursor).setLayoutParams(lp);
+
             helper.setTag(R.id.btn_check_detail, item);
             helper.setOnClickListener(R.id.btn_check_detail, onClickListener);
         }

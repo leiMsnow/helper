@@ -39,12 +39,18 @@
     <!-- 发现-->
     <string name="discover">发现</string>
     <string name="view_details">查看详情</string>
-    <!--话题-->
-    <string name="topic">话题</string>
-    <string name="group_settings">圈子信息</string>
+    <!-- 问答-->
+    <string name="topic">问答</string>
+    <!-- 发表话题-->
+    <string name="create_topic">发表</string>
+    <string name="topic_search">问答搜索</string>
+    <string name="create_comment">发表评论</string>
+    <string name="input_topic">输入标题(30字以内)</string>
+    <string name="hint_topic_content">内容...</string>
     <!-- 圈子 -->
     <string name="group">圈子</string>
     <string name="chat">聊天</string>
+    <string name="group_settings">圈子信息</string>
     <string name="search_group">圈子搜索</string>
     <string name="create_group">创建圈子</string>
     <string name="create_age">出生年月(请选择宝宝出生日期)</string>
@@ -74,12 +80,6 @@
     <string name="group_label">圈子标签</string>
     <string name="select_label">标签选择</string>
     <string name="select_label_max">最多选择三个标签</string>
-    <!-- 发表话题-->
-    <string name="create_topic">发表话题</string>
-    <string name="topic_search">话题搜索</string>
-    <string name="create_comment">发表评论</string>
-    <string name="input_topic">输入标题(30字以内)</string>
-    <string name="hint_topic_content">话题内容...</string>
     <!-- 首页搜索-->
     <string name="multiple_product">专题</string>
     <string name="single_product">单品</string>

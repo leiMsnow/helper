@@ -76,13 +76,13 @@ public class FirstRegisterFragment extends BaseToolBarFragment
         else if (v == btnRegister) {
             if (regEvent != null) {
                 btnRegister.setProgress(50);
-                new Handler().postDelayed(new Runnable() {
+                btnRegister.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
                                 mVerifyCode, FirstRegisterFragment.this);
                     }
-                }, 2 * 1000);
+                }, 1 * 1000);
 
             } else {
                 //提示获取验证码

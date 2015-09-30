@@ -20,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongban.corelib.R;
 
 
 /**
@@ -43,6 +44,7 @@ public class BaseAdapterHelper {
     public void setmPosition(int mPosition) {
         this.mPosition = mPosition;
     }
+
     /**
      * 是否第一次创建view
      */
@@ -144,6 +146,7 @@ public class BaseAdapterHelper {
         view.setText(value);
         return this;
     }
+
     public BaseAdapterHelper setText(int viewId, String value) {
         TextView view = retrieveView(viewId);
         view.setText(value);
@@ -189,14 +192,16 @@ public class BaseAdapterHelper {
      * @return
      */
     public BaseAdapterHelper setImageBitmap(int viewId, String url) {
-        ImageView view = retrieveView(viewId);
-        Glide.with(mContext).load(url).into(view);
-        return this;
+        return setImageBitmap(viewId, url, R.mipmap.ic_default_image);
     }
 
-    public BaseAdapterHelper setImageBitmap(int viewId, String url,int defaultResId) {
+    public BaseAdapterHelper setImageBitmap(int viewId, String url, int defaultResId) {
         ImageView view = retrieveView(viewId);
-        Glide.with(mContext).load(url).error(defaultResId).into(view);
+        Glide.with(mContext)
+                .load(url)
+                .placeholder(defaultResId)
+                .error(defaultResId)
+                .into(view);
         return this;
     }
 
@@ -204,12 +209,16 @@ public class BaseAdapterHelper {
      * 图片展示-用于展示res中的图片
      *
      * @param viewId
-     * @param resid
+     * @param resId
      * @return
      */
-    public BaseAdapterHelper setImageBitmap(int viewId, int resid) {
+    public BaseAdapterHelper setImageBitmap(int viewId, int resId) {
         ImageView view = retrieveView(viewId);
-        Glide.with(mContext).load(resid).into(view);
+        Glide.with(mContext)
+                .load(resId)
+                .placeholder(R.mipmap.ic_default_image)
+                .error(R.mipmap.ic_default_image)
+                .into(view);
         return this;
     }
 
@@ -250,6 +259,7 @@ public class BaseAdapterHelper {
         view.setVisibility(visible);
         return this;
     }
+
     public BaseAdapterHelper setMax(int viewId, int max) {
         ProgressBar view = retrieveView(viewId);
         view.setMax(max);

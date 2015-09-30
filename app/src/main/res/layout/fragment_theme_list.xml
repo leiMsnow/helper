@@ -1,13 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.tongban.corelib.widget.view.LoadMoreListView
         android:id="@+id/lv_theme"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:scrollbars="none"/>
+        android:listSelector="@color/transparent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:scrollbars="none" />
+
 </FrameLayout>

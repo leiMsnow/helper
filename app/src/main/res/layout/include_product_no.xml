@@ -21,7 +21,6 @@
         android:layout_below="@+id/tv_title"
         android:layout_marginLeft="8dp"
         android:gravity="bottom"
-        android:text="01"
         android:textColor="@color/theme_red"
         android:textSize="14sp"
         android:textStyle="bold" />
