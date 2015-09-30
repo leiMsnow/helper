@@ -6,12 +6,10 @@
         android:id="@+id/gv_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="80dp"
         android:horizontalSpacing="8dp"
+        android:listSelector="@color/transparent"
         android:numColumns="2"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:padding="16dp"
         android:scrollbars="none"
-        android:stretchMode="columnWidth" />
+        android:verticalSpacing="8dp" />
 </FrameLayout>

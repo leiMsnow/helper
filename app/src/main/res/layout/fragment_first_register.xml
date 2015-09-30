@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/weak_grey">
+    android:background="@color/white">
 
     <!-- 手机号-->
     <RelativeLayout
@@ -17,8 +17,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="16dp"
             android:text="@string/phone_num"
             android:textColor="@color/normal_grey" />
 
@@ -46,8 +45,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="16dp"
             android:text="@string/pwd"
             android:textColor="@color/normal_grey" />
 
@@ -84,8 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:paddingLeft="16dp"
                 android:text="@string/verify_code"
                 android:textColor="@color/normal_grey" />
 
@@ -104,13 +101,14 @@
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
             android:background="@null"
             android:clickable="true"
             android:enabled="false"
             android:focusable="true"
             android:gravity="center"
             android:text="@string/get_verify_code"
-            android:textColor="@color/selector_text_color" />
+            android:textColor="@color/selector_click_text_color" />
 
         <View
             style="@style/HorizontalLine"
@@ -122,20 +120,20 @@
         android:id="@+id/tv_agree"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:paddingLeft="8dp"
         android:layout_below="@+id/rl_verify_code"
         android:gravity="center"
-        android:textColor="@color/normal_grey"
+        android:paddingLeft="16dp"
         android:text="注册即表示您阅读并同意《用户协议》"
+        android:textColor="@color/normal_grey"
         android:textSize="12sp" />
 
     <com.dd.CircularProgressButton
         android:id="@+id/btn_register"
         style="@style/CommonButtonStyle"
-        app:cpb_textIdle="@string/register"
         app:cpb_colorIndicator="@drawable/idle_state_selector"
         app:cpb_colorIndicatorBackground="@color/white"
         app:cpb_colorProgress="@drawable/idle_state_selector"
-        app:cpb_selectorIdle="@drawable/idle_state_selector" />
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
+        app:cpb_textIdle="@string/register" />
 
 </RelativeLayout>

@@ -53,9 +53,9 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:changeColor="@color/main_deep_orange"
+                app:changeColor="@color/theme_red"
                 app:changeText="@string/single_product"
-                app:defaultColor="@color/normal_dark_grey" />
+                app:defaultColor="@color/normal_grey" />
 
             <TextView
                 android:id="@+id/tv_single_product_num"
@@ -80,9 +80,9 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:changeColor="@color/main_deep_orange"
+                app:changeColor="@color/theme_red"
                 app:changeText="@string/topic"
-                app:defaultColor="@color/normal_dark_grey" />
+                app:defaultColor="@color/normal_grey" />
 
             <TextView
                 android:id="@+id/tv_collect_topic_num"
@@ -101,7 +101,7 @@
         android:id="@+id/v_indicator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/main_deep_orange" />
+        android:background="@color/theme_red" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_result"

@@ -27,6 +27,7 @@
                 android:background="@color/white"
                 android:horizontalSpacing="4dp"
                 android:numColumns="5"
+                android:padding="16dp"
                 android:verticalSpacing="4dp" />
 
 
@@ -34,13 +35,14 @@
 
             <TextView
                 android:id="@+id/tv_more_member"
+                style="@style/MainContent.Tips"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="32dp"
                 android:background="@color/white"
                 android:gravity="right|center_vertical"
                 android:paddingRight="16dp"
-                android:text="展开全部"
-                android:textColor="@color/selector_grey_to_orange" />
+                android:text="查看全部"
+                android:visibility="gone" />
             <!--圈子名称-->
             <RelativeLayout
                 android:id="@+id/ll_name"
@@ -87,9 +89,10 @@
 
                 <com.tongban.corelib.widget.view.CircleImageView
                     android:id="@+id/iv_group_creator"
+                    style="@style/MainImagePortrait"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tv_group_creator" />
 
                 <TextView
@@ -149,8 +152,9 @@
 
                     <TextView
                         style="@style/ChatSettingLeftText"
-                        android:layout_marginBottom="4dp"
-                        android:text="圈子设置" />
+                        android:layout_marginTop="8dp"
+                        android:text="圈子设置"
+                        android:textColor="@color/normal_grey"/>
 
                 </LinearLayout>
 
@@ -166,7 +170,8 @@
                         android:id="@+id/chb_remind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" />
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
 
                 </RelativeLayout>
                 <!-- 置顶聊天 -->
@@ -181,7 +186,8 @@
                         android:id="@+id/chb_top"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" />
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
 
                 </RelativeLayout>
                 <!--清空聊天记录-->
@@ -208,13 +214,15 @@
 
                 </LinearLayout>
 
-
                 <Button
                     android:id="@+id/btn_quit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/selector_btn_bg_base_red"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/selector_join_btn_bg"
                     android:text="退出并删除"
                     android:textColor="@color/white" />
             </LinearLayout>

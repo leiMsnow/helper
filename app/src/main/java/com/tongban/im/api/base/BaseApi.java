@@ -104,7 +104,7 @@ public class BaseApi {
     //测试环境
     private static String TEST_HOST = "http://192.168.81.9:8080/ddim/";
 
-    private static String TEST_HOST1 = "http://101.200.83.100/ddim/";
+    private static String DEFAULT_HOST1 = "http://101.200.83.100/ddim/";
 
     protected BaseApi(Context context) {
         this.mContext = context;

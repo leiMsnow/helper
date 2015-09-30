@@ -1,7 +1,6 @@
 package com.tongban.im.fragment.account;
 
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -82,7 +81,7 @@ public class FirstRegisterFragment extends BaseToolBarFragment
                         AccountApi.getInstance().register(mPhoneNum, mPwd, mVerifyId,
                                 mVerifyCode, FirstRegisterFragment.this);
                     }
-                }, 1 * 1000);
+                }, 2 * 1000);
 
             } else {
                 //提示获取验证码

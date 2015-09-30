@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textColor="@drawable/selector_usercenter_text_color" />
+        android:textColor="@color/selector_grey_to_red" />
 
 </RelativeLayout>

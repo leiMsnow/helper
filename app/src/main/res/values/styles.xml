@@ -35,7 +35,7 @@
     <style name="MainContent.Tips">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/normal_grey</item>
-        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:lineSpacingExtra">1dp</item>
     </style>
     <!-- 大间距内容样式-->
     <style name="MainContent.MaxSpacing">
@@ -96,8 +96,7 @@
     <!-- 聊天设置父容器样式-->
     <style name="ChatSettingLayout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:minHeight">48dp</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
@@ -112,6 +111,7 @@
         <item name="android:textColor">@color/main_brown</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">14sp</item>
     </style>
     <!--聊天设置右侧文本样式-->
     <style name="ChatSettingRightText">
@@ -122,6 +122,8 @@
         <item name="android:singleLine">true</item>
         <item name="android:focusable">false</item>
         <item name="android:clickable">false</item>
+        <item name="android:textColor">@color/normal_dark_grey</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:layout_marginLeft">8dp</item>
     </style>
     <!--提示框样式-->
@@ -248,8 +250,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/selector_click_text_color</item>
-        <item name="android:paddingLeft">4dp</item>
-        <item name="android:paddingRight">4dp</item>
     </style>
 
     <!-- 通用按钮样式-->

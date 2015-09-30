@@ -20,7 +20,9 @@ import com.tongban.im.model.BaseEvent;
  *
  * @author fushudi
  */
-public class ProductListFragment extends BaseToolBarFragment implements AdapterView.OnItemClickListener {
+public class ProductListFragment extends BaseToolBarFragment
+        implements AdapterView.OnItemClickListener {
+
     private ProductBookAdapter mAdapter;
     private GridView mGridView;
 

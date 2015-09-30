@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/weak_grey">
+    android:background="@color/white">
 
 
     <include
@@ -21,8 +21,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="16dp"
             android:text="@string/phone_num"
             android:textColor="@color/normal_grey" />
 
@@ -51,8 +50,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="16dp"
             android:text="@string/pwd"
             android:textColor="@color/normal_grey" />
 
@@ -74,7 +72,7 @@
         android:id="@+id/tv_forget_pwd"
         style="@style/ClickTextViewStyle"
         android:layout_below="@+id/rl_pwd_parent"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/forget_pwd" />
 
@@ -83,7 +81,7 @@
         style="@style/ClickTextViewStyle"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/rl_pwd_parent"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/new_register" />
 
@@ -102,29 +100,29 @@
             android:layout_gravity="center_horizontal"
             android:clickable="true"
             android:gravity="center"
-            android:textColor="@color/normal_grey"
-            android:textSize="12sp"
             android:onClick="setApiUrl"
-            android:text="第三方登录" />
+            android:text="第三方登录"
+            android:textColor="@color/normal_grey"
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/iv_wechat_login"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginBottom="8dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
             android:onClick="onClick"
-            android:src="@mipmap/ic_wechat" />
+            android:src="@drawable/ic_wechat" />
 
     </LinearLayout>
 
     <com.dd.CircularProgressButton xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/btn_login"
         style="@style/CommonButtonStyle"
-        app:cpb_selectorIdle="@drawable/idle_state_selector"
-        app:cpb_colorProgress="@drawable/idle_state_selector"
         app:cpb_colorIndicator="@drawable/idle_state_selector"
         app:cpb_colorIndicatorBackground="@color/white"
+        app:cpb_colorProgress="@drawable/idle_state_selector"
+        app:cpb_selectorIdle="@drawable/idle_state_selector"
         app:cpb_textIdle="@string/login" />
 
 </RelativeLayout>

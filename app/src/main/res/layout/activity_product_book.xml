@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp" />
 
-            <com.tongban.corelib.widget.view.indicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.tongban.corelib.widget.view.indicator.CirclePageIndicator
                 android:id="@+id/lpi_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

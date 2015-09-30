@@ -49,7 +49,7 @@
             android:focusable="true"
             android:gravity="center"
             android:text="@string/get_verify_code"
-            android:textColor="@color/selector_text_color" />
+            android:textColor="@color/selector_click_text_color" />
 
         <View
             style="@style/HorizontalLine"
