@@ -7,7 +7,7 @@
     <!-- 主要按钮的描边，icon按下效果-->
     <color name="main_deep_orange">#fb866f</color>
     <!-- 用于导航标题，一级icon默认效果-->
-    <color name="main_brown">#794503</color>
+    <color name="main_brown">@color/main_black</color>
     <!-- 内容标题、类目名称、用户昵称等-->
     <color name="main_black">#444444</color>
 

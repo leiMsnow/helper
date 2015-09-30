@@ -98,7 +98,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="32dp"
-        android:background="#50ffffff"
+        android:background="@color/translucent_a10"
         android:orientation="horizontal">
 
         <!-- 粉丝、关注、话题数量布局-->
@@ -106,25 +106,24 @@
             android:id="@+id/rl_follow_num"
             style="@style/UserInfoAttrParent">
 
-
             <!-- 粉丝数量布局-->
             <RelativeLayout style="@style/UserInfoAttrLayout">
                 <!-- 粉丝数量文本-->
                 <TextView
                     android:id="@+id/tv_follow_num"
-                    style="@style/UserInfoAttrTopText"
+                    style="@style/UserInfoAttr.TopText"
                     android:text="0" />
                 <!-- 粉丝badge-->
                 <View
                     android:id="@+id/badge_fans"
                     style="@style/UserInfoBadge"
                     android:layout_toRightOf="@+id/tv_follow_num"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/tv_follow"
-                style="@style/UserInfoAttrBottomText"
+                style="@style/UserInfoAttr.BottomText"
                 android:text="@string/follow" />
 
         </LinearLayout>
@@ -139,7 +138,7 @@
                 <!-- 关注数量-->
                 <TextView
                     android:id="@+id/tv_fans_num"
-                    style="@style/UserInfoAttrTopText"
+                    style="@style/UserInfoAttr.TopText"
                     android:text="0" />
                 <!-- 关注badge-->
                 <View
@@ -151,7 +150,7 @@
 
             <TextView
                 android:id="@+id/tv_fans"
-                style="@style/UserInfoAttrBottomText"
+                style="@style/UserInfoAttr.BottomText"
                 android:text="@string/fans" />
 
         </LinearLayout>
@@ -166,7 +165,7 @@
                 <!-- 圈子数量-->
                 <TextView
                     android:id="@+id/tv_group_num"
-                    style="@style/UserInfoAttrTopText"
+                    style="@style/UserInfoAttr.TopText"
                     android:text="0" />
                 <!-- 圈子badge-->
                 <View
@@ -179,7 +178,7 @@
 
             <TextView
                 android:id="@+id/tv_group"
-                style="@style/UserInfoAttrBottomText"
+                style="@style/UserInfoAttr.BottomText"
                 android:text="@string/group" />
         </LinearLayout>
 

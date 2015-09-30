@@ -12,7 +12,6 @@
     <style name="AppTheme.Red.Base.Translucent">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/translucent_a80</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
 
 </resources>

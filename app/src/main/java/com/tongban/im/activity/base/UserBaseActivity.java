@@ -97,10 +97,6 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         lvUserCenter.setHeaderLayoutParams(localObject);
     }
 
-    @Override
-    protected void initData() {
-
-    }
 
     @Override
     protected void initListener() {
@@ -180,17 +176,15 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
 
         if (!TextUtils.isEmpty(mUserInfo.getNick_name())) {
             tvUserName.setText(mUserInfo.getNick_name());
-        } else {
-            tvUserName.setText("用户还未设置昵称");
         }
 
         if (mUserInfo.getPortrait_url() != null) {
             setUserPortrait(mUserInfo.getPortrait_url().getMin(), ivUserPortrait);
-            setUserPortrait(mUserInfo.getPortrait_url().getMax(), ivZoomBottom);
+//            setUserPortrait(mUserInfo.getPortrait_url().getMax(), ivZoomBottom);
         } else {
             int resId = (Integer) SPUtils.
                     get(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-            ivZoomBottom.setImageResource(resId);
+//            ivZoomBottom.setImageResource(resId);
             ivUserPortrait.setImageResource(resId);
         }
         if (mUserInfo.getChild_info() != null &&

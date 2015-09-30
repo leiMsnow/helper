@@ -9,7 +9,7 @@ import butterknife.ButterKnife;
  * 1.统一的模板方法
  * 2.加入注解框架
  */
-public abstract class BaseTemplateActivity extends BaseActivity {
+public abstract class BaseTemplateActivity extends BasisActivity {
 
 
     @Override

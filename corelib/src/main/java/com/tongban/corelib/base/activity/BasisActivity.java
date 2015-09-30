@@ -9,9 +9,7 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 
 import com.tongban.corelib.base.ActivityContainer;
-import com.tongban.corelib.model.ImageFolder;
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ScreenUtils;
 
 /**
@@ -19,7 +17,7 @@ import com.tongban.corelib.utils.ScreenUtils;
  * 1.记录打开的activity
  * 2.控制activity右滑关闭
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BasisActivity extends AppCompatActivity {
 
     protected Context mContext;
 
@@ -36,6 +34,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //手指上下滑动时的最小速度
     private static final int Y_SPEED_MIN = 1000;
+    //手指滑动起始位置
+    private static final int X_START_LOCATION = 50;
     //手指上下滑时的最小距离
     private static final int Y_DISTANCE_MIN = 100;
     //手指向右滑动时的最小距离
@@ -63,8 +63,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        // 设置滑动的距离为屏幕的1/2
-        X_DISTANCE_MIN = ScreenUtils.getScreenWidth(mContext) / 2;
+        // 设置滑动的距离为屏幕的1/3
+        X_DISTANCE_MIN = ScreenUtils.getScreenWidth(mContext) / 3;
     }
 
     @Override
@@ -97,11 +97,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 //获取顺时速度
                 int ySpeed = getScrollVelocity();
                 // 关闭Activity需满足以下条件：
+                // x轴起始的位置 < 设定的位置
                 // x轴滑动的距离 > 滑动的距离
                 // y轴滑动的距离 < 滑动的距离
                 // y轴滑动的速度 < 设定的速度
                 // 是否需要关闭activity
-                if (distanceX > X_DISTANCE_MIN
+                if (xD < X_START_LOCATION
+                        && distanceX > X_DISTANCE_MIN
                         && (distanceY < Y_DISTANCE_MIN
                         && distanceY > -Y_DISTANCE_MIN)
                         && ySpeed < Y_SPEED_MIN) {

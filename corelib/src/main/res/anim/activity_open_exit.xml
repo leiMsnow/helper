@@ -10,8 +10,8 @@
         android:pivotX="50%"
         android:pivotY="50%"
         android:startOffset="0"
-        android:toXScale="0.95"
-        android:toYScale="0.95" />
+        android:toXScale="0.9"
+        android:toYScale="0.9" />
 
 </set>
 

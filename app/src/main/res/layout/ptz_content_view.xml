@@ -6,57 +6,24 @@
 
     <TextView
         android:id="@+id/tv_my_topic"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/selector_white_to_gray"
+        style="@style/UserCenterItem"
         android:drawableLeft="@mipmap/ic_my_topic"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:text="@string/my_topic"
-        android:visibility="gone" />
+        android:text="@string/my_topic" />
 
     <TextView
         android:id="@+id/tv_my_collect"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        style="@style/UserCenterItem"
         android:layout_below="@+id/tv_my_topic"
         android:layout_marginTop="1dp"
-        android:background="@drawable/selector_white_to_gray"
         android:drawableLeft="@mipmap/ic_my_collect"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:text="@string/my_collect"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tv_feedback"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/tv_my_collect"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_menu_circle_normal"
-        android:drawablePadding="8dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:text="@string/feedback"
-        android:visibility="gone" />
+        android:text="@string/my_collect" />
 
     <TextView
         android:id="@+id/tv_settings"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/tv_feedback"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/selector_white_to_gray"
-        android:drawableLeft="@mipmap/ic_my_settings"
-        android:drawablePadding="8dp"
+        style="@style/UserCenterItem"
+        android:layout_below="@+id/tv_my_collect"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="8dp"
-        android:text="@string/settings"
-        android:visibility="gone" />
+        android:drawableLeft="@mipmap/ic_my_settings"
+        android:text="@string/settings" />
 </RelativeLayout>

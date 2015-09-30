@@ -199,7 +199,6 @@ public class BaseAdapterHelper {
         ImageView view = retrieveView(viewId);
         Glide.with(mContext)
                 .load(url)
-                .placeholder(defaultResId)
                 .error(defaultResId)
                 .into(view);
         return this;
@@ -216,7 +215,6 @@ public class BaseAdapterHelper {
         ImageView view = retrieveView(viewId);
         Glide.with(mContext)
                 .load(resId)
-                .placeholder(R.mipmap.ic_default_image)
                 .error(R.mipmap.ic_default_image)
                 .into(view);
         return this;

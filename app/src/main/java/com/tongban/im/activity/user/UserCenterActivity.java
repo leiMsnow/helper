@@ -1,19 +1,11 @@
 package com.tongban.im.activity.user;
 
 
-import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.tongban.corelib.utils.LogUtil;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.api.UserCenterApi;
@@ -21,7 +13,6 @@ import com.tongban.im.model.BaseEvent;
 
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.model.Event;
 
 /**
  * 用户中心（他人的）
@@ -47,12 +38,6 @@ public class UserCenterActivity extends UserBaseActivity {
         getUserInfo();
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        getUserInfo();
-    }
-
-
     /**
      * 获取用户资料
      */
@@ -60,7 +45,6 @@ public class UserCenterActivity extends UserBaseActivity {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             String visitorId = uri.getQueryParameter("visitorId");
-            Log.d("UserCenterActivity",visitorId);
             UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
         }
     }

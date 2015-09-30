@@ -2,7 +2,6 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="actionMenuTextColor">@color/white</item>
         <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>

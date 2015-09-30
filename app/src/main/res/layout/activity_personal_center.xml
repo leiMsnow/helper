@@ -7,7 +7,7 @@
         android:id="@+id/sv_user_center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 
     <!-- 标题栏-->
     <RelativeLayout
@@ -21,23 +21,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:singleLine="true"
-            android:onClick="onClick"
+            android:layout_marginTop="2dp"
             android:clickable="true"
+            android:onClick="onClick"
+            android:singleLine="true"
             android:text="@string/user_center"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/selector_transparent_to_gray"
-            android:padding="8dp"
+            android:padding="16dp"
             android:src="@mipmap/ic_closed" />
 
     </RelativeLayout>
