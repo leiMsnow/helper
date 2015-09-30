@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -36,6 +37,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTouchFinish(false);
         ActivityContainer.getInstance().finishActivity(this);
     }
 
