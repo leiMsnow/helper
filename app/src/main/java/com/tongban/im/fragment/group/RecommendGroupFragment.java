@@ -72,7 +72,6 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
 
     @Override
     protected void initListener() {
-        setRequestApiListener(this);
         lvGroupList.setOnLoadMoreListener(this);
         mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }

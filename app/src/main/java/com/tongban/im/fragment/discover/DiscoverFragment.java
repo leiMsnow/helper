@@ -62,7 +62,6 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected void initListener() {
-        setRequestApiListener(this);
         ivUserPortrait.setOnClickListener(this);
         ivSearchAll.setOnClickListener(this);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -191,7 +190,6 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     public void onRefreshBegin(PtrFrameLayout ptrFrameLayout) {
-
         onRequest();
     }
 

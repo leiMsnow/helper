@@ -31,11 +31,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
 
     protected Toolbar mToolbar;
     protected View mEmptyParentView;
-    protected RequestApiListener requestApiListener;
-
-    public void setRequestApiListener(RequestApiListener requestApiListener) {
-        this.requestApiListener = requestApiListener;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +60,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
     }
 
     protected int getToolbarHeight() {
-        int height = 0;
-//        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
-//        if (mToolbar != null) {
-        height = DensityUtils.dp2px(mContext, 56);
-//        }
-        return height;
+        return DensityUtils.dp2px(mContext, 56);
     }
 
 
@@ -104,7 +94,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
     @Override
     public void setEmptyView(ApiErrorResult result) {
         if (mEmptyParentView == null) {
-            mEmptyParentView =  EmptyViewUtils.getInstance()
+            mEmptyParentView = EmptyViewUtils.getInstance()
                     .createEmptyView(mContext);
 
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
@@ -114,7 +104,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
             EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
         }
         EmptyViewUtils.getInstance().
-                showEmptyView(result, mEmptyParentView, getToolbarHeight(), requestApiListener);
+                showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
     }
 
     /**
@@ -127,7 +117,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
     /**
      * 注销
      */
-    protected void logout(){
+    protected void logout() {
         if (RongIM.getInstance() != null && RongIM.getInstance().getRongIMClient() != null)
             RongIM.getInstance().logout();
         SPUtils.clear(mContext);

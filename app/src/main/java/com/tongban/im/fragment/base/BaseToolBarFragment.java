@@ -23,12 +23,6 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
     protected View mToolbar;
     private View mEmptyParentView;
 
-    protected RequestApiListener requestApiListener;
-
-    public void setRequestApiListener(RequestApiListener requestApiListener) {
-        this.requestApiListener = requestApiListener;
-    }
-
     /**
      * 设置用户头像信息
      *
@@ -62,7 +56,7 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
             EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
         }
         EmptyViewUtils.getInstance().
-                showEmptyView(result, mEmptyParentView, getToolbarHeight(), requestApiListener);
+                showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
 
     }
 

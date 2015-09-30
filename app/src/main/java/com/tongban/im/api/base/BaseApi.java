@@ -117,7 +117,7 @@ public class BaseApi {
      * @return 服务器地址
      */
     public String getHostUrl() {
-        return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,HOST_FLAG, DEFAULT_HOST).toString();
+        return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
     /**
@@ -136,11 +136,11 @@ public class BaseApi {
                 saveUrl = TEST_HOST;
                 break;
         }
-        SPUtils.put(mContext,SPUtils.NO_CLEAR_FILE, HOST_FLAG, saveUrl);
+        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, saveUrl);
     }
 
     public void setHostUrl(Context mContext, String url) {
-        SPUtils.put(mContext,SPUtils.NO_CLEAR_FILE, HOST_FLAG, url);
+        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, url);
     }
 
     /**
@@ -160,6 +160,9 @@ public class BaseApi {
      */
     protected void simpleRequest(final String url, Map params,
                                  final IApiCallback callback) {
+        if (callback != null)
+            callback.onStartApi();
+
         if (!NetUtils.isConnected(mContext)) {
             ApiErrorResult errorResult = new ApiErrorResult();
             errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
@@ -167,7 +170,8 @@ public class BaseApi {
                     .getString(com.tongban.corelib.R.string.api_error));
             errorResult.setErrorCode(API_NO_NETWORK);
             errorResult.setApiName(url);
-            callback.onFailure(errorResult);
+            if (callback != null)
+                callback.onFailure(errorResult);
             return;
         }
         if (url == null || params == Collections.emptyMap()) {

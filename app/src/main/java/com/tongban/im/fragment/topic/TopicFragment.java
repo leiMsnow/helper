@@ -70,7 +70,6 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
 
     @Override
     protected void initListener() {
-        setRequestApiListener(this);
         ibSearch.setOnClickListener(this);
         ibCreate.setOnClickListener(this);
         lvTopicList.setOnItemClickListener(this);

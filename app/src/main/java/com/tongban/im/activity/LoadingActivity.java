@@ -1,6 +1,7 @@
 package com.tongban.im.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 
@@ -31,6 +32,12 @@ public class LoadingActivity extends AccountBaseActivity {
     private int tryCount = 0;
 
     private Handler handler = new Handler();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTouchFinish(false);
+    }
 
     @Override
     protected int getLayoutRes() {

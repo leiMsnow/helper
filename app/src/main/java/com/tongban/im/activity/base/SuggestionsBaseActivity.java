@@ -22,10 +22,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * 通用的照片处理父类
- * 裁剪
- * 拍照
- * 相册
+ * 通用的搜索父类
  * Created by fushudi on 2015/8/13.
  */
 public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implements
@@ -78,7 +75,6 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
 
     @Override
     protected void initListener() {
-        setRequestApiListener(this);
         suggestionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,

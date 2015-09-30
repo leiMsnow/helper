@@ -9,12 +9,15 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.model.ImageFolder;
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ScreenUtils;
 
 /**
  * 基础activity，处理通用功能：
- * 此类用来配置系统级的属性
+ * 1.记录打开的activity
+ * 2.控制activity右滑关闭
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -33,23 +36,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //手指上下滑动时的最小速度
     private static final int Y_SPEED_MIN = 1000;
-
-    //手指向右滑动时的最小距离
-    private static int X_DISTANCE_MIN = 500;
-
-    //手指向上滑或下滑时的最小距离
+    //手指上下滑时的最小距离
     private static final int Y_DISTANCE_MIN = 100;
+    //手指向右滑动时的最小距离
+    private int X_DISTANCE_MIN = 0;
+
     //记录手指按下时的横坐标。
-    private float xDown;
-
+    private float xD;
     //记录手指按下时的纵坐标。
-    private float yDown;
-
+    private float yD;
     //记录手指移动时的横坐标。
-    private float xMove;
-
+    private float xM;
     //记录手指移动时的纵坐标。
-    private float yMove;
+    private float yM;
 
     //用于计算手指滑动的速度。
     private VelocityTracker mVelocityTracker;
@@ -64,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        // 设置滑动的距离为屏幕的1/2
         X_DISTANCE_MIN = ScreenUtils.getScreenWidth(mContext) / 2;
     }
 
@@ -86,27 +85,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         createVelocityTracker(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                xDown = event.getRawX();
-                yDown = event.getRawY();
+                xD = event.getRawX();
+                yD = event.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                xMove = event.getRawX();
-                yMove = event.getRawY();
+                xM = event.getRawX();
+                yM = event.getRawY();
                 //滑动的距离
-                int distanceX = (int) (xMove - xDown);
-                int distanceY = (int) (yMove - yDown);
+                int distanceX = (int) (xM - xD);
+                int distanceY = (int) (yM - yD);
                 //获取顺时速度
                 int ySpeed = getScrollVelocity();
-                //关闭Activity需满足以下条件：
-                //1.x轴滑动的距离>X_DISTANCE_MIN
-                //2.y轴滑动的距离在YDISTANCE_MIN范围内
-                //3.y轴上（即上下滑动的速度）<XSPEED_MIN，
-                // 如果大于，则认为用户意图是在上下滑动而非左滑结束Activity
+                // 关闭Activity需满足以下条件：
+                // x轴滑动的距离 > 滑动的距离
+                // y轴滑动的距离 < 滑动的距离
+                // y轴滑动的速度 < 设定的速度
+                // 是否需要关闭activity
                 if (distanceX > X_DISTANCE_MIN
-                        && (distanceY < Y_DISTANCE_MIN && distanceY > -Y_DISTANCE_MIN)
+                        && (distanceY < Y_DISTANCE_MIN
+                        && distanceY > -Y_DISTANCE_MIN)
                         && ySpeed < Y_SPEED_MIN) {
+
                     if (isFinish)
                         finish();
+
                 }
                 break;
             case MotionEvent.ACTION_UP:
