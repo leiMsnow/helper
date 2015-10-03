@@ -17,7 +17,7 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
  * Created by zhangleilei on 9/17/15.
  */
 public class UMSocializeOauthListenerImpl implements
-        SocializeListeners.UMAuthListener{
+        SocializeListeners.UMAuthListener {
 
     private Context mContext;
     private UMSocialService mController;
@@ -43,21 +43,22 @@ public class UMSocializeOauthListenerImpl implements
     @Override
     public void onComplete(Bundle bundle, SHARE_MEDIA share_media) {
         LogUtil.d("oauth-onComplete" + share_media.toString());
+        oauthBackListener.oauthStart();
         //获取相关授权信息
         mController.getPlatformInfo(mContext, share_media
-                , new UMSocializeOauthDataListenerImpl(share_media,oauthBackListener));
+                , new UMSocializeOauthDataListenerImpl(share_media, oauthBackListener));
     }
 
     @Override
     public void onError(SocializeException e, SHARE_MEDIA share_media) {
         LogUtil.d("oauth-onError" + e.getMessage());
-        oauthBackListener.oauthFailure();
+        oauthBackListener.oauthFailure("授权失败");
     }
 
     @Override
     public void onCancel(SHARE_MEDIA share_media) {
         LogUtil.d("oauth-onCancel" + share_media.toString());
-        oauthBackListener.oauthFailure();
+        oauthBackListener.oauthFailure("已取消授权");
     }
 
     //添加微信平台

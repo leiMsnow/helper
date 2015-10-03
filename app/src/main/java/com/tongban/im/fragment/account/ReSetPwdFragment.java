@@ -5,30 +5,43 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 找回密码，第二步
  *
  * @author fushudi
  */
-public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClickListener, TextWatcher {
+public class ReSetPwdFragment extends BaseToolBarFragment implements
+        TextWatcher {
 
-    private TextView tvPhoneNum;
-    private EditText etVerifyCode;
-    private Button tvVerifyCode;
-    private EditText etSetPwd;
-    private Button btnSubmit;
+    @Bind(R.id.tv_phone_num)
+    TextView tvPhoneNum;
+    @Bind(R.id.et_verify_code)
+    ClearEditText etVerifyCode;
+    @Bind(R.id.btn_verify_code)
+    Button btnVerifyCode;
+    @Bind(R.id.et_set_pwd)
+    ClearEditText etSetPwd;
+    @Bind(R.id.btn_submit)
+    Button btnSubmit;
 
     private String mVerifyCode, mPwd, mInputPhone;
 
@@ -36,18 +49,17 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
     private BaseEvent.RegisterEvent regEvent;
 
 
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.fragment_re_set_pwd;
+    public static ReSetPwdFragment getInstance(String mInputPhone) {
+        ReSetPwdFragment mResetPwdFragment = new ReSetPwdFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("mInputPhone", mInputPhone);
+        mResetPwdFragment.setArguments(bundle);
+        return mResetPwdFragment;
     }
 
     @Override
-    protected void initView() {
-        tvPhoneNum = (TextView) mView.findViewById(R.id.tv_phone_num);
-        etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
-        tvVerifyCode = (Button) mView.findViewById(R.id.btn_verify_code);
-        etSetPwd = (EditText) mView.findViewById(R.id.et_set_pwd);
-        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
+    protected int getLayoutRes() {
+        return R.layout.fragment_re_set_pwd;
     }
 
     @Override
@@ -60,12 +72,10 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
     @Override
     protected void initListener() {
         etVerifyCode.addTextChangedListener(this);
-        tvVerifyCode.setOnClickListener(this);
         etSetPwd.addTextChangedListener(this);
-        btnSubmit.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.btn_submit, R.id.btn_verify_code})
     public void onClick(View v) {
         if (v == btnSubmit) {
             if (regEvent == null) {
@@ -77,7 +87,7 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
             getActivity().finish();
 
         } // 获取手机验证码
-        else if (v == tvVerifyCode) {
+        else if (v == btnVerifyCode) {
             AccountApi.getInstance().getSMSCode(tvPhoneNum.getText().toString(), this);
         }
     }
@@ -87,7 +97,7 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
         // 获取验证码成功
         if (obj.registerEnum == BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE) {
             //构造CountDownTimer对象
-            mTime = new VerifyTimerCount(tvVerifyCode);
+            mTime = new VerifyTimerCount(btnVerifyCode);
             mTime.start();
             ToastUtil.getInstance(mContext).showToast(getString(R.string.verify_send_success));
         }
@@ -136,4 +146,5 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements View.OnClic
             mTime = null;
         }
     }
+
 }

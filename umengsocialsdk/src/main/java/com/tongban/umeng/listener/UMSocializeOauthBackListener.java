@@ -5,6 +5,9 @@ package com.tongban.umeng.listener;
  */
 public interface UMSocializeOauthBackListener {
 
+
+    void oauthStart();
+
     /**
      * 授权成功
      *
@@ -16,5 +19,5 @@ public interface UMSocializeOauthBackListener {
     /**
      * 授权失败
      */
-    void oauthFailure();
+    void oauthFailure(String message);
 }

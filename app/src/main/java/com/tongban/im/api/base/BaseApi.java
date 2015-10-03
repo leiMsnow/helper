@@ -183,7 +183,7 @@ public class BaseApi {
         }
         final String requestUrl = apiUrl;
         //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
-        final boolean disableCache = true;//isCurrentUrl(url);
+        final boolean disableCache = isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
 
         LogUtil.d("request-url:", requestUrl
@@ -210,7 +210,8 @@ public class BaseApi {
                             int statusCode = jsonObject.optInt("statusCode");
                             // 请求成功,数据回调给调用方
                             if (statusCode == API_SUCCESS) {
-                                callback.onComplete(jsonObject);
+                                if (callback != null)
+                                    callback.onComplete(jsonObject);
                             }
                             // 请求成功，但有错误信息返回
                             else {
@@ -225,7 +226,8 @@ public class BaseApi {
                                 errorResult.setErrorMessage(jsonObject.optString("statusDesc"));
                                 errorResult.setErrorCode(statusCode);
                                 errorResult.setApiName(url);
-                                callback.onFailure(errorResult);
+                                if (callback != null)
+                                    callback.onFailure(errorResult);
                             }
                         }
                     }
@@ -247,7 +249,8 @@ public class BaseApi {
                     errorResult.setErrorMessage(errorMessage);
                     errorResult.setErrorCode(API_URL_ERROR);
                     errorResult.setApiName(url);
-                    callback.onFailure(errorResult);
+                    if (callback != null)
+                        callback.onFailure(errorResult);
 
                 }
             }
@@ -275,14 +278,16 @@ public class BaseApi {
             // 添加请求到Volley队列
             mRequestQueue.add(request);
             // 回调到方法调用方,通知请求已经开始
-            callback.onStartApi();
+            if (callback != null)
+                callback.onStartApi();
         } catch (Exception e) {
             LogUtil.e("onError-request-json:", "解析json异常");
             ApiErrorResult errorResult = new ApiErrorResult();
             errorResult.setDisplayType(IApiCallback.DisplayType.Toast);
             errorResult.setErrorMessage("解析json异常");
             errorResult.setApiName(url);
-            callback.onFailure(errorResult);
+            if (callback != null)
+                callback.onFailure(errorResult);
         }
     }
 

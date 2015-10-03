@@ -39,7 +39,6 @@ public class NetUtils {
                 }
             }
         }
-        ToastUtil.getInstance(context).showToast(context.getString(R.string.api_error));
         return false;
     }
 

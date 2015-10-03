@@ -4,9 +4,12 @@ package com.tongban.im.fragment.account;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -15,6 +18,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
@@ -22,21 +26,29 @@ import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.user.EditUser;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.user.EditUser;
 import com.tongban.im.model.user.OtherRegister;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.CameraView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
  * 设置头像/填写用户昵称
  */
 public class EditUserFragment extends BaseToolBarFragment implements
-        View.OnClickListener, CommonImageResultActivity.IPhotoListener {
-    private ImageView ivPortrait;
-    private EditText etNickName;
-    private CircularProgressButton btnSubmit;
+        CommonImageResultActivity.IPhotoListener {
+
+    @Bind(R.id.iv_portrait)
+    CircleImageView ivPortrait;
+    @Bind(R.id.et_input_nickname)
+    EditText etInputNickname;
+    @Bind(R.id.btn_submit)
+    CircularProgressButton btnSubmit;
 
     private CameraView mCameraView;
 
@@ -60,13 +72,6 @@ public class EditUserFragment extends BaseToolBarFragment implements
     }
 
     @Override
-    protected void initView() {
-        ivPortrait = (ImageView) mView.findViewById(R.id.iv_portrait);
-        etNickName = (EditText) mView.findViewById(R.id.et_input_school);
-        btnSubmit = (CircularProgressButton) mView.findViewById(R.id.btn_submit);
-    }
-
-    @Override
     protected void initData() {
         if (getArguments() != null) {
             String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
@@ -77,8 +82,8 @@ public class EditUserFragment extends BaseToolBarFragment implements
                         });
                 otherRegister.setType(mOtherType);
                 setUserPortrait(otherRegister.getUrls().getMid(), ivPortrait);
-                etNickName.setText(otherRegister.getNickName());
-                mNickName = etNickName.getText().toString().trim();
+                etInputNickname.setText(otherRegister.getNickName());
+                mNickName = etInputNickname.getText().toString().trim();
                 updateUser(otherRegister.getUrls(), false);
             } else {
                 ivPortrait.setImageResource((Integer) SPUtils.get(mContext,
@@ -89,11 +94,9 @@ public class EditUserFragment extends BaseToolBarFragment implements
 
     @Override
     protected void initListener() {
-        ivPortrait.setOnClickListener(this);
-        btnSubmit.setOnClickListener(this);
     }
 
-    @Override
+    @OnClick({R.id.iv_portrait, R.id.btn_submit})
     public void onClick(View v) {
         //设置头像
         if (v == ivPortrait) {
@@ -101,7 +104,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
         }
         //点击提交按钮
         else if (v == btnSubmit) {
-            mNickName = etNickName.getText().toString().trim();
+            mNickName = etInputNickname.getText().toString().trim();
             if (TextUtils.isEmpty(mNickName)) {
                 ToastUtil.getInstance(mContext).showToast("请输入昵称");
                 return;
@@ -123,7 +126,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
 
                                     @Override
                                     public void uploadFailed(String error) {
-                                        updateUser(null);
+                                        ToastUtil.getInstance(mContext).showToast("头像上传失败,请重试");
                                     }
 
                                 });
@@ -158,7 +161,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                         }
                     }
                 }
-            }, 1 * 1000);
+            }, 2 * 1000);
 
         }
 
@@ -196,5 +199,4 @@ public class EditUserFragment extends BaseToolBarFragment implements
         final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivPortrait.setImageBitmap(bitmap);
     }
-
 }

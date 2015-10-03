@@ -10,9 +10,9 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -22,6 +22,7 @@ import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
+import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.activity.MainActivity;
 import com.tongban.im.activity.base.AccountBaseActivity;
@@ -34,6 +35,8 @@ import com.tongban.im.model.user.OtherRegister;
 import com.tongban.umeng.listener.UMSocializeOauthBackListener;
 import com.tongban.umeng.listener.UMSocializeOauthListenerImpl;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -42,15 +45,23 @@ import de.greenrobot.event.EventBus;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class LoginActivity extends AccountBaseActivity implements TextWatcher, View.OnClickListener
+public class LoginActivity extends AccountBaseActivity implements
+        TextWatcher
         , UMSocializeOauthBackListener {
 
-    private EditText etUser;
-    private EditText etPwd;
-    private TextView tvFindPwd;
-    private TextView tvRegister;
-    private ImageView btnWeChat;
-    private CircularProgressButton btnLogin;
+
+    @Bind(R.id.et_phone_num)
+    ClearEditText etPhoneNum;
+    @Bind(R.id.et_pwd)
+    ClearEditText etPwd;
+    @Bind(R.id.tv_forget_pwd)
+    TextView tvForgetPwd;
+    @Bind(R.id.tv_new_user_register)
+    TextView tvNewUserRegister;
+    @Bind(R.id.btn_wechat_login)
+    ImageView btnWechatLogin;
+    @Bind(R.id.btn_login)
+    CircularProgressButton btnLogin;
 
     private String mUser, mPwd;
     //是否其他设备登录进入
@@ -74,18 +85,9 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     }
 
     @Override
-    protected void initView() {
-        etUser = (EditText) findViewById(R.id.et_phone_num);
-        etPwd = (EditText) findViewById(R.id.et_pwd);
-        tvFindPwd = (TextView) findViewById(R.id.tv_forget_pwd);
-        tvRegister = (TextView) findViewById(R.id.tv_new_user_register);
-        btnLogin = (CircularProgressButton) findViewById(R.id.btn_login);
-        btnWeChat = (ImageView) findViewById(R.id.btn_wechat_login);
-        btnLogin.setIndeterminateProgressMode(true);
-    }
-
-    @Override
     protected void initData() {
+        btnLogin.setIndeterminateProgressMode(true);
+
         mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
         isOther = getIntent().getBooleanExtra(Consts.KEY_OTHER_CLIENT, false);
         if (isOther) {
@@ -100,18 +102,14 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
             dialog.show();
         }
         mUser = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, "").toString();
-        etUser.setText(mUser);
+        etPhoneNum.setText(mUser);
     }
 
 
     @Override
     protected void initListener() {
-        etUser.addTextChangedListener(this);
+        etPhoneNum.addTextChangedListener(this);
         etPwd.addTextChangedListener(this);
-        btnLogin.setOnClickListener(this);
-        tvFindPwd.setOnClickListener(this);
-        tvRegister.setOnClickListener(this);
-        btnWeChat.setOnClickListener(this);
         etPwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -135,7 +133,7 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
 
     @Override
     public void afterTextChanged(Editable s) {
-        mUser = etUser.getText().toString();
+        mUser = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();
         if (mUser.length() == 0 || mPwd.length() < 6) {
             btnLogin.setEnabled(false);
@@ -147,7 +145,8 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
@@ -163,8 +162,9 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
             EventBus.getDefault().register(this);
     }
 
-    @Override
+    @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_pwd, R.id.btn_wechat_login})
     public void onClick(View v) {
+        // 登录
         if (v == btnLogin) {
             btnLogin.setProgress(50);
             new Handler().postDelayed(new Runnable() {
@@ -172,14 +172,19 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
                 public void run() {
                     AccountApi.getInstance().login(mUser, mPwd, LoginActivity.this);
                 }
-            }, 1 * 1000);
-        } else if (v == tvRegister) {
+            }, 2 * 1000);
+        }
+        // 注册
+        else if (v == tvNewUserRegister) {
             TransferCenter.getInstance().startRegister();
             finish();
-        } else if (v == tvFindPwd) {
+        }
+        // 忘记密码
+        else if (v == tvForgetPwd) {
             startActivity(new Intent(mContext, FindPwdActivity.class));
-        } else if (v == btnWeChat) {
-            showProgress();
+        }
+        // 微信登录
+        else if (v == btnWechatLogin) {
             authListener.doWeCHatOauth();
         }
     }
@@ -223,28 +228,31 @@ public class LoginActivity extends AccountBaseActivity implements TextWatcher, V
     }
 
     @Override
+    public void oauthStart() {
+        showProgress();
+    }
+
+    @Override
     public void oauthSuccess(final String userInfoJson, final String type) {
         this.userInfoJson = userInfoJson;
         this.type = type;
         OtherRegister otherRegister = JSON.parseObject(userInfoJson,
                 new TypeReference<OtherRegister>() {
                 });
-
         AccountApi.getInstance().otherLogin(otherRegister.getOpenId(), type, this);
     }
 
 
     @Override
-    public void oauthFailure() {
-        ToastUtil.getInstance(mContext).showToast("授权登录失败");
+    public void oauthFailure(String message) {
         hideProgress();
+        ToastUtil.getInstance(mContext).showToast(message);
     }
 
 
     private int clickCount = 0;
     private long firstTime = 0;
     private long timeConsuming = 0;
-
 
     // 设置服务器地址 test
     public void setApiUrl(View v) {

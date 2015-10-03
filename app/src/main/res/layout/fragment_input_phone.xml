@@ -36,13 +36,7 @@
 
     <Button
         android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/selector_btn_bg_orange"
-        android:enabled="false"
-        android:text="@string/submit"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        style="@style/CommonButtonStyle"
+        android:text="@string/next_step" />
 
 </RelativeLayout>

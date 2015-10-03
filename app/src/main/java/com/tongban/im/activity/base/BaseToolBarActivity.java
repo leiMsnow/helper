@@ -1,6 +1,7 @@
 package com.tongban.im.activity.base;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.utils.EmptyViewUtils;
 
+import butterknife.Bind;
 import io.rong.imkit.RongIM;
 
 /**
@@ -29,7 +31,10 @@ import io.rong.imkit.RongIM;
  */
 public abstract class BaseToolBarActivity extends BaseApiActivity implements RequestApiListener {
 
+    @Nullable
+    @Bind(R.id.in_toolbar)
     protected Toolbar mToolbar;
+
     protected View mEmptyParentView;
 
     @Override
@@ -40,7 +45,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
 
 
     protected void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
+//        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
         if (mToolbar == null) {
             return;
         }
@@ -59,7 +64,9 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         return true;
     }
 
-    protected int getToolbarHeight() {
+    protected int getToolBarHeight() {
+        if (mToolbar == null)
+            return 0;
         return DensityUtils.dp2px(mContext, 56);
     }
 
@@ -101,7 +108,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
         } else {
             EmptyViewUtils.setAlphaEmptyView(mEmptyParentView);
         }
-        EmptyViewUtils.showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
+        EmptyViewUtils.showEmptyView(result, mEmptyParentView, getToolBarHeight(), this);
     }
 
     /**

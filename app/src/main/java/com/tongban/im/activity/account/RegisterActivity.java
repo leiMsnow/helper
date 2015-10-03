@@ -24,7 +24,21 @@ public class RegisterActivity extends RegisterBaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected int getLayoutRes() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        if (isEditUser) {
+            if (mToolbar != null)
+                mToolbar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void initData() {
         if (getIntent().getExtras() != null) {
             bundle = getIntent().getExtras();
             isEditUser = bundle.getBoolean(Consts.KEY_EDIT_USER, false);
@@ -40,23 +54,6 @@ public class RegisterActivity extends RegisterBaseActivity {
         }
     }
 
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        if (isEditUser) {
-            mToolbar.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected int getLayoutRes() {
-        return R.layout.activity_register;
-    }
 
     @Override
     protected void initListener() {

@@ -22,13 +22,15 @@ public class FindPwdActivity extends BaseToolBarActivity {
 
     @Override
     protected void initView() {
-        setTitle(R.string.find_pwd);
     }
 
     @Override
     protected void initData() {
+        setTitle(R.string.find_pwd);
         mInputPhoneFragment = new InputPhoneFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mInputPhoneFragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_container, mInputPhoneFragment)
+                .commit();
     }
 
     @Override
