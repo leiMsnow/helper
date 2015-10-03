@@ -45,15 +45,15 @@ public class RegisterActivity extends RegisterBaseActivity {
             if (!isEditUser) {
                 FirstRegisterFragment registerFragment = new FirstRegisterFragment();
                 registerFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
-                        registerFragment)
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fl_container,
+                                registerFragment)
                         .commit();
             } else {
                 openSecondFragment();
             }
         }
     }
-
 
     @Override
     protected void initListener() {

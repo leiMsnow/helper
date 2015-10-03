@@ -26,18 +26,12 @@ public class OtherRegisterActivity extends RegisterBaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initData() {
         fragment = new OtherRegisterFragment();
         fragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fl_container, fragment).commit();
     }
-
-    @Override
-    protected void initData() {
-
-    }
-
 
     @Override
     protected void initListener() {
@@ -57,5 +51,3 @@ public class OtherRegisterActivity extends RegisterBaseActivity {
     }
 
 }
-
-

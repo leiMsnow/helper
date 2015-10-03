@@ -3,12 +3,18 @@ package com.tongban.im.activity.base;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.fragment.account.EditUserFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.user.User;
 
+import io.rong.imkit.RongIM;
+
 /**
+ * 注册基础类
+ * 1.普通注册
+ * 2.第三方注册
  * Created by zhangleilei on 9/24/15.
  */
 public abstract class RegisterBaseActivity extends AccountBaseActivity {
@@ -29,7 +35,13 @@ public abstract class RegisterBaseActivity extends AccountBaseActivity {
 
     @Override
     public void onBackPressed() {
-        logout();
+        if (isEditUser) {
+            if (RongIM.getInstance() != null
+                    && RongIM.getInstance().getRongIMClient() != null)
+                RongIM.getInstance().logout();
+            SPUtils.clear(mContext);
+        }
+        super.onBackPressed();
     }
 
     /**

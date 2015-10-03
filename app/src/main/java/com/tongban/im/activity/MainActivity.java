@@ -44,7 +44,7 @@ public class MainActivity extends BaseToolBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTouchFinish(false);
+        setSwipeBackEnable(false);
     }
 
     @Override

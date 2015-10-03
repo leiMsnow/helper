@@ -11,6 +11,8 @@
 
     <style name="AppTheme.Red.Base.Translucent">
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="AppTheme.Red.Base.Translucent.WindowBG">
         <item name="android:windowBackground">@color/translucent_a80</item>
     </style>
 

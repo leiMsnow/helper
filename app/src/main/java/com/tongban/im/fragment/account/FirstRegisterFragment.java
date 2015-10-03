@@ -27,7 +27,6 @@ import butterknife.OnClick;
 public class FirstRegisterFragment extends BaseToolBarFragment implements
         TextWatcher {
 
-
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;
     @Bind(R.id.et_pwd)

@@ -50,7 +50,7 @@
             <View
                 android:id="@+id/v_line_one"
                 style="@style/FixedHorizontalLine"
-                android:layout_below="@+id/et_input_school"
+                android:layout_below="@+id/et_input_nickname"
                 android:layout_centerHorizontal="true" />
 
 

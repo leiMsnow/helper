@@ -10,9 +10,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -49,7 +47,6 @@ public class LoginActivity extends AccountBaseActivity implements
         TextWatcher
         , UMSocializeOauthBackListener {
 
-
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;
     @Bind(R.id.et_pwd)
@@ -76,6 +73,7 @@ public class LoginActivity extends AccountBaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSwipeBackEnable(false);
         authListener = new UMSocializeOauthListenerImpl(mContext, this);
     }
 
@@ -177,7 +175,6 @@ public class LoginActivity extends AccountBaseActivity implements
         // 注册
         else if (v == tvNewUserRegister) {
             TransferCenter.getInstance().startRegister();
-            finish();
         }
         // 忘记密码
         else if (v == tvForgetPwd) {

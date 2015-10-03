@@ -33,7 +33,7 @@ public class LoadingActivity extends AccountBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTouchFinish(false);
+        setSwipeBackEnable(false);
     }
 
     @Override
