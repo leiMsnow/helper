@@ -1,5 +1,6 @@
 package com.tongban.im.fragment.base;
 
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,8 +11,11 @@ import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.utils.EmptyViewUtils;
+
+import butterknife.Bind;
 
 /**
  * 基础fragment的api通用类
@@ -20,7 +24,10 @@ import com.tongban.im.utils.EmptyViewUtils;
 public abstract class BaseToolBarFragment extends BaseApiFragment implements IApiCallback,
         RequestApiListener {
 
+    @Nullable
+    @Bind(R.id.rl_toolbar)
     protected View mToolbar;
+
     private View mEmptyParentView;
 
     /**
@@ -30,9 +37,11 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
      * @param view imageView控件
      */
     public void setUserPortrait(String uri, ImageView view) {
-        Glide.with(BaseToolBarFragment.this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
+        Glide.with(BaseToolBarFragment.this)
+                .load(uri)
+                .error(Consts.getUserDefaultPortrait())
+                .into(view);
     }
-
 
     protected int getToolbarHeight() {
         int height = 0;
@@ -45,18 +54,16 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
     @Override
     public void setEmptyView(ApiErrorResult result) {
 
+        mEmptyParentView = mView.findViewById(R.id.rl_empty_view_parent);
         if (mEmptyParentView == null) {
-            mEmptyParentView = EmptyViewUtils.getInstance()
-                    .createEmptyView(mContext);
-
+            mEmptyParentView = EmptyViewUtils.createEmptyView(mContext);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ((ViewGroup) mView).addView(mEmptyParentView, layoutParams);
         } else {
-            EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
+            EmptyViewUtils.setAlphaEmptyView(mEmptyParentView);
         }
-        EmptyViewUtils.getInstance().
-                showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
+        EmptyViewUtils.showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
 
     }
 
@@ -73,16 +80,13 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
 
     @Override
     public void onComplete(Object obj) {
-        hideEmptyView();
         super.onComplete(obj);
     }
-
 
     /**
      * 隐藏空数据布局
      */
     protected void hideEmptyView() {
-        EmptyViewUtils.getInstance().hideEmptyView(mEmptyParentView);
+        EmptyViewUtils.hideEmptyView(mEmptyParentView);
     }
-
 }

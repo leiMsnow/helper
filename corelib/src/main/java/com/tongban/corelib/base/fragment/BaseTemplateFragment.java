@@ -19,13 +19,12 @@ public abstract class BaseTemplateFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mView == null) {
-            mView = inflater.inflate(getLayoutRes(), container, false);
-            ButterKnife.bind(this, mView);
-            initView();
-            initData();
-            initListener();
-        }
+        mView = inflater.inflate(getLayoutRes(), container, false);
+        // TODO: 10/3/15 加入注解
+        ButterKnife.bind(this, mView);
+        initView();
+        initData();
+        initListener();
         return mView;
     }
 

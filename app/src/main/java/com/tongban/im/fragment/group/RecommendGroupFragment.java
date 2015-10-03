@@ -1,10 +1,12 @@
 package com.tongban.im.fragment.group;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
-import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -16,6 +18,8 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.PTRHeaderUtils;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -25,23 +29,40 @@ import io.rong.imkit.RongIM;
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
-public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHandler,
-        OnLoadMoreListener {
+public class RecommendGroupFragment extends BaseToolBarFragment implements
+        PtrHandler
+        , OnLoadMoreListener {
 
-    private PtrFrameLayout ptrFrameLayout;
-    private LoadMoreListView lvGroupList;
+    @Bind(R.id.lv_group_list)
+    LoadMoreListView lvGroupList;
+    @Bind(R.id.fragment_ptr_home_ptr_frame)
+    PtrFrameLayout ptrFrameLayout;
 
     private GroupListAdapter mAdapter;
 
-    private boolean mIsMainEvent = false;
     private String mKeyword;
     private int mCursor = 0;
     private int mPageSize = 20;
     //是否是下拉刷新操作
     private boolean mIsPull = false;
+    private boolean mIsMainEvent = false;
 
     public void setKeyword(String mKeyword) {
         this.mKeyword = mKeyword;
+    }
+
+    /**
+     * 实例化推荐/搜索圈子fragment
+     *
+     * @param isMain 是否是首页 true 首页 false 搜索
+     * @return
+     */
+    public static RecommendGroupFragment getInstance(boolean isMain) {
+        RecommendGroupFragment recommendFragment = new RecommendGroupFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Consts.KEY_IS_MAIN, isMain);
+        recommendFragment.setArguments(bundle);
+        return recommendFragment;
     }
 
     @Override
@@ -50,15 +71,10 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
     }
 
     @Override
-    protected void initView() {
-        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        lvGroupList = (LoadMoreListView) mView.findViewById(R.id.lv_group_list);
-    }
-
-    @Override
     protected void initData() {
         if (getArguments() != null)
             mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
+
         if (mIsMainEvent) {
             PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
             ptrFrameLayout.setPtrHandler(this);
@@ -164,4 +180,5 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements PtrHa
         if (mIsMainEvent)
             GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
     }
+
 }

@@ -2,23 +2,31 @@ package com.tongban.im.fragment.user;
 
 
 import android.app.DatePickerDialog;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
 import java.util.Calendar;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -27,31 +35,31 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 
-public class InputChildInfoFragment extends BaseToolBarFragment implements TextWatcher, View.OnClickListener {
-    private EditText etChildNickName;
-    private TextView tvChildBirthday;
-    private Button btnSubmit;
-    private FrameLayout flContainerBoy, flContainerGirl;
-    private CheckBox chbBoy, chbGirl;
+public class InputChildInfoFragment extends BaseToolBarFragment
+        implements TextWatcher {
 
-    private String mChildBirthday;
+    @Bind(R.id.et_input_nickname)
+    EditText etInputNickname;
+    @Bind(R.id.tv_input_birthday)
+    TextView tvInputBirthday;
+    @Bind(R.id.chb_boy)
+    CheckBox chbBoy;
+    @Bind(R.id.fl_container_boy)
+    FrameLayout flContainerBoy;
+    @Bind(R.id.chb_girl)
+    CheckBox chbGirl;
+    @Bind(R.id.fl_container_girl)
+    FrameLayout flContainerGirl;
+    @Bind(R.id.btn_submit)
+    Button btnSubmit;
+
     private int mChildSex = 0;
+    private String mChildBirthday;
     private DatePickerDialog mDatePickerDialog;
 
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_input_child_info;
-    }
-
-    @Override
-    protected void initView() {
-        etChildNickName = (EditText) mView.findViewById(R.id.et_input_nickname);
-        tvChildBirthday = (TextView) mView.findViewById(R.id.tv_input_birthday);
-        flContainerBoy = (FrameLayout) mView.findViewById(R.id.fl_container_boy);
-        flContainerGirl = (FrameLayout) mView.findViewById(R.id.fl_container_girl);
-        chbBoy = (CheckBox) mView.findViewById(R.id.chb_boy);
-        chbGirl = (CheckBox) mView.findViewById(R.id.chb_girl);
-        btnSubmit = (Button) mView.findViewById(R.id.btn_submit);
     }
 
     @Override
@@ -61,11 +69,8 @@ public class InputChildInfoFragment extends BaseToolBarFragment implements TextW
 
     @Override
     protected void initListener() {
-        tvChildBirthday.setOnClickListener(this);
-        tvChildBirthday.addTextChangedListener(this);
-        etChildNickName.addTextChangedListener(this);
-        flContainerBoy.setOnClickListener(this);
-        flContainerGirl.setOnClickListener(this);
+        tvInputBirthday.addTextChangedListener(this);
+        etInputNickname.addTextChangedListener(this);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +94,13 @@ public class InputChildInfoFragment extends BaseToolBarFragment implements TextW
 
     @Override
     public void afterTextChanged(Editable s) {
-        mChildBirthday = tvChildBirthday.getText().toString().trim();
+        mChildBirthday = tvInputBirthday.getText().toString().trim();
         setBtnEnabled();
     }
 
-    @Override
+    @OnClick({R.id.tv_input_birthday,R.id.fl_container_boy,R.id.fl_container_girl})
     public void onClick(View v) {
-        if (v == tvChildBirthday) {
+        if (v == tvInputBirthday) {
             openDatePicker();
         }
         //选择宝宝性别 - 男
@@ -138,7 +143,7 @@ public class InputChildInfoFragment extends BaseToolBarFragment implements TextW
                     if (day.length() == 1) day = "0" + day;
 
                     mChildBirthday = year + "-" + month + "-" + day;
-                    tvChildBirthday.setText(mChildBirthday);
+                    tvInputBirthday.setText(mChildBirthday);
                 }
             }, c.get(Calendar.YEAR),
                     c.get(Calendar.MONTH),
@@ -150,5 +155,19 @@ public class InputChildInfoFragment extends BaseToolBarFragment implements TextW
         max.add(Calendar.DAY_OF_MONTH, 0);
         mDatePickerDialog.getDatePicker().setMaxDate(max.getTime().getTime());
         mDatePickerDialog.show();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

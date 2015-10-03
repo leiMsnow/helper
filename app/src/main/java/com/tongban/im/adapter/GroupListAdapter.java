@@ -12,7 +12,10 @@ import com.tongban.im.model.group.GroupType;
 import java.util.List;
 
 /**
- * 个人中心--我的圈子Adapter
+ * 圈子Adapter
+ * 1.推荐圈子
+ * 2.搜索圈子
+ * 3.我的圈子
  * Created by fushudi on 2015/8/18.
  */
 public class GroupListAdapter extends QuickAdapter<Group> {

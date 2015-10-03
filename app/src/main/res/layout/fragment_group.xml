@@ -1,15 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- 子内容 -8dp是隐藏到指示器下面-->
+
     <FrameLayout
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/in_topic_toolbar"
-        android:layout_marginTop="-8dp" />
+        android:layout_marginTop="?android:attr/actionBarSize" />
 
-    <include
-        android:id="@+id/in_topic_toolbar"
-        layout="@layout/include_topic_group_toolbar" />
+    <include layout="@layout/include_topic_group_toolbar" />
 </RelativeLayout>

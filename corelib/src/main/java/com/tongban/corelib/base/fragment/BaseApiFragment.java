@@ -26,6 +26,11 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     public void onStartApi() {
         if (mBaseApiActivity != null)
             mBaseApiActivity.onStartApi();
@@ -59,6 +64,4 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
-
-
 }

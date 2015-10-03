@@ -81,45 +81,44 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
 
     @Override
     public void onStartApi() {
-        super.onStartApi();
         hideEmptyView();
+        super.onStartApi();
     }
 
     @Override
     public void onComplete(Object obj) {
         super.onComplete(obj);
-        hideEmptyView();
     }
 
     @Override
     public void setEmptyView(ApiErrorResult result) {
+        mEmptyParentView = findViewById(R.id.rl_empty_view_parent);
         if (mEmptyParentView == null) {
-            mEmptyParentView = EmptyViewUtils.getInstance()
-                    .createEmptyView(mContext);
-
+            mEmptyParentView = EmptyViewUtils.createEmptyView(mContext);
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             this.addContentView(mEmptyParentView, layoutParams);
         } else {
-            EmptyViewUtils.getInstance().setAlphaEmptyView(mEmptyParentView);
+            EmptyViewUtils.setAlphaEmptyView(mEmptyParentView);
         }
-        EmptyViewUtils.getInstance().
-                showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
+        EmptyViewUtils.showEmptyView(result, mEmptyParentView, getToolbarHeight(), this);
     }
 
     /**
      * 隐藏空数据布局
      */
     protected void hideEmptyView() {
-        EmptyViewUtils.getInstance().hideEmptyView(mEmptyParentView);
+        EmptyViewUtils.hideEmptyView(mEmptyParentView);
     }
 
     /**
      * 注销
      */
     protected void logout() {
-        if (RongIM.getInstance() != null && RongIM.getInstance().getRongIMClient() != null)
+        if (RongIM.getInstance() != null
+                && RongIM.getInstance().getRongIMClient() != null)
             RongIM.getInstance().logout();
+
         SPUtils.clear(mContext);
         ActivityContainer.getInstance().finishActivity();
         TransferCenter.getInstance().startLogin(true, false);

@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.utils.DensityUtils;
-import com.tongban.corelib.widget.header.RentalsSunHeaderView;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -25,6 +23,9 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.PTRHeaderUtils;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -33,23 +34,29 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 话题/动态页
  * author: chenenyu 15/7/13
  */
-public class TopicFragment extends BaseToolBarFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, OnLoadMoreListener,
-        RequestApiListener, PtrHandler {
+public class TopicFragment extends BaseToolBarFragment implements
+        OnLoadMoreListener
+        , RequestApiListener
+        , PtrHandler {
 
-    private PtrFrameLayout ptrFrameLayout;
-    private LoadMoreListView lvTopicList;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
+    @Bind(R.id.ib_search)
+    ImageButton ibSearch;
+    @Bind(R.id.ib_create)
+    ImageButton ibCreate;
+    @Bind(R.id.lv_topic_list)
+    LoadMoreListView lvTopicList;
+    @Bind(R.id.fragment_ptr_home_ptr_frame)
+    PtrFrameLayout ptrFrameLayout;
+
     private TopicListAdapter mAdapter;
-    private ImageButton ibSearch;
-    private ImageButton ibCreate;
-    private TextView tvTitle;
-
-    private boolean mIsMainEvent = false;
 
     private int mCursor = 0;
     private int mPageSize = 10;
     //是否是下拉刷新操作
     private boolean mIsPull = false;
+    private boolean mIsMainEvent = false;
 
     @Override
     protected int getLayoutRes() {
@@ -57,28 +64,9 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     }
 
     @Override
-    protected void initView() {
-        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        mToolbar = mView.findViewById(R.id.in_topic_toolbar);
-        tvTitle = (TextView) mView.findViewById(R.id.tv_title);
-        ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
-        ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
-        lvTopicList = (LoadMoreListView) mView.findViewById(R.id.lv_topic_list);
-
-        tvTitle.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void initListener() {
-        ibSearch.setOnClickListener(this);
-        ibCreate.setOnClickListener(this);
-        lvTopicList.setOnItemClickListener(this);
-        lvTopicList.setOnLoadMoreListener(this);
-    }
-
-    @Override
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
+        tvTitle.setVisibility(View.VISIBLE);
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
@@ -91,7 +79,8 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             ptrFrameLayout.setPtrHandler(this);
             ptrFrameLayout.autoRefresh(true);
         } else {
-            mToolbar.setVisibility(View.GONE);
+            if (mToolbar != null)
+                mToolbar.setVisibility(View.GONE);
         }
 
         lvTopicList.setAdapter(mAdapter);
@@ -99,6 +88,11 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     }
 
     @Override
+    protected void initListener() {
+        lvTopicList.setOnLoadMoreListener(this);
+    }
+
+    @OnClick({R.id.ib_search, R.id.ib_create})
     public void onClick(View v) {
         if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_TOPIC, null);
@@ -111,7 +105,7 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
     }
 
 
-    @Override
+    @OnItemClick(R.id.lv_topic_list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (mAdapter.getItem(position) != null) {
             TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position));
@@ -131,9 +125,9 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
             mIsPull = false;
             mAdapter.clear();
         }
-        lvTopicList.setResultSize(obj.topicList.size());
         mAdapter.addAll(obj.topicList);
         lvTopicList.setVisibility(View.VISIBLE);
+        lvTopicList.setResultSize(obj.topicList.size());
     }
 
     /**
@@ -143,9 +137,9 @@ public class TopicFragment extends BaseToolBarFragment implements View.OnClickLi
      */
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
         if (!mIsMainEvent) {
-            lvTopicList.setResultSize(obj.topicList.size());
             mAdapter.replaceAll(obj.topicList);
             lvTopicList.setVisibility(View.VISIBLE);
+            lvTopicList.setResultSize(obj.topicList.size());
         }
     }
 

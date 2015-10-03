@@ -18,26 +18,13 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.base.BaseApi;
 
 /**
+ * 如果想让空数据布局正常显示，父控件务必使用RelativeLayout或FrameLayout
  * Created by zhangleilei on 9/19/15.
  */
 public class EmptyViewUtils {
 
-
-    private static EmptyViewUtils instance;
-
     private EmptyViewUtils() {
 
-    }
-
-    public static EmptyViewUtils getInstance() {
-        if (instance == null) {
-            synchronized (EmptyViewUtils.class) {
-                if (instance == null) {
-                    instance = new EmptyViewUtils();
-                }
-            }
-        }
-        return instance;
     }
 
     /**
@@ -46,7 +33,7 @@ public class EmptyViewUtils {
      * @param result
      * @return
      */
-    private int getEmptyViewRes(ApiErrorResult result) {
+    private static int getEmptyViewRes(ApiErrorResult result) {
         int resId = 0;
 
         // 无网络
@@ -85,7 +72,7 @@ public class EmptyViewUtils {
     /**
      * 创建空数据布局
      */
-    public View createEmptyView(Context mContext) {
+    public static View createEmptyView(Context mContext) {
         View mEmptyParentView = LayoutInflater.from(mContext)
                 .inflate(R.layout.view_empty, null);
         ObjectAnimator objectAnimator = ObjectAnimator.
@@ -95,18 +82,6 @@ public class EmptyViewUtils {
         return mEmptyParentView;
     }
 
-    /**
-     * 设置空数据的alpha
-     *
-     * @param mEmptyParentView
-     */
-    public void setAlphaEmptyView(View mEmptyParentView) {
-
-        if (mEmptyParentView != null) {
-            mEmptyParentView.setVisibility(View.VISIBLE);
-        }
-
-    }
 
     /**
      * 显示空数据布局
@@ -116,7 +91,7 @@ public class EmptyViewUtils {
      * @param height
      * @param requestApiListener
      */
-    public void showEmptyView(ApiErrorResult result, View mEmptyParentView, int height
+    public static void showEmptyView(ApiErrorResult result, View mEmptyParentView, int height
             , final RequestApiListener requestApiListener) {
         if (mEmptyParentView != null) {
             int resId = getEmptyViewRes(result);
@@ -148,9 +123,22 @@ public class EmptyViewUtils {
     }
 
     /**
+     * 显示空数据布局
+     *
+     * @param mEmptyParentView
+     */
+    public static void setAlphaEmptyView(View mEmptyParentView) {
+
+        if (mEmptyParentView != null) {
+            mEmptyParentView.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    /**
      * 隐藏空数据布局
      */
-    public void hideEmptyView(final View mEmptyParentView) {
+    public static void hideEmptyView(final View mEmptyParentView) {
         if (mEmptyParentView != null) {
             mEmptyParentView.setVisibility(View.GONE);
         }

@@ -27,11 +27,8 @@ import de.greenrobot.event.EventBus;
  */
 public class LoadingActivity extends AccountBaseActivity {
 
-    private String freeAuthToken;
-
     private int tryCount = 0;
-
-    private Handler handler = new Handler();
+    private String freeAuthToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +42,6 @@ public class LoadingActivity extends AccountBaseActivity {
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
     protected void initListener() {
 
     }
@@ -58,7 +50,7 @@ public class LoadingActivity extends AccountBaseActivity {
     protected void initData() {
         // 获取七牛token
         FileUploadApi.getInstance().fetchUploadToken();
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
@@ -80,7 +72,6 @@ public class LoadingActivity extends AccountBaseActivity {
                         AccountApi.getInstance().tokenLogin(freeAuthToken, LoadingActivity.this);
                     }
                 }
-                FileUploadApi.getInstance().fetchUploadToken();
             }
         }, 3 * 1000);
     }

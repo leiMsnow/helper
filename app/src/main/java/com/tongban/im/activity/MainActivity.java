@@ -4,16 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 
 import com.tongban.corelib.base.ActivityContainer;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.discover.DiscoverFragment;
 import com.tongban.im.fragment.group.GroupFragment;
@@ -22,17 +19,27 @@ import com.tongban.im.fragment.topic.TopicFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * 主界面
  */
-public class MainActivity extends BaseToolBarActivity implements View.OnClickListener
-        , ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseToolBarActivity
+        implements ViewPager.OnPageChangeListener {
 
-    private ViewPager mViewPager;
-    private List<Fragment> mTabs = new ArrayList<>();
+    @Bind(R.id.vp_content)
+    ViewPager vpContent;
+    @Bind(R.id.tv_discover)
+    CheckBox tvDiscover;
+    @Bind(R.id.tv_topic)
+    CheckBox tvTopic;
+    @Bind(R.id.tv_group)
+    CheckBox tvGroup;
+
     private FragmentPagerAdapter mAdapter;
+    private List<Fragment> mTabs = new ArrayList<>();
     private List<CheckBox> mTabIndicator = new ArrayList<>();
-    private CheckBox tvDiscover, tvTopic, tvGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +56,6 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.vp_content);
-        tvDiscover = (CheckBox) findViewById(R.id.tv_discover);
-        tvTopic = (CheckBox) findViewById(R.id.tv_topic);
-        tvGroup = (CheckBox) findViewById(R.id.tv_group);
     }
 
     @Override
@@ -86,20 +85,17 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
                 return mTabs.get(arg0);
             }
         };
-        mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        vpContent.setAdapter(mAdapter);
+        vpContent.setOffscreenPageLimit(3);
+        vpContent.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     @Override
     protected void initListener() {
-        mViewPager.addOnPageChangeListener(this);
-        tvDiscover.setOnClickListener(this);
-        tvTopic.setOnClickListener(this);
-        tvGroup.setOnClickListener(this);
+        vpContent.addOnPageChangeListener(this);
     }
 
-    @Override
+    @OnClick({R.id.tv_discover, R.id.tv_topic, R.id.tv_group})
     public void onClick(View v) {
         if (v == tvDiscover) {
             resetTabs(0);
@@ -115,7 +111,7 @@ public class MainActivity extends BaseToolBarActivity implements View.OnClickLis
             mTabIndicator.get(i).setChecked(false);
         }
         mTabIndicator.get(index).setChecked(true);
-        mViewPager.setCurrentItem(index, false);
+        vpContent.setCurrentItem(index, false);
     }
 
     @Override

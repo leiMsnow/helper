@@ -25,10 +25,6 @@ public class ChildInfoActivity extends AccountBaseActivity {
     }
 
     @Override
-    protected void initView() {
-    }
-
-    @Override
     protected void initData() {
         //填写宝宝信息界面
         mInputChildInfoFragment = new InputChildInfoFragment();

@@ -2,17 +2,20 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.widget.header.RentalsSunHeaderView;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
@@ -26,6 +29,9 @@ import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.user.User;
 import com.tongban.im.utils.PTRHeaderUtils;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -34,12 +40,18 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 发现页
  * author: chenenyu 15/7/13
  */
-public class DiscoverFragment extends BaseToolBarFragment implements View.OnClickListener, PtrHandler {
+public class DiscoverFragment extends BaseToolBarFragment
+        implements PtrHandler {
 
-    private ImageView ivUserPortrait;
-    private ImageButton ivSearchAll;
-    private PtrFrameLayout ptrFrameLayout;
-    private ListView mListView;
+    @Bind(R.id.lv_discover)
+    ListView lvDiscover;
+    @Bind(R.id.fragment_ptr_home_ptr_frame)
+    PtrFrameLayout ptrFrameLayout;
+    @Bind(R.id.iv_user_portrait)
+    CircleImageView ivUserPortrait;
+    @Bind(R.id.iv_search_all)
+    ImageButton ivSearchAll;
+
     private DiscoverAdapter mAdapter;
 
     @Override
@@ -48,23 +60,8 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     }
 
     @Override
-    protected void initView() {
-        mToolbar = mView.findViewById(R.id.rl_toolbar);
-        ivUserPortrait = (ImageView) mView.findViewById(R.id.iv_user_portrait);
-        ivSearchAll = (ImageButton) mView.findViewById(R.id.iv_search_all);
-        ptrFrameLayout = (PtrFrameLayout) mView.findViewById(R.id.fragment_ptr_home_ptr_frame);
-        mListView = (ListView) mView.findViewById(R.id.lv_discover);
-
-        PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
-        ptrFrameLayout.setPtrHandler(this);
-        ptrFrameLayout.autoRefresh(true);
-    }
-
-    @Override
     protected void initListener() {
-        ivUserPortrait.setOnClickListener(this);
-        ivSearchAll.setOnClickListener(this);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvDiscover.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
@@ -74,7 +71,9 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected void initData() {
-
+        PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
+        ptrFrameLayout.setPtrHandler(this);
+        ptrFrameLayout.autoRefresh(true);
         // 显示默认头像
         if ("".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
             ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
@@ -112,10 +111,10 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
                 return Integer.parseInt(discover.getComponent_id()) - 1;
             }
         });
-        mListView.setAdapter(mAdapter);
+        lvDiscover.setAdapter(mAdapter);
     }
 
-    @Override
+    @OnClick({R.id.iv_user_portrait, R.id.iv_search_all})
     public void onClick(View v) {
         if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
@@ -128,7 +127,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
     /**
      * 获取个人数据的Event
      *
-     * @param userInfo {@link com.tongban.im.model.BaseEvent.PersonalCenterEvent}
+     * @param userInfo {@link BaseEvent.PersonalCenterEvent}
      */
     public void onEventMainThread(BaseEvent.PersonalCenterEvent userInfo) {
         User user = userInfo.user;
@@ -146,7 +145,7 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         if (ptrFrameLayout.isRefreshing())
             ptrFrameLayout.refreshComplete();
         if (homeInfo.list != null && homeInfo.list.size() > 0) {
-            mListView.setVisibility(View.VISIBLE);
+            lvDiscover.setVisibility(View.VISIBLE);
             mAdapter.replaceAll(homeInfo.list);
             // 请求收藏数量数据并更新
             int floor = 0; // 楼层
@@ -198,4 +197,5 @@ public class DiscoverFragment extends BaseToolBarFragment implements View.OnClic
         // 获取首页数据
         ProductApi.getInstance().fetchHomeInfo(this);
     }
+
 }

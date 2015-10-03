@@ -3,9 +3,7 @@ package com.tongban.im.fragment.group;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,6 +19,8 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
 
@@ -28,16 +28,17 @@ import io.rong.imlib.model.Conversation;
  * 圈子页
  * author: chenenyu 15/7/13
  */
-public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnCheckedChangeListener,
-        View.OnClickListener {
-    // 圈子页顶部的tab
-    private RadioGroup rgParent;
-    // 圈子页顶部的搜索按钮
-    private ImageButton ibSearch;
-    private ImageButton ibCreate;
-    // 尖角指示器
-    private ImageView ivIndicator;
-    private FragmentManager fm;
+public class GroupFragment extends BaseToolBarFragment {
+
+    @Bind(R.id.ib_search)
+    ImageButton ibSearch;
+    @Bind(R.id.ib_create)
+    ImageButton ibCreate;
+    @Bind(R.id.rg_parent)
+    RadioGroup rgParent;
+    @Bind(R.id.iv_indicator)
+    ImageView ivIndicator;
+
     private ConversationListFragment chatFragment;
     private Fragment recommendFragment;
 
@@ -47,70 +48,59 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
     }
 
     @Override
-    protected void initView() {
-        // 圈子页的顶部tab
-        rgParent = (RadioGroup) mView.findViewById(R.id.rg_parent);
+    protected void initData() {
         rgParent.setVisibility(View.VISIBLE);
-        ibSearch = (ImageButton) mView.findViewById(R.id.ib_search);
-        ibSearch.setVisibility(View.GONE);
-        ibCreate = (ImageButton) mView.findViewById(R.id.ib_create);
-        ivIndicator = (ImageView) mView.findViewById(R.id.iv_indicator);
         ivIndicator.setVisibility(View.VISIBLE);
-        fm = getChildFragmentManager();
+        //聊天界面
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //私聊会话
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false") //群组
-                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false") //系统
+                        //私聊
+                .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
+                        //群组
+                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")
+                        //系统
+                .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")
                 .build();
         chatFragment.setUri(uri);
-        recommendFragment = new RecommendGroupFragment();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_IS_MAIN, true);
-        recommendFragment.setArguments(bundle);
-        fm.beginTransaction().replace(R.id.fl_container, chatFragment)
+        //推荐界面
+        recommendFragment = RecommendGroupFragment.getInstance(true);
+        getChildFragmentManager().beginTransaction().replace(R.id.fl_container, chatFragment)
                 .commit();
         //没有登录删除聊天fragment
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-            fm.beginTransaction().remove(chatFragment).commit();
+            getChildFragmentManager().beginTransaction().remove(chatFragment).commit();
         }
     }
 
     @Override
     protected void initListener() {
-        rgParent.setOnCheckedChangeListener(this);
-        ibSearch.setOnClickListener(this);
-        ibCreate.setOnClickListener(this);
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (group == rgParent) {
-            switch (checkedId) {
-                case R.id.rb_chat:
-                    if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-                        fm.beginTransaction().replace(R.id.fl_container, chatFragment).commit();
-                    }
-                    fm.beginTransaction().replace(R.id.fl_container, chatFragment).commit();
-                    ibSearch.setVisibility(View.GONE);
-                    setIndicator(0);
-                    break;
-                case R.id.rb_recommend:
-                    fm.beginTransaction().replace(R.id.fl_container, recommendFragment).commit();
-                    ibSearch.setVisibility(View.VISIBLE);
-                    setIndicator(1);
-                    break;
+        rgParent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_chat:
+                        if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+                            getChildFragmentManager().beginTransaction()
+                                    .replace(R.id.fl_container, chatFragment)
+                                    .commit();
+                        }
+                        ibSearch.setVisibility(View.GONE);
+                        setIndicator(0);
+                        break;
+                    case R.id.rb_recommend:
+                        getChildFragmentManager().beginTransaction()
+                                .replace(R.id.fl_container, recommendFragment)
+                                .commit();
+                        ibSearch.setVisibility(View.VISIBLE);
+                        setIndicator(1);
+                        break;
+                }
             }
-        }
+        });
     }
 
-    @Override
+    @OnClick({R.id.ib_create, R.id.ib_search})
     public void onClick(View v) {
         if (v == ibCreate) {
             if (!TransferCenter.getInstance().startLogin())
@@ -129,4 +119,5 @@ public class GroupFragment extends BaseToolBarFragment implements RadioGroup.OnC
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) ivIndicator.getLayoutParams();
         lp.leftMargin = (mIndicatorWidth * (position));
     }
+
 }
