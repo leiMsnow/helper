@@ -3,6 +3,7 @@ package com.tongban.im.activity.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.base.activity.BaseApiActivity;
+import com.tongban.corelib.base.activity.swipeback.SwipeBackLayout;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
@@ -45,7 +48,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
 
 
     protected void initToolbar() {
-//        mToolbar = (Toolbar) findViewById(R.id.in_toolbar);
         if (mToolbar == null) {
             return;
         }

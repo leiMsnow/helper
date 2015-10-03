@@ -22,6 +22,7 @@ import com.tongban.corelib.utils.ScreenUtils;
 public abstract class BasisActivity extends SwipeBackActivity {
 
     protected Context mContext;
+    protected SwipeBackLayout mSwipeBackLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public abstract class BasisActivity extends SwipeBackActivity {
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        SwipeBackLayout mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
