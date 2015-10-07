@@ -15,19 +15,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 图片裁剪界面
  *
  * @author fushudi
  */
 public class ClipImageBorderViewActivity extends BaseToolBarActivity {
-    private ClipImageLayout mClipImageLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setTitle(getString(R.string.icon_clip));
-    }
+    @Bind(R.id.id_clip_image_layout)
+    ClipImageLayout mClipImageLayout;
 
     @Override
     protected int getLayoutRes() {
@@ -35,20 +34,10 @@ public class ClipImageBorderViewActivity extends BaseToolBarActivity {
     }
 
     @Override
-    protected void initView() {
-        mClipImageLayout = (ClipImageLayout) findViewById(R.id.id_clip_image_layout);
+    protected void initData() {
+        setTitle(getString(R.string.icon_clip));
         String newFile = getIntent().getStringExtra("newFile");
         mClipImageLayout.setZoomBitmap(getLocalBitmap(newFile));
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void initListener() {
-
     }
 
     @Override
@@ -69,7 +58,7 @@ public class ClipImageBorderViewActivity extends BaseToolBarActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra("bitmap", datas);
-                setResult(RESULT_OK,intent);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
         }
@@ -85,4 +74,5 @@ public class ClipImageBorderViewActivity extends BaseToolBarActivity {
             return null;
         }
     }
+
 }

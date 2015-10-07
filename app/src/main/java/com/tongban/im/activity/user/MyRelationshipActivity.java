@@ -27,10 +27,6 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
     }
 
     @Override
-    protected void initView() {
-    }
-
-    @Override
     protected void initData() {
         if (getIntent().getData() != null) {
 
@@ -54,10 +50,5 @@ public class MyRelationshipActivity extends BaseToolBarActivity {
             transaction.replace(R.id.fl_container, mFragment);
             transaction.commit();
         }
-    }
-
-    @Override
-    protected void initListener() {
-
     }
 }

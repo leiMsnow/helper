@@ -2,6 +2,7 @@ package com.tongban.im.activity.user;
 
 
 import android.net.Uri;
+import android.os.Bundle;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -14,6 +15,9 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 个人中心（我的圈子）
  *
@@ -21,7 +25,9 @@ import com.tongban.im.model.BaseEvent;
  */
 public class MyGroupActivity extends BaseToolBarActivity implements
         OnLoadMoreListener {
-    private LoadMoreListView lvMyGroupList;
+    @Bind(R.id.lv_my_group_list)
+    LoadMoreListView lvMyGroupList;
+
     private GroupListAdapter mAdapter;
 
     private int mCursor = 0;
@@ -34,27 +40,22 @@ public class MyGroupActivity extends BaseToolBarActivity implements
     }
 
     @Override
-    protected void initView() {
-        setTitle(R.string.group);
-        lvMyGroupList = (LoadMoreListView) findViewById(R.id.lv_my_group_list);
-    }
-
-    @Override
     protected void initData() {
+
+        setTitle(R.string.group);
+
         mAdapter = new GroupListAdapter(mContext, R.layout.item_group_list, null);
         lvMyGroupList.setAdapter(mAdapter);
         lvMyGroupList.setPageSize(mPageSize);
+
         if (getIntent().getData() != null) {
             Uri uri = getIntent().getData();
             mUserId = uri.getQueryParameter(Consts.USER_ID);
             UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
         }
-    }
 
-    @Override
-    protected void initListener() {
         lvMyGroupList.setOnLoadMoreListener(this);
-        if (SPUtils.get(mContext,Consts.USER_ID,"").equals(mUserId)){
+        if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserId)) {
             mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
         }
     }

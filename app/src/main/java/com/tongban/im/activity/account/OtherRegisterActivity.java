@@ -33,11 +33,6 @@ public class OtherRegisterActivity extends RegisterBaseActivity {
                 .replace(R.id.fl_container, fragment).commit();
     }
 
-    @Override
-    protected void initListener() {
-
-    }
-
     public void onEventMainThread(BaseEvent.CheckPhoneEvent obj) {
 
         fragment = new OtherVerifyCodeFragment();

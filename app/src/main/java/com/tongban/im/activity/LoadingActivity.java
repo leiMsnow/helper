@@ -42,11 +42,6 @@ public class LoadingActivity extends AccountBaseActivity {
     }
 
     @Override
-    protected void initListener() {
-
-    }
-
-    @Override
     protected void initData() {
         // 获取七牛token
         FileUploadApi.getInstance().fetchUploadToken();

@@ -1,10 +1,12 @@
 package com.tongban.im.activity.discover;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.tongban.corelib.utils.NetUtils;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.adapter.DiscoverTagListAdapter;
@@ -19,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -29,7 +33,9 @@ import de.greenrobot.event.EventBus;
  */
 public class SearchDiscoverActivity extends SuggestionsBaseActivity {
 
-    private ExpandableListView mTagListView;
+    @Bind(R.id.elv_tags)
+    ExpandableListView mTagListView;
+
     private DiscoverTagListAdapter mAdapter;
 
     @Override
@@ -38,21 +44,10 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        isExpanded = false;
-        mTagListView = (ExpandableListView) findViewById(R.id.elv_tags);
-    }
-
-    @Override
     protected void initData() {
+        super.initData();
+        isExpanded = false;
         onRequest();
-    }
-
-
-    @Override
-    protected void initListener() {
-        super.initListener();
         // 禁用折叠
         mTagListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
@@ -61,6 +56,7 @@ public class SearchDiscoverActivity extends SuggestionsBaseActivity {
             }
         });
     }
+
 
     @Override
     protected int getMenuInflate() {

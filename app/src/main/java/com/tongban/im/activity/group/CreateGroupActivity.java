@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
@@ -24,21 +25,23 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.group.GroupType;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.model.group.GroupType;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * 创建圈子界面
  *
  * @author fushudi
  */
-public class CreateGroupActivity extends CommonImageResultActivity implements View.OnClickListener,
+public class CreateGroupActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.IPhotoListener {
 
     //选择位置
@@ -46,18 +49,31 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
     //选择标签
     public static int SELECT_LABEL = 320;
 
-    private ImageView ivSetGroupIcon;
-    private EditText etGroupName, etDesc;
-    private TextView tvGroupLabel, tvLocation, tvBirthday, tvLife;
-    private CheckBox chbSecret, chbAgree;
-    private Button btnSubmit;
-    private View mLife, mChildAge;
+    @Bind(R.id.iv_group_portrait)
+    CircleImageView ivGroupPortrait;
+    @Bind(R.id.et_group_name)
+    EditText etGroupName;
+    @Bind(R.id.tv_child_age)
+    TextView tvBirthday;
+    @Bind(R.id.v_child_age)
+    View mChildAge;
+    @Bind(R.id.tv_group_label)
+    TextView tvGroupLabel;
+    @Bind(R.id.tv_group_location)
+    TextView tvLocation;
+    @Bind(R.id.et_group_desc)
+    EditText etDesc;
+    @Bind(R.id.chb_secret)
+    CheckBox chbSecret;
+    @Bind(R.id.chb_agreement)
+    CheckBox chbAgree;
+    @Bind(R.id.btn_create)
+    Button btnSubmit;
 
     private CameraView mCameraView;
 
     private int mGroupType;
     private String titleName;
-    private int mGroupIcon;
 
     private DatePickerDialog mDatePickerDialog;
     private byte[] mGroupBytes;
@@ -84,37 +100,11 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
         if (getIntent().getExtras() != null) {
             mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             titleName = getIntent().getExtras().getString(Consts.KEY_GROUP_TYPE_NAME, "");
-            mGroupIcon = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE_ICON,
-                    R.mipmap.ic_group_create);
         }
 
         return R.layout.activity_create_group;
     }
 
-    @Override
-    protected void initView() {
-
-        ivSetGroupIcon = (ImageView) findViewById(R.id.iv_group_portrait);
-        etGroupName = (EditText) findViewById(R.id.et_group_name);
-        etGroupName.requestFocus();
-        etDesc = (EditText) findViewById(R.id.et_group_desc);
-
-        tvGroupLabel = (TextView) findViewById(R.id.tv_group_label);
-        tvLocation = (TextView) findViewById(R.id.tv_group_location);
-
-        tvBirthday = (TextView) findViewById(R.id.tv_child_age);
-        tvLife = (TextView) findViewById(R.id.tv_life);
-
-        chbSecret = (CheckBox) findViewById(R.id.chb_secret);
-        chbAgree = (CheckBox) findViewById(R.id.chb_agreement);
-
-        btnSubmit = (Button) findViewById(R.id.btn_create);
-
-        mChildAge = findViewById(R.id.v_child_age);
-        mLife = findViewById(R.id.v_life);
-
-        setTextVisible();
-    }
 
     //设置文本的可见度
     private void setTextVisible() {
@@ -134,31 +124,17 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
     }
 
     @Override
-    protected void initListener() {
-
-        setmPhotoListener(this);
-
-        ivSetGroupIcon.setOnClickListener(this);
-
-        tvLocation.setOnClickListener(this);
-        tvGroupLabel.setOnClickListener(this);
-        tvBirthday.setOnClickListener(this);
-        tvLife.setOnClickListener(this);
-
-        btnSubmit.setOnClickListener(this);
-
-
-    }
-
-    @Override
     protected void initData() {
         LocationUtils.get(mContext).start();
-//        ivSetGroupIcon.setImageResource(mGroupIcon);
+        setTextVisible();
+        setmPhotoListener(this);
+
     }
 
-    @Override
+    @OnClick({R.id.iv_group_portrait, R.id.btn_create, R.id.tv_group_location
+            , R.id.tv_group_label, R.id.tv_child_age})
     public void onClick(View v) {
-        if (v == ivSetGroupIcon) {
+        if (v == ivGroupPortrait) {
             createDialog();
         }
         //发表圈子
@@ -180,8 +156,6 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
             declaration = etDesc.getText().toString().trim();
             //不选头像，将不上传
             if (mGroupBytes == null) {
-//                Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), mGroupIcon);
-//                mGroupBytes = CameraUtils.Bitmap2Bytes(bitmap);
                 GroupApi.getInstance().createGroup(groupName, mGroupType, longitude,
                         latitude, address,
                         birthday, tags, declaration, null, chbSecret.isChecked(),
@@ -324,6 +298,6 @@ public class CreateGroupActivity extends CommonImageResultActivity implements Vi
     public void sendPhoto(byte[] bytes) {
         mGroupBytes = bytes;
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        ivSetGroupIcon.setImageBitmap(bitmap);
+        ivGroupPortrait.setImageBitmap(bitmap);
     }
 }

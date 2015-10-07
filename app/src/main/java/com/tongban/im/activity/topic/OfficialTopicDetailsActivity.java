@@ -1,13 +1,14 @@
 package com.tongban.im.activity.topic;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
@@ -15,14 +16,14 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
-import com.tongban.im.widget.view.TopicInputView;
+import com.tongban.im.widget.view.ChildGridView;
 
-import java.util.List;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -32,29 +33,25 @@ import java.util.List;
  */
 public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
 
+    @Bind(R.id.iv_user_portrait)
+    CircleImageView ivOfficialPortrait;
+    @Bind(R.id.tv_user_name)
+    TextView tvOfficialName;
+    @Bind(R.id.tv_create_time)
+    TextView tvCreateTime;
+    @Bind(R.id.tv_topic_title)
+    TextView tvOfficialTopicTitle;
+    @Bind(R.id.tv_topic_content)
+    TextView tvOfficialTopicContent;
+
     private View mHeader;
-    private ListView lvAuthorityTopicDetails;
+
     private OfficialTopicDetailsAdapter mAdapter;
-    private ImageView ivOfficialPortrait;
-    private TextView tvOfficialName, tvCreateTime, tvOfficialTopicTitle, tvOfficialTopicContent;
-
-    @Override
-    protected void initView() {
-        super.initView();
-        lvAuthorityTopicDetails = (ListView) findViewById(R.id.lv_reply_list);
-
-        mHeader = LayoutInflater.from(mContext).
-                inflate(R.layout.header_official_topic_details, null);
-
-        ivOfficialPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
-        tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
-        tvCreateTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
-        tvOfficialTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
-        tvOfficialTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
-    }
 
     @Override
     protected void initData() {
+        mHeader = LayoutInflater.from(mContext).
+                inflate(R.layout.header_official_topic_details, null);
         super.initData();
         if (!TextUtils.isEmpty(mTopicId)) {
             //获取产品接口
@@ -89,19 +86,10 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
                             return o.getItemType();
                         }
                     });
-            lvAuthorityTopicDetails.addHeaderView(mHeader);
-            lvAuthorityTopicDetails.setAdapter(mAdapter);
+            lvReplyList.addHeaderView(mHeader);
+            lvReplyList.setAdapter(mAdapter);
         }
     }
-
-
-    @Override
-    protected void initListener() {
-        super.initListener();
-        mAdapter.setOnClickListener(this);
-        ivOfficialPortrait.setOnClickListener(this);
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -184,7 +172,7 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
             officialTopic.setTopic(topic);
             mAdapter.getDataAll().add(officialTopic);
             mAdapter.notifyDataSetChanged();
-            lvAuthorityTopicDetails.setVisibility(View.VISIBLE);
+            lvReplyList.setVisibility(View.VISIBLE);
             //获取评论接口
             TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
         }
@@ -200,5 +188,4 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
         mCursor = 0;
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }
-
 }

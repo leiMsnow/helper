@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
@@ -30,17 +32,42 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 个人资料界面
  *
  * @author fushudi
  */
-public class PersonalInfoActivity extends CommonImageResultActivity implements View.OnClickListener,
+public class PersonalInfoActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.IPhotoListener {
-    private RelativeLayout llUpdateUserPortrait, llNickName, llChildSex, llChildAge, llChildConstellation;
-    private ImageView ivUserIcon;
-    private TextView tvNickName, tvPhoneNum, tvChildAge,
-            tvChildSex, tvChildConstellation, tvChildSchool;
+
+    @Bind(R.id.iv_user_icon)
+    CircleImageView ivUserIcon;
+    @Bind(R.id.ll_update_user_portrait)
+    RelativeLayout llUpdateUserPortrait;
+    @Bind(R.id.tv_user_name)
+    TextView tvNickName;
+    @Bind(R.id.ll_nickname)
+    RelativeLayout llNickName;
+    @Bind(R.id.tv_phone_num)
+    TextView tvPhoneNum;
+    @Bind(R.id.tv_child_sex)
+    TextView tvChildSex;
+    @Bind(R.id.ll_sex)
+    RelativeLayout llChildSex;
+    @Bind(R.id.tv_child_age)
+    TextView tvChildAge;
+    @Bind(R.id.ll_child_age)
+    RelativeLayout llChildAge;
+    @Bind(R.id.tv_child_constellation)
+    TextView tvChildConstellation;
+    @Bind(R.id.ll_child_constellation)
+    RelativeLayout llChildConstellation;
+    @Bind(R.id.tv_chile_school)
+    TextView tvChildSchool;
 
     private User user;
     private CameraView mCameraView;
@@ -56,46 +83,11 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements V
     }
 
     @Override
-    protected void initView() {
-        setTitle("个人资料");
-        llUpdateUserPortrait = (RelativeLayout) findViewById(R.id.ll_update_user_portrait);
-        llNickName = (RelativeLayout) findViewById(R.id.ll_nickname);
-        llChildSex = (RelativeLayout) findViewById(R.id.ll_sex);
-        llChildAge = (RelativeLayout) findViewById(R.id.ll_child_age);
-        llChildConstellation = (RelativeLayout) findViewById(R.id.ll_child_constellation);
-
-        ivUserIcon = (ImageView) findViewById(R.id.iv_user_icon);
-        tvNickName = (TextView) findViewById(R.id.tv_user_name);
-        tvPhoneNum = (TextView) findViewById(R.id.tv_phone_num);
-        tvChildAge = (TextView) findViewById(R.id.tv_child_age);
-        tvChildSex = (TextView) findViewById(R.id.tv_child_sex);
-        tvChildConstellation = (TextView) findViewById(R.id.tv_child_constellation);
-        tvChildSchool = (TextView) findViewById(R.id.tv_chile_school);
-
-    }
-
-    @Override
     protected void initData() {
+        setTitle("个人资料");
+
         UserCenterApi.getInstance().fetchUserDetailInfo(this);
-    }
-
-    @Override
-    protected void initListener() {
         setmPhotoListener(this);
-
-        llUpdateUserPortrait.setOnClickListener(this);
-        llNickName.setOnClickListener(this);
-        llChildSex.setOnClickListener(this);
-        llChildAge.setOnClickListener(this);
-        llChildConstellation.setOnClickListener(this);
-
-        tvNickName.setOnClickListener(this);
-        tvPhoneNum.setOnClickListener(this);
-        tvChildAge.setOnClickListener(this);
-        tvChildSex.setOnClickListener(this);
-        tvChildConstellation.setOnClickListener(this);
-        tvChildSchool.setOnClickListener(this);
-
     }
 
     //返回个人资料数据
@@ -118,7 +110,9 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements V
         }
     }
 
-    @Override
+    @OnClick({R.id.ll_update_user_portrait,R.id.ll_nickname,R.id.ll_sex
+            ,R.id.ll_child_age
+            ,R.id.ll_child_constellation})
     public void onClick(View v) {
         //修改头像
         if (v == llUpdateUserPortrait) {

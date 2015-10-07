@@ -1,9 +1,12 @@
 package com.tongban.im.activity.topic;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.NetUtils;
@@ -16,7 +19,8 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
 
-import de.greenrobot.event.EventBus;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 搜索话题
@@ -28,10 +32,14 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
         View.OnClickListener {
 
 
-    private TextView tvHistory;
-    private FlowLayout flHistorySearch;
-    private View llHistoryParent;
-    private View vHistoryList;
+    @Bind(R.id.tv_hot_category)
+    TextView tvHistory;
+    @Bind(R.id.fl_history_search)
+    FlowLayout flHistorySearch;
+    @Bind(R.id.ll_history_parent)
+    LinearLayout llHistoryParent;
+    @Bind(R.id.fl_container)
+    FrameLayout vHistoryList;
 
 
     @Override
@@ -40,18 +48,11 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        llHistoryParent = findViewById(R.id.ll_history_parent);
-        tvHistory = (TextView) findViewById(R.id.tv_hot_category);
-        flHistorySearch = (FlowLayout) findViewById(R.id.fl_history_search);
-        vHistoryList = findViewById(R.id.fl_container);
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
-                new TopicFragment()).commit();
-    }
-
-    @Override
     protected void initData() {
+        super.initData();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fl_container,
+                new TopicFragment()).commit();
         //初始化
         initHistoryKey();
     }
@@ -151,5 +152,4 @@ public class SearchTopicActivity extends SuggestionsBaseActivity implements
         llHistoryParent.setVisibility(View.GONE);
         vHistoryList.setVisibility(View.VISIBLE);
     }
-
 }

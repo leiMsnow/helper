@@ -1,10 +1,12 @@
 package com.tongban.im.activity.discover;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tongban.corelib.widget.view.FlowLayout;
@@ -21,25 +23,39 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.ProductBook;
 import com.tongban.im.widget.view.ChildGridView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 商品详情页(图书)
  *
  * @author Cheney
  * @date 8/20
  */
-public class ProductBookActivity extends ThemeBaseActivity implements View.OnClickListener {
-    private View mParent;
+public class ProductBookActivity extends ThemeBaseActivity {
 
-    private CirclePageIndicator indicator;
-    private ViewPager mViewPager; // 图集
-    private TextView title;  // 名称
-    private FlowLayout themeTag;  // 标签
-    private TextView author; // 作者
-    private TextView desc;  // 简介
-    private TextView publisher;  // 出版社
-    private TextView isbn;  // isbn
-    private TextView suitable;  // 适度人群
-    private ChildGridView mGridView;
+    @Bind(R.id.vp_img)
+    ViewPager mViewPager;
+    @Bind(R.id.lpi_indicator)
+    CirclePageIndicator indicator;
+    @Bind(R.id.tv_title)
+    TextView title;
+    @Bind(R.id.fl_tag)
+    FlowLayout themeTag;
+    @Bind(R.id.tv_author)
+    TextView author;
+    @Bind(R.id.tv_desc)
+    TextView desc;
+    @Bind(R.id.tv_publisher)
+    TextView publisher;
+    @Bind(R.id.tv_isbn)
+    TextView isbn;
+    @Bind(R.id.tv_suitable_for)
+    TextView suitable;
+    @Bind(R.id.gv_platform)
+    ChildGridView mGridView;
+
 
     // 图书id
     private String productBookId;
@@ -53,22 +69,6 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        mParent = findViewById(R.id.sl_parent);
-        mViewPager = (ViewPager) findViewById(R.id.vp_img);
-        indicator = (CirclePageIndicator) findViewById(R.id.lpi_indicator);
-        title = (TextView) findViewById(R.id.tv_title);
-        themeTag = (FlowLayout) findViewById(R.id.fl_tag);
-        author = (TextView) findViewById(R.id.tv_author);
-        desc = (TextView) findViewById(R.id.tv_desc);
-        publisher = (TextView) findViewById(R.id.tv_publisher);
-        isbn = (TextView) findViewById(R.id.tv_isbn);
-        suitable = (TextView) findViewById(R.id.tv_suitable_for);
-        mGridView = (ChildGridView) findViewById(R.id.gv_platform);
-    }
-
-    @Override
     protected void initData() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
@@ -78,16 +78,9 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         }
     }
 
-    @Override
-    protected void initListener() {
-        ivBack.setOnClickListener(this);
-        ivShare.setOnClickListener(this);
-        ivCollect.setOnClickListener(this);
-    }
 
-    @Override
+    @OnClick({R.id.iv_collect, R.id.iv_share})
     public void onClick(View v) {
-        super.onClick(v);
         if (v == ivCollect) {
             if (!TransferCenter.getInstance().startLogin()) {
                 return;
@@ -101,6 +94,8 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
             }
         } else if (v == ivShare) {
 
+        } else {
+            super.onClick(v);
         }
     }
 
@@ -114,7 +109,9 @@ public class ProductBookActivity extends ThemeBaseActivity implements View.OnCli
         if (mProductBook.isCollect_status()) {
             ivCollect.setSelected(true);
         }
-        mParent.setVisibility(View.VISIBLE);
+
+        if (slParent != null)
+            slParent.setVisibility(View.VISIBLE);
 
         mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
         mViewPager.setAdapter(mPagerAdapter);

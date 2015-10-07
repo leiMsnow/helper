@@ -55,11 +55,6 @@ public class RegisterActivity extends RegisterBaseActivity {
         }
     }
 
-    @Override
-    protected void initListener() {
-
-    }
-
 }
 
 

@@ -26,16 +26,11 @@ public class SearchGroupActivity extends SuggestionsBaseActivity implements
     }
 
     @Override
-    protected void initView() {
-        super.initView();
+    protected void initData() {
+        super.initData();
         recommendGroupFragment = new RecommendGroupFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fl_container,
                 recommendGroupFragment).commit();
-    }
-
-    @Override
-    protected void initData() {
-
     }
 
     @Override

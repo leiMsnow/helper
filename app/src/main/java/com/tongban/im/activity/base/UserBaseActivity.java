@@ -6,13 +6,16 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.AnimatorUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
@@ -24,29 +27,66 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.user.User;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * 通用的用户中心父类
  * Created by zhangleilei on 2015/09/01.
  */
 public abstract class UserBaseActivity extends BaseToolBarActivity implements View.OnClickListener {
 
-    private ImageView ivClose;
+    @Bind(R.id.sv_user_center)
+    PullToZoomScrollViewEx lvUserCenter;
+    @Bind(R.id.tv_name)
+    TextView tvUserName;
+    @Bind(R.id.iv_close)
+    ImageView ivClose;
+    //headerView
+//    @Bind(R.id.iv_user_portrait)
+    CircleImageView ivUserPortrait;
+    //    @Bind(R.id.vp_container)
+    ViewPager vpChildInfo;
+    //    @Bind(R.id.lpi_indicator)
+    CirclePageIndicator indicator;
 
-    private PullToZoomScrollViewEx lvUserCenter;
-    private View vHeaderBottom;
-    private ImageView ivZoomTop;
-    private ImageView ivZoomBottom;
-    private View rlFansNum, rlFollowNum, rlGroupNum;
-    private TextView tvUserName;
-    private ImageView ivUserPortrait;
-    private ViewPager vpChildInfo;
-    private CirclePageIndicator indicator;
+    //    @Bind(R.id.rl_action_parent)
+    RelativeLayout rlActionParent;
+    //    @Bind(R.id.tv_follow_num)
+    protected TextView tvFollowCount;
+    //    @Bind(R.id.rl_follow_num)
+    LinearLayout rlFollowNum;
+    //    @Bind(R.id.tv_fans_num)
+    TextView tvFansCount;
+    //    @Bind(R.id.rl_fans_num)
+    LinearLayout rlFansNum;
+    //    @Bind(R.id.tv_group_num)
+    TextView tvGroupCount;
+    //    @Bind(R.id.rl_group_num)
+    LinearLayout rlGroupNum;
+    //    @Bind(R.id.ll_relationship)
+    LinearLayout vHeaderBottom;
+    // contentView
+//    @Bind(R.id.tv_my_topic)
+    protected TextView tvMyTopic;
+    //    @Bind(R.id.tv_my_collect)
+    protected TextView tvMyCollect;
+    //    @Bind(R.id.tv_settings)
+    protected TextView tvSettings;
+    //    @Bind(R.id.iv_focus)
+    protected Button ivFocus;
+    //    @Bind(R.id.iv_cancel_focus)
+    protected Button ivCancelFocus;
+    //    @Bind(R.id.iv_private_chat)
+    protected Button ivPrivateChat;
+
+    //zoomView
+//    @Bind(R.id.iv_zoom_top)
+    ImageView ivZoomTop;
+
     private UserInfoAdapter mAdapter;
 
-    protected TextView tvFansCount, tvFollowCount, tvGroupCount;
     protected View headView, zoomView, contentView;
-    protected TextView tvSetChildInfo;
-    private View vActionParent;
 
     protected User mUserInfo = new User();
 
@@ -58,12 +98,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
     }
 
     @Override
-    protected void initView() {
-
-        ivClose = (ImageView) findViewById(R.id.iv_close);
-        tvUserName = (TextView) findViewById(R.id.tv_name);
-
-        lvUserCenter = (PullToZoomScrollViewEx) findViewById(R.id.sv_user_center);
+    protected void initData() {
         headView = LayoutInflater.from(this).inflate(R.layout.ptz_head_view_personal_center, null, false);
         zoomView = LayoutInflater.from(this).inflate(R.layout.ptz_zoom_view, null, false);
         contentView = LayoutInflater.from(this).inflate(R.layout.ptz_content_view, null, false);
@@ -71,39 +106,37 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         lvUserCenter.setHeaderView(headView);
         lvUserCenter.setZoomView(zoomView);
         lvUserCenter.setScrollContentView(contentView);
+
         //headView
+        ivUserPortrait = (CircleImageView) headView.findViewById(R.id.iv_user_portrait);
         vpChildInfo = (ViewPager) headView.findViewById(R.id.vp_container);
-        vActionParent = findViewById(R.id.rl_action_parent);
+        rlActionParent = (RelativeLayout) findViewById(R.id.rl_action_parent);
         indicator = (CirclePageIndicator) headView.findViewById(R.id.lpi_indicator);
-        tvSetChildInfo = (TextView) headView.findViewById(R.id.tv_set_child_info);
-        vHeaderBottom = headView.findViewById(R.id.ll_relationship);
+        vHeaderBottom = (LinearLayout) headView.findViewById(R.id.ll_relationship);
         tvFansCount = (TextView) headView.findViewById(R.id.tv_fans_num);
         tvFollowCount = (TextView) headView.findViewById(R.id.tv_follow_num);
         tvGroupCount = (TextView) headView.findViewById(R.id.tv_group_num);
-        rlFansNum = headView.findViewById(R.id.rl_fans_num);
-        rlFollowNum = headView.findViewById(R.id.rl_follow_num);
-        rlGroupNum = headView.findViewById(R.id.rl_group_num);
+        rlFansNum = (LinearLayout) headView.findViewById(R.id.rl_fans_num);
+        rlFollowNum = (LinearLayout) headView.findViewById(R.id.rl_follow_num);
+        rlGroupNum = (LinearLayout) headView.findViewById(R.id.rl_group_num);
+        ivFocus = (Button) headView.findViewById(R.id.iv_focus);
+        ivPrivateChat = (Button) headView.findViewById(R.id.iv_private_chat);
+        ivCancelFocus = (Button) headView.findViewById(R.id.iv_cancel_focus);
+        // contentView
+        tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
+        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
+        tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
+        // zoomView
+        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
 
         rlFansNum.setEnabled(false);
         rlFollowNum.setEnabled(false);
         rlGroupNum.setEnabled(false);
 
-        ivUserPortrait = (ImageView) headView.findViewById(R.id.iv_user_portrait);
-        //zoomView
-        ivZoomTop = (ImageView) zoomView.findViewById(R.id.iv_zoom_top);
-        ivZoomBottom = (ImageView) zoomView.findViewById(R.id.iv_zoom_bottom);
-
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
                 (int) (3.0F * (mScreenWidth / 4.0F)));
         lvUserCenter.setHeaderLayoutParams(localObject);
-    }
-
-
-    @Override
-    protected void initListener() {
-        ivClose.setOnClickListener(this);
-        ivUserPortrait.setOnClickListener(this);
 
         lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
             @Override
@@ -117,7 +150,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
                     AnimatorUtils.animatorToAlpha(ivZoomTop, startValue, alphaValue, 10);
                     AnimatorUtils.animatorToAlpha(ivUserPortrait, startValue, alphaValue, 10);
                     AnimatorUtils.animatorToAlpha(vpChildInfo, startValue, alphaValue, 10);
-                    AnimatorUtils.animatorToAlpha(vActionParent, startValue, alphaValue, 10);
+                    AnimatorUtils.animatorToAlpha(rlActionParent, startValue, alphaValue, 10);
                 }
             }
 
@@ -126,7 +159,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
                 AnimatorUtils.animatorToAlpha(ivZoomTop, alphaValue, 1.0f, 300);
                 AnimatorUtils.animatorToAlpha(ivUserPortrait, alphaValue, 1.0f, 300);
                 AnimatorUtils.animatorToAlpha(vpChildInfo, alphaValue, 1.0f, 300);
-                AnimatorUtils.animatorToAlpha(vActionParent, alphaValue, 1.0f, 300);
+                AnimatorUtils.animatorToAlpha(rlActionParent, alphaValue, 1.0f, 300);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -136,12 +169,16 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             }
         });
 
+        ivUserPortrait.setOnClickListener(this);
+
         rlFansNum.setOnClickListener(this);
         rlFollowNum.setOnClickListener(this);
         rlGroupNum.setOnClickListener(this);
+
     }
 
-    @Override
+
+    @OnClick({R.id.iv_close})
     public void onClick(View v) {
         //关闭个人中心
         if (v == ivClose) {
@@ -182,11 +219,9 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
 
         if (mUserInfo.getPortrait_url() != null) {
             setUserPortrait(mUserInfo.getPortrait_url().getMin(), ivUserPortrait);
-//            setUserPortrait(mUserInfo.getPortrait_url().getMax(), ivZoomBottom);
         } else {
             int resId = (Integer) SPUtils.
                     get(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-//            ivZoomBottom.setImageResource(resId);
             ivUserPortrait.setImageResource(resId);
         }
         if (mUserInfo.getChild_info() != null &&
@@ -195,12 +230,9 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new ScalePageTransformer());
-        } else {
-            tvSetChildInfo.setVisibility(View.VISIBLE);
         }
         tvFansCount.setText(String.valueOf(mUserInfo.getFans_amount()));
         tvFollowCount.setText(String.valueOf(mUserInfo.getFocused_amount()));
         tvGroupCount.setText(mUserInfo.getGroupAmount());
     }
-
 }

@@ -1,5 +1,6 @@
 package com.tongban.im.activity.base;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -21,6 +22,9 @@ import com.tongban.im.model.BaseEvent;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnItemClick;
+
 /**
  * 通用的搜索父类
  * Created by fushudi on 2015/8/13.
@@ -28,7 +32,9 @@ import java.util.List;
 public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implements
         SearchView.OnQueryTextListener {
 
+    @Bind(R.id.lv_tips_list)
     protected LoadMoreListView suggestionsListView;
+
     private QuerySuggestionsAdapter mAdapter;
 
     //是否显示搜索建议
@@ -67,25 +73,18 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
     protected abstract int getMenuInflate();
 
     @Override
-    protected void initView() {
-        suggestionsListView = (LoadMoreListView) findViewById(R.id.lv_tips_list);
+    protected void initData() {
         mAdapter = new QuerySuggestionsAdapter(mContext, R.layout.item_suggestions_list, null);
         suggestionsListView.setAdapter(mAdapter);
     }
 
-    @Override
-    protected void initListener() {
-        suggestionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                suggestionsListView.setVisibility(View.GONE);
-                isShowSuggestions = false;
-                String keyword = mAdapter.getItem(position);
-                searchView.setQuery(keyword, true);
-                saveSearchKey(keyword);
-            }
-        });
+    @OnItemClick(R.id.lv_tips_list)
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        suggestionsListView.setVisibility(View.GONE);
+        isShowSuggestions = false;
+        String keyword = mAdapter.getItem(position);
+        searchView.setQuery(keyword, true);
+        saveSearchKey(keyword);
     }
 
     @Override

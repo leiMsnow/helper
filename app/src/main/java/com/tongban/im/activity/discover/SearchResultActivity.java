@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.tongban.corelib.utils.ScreenUtils;
@@ -23,20 +24,29 @@ import com.tongban.im.model.discover.Theme;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnPageChange;
+
 /**
  * 搜索结果页
  *
  * @author zhangleilei
  * @createTime 2015/8/13
  */
-public class SearchResultActivity extends SuggestionsBaseActivity implements
-        ViewPager.OnPageChangeListener, View.OnClickListener {
+public class SearchResultActivity extends SuggestionsBaseActivity {
 
-    private ViewPager mViewPager;
+    @Bind(R.id.ccv_theme)
+    ChangeColorView ccvTheme;
+    @Bind(R.id.ccv_product)
+    ChangeColorView ccvProduct;
+    @Bind(R.id.v_indicator)
+    View mIndicator;
+    @Bind(R.id.vp_search_result)
+    ViewPager mViewPager;
+
     private FragmentPagerAdapter mAdapter;
-    private View mIndicator; // tab下的线
-    private ChangeColorView ccvTheme;
-    private ChangeColorView ccvProduct;
+
     private List<Fragment> mFragments = new ArrayList<>();
     private List<ChangeColorView> mTabs = new ArrayList<>();
     private ThemeListFragment mThemeListFragment;
@@ -61,17 +71,6 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         return R.layout.activity_discover_search_result;
     }
 
-    @Override
-    protected void initView() {
-        super.initView();
-        ccvTheme = (ChangeColorView) findViewById(R.id.ccv_theme);
-        ccvProduct = (ChangeColorView) findViewById(R.id.ccv_product);
-        mIndicator = findViewById(R.id.v_indicator);
-        mViewPager = (ViewPager) findViewById(R.id.vp_search_result);
-        ccvTheme.setIconAlpha(1.0f);
-        initIndicator(2);
-    }
-
     /**
      * 设置指示器宽度
      *
@@ -84,16 +83,11 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         mIndicator.setLayoutParams(lp);
     }
 
-
-    @Override
-    protected void initListener() {
-        super.initListener();
-        ccvTheme.setOnClickListener(this);
-        ccvProduct.setOnClickListener(this);
-    }
-
     @Override
     protected void initData() {
+        super.initData();
+        ccvTheme.setIconAlpha(1.0f);
+        initIndicator(2);
         mTabs.add(ccvTheme);
         mTabs.add(ccvProduct);
         //专题搜索列表Fragment
@@ -115,7 +109,6 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
             }
         };
         mViewPager.setAdapter(mAdapter);
-        mViewPager.addOnPageChangeListener(this);
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             mQueryText = uri.getQueryParameter("keyword");
@@ -145,7 +138,7 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         return false;
     }
 
-    @Override
+    @OnPageChange(value = R.id.vp_search_result, callback = OnPageChange.Callback.PAGE_SCROLLED)
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (positionOffset > 0) {
             mTabs.get(position).setIconAlpha(1 - positionOffset);
@@ -156,16 +149,6 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         mIndicator.setLayoutParams(lp);
     }
 
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
     private void resetTabs(int index) {
         for (int i = 0; i < mTabs.size(); i++) {
             mTabs.get(i).setIconAlpha(0.0f);
@@ -174,7 +157,7 @@ public class SearchResultActivity extends SuggestionsBaseActivity implements
         mViewPager.setCurrentItem(index, false);
     }
 
-    @Override
+    @OnClick({R.id.ccv_theme,R.id.ccv_product})
     public void onClick(View v) {
         if (v == ccvTheme) {
             if (mViewPager.getCurrentItem() != 0)

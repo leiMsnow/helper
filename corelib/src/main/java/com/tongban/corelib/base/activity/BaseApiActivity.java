@@ -38,11 +38,6 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
     public void onStartApi() {
         showProgress();
     }

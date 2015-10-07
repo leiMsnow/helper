@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
-import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
 import com.tongban.corelib.widget.view.transformer.ZoomInPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
@@ -25,44 +24,45 @@ import com.tongban.im.model.topic.Topic;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnPageChange;
+
 /**
  * 与我有关的话题（我发起的、我回复的话题）界面
  *
  * @author fushudi
  */
-public class MyTopicActivity extends CommonImageResultActivity implements
-        ViewPager.OnPageChangeListener, View.OnClickListener {
-    private ViewPager vpResult;
-    private View mIndicator;
-    private RelativeLayout rlMySendTopic, rlReplyTopic;
+public class MyTopicActivity extends CommonImageResultActivity {
+
+    @Bind(R.id.ccv_my_send_topic)
+    ChangeColorView ccvMySendTopic;
+    @Bind(R.id.tv_my_send_topic_num)
+    TextView tvMySendTopicNum;
+    @Bind(R.id.rl_my_send_topic)
+    RelativeLayout rlMySendTopic;
+    @Bind(R.id.ccv_my_receive_topic)
+    ChangeColorView ccvMyReceiveTopic;
+    @Bind(R.id.tv_my_receive_topic_num)
+    TextView tvMyCommentTopicNum;
+    @Bind(R.id.rl_reply_topic)
+    RelativeLayout rlReplyTopic;
+    @Bind(R.id.v_indicator)
+    View mIndicator;
+    @Bind(R.id.vp_result)
+    ViewPager vpResult;
+
     private FragmentPagerAdapter mAdapter;
 
     private List<Fragment> mTabs = new ArrayList<>();
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();
-    private ChangeColorView ccvMySendTopic;
-    private ChangeColorView ccvMyReceiveTopic;
-    private TextView tvMySendTopicNum, tvMyCommentTopicNum;
 
     private int mIndicatorWidth;
 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_my_topic;
-    }
-
-    @Override
-    protected void initView() {
-        setTitle(R.string.my_topic);
-        rlMySendTopic = (RelativeLayout) findViewById(R.id.rl_my_send_topic);
-        rlReplyTopic = (RelativeLayout) findViewById(R.id.rl_reply_topic);
-        ccvMySendTopic = (ChangeColorView) findViewById(R.id.ccv_my_send_topic);
-        ccvMyReceiveTopic = (ChangeColorView) findViewById(R.id.ccv_my_receive_topic);
-        mIndicator = findViewById(R.id.v_indicator);
-        vpResult = (ViewPager) findViewById(R.id.vp_result);
-        ccvMySendTopic.setIconAlpha(1.0f);
-        initIndicator(2);
-        tvMySendTopicNum = (TextView) findViewById(R.id.tv_my_send_topic_num);
-        tvMyCommentTopicNum = (TextView) findViewById(R.id.tv_my_receive_topic_num);
     }
 
     /**
@@ -79,6 +79,9 @@ public class MyTopicActivity extends CommonImageResultActivity implements
 
     @Override
     protected void initData() {
+        setTitle(R.string.my_topic);
+        ccvMySendTopic.setIconAlpha(1.0f);
+        initIndicator(2);
         mTabIndicator.add(ccvMySendTopic);
         mTabIndicator.add(ccvMyReceiveTopic);
         //我发起的话题
@@ -102,17 +105,10 @@ public class MyTopicActivity extends CommonImageResultActivity implements
             }
         };
         vpResult.setAdapter(mAdapter);
-        vpResult.addOnPageChangeListener(this);
         vpResult.setPageTransformer(true, new ZoomInPageTransformer());
     }
 
-    @Override
-    protected void initListener() {
-        rlMySendTopic.setOnClickListener(this);
-        rlReplyTopic.setOnClickListener(this);
-    }
-
-    @Override
+    @OnPageChange(value = R.id.vp_result, callback = OnPageChange.Callback.PAGE_SCROLLED)
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (positionOffset > 0) {
             mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
@@ -124,17 +120,7 @@ public class MyTopicActivity extends CommonImageResultActivity implements
         mIndicator.setLayoutParams(lp);
     }
 
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
+    @OnClick({R.id.rl_my_send_topic, R.id.rl_reply_topic})
     public void onClick(View v) {
         if (v == rlMySendTopic) {
             vpResult.setCurrentItem(0);

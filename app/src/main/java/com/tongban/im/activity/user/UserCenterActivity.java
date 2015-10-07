@@ -11,6 +11,8 @@ import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
 
@@ -21,37 +23,15 @@ import io.rong.imkit.RongIM;
  */
 public class UserCenterActivity extends UserBaseActivity {
 
-    private Button ivFocus, ivCancelFocus;
-    private Button ivPrivateChat;
-
-    @Override
-    protected void initView() {
-        super.initView();
-        ivPrivateChat = (Button) headView.findViewById(R.id.iv_private_chat);
-        ivFocus = (Button) headView.findViewById(R.id.iv_focus);
-        ivCancelFocus = (Button) headView.findViewById(R.id.iv_cancel_focus);
-
-    }
-
     @Override
     protected void initData() {
-        getUserInfo();
-    }
-
-    /**
-     * 获取用户资料
-     */
-    private void getUserInfo() {
+        super.initData();
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             String visitorId = uri.getQueryParameter("visitorId");
             UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
         }
-    }
 
-    @Override
-    protected void initListener() {
-        super.initListener();
         ivFocus.setOnClickListener(this);
         ivCancelFocus.setOnClickListener(this);
         ivPrivateChat.setOnClickListener(this);
@@ -78,9 +58,7 @@ public class UserCenterActivity extends UserBaseActivity {
      */
     public void onEventMainThread(BaseEvent.UserCenterEvent obj) {
         setDataInfo(obj.user);
-        tvSetChildInfo.setVisibility(View.GONE);
         ivFocus.setVisibility(View.VISIBLE);
-//        ivFocus.setChecked(mUserInfo.is_focused());
         if (mUserInfo.is_focused()) {
             ivPrivateChat.setVisibility(View.VISIBLE);
             ivCancelFocus.setVisibility(View.VISIBLE);
@@ -94,7 +72,6 @@ public class UserCenterActivity extends UserBaseActivity {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         //关注
         if (v == ivFocus) {
             UserCenterApi.getInstance().focusUser(true, mUserInfo.getUser_id(), this);
@@ -107,6 +84,8 @@ public class UserCenterActivity extends UserBaseActivity {
         else if (v == ivPrivateChat) {
             RongIM.getInstance().startPrivateChat(mContext, mUserInfo.getUser_id(),
                     mUserInfo.getNick_name());
+        } else {
+            super.onClick(v);
         }
     }
 

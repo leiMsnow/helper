@@ -11,20 +11,6 @@
         android:layout_marginTop="72dp"
         android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tv_set_child_info"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_relationship"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="请设置宝宝信息"
-        android:textColor="@color/selector_grey_to_red"
-        android:visibility="gone" />
-
     <!-- 用户信息布局-->
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_container"

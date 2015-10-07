@@ -25,11 +25,6 @@ public class PhotoViewPagerActivity extends BaseToolBarActivity {
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
     protected void initData() {
         if (getIntent().getExtras() != null) {
             PhotoViewFragment photoViewFragment = new PhotoViewFragment();
@@ -39,11 +34,6 @@ public class PhotoViewPagerActivity extends BaseToolBarActivity {
                     .replace(R.id.fl_content, photoViewFragment)
                     .commit();
         }
-    }
-
-    @Override
-    protected void initListener() {
-
     }
 
     /**

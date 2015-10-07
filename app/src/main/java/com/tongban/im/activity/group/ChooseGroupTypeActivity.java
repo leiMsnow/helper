@@ -16,35 +16,25 @@ import com.tongban.im.model.group.GroupType;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnItemClick;
+
 /**
  * 选择圈子类型
  *
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsListView.OnItemClickListener {
+public class ChooseGroupTypeActivity extends BaseToolBarActivity {
 
-    private ListView lvGroupType;
+    @Bind(R.id.lv_group_type)
+    ListView lvGroupType;
+
     private ChooseGroupTypeAdapter mAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_choose_group_type;
-    }
-
-    @Override
-    protected void initView() {
-        lvGroupType = (ListView) findViewById(R.id.lv_group_type);
-    }
-
-    @Override
-    protected void initListener() {
-        lvGroupType.setOnItemClickListener(this);
     }
 
     @Override
@@ -55,17 +45,15 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
         lvGroupType.setAdapter(mAdapter);
     }
 
-    @Override
+    @OnItemClick(R.id.lv_group_type)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == lvGroupType) {
             Intent intent = new Intent(mContext, CreateGroupActivity.class);
             Bundle bundle = new Bundle();
             int type = mAdapter.getItem(position).getGroupType();
             String typeName = mAdapter.getItem(position).getGroupTypeName();
-            int icon = mAdapter.getItem(position).getSrc();
             bundle.putInt(Consts.KEY_GROUP_TYPE, type);
             bundle.putString(Consts.KEY_GROUP_TYPE_NAME, typeName);
-            bundle.putInt(Consts.KEY_GROUP_TYPE_ICON, icon);
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -73,6 +61,7 @@ public class ChooseGroupTypeActivity extends BaseToolBarActivity implements AbsL
 
     /**
      * 创建成功，关闭此界面
+     *
      * @param obj
      */
     public void onEventMainThread(BaseEvent.CreateGroupEvent obj) {

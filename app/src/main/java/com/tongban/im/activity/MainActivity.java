@@ -21,12 +21,12 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnPageChange;
 
 /**
  * 主界面
  */
-public class MainActivity extends BaseToolBarActivity
-        implements ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseToolBarActivity {
 
     @Bind(R.id.vp_content)
     ViewPager vpContent;
@@ -90,11 +90,6 @@ public class MainActivity extends BaseToolBarActivity
         vpContent.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
-    @Override
-    protected void initListener() {
-        vpContent.addOnPageChangeListener(this);
-    }
-
     @OnClick({R.id.tv_discover, R.id.tv_topic, R.id.tv_group})
     public void onClick(View v) {
         if (v == tvDiscover) {
@@ -120,18 +115,10 @@ public class MainActivity extends BaseToolBarActivity
         moveTaskToBack(true);
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
+    @OnPageChange(R.id.vp_content)
     public void onPageSelected(int position) {
         resetTabs(position);
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
 
 }

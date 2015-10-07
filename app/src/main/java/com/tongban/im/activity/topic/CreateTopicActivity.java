@@ -1,6 +1,7 @@
 package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,18 +25,28 @@ import com.tongban.im.widget.view.TopicImageView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * 发表话题界面
  *
  * @author fushudi
  */
-public class CreateTopicActivity extends CommonImageResultActivity implements View.OnClickListener,
-        TextWatcher, CommonImageResultActivity.ImageResultListener {
+public class CreateTopicActivity extends CommonImageResultActivity implements
+        CommonImageResultActivity.ImageResultListener {
 
-    private TopicImageView gvTopicImg;
-    private EditText tvTitle;
-    private EditText tvContent;
+    @Bind(R.id.et_topic_name)
+    EditText tvTitle;
+    @Bind(R.id.et_topic_content)
+    EditText tvContent;
+    @Bind(R.id.ll_add_img)
+    TopicImageView gvTopicImg;
+
     private MenuItem menuCreate;
+
     private final static int IMAGE_COUNT = 15;
 
     @Override
@@ -44,23 +55,10 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
     }
 
     @Override
-    protected void initView() {
-        setTitle(R.string.create_topic);
-        tvTitle = (EditText) findViewById(R.id.et_topic_name);
-        tvContent = (EditText) findViewById(R.id.et_topic_content);
-        gvTopicImg = (TopicImageView) findViewById(R.id.ll_add_img);
-    }
-
-    @Override
     protected void initData() {
+        setTitle(R.string.create_topic);
         gvTopicImg.getAdapter().setImgCount(IMAGE_COUNT);
-    }
-
-    @Override
-    protected void initListener() {
         setImageResultListener(this);
-        tvTitle.addTextChangedListener(this);
-        tvContent.addTextChangedListener(this);
     }
 
     @Override
@@ -74,7 +72,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
-        }else if(item.getItemId() == R.id.menu_create){
+        } else if (item.getItemId() == R.id.menu_create) {
             if (gvTopicImg.getSelectedFile().size() > 0) {
                 uploadImage();
             } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
@@ -114,10 +112,6 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
         }
     }
 
-    @Override
-    public void onClick(View v) {
-    }
-
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
         gvTopicImg.notifyChange(picturePath);
@@ -155,17 +149,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements Vi
         finish();
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
+    @OnTextChanged({R.id.et_topic_name, R.id.et_topic_content})
     public void afterTextChanged(Editable s) {
         if (tvTitle.getText().toString().length() > 0 &&
                 (tvContent.getText().toString().length() > 0 ||

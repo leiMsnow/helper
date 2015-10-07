@@ -35,6 +35,8 @@ import com.tongban.umeng.listener.UMSocializeOauthListenerImpl;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.OnTextChanged;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -44,8 +46,7 @@ import de.greenrobot.event.EventBus;
  * @createTime 2015/7/16
  */
 public class LoginActivity extends AccountBaseActivity implements
-        TextWatcher
-        , UMSocializeOauthBackListener {
+        UMSocializeOauthBackListener {
 
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;
@@ -69,6 +70,7 @@ public class LoginActivity extends AccountBaseActivity implements
     private UMSocializeOauthListenerImpl authListener;
     private String userInfoJson;
     private String type;
+    private boolean isOnPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,33 +105,7 @@ public class LoginActivity extends AccountBaseActivity implements
         etPhoneNum.setText(mUser);
     }
 
-
-    @Override
-    protected void initListener() {
-        etPhoneNum.addTextChangedListener(this);
-        etPwd.addTextChangedListener(this);
-        etPwd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    onClick(btnLogin);
-                }
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
+    @OnTextChanged({R.id.et_phone_num, R.id.et_pwd})
     public void afterTextChanged(Editable s) {
         mUser = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();
@@ -138,6 +114,14 @@ public class LoginActivity extends AccountBaseActivity implements
         } else {
             btnLogin.setEnabled(true);
         }
+    }
+
+    @OnEditorAction(R.id.et_pwd)
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            onClick(btnLogin);
+        }
+        return false;
     }
 
     @Override
@@ -150,14 +134,13 @@ public class LoginActivity extends AccountBaseActivity implements
     @Override
     protected void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
+        isOnPause = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
+        isOnPause = false;
     }
 
     @OnClick({R.id.btn_login, R.id.tv_new_user_register, R.id.tv_forget_pwd, R.id.btn_wechat_login})
@@ -196,15 +179,17 @@ public class LoginActivity extends AccountBaseActivity implements
      * 登录成功
      */
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
-        hideProgress();
-        btnLogin.setProgress(0);
-        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, mUser);
-        if (TextUtils.isEmpty(obj.user.getNick_name())) {
-            TransferCenter.getInstance().startRegister(true);
-        } else {
-            connectIM(mIsOpenMain, obj.user.getChild_info() == null);
+        if (!isOnPause) {
+            hideProgress();
+            btnLogin.setProgress(0);
+            SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, mUser);
+            if (TextUtils.isEmpty(obj.user.getNick_name())) {
+                TransferCenter.getInstance().startRegister(true);
+            } else {
+                connectIM(mIsOpenMain, obj.user.getChild_info() == null);
+            }
+            finish();
         }
-        finish();
     }
 
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {

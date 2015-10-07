@@ -18,9 +18,7 @@ public abstract class BaseTemplateActivity extends BasisActivity {
         setContentView(getLayoutRes());
         // // TODO: 9/29/15 未完待读
         ButterKnife.bind(this);
-        initView();
         initData();
-        initListener();
     }
 
     /**
@@ -31,19 +29,10 @@ public abstract class BaseTemplateActivity extends BasisActivity {
     protected abstract int getLayoutRes();
 
     /**
-     * 初始化视图，findviewbyid等
-     */
-    protected abstract void initView();
-
-    /**
      * 初始化数据；访问接口等
      */
     protected abstract void initData();
 
-    /**
-     * 初始化事件监听，onclickLister等
-     */
-    protected abstract void initListener();
 }
 
 

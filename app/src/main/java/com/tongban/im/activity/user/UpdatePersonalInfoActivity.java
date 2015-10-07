@@ -1,5 +1,6 @@
 package com.tongban.im.activity.user;
 
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -9,8 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.UserCenterApi;
@@ -21,17 +24,32 @@ import com.tongban.im.model.user.EditUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * 修改个人信息界面
  *
  * @author fushudi
  */
-public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements TextWatcher,
-        View.OnClickListener {
-    private EditText cetUpdateNickName;
-    private RelativeLayout rlUpdateSexBoy;
-    private RelativeLayout rlUpdateSexGirl;
-    private ImageView ivSelectBoy, ivSelectGirl;
+public class UpdatePersonalInfoActivity extends BaseToolBarActivity  {
+
+    @Bind(R.id.et_update_nickname)
+    ClearEditText etUpdateNickName;
+    @Bind(R.id.tv_update_sex_boy)
+    TextView tvUpdateSexBoy;
+    @Bind(R.id.iv_select_boy)
+    ImageView ivSelectBoy;
+    @Bind(R.id.rl_update_sex_boy)
+    RelativeLayout rlUpdateSexBoy;
+    @Bind(R.id.tv_update_sex_gir)
+    TextView tvUpdateSexGir;
+    @Bind(R.id.iv_select_girl)
+    ImageView ivSelectGirl;
+    @Bind(R.id.rl_update_sex_girl)
+    RelativeLayout rlUpdateSexGirl;
 
     private String mNickName;
     private int mChildSex = 0;
@@ -44,36 +62,22 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
     }
 
     @Override
-    protected void initView() {
-        cetUpdateNickName = (EditText) findViewById(R.id.et_update_nickname);
-        rlUpdateSexBoy = (RelativeLayout) findViewById(R.id.rl_update_sex_boy);
-        rlUpdateSexGirl = (RelativeLayout) findViewById(R.id.rl_update_sex_girl);
-        ivSelectBoy = (ImageView) findViewById(R.id.iv_select_boy);
-        ivSelectGirl = (ImageView) findViewById(R.id.iv_select_girl);
+    protected void initData() {
         //修改昵称
-        if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_NICKNAME)) {
+        if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO)
+                .equals(Consts.KEY_UPDATE_NICKNAME)) {
             setTitle("昵称修改");
-            cetUpdateNickName.setVisibility(View.VISIBLE);
+            etUpdateNickName.setVisibility(View.VISIBLE);
         }
         //修改性别
-        else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_SEX)) {
+        else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO)
+                .equals(Consts.KEY_UPDATE_SEX)) {
             setTitle("宝宝性别");
             rlUpdateSexBoy.setVisibility(View.VISIBLE);
             rlUpdateSexGirl.setVisibility(View.VISIBLE);
         }
     }
 
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected void initListener() {
-        cetUpdateNickName.addTextChangedListener(this);
-        rlUpdateSexBoy.setOnClickListener(this);
-        rlUpdateSexGirl.setOnClickListener(this);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,7 +90,8 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
         int itemId = item.getItemId();
         if (itemId == R.id.menu_save) {
             //修改昵称
-            if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_NICKNAME)) {
+            if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO)
+                    .equals(Consts.KEY_UPDATE_NICKNAME)) {
                 if (!TextUtils.isEmpty(mNickName)) {
                     editUser.setNick_name(mNickName);
                     UserCenterApi.getInstance().updateUserInfo(editUser, UpdatePersonalInfoActivity.this);
@@ -94,8 +99,9 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
                 }
             }
             //修改性别
-            else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO).equals(Consts.KEY_UPDATE_SEX)) {
-                if (mChildSex!=0) {
+            else if (getIntent().getStringExtra(Consts.KEY_UPDATE_PERSONAL_INFO)
+                    .equals(Consts.KEY_UPDATE_SEX)) {
+                if (mChildSex != 0) {
                     String childBirthday = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE,
                             Consts.CHILD_BIRTHDAY, "").toString();
                     AddChildInfo childInfo = new AddChildInfo();
@@ -113,22 +119,12 @@ public class UpdatePersonalInfoActivity extends BaseToolBarActivity implements T
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
+    @OnTextChanged(R.id.et_update_nickname)
     public void afterTextChanged(Editable s) {
-        mNickName = cetUpdateNickName.getText().toString().trim();
+        mNickName = etUpdateNickName.getText().toString().trim();
     }
 
-    @Override
+    @OnClick({R.id.rl_update_sex_boy,R.id.rl_update_sex_girl})
     public void onClick(View v) {
         //修改性别为：男
         if (v == rlUpdateSexBoy) {

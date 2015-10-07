@@ -36,7 +36,8 @@ import butterknife.OnItemClick;
 public class MyCommentTopicFragment extends BaseToolBarFragment implements
         OnLoadMoreListener
         , TopicInputView.IOnClickCommentListener
-        , TopicInputView.IKeyboardListener {
+        , TopicInputView.IKeyboardListener
+        , View.OnClickListener {
     @Bind(R.id.lv_receive_topic_list)
     LoadMoreListView mListView;
     @Bind(R.id.topic_input)
@@ -56,6 +57,7 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         mAdapter = new MyCommentTopicAdapter(mContext, R.layout.item_my_comment_topic_list, null);
+        mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
         mListView.setPageSize(mPageSize);
         UserCenterApi.getInstance().fetchReplyTopicList(mCursor, mPageSize, this);
@@ -65,7 +67,6 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements
         topicInputView.setOnClickCommentListener(this);
     }
 
-    @OnClick({R.id.iv_user_portrait, R.id.tv_comment})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_user_portrait:

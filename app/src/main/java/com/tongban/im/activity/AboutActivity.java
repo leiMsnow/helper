@@ -16,17 +16,8 @@ public class AboutActivity extends BaseToolBarActivity {
     }
 
     @Override
-    protected void initView() {
-        setTitle("关于我们");
-    }
-
-    @Override
     protected void initData() {
-
-    }
-
-    @Override
-    protected void initListener() {
+        setTitle("关于我们");
 
     }
 

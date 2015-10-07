@@ -11,7 +11,6 @@ import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.api.CommonApi;
-import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Tag;
 import com.tongban.im.model.TagType;
@@ -19,6 +18,7 @@ import com.tongban.im.model.TagType;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -26,39 +26,30 @@ import de.greenrobot.event.EventBus;
  */
 public class GroupTipsListActivity extends BaseToolBarActivity implements View.OnClickListener {
 
-    private FlowLayout flLabelList;
+    @Bind(R.id.fl_label_list)
+    FlowLayout flLabelList;
     public List<Tag> tags;
 
     //最大选择数量
     private int mMaxCount = 0;
-    private int mGroupType = 0;
 
     private List<String> selectedTagId = new ArrayList<>();
 
     @Override
     protected int getLayoutRes() {
         if (getIntent().getExtras() != null) {
-            mGroupType = getIntent().getExtras().getInt(Consts.KEY_GROUP_TYPE, 0);
             selectedTagId = getIntent().getExtras().getStringArrayList("selectTag");
             mMaxCount = selectedTagId.size();
         }
         return R.layout.activity_group_tips_list;
     }
 
-    @Override
-    protected void initView() {
-        flLabelList = (FlowLayout) findViewById(R.id.fl_label_list);
-    }
 
     @Override
     protected void initData() {
         CommonApi.getInstance().fetchTags(0, 20, TagType.GROUP_TAG, this);
     }
 
-    @Override
-    protected void initListener() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,7 +68,6 @@ public class GroupTipsListActivity extends BaseToolBarActivity implements View.O
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_label_name) {
             if (v.isSelected()) {
@@ -115,5 +105,4 @@ public class GroupTipsListActivity extends BaseToolBarActivity implements View.O
         }
 
     }
-
 }

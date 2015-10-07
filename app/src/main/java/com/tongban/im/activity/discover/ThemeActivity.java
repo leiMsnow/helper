@@ -1,7 +1,7 @@
 package com.tongban.im.activity.discover;
 
 import android.net.Uri;
-import android.os.Handler;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.DateUtils;
-import com.tongban.corelib.utils.DensityUtils;
-import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.ThemeBaseActivity;
@@ -30,29 +28,32 @@ import com.tongban.im.model.topic.Topic;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 专题页
  * Created by Cheney on 15/8/17.
  */
 public class ThemeActivity extends ThemeBaseActivity {
 
-    private View mParent;
-    // 专题头图
-    private ImageView headImg;
-    // 专题标题
-    private TextView title;
-    // 存在专题标题的布局
-    private FlowLayout themeTag;
-    // 创建时间
-    private TextView createTime;
-    // 专题描述
-    private TextView themeDesc;
-    // 单品列表
-    private LinearLayout mProductList;
-    // 相关话题的容器
-    private LinearLayout mTopicContainer;
-    // 相关话题列表
-    private LinearLayout mTopicList;
+    @Bind(R.id.iv_head)
+    ImageView headImg;
+    @Bind(R.id.tv_title)
+    TextView title;
+    @Bind(R.id.fl_tag)
+    FlowLayout themeTag;
+    @Bind(R.id.tv_create_time)
+    TextView createTime;
+    @Bind(R.id.tv_desc)
+    TextView themeDesc;
+    @Bind(R.id.ll_product_list)
+    LinearLayout mProductList;
+    @Bind(R.id.ll_topic_list)
+    LinearLayout mTopicContainer;
+    @Bind(R.id.ll_topic)
+    LinearLayout mTopicList;
 
     // 当前的专题id
     private String themeId;
@@ -67,20 +68,6 @@ public class ThemeActivity extends ThemeBaseActivity {
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        mParent = findViewById(R.id.sl_parent);
-        headImg = (ImageView) findViewById(R.id.iv_head);
-        title = (TextView) findViewById(R.id.tv_title);
-        themeTag = (FlowLayout) findViewById(R.id.fl_tag);
-        createTime = (TextView) findViewById(R.id.tv_create_time);
-        themeDesc = (TextView) findViewById(R.id.tv_desc);
-        mProductList = (LinearLayout) findViewById(R.id.ll_product_list);
-        mTopicContainer = (LinearLayout) findViewById(R.id.ll_topic);
-        mTopicList = (LinearLayout) findViewById(R.id.ll_topic_list);
-    }
-
-    @Override
     protected void initData() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
@@ -91,18 +78,13 @@ public class ThemeActivity extends ThemeBaseActivity {
         }
     }
 
-    @Override
-    protected void initListener() {
-        super.initListener();
-    }
-
     /**
      * 获取专题信息成功的事件
      *
      * @param theme Theme
      */
     public void onEventMainThread(Theme theme) {
-        mParent.setVisibility(View.VISIBLE);
+        slParent.setVisibility(View.VISIBLE);
         this.mTheme = theme;
         // 获取专题下的单品列表
         ProductApi.getInstance().fetchProductListByThemeId(mTheme.getTheme_id(), 0, 20, this);
@@ -262,9 +244,8 @@ public class ThemeActivity extends ThemeBaseActivity {
         mTheme.setCollect_status(false);
     }
 
-    @Override
+    @OnClick({R.id.iv_collect})
     public void onClick(View v) {
-        super.onClick(v);
         if (v == ivCollect) {
             if (!TransferCenter.getInstance().startLogin()) {
                 return;
@@ -278,6 +259,8 @@ public class ThemeActivity extends ThemeBaseActivity {
                 ProductApi.getInstance().noCollectTheme(themeId, this);
                 setCollectEnable();
             }
+        }else{
+            super.onClick(v);
         }
     }
 }

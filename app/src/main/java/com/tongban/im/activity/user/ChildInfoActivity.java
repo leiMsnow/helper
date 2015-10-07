@@ -33,11 +33,6 @@ public class ChildInfoActivity extends AccountBaseActivity {
         transaction.commit();
     }
 
-    @Override
-    protected void initListener() {
-
-    }
-
     /**
      * 宝宝信息Event
      *

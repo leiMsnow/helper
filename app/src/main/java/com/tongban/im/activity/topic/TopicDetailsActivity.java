@@ -4,11 +4,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.widget.view.LoadMoreListView;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.TopicDetailsBaseActivity;
@@ -19,84 +17,70 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.common.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.TopicComment;
-import com.tongban.im.widget.view.TopicInputView;
+import com.tongban.im.widget.view.ChildGridView;
 
-import java.util.List;
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * 话题评论界面
  *
  * @author fushudi
  */
-public class TopicDetailsActivity extends TopicDetailsBaseActivity
-        implements OnLoadMoreListener {
+public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
+        OnLoadMoreListener{
+
+    //头布局 top
+    CircleImageView ivUserPortrait;
+    TextView tvUserName;
+    TextView tvTime;
+    //中间布局 content
+    TextView tvTopicTitle;
+    TextView tvTopicContent;
+    ChildGridView gvContent;
+    //底布局 bottom
+    TextView tvComment;
 
     //头布局控件
     private View mHeader;
-    //头布局 top
-    private ImageView ivUserPortrait;
-    private TextView tvUserName;
-    private TextView tvTime;
-    //中间布局 content
-    private TextView tvTopicTitle;
-    private TextView tvTopicContent;
-    private GridView gvContent;
-    //底布局 bottom
-    private TextView tvComment;
-
-    private LoadMoreListView lvReplyList;
 
     private TopicImgAdapter mTopicImgAdapter;
     private TopicCommentAdapter mAdapter;
 
-
-    @Override
-    protected void initView() {
-        super.initView();
-        lvReplyList = (LoadMoreListView) findViewById(R.id.lv_reply_list);
-        //添加头布局
-        mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
-        ivUserPortrait = (ImageView) mHeader.findViewById(R.id.iv_user_portrait);
-        tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
-        tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
-
-        tvTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
-        tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
-        gvContent = (GridView) mHeader.findViewById(R.id.gv_content);
-        tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
-
-        lvReplyList.addHeaderView(mHeader);
-    }
-
     @Override
     protected void initData() {
         super.initData();
-
-
         if (!TextUtils.isEmpty(mTopicId)) {
-            onRequest();
+
+            mHeader = LayoutInflater.from(mContext).inflate(R.layout.header_topic_details, null);
+            lvReplyList.addHeaderView(mHeader);
+            // header - top
+            ivUserPortrait = (CircleImageView) mHeader.findViewById(R.id.iv_user_portrait);
+            tvUserName = (TextView) mHeader.findViewById(R.id.tv_user_name);
+            tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
+            // header - content
+            tvTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
+            tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
+            gvContent = (ChildGridView) mHeader.findViewById(R.id.gv_content);
+            tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
+            // header - bottom
+            mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
+            gvContent.setAdapter(mTopicImgAdapter);
 
             mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
-            lvReplyList.setAdapter(mAdapter);
             lvReplyList.setResultSize(mPage);
+            lvReplyList.setAdapter(mAdapter);
 
-            mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img,
-                    null);
-            gvContent.setAdapter(mTopicImgAdapter);
+            mTopicImgAdapter.setImgClickListener(this);
+            mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
+            mAdapter.setOnClickListener(this);
+            lvReplyList.setOnLoadMoreListener(this);
+            ivUserPortrait.setOnClickListener(this);
+
+            onRequest();
         }
     }
 
-    @Override
-    protected void initListener() {
-        super.initListener();
-        mAdapter.setOnClickListener(this);
-        mAdapter.setOnImgClickListener(new TopicListenerImpl(mContext));
-        mTopicImgAdapter.setImgClickListener(this);
-        ivUserPortrait.setOnClickListener(this);
-        lvReplyList.setOnLoadMoreListener(this);
-    }
 
     @Override
     public void onRequest() {

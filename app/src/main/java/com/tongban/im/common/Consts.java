@@ -90,10 +90,6 @@ public class Consts {
      */
     public static final String KEY_GROUP_TYPE_NAME = "KEY_GROUP_TYPE_NAME";
     /**
-     * 圈子类型icon
-     */
-    public static final String KEY_GROUP_TYPE_ICON = "KEY_GROUP_TYPE_ICON";
-    /**
      * 搜索圈子POI的名称
      */
     public static final String KEY_SELECTED_POI_NAME = "KEY_SELECTED_POI_NAME";

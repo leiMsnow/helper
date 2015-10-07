@@ -2,7 +2,6 @@ package com.tongban.im.activity.user;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.SettingActivity;
@@ -10,43 +9,29 @@ import com.tongban.im.activity.base.UserBaseActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.OnClick;
+
 /**
  * 个人中心
  */
-public class PersonalCenterActivity extends UserBaseActivity implements View.OnClickListener {
-
-    private TextView tvMyTopic, tvMyCollect, tvSettings;
-
-    @Override
-    protected void initView() {
-        super.initView();
-        tvMyTopic = (TextView) contentView.findViewById(R.id.tv_my_topic);
-        tvMyCollect = (TextView) contentView.findViewById(R.id.tv_my_collect);
-        tvSettings = (TextView) contentView.findViewById(R.id.tv_settings);
-
-        tvMyTopic.setVisibility(View.VISIBLE);
-        tvMyCollect.setVisibility(View.VISIBLE);
-        tvSettings.setVisibility(View.VISIBLE);
-    }
+public class PersonalCenterActivity extends UserBaseActivity {
 
     @Override
     protected void initData() {
+        super.initData();
+        tvMyTopic.setVisibility(View.VISIBLE);
+        tvMyCollect.setVisibility(View.VISIBLE);
+        tvSettings.setVisibility(View.VISIBLE);
+
+        tvMyTopic.setOnClickListener(this);
+        tvMyCollect.setOnClickListener(this);
+        tvSettings.setOnClickListener(this);
+
         UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
     }
 
     @Override
-    protected void initListener() {
-        super.initListener();
-        tvSetChildInfo.setOnClickListener(this);
-        tvMyCollect.setOnClickListener(this);
-        tvMyTopic.setOnClickListener(this);
-        tvSettings.setOnClickListener(this);
-    }
-
-
-    @Override
     public void onClick(View v) {
-        super.onClick(v);
         //跳转到话题界面
         if (v == tvMyTopic) {
             startActivity(new Intent(this, MyTopicActivity.class));
@@ -58,10 +43,8 @@ public class PersonalCenterActivity extends UserBaseActivity implements View.OnC
         //跳转到设置界面
         else if (v == tvSettings) {
             startActivity(new Intent(mContext, SettingActivity.class));
-        }
-        //跳转到设置宝宝信息界面
-        else if (v == tvSetChildInfo) {
-            startActivity(new Intent(this, ChildInfoActivity.class));
+        }else{
+            super.onClick(v);
         }
     }
 

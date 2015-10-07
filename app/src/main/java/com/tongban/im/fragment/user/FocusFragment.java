@@ -24,7 +24,7 @@ import butterknife.OnItemClick;
  * @author fushudi
  */
 public class FocusFragment extends BaseToolBarFragment implements
-        OnLoadMoreListener {
+        OnLoadMoreListener,View.OnClickListener {
 
     @Bind(R.id.lv_focus_list)
     LoadMoreListView lvFocusList;
@@ -43,6 +43,7 @@ public class FocusFragment extends BaseToolBarFragment implements
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
         mAdapter.setIsFocused(true);
+        mAdapter.setOnClickListener(this);
         lvFocusList.setAdapter(mAdapter);
         lvFocusList.setPageSize(mPageSize);
         if (getArguments() != null) {
@@ -74,7 +75,7 @@ public class FocusFragment extends BaseToolBarFragment implements
         }
     }
 
-    @OnClick({R.id.btn_follow, R.id.iv_user_icon})
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             //取消关注

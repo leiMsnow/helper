@@ -24,7 +24,7 @@ import butterknife.OnItemClick;
  * @author fushudi
  */
 public class FansFragment extends BaseToolBarFragment implements
-        OnLoadMoreListener {
+        OnLoadMoreListener,View.OnClickListener {
 
     @Bind(R.id.lv_fans_list)
     LoadMoreListView lvFansList;
@@ -42,6 +42,7 @@ public class FansFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
+        mAdapter.setOnClickListener(this);
         lvFansList.setAdapter(mAdapter);
         lvFansList.setPageSize(mPageSize);
         if (getArguments() != null) {
@@ -79,7 +80,7 @@ public class FansFragment extends BaseToolBarFragment implements
         getActivity().finish();
     }
 
-    @OnClick({R.id.btn_follow, R.id.iv_user_icon})
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_follow:

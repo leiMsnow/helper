@@ -24,14 +24,20 @@ import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.group.GroupType;
 
+import butterknife.Bind;
+import butterknife.OnItemClick;
+
 /**
  * poi搜索功能
  */
 public class SearchPoiActivity extends BaseToolBarActivity implements
-        OnGetPoiSearchResultListener, AdapterView.OnItemClickListener,
-        OnLoadMoreListener, SearchView.OnQueryTextListener {
+        OnGetPoiSearchResultListener
+        , OnLoadMoreListener
+        , SearchView.OnQueryTextListener {
 
-    private LoadMoreListView lvLocation;
+    @Bind(R.id.lv_location)
+    LoadMoreListView lvLocation;
+
     private SearchView searchView;
 
     private PoiSearch mPoiSearch;
@@ -59,15 +65,10 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
     }
 
     @Override
-    protected void initView() {
+    protected void initData() {
         // 初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
-        lvLocation = (LoadMoreListView) findViewById(R.id.lv_location);
 
-    }
-
-    @Override
-    protected void initData() {
         mCity = SPUtils.get(mContext, Consts.CITY, "北京").toString();
         if (mCity.contains("市")) {
             mCity = mCity.replace("市", "");
@@ -79,12 +80,8 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
         lvLocation.setAdapter(mAdapter);
         lvLocation.setPageSize(mPageSize);
         startPoiSearch();
-    }
 
-    @Override
-    protected void initListener() {
         mPoiSearch.setOnGetPoiSearchResultListener(this);
-        lvLocation.setOnItemClickListener(this);
         lvLocation.setOnLoadMoreListener(this);
     }
 
@@ -100,8 +97,8 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
     }
 
     protected void onDestroy() {
-        mPoiSearch.destroy();
         super.onDestroy();
+        mPoiSearch.destroy();
     }
 
     public void onGetPoiResult(PoiResult result) {
@@ -131,7 +128,7 @@ public class SearchPoiActivity extends BaseToolBarActivity implements
         }
     }
 
-    @Override
+    @OnItemClick(R.id.lv_location)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (mAdapter.getItem(position) == null) {
             return;

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,11 +38,26 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * 相册选择器
  */
 public class PhotoAlbumActivity extends BaseToolBarActivity implements
-        ListImageDirPopupWindow.OnImageDirSelected, PhotoAlbumAdapter.ISelectIMGListener {
+        ListImageDirPopupWindow.OnImageDirSelected
+        , PhotoAlbumAdapter.ISelectIMGListener {
+
+    @Bind(R.id.id_gridView)
+    GridView mGirdView;
+    @Bind(R.id.id_choose_dir)
+    TextView mChooseDir;
+    @Bind(R.id.id_total_count)
+    TextView mImageCount;
+    @Bind(R.id.rl_bottom_parent)
+    RelativeLayout mBottomParent;
+
     private BaseProgressDialog mProgressDialog;
 
     /**
@@ -53,7 +69,6 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
      */
     private File mImgDir;
 
-    private GridView mGirdView;
     private PhotoAlbumAdapter mAdapter;
     /**
      * 临时的辅助类，用于防止同一个文件夹的多次扫描
@@ -66,10 +81,7 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
 
     private String mChooseName = "";
 
-    private RelativeLayout mBottomParent;
 
-    private TextView mChooseDir;
-    private TextView mImageCount;
     private ListImageDirPopupWindow mListImageDirPopupWindow;
 
     private int currentSelect = 0;
@@ -78,17 +90,6 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_photo_grid;
-    }
-
-    /**
-     * 初始化View
-     */
-    @Override
-    protected void initView() {
-        mGirdView = (GridView) findViewById(R.id.id_gridView);
-        mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
-        mImageCount = (TextView) findViewById(R.id.id_total_count);
-        mBottomParent = (RelativeLayout) findViewById(R.id.rl_bottom_parent);
     }
 
     @Override
@@ -104,34 +105,14 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
         mAdapter.setMaxCount(maxSelect);
         mGirdView.setAdapter(mAdapter);
         getImages();
+
+        mAdapter.setSelectIMGListener(this);
+
     }
 
     private void setToolbarTitle() {
         setTitle("已选择(" + currentSelect + "/" + maxSelect + ")");
     }
-
-    @Override
-    protected void initListener() {
-        mAdapter.setSelectIMGListener(this);
-        /**
-         * 为底部的布局设置点击事件，弹出popupWindow
-         */
-        mBottomParent.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListImageDirPopupWindow.setSelectDir("/" + mChooseName);
-                mListImageDirPopupWindow
-                        .setAnimationStyle(com.tongban.corelib.R.style.AnimPopupDir);
-                mListImageDirPopupWindow.showAsDropDown(mBottomParent, 0, 0);
-
-                // 设置背景颜色变暗
-                WindowManager.LayoutParams lp = getWindow().getAttributes();
-                lp.alpha = 0.7f;
-                getWindow().setAttributes(lp);
-            }
-        });
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,6 +133,19 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @OnClick(R.id.rl_bottom_parent)
+    public void onClick(View v) {
+        mListImageDirPopupWindow.setSelectDir("/" + mChooseName);
+        mListImageDirPopupWindow
+                .setAnimationStyle(com.tongban.corelib.R.style.AnimPopupDir);
+        mListImageDirPopupWindow.showAsDropDown(mBottomParent, 0, 0);
+
+        // 设置背景颜色变暗
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = 0.7f;
+        getWindow().setAttributes(lp);
     }
 
     /**
@@ -246,7 +240,7 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
     }
 
     private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             mProgressDialog.dismiss();
             // 为View绑定数据
             data2View();
@@ -330,4 +324,5 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
         currentSelect = count;
         setToolbarTitle();
     }
+
 }

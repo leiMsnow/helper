@@ -2,17 +2,22 @@ package com.tongban.im.activity.group;
 
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
@@ -20,25 +25,38 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.group.Group;
+import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.Random;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 群组信息/设置
  */
-public class GroupInfoActivity extends BaseToolBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class GroupInfoActivity extends BaseToolBarActivity {
 
 
-    private View mParent;
-    private GridView gvMembers;
-    //圈子信息
-    private TextView tvGroupName, tvAddress, tvCreator, tvAttrs, tvDesc;
-    private ImageView ivCreator;
-    //圈子设置
-    private CheckBox chbRemind, chbTop;
-    //各条目父控件
-    private View vGroupName, vAddress, vDesc, vClear, vInform, vSettings;
-    private Button btnQuit;
+    @Bind(R.id.gv_members)
+    ChildGridView gvMembers;
+    @Bind(R.id.tv_group_name)
+    TextView tvGroupName;
+    @Bind(R.id.tv_group_address)
+    TextView tvAddress;
+    @Bind(R.id.iv_group_creator)
+    CircleImageView ivCreator;
+    @Bind(R.id.tv_group_creator)
+    TextView tvCreator;
+    @Bind(R.id.tv_group_attrs)
+    TextView tvAttrs;
+    @Bind(R.id.btn_quit)
+    Button btnQuit;
+    @Bind(R.id.ll_settings_parent)
+    LinearLayout llSettingsParent;
+    @Bind(R.id.sl_parent)
+    ScrollView mParent;
 
     private MemberGridAdapter mMemberGridAdapter;
     private Group mGroup;
@@ -50,47 +68,6 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_group_info;
-    }
-
-    @Override
-    protected void initView() {
-
-        mParent = findViewById(R.id.sl_parent);
-        gvMembers = (GridView) findViewById(R.id.gv_members);
-
-        tvGroupName = (TextView) findViewById(R.id.tv_group_name);
-        tvAddress = (TextView) findViewById(R.id.tv_group_address);
-        tvCreator = (TextView) findViewById(R.id.tv_group_creator);
-        tvAttrs = (TextView) findViewById(R.id.tv_group_attrs);
-        tvDesc = (TextView) findViewById(R.id.tv_group_desc);
-
-        ivCreator = (ImageView) findViewById(R.id.iv_group_creator);
-
-        chbRemind = (CheckBox) findViewById(R.id.chb_remind);
-        chbTop = (CheckBox) findViewById(R.id.chb_top);
-
-        vGroupName = findViewById(R.id.ll_name);
-        vAddress = findViewById(R.id.ll_address);
-        vDesc = findViewById(R.id.ll_desc);
-        vClear = findViewById(R.id.ll_clear);
-        vInform = findViewById(R.id.ll_inform);
-        vSettings = findViewById(R.id.ll_settings_parent);
-
-        btnQuit = (Button) findViewById(R.id.btn_quit);
-    }
-
-    @Override
-    protected void initListener() {
-
-        gvMembers.setOnItemClickListener(this);
-        btnQuit.setOnClickListener(this);
-
-        vGroupName.setOnClickListener(this);
-        vAddress.setOnClickListener(this);
-        vDesc.setOnClickListener(this);
-        vClear.setOnClickListener(this);
-        vInform.setOnClickListener(this);
-
     }
 
     @Override
@@ -106,7 +83,7 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         gvMembers.setAdapter(mMemberGridAdapter);
     }
 
-    @Override
+    @OnClick(R.id.btn_quit)
     public void onClick(View v) {
         if (v == btnQuit) {
             if (mGroup == null) {
@@ -137,18 +114,13 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.group;
         if (mGroup != null) {
             GroupApi.getInstance().getGroupMembersList(mGroupId, 0, 15, this);
             mParent.setVisibility(View.VISIBLE);
             if (!mAllowAdd) {
-                vSettings.setVisibility(View.VISIBLE);
+                llSettingsParent.setVisibility(View.VISIBLE);
             }
         } else {
             mParent.setVisibility(View.GONE);
@@ -181,5 +153,4 @@ public class GroupInfoActivity extends BaseToolBarActivity implements View.OnCli
         return mContext.getResources().getStringArray(R.array.quit_group)
                 [random.nextInt(count)].toString();
     }
-
 }

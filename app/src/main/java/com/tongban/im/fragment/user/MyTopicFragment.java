@@ -1,14 +1,9 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
@@ -26,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
@@ -36,7 +30,7 @@ import butterknife.OnItemClick;
  * @author fushudi
  */
 public class MyTopicFragment extends BaseToolBarFragment implements
-        OnLoadMoreListener {
+        OnLoadMoreListener, View.OnClickListener {
 
     @Bind(R.id.lv_topic_list)
     LoadMoreListView lvTopicList;
@@ -53,6 +47,7 @@ public class MyTopicFragment extends BaseToolBarFragment implements
 
     @Override
     protected void initData() {
+
         if (getArguments() != null) {
             //我的收藏 - 话题列表
             if (getArguments().getInt(Consts.KEY_MY_TOPIC_LIST) == Topic.MY_COLLECT_TOPIC_LIST) {
@@ -65,13 +60,14 @@ public class MyTopicFragment extends BaseToolBarFragment implements
         }
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
+        mAdapter.setOnClickListener(this);
         lvTopicList.setAdapter(mAdapter);
         lvTopicList.setPageSize(mPageSize);
 
         lvTopicList.setOnLoadMoreListener(this);
     }
 
-    @OnClick({R.id.iv_small_img_1, R.id.iv_small_img_2, R.id.iv_small_img_3, R.id.iv_user_portrait})
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_small_img_1:

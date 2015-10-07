@@ -6,11 +6,10 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
@@ -27,16 +26,24 @@ import com.tongban.im.widget.view.TopicInputView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+
 /**
  * 通用的topicDetails父类
  * Created by fushudi on 2015/8/13.
  */
 public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity implements
-        CommonImageResultActivity.ImageResultListener, View.OnClickListener,
-        TopicInputView.IOnClickCommentListener {
+        CommonImageResultActivity.ImageResultListener
+        , TopicInputView.IOnClickCommentListener
+        , View.OnClickListener {
 
 
-    private TopicInputView topicInputView;
+    @Bind(R.id.lv_reply_list)
+    protected LoadMoreListView lvReplyList;
+    @Bind(R.id.topic_input)
+    TopicInputView topicInputView;
+
     private MenuItem menuItem;
 
     protected Topic mTopicInfo;
@@ -58,25 +65,15 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         return R.layout.activity_topic_details;
     }
 
-
-    @Override
-    protected void initView() {
-        topicInputView = (TopicInputView) findViewById(R.id.topic_input);
-        topicInputView.setAdapterImgCount(3);
-    }
-
     @Override
     protected void initData() {
+
+        topicInputView.setAdapterImgCount(3);
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
         }
         topicInputView.setOnClickCommentListener(this);
-    }
-
-    @Override
-    protected void initListener() {
-
     }
 
     @Override

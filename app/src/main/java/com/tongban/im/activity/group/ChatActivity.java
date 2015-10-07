@@ -20,28 +20,15 @@ import io.rong.imkit.model.Event;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class ChatActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class ChatActivity extends BaseToolBarActivity  {
 
     private String mTargetId;
     private String mTitle;
     private boolean isPrivateChat = true;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected int getLayoutRes() {
         return R.layout.activity_chat;
-    }
-
-    @Override
-    protected void initView() {
-    }
-
-    @Override
-    protected void initListener() {
     }
 
     @Override
@@ -75,11 +62,6 @@ public class ChatActivity extends BaseToolBarActivity implements View.OnClickLis
             TransferCenter.getInstance().startGroupInfo(mTargetId, false);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {

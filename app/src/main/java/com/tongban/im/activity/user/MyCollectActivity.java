@@ -15,60 +15,60 @@ import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
+import com.tongban.im.fragment.user.ThemeListFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnPageChange;
+
 /**
  * 我的收藏界面
  *
  * @author fushudi
  */
-public class MyCollectActivity extends BaseToolBarActivity implements
-        ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MyCollectActivity extends BaseToolBarActivity  {
 
-    private RelativeLayout rlMultipleProduct, rlSingleProduct, rlTopic;
-    private ViewPager vpResult;
-    private View mIndicator;
+    @Bind(R.id.ccv_theme)
+    ChangeColorView ccvMultiple;
+    @Bind(R.id.tv_multiple_product_num)
+    TextView tvMultiProductNum;
+    @Bind(R.id.rl_multiple_product)
+    RelativeLayout rlMultipleProduct;
+    @Bind(R.id.ccv_product)
+    ChangeColorView ccvSingle;
+    @Bind(R.id.tv_single_product_num)
+    TextView tvSingleProductNum;
+    @Bind(R.id.rl_single_product)
+    RelativeLayout rlSingleProduct;
+    @Bind(R.id.ccv_topic)
+    ChangeColorView ccvTopic;
+    @Bind(R.id.tv_collect_topic_num)
+    TextView tvCollectTopicNum;
+    @Bind(R.id.rl_topic)
+    RelativeLayout rlTopic;
+    @Bind(R.id.v_indicator)
+    View mIndicator;
+    @Bind(R.id.vp_result)
+    ViewPager vpResult;
+
     private FragmentPagerAdapter mAdapter;
 
     private List<Fragment> mTabs = new ArrayList<>();
     private List<ChangeColorView> mTabIndicator = new ArrayList<>();
-    private ChangeColorView ccvMultiple;
-    private ChangeColorView ccvSingle;
-    private ChangeColorView ccvTopic;
-    private TextView tvMultiProductNum, tvSingleProductNum, tvCollectTopicNum;
 
     private int mIndicatorWidth;
 
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_my_collect;
-    }
-
-    @Override
-    protected void initView() {
-        setTitle(R.string.my_collect);
-        rlMultipleProduct = (RelativeLayout) findViewById(R.id.rl_multiple_product);
-        rlSingleProduct = (RelativeLayout) findViewById(R.id.rl_single_product);
-        rlTopic = (RelativeLayout) findViewById(R.id.rl_topic);
-
-        ccvMultiple = (ChangeColorView) findViewById(R.id.ccv_theme);
-        ccvSingle = (ChangeColorView) findViewById(R.id.ccv_product);
-        ccvTopic = (ChangeColorView) findViewById(R.id.ccv_topic);
-        mIndicator = findViewById(R.id.v_indicator);
-        vpResult = (ViewPager) findViewById(R.id.vp_result);
-        ccvMultiple.setIconAlpha(1.0f);
-        initIndicator(3);
-
-        tvMultiProductNum = (TextView) findViewById(R.id.tv_multiple_product_num);
-        tvSingleProductNum = (TextView) findViewById(R.id.tv_single_product_num);
-        tvCollectTopicNum = (TextView) findViewById(R.id.tv_collect_topic_num);
     }
 
     /**
@@ -85,6 +85,12 @@ public class MyCollectActivity extends BaseToolBarActivity implements
 
     @Override
     protected void initData() {
+
+        setTitle(R.string.my_collect);
+
+        ccvMultiple.setIconAlpha(1.0f);
+        initIndicator(3);
+
         mTabIndicator.add(ccvMultiple);
         mTabIndicator.add(ccvSingle);
         mTabIndicator.add(ccvTopic);
@@ -112,17 +118,9 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         };
         vpResult.setAdapter(mAdapter);
         vpResult.setOffscreenPageLimit(3);
-        vpResult.addOnPageChangeListener(this);
     }
 
-    @Override
-    protected void initListener() {
-        rlMultipleProduct.setOnClickListener(this);
-        rlSingleProduct.setOnClickListener(this);
-        rlTopic.setOnClickListener(this);
-    }
-
-    @Override
+    @OnPageChange(value = R.id.vp_result,callback = OnPageChange.Callback.PAGE_SCROLLED)
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (positionOffset > 0) {
             mTabIndicator.get(position).setIconAlpha(1 - positionOffset);
@@ -134,17 +132,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
         mIndicator.setLayoutParams(lp);
     }
 
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
+    @OnClick({R.id.rl_multiple_product,R.id.rl_single_product,R.id.rl_topic})
     public void onClick(View v) {
         if (v == rlMultipleProduct) {
             resetTabs(0);
@@ -180,6 +168,7 @@ public class MyCollectActivity extends BaseToolBarActivity implements
     public void onEventMainThread(BaseEvent.FetchCollectedProductEvent obj) {
         tvSingleProductNum.setText(String.valueOf(obj.productBookList.size()));
     }
+
     /**
      * 我的收藏专题Event
      *
