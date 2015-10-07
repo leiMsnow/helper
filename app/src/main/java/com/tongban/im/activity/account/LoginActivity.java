@@ -165,7 +165,7 @@ public class LoginActivity extends AccountBaseActivity implements
         // 登录
         if (v == btnLogin) {
             btnLogin.setProgress(50);
-            new Handler().postDelayed(new Runnable() {
+            btnLogin.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     AccountApi.getInstance().login(mUser, mPwd, LoginActivity.this);
@@ -197,13 +197,18 @@ public class LoginActivity extends AccountBaseActivity implements
      */
     public void onEventMainThread(BaseEvent.UserLoginEvent obj) {
         hideProgress();
+        btnLogin.setProgress(0);
         SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, mUser);
         if (TextUtils.isEmpty(obj.user.getNick_name())) {
             TransferCenter.getInstance().startRegister(true);
-            finish();
         } else {
             connectIM(mIsOpenMain, obj.user.getChild_info() == null);
         }
+        finish();
+    }
+
+    public void onEventMainThread(BaseEvent.EditUserEvent obj) {
+        finish();
     }
 
     /**

@@ -12,14 +12,14 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * 找回密码，第一步
  *
  * @author fushudi
  */
-public class InputPhoneFragment extends BaseToolBarFragment implements
-        TextWatcher {
+public class InputPhoneFragment extends BaseToolBarFragment {
 
     @Bind(R.id.et_input_phone)
     ClearEditText etInputPhone;
@@ -38,11 +38,6 @@ public class InputPhoneFragment extends BaseToolBarFragment implements
 
     }
 
-    @Override
-    protected void initListener() {
-        etInputPhone.addTextChangedListener(this);
-    }
-
     @OnClick(R.id.btn_submit)
     public void onClick(View v) {
         if (v == btnSubmit) {
@@ -55,17 +50,17 @@ public class InputPhoneFragment extends BaseToolBarFragment implements
         }
     }
 
-    @Override
+    @OnTextChanged(R.id.et_input_phone)
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
-    @Override
+    @OnTextChanged(R.id.et_input_phone)
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
-    @Override
+    @OnTextChanged(R.id.et_input_phone)
     public void afterTextChanged(Editable s) {
         mInputPhone = etInputPhone.getText().toString().trim();
         if (mInputPhone.length() == 11) {

@@ -84,10 +84,6 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements
         mAdapter.setDisplayModel(false);
         lvGroupList.setAdapter(mAdapter);
         lvGroupList.setPageSize(mPageSize);
-    }
-
-    @Override
-    protected void initListener() {
         lvGroupList.setOnLoadMoreListener(this);
         mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
     }

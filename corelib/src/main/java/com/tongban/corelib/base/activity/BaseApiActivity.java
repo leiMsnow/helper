@@ -84,14 +84,15 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         if (mDialog == null) {
             mDialog = new BaseProgressDialog(mContext);
         }
-        mDialog.show();
+        if (!isFinishing())
+            mDialog.show();
     }
 
     /**
      * 隐藏进度条
      */
     public void hideProgress() {
-        if (mDialog != null && mDialog.isShowing()) {
+        if (mDialog != null && mDialog.isShowing() && (!isFinishing())) {
             mDialog.dismiss();
             mDialog = null;
         }

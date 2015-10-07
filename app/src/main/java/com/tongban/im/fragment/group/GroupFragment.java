@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -20,6 +21,7 @@ import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import butterknife.Bind;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
@@ -73,33 +75,6 @@ public class GroupFragment extends BaseToolBarFragment {
         }
     }
 
-    @Override
-    protected void initListener() {
-        rgParent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_chat:
-                        if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-                            getChildFragmentManager().beginTransaction()
-                                    .replace(R.id.fl_container, chatFragment)
-                                    .commit();
-                        }
-                        ibSearch.setVisibility(View.GONE);
-                        setIndicator(0);
-                        break;
-                    case R.id.rb_recommend:
-                        getChildFragmentManager().beginTransaction()
-                                .replace(R.id.fl_container, recommendFragment)
-                                .commit();
-                        ibSearch.setVisibility(View.VISIBLE);
-                        setIndicator(1);
-                        break;
-                }
-            }
-        });
-    }
-
     @OnClick({R.id.ib_create, R.id.ib_search})
     public void onClick(View v) {
         if (v == ibCreate) {
@@ -110,6 +85,28 @@ public class GroupFragment extends BaseToolBarFragment {
             startActivity(intent);
         } else if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_GROUP, "city1");
+        }
+    }
+
+    @OnCheckedChanged({R.id.rb_chat,R.id.rb_recommend})
+    public void onCheckedChanged(CompoundButton checkedBtn) {
+        switch (checkedBtn.getId()) {
+            case R.id.rb_chat:
+                if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+                    getChildFragmentManager().beginTransaction()
+                            .replace(R.id.fl_container, chatFragment)
+                            .commit();
+                }
+                ibSearch.setVisibility(View.GONE);
+                setIndicator(0);
+                break;
+            case R.id.rb_recommend:
+                getChildFragmentManager().beginTransaction()
+                        .replace(R.id.fl_container, recommendFragment)
+                        .commit();
+                ibSearch.setVisibility(View.VISIBLE);
+                setIndicator(1);
+                break;
         }
     }
 

@@ -23,14 +23,14 @@ import com.tongban.im.model.BaseEvent;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * 找回密码，第二步
  *
  * @author fushudi
  */
-public class ReSetPwdFragment extends BaseToolBarFragment implements
-        TextWatcher {
+public class ReSetPwdFragment extends BaseToolBarFragment {
 
     @Bind(R.id.tv_phone_num)
     TextView tvPhoneNum;
@@ -67,12 +67,6 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements
         Bundle bundle = getArguments();
         mInputPhone = bundle.getString("mInputPhone");
         tvPhoneNum.setText(mInputPhone);
-    }
-
-    @Override
-    protected void initListener() {
-        etVerifyCode.addTextChangedListener(this);
-        etSetPwd.addTextChangedListener(this);
     }
 
     @OnClick({R.id.btn_submit, R.id.btn_verify_code})
@@ -117,17 +111,17 @@ public class ReSetPwdFragment extends BaseToolBarFragment implements
         AccountApi.getInstance().login(mInputPhone, mPwd, this);
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_set_pwd})
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_set_pwd})
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_set_pwd})
     public void afterTextChanged(Editable s) {
         mVerifyCode = etVerifyCode.getText().toString().trim();
         mPwd = etSetPwd.getText().toString().trim();

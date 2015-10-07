@@ -108,8 +108,8 @@
         <!-- 主界面-->
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustPan">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Red.Base">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

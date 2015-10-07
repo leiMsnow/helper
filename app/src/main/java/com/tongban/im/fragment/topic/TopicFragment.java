@@ -85,11 +85,8 @@ public class TopicFragment extends BaseToolBarFragment implements
 
         lvTopicList.setAdapter(mAdapter);
         lvTopicList.setPageSize(mPageSize);
-    }
-
-    @Override
-    protected void initListener() {
         lvTopicList.setOnLoadMoreListener(this);
+
     }
 
     @OnClick({R.id.ib_search, R.id.ib_create})

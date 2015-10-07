@@ -19,7 +19,6 @@ public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager
 
 
     private ViewPager mViewPager;
-//    private LinePageIndicator mIndicator;
     private CirclePageIndicator mIndicator;
 
     private PhotoViewPagerAdapter adapter;
@@ -32,16 +31,15 @@ public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager
         return R.layout.fragment_photo_view;
     }
 
-    @Override
     protected void initView() {
         mViewPager = (HackyViewPager) mView.findViewById(R.id.view_pager);
-//        mIndicator = (LinePageIndicator) mView.findViewById(R.id.lpi_indicator);
         mIndicator = (CirclePageIndicator) mView.findViewById(R.id.lpi_indicator);
     }
 
 
     @Override
     protected void initData() {
+        initView();
         if (getArguments() != null) {
             resList = getArguments().getStringArrayList(KEY_URL);
             currentIndex = getArguments().getInt(KEY_CURRENT_INDEX, 0);
@@ -50,12 +48,8 @@ public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager
 
             mIndicator.setViewPager(mViewPager);
             mViewPager.setCurrentItem(currentIndex);
+            mIndicator.setOnPageChangeListener(this);
         }
-    }
-
-    @Override
-    protected void initListener() {
-        mIndicator.setOnPageChangeListener(this);
     }
 
     @Override

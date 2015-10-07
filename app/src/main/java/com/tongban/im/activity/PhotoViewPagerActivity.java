@@ -1,5 +1,7 @@
 package com.tongban.im.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
@@ -31,17 +33,33 @@ public class PhotoViewPagerActivity extends BaseToolBarActivity {
     protected void initData() {
         if (getIntent().getExtras() != null) {
             PhotoViewFragment photoViewFragment = new PhotoViewFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             Bundle bundle = getIntent().getExtras();
             photoViewFragment.setArguments(bundle);
-            ft.replace(R.id.fl_content, photoViewFragment);
-            ft.commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fl_content, photoViewFragment)
+                    .commit();
         }
     }
 
     @Override
     protected void initListener() {
 
+    }
+
+    /**
+     * 打开图片查看器
+     *
+     * @param mContext
+     * @param urls
+     * @param currentIndex
+     */
+    public static void startPhotoView(Context mContext, ArrayList<String> urls, int currentIndex) {
+        Intent intent = new Intent(mContext, PhotoViewPagerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(PhotoViewFragment.KEY_URL, urls);
+        bundle.putInt(PhotoViewFragment.KEY_CURRENT_INDEX, currentIndex);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
     }
 
 

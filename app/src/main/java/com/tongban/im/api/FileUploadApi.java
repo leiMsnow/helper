@@ -3,6 +3,7 @@ package com.tongban.im.api;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -237,6 +238,9 @@ public class FileUploadApi extends BaseApi {
                             if (response != null) {
                                 LogUtil.d("MultiUploadFileCallback-complete", response.toString());
                                 String responseKey = response.optString("key");
+                                if (!TextUtils.isEmpty(key)) {
+                                    responseKey = key;
+                                }
                                 String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
                                 String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                                 String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
@@ -283,6 +287,9 @@ public class FileUploadApi extends BaseApi {
                 if (response != null) {
                     LogUtil.d("UploadFileCallback-complete", response.toString());
                     String responseKey = response.optString("key");
+                    if (!TextUtils.isEmpty(key)) {
+                        responseKey = key;
+                    }
                     String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
                     String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
                     String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;

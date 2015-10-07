@@ -2,7 +2,9 @@ package com.tongban.im.fragment.user;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.tongban.corelib.model.ApiErrorResult;
@@ -16,15 +18,22 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+
 /**
  * 专题列表页(查询和收藏复用)
  *
  * @author Cheneey
  * @createTime 2015/8/27
  */
-public class ThemeListFragment extends BaseToolBarFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, OnLoadMoreListener {
-    private LoadMoreListView lvTheme;
+public class ThemeListFragment extends BaseToolBarFragment implements
+        OnLoadMoreListener {
+
+    @Bind(R.id.lv_theme)
+    LoadMoreListView lvTheme;
+
     private ThemeListAdapter mAdapter;
 
     private int mCursor = 0;
@@ -51,18 +60,6 @@ public class ThemeListFragment extends BaseToolBarFragment implements View.OnCli
     }
 
     @Override
-    protected void initView() {
-        lvTheme = (LoadMoreListView) mView.findViewById(R.id.lv_theme);
-    }
-
-    @Override
-    protected void initListener() {
-        mAdapter.setOnClickListener(this);
-        lvTheme.setOnItemClickListener(this);
-        lvTheme.setOnLoadMoreListener(this);
-    }
-
-    @Override
     protected void initData() {
         mAdapter = new ThemeListAdapter(mContext, R.layout.item_theme_list, null);
         lvTheme.setAdapter(mAdapter);
@@ -74,14 +71,11 @@ public class ThemeListFragment extends BaseToolBarFragment implements View.OnCli
             // Fragment用于展示收藏的专题
             UserCenterApi.getInstance().fetchCollectMultipleTopicList(mCursor, mPageSize, this);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
+        lvTheme.setOnLoadMoreListener(this);
 
     }
 
-    @Override
+    @OnItemClick(R.id.lv_theme)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
     }

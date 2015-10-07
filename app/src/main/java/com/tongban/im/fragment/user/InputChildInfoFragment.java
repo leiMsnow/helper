@@ -27,6 +27,7 @@ import java.util.Calendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -35,11 +36,8 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 
-public class InputChildInfoFragment extends BaseToolBarFragment
-        implements TextWatcher {
+public class InputChildInfoFragment extends BaseToolBarFragment {
 
-    @Bind(R.id.et_input_nickname)
-    EditText etInputNickname;
     @Bind(R.id.tv_input_birthday)
     TextView tvInputBirthday;
     @Bind(R.id.chb_boy)
@@ -67,38 +65,22 @@ public class InputChildInfoFragment extends BaseToolBarFragment
 
     }
 
-    @Override
-    protected void initListener() {
-        tvInputBirthday.addTextChangedListener(this);
-        etInputNickname.addTextChangedListener(this);
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BaseEvent.ChildCreateEvent childCreateEvent = new BaseEvent.ChildCreateEvent();
-                childCreateEvent.childBirthday = mChildBirthday;
-                childCreateEvent.childSex = mChildSex;
-                EventBus.getDefault().post(childCreateEvent);
-            }
-        });
-    }
-
-    @Override
+    @OnTextChanged({R.id.et_input_nickname, R.id.tv_input_birthday})
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_input_nickname, R.id.tv_input_birthday})
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
 
-    @Override
+    @OnTextChanged({R.id.et_input_nickname, R.id.tv_input_birthday})
     public void afterTextChanged(Editable s) {
         mChildBirthday = tvInputBirthday.getText().toString().trim();
         setBtnEnabled();
     }
 
-    @OnClick({R.id.tv_input_birthday,R.id.fl_container_boy,R.id.fl_container_girl})
+    @OnClick({R.id.tv_input_birthday, R.id.fl_container_boy, R.id.fl_container_girl, R.id.btn_submit})
     public void onClick(View v) {
         if (v == tvInputBirthday) {
             openDatePicker();
@@ -117,6 +99,13 @@ public class InputChildInfoFragment extends BaseToolBarFragment
             chbBoy.setVisibility(View.GONE);
             mChildSex = 2;
             setBtnEnabled();
+        }
+        // 提交
+        else if (v == btnSubmit) {
+            BaseEvent.ChildCreateEvent childCreateEvent = new BaseEvent.ChildCreateEvent();
+            childCreateEvent.childBirthday = mChildBirthday;
+            childCreateEvent.childSex = mChildSex;
+            EventBus.getDefault().post(childCreateEvent);
         }
     }
 
@@ -157,17 +146,4 @@ public class InputChildInfoFragment extends BaseToolBarFragment
         mDatePickerDialog.show();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }

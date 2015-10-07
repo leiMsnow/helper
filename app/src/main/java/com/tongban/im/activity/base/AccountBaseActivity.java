@@ -80,7 +80,6 @@ public abstract class AccountBaseActivity extends CommonImageResultActivity {
             RongCloudEvent.getInstance().setOtherListener();
             startActivity(new Intent(mContext, MainActivity.class));
         }
-        finish();
     }
 
 }

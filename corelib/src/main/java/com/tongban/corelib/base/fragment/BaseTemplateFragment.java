@@ -22,9 +22,7 @@ public abstract class BaseTemplateFragment extends BaseFragment {
         mView = inflater.inflate(getLayoutRes(), container, false);
         // TODO: 10/3/15 加入注解
         ButterKnife.bind(this, mView);
-        initView();
         initData();
-        initListener();
         return mView;
     }
 
@@ -36,19 +34,9 @@ public abstract class BaseTemplateFragment extends BaseFragment {
     protected abstract int getLayoutRes();
 
     /**
-     * 初始化界面View
-     */
-    protected abstract void initView();
-
-    /**
      * 初始化数据
      */
     protected abstract void initData();
-
-    /**
-     * 初始化监听器
-     */
-    protected abstract void initListener();
 
     @Override
     public void onDestroyView() {

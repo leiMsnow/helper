@@ -32,6 +32,7 @@ import com.tongban.im.utils.PTRHeaderUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -57,16 +58,6 @@ public class DiscoverFragment extends BaseToolBarFragment
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_discover;
-    }
-
-    @Override
-    protected void initListener() {
-        lvDiscover.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
-            }
-        });
     }
 
     @Override
@@ -122,6 +113,11 @@ public class DiscoverFragment extends BaseToolBarFragment
         } else if (v == ivSearchAll) {
             mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }
+    }
+
+    @OnItemClick(R.id.lv_discover)
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
     }
 
     /**

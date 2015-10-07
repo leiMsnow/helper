@@ -20,12 +20,12 @@ import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * 注册第一步
  */
-public class FirstRegisterFragment extends BaseToolBarFragment implements
-        TextWatcher {
+public class FirstRegisterFragment extends BaseToolBarFragment {
 
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;
@@ -51,14 +51,6 @@ public class FirstRegisterFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         btnRegister.setIndeterminateProgressMode(true);
-    }
-
-
-    @Override
-    protected void initListener() {
-        etPhoneNum.addTextChangedListener(this);
-        etPwd.addTextChangedListener(this);
-        etVerifyCode.addTextChangedListener(this);
     }
 
     @OnClick({R.id.btn_verify_code, R.id.btn_register})
@@ -90,17 +82,17 @@ public class FirstRegisterFragment extends BaseToolBarFragment implements
         }
     }
 
-    @Override
+    @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
     public void afterTextChanged(Editable s) {
         mPhoneNum = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();

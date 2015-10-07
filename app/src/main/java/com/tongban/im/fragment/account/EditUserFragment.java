@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
+import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
@@ -74,6 +75,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         if (getArguments() != null) {
+            btnSubmit.setIndeterminateProgressMode(true);
             String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
             if (!TextUtils.isEmpty(mOtherInfo)) {
                 String mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
@@ -92,10 +94,6 @@ public class EditUserFragment extends BaseToolBarFragment implements
         }
     }
 
-    @Override
-    protected void initListener() {
-    }
-
     @OnClick({R.id.iv_portrait, R.id.btn_submit})
     public void onClick(View v) {
         //设置头像
@@ -109,27 +107,13 @@ public class EditUserFragment extends BaseToolBarFragment implements
                 ToastUtil.getInstance(mContext).showToast("请输入昵称");
                 return;
             }
-            new Handler().postDelayed(new Runnable() {
+            btnSubmit.setProgress(50);
+            btnSubmit.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     // 使用用户上传的资料
                     if (mIcon != null) {
-                        FileUploadApi.getInstance().uploadFile(mIcon, null,
-                                FileUploadApi.IMAGE_SIZE_300,
-                                FileUploadApi.IMAGE_SIZE_500,
-                                new UploadFileCallback() {
-
-                                    @Override
-                                    public void uploadSuccess(ImageUrl url) {
-                                        updateUser(url);
-                                    }
-
-                                    @Override
-                                    public void uploadFailed(String error) {
-                                        ToastUtil.getInstance(mContext).showToast("头像上传失败,请重试");
-                                    }
-
-                                });
+                        uploadUserPortrait();
                     } else {
                         //使用第三方资料
                         if (otherRegister != null) {
@@ -142,22 +126,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
                                     resId);
                             mIcon = CameraUtils.Bitmap2Bytes(bitmap);
-                            FileUploadApi.getInstance().uploadFile(mIcon, null,
-                                    FileUploadApi.IMAGE_SIZE_300,
-                                    FileUploadApi.IMAGE_SIZE_500,
-                                    new UploadFileCallback() {
-
-                                        @Override
-                                        public void uploadSuccess(ImageUrl url) {
-                                            updateUser(url);
-                                        }
-
-                                        @Override
-                                        public void uploadFailed(String error) {
-                                            updateUser(null);
-                                        }
-
-                                    });
+                            uploadUserPortrait();
                         }
                     }
                 }
@@ -165,6 +134,26 @@ public class EditUserFragment extends BaseToolBarFragment implements
 
         }
 
+    }
+
+    private void uploadUserPortrait() {
+        FileUploadApi.getInstance().uploadFile(mIcon
+                , SPUtils.get(mContext, Consts.USER_ID, "").toString()
+                , FileUploadApi.IMAGE_SIZE_300
+                , FileUploadApi.IMAGE_SIZE_500
+                , new UploadFileCallback() {
+
+            @Override
+            public void uploadSuccess(ImageUrl url) {
+                updateUser(url);
+            }
+
+            @Override
+            public void uploadFailed(String error) {
+                ToastUtil.getInstance(mContext).showToast("头像上传失败,请重试");
+            }
+
+        });
     }
 
     /**
@@ -199,4 +188,10 @@ public class EditUserFragment extends BaseToolBarFragment implements
         final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         ivPortrait.setImageBitmap(bitmap);
     }
+
+
+    public void onEventMainThread(ApiErrorResult obj) {
+        btnSubmit.setProgress(0);
+    }
+
 }

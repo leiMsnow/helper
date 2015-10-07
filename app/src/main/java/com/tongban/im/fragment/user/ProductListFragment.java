@@ -2,7 +2,9 @@ package com.tongban.im.fragment.user;
 
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -15,6 +17,10 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+
 /**
  * 单品列表页
  *
@@ -23,8 +29,10 @@ import com.tongban.im.model.BaseEvent;
 public class ProductListFragment extends BaseToolBarFragment
         implements AdapterView.OnItemClickListener {
 
+    @Bind(R.id.gv_product)
+    GridView mGridView;
+
     private ProductBookAdapter mAdapter;
-    private GridView mGridView;
 
     /**
      * 构造方法
@@ -46,16 +54,6 @@ public class ProductListFragment extends BaseToolBarFragment
     }
 
     @Override
-    protected void initView() {
-        mGridView = (GridView) mView.findViewById(R.id.gv_product);
-    }
-
-    @Override
-    protected void initListener() {
-        mGridView.setOnItemClickListener(this);
-    }
-
-    @Override
     protected void initData() {
         mAdapter = new ProductBookAdapter(mContext, R.layout.item_product_list, null);
         mGridView.setAdapter(mAdapter);
@@ -68,6 +66,7 @@ public class ProductListFragment extends BaseToolBarFragment
         }
     }
 
+    @OnItemClick(R.id.gv_product)
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startProductBook(mAdapter.getItem(position).getProduct_id());
@@ -87,13 +86,16 @@ public class ProductListFragment extends BaseToolBarFragment
         mGridView.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * 错误回调Event
+     * @param obj
+     */
     public void onEventMainThread(ApiErrorResult obj) {
         if (obj.getApiName().equals(ProductApi.SEARCH_PRODUCT)) {
             mAdapter.clear();
             mGridView.setVisibility(View.GONE);
         }
     }
-
 
     /**
      * 搜索单品成功的Event

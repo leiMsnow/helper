@@ -3,16 +3,15 @@ package com.tongban.im.fragment.account;
 
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.Consts;
@@ -21,16 +20,24 @@ import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.user.OtherRegister;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * 第三方注册第二步
  */
-public class OtherVerifyCodeFragment extends BaseToolBarFragment
-        implements TextWatcher, View.OnClickListener {
+public class OtherVerifyCodeFragment extends BaseToolBarFragment {
 
-    private EditText etPwd;
-    private EditText etVerifyCode;
-    private Button btnGetSMSCode;
-    private CircularProgressButton btnRegister;
+    @Bind(R.id.et_verify_code)
+    ClearEditText etVerifyCode;
+    @Bind(R.id.btn_verify_code)
+    Button btnGetSMSCode;
+    @Bind(R.id.et_pwd)
+    ClearEditText etPwd;
+    @Bind(R.id.btn_register)
+    CircularProgressButton btnRegister;
+
     private String mPhoneNum, mPwd, mVerifyId, mVerifyCode;
 
     private VerifyTimerCount mTime;
@@ -43,14 +50,6 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_other_verfiy;
-    }
-
-    @Override
-    protected void initView() {
-        etPwd = (EditText) mView.findViewById(R.id.et_pwd);
-        etVerifyCode = (EditText) mView.findViewById(R.id.et_verify_code);
-        btnGetSMSCode = (Button) mView.findViewById(R.id.btn_verify_code);
-        btnRegister = (CircularProgressButton) mView.findViewById(R.id.btn_register);
     }
 
     @Override
@@ -73,15 +72,7 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment
     }
 
 
-    @Override
-    protected void initListener() {
-        etPwd.addTextChangedListener(this);
-        etVerifyCode.addTextChangedListener(this);
-        btnGetSMSCode.setOnClickListener(this);
-        btnRegister.setOnClickListener(this);
-    }
-
-    @Override
+    @OnClick({R.id.btn_verify_code, R.id.btn_register})
     public void onClick(View v) {
         // 获取手机验证码
         if (v == btnGetSMSCode) {
@@ -102,17 +93,17 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment
         }
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
     }
 
-    @Override
+    @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})
     public void afterTextChanged(Editable s) {
         mPwd = etPwd.getText().toString();
         mVerifyCode = etVerifyCode.getText().toString();
@@ -128,7 +119,6 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment
     public void onEventMainThread(ApiErrorResult obj) {
         btnRegister.setProgress(0);
     }
-
 
     /**
      * 注册事件回调
@@ -159,5 +149,4 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment
             mTime = null;
         }
     }
-
 }

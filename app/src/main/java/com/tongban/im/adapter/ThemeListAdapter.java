@@ -20,13 +20,6 @@ import java.util.List;
  */
 public class ThemeListAdapter extends QuickAdapter<Theme> {
 
-
-    public void setOnClickListener(View.OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-
-    private View.OnClickListener onClickListener;
-
     public ThemeListAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
     }
@@ -49,7 +42,6 @@ public class ThemeListAdapter extends QuickAdapter<Theme> {
         helper.setText(R.id.tv_product_desc, item.getTheme_content());
         helper.setText(R.id.tv_product_name, item.getTheme_title());
         helper.setText(R.id.tv_collect_count, item.getCollect_amount());
-
     }
 
     @Override

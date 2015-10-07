@@ -1,7 +1,10 @@
 package com.tongban.im.fragment.user;
 
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
@@ -20,17 +23,26 @@ import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
+
 /**
  * 我的话题 - 回复我的话题
  *
  * @author fushudi
  */
-public class MyCommentTopicFragment extends BaseToolBarFragment implements View.OnClickListener,
-        AdapterView.OnItemClickListener, OnLoadMoreListener, TopicInputView.IOnClickCommentListener
+public class MyCommentTopicFragment extends BaseToolBarFragment implements
+        OnLoadMoreListener
+        , TopicInputView.IOnClickCommentListener
         , TopicInputView.IKeyboardListener {
-    private LoadMoreListView mListView;
+    @Bind(R.id.lv_receive_topic_list)
+    LoadMoreListView mListView;
+    @Bind(R.id.topic_input)
+    TopicInputView topicInputView;
+
     private MyCommentTopicAdapter mAdapter;
-    private TopicInputView topicInputView;
 
     private String mTopicId;
     private int mCursor = 0;
@@ -42,29 +54,18 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements View.
     }
 
     @Override
-    protected void initView() {
-        mListView = (LoadMoreListView) mView.findViewById(R.id.lv_receive_topic_list);
-        topicInputView = (TopicInputView) mView.findViewById(R.id.topic_input);
-    }
-
-    @Override
     protected void initData() {
         mAdapter = new MyCommentTopicAdapter(mContext, R.layout.item_my_comment_topic_list, null);
-        mAdapter.setOnClickListener(this);
         mListView.setAdapter(mAdapter);
         mListView.setPageSize(mPageSize);
         UserCenterApi.getInstance().fetchReplyTopicList(mCursor, mPageSize, this);
-    }
 
-    @Override
-    protected void initListener() {
-        mListView.setOnItemClickListener(this);
         mListView.setOnLoadMoreListener(this);
-        topicInputView.setOnClickCommentListener(this);
         topicInputView.setKeyboardListener(this);
+        topicInputView.setOnClickCommentListener(this);
     }
 
-    @Override
+    @OnClick({R.id.iv_user_portrait, R.id.tv_comment})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_user_portrait:
@@ -82,7 +83,7 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements View.
         }
     }
 
-    @Override
+    @OnItemClick(R.id.lv_receive_topic_list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance()
                 .startTopicDetails(mAdapter.getItem(position).getTopic_info());
@@ -105,10 +106,11 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements View.
     }
 
     @Override
-    public void onClickComment(String commentContent, String repliedCommentId,
-                               String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, selectedFile, this);
+    public void onClickComment(String commentContent, String repliedCommentId
+            , String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
+
+        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent
+                , repliedCommentId, repliedName, repliedUserId, selectedFile, this);
     }
 
     /**

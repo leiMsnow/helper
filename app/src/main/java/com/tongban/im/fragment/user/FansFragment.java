@@ -14,14 +14,21 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
+
 /**
  * 粉丝界面
  *
  * @author fushudi
  */
-public class FansFragment extends BaseToolBarFragment implements AdapterView.OnItemClickListener,
-        View.OnClickListener, OnLoadMoreListener {
-    private LoadMoreListView lvFansList;
+public class FansFragment extends BaseToolBarFragment implements
+        OnLoadMoreListener {
+
+    @Bind(R.id.lv_fans_list)
+    LoadMoreListView lvFansList;
+
     private UserAdapter mAdapter;
     private int mCursor = 0;
     private int mPageSize = 10;
@@ -33,11 +40,6 @@ public class FansFragment extends BaseToolBarFragment implements AdapterView.OnI
     }
 
     @Override
-    protected void initView() {
-        lvFansList = (LoadMoreListView) mView.findViewById(R.id.lv_fans_list);
-    }
-
-    @Override
     protected void initData() {
         mAdapter = new UserAdapter(mContext, R.layout.item_my_info_list, null);
         lvFansList.setAdapter(mAdapter);
@@ -45,15 +47,10 @@ public class FansFragment extends BaseToolBarFragment implements AdapterView.OnI
         if (getArguments() != null) {
             userID = getArguments().getString(Consts.USER_ID);
             UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
+            lvFansList.setOnLoadMoreListener(this);
         }
     }
 
-    @Override
-    protected void initListener() {
-        lvFansList.setOnItemClickListener(this);
-        mAdapter.setOnClickListener(this);
-        lvFansList.setOnLoadMoreListener(this);
-    }
 
     /**
      * 粉丝列表Event
@@ -76,13 +73,13 @@ public class FansFragment extends BaseToolBarFragment implements AdapterView.OnI
         UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
     }
 
-    @Override
+    @OnItemClick(R.id.lv_fans_list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance().startUserCenter(mAdapter.getItem(position).getUser_id());
         getActivity().finish();
     }
 
-    @Override
+    @OnClick({R.id.btn_follow, R.id.iv_user_icon})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_follow:

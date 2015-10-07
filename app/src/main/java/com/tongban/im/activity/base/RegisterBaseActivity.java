@@ -3,6 +3,7 @@ package com.tongban.im.activity.base;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.fragment.account.EditUserFragment;
@@ -65,6 +66,7 @@ public abstract class RegisterBaseActivity extends AccountBaseActivity {
         } else {
             connectIM(user.getChild_info() == null);
         }
+        finish();
     }
 
     protected void openSecondFragment() {
