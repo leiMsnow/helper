@@ -110,9 +110,9 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
         }
     }
 
-    @OnClick({R.id.ll_update_user_portrait,R.id.ll_nickname,R.id.ll_sex
-            ,R.id.ll_child_age
-            ,R.id.ll_child_constellation})
+    @OnClick({R.id.ll_update_user_portrait, R.id.ll_nickname, R.id.ll_sex
+            , R.id.ll_child_age
+            , R.id.ll_child_constellation})
     public void onClick(View v) {
         //修改头像
         if (v == llUpdateUserPortrait) {
@@ -144,10 +144,12 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
     private void openDatePicker() {
         if (mDatePickerDialog == null) {
             Calendar c = Calendar.getInstance();
-            String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
-            c.set(Calendar.YEAR, Integer.parseInt(value[0]));
-            c.set(Calendar.MONTH, Integer.parseInt(value[1]));
-            c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
+            if (user.getChild_info() != null) {
+                String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
+                c.set(Calendar.YEAR, Integer.parseInt(value[0]));
+                c.set(Calendar.MONTH, Integer.parseInt(value[1]));
+                c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
+            }
 
             mDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
                 @Override

@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
 import com.tongban.im.api.FileUploadApi;
@@ -65,10 +67,6 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         this.onClickCommentListener = onClickCommentListener;
     }
 
-    public void setAdapterImgCount(int imgCount) {
-        gvReplyImg.setAdapterImgCount(imgCount);
-    }
-
     public TopicInputView(Context context) {
         this(context, null);
     }
@@ -93,8 +91,9 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
         tvCommentLength = (TextView) findViewById(R.id.tv_comment_length);
 
         ivComment.setEnabled(false);
-        gvReplyImg.getAdapter().setImgCount(3);
+        gvReplyImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_REPLY);
         tvCommentLength.setText(String.valueOf(mCommentLength));
+
     }
 
     private void initListener() {
@@ -134,6 +133,7 @@ public class TopicInputView extends LinearLayout implements View.OnClickListener
     }
 
     private void initData() {
+
     }
 
     @Override

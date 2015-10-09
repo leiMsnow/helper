@@ -87,9 +87,11 @@
         </receiver>
         <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
 
+        <!-- 测试环境 3argexb6r9wse-->
+        <!-- 正式环境 ik1qhw091e3yp-->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="3argexb6r9wse" />
+            android:value="ik1qhw091e3yp" />
         <!-- **********************************end rongcloud **********************************-->
 
         <!-- 微信授权登录回调-->

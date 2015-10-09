@@ -123,7 +123,7 @@ public class BaseApi {
     /**
      * 设置服务器地址
      *
-     * @param flag 0线上；1test；2+其他开发人员地址
+     * @param flag 0 正式环境；1 测试环境；
      */
     public void setHostUrl(Context mContext, int flag) {
         String saveUrl;

@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
@@ -21,6 +23,7 @@ import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.widget.view.TopicImageView;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.ArrayList;
@@ -68,12 +71,12 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     @Override
     protected void initData() {
 
-        topicInputView.setAdapterImgCount(3);
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
             mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
         }
         topicInputView.setOnClickCommentListener(this);
+
     }
 
     @Override

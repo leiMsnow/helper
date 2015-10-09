@@ -47,7 +47,6 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
 
     private MenuItem menuCreate;
 
-    private final static int IMAGE_COUNT = 15;
 
     @Override
     protected int getLayoutRes() {
@@ -57,7 +56,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @Override
     protected void initData() {
         setTitle(R.string.create_topic);
-        gvTopicImg.getAdapter().setImgCount(IMAGE_COUNT);
+        gvTopicImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_CREATE);
         setImageResultListener(this);
     }
 

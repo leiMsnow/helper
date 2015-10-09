@@ -8,9 +8,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.tongban.corelib.utils.ToastUtil;
+import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.adapter.CreateTopicImgAdapter;
 
@@ -23,17 +26,19 @@ import java.util.List;
  */
 public class TopicImageView extends LinearLayout implements View.OnClickListener {
 
+    // 发表图片最大数量
+    public final static int IMAGE_COUNT_CREATE = 15;
+    // 评论图片最大数量
+    public final static int IMAGE_COUNT_REPLY = 3;
+
     private Context mContext;
-    private ChildGridView gvReplyImg;
+    private FlowLayout gvReplyImg;
     private CameraView mCameraView;
 
     private CreateTopicImgAdapter mAdapter;
 
-    public CreateTopicImgAdapter getAdapter() {
-        return mAdapter;
-    }
-
     private int selectIndex = 0;
+
 
     //当前选择的图片数量
     private List<String> selectedFile = new ArrayList<>();
@@ -41,8 +46,8 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
     public List<String> getSelectedFile() {
         selectedFile.clear();
         for (int i = 0; i < mAdapter.getCount(); i++) {
-            if (!TextUtils.isEmpty(mAdapter.getItem(i).toString()))
-                selectedFile.add(0, mAdapter.getItem(i).toString());
+            if (!TextUtils.isEmpty(mAdapter.getItem(i)))
+                selectedFile.add(0, mAdapter.getItem(i));
         }
         return selectedFile;
     }
@@ -59,24 +64,25 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         super(context, attrs);
         mContext = context;
         initView();
-        initListener();
         initData();
     }
 
     private void initView() {
-        LayoutInflater.from(mContext).inflate(R.layout.view_topic_image_grid, this);
-        gvReplyImg = (ChildGridView) findViewById(R.id.gv_reply_img);
+        LayoutInflater.from(mContext).inflate(R.layout.view_topic_image_flow, this);
+        gvReplyImg = (FlowLayout) findViewById(R.id.fl_reply_img);
         selectedFile.add("");
-        mAdapter = new CreateTopicImgAdapter(mContext, R.layout.item_create_grid_img, selectedFile);
+        mAdapter = new CreateTopicImgAdapter(mContext, 0, selectedFile);
         selectedFile.clear();
     }
 
-    private void initListener() {
-        mAdapter.setOnClickListener(this);
-    }
-
     private void initData() {
-        gvReplyImg.setAdapter(mAdapter);
+        gvReplyImg.removeAllViews();
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            if (i == mAdapter.getImgCount()) {
+                break;
+            }
+            gvReplyImg.addView(mAdapter.getChildView(i, gvReplyImg, this));
+        }
     }
 
     @Override
@@ -117,6 +123,7 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
                 mAdapter.add(selectIndex, picturePath);
             }
         }
+        initData();
         //是否已经达到最大数量
         if ((mAdapter.getCount()) == (mAdapter.getImgCount() + 1)) {
             if (mAdapter.getItem(mAdapter.getCount() - 1).equals(""))
@@ -143,5 +150,6 @@ public class TopicImageView extends LinearLayout implements View.OnClickListener
         selectedFile.clear();
         mAdapter.clear();
         mAdapter.add("");
+        initData();
     }
 }

@@ -18,6 +18,7 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         mApp = this;
+        BaseApi.getInstance().setHostUrl(mApp,1);
         // 融云初始化
         RongIM.init(this);
         // 融云事件初始化
