@@ -30,38 +30,6 @@
 
     </in.srain.cube.views.ptr.PtrFrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary">
-
-        <com.tongban.corelib.widget.view.CircleImageView
-            android:id="@+id/iv_user_portrait"
-            style="@style/MainImagePortrait"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="14dp" />
-
-        <TextView
-            android:id="@+id/tv_discover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/iv_user_portrait"
-            android:text="@string/discover"
-            android:textColor="?attr/actionMenuTextColor"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/iv_search_all"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/selector_transparent_to_gray"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_menu_discover_search" />
-    </RelativeLayout>
+    <include layout="@layout/include_main_toolbar"/>
 
 </RelativeLayout>

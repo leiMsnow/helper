@@ -2,7 +2,6 @@ package com.tongban.im.activity.user;
 
 
 import android.net.Uri;
-import android.os.Bundle;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -12,11 +11,10 @@ import com.tongban.im.activity.base.BaseToolBarActivity;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.GroupListenerImpl;
+import com.tongban.im.impl.GroupListenerImpl;
 import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * 个人中心（我的圈子）

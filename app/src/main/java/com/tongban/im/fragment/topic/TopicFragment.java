@@ -16,7 +16,7 @@ import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TopicListenerImpl;
+import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
@@ -67,6 +67,8 @@ public class TopicFragment extends BaseToolBarFragment implements
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
         tvTitle.setVisibility(View.VISIBLE);
+        ibSearch.setVisibility(View.VISIBLE);
+        ibCreate.setVisibility(View.VISIBLE);
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(new TopicListenerImpl(mContext));

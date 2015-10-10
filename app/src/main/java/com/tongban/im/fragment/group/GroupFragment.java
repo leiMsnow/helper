@@ -51,8 +51,11 @@ public class GroupFragment extends BaseToolBarFragment {
 
     @Override
     protected void initData() {
+
         rgParent.setVisibility(View.VISIBLE);
         ivIndicator.setVisibility(View.VISIBLE);
+        ibCreate.setVisibility(View.VISIBLE);
+
         //聊天界面
         chatFragment = ConversationListFragment.getInstance();
         Uri uri = Uri.parse("rong://" + mContext.getApplicationInfo().packageName).buildUpon()
@@ -67,12 +70,18 @@ public class GroupFragment extends BaseToolBarFragment {
         chatFragment.setUri(uri);
         //推荐界面
         recommendFragment = RecommendGroupFragment.getInstance(true);
-        getChildFragmentManager().beginTransaction().replace(R.id.fl_container, chatFragment)
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.fl_container, chatFragment)
+                .add(R.id.fl_container, recommendFragment)
+                .hide(recommendFragment)
                 .commit();
         //没有登录删除聊天fragment
         if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-            getChildFragmentManager().beginTransaction().remove(chatFragment).commit();
+            getChildFragmentManager().beginTransaction()
+                    .hide(chatFragment)
+                    .commit();
         }
+        setIndicator(0);
     }
 
     @OnClick({R.id.ib_create, R.id.ib_search})
@@ -88,25 +97,25 @@ public class GroupFragment extends BaseToolBarFragment {
         }
     }
 
-    @OnCheckedChanged({R.id.rb_chat,R.id.rb_recommend})
-    public void onCheckedChanged(CompoundButton checkedBtn) {
-        switch (checkedBtn.getId()) {
-            case R.id.rb_chat:
-                if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
-                    getChildFragmentManager().beginTransaction()
-                            .replace(R.id.fl_container, chatFragment)
-                            .commit();
-                }
-                ibSearch.setVisibility(View.GONE);
-                setIndicator(0);
-                break;
-            case R.id.rb_recommend:
+    @OnCheckedChanged({R.id.rb_chat, R.id.rb_recommend})
+    public void onCheckedChanged(CompoundButton checkedBtn, boolean isChecked) {
+        if (isChecked && checkedBtn.getId() == R.id.rb_chat) {
+            if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
                 getChildFragmentManager().beginTransaction()
-                        .replace(R.id.fl_container, recommendFragment)
+                        .show(chatFragment)
+                        .hide(recommendFragment)
                         .commit();
-                ibSearch.setVisibility(View.VISIBLE);
-                setIndicator(1);
-                break;
+            }
+            ibSearch.setVisibility(View.GONE);
+            setIndicator(0);
+        } else if (isChecked && checkedBtn.getId() == R.id.rb_recommend) {
+            getChildFragmentManager().beginTransaction()
+                    .show(recommendFragment)
+                    .hide(chatFragment)
+                    .commit();
+            ibSearch.setVisibility(View.VISIBLE);
+            setIndicator(1);
+
         }
     }
 

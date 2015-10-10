@@ -1,13 +1,11 @@
 package com.tongban.im.activity.topic;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.tongban.corelib.utils.ToastUtil;
@@ -26,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 /**
@@ -44,9 +40,10 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     EditText tvContent;
     @Bind(R.id.ll_add_img)
     TopicImageView gvTopicImg;
+    @Bind(R.id.btn_sr)
+    Button btn;
 
     private MenuItem menuCreate;
-
 
     @Override
     protected int getLayoutRes() {
@@ -171,4 +168,5 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
             cameraResult(newFile);
         }
     }
+
 }

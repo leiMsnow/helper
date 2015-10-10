@@ -10,19 +10,29 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary">
+
+
+        <com.tongban.corelib.widget.view.CircleImageView
+            android:id="@+id/iv_user_portrait"
+            style="@style/MainImagePortrait"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:visibility="gone" />
         <!-- 标题-->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/iv_user_portrait"
             android:gravity="center_vertical"
             android:maxLength="14"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:singleLine="true"
+            android:text="@string/app_name"
             android:textColor="?attr/actionMenuTextColor"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone"/>
         <!-- 右侧操作按钮-->
         <RelativeLayout
             android:id="@+id/rl_action_parent"
@@ -31,6 +41,14 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/tv_title">
+            <!-- 发现搜索-->
+            <ImageButton
+                android:id="@+id/iv_search_all"
+                style="@style/MainToolBarMenu"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/ic_menu_discover_search"
+                android:visibility="gone"/>
+
             <!-- 搜索-->
             <ImageButton
                 android:id="@+id/ib_search"
@@ -38,14 +56,16 @@
                 android:layout_toLeftOf="@+id/ib_create"
                 android:layout_toStartOf="@+id/ib_create"
                 android:paddingTop="2dp"
-                android:src="@mipmap/ic_menu_search" />
+                android:src="@mipmap/ic_menu_search"
+                android:visibility="gone" />
             <!-- 创建-->
             <ImageButton
                 android:id="@+id/ib_create"
                 style="@style/MainToolBarMenu"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/ic_menu_create" />
+                android:src="@mipmap/ic_menu_create"
+                android:visibility="gone"/>
 
         </RelativeLayout>
     </RelativeLayout>
@@ -91,4 +111,3 @@
         android:src="@mipmap/ic_main_indicator"
         android:visibility="gone" />
 </RelativeLayout>
-

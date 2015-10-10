@@ -1,10 +1,11 @@
-package com.tongban.im.common;
+package com.tongban.im.impl;
 
 import android.content.Context;
 import android.view.View;
 
 import com.tongban.im.R;
 import com.tongban.im.api.GroupApi;
+import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.group.Group;
 
 import io.rong.imkit.RongIM;

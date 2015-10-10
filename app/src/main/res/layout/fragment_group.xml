@@ -6,7 +6,8 @@
         android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize" />
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:paddingTop="8dp" />
 
-    <include layout="@layout/include_topic_group_toolbar" />
+    <include layout="@layout/include_main_toolbar" />
 </RelativeLayout>

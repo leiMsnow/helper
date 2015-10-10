@@ -3,7 +3,6 @@ package com.tongban.im.activity.topic;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.tongban.corelib.widget.view.CircleImageView;
@@ -14,13 +13,10 @@ import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TopicListenerImpl;
+import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.widget.view.ChildGridView;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * 话题评论界面

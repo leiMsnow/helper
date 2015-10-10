@@ -1,9 +1,7 @@
 package com.tongban.im.fragment.group;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
@@ -13,13 +11,12 @@ import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.GroupListenerImpl;
+import com.tongban.im.impl.GroupListenerImpl;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;

@@ -50,12 +50,19 @@
                 android:textColor="@color/main_black"
                 android:textSize="14sp" />
 
+            <Button
+                android:id="@+id/btn_sr"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/et_topic_content"
+                android:text="语音输入" />
+
             <com.tongban.im.widget.view.TopicImageView
                 android:id="@+id/ll_add_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/et_topic_content"
-                android:background="@color/white" />
+                android:layout_below="@+id/btn_sr" />
 
         </RelativeLayout>
     </ScrollView>

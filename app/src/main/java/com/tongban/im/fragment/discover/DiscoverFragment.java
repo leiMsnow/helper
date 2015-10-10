@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
@@ -52,6 +54,8 @@ public class DiscoverFragment extends BaseToolBarFragment
     CircleImageView ivUserPortrait;
     @Bind(R.id.iv_search_all)
     ImageButton ivSearchAll;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
 
     private DiscoverAdapter mAdapter;
 
@@ -62,6 +66,12 @@ public class DiscoverFragment extends BaseToolBarFragment
 
     @Override
     protected void initData() {
+
+        tvTitle.setText(getString(R.string.discover));
+        tvTitle.setVisibility(View.VISIBLE);
+        ivUserPortrait.setVisibility(View.VISIBLE);
+        ivSearchAll.setVisibility(View.VISIBLE);
+
         PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);
         ptrFrameLayout.setPtrHandler(this);
         ptrFrameLayout.autoRefresh(true);
@@ -194,4 +204,17 @@ public class DiscoverFragment extends BaseToolBarFragment
         ProductApi.getInstance().fetchHomeInfo(this);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }
