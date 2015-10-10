@@ -26,7 +26,7 @@ public interface IVoiceHandler {
     }
 
     public interface OnPlayListener {
-        public void onPlay(Context context);
+        public void onPlay(Context context,long timeout);
 
         public void onCover(boolean limited);
 
@@ -88,11 +88,12 @@ public interface IVoiceHandler {
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    long timeout = mp.getDuration();
                     mp.start();
                     mLock.acquire(mp.getDuration());
 
                     if (mPlayListener != null)
-                        mPlayListener.onPlay(context);
+                        mPlayListener.onPlay(context,timeout);
                     if (mSensor != null) {
                         mSensorManager.registerListener(VoiceHandler.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                         mAudioManager.setMode(AudioManager.MODE_NORMAL);

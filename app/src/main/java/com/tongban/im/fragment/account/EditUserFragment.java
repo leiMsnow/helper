@@ -77,6 +77,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
         if (getArguments() != null) {
             btnSubmit.setIndeterminateProgressMode(true);
             String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            // 第三方注册
             if (!TextUtils.isEmpty(mOtherInfo)) {
                 String mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
                 otherRegister = JSON.parseObject(mOtherInfo,
@@ -131,9 +132,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                     }
                 }
             }, 2 * 1000);
-
         }
-
     }
 
     private void uploadUserPortrait() {
@@ -160,7 +159,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
      * 修改用户信息
      *
      * @param url        头像地址
-     * @param isCallback 是否需要回调
+     * @param isCallback 是否需要回调，第三方注册不需要回调
      */
     private void updateUser(ImageUrl url, boolean isCallback) {
         editUser.setPortrait_url(url);

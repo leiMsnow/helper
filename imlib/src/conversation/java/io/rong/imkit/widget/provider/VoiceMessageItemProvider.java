@@ -58,7 +58,7 @@ public class VoiceMessageItemProvider extends IContainerItemProvider.MessageProv
         View mParent;
 
         @Override
-        public void onPlay(Context context) {
+        public void onPlay(Context context,long timeout) {
             if (context instanceof Activity) {
                 mParent = ((Activity) context).getWindow().getDecorView();
 

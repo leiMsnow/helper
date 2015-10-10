@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.model.ImageFolder;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.NetUtils;
@@ -34,10 +35,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import io.rong.imkit.RongIM;
+
 /**
  * 输入接口：修改、创建的接口；使用完这些接口后，需要重置disableCache，使输出接口可以收到非缓存结果；
  * 输出接口：列表、详情接口；
- * <p/>
+ * <p>
  * Created by zhangleilei on 15/7/8.
  */
 public class BaseApi {
@@ -99,11 +102,12 @@ public class BaseApi {
      * 声明Request请求
      */
     private JsonObjectRequest request = null;
-    // 默认服务器地址，实际地址根据getHostUrl来获取；
-    //测试环境
-    private static String TEST_HOST = "http://10.255.209.66:8080/ddim/";
     // 正式环境
-    private static String DEFAULT_HOST = "http://101.200.83.100/ddim/";
+    public static String DEFAULT_HOST = "http://101.200.83.100/ddim/";
+    // 测试环境
+    public static String TEST_HOST = "http://10.255.209.66:8080/ddim/";
+    // 67测试环境
+    public static String TEST_HOST_67 = "http://10.255.209.67:8080/ddim/";
 
     protected BaseApi(Context context) {
         this.mContext = context;
@@ -120,25 +124,20 @@ public class BaseApi {
     }
 
     /**
-     * 设置服务器地址
+     * 切换服务器地址
      *
-     * @param flag 0 正式环境；1 测试环境；
+     * @param mContext
+     * @param url
      */
-    public void setHostUrl(Context mContext, int flag) {
-        String saveUrl;
-        switch (flag) {
-            case 0:
-            default:
-                saveUrl = DEFAULT_HOST;
-                break;
-            case 1:
-                saveUrl = TEST_HOST;
-                break;
-        }
-        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, saveUrl);
-    }
-
     public void setHostUrl(Context mContext, String url) {
+        // 如果与上次地址不一样，将清除用户信息
+        if (!url.equals(getHostUrl())) {
+            //切换服务器，清除登录信息
+            if (RongIM.getInstance() != null
+                    && RongIM.getInstance().getRongIMClient() != null)
+                RongIM.getInstance().logout();
+            SPUtils.clear(mContext);
+        }
         SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, url);
     }
 

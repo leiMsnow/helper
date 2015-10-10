@@ -83,16 +83,6 @@ public class FirstRegisterFragment extends BaseToolBarFragment {
     }
 
     @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @OnTextChanged({R.id.et_phone_num,R.id.et_pwd,R.id.et_verify_code})
     public void afterTextChanged(Editable s) {
         mPhoneNum = etPhoneNum.getText().toString();
         mPwd = etPwd.getText().toString();

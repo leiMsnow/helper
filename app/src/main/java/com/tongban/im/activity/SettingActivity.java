@@ -84,7 +84,7 @@ public class SettingActivity extends BaseToolBarActivity implements
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            BaseApi.getInstance().setHostUrl(mContext, 0);
+                            BaseApi.getInstance().setHostUrl(mContext, BaseApi.DEFAULT_HOST);
                             logout();
                         }
                     });
@@ -93,7 +93,7 @@ public class SettingActivity extends BaseToolBarActivity implements
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            BaseApi.getInstance().setHostUrl(mContext, 1);
+                            BaseApi.getInstance().setHostUrl(mContext, BaseApi.TEST_HOST);
                             logout();
                         }
                     });

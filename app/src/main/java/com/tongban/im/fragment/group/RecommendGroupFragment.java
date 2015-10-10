@@ -116,6 +116,12 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideEmptyView();
+    }
+
     /**
      * 加入群组成功的事件回调
      *

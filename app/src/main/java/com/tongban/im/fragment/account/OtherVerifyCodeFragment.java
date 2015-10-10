@@ -43,8 +43,6 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment {
     private VerifyTimerCount mTime;
     private BaseEvent.RegisterEvent regEvent;
 
-    private String mOtherInfo;
-    private String mOtherType;
     private OtherRegister otherRegister;
 
     @Override
@@ -60,9 +58,9 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment {
             if (!TextUtils.isEmpty(mPhoneNum)) {
                 AccountApi.getInstance().getSMSCode(mPhoneNum, this);
             }
-            mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
             if (!TextUtils.isEmpty(mOtherInfo)) {
-                mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                String  mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
                 otherRegister = JSON.parseObject(mOtherInfo,
                         new TypeReference<OtherRegister>() {
                         });
@@ -91,16 +89,6 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment {
                 ToastUtil.getInstance(mContext).showToast(R.string.get_verify_code);
             }
         }
-    }
-
-    @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
     @OnTextChanged({R.id.et_verify_code,R.id.et_pwd})

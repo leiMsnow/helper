@@ -164,7 +164,7 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
             tvOfficialName.setText(mTopicInfo.getUser_info().getNick_name());
             tvCreateTime.setText(mTopicInfo.getC_time(mContext));
             tvOfficialTopicTitle.setText(mTopicInfo.getTopic_title());
-            tvOfficialTopicContent.setText(mTopicInfo.getTopic_content());
+            tvOfficialTopicContent.setText(mTopicInfo.getTopic_content().getTopic_content_text());
 
             OfficialTopic officialTopic = new OfficialTopic();
             Topic topic = mTopicInfo;

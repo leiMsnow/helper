@@ -235,10 +235,14 @@ public class GroupApi extends BaseApi {
                         new TypeReference<ApiListResult<Group>>() {
                         });
 
-                BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
-                listEvent.groupList = listResult.getData().getResult();
-                if (callback != null)
-                    callback.onComplete(listEvent);
+                if (listResult.getData().getResult().size() > 0) {
+                    BaseEvent.RecommendGroupListEvent listEvent = new BaseEvent.RecommendGroupListEvent();
+                    listEvent.groupList = listResult.getData().getResult();
+                    if (callback != null)
+                        callback.onComplete(listEvent);
+                } else {
+                    onFailure(createEmptyResult(RECOMMEND_GROUP_LIST));
+                }
 
             }
 

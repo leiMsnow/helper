@@ -25,6 +25,7 @@ import com.tongban.im.App;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.api.callback.UploadFileCallback;
+import com.tongban.im.api.callback.UploadVoiceCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.QiniuToken;
@@ -208,7 +209,21 @@ public class FileUploadApi extends BaseApi {
                            @NonNull UploadFileCallback callback,
                            @Nullable UploadOptions options) {
         String token = getToken();
-        mUploadManager.put(file, key, token, new MyUpCompletionHandler(minSize, midSize, callback), options);
+        mUploadManager.put(file, key, token
+                , new MyUpCompletionHandler(minSize, midSize, callback), options);
+    }
+
+    /**
+     * 上传语音文件
+     *
+     * @param filePath
+     * @param callback
+     */
+    public void uploadVoice(String filePath
+            , UploadVoiceCallback callback) {
+        String token = getToken();
+        mUploadManager.put(new File(filePath), null, token
+                , new MyUpVoiceCompletionHandler(callback), null);
     }
 
     /**
@@ -265,8 +280,35 @@ public class FileUploadApi extends BaseApi {
                 }, options);
     }
 
+    class MyUpVoiceCompletionHandler implements UpCompletionHandler {
+
+        private UploadVoiceCallback mCallback;
+
+        MyUpVoiceCompletionHandler(UploadVoiceCallback callback) {
+            this.mCallback = callback;
+        }
+
+        @Override
+        public void complete(String key, ResponseInfo info, JSONObject response) {
+            if (mCallback != null) {
+                if (response != null) {
+                    LogUtil.d("UploadFileCallback-complete", response.toString());
+                    String responseKey = response.optString("key");
+                    if (!TextUtils.isEmpty(key)) {
+                        responseKey = key;
+                    }
+                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                    mCallback.uploadSuccess(max);
+                } else {
+                    LogUtil.d("uploadFailed:", info.error);
+                    mCallback.uploadFailed(info.error);
+                }
+            }
+        }
+    }
+
     /**
-     * 上传成功回调
+     * 上传图片成功回调
      */
     class MyUpCompletionHandler implements UpCompletionHandler {
 

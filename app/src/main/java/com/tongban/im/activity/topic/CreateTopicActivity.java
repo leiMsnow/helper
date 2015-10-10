@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,8 +16,12 @@ import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.callback.MultiUploadFileCallback;
+import com.tongban.im.api.callback.UploadVoiceCallback;
+import com.tongban.im.common.TopicVoiceTimerCount;
+import com.tongban.im.utils.KDXFRecognizerUtils;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicImageView;
 
@@ -24,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 /**
@@ -32,18 +38,28 @@ import butterknife.OnTextChanged;
  * @author fushudi
  */
 public class CreateTopicActivity extends CommonImageResultActivity implements
-        CommonImageResultActivity.ImageResultListener {
+        CommonImageResultActivity.ImageResultListener
+        , KDXFRecognizerUtils.RecognizerResultListener
+        , KDXFRecognizerUtils.PlayResultListener {
 
     @Bind(R.id.et_topic_name)
-    EditText tvTitle;
+    EditText etTitle;
     @Bind(R.id.et_topic_content)
-    EditText tvContent;
+    EditText etContent;
     @Bind(R.id.ll_add_img)
     TopicImageView gvTopicImg;
-    @Bind(R.id.btn_sr)
-    Button btn;
+    @Bind(R.id.btn_voice)
+    Button btnRecognizer;
+    @Bind(R.id.btn_play)
+    Button btnPlay;
 
     private MenuItem menuCreate;
+
+    private KDXFRecognizerUtils kdxfRecognizer;
+    private TopicVoiceTimerCount voiceTimerCount;
+
+    private String voiceUrl = "";
+    private List<ImageUrl> mUrls;
 
     @Override
     protected int getLayoutRes() {
@@ -55,6 +71,10 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         setTitle(R.string.create_topic);
         gvTopicImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_CREATE);
         setImageResultListener(this);
+
+        kdxfRecognizer = new KDXFRecognizerUtils(mContext);
+        kdxfRecognizer.setResultListener(this);
+        kdxfRecognizer.setPlayListener(this);
     }
 
     @Override
@@ -69,12 +89,11 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         } else if (item.getItemId() == R.id.menu_create) {
+
             if (gvTopicImg.getSelectedFile().size() > 0) {
                 uploadImage();
-            } else if (!TextUtils.isEmpty(tvContent.getText().toString().trim())) {
-                TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                        tvContent.getText().toString().trim(), new ArrayList<ImageUrl>(),
-                        CreateTopicActivity.this);
+            } else if (!TextUtils.isEmpty(etContent.getText().toString().trim())) {
+                uploadVoice();
             }
         }
         return true;
@@ -82,8 +101,8 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
 
     @Override
     public void onBackPressed() {
-        if (tvTitle.getText().toString().length() > 0 ||
-                tvContent.getText().toString().length() > 0 ||
+        if (etTitle.getText().toString().length() > 0 ||
+                etContent.getText().toString().length() > 0 ||
                 gvTopicImg.getSelectedFile().size() > 0) {
             BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
             dialog.setMessage("放弃发表?");
@@ -108,13 +127,27 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         }
     }
 
+    @OnClick({R.id.btn_voice, R.id.btn_play})
+    public void onSRListener(View v) {
+        if (v == btnRecognizer) {
+            kdxfRecognizer.startRecognizer();
+        } else if (v == btnPlay) {
+            if (!btnPlay.isSelected()) {
+                kdxfRecognizer.playRecognizer();
+            } else {
+                kdxfRecognizer.onStop();
+            }
+        }
+    }
+
+
     //刷新图片Adapter
     public void notifyChange(String picturePath) {
         gvTopicImg.notifyChange(picturePath);
         afterTextChanged(null);
     }
 
-    //批量上传图片,成功后将发表话题
+    //批量上传图片
     private void uploadImage() {
         showProgress();
         FileUploadApi.getInstance().uploadFile(
@@ -126,9 +159,8 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
                 new MultiUploadFileCallback() {
                     @Override
                     public void uploadSuccess(List<ImageUrl> urls) {
-                        TopicApi.getInstance().createTopic(tvTitle.getText().toString().trim(),
-                                tvContent.getText().toString().trim(), urls,
-                                CreateTopicActivity.this);
+                        mUrls = urls;
+                        uploadVoice();
                     }
 
                     @Override
@@ -139,16 +171,53 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
                 }, null);
     }
 
+    // 如果有录音，将会上传录音
+    private void uploadVoice() {
+        showProgress();
+        if (!TextUtils.isEmpty(kdxfRecognizer.getVoiceUrl())) {
+            FileUploadApi.getInstance().uploadVoice(kdxfRecognizer.getVoiceUrl(),
+                    new UploadVoiceCallback() {
+                        @Override
+                        public void uploadSuccess(String url) {
+                            voiceUrl = url;
+                            sendNewTopic();
+                        }
+
+                        @Override
+                        public void uploadFailed(String error) {
+                            hideProgress();
+                            ToastUtil.getInstance(mContext).showToast("录音上传失败");
+                        }
+                    });
+        } else {
+            sendNewTopic();
+        }
+    }
+
+
+    private void sendNewTopic() {
+
+        TopicContent content = new TopicContent();
+        content.setTopic_content_text(etContent.getText().toString().trim());
+        content.setTopic_content_voice(voiceUrl);
+        content.setTopic_img_url(mUrls);
+
+        TopicApi.getInstance().createTopic(
+                etTitle.getText().toString().trim()
+                , content
+                , this);
+    }
+
 
     public void onEventMainThread(BaseEvent.CreateTopicEvent obj) {
-        ToastUtil.getInstance(mContext).showToast("话题发表成功");
+        ToastUtil.getInstance(mContext).showToast("发表成功");
         finish();
     }
 
     @OnTextChanged({R.id.et_topic_name, R.id.et_topic_content})
     public void afterTextChanged(Editable s) {
-        if (tvTitle.getText().toString().length() > 0 &&
-                (tvContent.getText().toString().length() > 0 ||
+        if (etTitle.getText().toString().length() > 0 &&
+                (etContent.getText().toString().length() > 0 ||
                         gvTopicImg.getSelectedFile().size() > 0)) {
             menuCreate.setEnabled(true);
         } else {
@@ -169,4 +238,36 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         }
     }
 
+    @Override
+    public void recognizerResult(String result) {
+        etContent.requestFocus();
+        etContent.setText(result);
+        etContent.setSelection(etContent.getText().length());
+
+        btnRecognizer.setVisibility(View.INVISIBLE);
+        btnPlay.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        kdxfRecognizer.onDestroy();
+    }
+
+    @Override
+    public void onPlayStart(long timeout) {
+        voiceTimerCount = new TopicVoiceTimerCount(btnPlay, timeout);
+        voiceTimerCount.start();
+    }
+
+    @Override
+    public void onPlayEnd() {
+        btnPlay.setText("点我试听");
+        btnPlay.setSelected(false);
+        if (voiceTimerCount != null) {
+            voiceTimerCount.cancel();
+            voiceTimerCount = null;
+        }
+    }
 }

@@ -115,7 +115,6 @@ public class GroupFragment extends BaseToolBarFragment {
                     .commit();
             ibSearch.setVisibility(View.VISIBLE);
             setIndicator(1);
-
         }
     }
 

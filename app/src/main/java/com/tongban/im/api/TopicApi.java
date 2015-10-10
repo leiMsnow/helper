@@ -18,8 +18,10 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.TopicType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -91,12 +93,10 @@ public class TopicApi extends BaseApi {
      *
      * @param title    标题
      * @param content  内容
-     * @param urls     图片集合
      * @param callback
      */
-    public void createTopic(String title, String content, List<ImageUrl> urls,
+    public void createTopic(String title,TopicContent content,
                             final IApiCallback callback) {
-
 
         if (!TransferCenter.getInstance().startLogin())
             return;
@@ -104,8 +104,8 @@ public class TopicApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("topic_title", title);
-        mParams.put("topic_content", content);
-        mParams.put("topic_img_url", JSON.toJSON(urls));
+        mParams.put("topic_content", JSON.toJSONString(content));
+        mParams.put("topic_type_list", TopicType.PRIVATE);
 
         simpleRequest(CREATE_TOPIC, mParams, new IApiCallback() {
             @Override
@@ -146,6 +146,8 @@ public class TopicApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
+        // 类型为官方话题和个人发表的话题
+        mParams.put("topic_type_list", new String[]{TopicType.EVALUATION, TopicType.PRIVATE});
 
         simpleRequest(RECOMMEND_TOPIC_LIST, mParams, new IApiCallback() {
             @Override

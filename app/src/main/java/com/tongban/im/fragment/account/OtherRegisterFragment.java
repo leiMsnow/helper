@@ -48,16 +48,6 @@ public class OtherRegisterFragment extends BaseToolBarFragment {
     }
 
     @OnTextChanged(R.id.et_phone_num)
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @OnTextChanged(R.id.et_phone_num)
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @OnTextChanged(R.id.et_phone_num)
     public void afterTextChanged(Editable s) {
         mPhoneNum = etPhoneNum.getText().toString();
         if (!TextUtils.isEmpty(mPhoneNum)) {

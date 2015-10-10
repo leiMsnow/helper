@@ -15,14 +15,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
             <!-- 话题标题-->
             <EditText
                 android:id="@+id/et_topic_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@color/white"
+                android:background="@null"
                 android:gravity="center"
                 android:hint="@string/input_topic"
                 android:maxLength="30"
@@ -32,12 +33,19 @@
                 android:singleLine="true"
                 android:textColor="@color/main_black"
                 android:textSize="14sp" />
-            <!-- -->
+
+            <View
+                android:id="@+id/v_center_line"
+                style="@style/HorizontalLine"
+                android:layout_height="4dp"
+                android:layout_below="@+id/et_topic_name" />
+
+            <!-- 内容-->
             <EditText
                 android:id="@+id/et_topic_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_topic_name"
+                android:layout_below="@+id/v_center_line"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
                 android:gravity="top|left"
@@ -51,18 +59,25 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/btn_sr"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:id="@+id/btn_voice"
+                style="@style/TopicCreateVoiceButton"
                 android:layout_below="@+id/et_topic_content"
+                android:drawableLeft="@mipmap/ic_topic_voice"
                 android:text="语音输入" />
+
+            <Button
+                android:id="@+id/btn_play"
+                style="@style/TopicCreateVoiceButton"
+                android:layout_below="@+id/et_topic_content"
+                android:drawableLeft="@drawable/selector_topic_voice_play"
+                android:text="点我试听"
+                android:visibility="gone" />
 
             <com.tongban.im.widget.view.TopicImageView
                 android:id="@+id/ll_add_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/btn_sr" />
+                android:layout_below="@+id/btn_voice" />
 
         </RelativeLayout>
     </ScrollView>

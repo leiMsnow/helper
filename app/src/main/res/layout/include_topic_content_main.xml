@@ -12,11 +12,21 @@
         android:layout_marginBottom="8dp"
         android:singleLine="true"
         android:text="标题" />
+
+    <!-- 语音-->
+    <Button
+        android:id="@+id/btn_play"
+        style="@style/TopicCreateVoiceButton.Small"
+        android:layout_below="@+id/tv_topic_title"
+        android:drawableLeft="@drawable/selector_topic_voice_play"
+        android:text="播放"
+        android:visibility="gone"/>
+
     <!-- 内容-->
     <TextView
         android:id="@+id/tv_topic_content"
         style="@style/MainContent"
-        android:layout_below="@+id/tv_topic_title"
+        android:layout_below="@+id/btn_play"
         android:layout_marginTop="8dp"
         android:maxLines="4"
         android:text="内容" />

@@ -3,6 +3,8 @@ package com.tongban.im.model.topic;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.DateUtils;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.user.User;
@@ -23,7 +25,6 @@ public class Topic {
     public final static int MY_COLLECT_TOPIC_LIST = 0;
     // 我的话题 - 我发起的话题
     public final static int MY_SEND_TOPIC_LIST = 1;
-
     // 话题ID
     private String topic_id;
     // 话题标题
@@ -32,7 +33,10 @@ public class Topic {
     private String topic_content;
     // 话题标签
     private String topic_tags;
-    // 话题类型：0，用户话题；1：官方话题
+    /**
+     * 话题类型：
+     * {@Link TopicType}
+     */
     private String topic_type;
     // 用户回复数量
     private String comment_amount;
@@ -42,14 +46,14 @@ public class Topic {
     private long c_time;
     //话题回复时间
     private long m_time;
-    // 内容类型（文字或者图片）
-    private int contentType;
     //用户信息
     private User user_info;
     //话题评论
     private TopicComment topicComment;
     //收藏状态
     private boolean collect_status;
+
+    private TopicContent topicContent;
 
     public boolean isCollect_status() {
         return collect_status;
@@ -67,21 +71,8 @@ public class Topic {
         this.topicComment = topicComment;
     }
 
-    // 话题图片
-    private List<ImageUrl> topic_img_url;
-
-
     public void setM_time(long m_time) {
         this.m_time = m_time;
-    }
-
-
-    public List<ImageUrl> getTopic_img_url() {
-        return topic_img_url;
-    }
-
-    public void setTopic_img_url(List<ImageUrl> topic_img_url) {
-        this.topic_img_url = topic_img_url;
     }
 
     public String getTopic_type() {
@@ -110,32 +101,35 @@ public class Topic {
         this.topic_id = topic_id;
     }
 
+    /**
+     * 内容类型（文字或者图片）
+     */
     public int getContentType() {
-        if (topic_img_url != null) {
-            if (topic_img_url.size() > 0) {
-                return contentType = IMAGE;
+        if (topicContent.getTopic_img_url() != null) {
+            if (topicContent.getTopic_img_url().size() > 0) {
+                return IMAGE;
             } else {
-                return contentType = TEXT;
+                return TEXT;
             }
         }
-        return contentType = TEXT;
-
-    }
-
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
+        return TEXT;
     }
 
     public String getTopic_title() {
         return topic_title;
     }
 
-    public String getTopic_content() {
-        return topic_content;
-    }
 
     public void setTopic_title(String topic_title) {
         this.topic_title = topic_title;
+    }
+
+    public TopicContent getTopic_content() {
+        if (!TextUtils.isEmpty(topic_content)) {
+            topicContent = JSON.parseObject(topic_content,
+                    new TypeReference<TopicContent>(){});
+        }
+        return topicContent;
     }
 
     public void setTopic_content(String topic_content) {

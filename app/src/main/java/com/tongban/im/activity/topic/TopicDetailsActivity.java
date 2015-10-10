@@ -115,11 +115,11 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
-            tvTopicContent.setText(mTopicInfo.getTopic_content());
+            tvTopicContent.setText(mTopicInfo.getTopic_content().getTopic_content_text());
 
             tvComment.setText(mTopicInfo.getComment_amount());
-            if (mTopicInfo.getTopic_img_url() != null) {
-                mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_img_url());
+            if (mTopicInfo.getTopic_content().getTopic_img_url() != null) {
+                mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_content().getTopic_img_url());
                 gvContent.setVisibility(View.VISIBLE);
             }
 

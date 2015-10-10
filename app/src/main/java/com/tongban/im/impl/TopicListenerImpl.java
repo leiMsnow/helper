@@ -46,6 +46,9 @@ public class TopicListenerImpl implements View.OnClickListener {
             case R.id.iv_user_portrait:
                 String userId = v.getTag(Integer.MAX_VALUE).toString();
                 TransferCenter.getInstance().startUserCenter(userId);
+            case R.id.btn_play:
+                String voiceUrl = v.getTag().toString();
+
                 break;
 
         }

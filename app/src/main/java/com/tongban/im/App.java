@@ -1,6 +1,8 @@
 package com.tongban.im;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.im.api.base.BaseApi;
@@ -18,15 +20,19 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         mApp = this;
-        BaseApi.getInstance().setHostUrl(mApp,1);
+        // Log开关
+        LogUtil.isDebug = true;
+        // 设置服务器地址
+        BaseApi.getInstance().setHostUrl(this, BaseApi.TEST_HOST_67);
         // 融云初始化
         RongIM.init(this);
         // 融云事件初始化
         RongCloudEvent.init(this);
-        // Log开关
-        LogUtil.isDebug = true;
         // 百度地图初始化
         SDKInitializer.initialize(getApplicationContext());
+        // 科大讯飞语音初始化
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=56188312");
+
     }
 
     /**
