@@ -6,12 +6,23 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.tongban.im.R;
 import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.adapter.MemberGridAdapter;
+import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.model.user.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.model.Event;
 
 /**
@@ -20,11 +31,18 @@ import io.rong.imkit.model.Event;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class ChatActivity extends BaseToolBarActivity  {
+public class ChatActivity extends BaseToolBarActivity {
 
-    private String mTargetId;
+    @Bind(R.id.gv_members)
+    GridView gvMembers;
+    @Bind(R.id.members_parent)
+    LinearLayout membersParent;
+
     private String mTitle;
+    private String mTargetId;
     private boolean isPrivateChat = true;
+    private MemberGridAdapter mMemberGridAdapter;
+
 
     @Override
     protected int getLayoutRes() {
@@ -41,6 +59,10 @@ public class ChatActivity extends BaseToolBarActivity  {
             if (!TextUtils.isEmpty(mTitle)) {
                 setTitle(mTitle);
             }
+
+            mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, null);
+            gvMembers.setAdapter(mMemberGridAdapter);
+            GroupApi.getInstance().getGroupMembersList(mTargetId, 0, 15, this);
         }
     }
 
@@ -71,4 +93,30 @@ public class ChatActivity extends BaseToolBarActivity  {
 
     public void onEventMainThread(Event.LastTopicNameEvent topicNameEvent) {
     }
+
+    public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {
+        membersParent.setVisibility(View.VISIBLE);
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            users.add(obj.users.get(0));
+        }
+        mMemberGridAdapter.addAll(users);
+
+//        mMemberGridAdapter.addAll(obj.users);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
 }

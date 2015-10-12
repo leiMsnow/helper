@@ -25,8 +25,11 @@ import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.group.Group;
+import com.tongban.im.model.user.User;
 import com.tongban.im.widget.view.ChildGridView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;

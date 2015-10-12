@@ -14,7 +14,7 @@
         android:background="@color/weak_grey"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
-        android:layoutAnimation="@anim/list_translate_layout"
+        android:layoutAnimation="@anim/layout_anim_translate"
         android:paddingTop="2dp"
         android:scrollbars="none" />
 

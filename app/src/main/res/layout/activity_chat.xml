@@ -7,12 +7,39 @@
         android:id="@+id/toolbar"
         layout="@layout/include_toolbar" />
 
+
+    <LinearLayout
+        android:id="@+id/members_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <GridView
+            android:id="@+id/gv_members"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:horizontalSpacing="4dp"
+            android:layoutAnimation="@anim/layout_anim_alpha"
+            android:numColumns="6"
+            android:padding="8dp"
+            android:scrollbars="none"
+            android:verticalSpacing="4dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_theme_shadow_holo" />
+
+    </LinearLayout>
+
     <fragment
         android:id="@+id/fl_container"
         android:name="io.rong.imkit.fragment.ConversationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
-
+        android:layout_below="@+id/members_parent" />
 
 </RelativeLayout>
