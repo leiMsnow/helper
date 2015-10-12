@@ -14,19 +14,22 @@
         android:text="标题" />
 
     <!-- 语音-->
-    <Button
-        android:id="@+id/btn_play"
-        style="@style/TopicCreateVoiceButton.Small"
+    <ImageView
+        android:id="@+id/iv_topic_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_title"
-        android:drawableLeft="@drawable/selector_topic_voice_play"
-        android:text="播放"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="4dp"
+        android:src="@mipmap/ic_topic_voice"
         android:visibility="gone"/>
 
     <!-- 内容-->
     <TextView
         android:id="@+id/tv_topic_content"
         style="@style/MainContent"
-        android:layout_below="@+id/btn_play"
+        android:layout_below="@+id/tv_topic_title"
+        android:layout_toRightOf="@+id/iv_topic_voice"
         android:layout_marginTop="8dp"
         android:maxLines="4"
         android:text="内容" />

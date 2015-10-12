@@ -1,10 +1,9 @@
 package com.tongban.im.activity.topic;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
@@ -23,7 +22,6 @@ import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.widget.view.ChildGridView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 
 /**
@@ -33,27 +31,35 @@ import butterknife.ButterKnife;
  */
 public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
 
-    @Bind(R.id.iv_user_portrait)
+    private View mHeader;
+    //头布局 top
     CircleImageView ivOfficialPortrait;
-    @Bind(R.id.tv_user_name)
     TextView tvOfficialName;
-    @Bind(R.id.tv_create_time)
     TextView tvCreateTime;
-    @Bind(R.id.tv_topic_title)
+    //中间布局 content
     TextView tvOfficialTopicTitle;
-    @Bind(R.id.tv_topic_content)
     TextView tvOfficialTopicContent;
 
-    private View mHeader;
 
     private OfficialTopicDetailsAdapter mAdapter;
 
     @Override
     protected void initData() {
-        mHeader = LayoutInflater.from(mContext).
-                inflate(R.layout.header_official_topic_details, null);
+
         super.initData();
+
         if (!TextUtils.isEmpty(mTopicId)) {
+            mHeader = LayoutInflater.from(mContext).
+                    inflate(R.layout.header_official_topic_details, null);
+
+            ivOfficialPortrait = (CircleImageView) mHeader.findViewById(R.id.iv_user_portrait);
+            tvOfficialName = (TextView) mHeader.findViewById(R.id.tv_user_name);
+            tvCreateTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
+
+            tvOfficialTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
+            tvOfficialTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
+            btnPlay = (Button) mHeader.findViewById(R.id.btn_topic_voice);
+
             //获取产品接口
             TopicApi.getInstance().getOfficialTopicInfo(mTopicId, mCursor, mPage, this);
             mAdapter = new OfficialTopicDetailsAdapter(mContext, null,
@@ -88,6 +94,10 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
                     });
             lvReplyList.addHeaderView(mHeader);
             lvReplyList.setAdapter(mAdapter);
+
+            ivOfficialPortrait.setOnClickListener(this);
+            btnPlay.setOnClickListener(this);
+
         }
     }
 
@@ -164,7 +174,13 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
             tvOfficialName.setText(mTopicInfo.getUser_info().getNick_name());
             tvCreateTime.setText(mTopicInfo.getC_time(mContext));
             tvOfficialTopicTitle.setText(mTopicInfo.getTopic_title());
-            tvOfficialTopicContent.setText(mTopicInfo.getTopic_content().getTopic_content_text());
+            if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
+                btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
+                btnPlay.setVisibility(View.VISIBLE);
+            }else{
+                btnPlay.setVisibility(View.GONE);
+            }
+            tvOfficialTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
 
             OfficialTopic officialTopic = new OfficialTopic();
             Topic topic = mTopicInfo;

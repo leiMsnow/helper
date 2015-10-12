@@ -26,11 +26,11 @@ public interface IVoiceHandler {
     }
 
     public interface OnPlayListener {
-        public void onPlay(Context context,long timeout);
+        public void onVoicePlay(Context context,long timeout);
 
-        public void onCover(boolean limited);
+        public void onVoiceCover(boolean limited);
 
-        public void onStop();
+        public void onVoiceStop();
     }
 
     public void setPlayListener(OnPlayListener listener);
@@ -93,7 +93,7 @@ public interface IVoiceHandler {
                     mLock.acquire(mp.getDuration());
 
                     if (mPlayListener != null)
-                        mPlayListener.onPlay(context,timeout);
+                        mPlayListener.onVoicePlay(context, timeout);
                     if (mSensor != null) {
                         mSensorManager.registerListener(VoiceHandler.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                         mAudioManager.setMode(AudioManager.MODE_NORMAL);
@@ -125,7 +125,7 @@ public interface IVoiceHandler {
             mMediaPlayer.release();
             mMediaPlayer = null;
             if (mPlayListener != null) {
-                mPlayListener.onStop();
+                mPlayListener.onVoiceStop();
             }
 
             mSensorManager.unregisterListener(VoiceHandler.this);
@@ -165,7 +165,7 @@ public interface IVoiceHandler {
                     mAudioManager.setMode(AudioManager.MODE_NORMAL);
 
                 if (mPlayListener != null) {
-                    mPlayListener.onCover(false);
+                    mPlayListener.onVoiceCover(false);
                 }
 
             } else {
@@ -174,7 +174,7 @@ public interface IVoiceHandler {
                 }
 
                 if (mPlayListener != null) {
-                    mPlayListener.onCover(true);
+                    mPlayListener.onVoiceCover(true);
                 }
             }
         }

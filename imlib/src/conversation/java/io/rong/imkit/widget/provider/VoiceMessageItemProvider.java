@@ -58,7 +58,7 @@ public class VoiceMessageItemProvider extends IContainerItemProvider.MessageProv
         View mParent;
 
         @Override
-        public void onPlay(Context context,long timeout) {
+        public void onVoicePlay(Context context,long timeout) {
             if (context instanceof Activity) {
                 mParent = ((Activity) context).getWindow().getDecorView();
 
@@ -66,12 +66,12 @@ public class VoiceMessageItemProvider extends IContainerItemProvider.MessageProv
         }
 
         @Override
-        public void onCover(boolean limited) {
+        public void onVoiceCover(boolean limited) {
 
         }
 
         @Override
-        public void onStop() {
+        public void onVoiceStop() {
             RongContext.getInstance().getEventBus().post(mCurrentMessageContent);
             mCurrentMessageContent = null;
         }

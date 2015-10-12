@@ -1,11 +1,13 @@
 package com.tongban.im.activity.base;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
@@ -13,6 +15,7 @@ import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.TopicVoiceTimerCount;
 import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
@@ -21,12 +24,14 @@ import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 通用的topicDetails父类
@@ -35,13 +40,16 @@ import butterknife.Bind;
 public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.ImageResultListener
         , TopicInputView.IOnClickCommentListener
-        , View.OnClickListener {
+        , View.OnClickListener
+        , IVoiceHandler.OnPlayListener {
 
 
     @Bind(R.id.lv_reply_list)
     protected LoadMoreListView lvReplyList;
     @Bind(R.id.topic_input)
     TopicInputView topicInputView;
+
+    protected Button btnPlay;
 
     private MenuItem menuItem;
 
@@ -51,13 +59,8 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     protected int mCursor = 0;
     protected int mPage = 10;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setImageResultListener(this);
-        setTitle("");
-    }
+    private VoiceUtils voiceUtils;
+    private TopicVoiceTimerCount voiceTimerCount;
 
     @Override
     protected int getLayoutRes() {
@@ -66,6 +69,10 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
     @Override
     protected void initData() {
+
+        setTitle("");
+        setImageResultListener(this);
+        voiceUtils = new VoiceUtils(mContext, this);
 
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
@@ -102,32 +109,38 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            // 回复评论
-            case R.id.rl_comment_parent:
-                TopicComment comment = (TopicComment) v.getTag();
-                topicInputView.setCommentInfo(comment.getComment_id(),
-                        comment.getUser_info().getNick_name(),
-                        comment.getUser_info().getUser_id());
-                break;
-            // 查看图片
-            case R.id.iv_topic_img:
-                List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
-                int position = (int) v.getTag(Integer.MIN_VALUE);
-                TopicListenerImpl.startPhotoView(mContext,
-                        TopicListenerImpl.setImageUrls(imageUrls), position);
-                break;
-            // 查看用户
-            case R.id.iv_user_portrait:
-                String userId = v.getTag(Integer.MAX_VALUE).toString();
-                TransferCenter.getInstance().startUserCenter(userId);
-                break;
-            // 查看详情
-            case R.id.btn_check_detail:
-                OfficialTopic productBook = (OfficialTopic) v.getTag();
-                TransferCenter.getInstance().startProductBook(productBook.
-                        getProduct().getProduct_id());
-                break;
+        // 播放录音
+        if (v == btnPlay) {
+            String playUrl = btnPlay.getTag().toString();
+            voiceUtils.play(Uri.parse(playUrl));
+        } else {
+            switch (v.getId()) {
+                // 回复评论
+                case R.id.rl_comment_parent:
+                    TopicComment comment = (TopicComment) v.getTag();
+                    topicInputView.setCommentInfo(comment.getComment_id(),
+                            comment.getUser_info().getNick_name(),
+                            comment.getUser_info().getUser_id());
+                    break;
+                // 查看图片
+                case R.id.iv_topic_img:
+                    List<ImageUrl> imageUrls = (List<ImageUrl>) v.getTag(Integer.MAX_VALUE);
+                    int position = (int) v.getTag(Integer.MIN_VALUE);
+                    TopicListenerImpl.startPhotoView(mContext,
+                            TopicListenerImpl.setImageUrls(imageUrls), position);
+                    break;
+                // 查看用户
+                case R.id.iv_user_portrait:
+                    String userId = v.getTag(Integer.MAX_VALUE).toString();
+                    TransferCenter.getInstance().startUserCenter(userId);
+                    break;
+                // 查看详情
+                case R.id.btn_check_detail:
+                    OfficialTopic productBook = (OfficialTopic) v.getTag();
+                    TransferCenter.getInstance().startProductBook(productBook.
+                            getProduct().getProduct_id());
+                    break;
+            }
         }
     }
 
@@ -150,11 +163,11 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     /**
      * 回复评论
      *
-     * @param commentContent
-     * @param repliedCommentId
-     * @param repliedName
-     * @param repliedUserId
-     * @param selectedFile
+     * @param commentContent   回复内容
+     * @param repliedCommentId 评论id
+     * @param repliedName      回复评论者名字
+     * @param repliedUserId    回复评论者Id
+     * @param selectedFile     图片集合
      */
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
@@ -216,4 +229,30 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         KeyBoardUtils.closeKeyboard(topicInputView.getEtComment(), mContext);
     }
 
+    @Override
+    public void onVoicePlay(Context context, long timeout) {
+        voiceTimerCount = new TopicVoiceTimerCount(btnPlay, timeout);
+        voiceTimerCount.start();
+    }
+
+    @Override
+    public void onVoiceCover(boolean limited) {
+
+    }
+
+    @Override
+    public void onVoiceStop() {
+        btnPlay.setText(getString(R.string.topic_content_play));
+        btnPlay.setSelected(false);
+        if (voiceTimerCount != null) {
+            voiceTimerCount.cancel();
+            voiceTimerCount = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        voiceUtils.stop();
+    }
 }

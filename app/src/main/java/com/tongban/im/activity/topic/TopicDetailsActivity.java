@@ -3,6 +3,7 @@ package com.tongban.im.activity.topic;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.tongban.corelib.widget.view.CircleImageView;
@@ -16,7 +17,10 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
+import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.ChildGridView;
+
+import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 话题评论界面
@@ -24,8 +28,11 @@ import com.tongban.im.widget.view.ChildGridView;
  * @author fushudi
  */
 public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
-        OnLoadMoreListener{
+        OnLoadMoreListener {
 
+
+    //头布局控件
+    private View mHeader;
     //头布局 top
     CircleImageView ivUserPortrait;
     TextView tvUserName;
@@ -36,9 +43,6 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
     ChildGridView gvContent;
     //底布局 bottom
     TextView tvComment;
-
-    //头布局控件
-    private View mHeader;
 
     private TopicImgAdapter mTopicImgAdapter;
     private TopicCommentAdapter mAdapter;
@@ -56,10 +60,11 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             tvTime = (TextView) mHeader.findViewById(R.id.tv_create_time);
             // header - content
             tvTopicTitle = (TextView) mHeader.findViewById(R.id.tv_topic_title);
+            btnPlay = (Button) mHeader.findViewById(R.id.btn_topic_voice);
             tvTopicContent = (TextView) mHeader.findViewById(R.id.tv_topic_content);
             gvContent = (ChildGridView) mHeader.findViewById(R.id.gv_content);
-            tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
             // header - bottom
+            tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
             mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
             gvContent.setAdapter(mTopicImgAdapter);
 
@@ -72,6 +77,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             mAdapter.setOnClickListener(this);
             lvReplyList.setOnLoadMoreListener(this);
             ivUserPortrait.setOnClickListener(this);
+            btnPlay.setOnClickListener(this);
 
             onRequest();
         }
@@ -115,11 +121,17 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
-            tvTopicContent.setText(mTopicInfo.getTopic_content().getTopic_content_text());
+            if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
+                btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
+                btnPlay.setVisibility(View.VISIBLE);
+            }else{
+                btnPlay.setVisibility(View.GONE);
+            }
+            tvTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
 
             tvComment.setText(mTopicInfo.getComment_amount());
-            if (mTopicInfo.getTopic_content().getTopic_img_url() != null) {
-                mTopicImgAdapter.replaceAll(mTopicInfo.getTopic_content().getTopic_img_url());
+            if (mTopicInfo.getTopicContent().getTopic_img_url() != null) {
+                mTopicImgAdapter.replaceAll(mTopicInfo.getTopicContent().getTopic_img_url());
                 gvContent.setVisibility(View.VISIBLE);
             }
 

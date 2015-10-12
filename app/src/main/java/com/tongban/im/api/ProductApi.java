@@ -161,6 +161,7 @@ public class ProductApi extends BaseApi {
      * @param themeId  专题id
      * @param callback 回调
      */
+    @Deprecated
     public void fetchThemeInfo(@NonNull String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
@@ -197,6 +198,7 @@ public class ProductApi extends BaseApi {
      * @param pageSize 每页的数量
      * @param callback 回调
      */
+    @Deprecated
     public void fetchProductListByThemeId(@NonNull String themeID, int cursor, int pageSize,
                                           final IApiCallback callback) {
         mParams = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.tongban.im.activity.topic;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -23,6 +24,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.utils.CameraUtils;
+import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.TopicImageView;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 发表话题界面
@@ -40,7 +43,8 @@ import butterknife.OnTextChanged;
 public class CreateTopicActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.ImageResultListener
         , KDXFRecognizerUtils.RecognizerResultListener
-        , KDXFRecognizerUtils.PlayResultListener {
+        , KDXFRecognizerUtils.PlayResultListener
+         {
 
     @Bind(R.id.et_topic_name)
     EditText etTitle;
@@ -58,6 +62,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     private KDXFRecognizerUtils kdxfRecognizer;
     private TopicVoiceTimerCount voiceTimerCount;
 
+
     private String voiceUrl = "";
     private List<ImageUrl> mUrls;
 
@@ -69,6 +74,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @Override
     protected void initData() {
         setTitle(R.string.create_topic);
+
         gvTopicImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_CREATE);
         setImageResultListener(this);
 
@@ -135,7 +141,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
             if (!btnPlay.isSelected()) {
                 kdxfRecognizer.playRecognizer();
             } else {
-                kdxfRecognizer.onStop();
+                kdxfRecognizer.onVoiceStop();
             }
         }
     }
@@ -263,11 +269,12 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
 
     @Override
     public void onPlayEnd() {
-        btnPlay.setText("点我试听");
+        btnPlay.setText(getString(R.string.topic_content_play));
         btnPlay.setSelected(false);
         if (voiceTimerCount != null) {
             voiceTimerCount.cancel();
             voiceTimerCount = null;
         }
     }
+
 }

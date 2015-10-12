@@ -3,6 +3,9 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -54,17 +57,15 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
             helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
         }
         helper.setText(R.id.tv_create_time, item.getC_time(mContext));
+        helper.setText(R.id.tv_topic_title, item.getTopic_title());
         // 语音内容
-        if (TextUtils.isEmpty(item.getTopic_content().getTopic_content_voice())) {
-            helper.setVisible(R.id.btn_play, View.VISIBLE);
-            helper.setTag(R.id.btn_play,item.getTopic_content().getTopic_content_voice());
-            helper.setOnClickListener(R.id.btn_play, onClickListener);
+        if (!TextUtils.isEmpty(item.getTopicContent().getTopic_content_voice())) {
+            helper.setVisible(R.id.iv_topic_voice,View.VISIBLE);
         } else {
-            helper.setVisible(R.id.btn_play, View.GONE);
+            helper.setVisible(R.id.iv_topic_voice, View.GONE);
         }
         // 文本内容
-        helper.setText(R.id.tv_topic_title, item.getTopic_title());
-        helper.setText(R.id.tv_topic_content, item.getTopic_content().getTopic_content_text());
+        helper.setText(R.id.tv_topic_content, item.getTopicContent().getTopic_content_text());
         if (item.getContentType() == Topic.IMAGE) {
             setImagesVisibleAndUrl(helper, item);
             helper.setVisible(R.id.ll_small_img_parent, View.VISIBLE);
@@ -79,17 +80,17 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     //设置图片的显示/隐藏和src
     private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
-        int count = item.getTopic_content().getTopic_img_url().size() > 3 ? 3
-                : item.getTopic_content().getTopic_img_url().size();
+        int count = item.getTopicContent().getTopic_img_url().size() > 3 ? 3
+                : item.getTopicContent().getTopic_img_url().size();
         for (int i = 0; i < images.length; i++) {
             helper.setVisible(images[i], View.INVISIBLE);
             if (i < count) {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
-                        item.getTopic_content().getTopic_img_url()
+                        item.getTopicContent().getTopic_img_url()
                                 .get(i).getMin(), R.mipmap.ic_default_image);
                 helper.setTag(images[i], Integer.MAX_VALUE,
-                        item.getTopic_content().getTopic_img_url());
+                        item.getTopicContent().getTopic_img_url());
                 helper.setOnClickListener(images[i], onClickListener);
             }
         }

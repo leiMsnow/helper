@@ -95,7 +95,7 @@ public class TopicApi extends BaseApi {
      * @param content  内容
      * @param callback
      */
-    public void createTopic(String title,TopicContent content,
+    public void createTopic(String title, TopicContent content,
                             final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
@@ -197,7 +197,8 @@ public class TopicApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
-
+        // 类型为官方话题和个人发表的话题
+        mParams.put("topic_type_list", new String[]{TopicType.EVALUATION, TopicType.PRIVATE});
         simpleRequest(SEARCH_TOPIC_LIST, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {

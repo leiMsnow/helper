@@ -10,15 +10,28 @@
         style="@style/MainTitle"
         android:layout_marginBottom="8dp"
         android:text="标题" />
+
+    <!-- 语音-->
+    <Button
+        android:id="@+id/btn_topic_voice"
+        style="@style/TopicCreateVoiceButton.Small"
+        android:layout_below="@+id/tv_topic_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="4dp"
+        android:drawableLeft="@drawable/selector_topic_voice_play"
+        android:text="@string/topic_content_play"
+        android:visibility="gone"/>
+
     <!-- 内容-->
     <TextView
         android:id="@+id/tv_topic_content"
         style="@style/MainContent"
-        android:layout_below="@+id/tv_topic_title"
+        android:layout_below="@+id/btn_topic_voice"
         android:layout_marginTop="8dp"
         android:maxLength="2000"
         android:text="内容"
         android:textIsSelectable="true" />
+
     <!-- 图片-->
     <com.tongban.im.widget.view.ChildGridView
         android:id="@+id/gv_content"

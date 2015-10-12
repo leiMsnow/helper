@@ -124,7 +124,16 @@ public class Topic {
         this.topic_title = topic_title;
     }
 
-    public TopicContent getTopic_content() {
+    /**
+     * 不要使用该属性，使用getTopicContent()
+     * @return
+     */
+    public String getTopic_content() {
+
+        return topic_content;
+    }
+
+    public TopicContent getTopicContent() {
         if (!TextUtils.isEmpty(topic_content)) {
             topicContent = JSON.parseObject(topic_content,
                     new TypeReference<TopicContent>(){});

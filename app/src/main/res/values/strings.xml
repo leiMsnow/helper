@@ -41,7 +41,7 @@
     <string name="view_details">查看详情</string>
     <!-- 问答-->
     <string name="topic">问答</string>
-    <!-- 发表话题-->
+    <string name="topic_content_play">点我播放</string>
     <string name="create_topic">发表</string>
     <string name="topic_search">问答搜索</string>
     <string name="create_comment">发表评论</string>

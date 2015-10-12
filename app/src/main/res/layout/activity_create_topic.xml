@@ -70,7 +70,7 @@
                 style="@style/TopicCreateVoiceButton"
                 android:layout_below="@+id/et_topic_content"
                 android:drawableLeft="@drawable/selector_topic_voice_play"
-                android:text="点我试听"
+                android:text="@string/topic_content_play"
                 android:visibility="gone" />
 
             <com.tongban.im.widget.view.TopicImageView
