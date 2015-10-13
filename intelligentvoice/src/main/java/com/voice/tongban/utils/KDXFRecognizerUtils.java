@@ -28,6 +28,8 @@ import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 科大讯飞语音识别实现类
+ * 1.使用dialog录入语音
+ * 2.实现了播放当前录入的语音
  * Created by zhangleilei on 10/10/15.
  */
 public class KDXFRecognizerUtils implements IVoiceHandler.OnPlayListener {
