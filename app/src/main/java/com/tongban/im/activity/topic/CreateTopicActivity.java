@@ -19,13 +19,12 @@ import com.tongban.im.api.TopicApi;
 import com.tongban.im.api.callback.MultiUploadFileCallback;
 import com.tongban.im.api.callback.UploadVoiceCallback;
 import com.tongban.im.common.TopicVoiceTimerCount;
-import com.tongban.im.utils.KDXFRecognizerUtils;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.TopicImageView;
+import com.voice.tongban.utils.KDXFRecognizerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 发表话题界面

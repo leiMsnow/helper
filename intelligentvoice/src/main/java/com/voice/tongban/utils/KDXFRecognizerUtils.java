@@ -1,4 +1,4 @@
-package com.tongban.im.utils;
+package com.voice.tongban.utils;
 
 import android.content.Context;
 import android.net.Uri;

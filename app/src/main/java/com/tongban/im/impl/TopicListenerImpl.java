@@ -2,22 +2,17 @@ package com.tongban.im.impl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
-import com.tongban.im.common.TopicVoiceTimerCount;
 import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.utils.VoiceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 公用接口实现类，只适用于话题

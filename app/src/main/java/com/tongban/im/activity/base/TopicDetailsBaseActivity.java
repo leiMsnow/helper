@@ -24,8 +24,8 @@ import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.TopicInputView;
+import com.voice.tongban.utils.VoiceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

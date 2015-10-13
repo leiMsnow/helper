@@ -14,13 +14,10 @@ import com.tongban.im.adapter.TopicCommentAdapter;
 import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.model.BaseEvent;
-import com.tongban.im.utils.VoiceUtils;
 import com.tongban.im.widget.view.ChildGridView;
-
-import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 话题评论界面
