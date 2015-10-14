@@ -1,6 +1,5 @@
 package com.tongban.im.activity.topic;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -24,7 +23,7 @@ import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicImageView;
-import com.voice.tongban.utils.KDXFRecognizerUtils;
+import com.voice.tongban.utils.SpeechRecognitionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +39,8 @@ import butterknife.OnTextChanged;
  */
 public class CreateTopicActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.ImageResultListener
-        , KDXFRecognizerUtils.RecognizerResultListener
-        , KDXFRecognizerUtils.PlayResultListener
+        , SpeechRecognitionUtils.RecognizerResultListener
+        , SpeechRecognitionUtils.PlayResultListener
          {
 
     @Bind(R.id.et_topic_name)
@@ -57,7 +56,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
 
     private MenuItem menuCreate;
 
-    private KDXFRecognizerUtils kdxfRecognizer;
+    private SpeechRecognitionUtils kdxfRecognizer;
     private TopicVoiceTimerCount voiceTimerCount;
 
 
@@ -76,7 +75,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         gvTopicImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_CREATE);
         setImageResultListener(this);
 
-        kdxfRecognizer = new KDXFRecognizerUtils(mContext);
+        kdxfRecognizer = new SpeechRecognitionUtils(mContext);
         kdxfRecognizer.setResultListener(this);
         kdxfRecognizer.setPlayListener(this);
     }

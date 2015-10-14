@@ -32,7 +32,7 @@ import io.rong.imkit.util.IVoiceHandler;
  * 2.实现了播放当前录入的语音
  * Created by zhangleilei on 10/10/15.
  */
-public class KDXFRecognizerUtils implements IVoiceHandler.OnPlayListener {
+public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
 
     private Context mContext;
     // 语音听写对象
@@ -54,7 +54,7 @@ public class KDXFRecognizerUtils implements IVoiceHandler.OnPlayListener {
         else return "";
     }
 
-    VoiceUtils voiceUtils;
+    VoicePlayUtils voiceUtils;
 
     private RecognizerResultListener resultListener;
 
@@ -69,7 +69,7 @@ public class KDXFRecognizerUtils implements IVoiceHandler.OnPlayListener {
     }
 
 
-    public KDXFRecognizerUtils(Context context) {
+    public SpeechRecognitionUtils(Context context) {
 
         this.mContext = context;
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
@@ -79,7 +79,7 @@ public class KDXFRecognizerUtils implements IVoiceHandler.OnPlayListener {
         mIatDialog = new RecognizerDialog(mContext, mInitListener);
         playUri = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
 
-        voiceUtils = new VoiceUtils(mContext,this);
+        voiceUtils = new VoicePlayUtils(mContext,this);
     }
 
     public void startRecognizer() {

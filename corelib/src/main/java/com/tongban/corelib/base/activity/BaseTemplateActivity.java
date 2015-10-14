@@ -2,6 +2,8 @@ package com.tongban.corelib.base.activity;
 
 import android.os.Bundle;
 
+import com.tongban.corelib.model.ApiErrorResult;
+
 import butterknife.ButterKnife;
 
 /**
@@ -32,6 +34,8 @@ public abstract class BaseTemplateActivity extends BasisActivity {
      * 初始化数据；访问接口等
      */
     protected abstract void initData();
+
+    protected abstract void setEmptyView(ApiErrorResult result);
 
 }
 

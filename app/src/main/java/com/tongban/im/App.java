@@ -1,6 +1,7 @@
 package com.tongban.im;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.iflytek.cloud.Setting;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.tongban.corelib.base.BaseApplication;
@@ -19,6 +20,7 @@ public class App extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mApp = this;
         // Log开关
         LogUtil.isDebug = true;
@@ -32,7 +34,7 @@ public class App extends BaseApplication {
         SDKInitializer.initialize(getApplicationContext());
         // 科大讯飞语音初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=56188312");
-
+//        Setting.setShowLog(false);
     }
 
     /**

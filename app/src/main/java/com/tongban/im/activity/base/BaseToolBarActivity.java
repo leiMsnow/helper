@@ -100,7 +100,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity implements Req
     }
 
     @Override
-    public void setEmptyView(ApiErrorResult result) {
+    protected void setEmptyView(ApiErrorResult result) {
         mEmptyParentView = findViewById(R.id.rl_empty_view_parent);
         if (mEmptyParentView == null) {
             mEmptyParentView = EmptyViewUtils.createEmptyView(mContext);

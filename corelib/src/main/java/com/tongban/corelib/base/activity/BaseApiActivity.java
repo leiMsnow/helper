@@ -93,5 +93,8 @@ public abstract class BaseApiActivity extends BaseTemplateActivity implements IA
         }
     }
 
-    public abstract void setEmptyView(ApiErrorResult result);
+    @Override
+    protected void setEmptyView(ApiErrorResult result) {
+
+    }
 }

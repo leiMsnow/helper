@@ -2,7 +2,6 @@ package com.tongban.im.activity.base;
 
 import android.content.Context;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +24,7 @@ import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicInputView;
-import com.voice.tongban.utils.VoiceUtils;
+import com.voice.tongban.utils.VoicePlayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     protected int mCursor = 0;
     protected int mPage = 10;
 
-    private VoiceUtils voiceUtils;
+    private VoicePlayUtils voiceUtils;
     private TopicVoiceTimerCount voiceTimerCount;
 
     @Override
@@ -72,7 +71,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
         setTitle("");
         setImageResultListener(this);
-        voiceUtils = new VoiceUtils(mContext, this);
+        voiceUtils = new VoicePlayUtils(mContext, this);
 
         if (getIntent() != null) {
             Uri uri = getIntent().getData();

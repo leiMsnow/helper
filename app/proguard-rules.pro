@@ -34,6 +34,7 @@
 -keepattributes *Annotation*
 # 保持哪些类不被混淆
 
+-keep class com.iflytek.**{*;}
 
 -dontshrink
 -dontoptimize

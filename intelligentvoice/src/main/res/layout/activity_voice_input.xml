@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_voice">
+
+    <!-- 结果list-->
+    <ListView
+        android:id="@+id/lv_voice_results"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@null"
+        android:scrollbars="none" />
+
+    <!-- 输入-->
+    <ImageView
+        android:id="@+id/iv_speak"
+        android:layout_width="?android:actionBarSize"
+        android:layout_height="?android:actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:scaleType="center"
+        android:src="@mipmap/ic_btn_speak" />
+
+    <!-- 声波-->
+    <ImageView
+        android:id="@+id/iv_volume_changed"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp"
+        android:scaleType="center"
+        android:src="@mipmap/ic_volume_changed_0"
+        android:visibility="gone" />
+
+</RelativeLayout>

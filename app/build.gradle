@@ -24,16 +24,16 @@ android {
 
         // dex禁用65535的限制
         multiDexEnabled true
-        manifestPlaceholders = [UMENG_CHANNEL_VALUE:"channel_name"]
+//        manifestPlaceholders = [UMENG_CHANNEL_VALUE:"channel_name"]
 
     }
 
     //渠道Flavors
-    productFlavors{
-        umeng{}
-        xiaomi{}
-        GooglePlay{}
-    }
+//    productFlavors{
+//        umeng{}
+//        xiaomi{}
+//        GooglePlay{}
+//    }
     // 执行lint检查，有任何错误或者警告提示都会终止构建
     lintOptions{
         abortOnError false

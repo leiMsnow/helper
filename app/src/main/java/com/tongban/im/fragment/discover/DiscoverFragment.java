@@ -3,15 +3,13 @@ package com.tongban.im.fragment.discover;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
@@ -30,6 +28,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.user.User;
 import com.tongban.im.utils.PTRHeaderUtils;
+import com.voice.tongban.activity.VoiceInputActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,6 +55,8 @@ public class DiscoverFragment extends BaseToolBarFragment
     ImageButton ivSearchAll;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.fab_add)
+    FloatingActionButton fabAdd;
 
     private DiscoverAdapter mAdapter;
 
@@ -115,13 +116,15 @@ public class DiscoverFragment extends BaseToolBarFragment
         lvDiscover.setAdapter(mAdapter);
     }
 
-    @OnClick({R.id.iv_user_portrait, R.id.iv_search_all})
+    @OnClick({R.id.iv_user_portrait, R.id.iv_search_all, R.id.fab_add})
     public void onClick(View v) {
         if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
                     SPUtils.get(mContext, Consts.USER_ID, "").toString(), true);
         } else if (v == ivSearchAll) {
-            mContext.startActivity(new Intent(mContext, SearchDiscoverActivity.class));
+            startActivity(new Intent(mContext, SearchDiscoverActivity.class));
+        } else if (v == fabAdd) {
+            startActivity(new Intent(mContext, VoiceInputActivity.class));
         }
     }
 
@@ -204,17 +207,4 @@ public class DiscoverFragment extends BaseToolBarFragment
         ProductApi.getInstance().fetchHomeInfo(this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
 }
