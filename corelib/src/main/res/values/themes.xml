@@ -24,4 +24,9 @@
         <item name="colorAccent">@color/theme_red_700</item>
     </style>
 
+    <style name="AppTheme.Translucent">
+        <item name="android:windowBackground">@color/translucent_a80</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

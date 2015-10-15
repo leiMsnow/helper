@@ -6,10 +6,13 @@ import android.widget.ListView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
-import com.tongban.corelib.utils.LogUtil;
 import com.voice.tongban.R;
+import com.voice.tongban.adapter.VoiceInputAdapter;
 import com.voice.tongban.model.FinalResult;
+import com.voice.tongban.model.MoreResults;
+import com.voice.tongban.model.OperationType;
 import com.voice.tongban.model.Understander;
+import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
 
 public class VoiceInputActivity extends BaseApiActivity implements
@@ -19,7 +22,12 @@ public class VoiceInputActivity extends BaseApiActivity implements
     ImageView ivSpeak;
     ImageView ivVolumeChanged;
 
-    UnderstanderRecognitionUtils semanticRecognition;
+    // 语义理解
+    UnderstanderRecognitionUtils mSemanticRecognition;
+    // 语音合成
+    SpeechSynthesizerUtils mSpeechSynthesizer;
+
+    VoiceInputAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -29,8 +37,11 @@ public class VoiceInputActivity extends BaseApiActivity implements
     @Override
     protected void initData() {
 
-        semanticRecognition = new UnderstanderRecognitionUtils(mContext);
-        semanticRecognition.setSemanticListener(this);
+        mSemanticRecognition = new UnderstanderRecognitionUtils(mContext);
+        mSemanticRecognition.setSemanticListener(this);
+
+        mSpeechSynthesizer = new SpeechSynthesizerUtils(mContext);
+
         lvVoiceResults = (ListView) findViewById(R.id.lv_voice_results);
         ivSpeak = (ImageView) findViewById(R.id.iv_speak);
         ivVolumeChanged = (ImageView) findViewById(R.id.iv_volume_changed);
@@ -38,16 +49,21 @@ public class VoiceInputActivity extends BaseApiActivity implements
         ivSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                semanticRecognition.startUnderstanding();
+                mSpeechSynthesizer.onStopSeak();
+                mSemanticRecognition.startUnderstanding();
             }
         });
+        mAdapter = new VoiceInputAdapter(mContext, null,
+                VoiceLayout);
+        lvVoiceResults.setAdapter(mAdapter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         // 退出时释放连接
-        semanticRecognition.destroy();
+        mSemanticRecognition.destroy();
+        mSpeechSynthesizer.destroy();
     }
 
     @Override
@@ -60,36 +76,30 @@ public class VoiceInputActivity extends BaseApiActivity implements
     public void onVolumeChanged(int volume) {
         switch (volume) {
             case 0:
-                ivVolumeChanged.setImageResource(R.color.transparent);
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_0);
                 break;
             case 1:
             case 2:
             case 3:
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_1);
+                break;
             case 4:
             case 5:
             case 6:
-                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_1);
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_2);
                 break;
             case 7:
             case 8:
             case 9:
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_3);
+                break;
             case 10:
             case 11:
             case 12:
-                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_2);
-                break;
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
-                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_3);
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_4);
                 break;
             default:
-                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_4);
+                ivVolumeChanged.setImageResource(R.mipmap.ic_volume_changed_5);
                 break;
         }
     }
@@ -97,45 +107,64 @@ public class VoiceInputActivity extends BaseApiActivity implements
     @Override
     public void onEndSpeech(Understander understander) {
 
-        LogUtil.d("result");
+//        List<FinalResult> answerList = new ArrayList<>();
         ivSpeak.setVisibility(View.VISIBLE);
         ivVolumeChanged.setVisibility(View.GONE);
 
         // 结果出问题
         if (understander == null) {
+
             return;
         }
-        if (understander.getRc() == 0) {
+        if (understander.getRc() != 0) {
             return;
         }
+
+        //添加问题item数据
+        FinalResult questionItem = new FinalResult();
+        questionItem.setFinalType(FinalResult.USER_QUESTION);
+        questionItem.setQuestion(understander.getText());
+
+        mAdapter.add(questionItem);
+
         // 智能问答
-//        if (understander.getOperation().equals(OperationType.OPERATION_ANSWER)) {
-//
-//            boolean isSetFirst = false;
-//            List<MoreResults> answerList = new ArrayList<>();
-//            if (understander.getAnswer() != null) {
-//                MoreResults firstResult = new MoreResults();
-//                firstResult.setAnswer(understander.getAnswer());
-//                isSetFirst = true;
-//                firstResult.setIsFirst(isSetFirst);
-//                answerList.add(firstResult);
-//            }
-//            if (understander.getMoreResults() != null && understander.getMoreResults().size() > 0) {
-//                for (int i = 0; i < understander.getMoreResults().size(); i++) {
-//                    if (!isSetFirst && i > 0) {
-//                        understander.getMoreResults().get(i).setIsFirst(true);
-//                    }
-//                    answerList.add(understander.getMoreResults().get(i));
-//                }
-//            }
-//            VoiceInputAdapter adapter = new VoiceInputAdapter(mContext, answerList,
-//                    VoiceLayout);
-//            lvVoiceResults.setAdapter(adapter);
-//        }
-        // 语义抽取
-//        else {
-//
-//        }
+        if (understander.getOperation().equals(OperationType.OPERATION_ANSWER)) {
+
+            boolean isSetFirst = false;
+            if (understander.getAnswer() != null) {
+                MoreResults firstResult = new MoreResults();
+                firstResult.setAnswer(understander.getAnswer());
+                isSetFirst = true;
+                firstResult.setIsFirst(isSetFirst);
+                // 说话
+                mSpeechSynthesizer.onSpeak(understander.getAnswer().getText());
+                FinalResult firstAnswerItem = new FinalResult();
+                firstAnswerItem.setMoreResults(firstResult);
+                firstAnswerItem.setFinalType(FinalResult.ANSWER);
+
+                mAdapter.add(firstAnswerItem);
+            }
+            if (understander.getMoreResults() != null && understander.getMoreResults().size() > 0) {
+                for (int i = 0; i < understander.getMoreResults().size(); i++) {
+                    if (!isSetFirst && i > 0) {
+                        understander.getMoreResults().get(i).setIsFirst(true);
+                        // 说话
+                        mSpeechSynthesizer.onSpeak(understander.getAnswer().getText());
+                    }
+
+                    FinalResult answerItem = new FinalResult();
+                    answerItem.setMoreResults(understander.getMoreResults().get(i));
+                    answerItem.setFinalType(FinalResult.ANSWER);
+                    mAdapter.add(answerItem);
+                }
+            }
+        }
+        //语义抽取
+        else {
+
+        }
+
+        lvVoiceResults.setSelection(mAdapter.getCount() - 1);
     }
 
 
@@ -147,7 +176,7 @@ public class VoiceInputActivity extends BaseApiActivity implements
                 case FinalResult.USER_QUESTION:
                     return R.layout.item_list_question_text;
                 case FinalResult.ANSWER:
-                    return R.layout.item_list_question_text;
+                    return R.layout.item_list_answer_text_result;
             }
             return 0;
         }

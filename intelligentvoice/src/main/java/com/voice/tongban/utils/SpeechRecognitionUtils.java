@@ -79,12 +79,12 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         mIatDialog = new RecognizerDialog(mContext, mInitListener);
         playUri = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
 
+        setParam();
         voiceUtils = new VoicePlayUtils(mContext,this);
     }
 
     public void startRecognizer() {
         mIatResults.clear();
-        setParam();
         // 显示听写对话框
         mIatDialog.setListener(mRecognizerDialogListener);
         mIatDialog.show();

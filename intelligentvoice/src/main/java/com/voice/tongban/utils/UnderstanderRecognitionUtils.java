@@ -43,6 +43,8 @@ public class UnderstanderRecognitionUtils {
         this.mContext = context;
         // 初始化对象
         mSpeechUnderstander = SpeechUnderstander.createUnderstander(mContext, mSpeechUdrInitListener);
+        // 设置参数
+        setParam();
     }
 
 
@@ -67,8 +69,7 @@ public class UnderstanderRecognitionUtils {
     int ret = 0;// 函数调用返回值
 
     public void startUnderstanding() {
-        // 设置参数
-        setParam();
+
 
         if (mSpeechUnderstander.isUnderstanding()) {// 开始前检查状态
             mSpeechUnderstander.stopUnderstanding();
