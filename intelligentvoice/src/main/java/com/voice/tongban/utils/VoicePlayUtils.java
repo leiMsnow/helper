@@ -36,7 +36,7 @@ public class VoicePlayUtils implements IVoiceHandler.OnPlayListener {
 
     @Override
     public void onVoicePlay(Context context, long timeout) {
-        if (playListener!=null){
+        if (playListener != null) {
             playListener.onVoicePlay(timeout);
         }
     }
@@ -48,7 +48,7 @@ public class VoicePlayUtils implements IVoiceHandler.OnPlayListener {
 
     @Override
     public void onVoiceStop() {
-        if (playListener!=null){
+        if (playListener != null) {
             playListener.onVoiceFinish();
         }
     }

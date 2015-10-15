@@ -1,6 +1,5 @@
 package com.voice.tongban.activity;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,20 +14,15 @@ import com.voice.tongban.model.OperationType;
 import com.voice.tongban.model.Understander;
 import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
-import com.voice.tongban.utils.VoicePlayUtils;
-
-import io.rong.imkit.util.IVoiceHandler;
 
 public class IntelligentMainActivity extends BaseApiActivity implements
         UnderstanderRecognitionUtils.SemanticListener
-        , View.OnClickListener
-        , VoicePlayUtils.IVoicePlayListener {
+        , View.OnClickListener {
 
     ListView lvVoiceResults;
     ImageView ivSpeak;
     ImageView ivVolumeChanged;
 
-    VoicePlayUtils mVoicePlay;
     // 语义理解
     UnderstanderRecognitionUtils mSemanticRecognition;
     // 语音合成
@@ -44,11 +38,11 @@ public class IntelligentMainActivity extends BaseApiActivity implements
     @Override
     protected void initData() {
 
-        mVoicePlay = new VoicePlayUtils(mContext, this);
 
         mSemanticRecognition = new UnderstanderRecognitionUtils(mContext, this);
 
         mSpeechSynthesizer = new SpeechSynthesizerUtils(mContext);
+        mSpeechSynthesizer.onSpeak("本宝宝等你很久啦");
 
         lvVoiceResults = (ListView) findViewById(R.id.lv_voice_results);
         ivSpeak = (ImageView) findViewById(R.id.iv_speak);
@@ -110,7 +104,7 @@ public class IntelligentMainActivity extends BaseApiActivity implements
     }
 
     @Override
-    public void onEndSpeech(Understander understander) {
+    public void onFinishSpeech(Understander understander) {
 
         ivSpeak.setVisibility(View.VISIBLE);
         ivVolumeChanged.setVisibility(View.INVISIBLE);
@@ -210,15 +204,5 @@ public class IntelligentMainActivity extends BaseApiActivity implements
                 mSpeechSynthesizer.onSpeak(text);
             }
         }
-    }
-
-    @Override
-    public void onVoicePlay(long timeout) {
-
-    }
-
-    @Override
-    public void onVoiceFinish() {
-
     }
 }

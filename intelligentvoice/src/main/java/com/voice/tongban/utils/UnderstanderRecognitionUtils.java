@@ -1,6 +1,7 @@
 package com.voice.tongban.utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.iflytek.cloud.SpeechUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.ToastUtil;
+import com.voice.tongban.R;
 import com.voice.tongban.model.Understander;
 
 /**
@@ -34,14 +36,18 @@ public class UnderstanderRecognitionUtils {
 
     private SemanticListener mSemanticListener;
 
+    VoicePlayUtils mVoicePlay;
 
-    public UnderstanderRecognitionUtils(Context context,SemanticListener mSemanticListener) {
+
+    public UnderstanderRecognitionUtils(Context context, SemanticListener mSemanticListener) {
         this.mContext = context;
         this.mSemanticListener = mSemanticListener;
         // 初始化对象
         mSpeechUnderstander = SpeechUnderstander.createUnderstander(mContext, mSpeechUdrInitListener);
         // 设置参数
         setParam();
+
+        mVoicePlay = new VoicePlayUtils(mContext, null);
     }
 
 
@@ -68,6 +74,11 @@ public class UnderstanderRecognitionUtils {
         if (mSpeechUnderstander.isUnderstanding()) {
             mSpeechUnderstander.stopUnderstanding();
         } else {
+
+            Uri uri = Uri.parse("android.resource://"
+                    + mContext.getPackageName() + "/" + R.raw.speech_start);
+            mVoicePlay.play(uri);
+
             int ret = mSpeechUnderstander.startUnderstanding(mSpeechUnderstanderListener);
             if (ret != 0) {
                 LogUtil.d("语义理解失败,错误码:" + ret);
@@ -104,13 +115,13 @@ public class UnderstanderRecognitionUtils {
 
                 if (text != null) {
                     if (mSemanticListener != null) {
-                        mSemanticListener.onEndSpeech(text);
+                        mSemanticListener.onFinishSpeech(text);
                     }
                 }
             } else {
                 LogUtil.d("识别结果不正确。");
                 if (mSemanticListener != null) {
-                    mSemanticListener.onEndSpeech(null);
+                    mSemanticListener.onFinishSpeech(null);
                 }
             }
         }
@@ -128,6 +139,9 @@ public class UnderstanderRecognitionUtils {
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
+            Uri uri = Uri.parse("android.resource://"
+                    + mContext.getPackageName() + "/" + R.raw.speech_end);
+            mVoicePlay.play(uri);
         }
 
         @Override
@@ -142,7 +156,7 @@ public class UnderstanderRecognitionUtils {
         public void onError(SpeechError error) {
             LogUtil.d(error.getPlainDescription(true));
             if (mSemanticListener != null) {
-                mSemanticListener.onEndSpeech(null);
+                mSemanticListener.onFinishSpeech(null);
             }
         }
 
@@ -167,6 +181,6 @@ public class UnderstanderRecognitionUtils {
 
         void onVolumeChanged(int volume);
 
-        void onEndSpeech(Understander result);
+        void onFinishSpeech(Understander result);
     }
 }
