@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by zhangleilei on 10/14/15.
  */
-public class VoiceInputAdapter extends QuickAdapter<FinalResult> {
+public class IntelligentVoiceAdapter extends QuickAdapter<FinalResult> {
 
 
     private View.OnClickListener onClickListener;
@@ -23,7 +23,7 @@ public class VoiceInputAdapter extends QuickAdapter<FinalResult> {
         this.onClickListener = onClickListener;
     }
 
-    public VoiceInputAdapter(Context context, List data, IMultiItemTypeSupport multiItemTypeSupport) {
+    public IntelligentVoiceAdapter(Context context, List data, IMultiItemTypeSupport multiItemTypeSupport) {
         super(context, data, multiItemTypeSupport);
     }
 

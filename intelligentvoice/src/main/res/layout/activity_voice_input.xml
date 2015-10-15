@@ -6,8 +6,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.95"
-        android:background="@drawable/bg_voice">
+        android:alpha="0.8"
+        android:background="@color/black">
         <!-- 结果list-->
         <ListView
             android:id="@+id/lv_voice_results"

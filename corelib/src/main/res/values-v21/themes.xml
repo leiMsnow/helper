@@ -8,4 +8,12 @@
         <item name="android:navigationBarColor">@color/theme_red</item>
     </style>
 
+    <style name="AppTheme.Translucent">
+        <item name="android:windowBackground">@color/translucent_a80</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <item name="android:statusBarColor">@color/black</item>
+
+    </style>
+
 </resources>

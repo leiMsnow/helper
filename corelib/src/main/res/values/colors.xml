@@ -14,6 +14,7 @@
     <!-- white-->
     <color name="white">#ffffff</color>
     <!-- grey-->
+    <color name="grey_alpha_10">#20fff3c2</color>
     <color name="theme_grey_300_alpha_80">#33e0e0e0</color>
     <color name="theme_grey_200">#f0f0f0</color>
     <color name="theme_grey_300">#e0e0e0</color>

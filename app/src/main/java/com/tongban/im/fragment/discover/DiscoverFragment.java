@@ -2,11 +2,8 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -28,10 +25,9 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.user.User;
 import com.tongban.im.utils.PTRHeaderUtils;
-import com.voice.tongban.activity.VoiceInputActivity;
+import com.voice.tongban.activity.IntelligentMainActivity;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -124,7 +120,7 @@ public class DiscoverFragment extends BaseToolBarFragment
         } else if (v == ivSearchAll) {
             startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         } else if (v == fabAdd) {
-            startActivity(new Intent(mContext, VoiceInputActivity.class));
+            startActivity(new Intent(mContext, IntelligentMainActivity.class));
         }
     }
 

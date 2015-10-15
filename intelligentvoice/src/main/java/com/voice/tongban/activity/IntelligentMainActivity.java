@@ -7,7 +7,7 @@ import android.widget.ListView;
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.voice.tongban.R;
-import com.voice.tongban.adapter.VoiceInputAdapter;
+import com.voice.tongban.adapter.IntelligentVoiceAdapter;
 import com.voice.tongban.model.FinalResult;
 import com.voice.tongban.model.MoreResults;
 import com.voice.tongban.model.OperationType;
@@ -15,7 +15,7 @@ import com.voice.tongban.model.Understander;
 import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
 
-public class VoiceInputActivity extends BaseApiActivity implements
+public class IntelligentMainActivity extends BaseApiActivity implements
         UnderstanderRecognitionUtils.SemanticListener
         , View.OnClickListener {
 
@@ -28,7 +28,7 @@ public class VoiceInputActivity extends BaseApiActivity implements
     // 语音合成
     SpeechSynthesizerUtils mSpeechSynthesizer;
 
-    VoiceInputAdapter mAdapter;
+    IntelligentVoiceAdapter mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -49,7 +49,7 @@ public class VoiceInputActivity extends BaseApiActivity implements
 
         ivSpeak.setOnClickListener(this);
 
-        mAdapter = new VoiceInputAdapter(mContext, null, VoiceLayout);
+        mAdapter = new IntelligentVoiceAdapter(mContext, null, VoiceLayout);
         mAdapter.setOnClickListener(this);
         lvVoiceResults.setAdapter(mAdapter);
     }
