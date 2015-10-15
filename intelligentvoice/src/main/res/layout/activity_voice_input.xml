@@ -13,8 +13,10 @@
             android:id="@+id/lv_voice_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:cacheColorHint="@color/transparent"
+            android:cacheColorHint="@null"
+            android:layout_above="@+id/iv_volume_changed"
             android:divider="@null"
+            android:dividerHeight="0dp"
             android:scrollbars="none" />
 
         <!-- 输入-->
@@ -42,7 +44,7 @@
             android:paddingTop="24dp"
             android:scaleType="center"
             android:src="@mipmap/ic_volume_changed_0"
-            android:visibility="gone" />
+            android:visibility="invisible" />
 
     </RelativeLayout>
 </FrameLayout>

@@ -34,7 +34,7 @@ public class App extends BaseApplication {
         SDKInitializer.initialize(getApplicationContext());
         // 科大讯飞语音初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=56188312");
-//        Setting.setShowLog(false);
+        Setting.setShowLog(false);
     }
 
     /**

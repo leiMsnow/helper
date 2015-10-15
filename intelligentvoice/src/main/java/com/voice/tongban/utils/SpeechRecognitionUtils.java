@@ -2,10 +2,13 @@ package com.voice.tongban.utils;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
@@ -46,12 +49,11 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
 
     private String playUri;
 
+    // 是否返回播放地址
     private boolean isVoice = false;
 
     public String getVoiceUrl() {
-        if (isVoice)
-            return playUri;
-        else return "";
+        return isVoice ? playUri : "";
     }
 
     VoicePlayUtils voiceUtils;
@@ -80,14 +82,28 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         playUri = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
 
         setParam();
-        voiceUtils = new VoicePlayUtils(mContext,this);
+        voiceUtils = new VoicePlayUtils(mContext, this);
     }
 
-    public void startRecognizer() {
+    public void startRecognizerDialog() {
         mIatResults.clear();
         // 显示听写对话框
         mIatDialog.setListener(mRecognizerDialogListener);
         mIatDialog.show();
+    }
+
+    public void startRecognizer() {
+        // 不显示听写对话框
+        int ret = mIat.startListening(mRecognizerListener);
+        if (ret != ErrorCode.SUCCESS) {
+            LogUtil.d("听写失败,错误码：" + ret);
+        }
+    }
+
+    public void stopRecognizer() {
+        if (mIat.isListening()) {
+            mIat.stopListening();
+        }
     }
 
     private void setParam() {
@@ -129,6 +145,59 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         }
 
     };
+
+    /**
+     * 听写监听器。
+     */
+    private RecognizerListener mRecognizerListener = new RecognizerListener() {
+
+        @Override
+        public void onBeginOfSpeech() {
+            // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
+            LogUtil.d("开始说话");
+        }
+
+        @Override
+        public void onError(SpeechError error) {
+            // Tips：
+            // 错误码：10118(您没有说话)，可能是录音机权限被禁，需要提示用户打开应用的录音权限。
+            // 如果使用本地功能（语记）需要提示用户开启语记的录音权限。
+            LogUtil.d(error.getPlainDescription(true));
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
+            LogUtil.d("结束说话");
+        }
+
+        @Override
+        public void onResult(RecognizerResult results, boolean isLast) {
+            LogUtil.d(results.getResultString());
+            printResult(results);
+
+            if (isLast) {
+                // TODO 最后的结果
+            }
+        }
+
+        @Override
+        public void onVolumeChanged(int volume, byte[] data) {
+
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+            // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
+            // 若使用本地能力，会话id为null
+            //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
+            //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
+            //		Log.d(TAG, "session id =" + sid);
+            //	}
+        }
+    };
+
+
     /**
      * 初始化监听器。
      */
@@ -142,6 +211,7 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         }
     };
 
+    // 解析结果
     private void printResult(RecognizerResult results) {
         String text = parseIatResult(results.getResultString());
 
@@ -169,7 +239,7 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         }
     }
 
-    public void onDestroy() {
+    public void destroy() {
         voiceUtils.stop();
         // 退出时释放连接
         if (mIat.isListening())

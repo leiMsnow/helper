@@ -32,12 +32,12 @@ public class UnderstanderRecognitionUtils {
     // 语义理解对象（语音到语义）。
     private SpeechUnderstander mSpeechUnderstander;
 
-    private SemanticListener semanticListener;
 
-    public void setSemanticListener(SemanticListener semanticListener) {
-        this.semanticListener = semanticListener;
+    private SemanticListener mSemanticListener;
+
+    public void setSemanticListener(SemanticListener mSemanticListener) {
+        this.mSemanticListener = mSemanticListener;
     }
-
 
     public UnderstanderRecognitionUtils(Context context) {
         this.mContext = context;
@@ -66,15 +66,12 @@ public class UnderstanderRecognitionUtils {
                 , Environment.getExternalStorageDirectory() + "/msc/sud.wav");
     }
 
-    int ret = 0;// 函数调用返回值
-
     public void startUnderstanding() {
-
-
-        if (mSpeechUnderstander.isUnderstanding()) {// 开始前检查状态
+        // 开始前检查状态
+        if (mSpeechUnderstander.isUnderstanding()) {
             mSpeechUnderstander.stopUnderstanding();
         } else {
-            ret = mSpeechUnderstander.startUnderstanding(mSpeechUnderstanderListener);
+            int ret = mSpeechUnderstander.startUnderstanding(mSpeechUnderstanderListener);
             if (ret != 0) {
                 LogUtil.d("语义理解失败,错误码:" + ret);
             }
@@ -108,15 +105,15 @@ public class UnderstanderRecognitionUtils {
                         new TypeReference<Understander>() {
                         });
 
-                if (text!=null) {
-                    if (semanticListener != null) {
-                        semanticListener.onEndSpeech(text);
+                if (text != null) {
+                    if (mSemanticListener != null) {
+                        mSemanticListener.onEndSpeech(text);
                     }
                 }
             } else {
                 LogUtil.d("识别结果不正确。");
-                if (semanticListener != null) {
-                    semanticListener.onEndSpeech(null);
+                if (mSemanticListener != null) {
+                    mSemanticListener.onEndSpeech(null);
                 }
             }
         }
@@ -126,8 +123,8 @@ public class UnderstanderRecognitionUtils {
         public void onVolumeChanged(int volume, byte[] data) {
             LogUtil.d("当前正在说话，音量大小：" + volume);
             Log.d(TAG, data.length + "");
-            if (semanticListener != null) {
-                semanticListener.onVolumeChanged(volume);
+            if (mSemanticListener != null) {
+                mSemanticListener.onVolumeChanged(volume);
             }
         }
 
@@ -139,16 +136,16 @@ public class UnderstanderRecognitionUtils {
         @Override
         public void onBeginOfSpeech() {
             // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
-            if (semanticListener != null) {
-                semanticListener.onStartSpeech();
+            if (mSemanticListener != null) {
+                mSemanticListener.onStartSpeech();
             }
         }
 
         @Override
         public void onError(SpeechError error) {
             LogUtil.d(error.getPlainDescription(true));
-            if (semanticListener != null) {
-                semanticListener.onEndSpeech(null);
+            if (mSemanticListener != null) {
+                mSemanticListener.onEndSpeech(null);
             }
         }
 

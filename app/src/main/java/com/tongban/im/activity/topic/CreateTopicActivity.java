@@ -133,7 +133,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @OnClick({R.id.btn_voice, R.id.btn_play})
     public void onSRListener(View v) {
         if (v == btnRecognizer) {
-            kdxfRecognizer.startRecognizer();
+            kdxfRecognizer.startRecognizerDialog();
         } else if (v == btnPlay) {
             if (!btnPlay.isSelected()) {
                 kdxfRecognizer.playRecognizer();
@@ -255,7 +255,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        kdxfRecognizer.onDestroy();
+        kdxfRecognizer.destroy();
     }
 
     @Override

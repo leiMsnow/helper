@@ -18,12 +18,12 @@ import com.tongban.corelib.utils.LogUtil;
  */
 public class SpeechSynthesizerUtils {
 
-    private Context mContext;
+//    private Context mContext;
     // 语音合成对象
     private SpeechSynthesizer mTts;
 
     public SpeechSynthesizerUtils(Context mContext) {
-        this.mContext = mContext;
+//        this.mContext = mContext;
         mTts = SpeechSynthesizer.createSynthesizer(mContext, mTtsInitListener);
         setParam();
     }
@@ -47,10 +47,11 @@ public class SpeechSynthesizerUtils {
     };
 
     public void onSpeak(String text) {
+        onStopSpeak();
         mTts.startSpeaking(text, mTtsListener);
     }
 
-    public void onStopSeak() {
+    public void onStopSpeak() {
         if (mTts.isSpeaking()) {
             mTts.stopSpeaking();
         }

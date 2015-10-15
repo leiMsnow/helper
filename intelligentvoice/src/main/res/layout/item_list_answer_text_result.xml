@@ -5,11 +5,15 @@
 
     <TextView
         android:id="@+id/tv_answer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_margin="16dp"
-        android:textColor="@color/white"
-        android:text="answer" />
+        android:minHeight="40dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:text="answer"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

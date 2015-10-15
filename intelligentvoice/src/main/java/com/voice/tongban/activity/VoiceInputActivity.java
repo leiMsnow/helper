@@ -16,7 +16,8 @@ import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
 
 public class VoiceInputActivity extends BaseApiActivity implements
-        UnderstanderRecognitionUtils.SemanticListener {
+        UnderstanderRecognitionUtils.SemanticListener
+        , View.OnClickListener {
 
     ListView lvVoiceResults;
     ImageView ivSpeak;
@@ -46,15 +47,10 @@ public class VoiceInputActivity extends BaseApiActivity implements
         ivSpeak = (ImageView) findViewById(R.id.iv_speak);
         ivVolumeChanged = (ImageView) findViewById(R.id.iv_volume_changed);
 
-        ivSpeak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSpeechSynthesizer.onStopSeak();
-                mSemanticRecognition.startUnderstanding();
-            }
-        });
-        mAdapter = new VoiceInputAdapter(mContext, null,
-                VoiceLayout);
+        ivSpeak.setOnClickListener(this);
+
+        mAdapter = new VoiceInputAdapter(mContext, null, VoiceLayout);
+        mAdapter.setOnClickListener(this);
         lvVoiceResults.setAdapter(mAdapter);
     }
 
@@ -68,8 +64,10 @@ public class VoiceInputActivity extends BaseApiActivity implements
 
     @Override
     public void onStartSpeech() {
+
         ivSpeak.setVisibility(View.GONE);
         ivVolumeChanged.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -107,9 +105,8 @@ public class VoiceInputActivity extends BaseApiActivity implements
     @Override
     public void onEndSpeech(Understander understander) {
 
-//        List<FinalResult> answerList = new ArrayList<>();
         ivSpeak.setVisibility(View.VISIBLE);
-        ivVolumeChanged.setVisibility(View.GONE);
+        ivVolumeChanged.setVisibility(View.INVISIBLE);
 
         // 结果出问题
         if (understander == null) {
@@ -117,6 +114,7 @@ public class VoiceInputActivity extends BaseApiActivity implements
             return;
         }
         if (understander.getRc() != 0) {
+
             return;
         }
 
@@ -163,8 +161,7 @@ public class VoiceInputActivity extends BaseApiActivity implements
         else {
 
         }
-
-        lvVoiceResults.setSelection(mAdapter.getCount() - 1);
+        lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }
 
 
@@ -194,5 +191,18 @@ public class VoiceInputActivity extends BaseApiActivity implements
 
     };
 
+
+    @Override
+    public void onClick(View v) {
+        if (v == ivSpeak) {
+            mSpeechSynthesizer.onStopSpeak();
+            mSemanticRecognition.startUnderstanding();
+        } else {
+            if (v.getId() == R.id.tv_answer) {
+                String text = v.getTag().toString();
+                mSpeechSynthesizer.onSpeak(text);
+            }
+        }
+    }
 
 }
