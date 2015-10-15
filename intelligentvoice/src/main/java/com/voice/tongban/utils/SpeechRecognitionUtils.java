@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
@@ -27,7 +26,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 科大讯飞语音识别实现类
@@ -35,7 +33,7 @@ import io.rong.imkit.util.IVoiceHandler;
  * 2.实现了播放当前录入的语音
  * Created by zhangleilei on 10/10/15.
  */
-public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
+public class SpeechRecognitionUtils {
 
     private Context mContext;
     // 语音听写对象
@@ -56,33 +54,25 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
         return isVoice ? playUri : "";
     }
 
-    VoicePlayUtils voiceUtils;
+    VoicePlayUtils voicePlay;
+
+    public void setVoicePlayUtils(VoicePlayUtils.IVoicePlayListener voicePlayListener) {
+        this.voicePlay = new VoicePlayUtils(mContext, voicePlayListener);
+    }
 
     private RecognizerResultListener resultListener;
 
-    private PlayResultListener playListener;
-
-    public void setPlayListener(PlayResultListener playListener) {
-        this.playListener = playListener;
-    }
-
-    public void setResultListener(RecognizerResultListener resultListener) {
-        this.resultListener = resultListener;
-    }
-
-
-    public SpeechRecognitionUtils(Context context) {
+    public SpeechRecognitionUtils(Context context, RecognizerResultListener resultListener) {
 
         this.mContext = context;
+        this.resultListener = resultListener;
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(mContext, mInitListener);
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         mIatDialog = new RecognizerDialog(mContext, mInitListener);
         playUri = Environment.getExternalStorageDirectory() + "/msc/iat.wav";
-
         setParam();
-        voiceUtils = new VoicePlayUtils(mContext, this);
     }
 
     public void startRecognizerDialog() {
@@ -93,16 +83,13 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
     }
 
     public void startRecognizer() {
+        if (mIat.isListening()) {
+            return;
+        }
         // 不显示听写对话框
         int ret = mIat.startListening(mRecognizerListener);
         if (ret != ErrorCode.SUCCESS) {
             LogUtil.d("听写失败,错误码：" + ret);
-        }
-    }
-
-    public void stopRecognizer() {
-        if (mIat.isListening()) {
-            mIat.stopListening();
         }
     }
 
@@ -147,7 +134,7 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
     };
 
     /**
-     * 听写监听器。
+     * 听写监听器，无界面。
      */
     private RecognizerListener mRecognizerListener = new RecognizerListener() {
 
@@ -240,7 +227,7 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
     }
 
     public void destroy() {
-        voiceUtils.stop();
+        voicePlay.stop();
         // 退出时释放连接
         if (mIat.isListening())
             mIat.cancel();
@@ -275,38 +262,25 @@ public class SpeechRecognitionUtils implements IVoiceHandler.OnPlayListener {
     /**
      * 播放录音
      */
-    public void playRecognizer() {
-        File file = new File(playUri);
-        if (file.exists())
-            voiceUtils.play(Uri.fromFile(file));
+    public void playRecording() {
+        File file = new File(getVoiceUrl());
+        if (file.exists()) {
+            if (voicePlay != null)
+                voicePlay.play(Uri.fromFile(file));
+        }
     }
 
-    @Override
-    public void onVoicePlay(Context context, long timeout) {
-        //播放录音开始
-        if (playListener != null)
-            playListener.onPlayStart(timeout);
+    public void stopRecording() {
+        if (voicePlay != null) {
+            voicePlay.stop();
+        }
     }
 
-    @Override
-    public void onVoiceCover(boolean limited) {
-
-    }
-
-    @Override
-    public void onVoiceStop() {
-        //播放录音结束
-        if (playListener != null)
-            playListener.onPlayEnd();
-    }
-
+    /**
+     * 语音识别结果回调
+     */
     public interface RecognizerResultListener {
         void recognizerResult(String result);
     }
 
-    public interface PlayResultListener {
-        void onPlayStart(long timeout);
-
-        void onPlayEnd();
-    }
 }

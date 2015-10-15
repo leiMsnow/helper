@@ -32,15 +32,12 @@ public class UnderstanderRecognitionUtils {
     // 语义理解对象（语音到语义）。
     private SpeechUnderstander mSpeechUnderstander;
 
-
     private SemanticListener mSemanticListener;
 
-    public void setSemanticListener(SemanticListener mSemanticListener) {
-        this.mSemanticListener = mSemanticListener;
-    }
 
-    public UnderstanderRecognitionUtils(Context context) {
+    public UnderstanderRecognitionUtils(Context context,SemanticListener mSemanticListener) {
         this.mContext = context;
+        this.mSemanticListener = mSemanticListener;
         // 初始化对象
         mSpeechUnderstander = SpeechUnderstander.createUnderstander(mContext, mSpeechUdrInitListener);
         // 设置参数

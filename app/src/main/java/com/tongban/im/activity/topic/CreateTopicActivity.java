@@ -24,6 +24,7 @@ import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicImageView;
 import com.voice.tongban.utils.SpeechRecognitionUtils;
+import com.voice.tongban.utils.VoicePlayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,7 @@ import butterknife.OnTextChanged;
 public class CreateTopicActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.ImageResultListener
         , SpeechRecognitionUtils.RecognizerResultListener
-        , SpeechRecognitionUtils.PlayResultListener
-         {
+        , VoicePlayUtils.IVoicePlayListener {
 
     @Bind(R.id.et_topic_name)
     EditText etTitle;
@@ -56,7 +56,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
 
     private MenuItem menuCreate;
 
-    private SpeechRecognitionUtils kdxfRecognizer;
+    private SpeechRecognitionUtils mSpeechRecognition;
     private TopicVoiceTimerCount voiceTimerCount;
 
 
@@ -75,9 +75,8 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
         gvTopicImg.setAdapterImgCount(TopicImageView.IMAGE_COUNT_CREATE);
         setImageResultListener(this);
 
-        kdxfRecognizer = new SpeechRecognitionUtils(mContext);
-        kdxfRecognizer.setResultListener(this);
-        kdxfRecognizer.setPlayListener(this);
+        mSpeechRecognition = new SpeechRecognitionUtils(mContext,this);
+        mSpeechRecognition.setVoicePlayUtils(this);
     }
 
     @Override
@@ -133,12 +132,12 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @OnClick({R.id.btn_voice, R.id.btn_play})
     public void onSRListener(View v) {
         if (v == btnRecognizer) {
-            kdxfRecognizer.startRecognizerDialog();
+            mSpeechRecognition.startRecognizerDialog();
         } else if (v == btnPlay) {
             if (!btnPlay.isSelected()) {
-                kdxfRecognizer.playRecognizer();
+                mSpeechRecognition.playRecording();
             } else {
-                kdxfRecognizer.onVoiceStop();
+                mSpeechRecognition.stopRecording();
             }
         }
     }
@@ -177,8 +176,8 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     // 如果有录音，将会上传录音
     private void uploadVoice() {
         showProgress();
-        if (!TextUtils.isEmpty(kdxfRecognizer.getVoiceUrl())) {
-            FileUploadApi.getInstance().uploadVoice(kdxfRecognizer.getVoiceUrl(),
+        if (!TextUtils.isEmpty(mSpeechRecognition.getVoiceUrl())) {
+            FileUploadApi.getInstance().uploadVoice(mSpeechRecognition.getVoiceUrl(),
                     new UploadVoiceCallback() {
                         @Override
                         public void uploadSuccess(String url) {
@@ -255,17 +254,17 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        kdxfRecognizer.destroy();
+        mSpeechRecognition.destroy();
     }
 
     @Override
-    public void onPlayStart(long timeout) {
+    public void onVoicePlay(long timeout) {
         voiceTimerCount = new TopicVoiceTimerCount(btnPlay, timeout);
         voiceTimerCount.start();
     }
 
     @Override
-    public void onPlayEnd() {
+    public void onVoiceFinish() {
         btnPlay.setText(getString(R.string.topic_content_play));
         btnPlay.setSelected(false);
         if (voiceTimerCount != null) {
@@ -273,5 +272,4 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
             voiceTimerCount = null;
         }
     }
-
 }

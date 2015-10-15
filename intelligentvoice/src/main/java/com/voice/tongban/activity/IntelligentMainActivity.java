@@ -1,5 +1,6 @@
 package com.voice.tongban.activity;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,15 +15,20 @@ import com.voice.tongban.model.OperationType;
 import com.voice.tongban.model.Understander;
 import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
+import com.voice.tongban.utils.VoicePlayUtils;
+
+import io.rong.imkit.util.IVoiceHandler;
 
 public class IntelligentMainActivity extends BaseApiActivity implements
         UnderstanderRecognitionUtils.SemanticListener
-        , View.OnClickListener {
+        , View.OnClickListener
+        , VoicePlayUtils.IVoicePlayListener {
 
     ListView lvVoiceResults;
     ImageView ivSpeak;
     ImageView ivVolumeChanged;
 
+    VoicePlayUtils mVoicePlay;
     // 语义理解
     UnderstanderRecognitionUtils mSemanticRecognition;
     // 语音合成
@@ -38,8 +44,9 @@ public class IntelligentMainActivity extends BaseApiActivity implements
     @Override
     protected void initData() {
 
-        mSemanticRecognition = new UnderstanderRecognitionUtils(mContext);
-        mSemanticRecognition.setSemanticListener(this);
+        mVoicePlay = new VoicePlayUtils(mContext, this);
+
+        mSemanticRecognition = new UnderstanderRecognitionUtils(mContext, this);
 
         mSpeechSynthesizer = new SpeechSynthesizerUtils(mContext);
 
@@ -205,4 +212,13 @@ public class IntelligentMainActivity extends BaseApiActivity implements
         }
     }
 
+    @Override
+    public void onVoicePlay(long timeout) {
+
+    }
+
+    @Override
+    public void onVoiceFinish() {
+
+    }
 }

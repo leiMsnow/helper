@@ -1,6 +1,5 @@
 package com.tongban.im.activity.base;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.Menu;
@@ -15,8 +14,8 @@ import com.tongban.im.R;
 import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TopicVoiceTimerCount;
-import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.common.TransferCenter;
+import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.OfficialTopic;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import io.rong.imkit.util.IVoiceHandler;
 
 /**
  * 通用的topicDetails父类
@@ -40,7 +38,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
         CommonImageResultActivity.ImageResultListener
         , TopicInputView.IOnClickCommentListener
         , View.OnClickListener
-        , IVoiceHandler.OnPlayListener {
+        , VoicePlayUtils.IVoicePlayListener {
 
 
     @Bind(R.id.lv_reply_list)
@@ -229,18 +227,13 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     }
 
     @Override
-    public void onVoicePlay(Context context, long timeout) {
+    public void onVoicePlay(long timeout) {
         voiceTimerCount = new TopicVoiceTimerCount(btnPlay, timeout);
         voiceTimerCount.start();
     }
 
     @Override
-    public void onVoiceCover(boolean limited) {
-
-    }
-
-    @Override
-    public void onVoiceStop() {
+    public void onVoiceFinish() {
         btnPlay.setText(getString(R.string.topic_content_play));
         btnPlay.setSelected(false);
         if (voiceTimerCount != null) {
