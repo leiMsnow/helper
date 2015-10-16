@@ -1,10 +1,5 @@
 package com.voice.tongban.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.v7.internal.widget.DrawableUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,7 +7,6 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.voice.tongban.R;
 import com.voice.tongban.adapter.IntelligentVoiceAdapter;
 import com.voice.tongban.model.FinalResult;

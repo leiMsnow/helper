@@ -25,7 +25,7 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**
- * 我的话题（我的收藏中的、我发起的话题）
+ * 我的问答（我的收藏中的、我发起的话题）
  *
  * @author fushudi
  */

@@ -559,10 +559,13 @@ public class UserCenterApi extends BaseApi {
                 ApiListResult<Topic> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiListResult<Topic>>() {
                         });
-                BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
-                topicListEvent.topicList = (result.getData().getResult());
-                callback.onComplete(topicListEvent);
-
+                if (result.getData().getResult().size() > 0) {
+                    BaseEvent.TopicListEvent topicListEvent = new BaseEvent.TopicListEvent();
+                    topicListEvent.topicList = (result.getData().getResult());
+                    callback.onComplete(topicListEvent);
+                } else {
+                    onFailure(createEmptyResult(FETCH_LAUNCH_TOPIC_LIST));
+                }
             }
 
             @Override

@@ -84,13 +84,13 @@ public class MyTopicActivity extends CommonImageResultActivity {
         initIndicator(2);
         mTabIndicator.add(ccvMySendTopic);
         mTabIndicator.add(ccvMyReceiveTopic);
-        //我发起的话题
+        //我发起的
         MyTopicFragment topicFragment = new MyTopicFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Consts.KEY_MY_TOPIC_LIST, Topic.MY_SEND_TOPIC_LIST);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
-        //回复我的话题
+        //回复我的
         MyCommentTopicFragment myCommentTopicFragment = new MyCommentTopicFragment();
         mTabs.add(myCommentTopicFragment);
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
