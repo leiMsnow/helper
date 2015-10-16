@@ -109,6 +109,8 @@ public class BaseApi {
     // 67测试环境
     public static String TEST_HOST_67 = "http://10.255.209.67:8080/ddim/";
 
+    public static String TEST_HOST_6 = "http://192.168.81.6:8080/ddim/";
+
     protected BaseApi(Context context) {
         this.mContext = context;
         this.mRequestQueue = BaseApplication.getInstance().getRequestQueue();

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.voice.tongban" >
+    package="com.voice.tongban">
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name" >
-        <activity android:name=".activity.IntelligentMainActivity"
+        android:label="@string/app_name">
+        <activity
+            android:name=".activity.IntelligentMainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.Translucent" />
+
     </application>
 
 </manifest>

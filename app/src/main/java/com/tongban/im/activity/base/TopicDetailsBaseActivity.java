@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -21,7 +22,6 @@ import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
 import com.tongban.im.model.topic.TopicComment;
-import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicInputView;
 import com.voice.tongban.utils.VoicePlayUtils;
 
@@ -152,7 +152,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     @Override
     public void albumResult(ArrayList<String> picturePaths) {
         for (int i = picturePaths.size() - 1; i >= 0; i--) {
-            String newFile = CameraUtils.saveToSD(picturePaths.get(i));
+            String newFile = ImageUtils.saveToSD(picturePaths.get(i));
             cameraResult(newFile);
         }
     }

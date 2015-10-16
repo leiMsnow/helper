@@ -118,20 +118,23 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             tvTime.setText(mTopicInfo.getC_time(mContext));
 
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
-            if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
-                btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
-                btnPlay.setVisibility(View.VISIBLE);
-            }else{
-                btnPlay.setVisibility(View.GONE);
-            }
-            tvTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
+            if (mTopicInfo.getTopicContent() != null) {
 
+                if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
+                    btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
+                    btnPlay.setVisibility(View.VISIBLE);
+                } else {
+                    btnPlay.setVisibility(View.GONE);
+                }
+                tvTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
+            }
             tvComment.setText(mTopicInfo.getComment_amount());
-            if (mTopicInfo.getTopicContent().getTopic_img_url() != null) {
-                mTopicImgAdapter.replaceAll(mTopicInfo.getTopicContent().getTopic_img_url());
-                gvContent.setVisibility(View.VISIBLE);
+            if (mTopicInfo.getTopicContent() != null) {
+                if (mTopicInfo.getTopicContent().getTopic_img_url() != null) {
+                    mTopicImgAdapter.replaceAll(mTopicInfo.getTopicContent().getTopic_img_url());
+                    gvContent.setVisibility(View.VISIBLE);
+                }
             }
-
             lvReplyList.setVisibility(View.VISIBLE);
             // 查询话题评论列表
             TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);

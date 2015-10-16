@@ -3,9 +3,9 @@ package com.tongban.im.activity.base;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.im.activity.ClipImageBorderViewActivity;
 import com.tongban.im.utils.CameraUtils;
-import com.tongban.im.widget.view.TopicInputView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public abstract class CommonImageResultActivity extends BaseToolBarActivity {
             File file = CameraUtils.getImageFile();
             if (file.exists()) {
                 if (file.length() > 100) {
-                    String newFile = CameraUtils.saveToSD(file
+                    String newFile = ImageUtils.saveToSD(file
                             .getAbsolutePath());
                     if (isCut) {
                         opCutActivity(newFile);
@@ -58,7 +58,7 @@ public abstract class CommonImageResultActivity extends BaseToolBarActivity {
             ArrayList<String> picturePaths = data.getExtras().getStringArrayList("selectedImages");
             if (isCut) {
                 if (picturePaths.size() > 0) {
-                    String newFile = CameraUtils.saveToSD(picturePaths.get(0));
+                    String newFile = ImageUtils.saveToSD(picturePaths.get(0));
                     opCutActivity(newFile);
                 }
             } else {

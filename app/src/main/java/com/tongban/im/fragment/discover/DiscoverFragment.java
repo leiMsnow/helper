@@ -2,6 +2,7 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
@@ -94,7 +97,6 @@ public class DiscoverFragment extends BaseToolBarFragment
                         return R.layout.item_discover_img;
                     default:
                         return 0;
-
                 }
 
             }
@@ -159,7 +161,6 @@ public class DiscoverFragment extends BaseToolBarFragment
                 floor++;
             }
         }
-
     }
 
     /**

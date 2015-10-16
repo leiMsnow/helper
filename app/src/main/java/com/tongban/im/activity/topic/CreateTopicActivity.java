@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
@@ -21,7 +22,6 @@ import com.tongban.im.common.TopicVoiceTimerCount;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.topic.TopicContent;
-import com.tongban.im.utils.CameraUtils;
 import com.tongban.im.widget.view.TopicImageView;
 import com.voice.tongban.utils.SpeechRecognitionUtils;
 import com.voice.tongban.utils.VoicePlayUtils;
@@ -235,7 +235,7 @@ public class CreateTopicActivity extends CommonImageResultActivity implements
     @Override
     public void albumResult(ArrayList<String> picturePaths) {
         for (int i = picturePaths.size() - 1; i >= 0; i--) {
-            String newFile = CameraUtils.saveToSD(picturePaths.get(i));
+            String newFile = ImageUtils.saveToSD(picturePaths.get(i));
             cameraResult(newFile);
         }
     }

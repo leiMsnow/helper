@@ -1,11 +1,18 @@
 package com.voice.tongban.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v7.internal.widget.DrawableUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tongban.corelib.base.activity.BaseApiActivity;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
+import com.tongban.corelib.utils.ScreenUtils;
 import com.voice.tongban.R;
 import com.voice.tongban.adapter.IntelligentVoiceAdapter;
 import com.voice.tongban.model.FinalResult;
@@ -22,6 +29,7 @@ public class IntelligentMainActivity extends BaseApiActivity implements
     ListView lvVoiceResults;
     ImageView ivSpeak;
     ImageView ivVolumeChanged;
+    TextView tvWelcome;
 
     // 语义理解
     UnderstanderRecognitionUtils mSemanticRecognition;
@@ -29,7 +37,7 @@ public class IntelligentMainActivity extends BaseApiActivity implements
     SpeechSynthesizerUtils mSpeechSynthesizer;
 
     IntelligentVoiceAdapter mAdapter;
-
+    
     @Override
     protected int getLayoutRes() {
         return R.layout.activity_voice_input;
@@ -42,17 +50,22 @@ public class IntelligentMainActivity extends BaseApiActivity implements
         mSemanticRecognition = new UnderstanderRecognitionUtils(mContext, this);
 
         mSpeechSynthesizer = new SpeechSynthesizerUtils(mContext);
-        mSpeechSynthesizer.onSpeak("本宝宝等你很久啦");
+//        mSpeechSynthesizer.onSpeak("本宝宝等你很久啦");
 
         lvVoiceResults = (ListView) findViewById(R.id.lv_voice_results);
         ivSpeak = (ImageView) findViewById(R.id.iv_speak);
         ivVolumeChanged = (ImageView) findViewById(R.id.iv_volume_changed);
+        tvWelcome = (TextView) findViewById(R.id.tv_welcome);
 
-        ivSpeak.setOnClickListener(this);
+        ivSpeak.setVisibility(View.VISIBLE);
+        tvWelcome.setVisibility(View.VISIBLE);
 
         mAdapter = new IntelligentVoiceAdapter(mContext, null, VoiceLayout);
-        mAdapter.setOnClickListener(this);
         lvVoiceResults.setAdapter(mAdapter);
+
+
+        ivSpeak.setOnClickListener(this);
+        mAdapter.setOnClickListener(this);
     }
 
     @Override
@@ -108,14 +121,15 @@ public class IntelligentMainActivity extends BaseApiActivity implements
 
         ivSpeak.setVisibility(View.VISIBLE);
         ivVolumeChanged.setVisibility(View.INVISIBLE);
+        tvWelcome.setVisibility(View.GONE);
 
         // 结果出问题
         if (understander == null) {
-
+            mSpeechSynthesizer.onSpeak("我不知道你在说什么");
             return;
         }
         if (understander.getRc() != 0) {
-
+            mSpeechSynthesizer.onSpeak("我没有听清你说的话");
             return;
         }
 
@@ -198,6 +212,7 @@ public class IntelligentMainActivity extends BaseApiActivity implements
         if (v == ivSpeak) {
             mSpeechSynthesizer.onStopSpeak();
             mSemanticRecognition.startUnderstanding();
+
         } else {
             if (v.getId() == R.id.tv_answer) {
                 String text = v.getTag().toString();

@@ -126,6 +126,7 @@ public class Topic {
 
     /**
      * 不要使用该属性，使用getTopicContent()
+     *
      * @return
      */
     public String getTopic_content() {
@@ -135,8 +136,14 @@ public class Topic {
 
     public TopicContent getTopicContent() {
         if (!TextUtils.isEmpty(topic_content)) {
-            topicContent = JSON.parseObject(topic_content,
-                    new TypeReference<TopicContent>(){});
+            try {
+                topicContent = JSON.parseObject(topic_content,
+                        new TypeReference<TopicContent>() {
+                        });
+
+            } catch (Exception e) {
+
+            }
         }
         return topicContent;
     }

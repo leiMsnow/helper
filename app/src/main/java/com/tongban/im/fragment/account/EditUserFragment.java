@@ -4,6 +4,7 @@ package com.tongban.im.fragment.account;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
@@ -126,7 +128,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
                                     SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
                             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
                                     resId);
-                            mIcon = CameraUtils.Bitmap2Bytes(bitmap);
+                            mIcon = ImageUtils.Bitmap2Bytes(bitmap);
                             uploadUserPortrait();
                         }
                     }

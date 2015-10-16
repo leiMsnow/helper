@@ -174,14 +174,15 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
             tvOfficialName.setText(mTopicInfo.getUser_info().getNick_name());
             tvCreateTime.setText(mTopicInfo.getC_time(mContext));
             tvOfficialTopicTitle.setText(mTopicInfo.getTopic_title());
-            if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
-                btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
-                btnPlay.setVisibility(View.VISIBLE);
-            }else{
-                btnPlay.setVisibility(View.GONE);
+            if (mTopicInfo.getTopicContent() != null) {
+                if (!TextUtils.isEmpty(mTopicInfo.getTopicContent().getTopic_content_voice())) {
+                    btnPlay.setTag(mTopicInfo.getTopicContent().getTopic_content_voice());
+                    btnPlay.setVisibility(View.VISIBLE);
+                } else {
+                    btnPlay.setVisibility(View.GONE);
+                }
+                tvOfficialTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
             }
-            tvOfficialTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
-
             OfficialTopic officialTopic = new OfficialTopic();
             Topic topic = mTopicInfo;
             officialTopic.setItemType(OfficialTopic.REPLY_NUM);
