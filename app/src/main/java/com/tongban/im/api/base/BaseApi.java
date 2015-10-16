@@ -388,7 +388,7 @@ public class BaseApi {
         ApiErrorResult errorResult = new ApiErrorResult();
         errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
         errorResult.setErrorCode(API_URL_ERROR);
-        errorResult.setErrorMessage("没有更多数据");
+        errorResult.setErrorMessage("这里什么也没有");
         errorResult.setApiName(apiName);
         return errorResult;
     }

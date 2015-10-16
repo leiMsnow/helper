@@ -92,7 +92,7 @@ public class GroupInfoActivity extends BaseToolBarActivity {
             if (mGroup == null) {
                 return;
             }
-            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mGroup.getUserInfo().getUser_id())) {
+            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mGroup.getUser_info().getUser_id())) {
                 ToastUtil.getInstance(mContext).showToast(getQuitMessage());
                 return;
             }
@@ -132,10 +132,10 @@ public class GroupInfoActivity extends BaseToolBarActivity {
         tvAddress.setText(mGroup.getAddress());
         tvAttrs.setText(mGroup.getGroupType());
 
-        if (mGroup.getUserInfo() != null
-                && mGroup.getUserInfo().getPortraitUrl() != null) {
-            setUserPortrait(mGroup.getUserInfo().getPortraitUrl().getMin(), ivCreator);
-            tvCreator.setText(mGroup.getUserInfo().getNick_name());
+        if (mGroup.getUser_info() != null
+                && mGroup.getUser_info().getPortraitUrl() != null) {
+            setUserPortrait(mGroup.getUser_info().getPortraitUrl().getMin(), ivCreator);
+            tvCreator.setText(mGroup.getUser_info().getNick_name());
         }
 
     }

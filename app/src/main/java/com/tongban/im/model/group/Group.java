@@ -34,8 +34,7 @@ public class Group implements Serializable {
     private String group_avatar;
     private ImageUrl groupAvatar;
     //群主信息
-    private String user_info;
-    private User userInfo;
+    private User user_info;
     //星座
     private String constellation;
     //距离
@@ -173,19 +172,12 @@ public class Group implements Serializable {
         return groupAvatar;
     }
 
-    public void setUser_info(String user_info) {
-        this.user_info = user_info;
+    public User getUser_info() {
+        return user_info;
     }
 
-    public User getUserInfo() {
-        if (userInfo != null)
-            return userInfo;
-        if (TextUtils.isEmpty(user_info)) {
-            userInfo = JSON.parseObject(user_info,
-                    new TypeReference<User>() {
-                    });
-        }
-        return userInfo;
+    public void setUser_info(User user_info) {
+        this.user_info = user_info;
     }
 
     public String getConstellation() {

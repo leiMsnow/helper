@@ -1,6 +1,5 @@
 package com.tongban.im.activity.topic;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import com.tongban.im.fragment.topic.TopicFragment;
 import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * 搜索话题

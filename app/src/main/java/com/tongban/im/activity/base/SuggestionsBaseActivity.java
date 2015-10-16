@@ -1,6 +1,5 @@
 package com.tongban.im.activity.base;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import butterknife.Bind;
@@ -145,6 +143,7 @@ public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implem
         if (!NetUtils.isConnected(mContext)) {
             return false;
         }
+        hideEmptyView();
         if (!TextUtils.isEmpty(newText) && (!newText.equals(mQueryText))) {
             mQueryText = newText;
             if (isShowSuggestions) {
