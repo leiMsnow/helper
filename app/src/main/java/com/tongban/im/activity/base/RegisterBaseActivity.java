@@ -61,7 +61,7 @@ public abstract class RegisterBaseActivity extends AccountBaseActivity {
      * @param obj
      */
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
-        connectIM(user.getChild_info() == null);
+        connectIM(user.getChildInfo() == null);
         finish();
     }
 

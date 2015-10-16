@@ -1,5 +1,9 @@
 package com.tongban.im.model.user;
 
+import android.text.TextUtils;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.user.Child;
 
@@ -10,7 +14,7 @@ import java.util.List;
  * 用户信息model
  * Created by zhangleilei on 15/7/3.
  */
-public class User implements Serializable{
+public class User implements Serializable {
     // 用户id
     private String user_id;
     // 手机号码
@@ -23,22 +27,12 @@ public class User implements Serializable{
     private String im_bind_token;
     // 昵称
     private String nick_name;
-    //出生日期
-    private String birthday;
-    // 年龄
-    private String age;
-    // 性别
-    private String sex;
-    // 账户状态：默认0，0已经注册未验证；1短信验证成功未绑定；2绑定IM成功并生效
-    private String status;
-    // 个性签名
-    private String personal_sign;
     // 用户头像
-    private ImageUrl portrait_url;
+    private String portrait_url;
+
+    private ImageUrl portraitUrl;
     //用户标签
     private String tags;
-    //个人描述
-    private String declaration;
     //用户地址
     private String address;
     //加入的群数量
@@ -52,7 +46,9 @@ public class User implements Serializable{
     //地址类型
     private String address_type;
     //孩子信息
-    private List<Child> child_info;
+    private String child_info;
+
+    private List<Child> childInfo;
     //是否已经关注
     private boolean is_focused;
 
@@ -83,20 +79,37 @@ public class User implements Serializable{
         this.is_focused = is_focused;
     }
 
-    public ImageUrl getPortrait_url() {
-        return portrait_url;
-    }
-
-    public void setPortrait_url(ImageUrl portrait_url) {
+    public void setPortrait_url(String portrait_url) {
         this.portrait_url = portrait_url;
     }
 
-    public List<Child> getChild_info() {
-        return child_info;
+    public ImageUrl getPortraitUrl() {
+        if (portraitUrl != null) {
+            return portraitUrl;
+        }
+        if (!TextUtils.isEmpty(portrait_url)) {
+            portraitUrl = JSON.parseObject(portrait_url,
+                    new TypeReference<ImageUrl>() {
+                    });
+        }
+
+        return portraitUrl;
     }
 
-    public void setChild_info(List<Child> child_info) {
+    public void setChild_info(String child_info) {
         this.child_info = child_info;
+    }
+
+    public List<Child> getChildInfo() {
+        if (childInfo != null) {
+            return childInfo;
+        }
+        if (!TextUtils.isEmpty(child_info)) {
+            childInfo = JSON.parseObject(child_info,
+                    new TypeReference<List<Child>>() {
+                    });
+        }
+        return childInfo;
     }
 
     public String getJoined_group_amount() {
@@ -131,13 +144,6 @@ public class User implements Serializable{
         this.address_type = address_type;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
 
     public String getAddress() {
         return address;
@@ -195,38 +201,6 @@ public class User implements Serializable{
         this.im_bind_token = im_bind_token;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getSex() {
-        return sex.equals("1") ? "男" : "女";
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getPersonal_sign() {
-        return personal_sign;
-    }
-
-    public void setPersonal_sign(String personal_sign) {
-        this.personal_sign = personal_sign;
-    }
-
     public String getTags() {
         return tags;
     }
@@ -235,12 +209,5 @@ public class User implements Serializable{
         this.tags = tags;
     }
 
-    public String getDeclaration() {
-        return declaration;
-    }
-
-    public void setDeclaration(String declaration) {
-        this.declaration = declaration;
-    }
 
 }

@@ -138,8 +138,8 @@ public class DiscoverFragment extends BaseToolBarFragment
      */
     public void onEventMainThread(BaseEvent.PersonalCenterEvent userInfo) {
         User user = userInfo.user;
-        if (user != null && user.getPortrait_url() != null) {
-            setUserPortrait(user.getPortrait_url().getMin(), ivUserPortrait);
+        if (user != null && user.getPortraitUrl() != null) {
+            setUserPortrait(user.getPortraitUrl().getMin(), ivUserPortrait);
         }
     }
 

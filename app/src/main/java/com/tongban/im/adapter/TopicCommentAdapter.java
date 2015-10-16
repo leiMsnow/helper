@@ -10,7 +10,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * 话题评论Adapter
  * Created by fushudi on 2015/8/1.
  */
-public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
+public class TopicCommentAdapter extends QuickAdapter<Comment> {
 
     private int[] images = new int[]{R.id.iv_small_img_1, R.id.iv_small_img_2, R.id.iv_small_img_3};
 
@@ -39,16 +39,17 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, TopicComment item) {
+    protected void convert(BaseAdapterHelper helper, Comment item) {
         if (item.getUser_info() != null) {
-            if (item.getUser_info().getPortrait_url() != null) {
+            if (item.getUser_info().getPortraitUrl() != null) {
                 helper.setImageBitmap(R.id.iv_user_portrait,
-                        item.getUser_info().getPortrait_url().getMid());
+                        item.getUser_info().getPortraitUrl().getMid());
             } else {
                 helper.setImageResource(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
-            if (item.getComment_img_url() != null) {
-                setImagesVisibleAndUrl(helper, item.getComment_img_url());
+            if (item.getCommentContent() != null
+                    && item.getCommentContent().getComment_img_url() != null) {
+                setImagesVisibleAndUrl(helper, item.getCommentContent().getComment_img_url());
                 helper.setVisible(R.id.ll_small_img_parent, View.VISIBLE);
             } else {
                 helper.setVisible(R.id.ll_small_img_parent, View.GONE);
@@ -78,7 +79,9 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
             helper.setText(R.id.tv_user_name, "");
             helper.setVisible(R.id.tv_comment, View.GONE);
         }
-        helper.setText(R.id.tv_comment_content, item.getComment_content());
+        if (item.getCommentContent() != null) {
+            helper.setText(R.id.tv_comment_content, item.getCommentContent().getComment_content_text());
+        }
         helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
     }
 
@@ -90,7 +93,7 @@ public class TopicCommentAdapter extends QuickAdapter<TopicComment> {
             if (i < count) {
                 helper.setVisible(images[i], View.VISIBLE);
                 helper.setImageBitmap(images[i],
-                        item.get(i).getMin(), R.drawable.rc_ic_def_rich_content);
+                        item.get(i).getMin(), R.mipmap.ic_default_image);
                 helper.setTag(images[i], Integer.MAX_VALUE, item);
                 helper.setOnClickListener(images[i], onImgClickListener);
             }

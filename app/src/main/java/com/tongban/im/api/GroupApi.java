@@ -123,7 +123,7 @@ public class GroupApi extends BaseApi {
         if (declaration != null)
             mParams.put("declaration", declaration);
 
-        mParams.put("group_avatar", JSON.toJSON(groupAvatar));
+        mParams.put("group_avatar", JSON.toJSON(groupAvatar).toString());
         mParams.put("flag_allow_search", getTypeStr(isSearch));
         //此处接口名称根据groupType变化
         simpleRequest(CREATE_GROUP + "/" + groupType, mParams, new IApiCallback() {

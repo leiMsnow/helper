@@ -107,8 +107,8 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
         if (mTopicInfo != null) {
             if (mTopicInfo.getUser_info() != null) {
                 tvUserName.setText(mTopicInfo.getUser_info().getNick_name());
-                if (mTopicInfo.getUser_info().getPortrait_url() != null) {
-                    setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().getMin()
+                if (mTopicInfo.getUser_info().getPortraitUrl() != null) {
+                    setUserPortrait(mTopicInfo.getUser_info().getPortraitUrl().getMin()
                             , ivUserPortrait);
                 } else {
                     ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());

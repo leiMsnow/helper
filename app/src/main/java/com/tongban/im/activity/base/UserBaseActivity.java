@@ -217,16 +217,16 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
             tvUserName.setText(mUserInfo.getNick_name());
         }
 
-        if (mUserInfo.getPortrait_url() != null) {
-            setUserPortrait(mUserInfo.getPortrait_url().getMin(), ivUserPortrait);
+        if (mUserInfo.getPortraitUrl() != null) {
+            setUserPortrait(mUserInfo.getPortraitUrl().getMin(), ivUserPortrait);
         } else {
             int resId = (Integer) SPUtils.
                     get(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
             ivUserPortrait.setImageResource(resId);
         }
-        if (mUserInfo.getChild_info() != null &&
-                mUserInfo.getChild_info().size() > 0) {
-            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChild_info(), mUserInfo.getUser_id());
+        if (mUserInfo.getChildInfo() != null &&
+                mUserInfo.getChildInfo().size() > 0) {
+            mAdapter = new UserInfoAdapter(mContext, mUserInfo.getChildInfo(), mUserInfo.getUser_id());
             vpChildInfo.setAdapter(mAdapter);
             indicator.setViewPager(vpChildInfo);
             vpChildInfo.setPageTransformer(true, new ScalePageTransformer());

@@ -5,7 +5,7 @@ import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.discover.ProductBook;
 import com.tongban.im.model.discover.Theme;
 import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 import com.tongban.im.model.user.User;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public class BaseEvent {
      * 话题评论列表Event
      */
     public static class TopicCommentListEvent {
-        public List<TopicComment> topicCommentList;
+        public List<Comment> topicCommentList;
     }
 
     /**
@@ -250,7 +250,7 @@ public class BaseEvent {
      * 回复我的话题列表Event
      */
     public static class CommentTopicListEvent {
-        public List<TopicComment> commentTopicList;
+        public List<Comment> commentTopicList;
     }
 
 

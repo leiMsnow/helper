@@ -6,10 +6,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.DateUtils;
-import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.user.User;
-
-import java.util.List;
 
 /**
  * 话题信息表
@@ -49,7 +46,7 @@ public class Topic {
     //用户信息
     private User user_info;
     //话题评论
-    private TopicComment topicComment;
+    private Comment topicComment;
     //收藏状态
     private boolean collect_status;
 
@@ -63,11 +60,11 @@ public class Topic {
         this.collect_status = collect_status;
     }
 
-    public TopicComment getTopicComment() {
+    public Comment getTopicComment() {
         return topicComment;
     }
 
-    public void setTopicComment(TopicComment topicComment) {
+    public void setTopicComment(Comment topicComment) {
         this.topicComment = topicComment;
     }
 

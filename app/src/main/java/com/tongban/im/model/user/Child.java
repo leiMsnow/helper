@@ -2,6 +2,8 @@ package com.tongban.im.model.user;
 
 import android.text.TextUtils;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 
 /**
@@ -34,6 +36,9 @@ public class Child implements Serializable {
     }
 
     public String getConstellation() {
+        if (TextUtils.isEmpty(constellation)) {
+            return "";
+        }
         return constellation;
     }
 
@@ -74,9 +79,12 @@ public class Child implements Serializable {
     public StringBuffer StrChildAge(String childAge) {
         String[] age = childAge.split("\\.");
         StringBuffer strAge = new StringBuffer();
-        strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
-        if (Integer.parseInt(age[1]) > 0 && Integer.parseInt(age[1]) < 12)
-            strAge.append(age[1] + "个月");
+        if (age.length > 1) {
+            strAge.append(age[0].equals("0") ? "" : age[0] + "岁");
+            if (Integer.parseInt(age[1]) > 0 && Integer.parseInt(age[1]) < 12)
+                strAge.append(age[1] + "个月");
+            return strAge;
+        }
         return strAge;
     }
 

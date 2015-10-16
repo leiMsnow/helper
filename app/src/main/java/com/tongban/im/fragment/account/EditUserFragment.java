@@ -151,6 +151,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
 
             @Override
             public void uploadFailed(String error) {
+                btnSubmit.setProgress(0);
                 ToastUtil.getInstance(mContext).showToast("头像上传失败,请重试");
             }
 

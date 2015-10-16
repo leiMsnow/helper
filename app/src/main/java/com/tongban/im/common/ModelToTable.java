@@ -25,9 +25,8 @@ public class ModelToTable {
         userTable.setUser_id(user.getUser_id());
         userTable.setNick_name(user.getNick_name());
         userTable.setMobile_phone(user.getMobile_phone());
-        userTable.setDeclaration(user.getDeclaration());
-        if (user.getPortrait_url() != null)
-            userTable.setPortrait_url(user.getPortrait_url().getMin());
+        if (user.getPortraitUrl() != null)
+            userTable.setPortrait_url(user.getPortraitUrl().getMin());
 
         return userTable;
     }
@@ -43,8 +42,8 @@ public class ModelToTable {
         GroupTable groupTable = new GroupTable();
         groupTable.setGroup_id(group.getGroup_id());
         groupTable.setGroup_name(group.getGroup_name());
-        if (group.getGroup_avatar() != null)
-            groupTable.setGroup_avatar(group.getGroup_avatar().getMin());
+        if (group.getGroupAvatar() != null)
+            groupTable.setGroup_avatar(group.getGroupAvatar().getMin());
 
         return groupTable;
     }

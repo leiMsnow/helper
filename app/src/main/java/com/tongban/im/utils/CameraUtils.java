@@ -108,7 +108,7 @@ public class CameraUtils {
     }
 
     // 删除文件内容
-    private static void delAllFile(String path) {
+    public static void delAllFile(String path) {
         File file = new File(path);
         if (!file.exists()) {
             return;
@@ -146,7 +146,6 @@ public class CameraUtils {
         } catch (Exception e) {
             LogUtil.e("CameraUtils", "删除文件夹操作出错");
             e.printStackTrace();
-
         }
 
     }

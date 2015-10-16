@@ -2,6 +2,8 @@ package com.tongban.im.model.group;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.user.User;
 
@@ -29,9 +31,11 @@ public class Group implements Serializable {
     //纬度
     private double latitude;
     //群头像
-    private ImageUrl group_avatar;
+    private String group_avatar;
+    private ImageUrl groupAvatar;
     //群主信息
-    private User user_info;
+    private String user_info;
+    private User userInfo;
     //星座
     private String constellation;
     //距离
@@ -154,20 +158,34 @@ public class Group implements Serializable {
         this.latitude = latitude;
     }
 
-    public ImageUrl getGroup_avatar() {
-        return group_avatar;
-    }
-
-    public void setGroup_avatar(ImageUrl group_avatar) {
+    public void setGroup_avatar(String group_avatar) {
         this.group_avatar = group_avatar;
     }
 
-    public User getUser_info() {
-        return user_info;
+    public ImageUrl getGroupAvatar() {
+        if (groupAvatar != null)
+            return groupAvatar;
+        if (TextUtils.isEmpty(group_avatar)) {
+            groupAvatar = JSON.parseObject(group_avatar,
+                    new TypeReference<ImageUrl>() {
+                    });
+        }
+        return groupAvatar;
     }
 
-    public void setUser_info(User user_info) {
+    public void setUser_info(String user_info) {
         this.user_info = user_info;
+    }
+
+    public User getUserInfo() {
+        if (userInfo != null)
+            return userInfo;
+        if (TextUtils.isEmpty(user_info)) {
+            userInfo = JSON.parseObject(user_info,
+                    new TypeReference<User>() {
+                    });
+        }
+        return userInfo;
     }
 
     public String getConstellation() {

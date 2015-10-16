@@ -30,7 +30,7 @@ public class GroupListenerImpl implements View.OnClickListener {
                 if (v.getTag() != null) {
                     Group group = (Group) v.getTag();
                     GroupApi.getInstance().joinGroup(group.getGroup_id(), group.getGroup_name(),
-                            group.getUser_info().getUser_id(), group.isVerify_user(), null);
+                            group.getUserInfo().getUser_id(), group.isVerify_user(), null);
                 }
                 break;
             //打开圈子聊天页/详情页

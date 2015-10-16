@@ -7,14 +7,14 @@ import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 
 import java.util.List;
 
 /**
  * Created by fushudi on 2015/8/17.
  */
-public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
+public class MyCommentTopicAdapter extends QuickAdapter<Comment> {
     private View.OnClickListener onClickListener;
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -26,12 +26,12 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
     }
 
     @Override
-    protected void convert(BaseAdapterHelper helper, TopicComment item) {
+    protected void convert(BaseAdapterHelper helper, Comment item) {
         if (item.getUser_info() != null) {
-            if (item.getUser_info().getPortrait_url() != null) {
+            if (item.getUser_info().getPortraitUrl() != null) {
                 helper.setTag(R.id.iv_user_portrait,
                         Integer.MAX_VALUE, item.getUser_info().getUser_id());
-                helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortrait_url().getMin(),
+                helper.setImageBitmap(R.id.iv_user_portrait, item.getUser_info().getPortraitUrl().getMin(),
                         Consts.getUserDefaultPortrait());
                 helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
             } else {
@@ -39,11 +39,15 @@ public class MyCommentTopicAdapter extends QuickAdapter<TopicComment> {
             }
             helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
             helper.setText(R.id.tv_comment_time, item.getC_time(mContext));
-            helper.setText(R.id.tv_comment_content, item.getComment_content());
-            helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_title());
-            helper.setTag(R.id.tv_comment, item);
-            helper.setOnClickListener(R.id.tv_comment, onClickListener);
-
+            if (item.getCommentContent() != null) {
+                helper.setText(R.id.tv_comment_content
+                        , item.getCommentContent().getComment_content_text());
+            }
         }
+        helper.setText(R.id.tv_topic_content, item.getTopic_info().getTopic_title());
+        helper.setTag(R.id.tv_comment, item);
+        helper.setOnClickListener(R.id.tv_comment, onClickListener);
+
     }
+
 }

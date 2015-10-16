@@ -19,9 +19,10 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.impl.TopicListenerImpl;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
+import com.tongban.im.model.topic.CommentContent;
 import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 import com.tongban.im.widget.view.TopicInputView;
 import com.voice.tongban.utils.VoicePlayUtils;
 
@@ -114,7 +115,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
             switch (v.getId()) {
                 // 回复评论
                 case R.id.rl_comment_parent:
-                    TopicComment comment = (TopicComment) v.getTag();
+                    Comment comment = (Comment) v.getTag();
                     topicInputView.setCommentInfo(comment.getComment_id(),
                             comment.getUser_info().getNick_name(),
                             comment.getUser_info().getUser_id());
@@ -169,8 +170,11 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
     @Override
     public void onClickComment(String commentContent, String repliedCommentId,
                                String repliedName, String repliedUserId, List<ImageUrl> selectedFile) {
-        TopicApi.getInstance().createCommentForTopic(mTopicId, commentContent, repliedCommentId,
-                repliedName, repliedUserId, selectedFile, this);
+        CommentContent contentJson = new CommentContent();
+        contentJson.setComment_content_text(commentContent);
+        contentJson.setComment_img_url(selectedFile);
+        TopicApi.getInstance().createCommentForTopic(mTopicId, contentJson, repliedCommentId,
+                repliedName, repliedUserId, this);
     }
 
 

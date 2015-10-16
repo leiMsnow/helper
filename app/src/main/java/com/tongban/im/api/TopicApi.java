@@ -18,9 +18,10 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.discover.ProductBook;
+import com.tongban.im.model.topic.CommentContent;
 import com.tongban.im.model.topic.TopicContent;
 import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 import com.tongban.im.model.topic.TopicType;
 
 import java.util.HashMap;
@@ -338,8 +339,8 @@ public class TopicApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<TopicComment> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<TopicComment>>() {
+                ApiListResult<Comment> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Comment>>() {
                         });
                 BaseEvent.TopicCommentListEvent commentList =
                         new BaseEvent.TopicCommentListEvent();
@@ -367,11 +368,10 @@ public class TopicApi extends BaseApi {
      * @param repliedUserId    被回复评论的用户Id
      * @param callback
      */
-    public void createCommentForTopic(final String topicId, String commentContent,
+    public void createCommentForTopic(final String topicId, CommentContent commentContent,
                                       @Nullable String repliedCommentId,
                                       @Nullable String repliedName,
                                       @Nullable String repliedUserId,
-                                      List<ImageUrl> commentImgUrl,
                                       final IApiCallback callback) {
 
         if (!TransferCenter.getInstance().startLogin())
@@ -381,8 +381,7 @@ public class TopicApi extends BaseApi {
         mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
         mParams.put("nick_name", SPUtils.get(mContext, Consts.NICK_NAME, ""));
         mParams.put("topic_id", topicId);
-        mParams.put("comment_content", commentContent);
-        mParams.put("comment_img_url", JSON.toJSON(commentImgUrl));
+        mParams.put("comment_content", JSON.toJSONString(commentContent));
         //回复评论用到的字段，如果不传这三个值，将视为评论话题
         if (repliedName != null && repliedUserId != null && repliedCommentId != null) {
             mParams.put("replied_comment_id", repliedCommentId);

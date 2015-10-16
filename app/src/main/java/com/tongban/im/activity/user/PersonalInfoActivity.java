@@ -93,20 +93,20 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
     //返回个人资料数据
     public void onEventMainThread(BaseEvent.UserInfoEvent obj) {
         this.user = obj.user;
-        if (user.getPortrait_url() != null) {
-            setUserPortrait(user.getPortrait_url().getMin(), ivUserIcon);
+        if (user.getPortraitUrl() != null) {
+            setUserPortrait(user.getPortraitUrl().getMin(), ivUserIcon);
         } else {
             ivUserIcon.setImageResource(Consts.getUserDefaultPortrait());
         }
         tvNickName.setText(user.getNick_name());
         tvPhoneNum.setText(user.getMobile_phone());
-        if (user.getChild_info() != null && user.getChild_info().size() > 0) {
-            String childAge = user.getChild_info().get(0).getAge();
-            tvChildAge.setText(user.getChild_info().get(0).StrChildAge(childAge));
+        if (user.getChildInfo() != null && user.getChildInfo().size() > 0) {
+            String childAge = user.getChildInfo().get(0).getAge();
+            tvChildAge.setText(user.getChildInfo().get(0).StrChildAge(childAge));
 
-            tvChildSex.setText(user.getChild_info().get(0).StrSex());
-            tvChildConstellation.setText(user.getChild_info().get(0).getConstellation());
-            tvChildSchool.setText(user.getChild_info().get(0).getSchool());
+            tvChildSex.setText(user.getChildInfo().get(0).StrSex());
+            tvChildConstellation.setText(user.getChildInfo().get(0).getConstellation());
+            tvChildSchool.setText(user.getChildInfo().get(0).getSchool());
         }
     }
 
@@ -144,8 +144,8 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
     private void openDatePicker() {
         if (mDatePickerDialog == null) {
             Calendar c = Calendar.getInstance();
-            if (user.getChild_info() != null) {
-                String[] value = user.getChild_info().get(0).getBirthday().split("\\-");
+            if (user.getChildInfo() != null) {
+                String[] value = user.getChildInfo().get(0).getBirthday().split("\\-");
                 c.set(Calendar.YEAR, Integer.parseInt(value[0]));
                 c.set(Calendar.MONTH, Integer.parseInt(value[1]));
                 c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(value[2]));
@@ -171,7 +171,7 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
         mDatePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (!user.getChild_info().get(0).getBirthday().equals(mChildBirthday)) {
+                if (!user.getChildInfo().get(0).getBirthday().equals(mChildBirthday)) {
                     int mChildSex = (int) SPUtils.get(mContext, Consts.CHILD_SEX, 1);
                     AddChildInfo childInfo = new AddChildInfo();
                     childInfo.setBirthday(mChildBirthday);

@@ -42,9 +42,9 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
         }
         if (item.getUser_info() != null) {
             //用户信息
-            if (item.getUser_info().getPortrait_url() != null) {
+            if (item.getUser_info().getPortraitUrl() != null) {
                 helper.setImageBitmap(R.id.iv_user_portrait,
-                        item.getUser_info().getPortrait_url().getMin(),
+                        item.getUser_info().getPortraitUrl().getMin(),
                         Consts.getUserDefaultPortrait());
                 helper.setTag(R.id.iv_user_portrait,
                         Integer.MAX_VALUE, item.getUser_info().getUser_id());

@@ -23,7 +23,7 @@ import com.tongban.im.model.group.Group;
 import com.tongban.im.model.discover.ProductBook;
 import com.tongban.im.model.discover.Theme;
 import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.TopicComment;
+import com.tongban.im.model.topic.Comment;
 import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
@@ -514,8 +514,8 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiListResult<TopicComment> apiResponse = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiListResult<TopicComment>>() {
+                ApiListResult<Comment> apiResponse = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiListResult<Comment>>() {
                         });
                 BaseEvent.CommentTopicListEvent commentTopicListEvent = new BaseEvent.CommentTopicListEvent();
                 commentTopicListEvent.commentTopicList = (apiResponse.getData().getResult());
@@ -623,7 +623,7 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
-        mParams.put("child_info", children);
+        mParams.put("child_info", JSON.toJSONString(children));
 
         simpleRequest(SET_CHILD_INFO, mParams, new IApiCallback() {
             @Override
@@ -673,7 +673,7 @@ public class UserCenterApi extends BaseApi {
             mParams.put("nick_name", nickName);
         }
         if (userInfo.getPortrait_url() != null)
-            mParams.put("portrait_url", JSON.toJSON(userInfo.getPortrait_url()));
+            mParams.put("portrait_url", JSON.toJSONString(userInfo.getPortrait_url()));
 
         SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
 

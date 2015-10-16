@@ -68,15 +68,20 @@ public class OfficialTopicDetailsAdapter extends QuickAdapter<OfficialTopic> {
         }
         //评论列表相关
         else if (item.getItemType() == OfficialTopic.REPLY) {
-            if (item.getTopicReply().getUser_info().getPortrait_url() != null) {
+            if (item.getTopicReply().getUser_info().getPortraitUrl() != null) {
                 helper.setImageBitmap(R.id.iv_user_portrait, item.getTopicReply()
-                        .getUser_info().getPortrait_url().getMin());
+                        .getUser_info().getPortraitUrl().getMin());
             } else {
                 helper.setImageResource(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
             }
             helper.setText(R.id.tv_user_name, item.getTopicReply().getUser_info().getNick_name());
             helper.setText(R.id.tv_comment_time, item.getTopicReply().getC_time(mContext));
-            helper.setText(R.id.tv_comment_content, item.getTopicReply().getComment_content());
+
+            if (item.getTopicReply() != null &&
+                    item.getTopicReply().getCommentContent() != null) {
+                helper.setText(R.id.tv_comment_content
+                        , item.getTopicReply().getCommentContent().getComment_content_text());
+            }
 
             String repliedName = TextUtils.isEmpty(item.getTopicReply().getReplied_comment_id()) ? "" :
                     "回复" + item.getTopicReply().getReplied_nick_name();

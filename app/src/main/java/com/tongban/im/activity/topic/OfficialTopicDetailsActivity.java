@@ -18,10 +18,7 @@ import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.ProductBook;
 import com.tongban.im.model.topic.OfficialTopic;
 import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.TopicComment;
-import com.tongban.im.widget.view.ChildGridView;
-
-import butterknife.Bind;
+import com.tongban.im.model.topic.Comment;
 
 
 /**
@@ -138,7 +135,7 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
     public void onEventMainThread(BaseEvent.TopicCommentListEvent obj) {
         for (int i = 0; i < obj.topicCommentList.size(); i++) {
             OfficialTopic officialTopic = new OfficialTopic();
-            TopicComment topicComment = obj.topicCommentList.get(i);
+            Comment topicComment = obj.topicCommentList.get(i);
             officialTopic.setItemType(OfficialTopic.REPLY);
             officialTopic.setTopicReply(topicComment);
             for (int j = 0; j < mAdapter.getDataAll().size(); j++) {
@@ -165,8 +162,8 @@ public class OfficialTopicDetailsActivity extends TopicDetailsBaseActivity {
     public void onEventMainThread(BaseEvent.TopicInfoEvent obj) {
         super.onEventMainThread(obj);
         if (mTopicInfo != null) {
-            if (mTopicInfo.getUser_info().getPortrait_url().getMin() != null) {
-                setUserPortrait(mTopicInfo.getUser_info().getPortrait_url().
+            if (mTopicInfo.getUser_info().getPortraitUrl().getMin() != null) {
+                setUserPortrait(mTopicInfo.getUser_info().getPortraitUrl().
                         getMin(), ivOfficialPortrait);
             } else {
                 ivOfficialPortrait.setImageResource(Consts.getUserDefaultPortrait());

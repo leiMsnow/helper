@@ -128,9 +128,9 @@ public class GroupListAdapter extends QuickAdapter<Group> {
         helper.setTextColor(R.id.tv_group_status,
                 mContext.getResources().getColor(tagsColor));
         helper.setBackgroundRes(R.id.tv_group_status, tagsBG);
-        if (item.getGroup_avatar() != null) {
+        if (item.getGroupAvatar() != null) {
             helper.setBackgroundRes(R.id.fl_group_portrait, 0);
-            helper.setImageBitmap(R.id.iv_group_portrait, item.getGroup_avatar().getMin());
+            helper.setImageBitmap(R.id.iv_group_portrait, item.getGroupAvatar().getMin());
         } else {
             helper.setBackgroundRes(R.id.fl_group_portrait, bgColor);
             helper.setImageBitmap(R.id.iv_group_portrait, defaultPortrait);

@@ -1,7 +1,10 @@
 package com.tongban.im.model.topic;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tongban.corelib.utils.DateUtils;
 import com.tongban.im.model.ImageUrl;
 import com.tongban.im.model.user.User;
@@ -12,7 +15,7 @@ import java.util.List;
  * 话题评论信息表
  * Created by fushudi on 2015/8/1.
  */
-public class TopicComment {
+public class Comment {
     // 话题评论Id
     private String comment_id;
     // 评论创建时间
@@ -23,22 +26,14 @@ public class TopicComment {
     private Topic topic_info;
     // 评论/回复内容
     private String comment_content;
+
+    private CommentContent commentContent;
     // 回复评论的Id
     private String replied_comment_id;
     // 回复评论的用户Id
     private String replied_user_id;
     // 回复评论的用户昵称
     private String replied_nick_name;
-
-    private List<ImageUrl> comment_img_url;
-
-    public List<ImageUrl> getComment_img_url() {
-        return comment_img_url;
-    }
-
-    public void setComment_img_url(List<ImageUrl> comment_img_url) {
-        this.comment_img_url = comment_img_url;
-    }
 
     public String getReplied_user_id() {
         return replied_user_id;
@@ -89,12 +84,24 @@ public class TopicComment {
         this.topic_info = topic_info;
     }
 
-    public String getComment_content() {
-        return comment_content;
-    }
 
     public void setComment_content(String comment_content) {
         this.comment_content = comment_content;
+    }
+
+    public CommentContent getCommentContent() {
+        if (commentContent != null)
+            return commentContent;
+        if (!TextUtils.isEmpty(comment_content)) {
+            try {
+                commentContent = JSON.parseObject(comment_content,
+                        new TypeReference<CommentContent>() {
+                        });
+            } catch (Exception e) {
+
+            }
+        }
+        return commentContent;
     }
 
     public String getReplied_comment_id() {

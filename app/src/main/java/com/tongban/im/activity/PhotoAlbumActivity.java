@@ -200,6 +200,11 @@ public class PhotoAlbumActivity extends BaseToolBarActivity implements
                         continue;
                     } else {
                         mDirPaths.add(dirPath);
+                        // 如果是临时文件夹，将不记录
+                        if (dirPath.equals(Environment.getExternalStorageDirectory()
+                                .getAbsolutePath() + "/temp")) {
+                            continue;
+                        }
                         // 初始化imageFolder
                         imageFolder = new ImageFolder();
                         imageFolder.setDir(dirPath);
