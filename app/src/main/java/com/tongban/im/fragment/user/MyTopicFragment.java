@@ -101,7 +101,8 @@ public class MyTopicFragment extends BaseToolBarFragment implements
 
     @OnItemClick(R.id.lv_topic_list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position));
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id(),
+                mAdapter.getItem(position).getTopic_type());
     }
 
     /**

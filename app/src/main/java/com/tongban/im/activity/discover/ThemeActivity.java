@@ -217,7 +217,8 @@ public class ThemeActivity extends ThemeBaseActivity {
                 @Override
                 public void onClick(View v) {
                     title.setSelected(true);
-                    TransferCenter.getInstance().startTopicDetails(topic);
+                    TransferCenter.getInstance().startTopicDetails(topic.getTopic_id()
+                            ,topic.getTopic_type());
                 }
             });
             mTopicList.addView(view);

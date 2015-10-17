@@ -83,7 +83,8 @@ public class MyCommentTopicFragment extends BaseToolBarFragment implements
     @OnItemClick(R.id.lv_receive_topic_list)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TransferCenter.getInstance()
-                .startTopicDetails(mAdapter.getItem(position).getTopic_info());
+                .startTopicDetails(mAdapter.getItem(position).getTopic_info().getTopic_id(),
+                        mAdapter.getItem(position).getTopic_info().getTopic_type());
     }
 
     /**

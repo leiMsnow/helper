@@ -2,7 +2,6 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
-import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
@@ -26,6 +23,7 @@ import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.discover.Discover;
+import com.tongban.im.model.topic.TopicType;
 import com.tongban.im.model.user.User;
 import com.tongban.im.utils.PTRHeaderUtils;
 import com.voice.tongban.activity.IntelligentMainActivity;
@@ -128,7 +126,8 @@ public class DiscoverFragment extends BaseToolBarFragment
 
     @OnItemClick(R.id.lv_discover)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        TransferCenter.getInstance().startThemeDetails(mAdapter.getItem(position).getTheme_id());
+        TransferCenter.getInstance().startTopicDetails(mAdapter.getItem(position).getTopic_id()
+                , TopicType.THEME);
     }
 
     /**
@@ -154,23 +153,7 @@ public class DiscoverFragment extends BaseToolBarFragment
         if (homeInfo.list != null && homeInfo.list.size() > 0) {
             lvDiscover.setVisibility(View.VISIBLE);
             mAdapter.replaceAll(homeInfo.list);
-            // 请求收藏数量数据并更新
-            int floor = 0; // 楼层
-            for (Discover discover : homeInfo.list) {
-                ProductApi.getInstance().fetchThemeCollectedAmount(floor, discover.getTheme_id(), this);
-                floor++;
-            }
         }
-    }
-
-    /**
-     * 获取专题收藏数量成功的回调
-     *
-     * @param event
-     */
-    public void onEventMainThread(BaseEvent.FetchThemeCollectedAmount event) {
-        mAdapter.getItem(event.floor).setCollect_amount(event.amount);
-        mAdapter.notifyDataSetChanged();
     }
 
     /**

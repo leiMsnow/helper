@@ -12,6 +12,7 @@ import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.model.topic.Topic;
+import com.tongban.im.model.topic.TopicType;
 
 /**
  * 跳转中心
@@ -106,18 +107,20 @@ public class TransferCenter {
     /**
      * 打开话题详情
      *
-     * @param topic
+     * @param topicId
+     * @param topicType 0 个人话题 1官方话题 {@link com.tongban.im.model.topic.TopicType}
      */
-    public void startTopicDetails(Topic topic) {
+    public void startTopicDetails(String topicId, String topicType) {
         String pathPrefix = TransferPathPrefix.TOPIC_DETAILS;
 
-        if (topic.getTopic_type().equals("1")) {
+        if (topicType.equals(TopicType.EVALUATION)
+                || topicType.equals(TopicType.THEME)) {
             pathPrefix = TransferPathPrefix.TOPIC_OFFICIAL;
         }
 
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(Consts.KEY_TOPIC_ID, topic.getTopic_id())
+                .appendQueryParameter(Consts.KEY_TOPIC_ID, topicId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -295,9 +298,9 @@ public class TransferCenter {
         String[] split = linkUrl.split("://");
         if (split.length == 2) {
             LogUtil.d("split", split[0] + "," + split[1]);
-            if ("theme".equals(split[0])) {
-                startThemeDetails(split[1]);
-            } else if ("productbook".equals(split[0])) {
+            if ("topic".equals(split[0])) {
+                startTopicDetails(split[1], TopicType.THEME);
+            } else if ("product".equals(split[0])) {
                 startProductBook(split[1]);
             }
         }

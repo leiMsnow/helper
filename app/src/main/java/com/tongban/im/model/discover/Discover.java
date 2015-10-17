@@ -1,5 +1,7 @@
 package com.tongban.im.model.discover;
 
+import android.text.TextUtils;
+
 import java.util.List;
 
 /**
@@ -18,13 +20,17 @@ public class Discover {
     // 提示语
     private String soft_word;
     // 专题id
-    private String theme_id;
-    // 收藏数量
-    private int collect_amount;
+    private String topic_id;
     // 组件名字
     private String component_name;
     // 组件id
     private String component_id;
+
+    private int[] collect_amount;
+
+    public void setCollect_amount(int[] collect_amount) {
+        this.collect_amount = collect_amount;
+    }
 
     public class ImgMap {
         // 图片地址
@@ -89,20 +95,23 @@ public class Discover {
         this.soft_word = soft_word;
     }
 
-    public String getTheme_id() {
-        return theme_id;
+    public String getTopic_id() {
+        return topic_id;
     }
 
-    public void setTheme_id(String theme_id) {
-        this.theme_id = theme_id;
+    public void setTopic_id(String topic_id) {
+        this.topic_id = topic_id;
     }
 
     public int getCollect_amount() {
-        return collect_amount;
-    }
-
-    public void setCollect_amount(int collect_amount) {
-        this.collect_amount = collect_amount;
+        if (collect_amount != null) {
+            int collectCount = 0;
+            for (int i = 0; i < collect_amount.length; i++) {
+                collectCount += collect_amount[i];
+            }
+            return collectCount;
+        }
+        return 0;
     }
 
     public String getComponent_name() {

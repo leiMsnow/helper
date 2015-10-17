@@ -113,13 +113,15 @@ public class ProductBookActivity extends ThemeBaseActivity {
         if (slParent != null)
             slParent.setVisibility(View.VISIBLE);
 
-        mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
-        mViewPager.setAdapter(mPagerAdapter);
-        indicator.setViewPager(mViewPager);
-        if (mPagerAdapter.getCount() > 1) {
-            indicator.setVisibility(View.VISIBLE);
+        if (mProductBook.getProduct_img_url() != null) {
+            mPagerAdapter = new ProductBookImgPagerAdapter(mContext, mProductBook.getProduct_img_url());
+            mViewPager.setAdapter(mPagerAdapter);
+            indicator.setViewPager(mViewPager);
+            if (mPagerAdapter.getCount() > 1) {
+                indicator.setVisibility(View.VISIBLE);
+            }
+            mViewPager.setPageTransformer(true, new DepthPageTransformer());
         }
-        mViewPager.setPageTransformer(true, new DepthPageTransformer());
 
         title.setText(mProductBook.getProduct_name());
         themeTag.removeAllViews();
