@@ -83,5 +83,6 @@
     <!-- 首页搜索-->
     <string name="multiple_product">专题</string>
     <string name="single_product">单品</string>
+    <string name="title_activity_flow_demo">FlowDemoActivity</string>
 
 </resources>

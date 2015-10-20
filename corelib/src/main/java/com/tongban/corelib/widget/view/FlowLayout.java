@@ -19,6 +19,13 @@ public class FlowLayout extends ViewGroup {
         super(context, attrs, defStyle);
     }
 
+    // 是否只显示单行
+    private boolean isSingleLine = false;
+
+    public void setIsSingleLine(boolean isSingleLine) {
+        this.isSingleLine = isSingleLine;
+    }
+
     public FlowLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -63,6 +70,9 @@ public class FlowLayout extends ViewGroup {
             // 换行
             if (lineWidth + childWidth > sizeWidth - getPaddingLeft()
                     - getPaddingRight()) {
+                if (isSingleLine) {
+                    break;
+                }
                 // 对比得到最大的宽度
                 width = Math.max(width, lineWidth);
                 // 重置lineWidth
@@ -70,6 +80,7 @@ public class FlowLayout extends ViewGroup {
                 // 记录行高
                 height += lineHeight;
                 lineHeight = childHeight;
+
             } else
             // 未换行
             {
@@ -78,12 +89,16 @@ public class FlowLayout extends ViewGroup {
                 // 得到当前行最大的高度
                 lineHeight = Math.max(lineHeight, childHeight);
             }
-            // 最后一个控件
-            if (i == cCount - 1) {
-                width = Math.max(lineWidth, width);
-                height += lineHeight;
-            }
+//            // 最后一个控件
+//            if (i == cCount - 1) {
+//                width = Math.max(lineWidth, width);
+//                height += lineHeight;
+//            }
         }
+        // 最后一个控件
+        width = Math.max(lineWidth, width);
+        height += lineHeight;
+
 
         setMeasuredDimension(
                 //
@@ -130,6 +145,9 @@ public class FlowLayout extends ViewGroup {
             // 如果需要换行
             if (childWidth + lineWidth + lp.leftMargin + lp.rightMargin > width
                     - getPaddingLeft() - getPaddingRight()) {
+                if (isSingleLine){
+                    break;
+                }
                 // 记录LineHeight
                 mLineHeight.add(lineHeight);
                 // 记录当前行的Views
