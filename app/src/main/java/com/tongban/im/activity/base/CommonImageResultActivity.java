@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * 相册
  * Created by fushudi on 2015/8/13.
  */
-public abstract class CommonImageResultActivity extends BaseToolBarActivity {
+public abstract class CommonImageResultActivity extends AppBaseActivity {
 
     private ImageResultListener imageResultListener;
 

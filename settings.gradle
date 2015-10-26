@@ -1,1 +1,1 @@
-include ':app', ':corelib', ':imlib', ':daogenerator', ':umengsocialsdk', ':intelligentvoice'
+include ':app', ':corelib', ':imlib', ':daogenerator', ':umengsocialsdk', ':intelligentvoice','reactTongban:android:reactApp'

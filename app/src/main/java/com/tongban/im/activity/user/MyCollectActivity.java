@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
 
@@ -34,7 +33,7 @@ import butterknife.OnPageChange;
  *
  * @author fushudi
  */
-public class MyCollectActivity extends BaseToolBarActivity  {
+public class MyCollectActivity extends AppBaseActivity {
 
     @Bind(R.id.ccv_theme)
     ChangeColorView ccvMultiple;

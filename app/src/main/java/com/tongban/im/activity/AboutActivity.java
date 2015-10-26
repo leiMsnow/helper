@@ -5,9 +5,9 @@ import android.view.View;
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.im.App;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 
-public class AboutActivity extends BaseToolBarActivity {
+public class AboutActivity extends AppBaseActivity {
 
 
     @Override

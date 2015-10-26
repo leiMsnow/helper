@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.FansFragment;
 import com.tongban.im.fragment.user.FocusFragment;
@@ -17,7 +17,7 @@ import com.tongban.im.fragment.user.FocusFragment;
  *
  * @author fushudi
  */
-public class MyRelationshipActivity extends BaseToolBarActivity {
+public class MyRelationshipActivity extends AppBaseActivity {
 
     private Fragment mFragment;
 

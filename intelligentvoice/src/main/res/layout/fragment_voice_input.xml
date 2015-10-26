@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_rainbow">
+
+    <include layout="@layout/include_volume" />
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="168dp"
+        android:text="小伴伴：Hi，有什么能帮您？"
+        android:textColor="@color/normal_dark_grey"
+        android:textSize="20dp" />
+
+</RelativeLayout>

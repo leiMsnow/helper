@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.GridView;
@@ -28,7 +27,7 @@ import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.BaseProgressDialog;
 import com.tongban.corelib.widget.view.ListImageDirPopupWindow;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.api.base.BaseApi;
 
 import java.io.File;
@@ -39,13 +38,12 @@ import java.util.HashSet;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 相册选择器
  */
-public class PhotoAlbumActivity extends BaseToolBarActivity implements
+public class PhotoAlbumActivity extends AppBaseActivity implements
         ListImageDirPopupWindow.OnImageDirSelected
         , PhotoAlbumAdapter.ISelectIMGListener {
 

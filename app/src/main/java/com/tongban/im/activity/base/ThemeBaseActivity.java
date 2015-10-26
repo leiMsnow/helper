@@ -18,7 +18,7 @@ import butterknife.OnClick;
  * @author Cheney
  * @date 8/20
  */
-public abstract class ThemeBaseActivity extends BaseToolBarActivity {
+public abstract class ThemeBaseActivity extends AppBaseActivity {
 
     @Nullable
     @Bind(R.id.sl_parent)

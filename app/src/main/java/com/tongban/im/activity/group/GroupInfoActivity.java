@@ -2,15 +2,9 @@ package com.tongban.im.activity.group;
 
 import android.content.DialogInterface;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -19,27 +13,23 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.group.Group;
-import com.tongban.im.model.user.User;
 import com.tongban.im.widget.view.ChildGridView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 群组信息/设置
  */
-public class GroupInfoActivity extends BaseToolBarActivity {
+public class GroupInfoActivity extends AppBaseActivity {
 
 
     @Bind(R.id.gv_members)

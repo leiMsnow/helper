@@ -1,13 +1,10 @@
 package com.tongban.im.activity.user;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,7 +12,7 @@ import android.widget.TextView;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.user.AddChildInfo;
@@ -25,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
@@ -34,7 +30,7 @@ import butterknife.OnTextChanged;
  *
  * @author fushudi
  */
-public class UpdatePersonalInfoActivity extends BaseToolBarActivity  {
+public class UpdatePersonalInfoActivity extends AppBaseActivity {
 
     @Bind(R.id.et_update_nickname)
     ClearEditText etUpdateNickName;

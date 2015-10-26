@@ -21,7 +21,7 @@ import io.rong.imkit.RongIM;
  *
  * @author fushudi
  */
-public class UserCenterActivity extends UserBaseActivity {
+public class UserCardActivity extends UserBaseActivity {
 
     @Override
     protected void initData() {

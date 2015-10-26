@@ -27,7 +27,7 @@ import butterknife.OnItemClick;
  * 通用的搜索父类
  * Created by fushudi on 2015/8/13.
  */
-public abstract class SuggestionsBaseActivity extends BaseToolBarActivity implements
+public abstract class SuggestionsBaseActivity extends AppBaseActivity implements
         SearchView.OnQueryTextListener {
 
     @Bind(R.id.lv_tips_list)

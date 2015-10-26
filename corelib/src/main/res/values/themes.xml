@@ -15,13 +15,22 @@
         <item name="android:splitMotionEvents">false</item>
         <item name="android:textViewStyle">@style/Widget.TextView.Style</item>
         <item name="android:textCursorDrawable">@null</item>
+        <item name="toolbarBackground">@drawable/shape_toolbar_bg</item>
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
 
     </style>
 
-    <style name="AppTheme.Red">
-        <item name="colorPrimary">@color/theme_red</item>
-        <item name="colorPrimaryDark">@color/theme_red</item>
-        <item name="colorAccent">@color/theme_red_700</item>
+    <!--<style name="AppTheme.Red">-->
+        <!--<item name="colorPrimary">@color/theme_red</item>-->
+        <!--<item name="colorPrimaryDark">@color/theme_red</item>-->
+        <!--<item name="colorAccent">@color/theme_red_700</item>-->
+    <!--</style>-->
+
+    <style name="AppTheme.Rainbow">
+
     </style>
 
     <style name="AppTheme.Translucent">

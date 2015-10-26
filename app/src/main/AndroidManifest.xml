@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tongban.im" >
+    package="com.tongban.im">
 
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.Red.Base.Translucent" >
+        android:theme="@style/AppTheme.Rainbow.Base.Translucent">
 
         <!-- **********************************begin rongcloud ********************************** -->
 
         <service
             android:name="io.rong.push.PushService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -22,7 +22,7 @@
         </service>
         <service
             android:name="io.rong.push.CommandService"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -32,7 +32,7 @@
 
         <receiver
             android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push" >
+            android:process="io.rong.push">
             <intent-filter>
                 <action android:name="io.rong.imlib.action.push.heartbeat" />
             </intent-filter>
@@ -52,7 +52,7 @@
             android:process=":ipc" />
         <service android:name="io.rong.imlib.ReConnectService" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
                 <action android:name="io.rong.push.message" />
             </intent-filter>
@@ -80,12 +80,11 @@
 
         <!-- ******************************** common activity ***************************** -->
 
-
         <!-- 主界面 -->
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Red.Base" >
+            android:theme="@style/AppTheme.Rainbow.Base">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -100,7 +99,7 @@
         <!-- 启动界面 -->
         <activity
             android:name=".activity.LoadingActivity"
-            android:theme="@style/AppTheme.Red.Base" >
+            android:theme="@style/AppTheme.Rainbow.Base">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -126,8 +125,8 @@
         <activity
             android:name=".activity.account.LoginActivity"
             android:label="@string/login"
-            android:theme="@style/AppTheme.Red.Base"
-            android:windowSoftInputMode="adjustPan|stateHidden" >
+            android:theme="@style/AppTheme.Rainbow.Base"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -143,7 +142,7 @@
         <activity
             android:name=".activity.account.RegisterActivity"
             android:label="@string/register"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -159,7 +158,7 @@
         <activity
             android:name=".activity.account.OtherRegisterActivity"
             android:label="@string/register"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -180,9 +179,9 @@
 
 
         <!-- 个人资料 -->
-        <activity android:name=".activity.user.PersonalInfoActivity" />
+        <activity android:name=".activity.user.MyInfoActivity" />
         <!-- 关注&粉丝 -->
-        <activity android:name=".activity.user.MyRelationshipActivity" >
+        <activity android:name=".activity.user.MyRelationshipActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -201,7 +200,7 @@
             android:name=".activity.user.MyTopicActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!-- 我的圈子 -->
-        <activity android:name=".activity.user.MyGroupActivity" >
+        <activity android:name=".activity.user.MyGroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -215,8 +214,8 @@
         </activity>
         <!-- 个人中心 -->
         <activity
-            android:name=".activity.user.PersonalCenterActivity"
-            android:label="@string/user_center" >
+            android:name=".activity.user.MyCardActivity"
+            android:label="@string/user_center">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -229,7 +228,7 @@
             </intent-filter>
         </activity>
         <!-- 他人中心 -->
-        <activity android:name=".activity.user.UserCenterActivity" >
+        <activity android:name=".activity.user.UserCardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -250,11 +249,10 @@
 
         <!-- ******************************** group activity ***************************** -->
 
-
         <!-- 聊天 -->
         <activity
             android:name=".activity.group.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -269,7 +267,7 @@
         <!-- 圈子详情 -->
         <activity
             android:name=".activity.group.GroupInfoActivity"
-            android:label="@string/group_settings" >
+            android:label="@string/group_settings">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -288,7 +286,7 @@
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
-            android:theme="@style/AppTheme.Red.Base.Translucent.WindowBG" >
+            android:theme="@style/AppTheme.Rainbow.Base.WindowBG">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -318,7 +316,7 @@
         <activity
             android:name=".activity.topic.TopicDetailsActivity"
             android:label="@string/topic"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -338,7 +336,7 @@
         <!-- 官方话题评测 -->
         <activity
             android:name=".activity.topic.OfficialTopicDetailsActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -353,7 +351,7 @@
         <!-- 搜索话题 -->
         <activity
             android:name=".activity.topic.SearchTopicActivity"
-            android:label="@string/topic_search" >
+            android:label="@string/topic_search">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -375,7 +373,7 @@
         <activity
             android:name=".activity.discover.SearchResultActivity"
             android:label="@string/search"
-            android:windowSoftInputMode="adjustPan|stateHidden" >
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -388,7 +386,7 @@
             </intent-filter>
         </activity>
         <!-- 专题 -->
-        <activity android:name=".activity.discover.ThemeActivity" >
+        <activity android:name=".activity.discover.ThemeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -401,7 +399,7 @@
             </intent-filter>
         </activity>
         <!-- 图书单品 -->
-        <activity android:name=".activity.discover.ProductBookActivity" >
+        <activity android:name=".activity.discover.ProductBookActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

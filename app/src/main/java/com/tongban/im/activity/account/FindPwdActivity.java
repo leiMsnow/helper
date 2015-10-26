@@ -3,7 +3,7 @@ package com.tongban.im.activity.account;
 import android.view.MenuItem;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.fragment.account.InputPhoneFragment;
 
 /**
@@ -11,7 +11,7 @@ import com.tongban.im.fragment.account.InputPhoneFragment;
  *
  * @author fushudi
  */
-public class FindPwdActivity extends BaseToolBarActivity {
+public class FindPwdActivity extends AppBaseActivity {
 
     private InputPhoneFragment mInputPhoneFragment;
 

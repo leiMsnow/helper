@@ -1,7 +1,6 @@
 package com.tongban.im.activity.group;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +9,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.TransferCenter;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.model.Event;
 
@@ -31,7 +29,7 @@ import io.rong.imkit.model.Event;
  * @author zhangleilei
  * @createTime 2015/7/16
  */
-public class ChatActivity extends BaseToolBarActivity {
+public class ChatActivity extends AppBaseActivity {
 
     @Bind(R.id.gv_members)
     GridView gvMembers;

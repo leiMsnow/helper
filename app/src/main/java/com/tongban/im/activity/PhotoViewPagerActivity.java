@@ -3,11 +3,10 @@ package com.tongban.im.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * @author zhangleilei
  * @createTime 2015/8/11
  */
-public class PhotoViewPagerActivity extends BaseToolBarActivity {
+public class PhotoViewPagerActivity extends AppBaseActivity {
 
     @Override
     protected int getLayoutRes() {

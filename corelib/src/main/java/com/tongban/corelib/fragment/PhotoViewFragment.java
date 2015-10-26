@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 
 import com.tongban.corelib.R;
 import com.tongban.corelib.adapter.PhotoViewPagerAdapter;
+import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.base.fragment.BaseTemplateFragment;
 import com.tongban.corelib.widget.view.HackyViewPager;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
@@ -12,7 +13,7 @@ import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import java.util.ArrayList;
 
 
-public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager.OnPageChangeListener {
+public class PhotoViewFragment extends BaseApiFragment {
 
     public static final String KEY_URL = "KEY_URL";
     public static final String KEY_CURRENT_INDEX = "KEY_CURRENT_INDEX";
@@ -48,22 +49,6 @@ public class PhotoViewFragment extends BaseTemplateFragment implements ViewPager
 
             mIndicator.setViewPager(mViewPager);
             mViewPager.setCurrentItem(currentIndex);
-            mIndicator.setOnPageChangeListener(this);
         }
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
     }
 }

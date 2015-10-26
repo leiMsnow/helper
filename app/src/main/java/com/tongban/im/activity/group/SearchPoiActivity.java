@@ -19,7 +19,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.group.GroupType;
@@ -30,7 +30,7 @@ import butterknife.OnItemClick;
 /**
  * poi搜索功能
  */
-public class SearchPoiActivity extends BaseToolBarActivity implements
+public class SearchPoiActivity extends AppBaseActivity implements
         OnGetPoiSearchResultListener
         , OnLoadMoreListener
         , SearchView.OnQueryTextListener {

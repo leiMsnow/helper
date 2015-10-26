@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.Red.Base">
+    <!--<style name="AppTheme.Red.Base">-->
+        <!--<item name="android:textColorHint">@color/normal_grey</item>-->
+        <!--<item name="buttonBackground">@drawable/selector_btn_bg_red</item>-->
+        <!--<item name="createGroupIcon">@drawable/selector_group_icon_red</item>-->
+        <!--<item name="labelSelectBG">@drawable/selector_label_bg_red</item>-->
+        <!--<item name="progressBarStyle">@style/Widget.ProgressBar.Red</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--</style>-->
+
+    <style name="AppTheme.Rainbow.Base.WindowBG">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/translucent_a80</item>
+    </style>
+
+    <style name="AppTheme.Rainbow.Base">
         <item name="android:textColorHint">@color/normal_grey</item>
         <item name="buttonBackground">@drawable/selector_btn_bg_red</item>
         <item name="createGroupIcon">@drawable/selector_group_icon_red</item>
@@ -9,11 +23,8 @@
         <item name="progressBarStyle">@style/Widget.ProgressBar.Red</item>
     </style>
 
-    <style name="AppTheme.Red.Base.Translucent">
+    <style name="AppTheme.Rainbow.Base.Translucent">
         <item name="android:windowIsTranslucent">true</item>
-    </style>
-    <style name="AppTheme.Red.Base.Translucent.WindowBG">
-        <item name="android:windowBackground">@color/translucent_a80</item>
     </style>
 
 </resources>

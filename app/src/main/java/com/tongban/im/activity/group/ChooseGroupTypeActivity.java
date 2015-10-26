@@ -3,12 +3,11 @@ package com.tongban.im.activity.group;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.ChooseGroupTypeAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -25,7 +24,7 @@ import butterknife.OnItemClick;
  * @author zhangleilei
  * @createTime 2015/07/22
  */
-public class ChooseGroupTypeActivity extends BaseToolBarActivity {
+public class ChooseGroupTypeActivity extends AppBaseActivity {
 
     @Bind(R.id.lv_group_type)
     ListView lvGroupType;

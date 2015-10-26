@@ -52,7 +52,10 @@ public abstract class BaseApiFragment extends BaseTemplateFragment implements IA
 
     }
 
-    public abstract void setEmptyView(ApiErrorResult result);
+    @Override
+    public void setEmptyView(ApiErrorResult result) {
+
+    }
 
     @Override
     public void onDestroyView() {

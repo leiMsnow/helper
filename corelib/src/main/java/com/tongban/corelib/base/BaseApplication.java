@@ -21,8 +21,8 @@ public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
-        if (isSaveCrash())
-            MCrashHandler.getInstance().init(this);
+//        if (isSaveCrash())
+        MCrashHandler.getInstance().init(this);
         super.onCreate();
         mApp = this;
 //        refWatcher = LeakCanary.install(this);
@@ -57,6 +57,6 @@ public class BaseApplication extends Application {
     }
 
     public void saveCrash(boolean isSave) {
-        SPUtils.put(this, SPUtils.NO_CLEAR_FILE,"crash", isSave);
+        SPUtils.put(this, SPUtils.NO_CLEAR_FILE, "crash", isSave);
     }
 }

@@ -2,7 +2,6 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -26,7 +25,6 @@ import com.tongban.im.model.discover.Discover;
 import com.tongban.im.model.topic.TopicType;
 import com.tongban.im.model.user.User;
 import com.tongban.im.utils.PTRHeaderUtils;
-import com.voice.tongban.activity.IntelligentMainActivity;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -52,8 +50,6 @@ public class DiscoverFragment extends BaseToolBarFragment
     ImageButton ivSearchAll;
     @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.fab_add)
-    FloatingActionButton fabAdd;
 
     private DiscoverAdapter mAdapter;
 
@@ -112,15 +108,13 @@ public class DiscoverFragment extends BaseToolBarFragment
         lvDiscover.setAdapter(mAdapter);
     }
 
-    @OnClick({R.id.iv_user_portrait, R.id.iv_search_all, R.id.fab_add})
+    @OnClick({R.id.iv_user_portrait, R.id.iv_search_all})
     public void onClick(View v) {
         if (v == ivUserPortrait) {
             TransferCenter.getInstance().startUserCenter(
                     SPUtils.get(mContext, Consts.USER_ID, "").toString(), true);
         } else if (v == ivSearchAll) {
             startActivity(new Intent(mContext, SearchDiscoverActivity.class));
-        } else if (v == fabAdd) {
-            startActivity(new Intent(mContext, IntelligentMainActivity.class));
         }
     }
 

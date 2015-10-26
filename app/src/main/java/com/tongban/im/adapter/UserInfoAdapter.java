@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.PersonalInfoActivity;
+import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.user.Child;
 
@@ -58,7 +58,7 @@ public class UserInfoAdapter extends PagerAdapter {
             tvChildInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
+                    mContext.startActivity(new Intent(mContext, MyInfoActivity.class));
                 }
             });
         } else {

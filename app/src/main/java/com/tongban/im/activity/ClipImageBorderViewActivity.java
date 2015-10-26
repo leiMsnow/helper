@@ -3,12 +3,11 @@ package com.tongban.im.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.widget.view.ClipImageLayout;
 
 import java.io.ByteArrayOutputStream;
@@ -16,14 +15,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * 图片裁剪界面
  *
  * @author fushudi
  */
-public class ClipImageBorderViewActivity extends BaseToolBarActivity {
+public class ClipImageBorderViewActivity extends AppBaseActivity {
 
     @Bind(R.id.id_clip_image_layout)
     ClipImageLayout mClipImageLayout;

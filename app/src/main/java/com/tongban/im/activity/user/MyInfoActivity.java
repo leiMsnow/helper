@@ -6,10 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,7 +31,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,7 +38,7 @@ import butterknife.OnClick;
  *
  * @author fushudi
  */
-public class PersonalInfoActivity extends CommonImageResultActivity implements
+public class MyInfoActivity extends CommonImageResultActivity implements
         CommonImageResultActivity.IPhotoListener {
 
     @Bind(R.id.iv_user_icon)
@@ -217,7 +214,7 @@ public class PersonalInfoActivity extends CommonImageResultActivity implements
     }
 
     private void updateUser() {
-        UserCenterApi.getInstance().updateUserInfo(editUser, PersonalInfoActivity.this);
+        UserCenterApi.getInstance().updateUserInfo(editUser, MyInfoActivity.this);
     }
 
     /**

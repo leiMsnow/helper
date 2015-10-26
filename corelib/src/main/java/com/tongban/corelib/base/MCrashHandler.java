@@ -194,7 +194,7 @@ public class MCrashHandler implements UncaughtExceptionHandler {
 	public void saveCrashLogToFile(Throwable paramThrowable) {
 		// 保存文件，设置文件名
 		final String time = DateUtils.longToString(System.currentTimeMillis()
-				, "yyyy-MM-dd HH:mm:ss");
+				, "yyyy-MM-dd HH");
 		saveCrashLogToFile(paramThrowable, String.valueOf(time));
 	}
 

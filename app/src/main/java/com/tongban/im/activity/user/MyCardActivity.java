@@ -14,7 +14,7 @@ import butterknife.OnClick;
 /**
  * 个人中心
  */
-public class PersonalCenterActivity extends UserBaseActivity {
+public class MyCardActivity extends UserBaseActivity {
 
     @Override
     protected void initData() {

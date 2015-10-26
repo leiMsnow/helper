@@ -1,20 +1,24 @@
 package com.tongban.im.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.discover.DiscoverFragment;
 import com.tongban.im.fragment.group.GroupFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
+import com.tongban.im.fragment.user.MyCardFragment;
+import com.voice.tongban.activity.IntelligentMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +30,7 @@ import butterknife.OnPageChange;
 /**
  * 主界面
  */
-public class MainActivity extends BaseToolBarActivity {
+public class MainActivity extends AppBaseActivity {
 
     @Bind(R.id.vp_content)
     ViewPager vpContent;
@@ -36,6 +40,10 @@ public class MainActivity extends BaseToolBarActivity {
     CheckBox tvTopic;
     @Bind(R.id.tv_group)
     CheckBox tvGroup;
+    @Bind(R.id.tv_my)
+    CheckBox tvMy;
+    @Bind(R.id.iv_voice)
+    ImageView ivVoice;
 
     private FragmentPagerAdapter mAdapter;
     private List<Fragment> mTabs = new ArrayList<>();
@@ -63,6 +71,7 @@ public class MainActivity extends BaseToolBarActivity {
         mTabIndicator.add(tvDiscover);
         mTabIndicator.add(tvTopic);
         mTabIndicator.add(tvGroup);
+        mTabIndicator.add(tvMy);
         // 发现
         mTabs.add(new DiscoverFragment());
         // 话题
@@ -73,6 +82,8 @@ public class MainActivity extends BaseToolBarActivity {
         mTabs.add(topicFragment);
         // 圈子
         mTabs.add(new GroupFragment());
+        // 我的
+        mTabs.add(new MyCardFragment());
 
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -90,7 +101,7 @@ public class MainActivity extends BaseToolBarActivity {
         vpContent.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
-    @OnClick({R.id.tv_discover, R.id.tv_topic, R.id.tv_group})
+    @OnClick({R.id.tv_discover, R.id.tv_topic, R.id.tv_group, R.id.iv_voice, R.id.tv_my})
     public void onClick(View v) {
         if (v == tvDiscover) {
             resetTabs(0);
@@ -98,6 +109,10 @@ public class MainActivity extends BaseToolBarActivity {
             resetTabs(1);
         } else if (v == tvGroup) {
             resetTabs(2);
+        } else if (v == tvMy) {
+            resetTabs(3);
+        } else if (v == ivVoice) {
+            startActivity(new Intent(mContext, IntelligentMainActivity.class));
         }
     }
 

@@ -21,7 +21,7 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.PersonalInfoActivity;
+import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.TransferCenter;
@@ -34,7 +34,7 @@ import butterknife.OnClick;
  * 通用的用户中心父类
  * Created by zhangleilei on 2015/09/01.
  */
-public abstract class UserBaseActivity extends BaseToolBarActivity implements View.OnClickListener {
+public abstract class UserBaseActivity extends AppBaseActivity implements View.OnClickListener {
 
     @Bind(R.id.sv_user_center)
     PullToZoomScrollViewEx lvUserCenter;
@@ -201,7 +201,7 @@ public abstract class UserBaseActivity extends BaseToolBarActivity implements Vi
         //跳转到个人资料页
         else if (v == ivUserPortrait) {
             if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserInfo.getUser_id()))
-                mContext.startActivity(new Intent(mContext, PersonalInfoActivity.class));
+                mContext.startActivity(new Intent(mContext, MyInfoActivity.class));
         }
 
     }

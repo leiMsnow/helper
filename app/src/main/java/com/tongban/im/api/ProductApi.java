@@ -97,17 +97,24 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                ApiResult<List<Discover>> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<List<Discover>>>() {
-                        });
-                List<Discover> discoverList = result.getData();
-                if (discoverList != null && discoverList.size() > 0) {
-                    BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
-                    homeInfo.list = (discoverList);
-                    if (callback != null)
-                        callback.onComplete(homeInfo);
-                } else {
-                    onFailure(createEmptyResult(FETCH_HOME_INFO));
+                try {
+
+                    ApiResult<List<Discover>> result = JSON.parseObject(obj.toString(),
+                            new TypeReference<ApiResult<List<Discover>>>() {
+                            });
+                    List<Discover> discoverList = result.getData();
+                    if (discoverList != null && discoverList.size() > 0) {
+                        BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
+                        homeInfo.list = (discoverList);
+                        if (callback != null)
+                            callback.onComplete(homeInfo);
+                    } else {
+                        onFailure(createEmptyResult(FETCH_HOME_INFO));
+                    }
+                } catch (Exception e) {
+                    ApiErrorResult errorResult = createEmptyResult(FETCH_HOME_INFO);
+                    errorResult.setErrorMessage(e.toString());
+                    onFailure(errorResult);
                 }
             }
 

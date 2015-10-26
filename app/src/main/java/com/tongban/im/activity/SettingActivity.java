@@ -2,7 +2,6 @@ package com.tongban.im.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,16 +15,15 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseToolBarActivity implements
+public class SettingActivity extends AppBaseActivity implements
         CompoundButton.OnCheckedChangeListener {
 
     @Bind(R.id.tv_clear_cache_num)

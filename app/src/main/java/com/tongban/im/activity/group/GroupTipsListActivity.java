@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
-import com.tongban.im.activity.base.BaseToolBarActivity;
+import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.api.CommonApi;
 import com.tongban.im.model.BaseEvent;
 import com.tongban.im.model.Tag;
@@ -24,7 +24,7 @@ import de.greenrobot.event.EventBus;
 /**
  * 圈子标签页
  */
-public class GroupTipsListActivity extends BaseToolBarActivity implements View.OnClickListener {
+public class GroupTipsListActivity extends AppBaseActivity implements View.OnClickListener {
 
     @Bind(R.id.fl_label_list)
     FlowLayout flLabelList;

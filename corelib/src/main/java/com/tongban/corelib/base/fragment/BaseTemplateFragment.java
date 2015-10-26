@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tongban.corelib.model.ApiErrorResult;
+
 import butterknife.ButterKnife;
 
 /**
@@ -37,6 +39,9 @@ public abstract class BaseTemplateFragment extends BaseFragment {
      * 初始化数据
      */
     protected abstract void initData();
+
+    public abstract void setEmptyView(ApiErrorResult result);
+
 
     @Override
     public void onDestroyView() {

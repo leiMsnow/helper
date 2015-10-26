@@ -3,10 +3,9 @@ package io.rong.voiplib.utils;
 import android.content.Context;
 import android.util.Log;
 
-import org.apache.http.conn.util.InetAddressUtils;
-
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -17,7 +16,6 @@ public class VoIPUtil {
 
     public static String getLocalIpAddress(Context context) {
         try {
-            String ipv4;
 
             List<NetworkInterface> nilist = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface ni : nilist) {
@@ -25,8 +23,9 @@ public class VoIPUtil {
                     continue;
                 List<InetAddress> ialist = Collections.list(ni.getInetAddresses());
                 for (InetAddress address : ialist) {
-                    if (!address.isLoopbackAddress() && InetAddressUtils.isIPv4Address(ipv4 = address.getHostAddress())) {
-                        return ipv4;
+                    if (!address.isLoopbackAddress()
+                            && address instanceof Inet4Address) {
+                        return address.getHostAddress();
                     }
                 }
 

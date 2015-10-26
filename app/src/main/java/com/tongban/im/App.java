@@ -31,7 +31,7 @@ public class App extends BaseApplication {
         // 融云事件初始化
         RongCloudEvent.init(this);
         // 百度地图初始化
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(this);
         // 科大讯飞语音初始化
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=56188312");
         Setting.setShowLog(false);

@@ -36,6 +36,8 @@
     <string name="verify_code">验证码</string>
     <string name="re_set_pwd">重置密码</string>
     <string name="hint_pwd">6-24位字母或数字</string>
+    <!-- 语音-->
+
     <!-- 发现-->
     <string name="discover">发现</string>
     <string name="view_details">查看详情</string>
@@ -65,6 +67,7 @@
     <string name="finish_create">完成创建</string>
     <string name="icon_clip">头像裁剪</string>
     <!-- 用户中心-->
+    <string name="my">我的</string>
     <string name="user_center">用户中心</string>
     <string name="fans">粉丝</string>
     <string name="follow">关注</string>

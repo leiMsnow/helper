@@ -144,7 +144,7 @@ public class TopicApi extends BaseApi {
      */
     public void recommendTopicList(final int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "123"));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
         // 类型为官方话题和个人发表的话题
