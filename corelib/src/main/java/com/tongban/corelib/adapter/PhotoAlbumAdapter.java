@@ -58,7 +58,7 @@ public class PhotoAlbumAdapter extends QuickAdapter<String> {
         // 设置no_pic
         helper.setImageResource(R.id.id_item_image, R.mipmap.ic_default_image);
         // 设置no_selected
-        helper.setImageResource(R.id.id_item_select, 0);
+        helper.setImageResource(R.id.id_item_select, R.color.transparent);
         // 设置图片
         helper.setImageBitmap(R.id.id_item_image, mDirPath + "/" + item);
 

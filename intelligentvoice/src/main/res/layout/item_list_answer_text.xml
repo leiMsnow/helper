@@ -6,14 +6,11 @@
 
     <TextView
         android:id="@+id/tv_answer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MainContent"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="48dp"
         android:background="@drawable/ic_voice_answer"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
+        android:gravity="center_vertical"
         android:text="answer" />
 
 </RelativeLayout>

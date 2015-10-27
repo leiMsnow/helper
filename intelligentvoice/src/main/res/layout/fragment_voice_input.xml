@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="168dp"
         android:text="小伴伴：Hi，有什么能帮您？"
-        android:textColor="@color/normal_dark_grey"
+        android:textColor="#b4b4b4"
         android:textSize="20dp" />
 
 </RelativeLayout>

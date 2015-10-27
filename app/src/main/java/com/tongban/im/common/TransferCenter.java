@@ -18,6 +18,7 @@ import com.tongban.im.model.topic.TopicType;
  * 跳转中心
  * Created by zhangleilei on 8/19/15.
  */
+
 public class TransferCenter {
 
     private static TransferCenter mApi;

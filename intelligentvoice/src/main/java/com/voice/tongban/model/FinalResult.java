@@ -1,20 +1,46 @@
 package com.voice.tongban.model;
 
+import com.tb.api.model.topic.Topic;
+
 /**
  * Created by zhangleilei on 10/14/15.
  */
 public class FinalResult {
 
-
+    // 用户提问
     public static final int USER_QUESTION = 0;
+    // 没有答案
+    public static final int ANSWER_ERROR = 1;
+    // 文本类型
+    public static final int ANSWER_TEXT = 2;
+    // 话题类型
+    public static final int ANSWER_TOPIC = 3;
 
-    public static final int ANSWER = 1;
-
-    private int finalType ;
+    private int finalType;
 
     private String question;
 
+    private String errorInfo;
+
     private MoreResults moreResults;
+
+    private Topic topic;
+
+    public String getErrorInfo() {
+        return errorInfo;
+    }
+
+    public void setErrorInfo(String errorInfo) {
+        this.errorInfo = errorInfo;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
 
     public int getFinalType() {
         return finalType;

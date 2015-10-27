@@ -1,5 +1,6 @@
 package com.voice.tongban.model;
 
+
 public class MoreResults {
 
     // 答案
@@ -10,16 +11,6 @@ public class MoreResults {
      */
     private String service;
 
-    // 是否是第一条数据
-    private boolean isFirst = false;
-
-    public boolean isFirst() {
-        return isFirst;
-    }
-
-    public void setIsFirst(boolean isFirst) {
-        this.isFirst = isFirst;
-    }
 
     public void setAnswer(Answer answer) {
         this.answer = answer;

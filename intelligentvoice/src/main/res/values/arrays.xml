@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="voice_answer_list">
+        <item>努力的为你找到了%1$s条数据！</item>
+        <item>有奖励吗？</item>
+        <item>没有我不知道的！</item>
+        <item>找到了%1$s条数据,我棒吗？</item>
+        <item>发现了%1$s条数据,我厉害吗？</item>
+        <item>找到一个好朋友</item>
+    </array>
+
+    <array name="voice_answer_error_list">
+        <item>我没有听清你说什么</item>
+        <item>我不太懂你的意思</item>
+        <item>找呀找呀找</item>
+        <item>我还需要努力学习</item>
+        <item>sorry!</item>
+    </array>
+
+</resources>

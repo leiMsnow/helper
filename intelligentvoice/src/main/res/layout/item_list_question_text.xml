@@ -7,15 +7,12 @@
 
     <TextView
         android:id="@+id/tv_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MainContent"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="48dp"
         android:background="@drawable/ic_voice_question"
-        android:gravity="right"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:text="question" />
+        android:gravity="center_vertical"
+        android:text="是"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
