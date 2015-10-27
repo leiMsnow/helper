@@ -21,7 +21,7 @@ public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
-//        if (isSaveCrash())
+        if (isSaveCrash())
         MCrashHandler.getInstance().init(this);
         super.onCreate();
         mApp = this;

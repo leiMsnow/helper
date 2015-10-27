@@ -24,7 +24,7 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
     }
 
     protected void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.tb_toolbar);
         if (mToolbar == null) {
             return;
         }
