@@ -213,33 +213,20 @@
             </intent-filter>
         </activity>
         <!-- 个人中心 -->
-        <activity
-            android:name=".activity.user.MyCardActivity"
-            android:label="@string/user_center">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="com.tongban.im"
-                    android:pathPrefix="/my_center"
-                    android:scheme="tongban" />
-            </intent-filter>
-        </activity>
         <!-- 他人中心 -->
-        <activity android:name=".activity.user.UserCardActivity">
+        <activity
+            android:name=".activity.base.UserBaseActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data
                     android:host="com.tongban.im"
                     android:pathPrefix="/user_center"
                     android:scheme="tongban" />
             </intent-filter>
-        </activity>
+            </activity>
         <!-- 宝宝信息填写 -->
         <activity
             android:name=".activity.user.ChildInfoActivity"
