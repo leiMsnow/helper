@@ -1,9 +1,6 @@
 package com.voice.tongban.fragment;
 
 
-import android.app.Fragment;
-import android.media.Image;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +18,7 @@ import com.voice.tongban.model.VoiceTransfer;
 import de.greenrobot.event.EventBus;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 语音搜索结果.
  */
 public class VoiceResultFragment extends BaseApiFragment implements
         View.OnClickListener {
@@ -106,8 +103,15 @@ public class VoiceResultFragment extends BaseApiFragment implements
         // 智能问答
         if (understander.getOperation().equals(OperationType.OPERATION_ANSWER)) {
 
+            // 记录是否有返还第一条数据
             boolean isSetFirst = false;
+            // 解析默认第一条数据
             if (understander.getAnswer() != null) {
+
+                if (parseAnswerText(understander.getAnswer().getText())) {
+                    // TODO: 10/27/15 调用topic搜索接口
+                }
+
                 MoreResults firstResult = new MoreResults();
                 firstResult.setAnswer(understander.getAnswer());
                 isSetFirst = true;
@@ -119,18 +123,27 @@ public class VoiceResultFragment extends BaseApiFragment implements
                 firstAnswerItem.setFinalType(FinalResult.ANSWER);
 
                 mAdapter.add(firstAnswerItem);
+
             }
+            // 解析其他数据集合
             if (understander.getMoreResults() != null && understander.getMoreResults().size() > 0) {
                 for (int i = 0; i < understander.getMoreResults().size(); i++) {
-                    if (!isSetFirst && i > 0) {
+                    if (!isSetFirst && i == 0) {
+
+                        if (parseAnswerText(understander.getAnswer().getText())) {
+                            // TODO: 10/27/15 调用topic搜索接口
+                        }
+
                         understander.getMoreResults().get(i).setIsFirst(true);
                         // 说话
 //                        mSpeechSynthesizer.onSpeak(understander.getAnswer().getText());
+
                     }
 
                     FinalResult answerItem = new FinalResult();
                     answerItem.setMoreResults(understander.getMoreResults().get(i));
                     answerItem.setFinalType(FinalResult.ANSWER);
+
                     mAdapter.add(answerItem);
                 }
             }
@@ -140,5 +153,14 @@ public class VoiceResultFragment extends BaseApiFragment implements
 
         }
         lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
+    }
+
+    // 判断是否为本系统的语义反馈
+    private boolean parseAnswerText(String answer) {
+        if (answer.equals(OperationType.TB_TOPIC)) {
+            return true;
+        }
+
+        return false;
     }
 }

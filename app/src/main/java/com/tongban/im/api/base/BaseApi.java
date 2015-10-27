@@ -65,19 +65,7 @@ public class BaseApi {
      * 客户端与服务器时间不同步
      */
     public final static int TIME_DIS_MATCH = 10069;
-    //-----------------------------接口缓存时间key----------------------------------------------------
-    //------------------------存储的时间大于0，直接调用DB数据-------------------------------------------
-    protected final static String ALL_CACHE_URL = "ALL_CACHE_URL";
-    //专题时间-10min
-    protected final static String THEME_CACHE_TIME = "THEME_CACHE_TIME";
-    //单品时间-10min
-    protected final static String PRODUCT_CACHE_TIME = "PRODUCT_CACHE_TIME";
-    //话题时间-10min
-    protected final static String TOPIC_CACHE_TIME = "TOPIC_CACHE_TIME";
-    //圈子时间-30min
-    protected final static String GROUP_CACHE_TIME = "GROUP_CACHE_TIME";
-    //用户时间-5min
-    protected final static String USER_CACHE_TIME = "USER_CACHE_TIME";
+
     /**
      * 获取Volley请求队列
      */
@@ -85,7 +73,6 @@ public class BaseApi {
 
     protected Map<String, Object> mParams;
 
-    private Set<String> mDisableCacheUrls;
 
     public static BaseApi getInstance() {
         if (mApi == null) {
@@ -183,7 +170,7 @@ public class BaseApi {
         }
         final String requestUrl = apiUrl;
         //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
-        final boolean disableCache = true;//isCurrentUrl(url);
+        final boolean disableCache = ApiCache.getInstance().isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
 
         LogUtil.d("request-url:", requestUrl
@@ -205,7 +192,7 @@ public class BaseApi {
 
                             //获取完成后，将取消缓存的接口删掉
                             if (disableCache) {
-                                removeDisableCacheUrls(url);
+                                ApiCache.getInstance().removeDisableCacheUrls(url);
                             }
                             int statusCode = jsonObject.optInt("statusCode");
                             // 请求成功,数据回调给调用方
@@ -322,59 +309,6 @@ public class BaseApi {
 
 
     /**
-     * 获得所有接口
-     *
-     * @return
-     */
-    public Set<String> getDisableCacheUrls() {
-        mDisableCacheUrls = new HashSet<>();
-        mDisableCacheUrls = (Set<String>) SPUtils.get(mContext, ALL_CACHE_URL, mDisableCacheUrls);
-        return mDisableCacheUrls;
-    }
-
-    /**
-     * 缓存地址是否存在，如果存在将不再走缓存接口
-     *
-     * @param url
-     * @return
-     */
-    public boolean isCurrentUrl(String url) {
-        getDisableCacheUrls();
-        return mDisableCacheUrls.contains(url);
-    }
-
-
-    /**
-     * 记录所有url
-     * 读取缓存的时候，将url存储下来
-     *
-     * @param url
-     */
-    public void setDisableCacheUrls(String url) {
-        getDisableCacheUrls();
-        this.mDisableCacheUrls.add(url);
-        SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
-    }
-
-    /**
-     * 删除某个缓存url
-     *
-     * @param url
-     */
-    public void removeDisableCacheUrls(String url) {
-        getDisableCacheUrls();
-        this.mDisableCacheUrls.remove(url);
-        SPUtils.put(mContext, ALL_CACHE_URL, mDisableCacheUrls);
-    }
-
-    /**
-     * 删除所有的缓存url
-     */
-    public void clearDisableCacheUrls(String cacheName) {
-        SPUtils.put(mContext, cacheName, null);
-    }
-
-    /**
      * 将boolean转换成string的值，系统默认转换的是int值
      *
      * @param type
@@ -393,65 +327,7 @@ public class BaseApi {
         return errorResult;
     }
 
-    /**
-     * 设置disableCache时间
-     *
-     * @param cacheName {@link BaseApi}
-     */
-    protected void setDisableCache(String cacheName) {
-        int disableCacheTime = 0;
-        if (cacheName.equals(USER_CACHE_TIME)) {
-            disableCacheTime = 5;
-            setDisableCacheUrls(UserCenterApi.USER_INFO);
-            setDisableCacheUrls(UserCenterApi.FETCH_USER_CENTER_INFO);
-            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
 
-        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-            disableCacheTime = 10;
-            //话题相关
-            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
-            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
-            setDisableCacheUrls(TopicApi.TOPIC_INFO);
-            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
-            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
-            //用户相关
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
-
-        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-            disableCacheTime = 30;
-            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
-            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
-            setDisableCacheUrls(GroupApi.GROUP_INFO);
-            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
-            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
-
-        } else if (cacheName.equals(THEME_CACHE_TIME)) {
-            disableCacheTime = 10;
-            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
-            setDisableCacheUrls(ProductApi.SEARCH_THEME);
-            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
-
-        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-            disableCacheTime = 10;
-            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
-            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
-            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
-
-            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
-
-        }
-
-        long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
-        SPUtils.put(mContext, cacheName, cacheTimeMillis);
-    }
 
 
 }

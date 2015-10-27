@@ -12,6 +12,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.ApiCache;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
@@ -599,7 +600,7 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(USER_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.USER_CACHE_TIME);
                 BaseEvent.FocusEvent focusEvent = new BaseEvent.FocusEvent();
                 focusEvent.isFocus = isFocus;
                 focusEvent.userIds = focusUserId;
@@ -637,7 +638,7 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(USER_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.USER_CACHE_TIME);
                 BaseEvent.ChildCreateSuccessEvent childSuccess =
                         new BaseEvent.ChildCreateSuccessEvent();
                 childSuccess.isSetSuccess = true;
@@ -689,7 +690,7 @@ public class UserCenterApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(USER_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.USER_CACHE_TIME);
                 if (callback != null)
                     callback.onComplete(new BaseEvent.EditUserEvent());
             }

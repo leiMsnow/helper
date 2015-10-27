@@ -53,7 +53,7 @@ public class GroupFragment extends BaseToolBarFragment {
     protected void initData() {
 
         rgParent.setVisibility(View.VISIBLE);
-        ivIndicator.setVisibility(View.VISIBLE);
+//        ivIndicator.setVisibility(View.VISIBLE);
         ibCreate.setVisibility(View.VISIBLE);
 
         //聊天界面

@@ -12,6 +12,7 @@ import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.ApiCache;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.model.BaseEvent;
@@ -255,7 +256,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(THEME_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.THEME_CACHE_TIME);
                 callback.onComplete(new BaseEvent.CollectThemeEvent());
             }
 
@@ -285,7 +286,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(THEME_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.THEME_CACHE_TIME);
                 callback.onComplete(new BaseEvent.NoCollectThemeEvent());
             }
 
@@ -350,7 +351,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(PRODUCT_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.PRODUCT_CACHE_TIME);
                 callback.onComplete(new BaseEvent.CollectProductEvent());
             }
 
@@ -381,7 +382,7 @@ public class ProductApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(PRODUCT_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.PRODUCT_CACHE_TIME);
                 callback.onComplete(new BaseEvent.NoCollectProductEvent());
             }
 

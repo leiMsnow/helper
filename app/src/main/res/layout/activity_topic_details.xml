@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/include_toolbar"
         layout="@layout/include_toolbar" />
 
     <com.tongban.corelib.widget.view.LoadMoreListView
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/topic_input"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/include_toolbar"
         android:background="@color/weak_light_grey"
         android:cacheColorHint="@color/transparent"
         android:divider="@null"

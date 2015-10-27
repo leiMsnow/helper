@@ -11,6 +11,7 @@ import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.App;
+import com.tongban.im.api.base.ApiCache;
 import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
@@ -139,7 +140,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(GROUP_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.GROUP_CACHE_TIME);
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
@@ -189,7 +190,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(GROUP_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.GROUP_CACHE_TIME);
                 ApiResult<BaseEvent.JoinGroupEvent> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<BaseEvent.JoinGroupEvent>>() {
                         });
@@ -412,7 +413,7 @@ public class GroupApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-                setDisableCache(GROUP_CACHE_TIME);
+                ApiCache.getInstance().setDisableCache(ApiCache.GROUP_CACHE_TIME);
                 if (callback != null)
                     callback.onComplete(new BaseEvent.QuitGroupEvent());
             }

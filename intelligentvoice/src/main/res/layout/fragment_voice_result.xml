@@ -11,6 +11,7 @@
         android:cacheColorHint="@null"
         android:divider="@null"
         android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
         android:scrollbars="none" />
 
     <include layout="@layout/include_volume" />

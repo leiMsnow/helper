@@ -126,4 +126,12 @@ public class VoiceInputFragment extends BaseApiFragment implements
         EventBus.getDefault().post(new VoiceTransfer(true));
 
     }
+
+    public void onEventMainThread(VoiceTransfer obj) {
+
+        if (!obj.isResult)
+            mSemanticRecognition.startUnderstanding();
+
+    }
+
 }
