@@ -63,7 +63,7 @@ public class DiscoverFragment extends BaseToolBarFragment
 
         tvTitle.setText(getString(R.string.discover));
         tvTitle.setVisibility(View.VISIBLE);
-        ivUserPortrait.setVisibility(View.VISIBLE);
+//        ivUserPortrait.setVisibility(View.VISIBLE);
         ivSearchAll.setVisibility(View.VISIBLE);
 
         PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);

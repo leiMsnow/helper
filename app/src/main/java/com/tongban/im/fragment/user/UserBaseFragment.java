@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +35,10 @@ import butterknife.OnClick;
 
 public class UserBaseFragment extends BaseToolBarFragment implements View.OnClickListener {
     @Bind(R.id.sv_user_center)
-    PullToZoomScrollViewEx lvUserCenter;
+    NestedScrollView lvUserCenter;
     @Bind(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-//    @Bind(R.id.tv_title)
+    //    @Bind(R.id.tv_title)
 //    TextView tvUserName;
 //    @Bind(R.id.iv_close)
 //    ImageView ivClose;
@@ -93,7 +94,7 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_personal_center;
+        return R.layout.fragment_personal_center2;
     }
 
     @Override
@@ -103,9 +104,13 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
         zoomView = LayoutInflater.from(mContext).inflate(R.layout.ptz_zoom_view, null, false);
         contentView = LayoutInflater.from(mContext).inflate(R.layout.ptz_content_view, null, false);
 
-        lvUserCenter.setHeaderView(headView);
-        lvUserCenter.setZoomView(zoomView);
-        lvUserCenter.setScrollContentView(contentView);
+//        lvUserCenter.setHeaderView(headView);
+//        lvUserCenter.setZoomView(zoomView);
+//        lvUserCenter.setScrollContentView(contentView);
+
+        lvUserCenter.addView(headView);
+//        lvUserCenter.addView(zoomView);
+//        lvUserCenter.addView(contentView);
 
         //headView
         ivUserPortrait = (CircleImageView) headView.findViewById(R.id.iv_user_portrait);
@@ -136,38 +141,38 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
         int mScreenWidth = ScreenUtils.getScreenWidth(mContext);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(mScreenWidth,
                 (int) (3.0F * (mScreenWidth / 4.0F)));
-        lvUserCenter.setHeaderLayoutParams(localObject);
-
-        lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
-            @Override
-            public void onPullZooming(int newScrollValue) {
-                float scrollValue = -newScrollValue;
-                float headerBottomHeight = vHeaderBottom.getHeight() * 2;
-                float startValue = alphaValue;
-                if (scrollValue < headerBottomHeight) {
-                    alphaValue = (headerBottomHeight - scrollValue) / headerBottomHeight;
-
-                    AnimatorUtils.animatorToAlpha(ivZoomTop, startValue, alphaValue, 10);
-                    AnimatorUtils.animatorToAlpha(ivUserPortrait, startValue, alphaValue, 10);
-                    AnimatorUtils.animatorToAlpha(vpChildInfo, startValue, alphaValue, 10);
-                    AnimatorUtils.animatorToAlpha(rlActionParent, startValue, alphaValue, 10);
-                }
-            }
-
-            @Override
-            public void onPullZoomEnd() {
-                AnimatorUtils.animatorToAlpha(ivZoomTop, alphaValue, 1.0f, 300);
-                AnimatorUtils.animatorToAlpha(ivUserPortrait, alphaValue, 1.0f, 300);
-                AnimatorUtils.animatorToAlpha(vpChildInfo, alphaValue, 1.0f, 300);
-                AnimatorUtils.animatorToAlpha(rlActionParent, alphaValue, 1.0f, 300);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        alphaValue = 1.0f;
-                    }
-                }, 300);
-            }
-        });
+//        lvUserCenter.setHeaderLayoutParams(localObject);
+//
+//        lvUserCenter.setOnPullZoomListener(new PullToZoomBase.OnPullZoomListener() {
+//            @Override
+//            public void onPullZooming(int newScrollValue) {
+//                float scrollValue = -newScrollValue;
+//                float headerBottomHeight = vHeaderBottom.getHeight() * 2;
+//                float startValue = alphaValue;
+//                if (scrollValue < headerBottomHeight) {
+//                    alphaValue = (headerBottomHeight - scrollValue) / headerBottomHeight;
+//
+//                    AnimatorUtils.animatorToAlpha(ivZoomTop, startValue, alphaValue, 10);
+//                    AnimatorUtils.animatorToAlpha(ivUserPortrait, startValue, alphaValue, 10);
+//                    AnimatorUtils.animatorToAlpha(vpChildInfo, startValue, alphaValue, 10);
+//                    AnimatorUtils.animatorToAlpha(rlActionParent, startValue, alphaValue, 10);
+//                }
+//            }
+//
+//            @Override
+//            public void onPullZoomEnd() {
+//                AnimatorUtils.animatorToAlpha(ivZoomTop, alphaValue, 1.0f, 300);
+//                AnimatorUtils.animatorToAlpha(ivUserPortrait, alphaValue, 1.0f, 300);
+//                AnimatorUtils.animatorToAlpha(vpChildInfo, alphaValue, 1.0f, 300);
+//                AnimatorUtils.animatorToAlpha(rlActionParent, alphaValue, 1.0f, 300);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        alphaValue = 1.0f;
+//                    }
+//                }, 300);
+//            }
+//        });
 
         ivUserPortrait.setOnClickListener(this);
 
@@ -177,14 +182,14 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
 
     }
 
-//    @OnClick({R.id.iv_close})
+    //    @OnClick({R.id.iv_close})
     public void onClick(View v) {
         //关闭个人中心
 //        if (v == ivClose) {
 //            getActivity().finish();
 //        }
         //跳转到粉丝界面
-         if (v == rlFansNum) {
+        if (v == rlFansNum) {
             TransferCenter.getInstance().startRelationship(Consts.TAG_FANS,
                     mUserInfo.getUser_id());
         }
