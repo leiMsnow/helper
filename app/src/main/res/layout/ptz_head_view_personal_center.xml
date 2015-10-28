@@ -2,31 +2,6 @@
     android:id="@+id/layout_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <!-- 头像-->
-    <com.tongban.corelib.widget.view.CircleImageView
-        android:id="@+id/iv_user_portrait"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:scaleType="centerCrop" />
-
-    <!-- 用户信息布局-->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_relationship"
-        android:layout_below="@+id/iv_user_portrait"
-        android:layout_marginTop="24dp"
-        android:gravity="center_horizontal" />
-
-    <com.tongban.corelib.widget.view.indicator.CirclePageIndicator
-        android:id="@+id/lpi_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/vp_container"
-        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rl_action_parent"
