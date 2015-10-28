@@ -2,6 +2,7 @@ package com.tongban.im.fragment.user;
 
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,7 +35,7 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
 //    ImageView ivClose;
     //headerView
     @Bind(R.id.iv_user_portrait)
-    CircleImageView ivUserPortrait;
+    FloatingActionButton ivUserPortrait;
 
     @Bind(R.id.rl_action_parent)
     RelativeLayout rlActionParent;
@@ -142,7 +143,8 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
         } else {
             int resId = (Integer) SPUtils.
                     get(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT, 0);
-            ivUserPortrait.setImageResource(resId);
+//            ivUserPortrait.setImageResource(resId);
+            ivUserPortrait.setBackgroundResource(resId);
         }
         tvFansCount.setText(String.valueOf(mUserInfo.getFans_amount()));
         tvFollowCount.setText(String.valueOf(mUserInfo.getFocused_amount()));
