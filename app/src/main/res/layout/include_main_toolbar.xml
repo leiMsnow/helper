@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/transparent">
     <!-- toolBar部分-->
-    <RelativeLayout
+    <RelativeLay
         android:id="@+id/rl_menu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -68,7 +68,7 @@
                 android:visibility="gone"/>
 
         </RelativeLayout>
-    </RelativeLayout>
+    </RelativeLay>
     <!-- 聊天/推荐-->
     <RadioGroup
         android:id="@+id/rg_parent"

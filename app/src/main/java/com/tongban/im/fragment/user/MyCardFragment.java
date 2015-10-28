@@ -34,15 +34,15 @@ public class MyCardFragment extends UserBaseFragment {
     public void onClick(View v) {
         //跳转到话题界面
         if (v == tvMyTopic) {
-            startActivity(new Intent(mContext, MyTopicActivity.class));
+            mContext.startActivity(new Intent(mContext, MyTopicActivity.class));
         }
         //跳转到我的收藏界面
         else if (v == tvMyCollect) {
-            startActivity(new Intent(mContext, MyCollectActivity.class));
+            mContext.startActivity(new Intent(mContext, MyCollectActivity.class));
         }
         //跳转到设置界面
         else if (v == tvSettings) {
-            startActivity(new Intent(mContext, SettingActivity.class));
+            mContext.startActivity(new Intent(mContext, SettingActivity.class));
         }else{
             super.onClick(v);
         }

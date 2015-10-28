@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/rl_toolbar"
-        layout="@layout/include_main_toolbar"
+        layout="@layout/include_main_toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@android:color/transparent" />

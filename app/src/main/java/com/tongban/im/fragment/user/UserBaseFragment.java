@@ -2,6 +2,7 @@ package com.tongban.im.fragment.user;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -34,8 +35,10 @@ import butterknife.OnClick;
 public class UserBaseFragment extends BaseToolBarFragment implements View.OnClickListener {
     @Bind(R.id.sv_user_center)
     PullToZoomScrollViewEx lvUserCenter;
-    @Bind(R.id.tv_title)
-    TextView tvUserName;
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
+//    @Bind(R.id.tv_title)
+//    TextView tvUserName;
 //    @Bind(R.id.iv_close)
 //    ImageView ivClose;
     //headerView
@@ -210,7 +213,8 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
         rlGroupNum.setEnabled(true);
 
         if (!TextUtils.isEmpty(mUserInfo.getNick_name())) {
-            tvUserName.setText(mUserInfo.getNick_name());
+//            tvUserName.setText(mUserInfo.getNick_name());
+            mCollapsingToolbarLayout.setTitle(mUserInfo.getNick_name());
         }
 
         if (mUserInfo.getPortraitUrl() != null) {
