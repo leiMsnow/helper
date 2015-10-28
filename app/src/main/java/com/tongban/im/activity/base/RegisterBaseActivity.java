@@ -3,12 +3,11 @@ package com.tongban.im.activity.base;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.tongban.corelib.base.ActivityContainer;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.user.User;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.fragment.account.EditUserFragment;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.user.User;
 
 import io.rong.imkit.RongIM;
 

@@ -6,19 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.tb.api.TopicApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.model.topic.Comment;
+import com.tb.api.model.topic.OfficialTopic;
+import com.tb.api.model.topic.Topic;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.OfficialTopicDetailsAdapter;
-import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.discover.ProductBook;
-import com.tongban.im.model.topic.OfficialTopic;
-import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.Comment;
 
 
 /**

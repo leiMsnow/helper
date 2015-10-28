@@ -4,19 +4,19 @@ package com.tongban.im.fragment.account;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.dd.CircularProgressButton;
+import com.tb.api.FileUploadApi;
+import com.tb.api.UserCenterApi;
+import com.tb.api.callback.UploadFileCallback;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.user.EditUser;
+import com.tb.api.model.user.OtherRegister;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.SPUtils;
@@ -24,19 +24,12 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.user.EditUser;
-import com.tongban.im.model.user.OtherRegister;
-import com.tongban.im.utils.CameraUtils;
+
 import com.tongban.im.widget.view.CameraView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 

@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
 import butterknife.OnClick;

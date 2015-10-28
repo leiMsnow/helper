@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import com.tb.api.GroupApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.user.User;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

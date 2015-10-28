@@ -1,9 +1,9 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 
-import com.tongban.im.App;
-import com.tongban.im.api.base.BaseApi;
+import com.tb.api.base.BaseApi;
+import com.tongban.corelib.base.BaseApplication;
 
 /**
  * 消息api
@@ -28,7 +28,7 @@ public class MessageApi extends BaseApi {
         if (mApi == null) {
             synchronized (MessageApi.class) {
                 if (mApi == null) {
-                    mApi = new MessageApi(App.getInstance());
+                    mApi = new MessageApi(BaseApplication.getInstance());
                 }
             }
         }

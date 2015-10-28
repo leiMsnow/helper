@@ -3,12 +3,12 @@ package com.tongban.im.activity.user;
 
 import android.support.v4.app.FragmentTransaction;
 
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.InputChildInfoFragment;
-import com.tongban.im.model.BaseEvent;
 
 /**
  * 设置宝宝信息界面

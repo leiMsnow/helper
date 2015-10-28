@@ -4,10 +4,8 @@ package com.tongban.im.fragment.user;
 import android.net.Uri;
 import android.view.View;
 
-import com.tongban.im.R;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
 
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;

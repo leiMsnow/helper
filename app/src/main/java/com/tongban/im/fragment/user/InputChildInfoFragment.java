@@ -17,10 +17,10 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 
 import java.util.Calendar;
 

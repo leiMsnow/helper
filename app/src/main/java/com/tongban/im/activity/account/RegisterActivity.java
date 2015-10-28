@@ -3,9 +3,9 @@ package com.tongban.im.activity.account;
 import android.os.Bundle;
 import android.view.View;
 
+import com.tb.api.FileUploadApi;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.RegisterBaseActivity;
-import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.account.FirstRegisterFragment;
 

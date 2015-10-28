@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.topic.Topic;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
@@ -18,8 +20,6 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.user.MyTopicFragment;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.fragment.user.ThemeListFragment;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;

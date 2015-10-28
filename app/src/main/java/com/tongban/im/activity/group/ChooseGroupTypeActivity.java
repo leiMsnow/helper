@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.group.GroupType;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.ChooseGroupTypeAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.group.GroupType;
 
 import java.util.ArrayList;
 import java.util.List;

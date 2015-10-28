@@ -10,13 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tb.api.base.BaseApi;
 import com.tongban.corelib.utils.AppUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
-import com.tongban.im.api.base.BaseApi;
 import com.tongban.im.common.Consts;
 
 import butterknife.Bind;

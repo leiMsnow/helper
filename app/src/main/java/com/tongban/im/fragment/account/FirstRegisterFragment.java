@@ -3,20 +3,18 @@ package com.tongban.im.fragment.account;
 
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.dd.CircularProgressButton;
+import com.tb.api.AccountApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
 import butterknife.OnClick;

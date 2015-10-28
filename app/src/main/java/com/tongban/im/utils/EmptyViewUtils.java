@@ -8,14 +8,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.CommonApi;
+import com.tb.api.GroupApi;
+import com.tb.api.ProductApi;
+import com.tb.api.TopicApi;
+import com.tb.api.base.BaseApi;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.im.R;
-import com.tongban.im.api.CommonApi;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.base.BaseApi;
 
 /**
  * 如果想让空数据布局正常显示，父控件务必使用RelativeLayout或FrameLayout

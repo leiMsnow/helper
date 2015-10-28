@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.tb.api.AccountApi;
+import com.tb.api.FileUploadApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
 import com.tongban.im.activity.user.ChildInfoActivity;
-import com.tongban.im.api.AccountApi;
-import com.tongban.im.api.FileUploadApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.LocationUtils;
 
 import de.greenrobot.event.EventBus;

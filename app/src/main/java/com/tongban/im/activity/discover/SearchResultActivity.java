@@ -8,18 +8,17 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.model.discover.Theme;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.widget.view.ChangeColorView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.fragment.user.ProductListFragment;
 import com.tongban.im.fragment.user.ThemeListFragment;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.discover.ProductBook;
-import com.tongban.im.model.discover.Theme;
 
 import java.util.ArrayList;
 import java.util.List;

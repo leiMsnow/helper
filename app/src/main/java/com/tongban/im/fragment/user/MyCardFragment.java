@@ -2,22 +2,13 @@ package com.tongban.im.fragment.user;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.tongban.corelib.widget.view.LoadMoreListView;
-import com.tongban.im.R;
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.im.activity.SettingActivity;
 import com.tongban.im.activity.user.MyCollectActivity;
 import com.tongban.im.activity.user.MyTopicActivity;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * 个人中心界面

@@ -1,4 +1,4 @@
-package com.tongban.im.model;
+package com.tb.api.model;
 
 /**
  * 标签

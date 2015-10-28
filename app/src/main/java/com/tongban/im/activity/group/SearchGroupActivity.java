@@ -3,10 +3,10 @@ package com.tongban.im.activity.group;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 
+import com.tb.api.GroupApi;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
-import com.tongban.im.api.GroupApi;
 import com.tongban.im.fragment.group.RecommendGroupFragment;
 
 /**

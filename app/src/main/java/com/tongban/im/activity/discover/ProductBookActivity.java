@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.tb.api.ProductApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
 import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
@@ -16,11 +20,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.ThemeBaseActivity;
 import com.tongban.im.adapter.ProductBookImgPagerAdapter;
 import com.tongban.im.adapter.ProductPriceAdapter;
-import com.tongban.im.api.ProductApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.discover.ProductBook;
 import com.tongban.im.widget.view.ChildGridView;
 
 import butterknife.Bind;

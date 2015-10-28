@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tb.api.model.ImageUrl;
 import com.tongban.im.R;
-import com.tongban.im.model.ImageUrl;
 
 import java.util.List;
 

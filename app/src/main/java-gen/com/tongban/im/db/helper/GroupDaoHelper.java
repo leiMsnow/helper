@@ -3,7 +3,6 @@ package com.tongban.im.db.helper;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.tongban.im.api.GroupApi;
 import com.tongban.im.db.IMDBManager;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.dao.GroupTableDao;

@@ -1,7 +1,5 @@
 package com.tb.api.model;
 
-import android.nfc.Tag;
-
 import com.tb.api.model.discover.Discover;
 import com.tb.api.model.discover.ProductBook;
 import com.tb.api.model.discover.Theme;

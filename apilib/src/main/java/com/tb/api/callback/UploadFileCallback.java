@@ -1,6 +1,6 @@
-package com.tongban.im.api.callback;
+package com.tb.api.callback;
 
-import com.tongban.im.model.ImageUrl;
+import com.tb.api.model.ImageUrl;
 
 /**
  * 上传文件回调接口

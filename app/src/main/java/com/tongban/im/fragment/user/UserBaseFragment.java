@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.model.user.User;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.AnimatorUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
@@ -24,9 +26,7 @@ import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.user.User;
 
 import butterknife.Bind;
 import butterknife.OnClick;

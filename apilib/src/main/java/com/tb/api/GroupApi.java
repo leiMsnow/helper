@@ -1,27 +1,25 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.tb.api.base.ApiCache;
+import com.tb.api.base.BaseApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.group.Group;
+import com.tb.api.model.group.GroupType;
+import com.tb.api.model.user.User;
+import com.tb.api.utils.TransferCenter;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
-import com.tongban.im.api.base.ApiCache;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.common.ModelToTable;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.db.helper.GroupDaoHelper;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.group.Group;
-import com.tongban.im.model.group.GroupType;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
 
@@ -76,7 +74,7 @@ public class GroupApi extends BaseApi {
         if (mApi == null) {
             synchronized (GroupApi.class) {
                 if (mApi == null) {
-                    mApi = new GroupApi(App.getInstance());
+                    mApi = new GroupApi(BaseApplication.getInstance());
                 }
             }
         }
@@ -109,7 +107,7 @@ public class GroupApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("group_name", groupName);
         //(默认0，1：学校)
         mParams.put("address_type", getTypeStr(groupType == GroupType.CLASSMATE));
@@ -177,7 +175,7 @@ public class GroupApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("group_name", groupName);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("group_owner_id", masterId);
 
         simpleRequest(JOIN_GROUP, mParams, new IApiCallback() {
@@ -219,9 +217,9 @@ public class GroupApi extends BaseApi {
      */
     public void recommendGroupList(final int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("longitude", SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Constants.LATITUDE, Constants.DEFAULT_DOUBLE));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
@@ -272,11 +270,11 @@ public class GroupApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
+        mParams.put("longitude", SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Constants.LATITUDE, Constants.DEFAULT_DOUBLE));
 
         simpleRequest(SEARCH_GROUP_LIST, mParams, new IApiCallback() {
             @Override
@@ -317,7 +315,7 @@ public class GroupApi extends BaseApi {
     public void getGroupInfo(String groupId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("group_id", groupId);
 
         simpleRequest(GROUP_INFO, mParams, new IApiCallback() {
@@ -332,8 +330,8 @@ public class GroupApi extends BaseApi {
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
-                // 将圈子信息保存到本地数据库
-                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(result.getData()));
+//                // 将圈子信息保存到本地数据库
+//                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(result.getData()));
                 BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
                 groupInfoEvent.group = result.getData();
                 if (callback != null)
@@ -401,7 +399,7 @@ public class GroupApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("group_id", groupId);
 
         simpleRequest(USER_QUIT_GROUP, mParams, new IApiCallback() {

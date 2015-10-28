@@ -1,17 +1,17 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.tb.api.base.BaseApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.Tag;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
-import com.tongban.im.App;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +40,7 @@ public class CommonApi extends BaseApi {
         if (mApi == null) {
             synchronized (CommonApi.class) {
                 if (mApi == null) {
-                    mApi = new CommonApi(App.getInstance());
+                    mApi = new CommonApi(BaseApplication.getInstance());
                 }
             }
         }
@@ -87,7 +87,7 @@ public class CommonApi extends BaseApi {
      *
      * @param cursor   游标
      * @param pageSize 页容
-     * @param type     tag类型{@link com.tongban.im.model.TagType}
+     * @param type     tag类型{@link TagType}
      * @param callback 回调
      */
     public void fetchTags(int cursor, int pageSize, final String type, final IApiCallback callback) {

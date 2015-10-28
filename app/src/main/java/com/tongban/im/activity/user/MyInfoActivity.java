@@ -11,19 +11,19 @@ import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.FileUploadApi;
+import com.tb.api.UserCenterApi;
+import com.tb.api.callback.UploadFileCallback;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.user.AddChildInfo;
+import com.tb.api.model.user.EditUser;
+import com.tb.api.model.user.User;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.user.AddChildInfo;
-import com.tongban.im.model.user.EditUser;
-import com.tongban.im.model.user.User;
 import com.tongban.im.widget.view.CameraView;
 
 import java.util.ArrayList;
@@ -193,8 +193,11 @@ public class MyInfoActivity extends CommonImageResultActivity implements
     @Override
     public void sendPhoto(byte[] bytes) {
         mIcon = bytes;
-        FileUploadApi.getInstance().uploadFile(mIcon, null, FileUploadApi.IMAGE_SIZE_300,
-                FileUploadApi.IMAGE_SIZE_500, new UploadFileCallback() {
+        FileUploadApi.getInstance().uploadFile(mIcon
+                , null
+                , FileUploadApi.IMAGE_SIZE_300
+                , FileUploadApi.IMAGE_SIZE_500
+                , new UploadFileCallback() {
 
                     @Override
                     public void uploadSuccess(ImageUrl url) {

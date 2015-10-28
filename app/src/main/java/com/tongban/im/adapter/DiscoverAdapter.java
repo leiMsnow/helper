@@ -3,12 +3,12 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.tb.api.model.discover.Discover;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.discover.Discover;
 
 import java.util.List;
 

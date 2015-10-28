@@ -35,18 +35,8 @@ public class Consts  extends TransferConstants{
     //------------------------------其它相关key------------------------------------------------------
 
 
-    /**
-     * IM系统的Token
-     */
-    public static final String IM_BIND_TOKEN = "IM_BIND_TOKEN";
-    /**
-     * 免认证登录Token
-     */
-    public static final String FREEAUTH_TOKEN = "FREEAUTH_TOKEN";
-    /**
-     * 七牛上传的token
-     */
-    public static final String QINIU_TOKEN = "QINIU_TOKEN";
+
+
 
 
 

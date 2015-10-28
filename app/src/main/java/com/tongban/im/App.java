@@ -4,9 +4,9 @@ import com.baidu.mapapi.SDKInitializer;
 import com.iflytek.cloud.Setting;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
+import com.tb.api.base.BaseApi;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.LogUtil;
-import com.tongban.im.api.base.BaseApi;
 
 import io.rong.imkit.RongIM;
 

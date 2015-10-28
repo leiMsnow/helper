@@ -2,13 +2,13 @@ package com.tongban.im.activity.base;
 
 import android.content.Intent;
 
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.user.AddChildInfo;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.RongCloudEvent;
 import com.tongban.im.activity.MainActivity;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.user.AddChildInfo;
 
 import java.util.ArrayList;
 import java.util.List;

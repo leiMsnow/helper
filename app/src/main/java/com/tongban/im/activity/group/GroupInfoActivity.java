@@ -8,6 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.tb.api.GroupApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.group.Group;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -15,10 +18,7 @@ import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
-import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.group.Group;
 import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.Random;

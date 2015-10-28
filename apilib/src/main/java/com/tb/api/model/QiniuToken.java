@@ -1,4 +1,4 @@
-package com.tongban.im.model;
+package com.tb.api.model;
 
 /**
  * 获取七牛token的model

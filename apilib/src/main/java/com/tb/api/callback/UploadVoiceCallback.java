@@ -1,4 +1,4 @@
-package com.tongban.im.api.callback;
+package com.tb.api.callback;
 
 /**
  * 上传文件回调接口

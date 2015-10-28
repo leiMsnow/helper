@@ -5,16 +5,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.tb.api.CommonApi;
+import com.tb.api.TagType;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.Tag;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.NetUtils;
-import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.SuggestionsBaseActivity;
 import com.tongban.im.adapter.DiscoverTagListAdapter;
-import com.tongban.im.api.CommonApi;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.Tag;
-import com.tongban.im.model.TagType;
 
 import java.util.HashMap;
 import java.util.LinkedList;

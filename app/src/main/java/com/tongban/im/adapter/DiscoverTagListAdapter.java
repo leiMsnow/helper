@@ -8,9 +8,9 @@ import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.tb.api.model.Tag;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.im.R;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.Tag;
 import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.List;

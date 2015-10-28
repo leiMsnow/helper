@@ -5,14 +5,24 @@ package com.tongban.corelib.utils;
  */
 public class Constants {
     //------------------------------默认值相关-------------------------------------------------------
+
+    /**
+     * IM系统的Token
+     */
+    public static final String IM_BIND_TOKEN = "IM_BIND_TOKEN";
+    /**
+     * 免认证登录Token
+     */
+    public static final String FREEAUTH_TOKEN = "FREEAUTH_TOKEN";
+    /**
+     * 七牛上传的token
+     */
+    public static final String QINIU_TOKEN = "QINIU_TOKEN";
     /**
      * Double默认值
      */
     public static final double DEFAULT_DOUBLE = -1.1;
-    /**
-     * 图片服务器地址前缀
-     */
-    public static final String TONGBAN_UPLOAD_HOST_PREFIX = "http://7xkuqd.com2.z0.glb.qiniucdn.com/";
+
     /**
      * 用户id
      */

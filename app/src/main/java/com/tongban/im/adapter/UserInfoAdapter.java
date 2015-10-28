@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.tb.api.model.user.Child;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.user.Child;
 
 import java.util.List;
 

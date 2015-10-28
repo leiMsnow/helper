@@ -20,6 +20,7 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.tb.api.base.BaseApi;
 import com.tongban.corelib.adapter.PhotoAlbumAdapter;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ImageFolder;
@@ -28,7 +29,6 @@ import com.tongban.corelib.widget.view.BaseProgressDialog;
 import com.tongban.corelib.widget.view.ListImageDirPopupWindow;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
-import com.tongban.im.api.base.BaseApi;
 
 import java.io.File;
 import java.io.FilenameFilter;

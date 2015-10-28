@@ -12,19 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tb.api.ProductApi;
+import com.tb.api.TopicApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.model.discover.Theme;
+import com.tb.api.model.topic.Topic;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.DateUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.ThemeBaseActivity;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.discover.ProductBook;
-import com.tongban.im.model.discover.Theme;
-import com.tongban.im.model.topic.Topic;
 
 import java.util.List;
 
@@ -36,6 +36,7 @@ import butterknife.OnClick;
  * 专题页
  * Created by Cheney on 15/8/17.
  */
+@Deprecated
 public class ThemeActivity extends ThemeBaseActivity {
 
     @Bind(R.id.iv_head)

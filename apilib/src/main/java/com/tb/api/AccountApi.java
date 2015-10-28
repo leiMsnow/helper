@@ -1,21 +1,18 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.tb.api.base.BaseApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.user.User;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
-import com.tongban.im.R;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.common.ModelToTable;
-import com.tongban.im.db.helper.UserDaoHelper;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
 
@@ -74,7 +71,7 @@ public class AccountApi extends BaseApi {
         if (mApi == null) {
             synchronized (AccountApi.class) {
                 if (mApi == null) {
-                    mApi = new AccountApi(App.getInstance());
+                    mApi = new AccountApi(BaseApplication.getInstance());
                 }
             }
         }
@@ -370,7 +367,7 @@ public class AccountApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 BaseEvent.PwdResetEvent pwdResetEvent = new BaseEvent.PwdResetEvent();
-                pwdResetEvent.result = (mContext.getResources().getString(R.string.pwd_reset_success));
+                pwdResetEvent.result = "密码重置成功";
                 callback.onComplete(pwdResetEvent);
             }
 
@@ -405,8 +402,9 @@ public class AccountApi extends BaseApi {
                         new TypeReference<ApiResult<User>>() {
                         });
                 User user = apiResponse.getData();
-                // 将用户信息保存到本地数据库
-                UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(user));
+                // TODO: 10/28/15   将用户信息保存到本地数据库
+//                // 将用户信息保存到本地数据库
+//                UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(user));
                 if (callback != null)
                     callback.onComplete(user);
             }
@@ -441,10 +439,10 @@ public class AccountApi extends BaseApi {
      * @param userInfo
      */
     private void saveUserInfo(User userInfo) {
-        SPUtils.put(mContext, Consts.IM_BIND_TOKEN, userInfo.getIm_bind_token());
-        SPUtils.put(mContext, Consts.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
-        SPUtils.put(mContext, Consts.USER_ID, userInfo.getUser_id());
-        SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
+        SPUtils.put(mContext, Constants.IM_BIND_TOKEN, userInfo.getIm_bind_token());
+        SPUtils.put(mContext, Constants.FREEAUTH_TOKEN, userInfo.getFreeauth_token());
+        SPUtils.put(mContext, Constants.USER_ID, userInfo.getUser_id());
+        SPUtils.put(mContext, Constants.NICK_NAME, userInfo.getNick_name());
     }
 
 }

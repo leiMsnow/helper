@@ -7,6 +7,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.tb.api.TopicApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.utils.TransferCenter;
+import com.tb.api.utils.TransferPathPrefix;
 import com.tongban.corelib.base.api.RequestApiListener;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -14,13 +18,9 @@ import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.topic.CreateTopicActivity;
 import com.tongban.im.adapter.TopicListAdapter;
-import com.tongban.im.api.TopicApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.impl.TopicListenerImpl;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;

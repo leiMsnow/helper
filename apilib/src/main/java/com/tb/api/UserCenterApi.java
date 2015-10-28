@@ -1,31 +1,29 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.tb.api.base.ApiCache;
+import com.tb.api.base.BaseApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.model.discover.Theme;
+import com.tb.api.model.group.Group;
+import com.tb.api.model.topic.Comment;
+import com.tb.api.model.topic.Topic;
+import com.tb.api.model.user.AddChildInfo;
+import com.tb.api.model.user.EditUser;
+import com.tb.api.model.user.User;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
-import com.tongban.im.api.base.ApiCache;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.common.ModelToTable;
-import com.tongban.im.db.helper.UserDaoHelper;
-import com.tongban.im.model.user.AddChildInfo;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.user.EditUser;
-import com.tongban.im.model.group.Group;
-import com.tongban.im.model.discover.ProductBook;
-import com.tongban.im.model.discover.Theme;
-import com.tongban.im.model.topic.Topic;
-import com.tongban.im.model.topic.Comment;
-import com.tongban.im.model.user.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -118,7 +116,7 @@ public class UserCenterApi extends BaseApi {
         if (mApi == null) {
             synchronized (UserCenterApi.class) {
                 if (mApi == null) {
-                    mApi = new UserCenterApi(App.getInstance());
+                    mApi = new UserCenterApi(BaseApplication.getInstance());
                 }
             }
         }
@@ -133,7 +131,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchPersonalCenterInfo(final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
 
         simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new IApiCallback() {
             @Override
@@ -168,7 +166,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchUserCenterInfo(String visiterId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("visiter_id", visiterId);
 
         simpleRequest(FETCH_USER_CENTER_INFO, mParams, new IApiCallback() {
@@ -185,8 +183,9 @@ public class UserCenterApi extends BaseApi {
                     ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                             new TypeReference<ApiResult<User>>() {
                             });
-                    // 将用户信息保存到本地数据库
-                    UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(apiResponse.getData()));
+                    // TODO: 10/27/15                      // 将用户信息保存到本地数据库
+
+//                    UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(apiResponse.getData()));
                     BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
                     userCenterEvent.user = (apiResponse.getData());
                     if (callback != null)
@@ -212,7 +211,7 @@ public class UserCenterApi extends BaseApi {
      */
     public void fetchUserDetailInfo(final IApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(USER_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -249,8 +248,8 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", userId);
-        mParams.put("longitude", SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE));
-        mParams.put("latitude", SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE));
+        mParams.put("longitude", SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE));
+        mParams.put("latitude", SPUtils.get(mContext, Constants.LATITUDE, Constants.DEFAULT_DOUBLE));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -294,7 +293,7 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ?
-                SPUtils.get(mContext, Consts.USER_ID, "") : userId);
+                SPUtils.get(mContext, Constants.USER_ID, "") : userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -335,7 +334,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchFansUserList(final int cursor, int pageSize, String userId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("user_id", TextUtils.isEmpty(userId) ?
-                SPUtils.get(mContext, Consts.USER_ID, "") : userId);
+                SPUtils.get(mContext, Constants.USER_ID, "") : userId);
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -376,7 +375,7 @@ public class UserCenterApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
 
         simpleRequest(FETCH_SINGLE_PRODUCT_LIST, mParams, new IApiCallback() {
             @Override
@@ -416,7 +415,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchCollectTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -458,7 +457,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchCollectMultipleTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -500,7 +499,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchReplyTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -541,7 +540,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchLaunchTopicList(final int cursor, int pageSize, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
 
@@ -588,7 +587,7 @@ public class UserCenterApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("be_focused_user_id", focusUserId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
 
 
         simpleRequest(isFocus ? FOCUS_USER : CANCEL_FOCUS_USER, mParams, new IApiCallback() {
@@ -666,7 +665,7 @@ public class UserCenterApi extends BaseApi {
     public void updateUserInfo(final EditUser userInfo, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, "").toString());
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, "").toString());
         if (userInfo.getNick_name() != null) {
             String nickName = userInfo.getNick_name();
 //            try {
@@ -679,7 +678,7 @@ public class UserCenterApi extends BaseApi {
         if (userInfo.getPortrait_url() != null)
             mParams.put("portrait_url", JSON.toJSONString(userInfo.getPortrait_url()));
 
-        SPUtils.put(mContext, Consts.NICK_NAME, userInfo.getNick_name());
+        SPUtils.put(mContext, Constants.NICK_NAME, userInfo.getNick_name());
 
         simpleRequest(USER_UPDATE, mParams, new IApiCallback() {
             @Override

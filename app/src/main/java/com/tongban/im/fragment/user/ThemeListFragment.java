@@ -7,16 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.tb.api.ProductApi;
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
-import com.tongban.im.api.ProductApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

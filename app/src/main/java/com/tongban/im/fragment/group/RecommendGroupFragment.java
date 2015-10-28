@@ -3,17 +3,17 @@ package com.tongban.im.fragment.group;
 import android.os.Bundle;
 import android.view.View;
 
+import com.tb.api.GroupApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
-import com.tongban.im.api.GroupApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.impl.GroupListenerImpl;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;

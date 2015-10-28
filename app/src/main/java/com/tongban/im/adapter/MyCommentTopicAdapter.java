@@ -3,11 +3,11 @@ package com.tongban.im.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.tb.api.model.topic.Comment;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.topic.Comment;
 
 import java.util.List;
 

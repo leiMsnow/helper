@@ -4,18 +4,18 @@ package com.tongban.im.fragment.user;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.topic.Topic;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.adapter.TopicListAdapter;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.Topic;
 
 import java.util.ArrayList;
 import java.util.List;

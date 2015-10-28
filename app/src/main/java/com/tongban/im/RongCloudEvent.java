@@ -6,18 +6,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.view.View;
 
+import com.tb.api.GroupApi;
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.db.helper.UserDaoHelper;
-import com.tongban.im.model.BaseEvent;
 import com.tongban.im.widget.provider.ContactsProvider;
 import com.tongban.im.widget.provider.TopicProvider;
 

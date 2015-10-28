@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.tb.api.model.ImageUrl;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.fragment.PhotoViewFragment;
 import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.ImageUrl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.base.activity.BaseToolBarActivity;
 import com.tongban.corelib.base.api.RequestApiListener;
@@ -12,7 +13,6 @@ import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.utils.EmptyViewUtils;
 
 import io.rong.imkit.RongIM;

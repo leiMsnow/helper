@@ -6,10 +6,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.dd.CircularProgressButton;
+import com.tb.api.AccountApi;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.api.AccountApi;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import butterknife.Bind;

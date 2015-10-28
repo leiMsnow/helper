@@ -4,24 +4,19 @@ package com.tongban.im.fragment.account;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tb.api.AccountApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.api.AccountApi;
 import com.tongban.im.common.VerifyTimerCount;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 

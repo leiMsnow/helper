@@ -1,9 +1,9 @@
 package com.tongban.im.common;
 
+import com.tb.api.model.group.Group;
+import com.tb.api.model.user.User;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
-import com.tongban.im.model.group.Group;
-import com.tongban.im.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

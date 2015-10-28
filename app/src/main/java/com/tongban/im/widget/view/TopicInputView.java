@@ -6,21 +6,19 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tb.api.FileUploadApi;
+import com.tb.api.callback.MultiUploadFileCallback;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.KeyBoardUtils;
-import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.im.R;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.callback.MultiUploadFileCallback;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.model.ImageUrl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 
+import com.tb.api.CommonApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.NetUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.im.R;
 import com.tongban.im.adapter.QuerySuggestionsAdapter;
-import com.tongban.im.api.CommonApi;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
 
 import java.util.List;
 

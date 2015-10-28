@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.tb.api.utils.TransferCenter;
+import com.tb.api.utils.TransferPathPrefix;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.common.TransferCenter;
-import com.tongban.im.common.TransferPathPrefix;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import butterknife.Bind;

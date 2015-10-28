@@ -14,6 +14,7 @@ import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.tb.api.model.group.GroupType;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -22,7 +23,6 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.PoiSearchAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.group.GroupType;
 
 import butterknife.Bind;
 import butterknife.OnItemClick;

@@ -2,10 +2,10 @@ package com.tongban.im.adapter;
 
 import android.content.Context;
 
+import com.tb.api.model.group.GroupType;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.model.group.GroupType;
 
 import java.util.List;
 

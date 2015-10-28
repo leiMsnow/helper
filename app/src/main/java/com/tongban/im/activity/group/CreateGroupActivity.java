@@ -11,22 +11,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.tb.api.FileUploadApi;
+import com.tb.api.GroupApi;
+import com.tb.api.callback.UploadFileCallback;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.group.GroupType;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
-import com.tongban.im.api.FileUploadApi;
-import com.tongban.im.api.GroupApi;
-import com.tongban.im.api.callback.UploadFileCallback;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.group.GroupType;
 import com.tongban.im.utils.LocationUtils;
 import com.tongban.im.widget.view.CameraView;
 

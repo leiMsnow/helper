@@ -3,16 +3,16 @@ package com.tongban.im.activity.user;
 
 import android.net.Uri;
 
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.GroupListAdapter;
-import com.tongban.im.api.UserCenterApi;
 import com.tongban.im.common.Consts;
 import com.tongban.im.impl.GroupListenerImpl;
-import com.tongban.im.model.BaseEvent;
 
 import butterknife.Bind;
 

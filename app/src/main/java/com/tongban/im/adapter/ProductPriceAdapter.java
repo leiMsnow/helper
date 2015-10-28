@@ -1,16 +1,11 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
+import com.tb.api.model.discover.PriceInfo;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.im.R;
-import com.tongban.im.model.discover.PriceInfo;
 
 import java.util.List;
 

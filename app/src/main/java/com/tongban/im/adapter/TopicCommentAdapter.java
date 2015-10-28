@@ -4,15 +4,16 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.topic.Comment;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.Comment;
 
 import java.util.List;
+
 
 /**
  * 话题评论Adapter

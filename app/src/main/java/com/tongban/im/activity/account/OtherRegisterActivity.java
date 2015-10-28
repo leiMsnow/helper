@@ -3,12 +3,12 @@ package com.tongban.im.activity.account;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.tb.api.model.BaseEvent;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.RegisterBaseActivity;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.account.OtherRegisterFragment;
 import com.tongban.im.fragment.account.OtherVerifyCodeFragment;
-import com.tongban.im.model.BaseEvent;
 
 /**
  * 第三方注册

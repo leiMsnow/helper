@@ -4,11 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.tb.api.model.discover.Theme;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
 import com.tongban.corelib.utils.ScreenUtils;
 import com.tongban.im.R;
-import com.tongban.im.model.discover.Theme;
 
 import java.util.List;
 

@@ -4,19 +4,19 @@ package com.tongban.im.fragment.user;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.tb.api.TopicApi;
+import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.topic.Comment;
+import com.tb.api.model.topic.CommentContent;
+import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.KeyBoardUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
-import com.tongban.im.api.TopicApi;
-import com.tongban.im.api.UserCenterApi;
-import com.tongban.im.common.TransferCenter;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.topic.Comment;
-import com.tongban.im.model.topic.CommentContent;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.List;

@@ -1,24 +1,24 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.tb.api.base.ApiCache;
+import com.tb.api.base.BaseApi;
+import com.tb.api.model.BaseEvent;
+import com.tb.api.model.discover.Discover;
+import com.tb.api.model.discover.ProductBook;
+import com.tb.api.model.discover.Theme;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
 import com.tongban.corelib.model.ApiResult;
 import com.tongban.corelib.utils.AppUtils;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
-import com.tongban.im.api.base.ApiCache;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.common.Consts;
-import com.tongban.im.model.BaseEvent;
-import com.tongban.im.model.discover.Discover;
-import com.tongban.im.model.discover.ProductBook;
-import com.tongban.im.model.discover.Theme;
 
 import org.json.JSONObject;
 
@@ -73,7 +73,7 @@ public class ProductApi extends BaseApi {
         if (mApi == null) {
             synchronized (ProductApi.class) {
                 if (mApi == null) {
-                    mApi = new ProductApi(App.getInstance());
+                    mApi = new ProductApi(BaseApplication.getInstance());
                 }
             }
         }
@@ -173,7 +173,7 @@ public class ProductApi extends BaseApi {
     public void fetchThemeInfo(@NonNull String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(FETCH_THEME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -248,7 +248,7 @@ public class ProductApi extends BaseApi {
     public void collectTheme(String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -278,7 +278,7 @@ public class ProductApi extends BaseApi {
     public void noCollectTheme(String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -308,7 +308,7 @@ public class ProductApi extends BaseApi {
     public void fetchProductDetailInfo(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -342,7 +342,7 @@ public class ProductApi extends BaseApi {
     public void collectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -373,7 +373,7 @@ public class ProductApi extends BaseApi {
     public void noCollectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         simpleRequest(NO_COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -407,7 +407,7 @@ public class ProductApi extends BaseApi {
     public void searchTheme(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_THEME, mParams, new IApiCallback() {
@@ -451,7 +451,7 @@ public class ProductApi extends BaseApi {
     public void searchProduct(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Consts.USER_ID, ""));
+        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_PRODUCT, mParams, new IApiCallback() {

@@ -1,4 +1,4 @@
-package com.tongban.im.api;
+package com.tb.api;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,20 +15,20 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
 import com.qiniu.android.storage.Zone;
 import com.qiniu.android.storage.persistent.FileRecorder;
+import com.tb.api.base.BaseApi;
+import com.tb.api.callback.MultiUploadFileCallback;
+import com.tb.api.callback.UploadFileCallback;
+import com.tb.api.callback.UploadVoiceCallback;
+import com.tb.api.model.ImageUrl;
+import com.tb.api.model.QiniuToken;
+import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SDCardUtils;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.im.App;
-import com.tongban.im.api.base.BaseApi;
-import com.tongban.im.api.callback.MultiUploadFileCallback;
-import com.tongban.im.api.callback.UploadFileCallback;
-import com.tongban.im.api.callback.UploadVoiceCallback;
-import com.tongban.im.common.Consts;
-import com.tongban.im.model.ImageUrl;
-import com.tongban.im.model.QiniuToken;
 
 import org.json.JSONObject;
 
@@ -37,10 +37,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * 文件上传到七牛服务器的api
- * Created by Cheney on 15/8/6.
- */
 public class FileUploadApi extends BaseApi {
 
     /**
@@ -49,10 +45,13 @@ public class FileUploadApi extends BaseApi {
     public final static String IMAGE_SIZE_100 = "-100";
     public final static String IMAGE_SIZE_300 = "-300";
     public final static String IMAGE_SIZE_500 = "-500";
-
+    /**
+     * 图片服务器地址前缀
+     */
+    public static final String TONGBAN_UPLOAD_HOST_PREFIX = "http://7xkuqd.com2.z0.glb.qiniucdn.com/";
 
     private static FileUploadApi mApi;
-    private static Context mContext = App.getInstance().getApplicationContext();
+    private static Context mContext = BaseApplication.getInstance().getApplicationContext();
     private static String dirPath = SDCardUtils.getSDCardPath() + "tongban" + File.separator
             + "images" + File.separator + "qiniu" + File.separator + "recorder";
     private static Recorder mRecorder;
@@ -70,7 +69,7 @@ public class FileUploadApi extends BaseApi {
         if (mApi == null) {
             synchronized (FileUploadApi.class) {
                 if (mApi == null) {
-                    mApi = new FileUploadApi(App.getInstance());
+                    mApi = new FileUploadApi(BaseApplication.getInstance());
                     try {
                         mRecorder = new FileRecorder(dirPath);
                     } catch (IOException e) {
@@ -112,7 +111,7 @@ public class FileUploadApi extends BaseApi {
                         new TypeReference<ApiResult<QiniuToken>>() {
                         });
                 QiniuToken token = result.getData();
-                SPUtils.put(mContext, Consts.QINIU_TOKEN, token.getUpload_token());
+                SPUtils.put(mContext, Constants.QINIU_TOKEN, token.getUpload_token());
             }
 
             @Override
@@ -256,9 +255,9 @@ public class FileUploadApi extends BaseApi {
                                 if (!TextUtils.isEmpty(key)) {
                                     responseKey = key;
                                 }
-                                String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
-                                String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
-                                String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                                String min = TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                                String mid = TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
+                                String max = TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                                 ImageUrl url = new ImageUrl(min, mid, max);
                                 resultUrls.add(0, url);
                                 LogUtil.d("resultUrls:", String.valueOf(resultUrls.size()));
@@ -297,7 +296,7 @@ public class FileUploadApi extends BaseApi {
                     if (!TextUtils.isEmpty(key)) {
                         responseKey = key;
                     }
-                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                    String max = TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                     mCallback.uploadSuccess(max);
                 } else {
                     LogUtil.d("uploadFailed:", info.error);
@@ -332,9 +331,9 @@ public class FileUploadApi extends BaseApi {
                     if (!TextUtils.isEmpty(key)) {
                         responseKey = key;
                     }
-                    String min = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
-                    String mid = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
-                    String max = Consts.TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
+                    String min = TONGBAN_UPLOAD_HOST_PREFIX + responseKey + minSize;
+                    String mid = TONGBAN_UPLOAD_HOST_PREFIX + responseKey + midSize;
+                    String max = TONGBAN_UPLOAD_HOST_PREFIX + responseKey;
                     ImageUrl url = new ImageUrl(min, mid, max);
                     mCallback.uploadSuccess(url);
                 } else {
@@ -351,7 +350,7 @@ public class FileUploadApi extends BaseApi {
      * @return
      */
     private String getToken() {
-        String token = (String) SPUtils.get(mContext, Consts.QINIU_TOKEN, "");
+        String token = (String) SPUtils.get(mContext, Constants.QINIU_TOKEN, "");
         if ("".equals(token)) {
             fetchUploadToken();
         }
