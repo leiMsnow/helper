@@ -61,9 +61,10 @@
     <LinearLayout
         android:id="@+id/ll_relationship"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"
+        android:paddingTop="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="32dp"
         android:background="@color/translucent_a10"
         android:orientation="horizontal">
 
