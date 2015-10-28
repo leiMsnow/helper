@@ -6,7 +6,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
     signingConfigs {
-        release{
+        release {
             keyAlias 'tongban.keystore'
             keyPassword 'tongban'
             storeFile file('../tongban.keystore')
@@ -28,14 +28,8 @@ android {
 
     }
 
-    //渠道Flavors
-//    productFlavors{
-//        umeng{}
-//        xiaomi{}
-//        GooglePlay{}
-//    }
     // 执行lint检查，有任何错误或者警告提示都会终止构建
-    lintOptions{
+    lintOptions {
         abortOnError false
     }
 
@@ -66,6 +60,13 @@ android {
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
+    }
+
+//    渠道Flavors
+    productFlavors {
+        umeng {}
+        xiaomi {}
+        GooglePlay {}
     }
 
 
