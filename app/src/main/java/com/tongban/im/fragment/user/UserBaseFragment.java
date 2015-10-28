@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.tb.api.model.user.User;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.SPUtils;
-import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
