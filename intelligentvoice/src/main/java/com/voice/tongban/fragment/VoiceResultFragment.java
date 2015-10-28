@@ -122,6 +122,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
         firstAnswerItem.setFinalType(FinalResult.ANSWER_ERROR);
 
         mAdapter.add(firstAnswerItem);
+        lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }
 
     public void onEventMainThread(Understander understander) {
@@ -230,7 +231,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
             mAdapter.add(answerItem);
 
         }
-
+        lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
