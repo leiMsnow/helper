@@ -9,7 +9,7 @@ import com.tongban.corelib.utils.SPUtils;
  * 基础fragment的api通用类
  * 目前都复用activity中的处理方式
  */
-public abstract class BaseToolbar1Fragment extends BaseApiFragment implements IApiCallback,
+public abstract class BaseToolBarFragment extends BaseApiFragment implements IApiCallback,
         RequestApiListener {
 
     protected String getUserId() {

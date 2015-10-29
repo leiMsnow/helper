@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.tongban.corelib.base.api.RequestApiListener;
-import com.tongban.corelib.base.fragment.BaseToolbar1Fragment;
+import com.tongban.corelib.base.fragment.BaseToolBarFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.im.R;
@@ -20,7 +20,7 @@ import butterknife.Bind;
  * 基础fragment的api通用类
  * 目前都复用activity中的处理方式
  */
-public abstract class AppBaseFragment extends BaseToolbar1Fragment implements
+public abstract class AppBaseFragment extends BaseToolBarFragment implements
         RequestApiListener {
 
 
