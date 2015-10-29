@@ -84,14 +84,15 @@
     </RelativeLayout>
     <!--底部粉丝布局-->
     <LinearLayout
+        android:layout_below="@+id/rl_action_parent"
         android:id="@+id/ll_relationship"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="32dp"
         android:background="@color/translucent_a10"
         android:minHeight="56dp"
-        android:orientation="horizontal"
-        android:paddingTop="56dp">
+        android:orientation="horizontal">
 
         <!-- 粉丝、关注、话题数量布局-->
         <LinearLayout

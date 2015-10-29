@@ -28,16 +28,12 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
     NestedScrollView lvUserCenter;
     @Bind(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-    //    @Bind(R.id.tv_title)
-//    TextView tvUserName;
-//    @Bind(R.id.iv_close)
-//    ImageView ivClose;
     //headerView
     @Bind(R.id.iv_user_portrait)
     FloatingActionButton ivUserPortrait;
 
-    @Bind(R.id.rl_action_parent)
-    RelativeLayout rlActionParent;
+//    @Bind(R.id.rl_action_parent)
+//    RelativeLayout rlActionParent;
     @Bind(R.id.tv_follow_num)
     protected TextView tvFollowCount;
     @Bind(R.id.rl_follow_num)
@@ -59,18 +55,8 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
     protected TextView tvMyCollect;
     @Bind(R.id.tv_settings)
     protected TextView tvSettings;
-    @Bind(R.id.iv_focus)
-    protected Button ivFocus;
-    @Bind(R.id.iv_cancel_focus)
-    protected Button ivCancelFocus;
-    @Bind(R.id.iv_private_chat)
-    protected Button ivPrivateChat;
 
-    //zoomView
-//    @Bind(R.id.iv_zoom_top)
-    ImageView ivZoomTop;
 
-    private UserInfoAdapter mAdapter;
 
     protected View headView, zoomView, contentView;
 
@@ -97,12 +83,7 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
 
     }
 
-    //    @OnClick({R.id.iv_close})
     public void onClick(View v) {
-        //关闭个人中心
-//        if (v == ivClose) {
-//            getActivity().finish();
-//        }
         //跳转到粉丝界面
         if (v == rlFansNum) {
             TransferCenter.getInstance().startRelationship(Consts.TAG_FANS,

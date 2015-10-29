@@ -1,7 +1,6 @@
 package com.tongban.im.fragment.user;
 
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.tb.api.UserCenterApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.User;
-import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.AnimatorUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ScreenUtils;
@@ -27,13 +25,11 @@ import com.tongban.corelib.widget.view.ptz.PullToZoomBase;
 import com.tongban.corelib.widget.view.ptz.PullToZoomScrollViewEx;
 import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
-import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
 
@@ -46,52 +42,26 @@ public class UserCardFragment extends BaseToolBarFragment implements View.OnClic
 
     @Bind(R.id.sv_user_center)
     PullToZoomScrollViewEx lvUserCenter;
-//    @Bind(R.id.collapsing_toolbar_layout)
 
     @Bind(R.id.tv_title)
     TextView tvUserName;
-    //    @Bind(R.id.iv_close)
-//    ImageView ivClose;
     //headerView
-    @Bind(R.id.iv_user_portrait)
     CircleImageView ivUserPortrait;
-    //    @Bind(R.id.vp_container)
     ViewPager vpChildInfo;
-    //    @Bind(R.id.lpi_indicator)
     CirclePageIndicator indicator;
-
-    //    @Bind(R.id.rl_action_parent)
     RelativeLayout rlActionParent;
-    //    @Bind(R.id.tv_follow_num)
     protected TextView tvFollowCount;
-    //    @Bind(R.id.rl_follow_num)
     LinearLayout rlFollowNum;
-    //    @Bind(R.id.tv_fans_num)
     TextView tvFansCount;
-    //    @Bind(R.id.rl_fans_num)
     LinearLayout rlFansNum;
-    //    @Bind(R.id.tv_group_num)
     TextView tvGroupCount;
-    //    @Bind(R.id.rl_group_num)
     LinearLayout rlGroupNum;
-    //    @Bind(R.id.ll_relationship)
     LinearLayout vHeaderBottom;
-    // contentView
-//    @Bind(R.id.tv_my_topic)
-//    protected TextView tvMyTopic;
-//        @Bind(R.id.tv_my_collect)
-//    protected TextView tvMyCollect;
-    //    @Bind(R.id.tv_settings)
-//    protected TextView tvSettings;
-    //    @Bind(R.id.iv_focus)
     protected Button ivFocus;
-    //    @Bind(R.id.iv_cancel_focus)
     protected Button ivCancelFocus;
-    //    @Bind(R.id.iv_private_chat)
     protected Button ivPrivateChat;
 
     //zoomView
-//    @Bind(R.id.iv_zoom_top)
     ImageView ivZoomTop;
 
     private UserInfoAdapter mAdapter;
@@ -199,34 +169,6 @@ public class UserCardFragment extends BaseToolBarFragment implements View.OnClic
 
     }
 
-//    //    @OnClick({R.id.iv_close})
-//    public void onClick(View v) {
-//        //关闭个人中心
-////        if (v == ivClose) {
-////            getActivity().finish();
-////        }
-//        //跳转到粉丝界面
-//        if (v == rlFansNum) {
-//            TransferCenter.getInstance().startRelationship(Consts.TAG_FANS,
-//                    mUserInfo.getUser_id());
-//        }
-//        //跳转到关注列表界面
-//        else if (v == rlFollowNum) {
-//            TransferCenter.getInstance().startRelationship(Consts.TAG_FOLLOW,
-//                    mUserInfo.getUser_id());
-//        }
-//        //我的圈子
-//        else if (v == rlGroupNum) {
-//            TransferCenter.getInstance().startMyGroupList(mUserInfo.getUser_id());
-//        }
-//        //跳转到个人资料页
-//        else if (v == ivUserPortrait) {
-//            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserInfo.getUser_id()))
-//                mContext.startActivity(new Intent(mContext, MyInfoActivity.class));
-//        }
-//
-//    }
-
     protected void setDataInfo(User user) {
         mUserInfo = user;
 
@@ -235,7 +177,7 @@ public class UserCardFragment extends BaseToolBarFragment implements View.OnClic
         rlGroupNum.setEnabled(true);
 
         if (!TextUtils.isEmpty(mUserInfo.getNick_name())) {
-//            tvUserName.setText(mUserInfo.getNick_name());
+            tvUserName.setText(mUserInfo.getNick_name());
         }
 
         if (mUserInfo.getPortraitUrl() != null) {
@@ -256,24 +198,7 @@ public class UserCardFragment extends BaseToolBarFragment implements View.OnClic
         tvFollowCount.setText(String.valueOf(mUserInfo.getFocused_amount()));
         tvGroupCount.setText(mUserInfo.getGroupAmount());
     }
-//    @Override
-//    protected int getLayoutRes() {
-//        return R.layout.fragment_personal_center;
-//    }
 
-//    @Override
-//    protected void initData() {
-//        if (getActivity().getIntent() != null) {
-//            Uri uri = getActivity().getIntent().getData();
-//            String visitorId = uri.getQueryParameter("visitorId");
-//            UserCenterApi.getInstance().fetchUserCenterInfo(visitorId, this);
-//        }
-//
-//
-//        ivFocus.setOnClickListener(this);
-//        ivCancelFocus.setOnClickListener(this);
-//        ivPrivateChat.setOnClickListener(this);
-//    }
 
     @Override
     public void onPause() {
