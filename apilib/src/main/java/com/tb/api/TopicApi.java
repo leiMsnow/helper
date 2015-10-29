@@ -102,7 +102,7 @@ public class TopicApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("topic_title", title);
         mParams.put("topic_content", JSON.toJSONString(content));
         mParams.put("topic_type_list", TopicType.PRIVATE);
@@ -143,7 +143,7 @@ public class TopicApi extends BaseApi {
      */
     public void recommendTopicList(final int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, "123"));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
         // 类型为官方话题和个人发表的话题
@@ -194,7 +194,7 @@ public class TopicApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 1 ? 10 : pageSize);
         // 类型为官方话题和个人发表的话题
@@ -241,7 +241,7 @@ public class TopicApi extends BaseApi {
     public void getTopicInfo(String topicId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("topic_id", topicId);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
 
         simpleRequest(TOPIC_INFO, mParams, new IApiCallback() {
             @Override
@@ -377,7 +377,7 @@ public class TopicApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("nick_name", SPUtils.get(mContext, Constants.NICK_NAME, ""));
         mParams.put("topic_id", topicId);
         mParams.put("comment_content", JSON.toJSONString(commentContent));
@@ -429,7 +429,7 @@ public class TopicApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("topic_id", topicId);
 
         simpleRequest(collect ? COLLECT_CREATE : NO_COLLECT_CREATE, mParams, new IApiCallback() {

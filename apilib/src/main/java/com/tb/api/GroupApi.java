@@ -107,7 +107,7 @@ public class GroupApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("group_name", groupName);
         //(默认0，1：学校)
         mParams.put("address_type", getTypeStr(groupType == GroupType.CLASSMATE));
@@ -175,7 +175,7 @@ public class GroupApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("group_id", groupId);
         mParams.put("group_name", groupName);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("group_owner_id", masterId);
 
         simpleRequest(JOIN_GROUP, mParams, new IApiCallback() {
@@ -219,7 +219,7 @@ public class GroupApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("longitude", SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE));
         mParams.put("latitude", SPUtils.get(mContext, Constants.LATITUDE, Constants.DEFAULT_DOUBLE));
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
 
@@ -270,7 +270,7 @@ public class GroupApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize);
         mParams.put("longitude", SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE));
@@ -315,7 +315,7 @@ public class GroupApi extends BaseApi {
     public void getGroupInfo(String groupId, final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("group_id", groupId);
 
         simpleRequest(GROUP_INFO, mParams, new IApiCallback() {
@@ -399,7 +399,7 @@ public class GroupApi extends BaseApi {
             return;
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("group_id", groupId);
 
         simpleRequest(USER_QUIT_GROUP, mParams, new IApiCallback() {

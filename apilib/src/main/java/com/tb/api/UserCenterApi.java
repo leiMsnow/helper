@@ -131,7 +131,7 @@ public class UserCenterApi extends BaseApi {
     public void fetchPersonalCenterInfo(final IApiCallback callback) {
 
         mParams = new HashMap<>();
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+                mParams.put("user_id", getUserId());
 
         simpleRequest(FETCH_PERSONAL_CENTER_INFO, mParams, new IApiCallback() {
             @Override

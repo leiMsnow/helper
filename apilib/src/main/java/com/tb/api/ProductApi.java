@@ -278,7 +278,7 @@ public class ProductApi extends BaseApi {
     public void noCollectTheme(String themeId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("theme_id", themeId);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         simpleRequest(NO_COLLECT_MULTI_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -308,7 +308,7 @@ public class ProductApi extends BaseApi {
     public void fetchProductDetailInfo(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         simpleRequest(FETCH_PRODUCT_DETAIL_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -342,7 +342,7 @@ public class ProductApi extends BaseApi {
     public void collectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         simpleRequest(COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -373,7 +373,7 @@ public class ProductApi extends BaseApi {
     public void noCollectProduct(String productId, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("product_id", productId);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         simpleRequest(NO_COLLECT_PRODUCT, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
@@ -407,7 +407,7 @@ public class ProductApi extends BaseApi {
     public void searchTheme(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_THEME, mParams, new IApiCallback() {
@@ -451,7 +451,7 @@ public class ProductApi extends BaseApi {
     public void searchProduct(String keyword, int cursor, int pageSize, final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("keyword", keyword);
-        mParams.put("user_id", SPUtils.get(mContext, Constants.USER_ID, ""));
+        mParams.put("user_id", getUserId());
         mParams.put("cursor", cursor < 0 ? 0 : cursor);
         mParams.put("page_size", pageSize < 0 ? 10 : pageSize);
         simpleRequest(SEARCH_PRODUCT, mParams, new IApiCallback() {

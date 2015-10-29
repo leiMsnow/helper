@@ -103,6 +103,10 @@ public class BaseApi {
         return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
+    protected String getUserId(){
+        return SPUtils.get(mContext, Constants.USER_ID, "android_visit").toString();
+    }
+
     /**
      * 切换服务器地址
      *
@@ -159,7 +163,7 @@ public class BaseApi {
         if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
             apiUrl = getRequestUrl(apiUrl);
         }
-        final String requestUrl = apiUrl;
+        final String requestUrl = apiUrl+"?t="+System.currentTimeMillis();
         //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
         final boolean disableCache = ApiCache.getInstance().isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
