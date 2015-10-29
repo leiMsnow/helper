@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_toLeftOf="@+id/tv_collect_count"
-        android:padding="12dp" />
+        android:padding="16dp" />
 
     <!-- 同问人数-->
     <TextView

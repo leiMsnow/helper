@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.tongban.corelib.widget.view.CircleImageView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/MainImagePortrait"
-    android:layout_width="32dp"
-    android:layout_height="32dp"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
     android:layout_marginRight="8dp"/>
 
