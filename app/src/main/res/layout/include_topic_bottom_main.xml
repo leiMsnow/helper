@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/transparent">
+
+    <View style="@style/HorizontalLine" />
+
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_portrait_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_toLeftOf="@+id/tv_collect_count"
+        android:padding="12dp" />
+
+    <!-- 同问人数-->
+    <TextView
+        android:id="@+id/tv_collect_count"
+        style="@style/MainContent.Tips"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="0人同问" />
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_height="8dp"
+        android:layout_alignParentBottom="true" />
+
+
+</RelativeLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/selector_item_list_grey"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
@@ -10,6 +10,6 @@
 
     <include layout="@layout/include_topic_content_main" />
 
-    <include layout="@layout/include_bottom_collect_comment" />
+    <include layout="@layout/include_topic_bottom_main" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.tongban.im.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.tb.api.model.topic.Topic;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 
@@ -23,7 +26,6 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     private View.OnClickListener onClickListener;
 
-    private int[] images = new int[]{R.id.iv_small_img_1, R.id.iv_small_img_2, R.id.iv_small_img_3};
 
     public TopicListAdapter(Context context, int layoutResId, List data) {
         super(context, layoutResId, data);
@@ -35,11 +37,7 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
     @Override
     protected void convert(BaseAdapterHelper helper, Topic item) {
-        if (helper.getPosition() % 2 == 0) {
-            helper.getConvertView().setBackgroundResource(R.drawable.selector_item_list_white);
-        } else {
-            helper.getConvertView().setBackgroundResource(R.drawable.selector_item_list_grey);
-        }
+
         if (item.getUser_info() != null) {
             //用户信息
             if (item.getUser_info().getPortraitUrl() != null) {
@@ -53,51 +51,48 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
             }
 
             helper.setText(R.id.tv_user_name, item.getUser_info().getNick_name());
+            //头像点击
             helper.setTag(R.id.iv_user_portrait, Integer.MAX_VALUE, item.getUser_info().getUser_id());
             helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
         }
         helper.setText(R.id.tv_create_time, item.getC_time(mContext));
         helper.setText(R.id.tv_topic_title, item.getTopic_title());
 
+        Drawable iconType = mContext.getResources().getDrawable(com.voice.tongban.R.color.transparent);
+
         if (item.getTopicContent() != null) {
-            // 语音内容
-            if (!TextUtils.isEmpty(item.getTopicContent().getTopic_content_voice())) {
-                helper.setVisible(R.id.iv_topic_voice, View.VISIBLE);
-            } else {
-                helper.setVisible(R.id.iv_topic_voice, View.GONE);
+            if (item.getTopicContent().getTopic_img_url() != null
+                    && item.getTopicContent().getTopic_content_voice() != null) {
+                iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_voice_pic);
+
+            } else if (item.getTopicContent().getTopic_img_url() != null) {
+                iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_pic);
+
+            } else if (item.getTopicContent().getTopic_content_voice() != null) {
+                iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_voice);
+
             }
-            // 文本内容
-            helper.setText(R.id.tv_topic_content, item.getTopicContent().getTopic_content_text());
-            if (item.getContentType() == Topic.IMAGE) {
-                setImagesVisibleAndUrl(helper, item);
-                helper.setVisible(R.id.ll_small_img_parent, View.VISIBLE);
-            } else {
-                helper.setVisible(R.id.ll_small_img_parent, View.GONE);
-            }
+            iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
+            ((TextView) helper.getView(com.voice.tongban.R.id.tv_topic_title))
+                    .setCompoundDrawables(null, null, iconType, null);
         }
+
         //回复、收藏、地址
-        helper.setText(R.id.tv_comment_count, String.valueOf(item.getComment_amount()));
-        helper.setText(R.id.tv_collect_count, String.valueOf(item.getCollect_amount()));
-
+        helper.setText(R.id.tv_comment_count, item.getComment_amount() + "人回答");
+        helper.setText(R.id.tv_collect_count, item.getCollect_amount()+ "人同问");
+        setUserPortrait(helper, item);
     }
 
-    //设置图片的显示/隐藏和src
-    private void setImagesVisibleAndUrl(final BaseAdapterHelper helper, final Topic item) {
-        if (item.getTopicContent() != null) {
-            int count = item.getTopicContent().getTopic_img_url().size() > 3 ? 3
-                    : item.getTopicContent().getTopic_img_url().size();
-            for (int i = 0; i < images.length; i++) {
-                helper.setVisible(images[i], View.INVISIBLE);
-                if (i < count) {
-                    helper.setVisible(images[i], View.VISIBLE);
-                    helper.setImageBitmap(images[i],
-                            item.getTopicContent().getTopic_img_url()
-                                    .get(i).getMin(), R.mipmap.ic_default_image);
-                    helper.setTag(images[i], Integer.MAX_VALUE,
-                            item.getTopicContent().getTopic_img_url());
-                    helper.setOnClickListener(images[i], onClickListener);
-                }
-            }
+    private void setUserPortrait(BaseAdapterHelper helper, Topic item) {
+        ((FlowLayout) helper.getView(R.id.fl_portrait_container)).setIsSingleLine(true);
+        ((FlowLayout) helper.getView(R.id.fl_portrait_container)).removeAllViews();
+        for (int i = 0; i < 10; i++) {
+            ImageView tv = (ImageView) LayoutInflater.from(mContext)
+                    .inflate(R.layout.include_user_portrait
+                            , ((FlowLayout) helper.getView(R.id.fl_portrait_container)), false);
+            tv.setImageResource(Consts.getUserDefaultPortrait());
+            ((FlowLayout) helper.getView(R.id.fl_portrait_container)).addView(tv);
         }
     }
+
 }

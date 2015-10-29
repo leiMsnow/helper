@@ -2,30 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:background="@color/transparent">
     <!-- 头像-->
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
         style="@style/MainImagePortrait"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp" />
-    <!-- 用户昵称-->
-    <TextView
-        android:id="@+id/tv_user_name"
-        style="@style/MainTitle.User"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="4dp"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_user_portrait"
+        android:layout_alignTop="@+id/iv_user_portrait"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/tv_create_time"
+        android:gravity="center_vertical"
+        android:layout_toLeftOf="@+id/tv_integral"
         android:layout_toRightOf="@+id/iv_user_portrait"
-        android:singleLine="true" />
-    <!-- 时间-->
+        android:orientation="vertical">
+        <!-- 用户昵称-->
+        <TextView
+            android:id="@+id/tv_user_name"
+            style="@style/MainTitle.User"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="name" />
+        <!-- 时间-->
+        <TextView
+            android:id="@+id/tv_create_time"
+            style="@style/MainContent.Tips"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/ic_time"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="time" />
+    </LinearLayout>
+
+    <!-- 积分-->
     <TextView
-        android:id="@+id/tv_create_time"
-        style="@style/MainContent.Tips"
+        android:id="@+id/tv_integral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_integral_bg"
+        android:drawablePadding="2dp"
+        android:drawableRight="@mipmap/ic_integral"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="4dp"
+        android:text="500"
+        android:textColor="@color/white" />
 </RelativeLayout>

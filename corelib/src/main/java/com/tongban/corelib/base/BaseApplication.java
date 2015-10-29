@@ -21,8 +21,8 @@ public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
-//        if (isSaveCrash())
-        MCrashHandler.getInstance().init(this);
+        if (isSaveCrash())
+            MCrashHandler.getInstance().init(this);
         super.onCreate();
         mApp = this;
 //        refWatcher = LeakCanary.install(this);
