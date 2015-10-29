@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tb.api.model.topic.Topic;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -79,18 +80,33 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, item.getComment_amount() + "人回答");
-        helper.setText(R.id.tv_collect_count, item.getCollect_amount()+ "人同问");
+        helper.setText(R.id.tv_collect_count, item.getCollect_amount() + "人同问");
         setUserPortrait(helper, item);
     }
 
     private void setUserPortrait(BaseAdapterHelper helper, Topic item) {
+
+        String[] userPortrait = new String[]{
+                "http://img0.imgtn.bdimg.com/it/u=3069927012,2522642890&fm=23&gp=0.jpg",
+                "http://img4.imgtn.bdimg.com/it/u=2065565183,3137255907&fm=23&gp=0.jpg",
+                "http://img2.imgtn.bdimg.com/it/u=810719682,2467839254&fm=23&gp=0.jpg",
+                "http://img3.imgtn.bdimg.com/it/u=396080164,3772108535&fm=23&gp=0.jpg",
+                "http://img3.imgtn.bdimg.com/it/u=3559158573,1397744140&fm=23&gp=0.jpg",
+                "http://img0.imgtn.bdimg.com/it/u=2623718032,2785881774&fm=23&gp=0.jpg",
+                "http://img2.imgtn.bdimg.com/it/u=3393933311,3706599955&fm=23&gp=0.jpg",
+                "http://img0.imgtn.bdimg.com/it/u=4007298296,186568072&fm=23&gp=0.jpg",
+                "http://img3.imgtn.bdimg.com/it/u=3228140756,1828024847&fm=23&gp=0.jpg"
+        };
         ((FlowLayout) helper.getView(R.id.fl_portrait_container)).setIsSingleLine(true);
         ((FlowLayout) helper.getView(R.id.fl_portrait_container)).removeAllViews();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < userPortrait.length; i++) {
             ImageView tv = (ImageView) LayoutInflater.from(mContext)
                     .inflate(R.layout.include_user_portrait
                             , ((FlowLayout) helper.getView(R.id.fl_portrait_container)), false);
-            tv.setImageResource(Consts.getUserDefaultPortrait());
+            Glide.with(mContext)
+                    .load(userPortrait[i])
+                    .placeholder(Consts.getUserDefaultPortrait())
+                    .into(tv);
             ((FlowLayout) helper.getView(R.id.fl_portrait_container)).addView(tv);
         }
     }
