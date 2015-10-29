@@ -22,7 +22,7 @@ public class IntelligentMainActivity extends BaseToolBarActivity {
 
     @Override
     protected void initData() {
-        setTitle("语音搜索");
+        setTitle("语音助手");
         if (getIntent() != null)
             isResult = getIntent().getBooleanExtra("result", false);
         inputFragment = VoiceInputFragment.getInstance();

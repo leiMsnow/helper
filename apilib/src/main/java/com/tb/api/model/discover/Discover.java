@@ -26,6 +26,16 @@ public class Discover {
 
     private int[] collect_amount;
 
+    private List<Discover> content;
+
+    public List<Discover> getContent() {
+        return content;
+    }
+
+    public void setContent(List<Discover> content) {
+        this.content = content;
+    }
+
     public void setCollect_amount(int[] collect_amount) {
         this.collect_amount = collect_amount;
     }

@@ -100,10 +100,10 @@ public class ProductApi extends BaseApi {
             public void onComplete(Object obj) {
                 try {
 
-                    ApiResult<List<Discover>> result = JSON.parseObject(obj.toString(),
-                            new TypeReference<ApiResult<List<Discover>>>() {
+                    ApiResult<Discover> result = JSON.parseObject(obj.toString(),
+                            new TypeReference<ApiResult<Discover>>() {
                             });
-                    List<Discover> discoverList = result.getData();
+                    List<Discover> discoverList = result.getData().getContent();
                     if (discoverList != null && discoverList.size() > 0) {
                         BaseEvent.FetchHomeInfo homeInfo = new BaseEvent.FetchHomeInfo();
                         homeInfo.list = (discoverList);

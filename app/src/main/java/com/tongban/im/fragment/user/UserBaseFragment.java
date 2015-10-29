@@ -1,11 +1,15 @@
 package com.tongban.im.fragment.user;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +22,7 @@ import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class UserBaseFragment extends AppBaseFragment implements View.OnClickListener {
     @Bind(R.id.sv_user_center)
@@ -28,7 +33,7 @@ public class UserBaseFragment extends AppBaseFragment implements View.OnClickLis
     @Bind(R.id.iv_user_portrait)
     FloatingActionButton ivUserPortrait;
 
-//    @Bind(R.id.rl_action_parent)
+    //    @Bind(R.id.rl_action_parent)
 //    RelativeLayout rlActionParent;
     @Bind(R.id.tv_follow_num)
     protected TextView tvFollowCount;
@@ -53,10 +58,11 @@ public class UserBaseFragment extends AppBaseFragment implements View.OnClickLis
     protected TextView tvSettings;
 
 
-
     protected View headView, zoomView, contentView;
 
     protected User mUserInfo = new User();
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     private float alphaValue = 1.0f;
 
@@ -67,6 +73,7 @@ public class UserBaseFragment extends AppBaseFragment implements View.OnClickLis
 
     @Override
     protected void initData() {
+
         rlFansNum.setEnabled(false);
         rlFollowNum.setEnabled(false);
         rlGroupNum.setEnabled(false);
@@ -126,4 +133,5 @@ public class UserBaseFragment extends AppBaseFragment implements View.OnClickLis
         tvFollowCount.setText(String.valueOf(mUserInfo.getFocused_amount()));
         tvGroupCount.setText(mUserInfo.getGroupAmount());
     }
+
 }
