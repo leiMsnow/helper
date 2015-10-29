@@ -50,6 +50,8 @@ public class TopicFragment extends AppBaseFragment implements
     LoadMoreListView lvTopicList;
     @Bind(R.id.fragment_ptr_home_ptr_frame)
     PtrFrameLayout ptrFrameLayout;
+    @Bind(R.id.tv_create_topic)
+    TextView tvCreateTopic;
 
     private TopicListAdapter mAdapter;
 
@@ -68,8 +70,9 @@ public class TopicFragment extends AppBaseFragment implements
     protected void initData() {
         tvTitle.setText(getResources().getString(R.string.topic));
         tvTitle.setVisibility(View.VISIBLE);
-        ibSearch.setVisibility(View.VISIBLE);
-        ibCreate.setVisibility(View.VISIBLE);
+//        ibSearch.setVisibility(View.VISIBLE);
+//        ibCreate.setVisibility(View.VISIBLE);
+        tvCreateTopic.setVisibility(View.VISIBLE);
 
         mAdapter = new TopicListAdapter(mContext, R.layout.item_topic_list_main, null);
         mAdapter.setOnClickListener(new TopicListenerImpl(mContext));
@@ -92,11 +95,11 @@ public class TopicFragment extends AppBaseFragment implements
 
     }
 
-    @OnClick({R.id.ib_search, R.id.ib_create})
+    @OnClick({R.id.ib_search, R.id.ib_create,R.id.tv_create_topic})
     public void onClick(View v) {
         if (v == ibSearch) {
             TransferCenter.getInstance().startSearch(TransferPathPrefix.SEARCH_TOPIC, null);
-        } else if (v == ibCreate) {
+        } else if (v == tvCreateTopic) {
             if (!TransferCenter.getInstance().startLogin())
                 return;
             Intent intent = new Intent(mContext, CreateTopicActivity.class);

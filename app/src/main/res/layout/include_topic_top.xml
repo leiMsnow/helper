@@ -7,8 +7,6 @@
     <com.tongban.corelib.widget.view.CircleImageView
         android:id="@+id/iv_user_portrait"
         style="@style/MainImagePortrait"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
