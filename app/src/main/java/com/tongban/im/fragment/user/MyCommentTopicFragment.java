@@ -16,7 +16,7 @@ import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.MyCommentTopicAdapter;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 import com.tongban.im.widget.view.TopicInputView;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import butterknife.OnItemClick;
  *
  * @author fushudi
  */
-public class MyCommentTopicFragment extends BaseToolBarFragment implements
+public class MyCommentTopicFragment extends AppBaseFragment implements
         OnLoadMoreListener
         , TopicInputView.IOnClickCommentListener
         , TopicInputView.IKeyboardListener

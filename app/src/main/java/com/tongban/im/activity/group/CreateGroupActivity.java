@@ -20,6 +20,7 @@ import com.tb.api.callback.UploadFileCallback;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.ImageUrl;
 import com.tb.api.model.group.GroupType;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.CircleImageView;
@@ -210,8 +211,8 @@ public class CreateGroupActivity extends CommonImageResultActivity implements
             return;
         }
         if (requestCode == SELECT_LOCATION) {
-            longitude = data.getDoubleExtra(Consts.LONGITUDE, Consts.DEFAULT_DOUBLE);
-            latitude = data.getDoubleExtra(Consts.LATITUDE, Consts.DEFAULT_DOUBLE);
+            longitude = data.getDoubleExtra(Constants.LONGITUDE, Constants.DEFAULT_DOUBLE);
+            latitude = data.getDoubleExtra(Constants.LATITUDE, Constants.DEFAULT_DOUBLE);
             address = data.getStringExtra(Consts.KEY_SELECTED_POI_NAME);
             tvLocation.setText(address);
 
@@ -278,12 +279,12 @@ public class CreateGroupActivity extends CommonImageResultActivity implements
     }
 
     public void onEventMainThread(BDLocation obj) {
-        longitude = (Double) SPUtils.get(mContext, Consts.LONGITUDE, Consts.DEFAULT_DOUBLE);
-        latitude = (Double) SPUtils.get(mContext, Consts.LATITUDE, Consts.DEFAULT_DOUBLE);
-        province = (String) SPUtils.get(mContext, Consts.PROVINCE, "");
-        city = (String) SPUtils.get(mContext, Consts.CITY, "");
-        county = (String) SPUtils.get(mContext, Consts.COUNTY, "");
-        address = (String) SPUtils.get(mContext, Consts.ADDRESS, "");
+        longitude = (Double) SPUtils.get(mContext, Constants.LONGITUDE, Constants.DEFAULT_DOUBLE);
+        latitude = (Double) SPUtils.get(mContext, Constants.LATITUDE, Constants.DEFAULT_DOUBLE);
+        province = (String) SPUtils.get(mContext, Constants.PROVINCE, "");
+        city = (String) SPUtils.get(mContext, Constants.CITY, "");
+        county = (String) SPUtils.get(mContext, Constants.COUNTY, "");
+        address = (String) SPUtils.get(mContext, Constants.ADDRESS, "");
         setLocationInfo();
     }
 

@@ -12,13 +12,15 @@ import com.dd.CircularProgressButton;
 import com.tb.api.AccountApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.OtherRegister;
+import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
 import com.tongban.im.common.VerifyTimerCount;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -26,7 +28,7 @@ import butterknife.OnTextChanged;
 /**
  * 第三方注册第二步
  */
-public class OtherVerifyCodeFragment extends BaseToolBarFragment {
+public class OtherVerifyCodeFragment extends AppBaseFragment {
 
     @Bind(R.id.et_verify_code)
     ClearEditText etVerifyCode;
@@ -52,14 +54,14 @@ public class OtherVerifyCodeFragment extends BaseToolBarFragment {
     @Override
     protected void initData() {
         if (getArguments() != null) {
-            mPhoneNum = getArguments().getString(Consts.USER_ACCOUNT);
+            mPhoneNum = getArguments().getString(Constants.USER_ACCOUNT);
             //获取验证码
             if (!TextUtils.isEmpty(mPhoneNum)) {
                 AccountApi.getInstance().getSMSCode(mPhoneNum, this);
             }
-            String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            String mOtherInfo = getArguments().getString(ApiConstants.OTHER_REGISTER_INFO);
             if (!TextUtils.isEmpty(mOtherInfo)) {
-                String  mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                String  mOtherType = getArguments().getString(ApiConstants.OTHER_REGISTER_TYPE);
                 otherRegister = JSON.parseObject(mOtherInfo,
                         new TypeReference<OtherRegister>() {
                         });

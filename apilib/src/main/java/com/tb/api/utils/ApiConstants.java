@@ -1,11 +1,9 @@
 package com.tb.api.utils;
 
-import com.tongban.corelib.utils.Constants;
-
 /**
  * Created by zhangleilei on 10/27/15.
  */
-public class TransferConstants extends Constants{
+public class ApiConstants {
 
     /**
      * 专题id

@@ -105,8 +105,7 @@ public class UpdatePersonalInfoActivity extends AppBaseActivity {
                     childInfo.setSex(mChildSex);
                     List<AddChildInfo> children = new ArrayList<>();
                     children.add(childInfo);
-                    UserCenterApi.getInstance().setChildInfo(SPUtils.get(mContext, Consts.USER_ID, "")
-                            .toString(), children, null);
+                    UserCenterApi.getInstance().setChildInfo(getUserId(), children, null);
                     finish();
                 }
             }

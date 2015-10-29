@@ -15,11 +15,11 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 
-public class UserBaseFragment extends BaseToolBarFragment implements View.OnClickListener {
+public class UserBaseFragment extends AppBaseFragment implements View.OnClickListener {
     @Bind(R.id.sv_user_center)
     NestedScrollView lvUserCenter;
     @Bind(R.id.collapsing_toolbar_layout)
@@ -96,7 +96,7 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
         }
         //跳转到个人资料页
         else if (v == ivUserPortrait) {
-            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserInfo.getUser_id()))
+            if (getUserId().equals(mUserInfo.getUser_id()))
                 mContext.startActivity(new Intent(mContext, MyInfoActivity.class));
         }
 

@@ -8,6 +8,7 @@ import com.tb.api.model.ImageUrl;
 import com.tb.api.model.topic.Comment;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.QuickAdapter;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.common.Consts;
@@ -66,7 +67,7 @@ public class TopicCommentAdapter extends QuickAdapter<Comment> {
             helper.setOnClickListener(R.id.iv_user_portrait, onClickListener);
 
             //是自己就不显示回复
-            if (SPUtils.get(mContext, Consts.USER_ID, "").toString().equals(
+            if (SPUtils.get(mContext, Constants.USER_ID, "").toString().equals(
                     item.getUser_info().getUser_id())) {
                 helper.setVisible(R.id.rl_comment_parent, View.GONE);
             } else {

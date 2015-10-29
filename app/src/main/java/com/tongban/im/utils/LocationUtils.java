@@ -7,6 +7,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.common.Consts;
 
@@ -92,15 +93,15 @@ public class LocationUtils {
             }
             //获取不到经纬度，将值设置为-1
             if (longitude == Double.MIN_VALUE || latitude == Double.MIN_VALUE) {
-                latitude = Consts.DEFAULT_DOUBLE;
-                longitude = Consts.DEFAULT_DOUBLE;
+                latitude = Constants.DEFAULT_DOUBLE;
+                longitude = Constants.DEFAULT_DOUBLE;
             }
-            SPUtils.put(mContext, Consts.LATITUDE, latitude);
-            SPUtils.put(mContext, Consts.LONGITUDE, longitude);
-            SPUtils.put(mContext, Consts.PROVINCE, province);
-            SPUtils.put(mContext, Consts.CITY, city);
-            SPUtils.put(mContext, Consts.COUNTY, county);
-            SPUtils.put(mContext, Consts.ADDRESS, address);
+            SPUtils.put(mContext, Constants.LATITUDE, latitude);
+            SPUtils.put(mContext, Constants.LONGITUDE, longitude);
+            SPUtils.put(mContext, Constants.PROVINCE, province);
+            SPUtils.put(mContext, Constants.CITY, city);
+            SPUtils.put(mContext, Constants.COUNTY, county);
+            SPUtils.put(mContext, Constants.ADDRESS, address);
 
             EventBus.getDefault().post(dbLocation);
         }

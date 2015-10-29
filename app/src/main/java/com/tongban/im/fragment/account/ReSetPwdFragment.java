@@ -14,7 +14,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.common.VerifyTimerCount;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -25,7 +25,7 @@ import butterknife.OnTextChanged;
  *
  * @author fushudi
  */
-public class ReSetPwdFragment extends BaseToolBarFragment {
+public class ReSetPwdFragment extends AppBaseFragment {
 
     @Bind(R.id.tv_phone_num)
     TextView tvPhoneNum;

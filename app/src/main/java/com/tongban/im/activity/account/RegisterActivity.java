@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.tb.api.FileUploadApi;
+import com.tb.api.utils.ApiConstants;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.RegisterBaseActivity;
 import com.tongban.im.common.Consts;
@@ -41,7 +43,7 @@ public class RegisterActivity extends RegisterBaseActivity {
     protected void initData() {
         if (getIntent().getExtras() != null) {
             bundle = getIntent().getExtras();
-            isEditUser = bundle.getBoolean(Consts.KEY_EDIT_USER, false);
+            isEditUser = bundle.getBoolean(ApiConstants.KEY_EDIT_USER, false);
             if (!isEditUser) {
                 FirstRegisterFragment registerFragment = new FirstRegisterFragment();
                 registerFragment.setArguments(bundle);

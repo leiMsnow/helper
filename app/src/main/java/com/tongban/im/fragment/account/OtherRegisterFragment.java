@@ -10,7 +10,7 @@ import com.tb.api.AccountApi;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -19,7 +19,7 @@ import butterknife.OnTextChanged;
 /**
  * 第三方注册第一步
  */
-public class OtherRegisterFragment extends BaseToolBarFragment {
+public class OtherRegisterFragment extends AppBaseFragment {
 
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;

@@ -14,7 +14,7 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
 import com.tongban.im.common.VerifyTimerCount;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,7 +23,7 @@ import butterknife.OnTextChanged;
 /**
  * 注册第一步
  */
-public class FirstRegisterFragment extends BaseToolBarFragment {
+public class FirstRegisterFragment extends AppBaseFragment {
 
     @Bind(R.id.et_phone_num)
     ClearEditText etPhoneNum;

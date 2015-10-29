@@ -2,13 +2,12 @@ package com.tongban.im.fragment.account;
 
 
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 
 import com.tongban.corelib.widget.view.ClearEditText;
 import com.tongban.im.R;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -19,7 +18,7 @@ import butterknife.OnTextChanged;
  *
  * @author fushudi
  */
-public class InputPhoneFragment extends BaseToolBarFragment {
+public class InputPhoneFragment extends AppBaseFragment {
 
     @Bind(R.id.et_input_phone)
     ClearEditText etInputPhone;

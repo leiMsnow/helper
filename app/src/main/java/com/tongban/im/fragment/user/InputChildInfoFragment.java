@@ -2,30 +2,22 @@ package com.tongban.im.fragment.user;
 
 
 import android.app.DatePickerDialog;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tb.api.model.BaseEvent;
-import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import java.util.Calendar;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import de.greenrobot.event.EventBus;
@@ -36,7 +28,7 @@ import de.greenrobot.event.EventBus;
  * @author fushudi
  */
 
-public class InputChildInfoFragment extends BaseToolBarFragment {
+public class InputChildInfoFragment extends AppBaseFragment {
 
     @Bind(R.id.tv_input_birthday)
     TextView tvInputBirthday;

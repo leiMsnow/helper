@@ -19,6 +19,7 @@ import com.tb.api.model.ImageUrl;
 import com.tb.api.model.discover.ProductBook;
 import com.tb.api.model.discover.Theme;
 import com.tb.api.model.topic.Topic;
+import com.tb.api.utils.ApiConstants;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.DateUtils;
 import com.tongban.corelib.widget.view.FlowLayout;
@@ -72,7 +73,7 @@ public class ThemeActivity extends ThemeBaseActivity {
     protected void initData() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
-            themeId = uri.getQueryParameter(Consts.KEY_THEME_ID);
+            themeId = uri.getQueryParameter(ApiConstants.KEY_THEME_ID);
             if (!TextUtils.isEmpty(themeId)) {
                 ProductApi.getInstance().fetchThemeInfo(themeId, this);
             }

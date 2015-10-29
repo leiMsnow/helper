@@ -27,7 +27,7 @@ import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
@@ -38,7 +38,7 @@ import io.rong.imkit.RongIM;
  *
  * @author fushudi
  */
-public class UserCardFragment extends BaseToolBarFragment implements View.OnClickListener {
+public class UserCardFragment extends AppBaseFragment implements View.OnClickListener {
 
     @Bind(R.id.sv_user_center)
     PullToZoomScrollViewEx lvUserCenter;

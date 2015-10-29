@@ -15,6 +15,7 @@ import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.tb.api.model.group.GroupType;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -69,11 +70,11 @@ public class SearchPoiActivity extends AppBaseActivity implements
         // 初始化搜索模块，注册搜索事件监听
         mPoiSearch = PoiSearch.newInstance();
 
-        mCity = SPUtils.get(mContext, Consts.CITY, "北京").toString();
+        mCity = SPUtils.get(mContext, Constants.CITY, "北京").toString();
         if (mCity.contains("市")) {
             mCity = mCity.replace("市", "");
         }
-        mKey = SPUtils.get(mContext, Consts.ADDRESS, "").toString();
+        mKey = SPUtils.get(mContext, Constants.ADDRESS, "").toString();
         mAdapter = new PoiSearchAdapter(mContext,
                 R.layout.item_poi_search_list, null);
         mAdapter.setCurrentSelected(mSelected);
@@ -136,8 +137,8 @@ public class SearchPoiActivity extends AppBaseActivity implements
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString(Consts.KEY_SELECTED_POI_NAME, mAdapter.getItem(position).name);
-        bundle.putDouble(Consts.LONGITUDE, mAdapter.getItem(position).location.longitude);
-        bundle.putDouble(Consts.LATITUDE, mAdapter.getItem(position).location.latitude);
+        bundle.putDouble(Constants.LONGITUDE, mAdapter.getItem(position).location.longitude);
+        bundle.putDouble(Constants.LATITUDE, mAdapter.getItem(position).location.latitude);
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();

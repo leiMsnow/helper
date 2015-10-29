@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.tb.api.GroupApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.group.Group;
+import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -67,8 +68,8 @@ public class GroupInfoActivity extends AppBaseActivity {
     protected void initData() {
         if (getIntent().getData() != null) {
             Uri uri = getIntent().getData();
-            mGroupId = uri.getQueryParameter(Consts.KEY_GROUP_ID);
-            mAllowAdd = getIntent().getBooleanExtra(Consts.KEY_IS_JOIN, false);
+            mGroupId = uri.getQueryParameter(ApiConstants.KEY_GROUP_ID);
+            mAllowAdd = getIntent().getBooleanExtra(ApiConstants.KEY_IS_JOIN, false);
             GroupApi.getInstance().getGroupInfo(mGroupId, this);
 
         }
@@ -82,7 +83,7 @@ public class GroupInfoActivity extends AppBaseActivity {
             if (mGroup == null) {
                 return;
             }
-            if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mGroup.getUser_info().getUser_id())) {
+            if (getUserId().equals(mGroup.getUser_info().getUser_id())) {
                 ToastUtil.getInstance(mContext).showToast(getQuitMessage());
                 return;
             }
@@ -141,10 +142,9 @@ public class GroupInfoActivity extends AppBaseActivity {
 
 
     protected String getQuitMessage() {
+        String quitMessage[] = mContext.getResources().getStringArray(R.array.quit_group);
         Random random = new Random();
-        int count = mContext.getResources().
-                getStringArray(R.array.quit_group).length;
-        return mContext.getResources().getStringArray(R.array.quit_group)
-                [random.nextInt(count)].toString();
+        int count = quitMessage.length;
+        return quitMessage[random.nextInt(count)].toString();
     }
 }

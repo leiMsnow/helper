@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.tb.api.model.BaseEvent;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.RegisterBaseActivity;
 import com.tongban.im.common.Consts;
@@ -38,7 +39,7 @@ public class OtherRegisterActivity extends RegisterBaseActivity {
         fragment = new OtherVerifyCodeFragment();
 
         Bundle bundle = getIntent().getExtras();
-        bundle.putString(Consts.USER_ACCOUNT, obj.phone);
+        bundle.putString(Constants.USER_ACCOUNT, obj.phone);
         fragment.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()

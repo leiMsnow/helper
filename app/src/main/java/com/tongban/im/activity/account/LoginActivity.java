@@ -20,8 +20,10 @@ import com.tb.api.AccountApi;
 import com.tb.api.base.BaseApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.OtherRegister;
+import com.tb.api.utils.ApiConstants;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
@@ -88,8 +90,8 @@ public class LoginActivity extends AccountBaseActivity implements
     protected void initData() {
         btnLogin.setIndeterminateProgressMode(true);
 
-        mIsOpenMain = getIntent().getBooleanExtra(Consts.KEY_IS_MAIN, true);
-        isOther = getIntent().getBooleanExtra(Consts.KEY_OTHER_CLIENT, false);
+        mIsOpenMain = getIntent().getBooleanExtra(ApiConstants.KEY_IS_MAIN, true);
+        isOther = getIntent().getBooleanExtra(ApiConstants.KEY_OTHER_CLIENT, false);
         if (isOther) {
             BaseDialog.Builder dialog = new BaseDialog.Builder(mContext);
             dialog.setMessage("您的账号已在别的设备登录");
@@ -101,7 +103,7 @@ public class LoginActivity extends AccountBaseActivity implements
                     });
             dialog.show();
         }
-        mUser = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, "").toString();
+        mUser = SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Constants.USER_ACCOUNT, "").toString();
         etPhoneNum.setText(mUser);
     }
 
@@ -182,7 +184,7 @@ public class LoginActivity extends AccountBaseActivity implements
         if (!isOnPause) {
             hideProgress();
             btnLogin.setProgress(0);
-            SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.USER_ACCOUNT, mUser);
+            SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Constants.USER_ACCOUNT, mUser);
             if (TextUtils.isEmpty(obj.user.getNick_name())) {
                 TransferCenter.getInstance().startRegister(true);
             } else {

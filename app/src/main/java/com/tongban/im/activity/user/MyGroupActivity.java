@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import com.tb.api.UserCenterApi;
 import com.tb.api.model.BaseEvent;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
@@ -48,12 +49,12 @@ public class MyGroupActivity extends AppBaseActivity implements
 
         if (getIntent().getData() != null) {
             Uri uri = getIntent().getData();
-            mUserId = uri.getQueryParameter(Consts.USER_ID);
+            mUserId = uri.getQueryParameter(Constants.USER_ID);
             UserCenterApi.getInstance().fetchMyGroupsList(mCursor, mPageSize, mUserId, this);
         }
 
         lvMyGroupList.setOnLoadMoreListener(this);
-        if (SPUtils.get(mContext, Consts.USER_ID, "").equals(mUserId)) {
+        if (getUserId().equals(mUserId)) {
             mAdapter.setOnClickListener(new GroupListenerImpl(mContext));
         }
     }

@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.tb.api.GroupApi;
 import com.tb.api.model.BaseEvent;
+import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -13,7 +14,7 @@ import com.tongban.im.R;
 import com.tongban.im.adapter.GroupListAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.impl.GroupListenerImpl;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;
@@ -26,7 +27,7 @@ import io.rong.imkit.RongIM;
  * 推荐圈子的Fragment
  * Created by Cheney on 15/8/3.
  */
-public class RecommendGroupFragment extends BaseToolBarFragment implements
+public class RecommendGroupFragment extends AppBaseFragment implements
         PtrHandler
         , OnLoadMoreListener {
 
@@ -57,7 +58,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements
     public static RecommendGroupFragment getInstance(boolean isMain) {
         RecommendGroupFragment recommendFragment = new RecommendGroupFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_IS_MAIN, isMain);
+        bundle.putBoolean(ApiConstants.KEY_IS_MAIN, isMain);
         recommendFragment.setArguments(bundle);
         return recommendFragment;
     }
@@ -70,7 +71,7 @@ public class RecommendGroupFragment extends BaseToolBarFragment implements
     @Override
     protected void initData() {
         if (getArguments() != null)
-            mIsMainEvent = getArguments().getBoolean(Consts.KEY_IS_MAIN, false);
+            mIsMainEvent = getArguments().getBoolean(ApiConstants.KEY_IS_MAIN, false);
 
         if (mIsMainEvent) {
             PTRHeaderUtils.getMaterialView(mContext, ptrFrameLayout);

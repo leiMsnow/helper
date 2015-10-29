@@ -15,13 +15,12 @@ import com.tongban.im.R;
 import com.tongban.im.activity.PhotoViewPagerActivity;
 import com.tongban.im.adapter.TopicListAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**
@@ -29,7 +28,7 @@ import butterknife.OnItemClick;
  *
  * @author fushudi
  */
-public class MyTopicFragment extends BaseToolBarFragment implements
+public class MyTopicFragment extends AppBaseFragment implements
         OnLoadMoreListener, View.OnClickListener {
 
     @Bind(R.id.lv_topic_list)

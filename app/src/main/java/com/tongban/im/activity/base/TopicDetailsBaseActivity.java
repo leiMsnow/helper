@@ -14,6 +14,7 @@ import com.tb.api.model.topic.Comment;
 import com.tb.api.model.topic.CommentContent;
 import com.tb.api.model.topic.OfficialTopic;
 import com.tb.api.model.topic.Topic;
+import com.tb.api.utils.ApiConstants;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.KeyBoardUtils;
@@ -74,7 +75,7 @@ public abstract class TopicDetailsBaseActivity extends CommonImageResultActivity
 
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
-            mTopicId = uri.getQueryParameter(Consts.KEY_TOPIC_ID);
+            mTopicId = uri.getQueryParameter(ApiConstants.KEY_TOPIC_ID);
         }
         topicInputView.setOnClickCommentListener(this);
 

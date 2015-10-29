@@ -2,9 +2,7 @@ package com.tongban.im.fragment.user;
 
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
@@ -15,10 +13,9 @@ import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ProductBookAdapter;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 /**
@@ -26,7 +23,7 @@ import butterknife.OnItemClick;
  *
  * @author fushudi
  */
-public class ProductListFragment extends BaseToolBarFragment
+public class ProductListFragment extends AppBaseFragment
         implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.gv_product)

@@ -18,7 +18,7 @@ import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
 import butterknife.OnCheckedChanged;
@@ -30,7 +30,7 @@ import io.rong.imlib.model.Conversation;
  * 圈子页
  * author: chenenyu 15/7/13
  */
-public class GroupFragment extends BaseToolBarFragment {
+public class GroupFragment extends AppBaseFragment {
 
     @Bind(R.id.ib_search)
     ImageButton ibSearch;
@@ -76,7 +76,7 @@ public class GroupFragment extends BaseToolBarFragment {
                 .hide(recommendFragment)
                 .commit();
         //没有登录删除聊天fragment
-        if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+        if (TextUtils.isEmpty(getUserId())) {
             getChildFragmentManager().beginTransaction()
                     .hide(chatFragment)
                     .commit();
@@ -100,9 +100,14 @@ public class GroupFragment extends BaseToolBarFragment {
     @OnCheckedChanged({R.id.rb_chat, R.id.rb_recommend})
     public void onCheckedChanged(CompoundButton checkedBtn, boolean isChecked) {
         if (isChecked && checkedBtn.getId() == R.id.rb_chat) {
-            if (!TextUtils.isEmpty(SPUtils.get(mContext, Consts.USER_ID, "").toString())) {
+            if (!TextUtils.isEmpty(getUserId())) {
                 getChildFragmentManager().beginTransaction()
                         .show(chatFragment)
+                        .hide(recommendFragment)
+                        .commit();
+            }else{
+                getChildFragmentManager().beginTransaction()
+                        .hide(chatFragment)
                         .hide(recommendFragment)
                         .commit();
             }

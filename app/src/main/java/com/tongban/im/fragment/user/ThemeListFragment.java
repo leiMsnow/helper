@@ -2,9 +2,7 @@ package com.tongban.im.fragment.user;
 
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.tb.api.ProductApi;
@@ -16,10 +14,9 @@ import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.ThemeListAdapter;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
 /**
@@ -28,7 +25,7 @@ import butterknife.OnItemClick;
  * @author Cheneey
  * @createTime 2015/8/27
  */
-public class ThemeListFragment extends BaseToolBarFragment implements
+public class ThemeListFragment extends AppBaseFragment implements
         OnLoadMoreListener {
 
     @Bind(R.id.lv_theme)

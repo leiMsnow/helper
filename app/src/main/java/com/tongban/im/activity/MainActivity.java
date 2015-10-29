@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
-import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.discover.DiscoverFragment;
 import com.tongban.im.fragment.group.GroupFragment;
 import com.tongban.im.fragment.topic.TopicFragment;
@@ -77,7 +77,7 @@ public class MainActivity extends AppBaseActivity {
         // 话题
         TopicFragment topicFragment = new TopicFragment();
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Consts.KEY_IS_MAIN, true);
+        bundle.putBoolean(ApiConstants.KEY_IS_MAIN, true);
         topicFragment.setArguments(bundle);
         mTabs.add(topicFragment);
         // 圈子

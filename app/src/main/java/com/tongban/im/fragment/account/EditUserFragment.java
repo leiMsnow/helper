@@ -17,7 +17,9 @@ import com.tb.api.callback.UploadFileCallback;
 import com.tb.api.model.ImageUrl;
 import com.tb.api.model.user.EditUser;
 import com.tb.api.model.user.OtherRegister;
+import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.ImageUtils;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
@@ -25,7 +27,7 @@ import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.CommonImageResultActivity;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import com.tongban.im.widget.view.CameraView;
 
@@ -36,7 +38,7 @@ import butterknife.OnClick;
 /**
  * 设置头像/填写用户昵称
  */
-public class EditUserFragment extends BaseToolBarFragment implements
+public class EditUserFragment extends AppBaseFragment implements
         CommonImageResultActivity.IPhotoListener {
 
     @Bind(R.id.iv_portrait)
@@ -71,10 +73,10 @@ public class EditUserFragment extends BaseToolBarFragment implements
     protected void initData() {
         if (getArguments() != null) {
             btnSubmit.setIndeterminateProgressMode(true);
-            String mOtherInfo = getArguments().getString(Consts.OTHER_REGISTER_INFO);
+            String mOtherInfo = getArguments().getString(ApiConstants.OTHER_REGISTER_INFO);
             // 第三方注册
             if (!TextUtils.isEmpty(mOtherInfo)) {
-                String mOtherType = getArguments().getString(Consts.OTHER_REGISTER_TYPE);
+                String mOtherType = getArguments().getString(ApiConstants.OTHER_REGISTER_TYPE);
                 otherRegister = JSON.parseObject(mOtherInfo,
                         new TypeReference<OtherRegister>() {
                         });
@@ -132,7 +134,7 @@ public class EditUserFragment extends BaseToolBarFragment implements
 
     private void uploadUserPortrait() {
         FileUploadApi.getInstance().uploadFile(mIcon
-                , SPUtils.get(mContext, Consts.USER_ID, "").toString()
+                , getUserId()
                 , FileUploadApi.IMAGE_SIZE_300
                 , FileUploadApi.IMAGE_SIZE_500
                 , new UploadFileCallback() {

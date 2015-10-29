@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.tb.api.ProductApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.discover.ProductBook;
+import com.tb.api.utils.ApiConstants;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.corelib.widget.view.indicator.CirclePageIndicator;
@@ -72,7 +73,7 @@ public class ProductBookActivity extends ThemeBaseActivity {
     protected void initData() {
         if (getIntent() != null) {
             Uri uri = getIntent().getData();
-            productBookId = uri.getQueryParameter(Consts.KEY_PRODUCT_BOOK_ID);
+            productBookId = uri.getQueryParameter(ApiConstants.KEY_PRODUCT_BOOK_ID);
             if (!TextUtils.isEmpty(productBookId))
                 ProductApi.getInstance().fetchProductDetailInfo(productBookId, this);
         }

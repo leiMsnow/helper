@@ -7,15 +7,15 @@ import android.widget.AdapterView;
 import com.tb.api.UserCenterApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.utils.TransferCenter;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
 
 /**
@@ -23,7 +23,7 @@ import butterknife.OnItemClick;
  *
  * @author fushudi
  */
-public class FansFragment extends BaseToolBarFragment implements
+public class FansFragment extends AppBaseFragment implements
         OnLoadMoreListener,View.OnClickListener {
 
     @Bind(R.id.lv_fans_list)
@@ -46,7 +46,7 @@ public class FansFragment extends BaseToolBarFragment implements
         lvFansList.setAdapter(mAdapter);
         lvFansList.setPageSize(mPageSize);
         if (getArguments() != null) {
-            userID = getArguments().getString(Consts.USER_ID);
+            userID = getArguments().getString(Constants.USER_ID);
             UserCenterApi.getInstance().fetchFansUserList(mCursor, mPageSize, userID, this);
             lvFansList.setOnLoadMoreListener(this);
         }

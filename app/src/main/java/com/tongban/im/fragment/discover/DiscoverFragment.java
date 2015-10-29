@@ -2,6 +2,7 @@ package com.tongban.im.fragment.discover;
 
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -17,13 +18,14 @@ import com.tb.api.model.user.User;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.discover.SearchDiscoverActivity;
 import com.tongban.im.adapter.DiscoverAdapter;
 import com.tongban.im.common.Consts;
-import com.tongban.im.fragment.base.BaseToolBarFragment;
+import com.tongban.im.fragment.base.AppBaseFragment;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;
@@ -37,7 +39,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 发现页
  * author: chenenyu 15/7/13
  */
-public class DiscoverFragment extends BaseToolBarFragment
+public class DiscoverFragment extends AppBaseFragment
         implements PtrHandler {
 
     @Bind(R.id.lv_discover)
@@ -70,7 +72,7 @@ public class DiscoverFragment extends BaseToolBarFragment
         ptrFrameLayout.setPtrHandler(this);
         ptrFrameLayout.autoRefresh(true);
         // 显示默认头像
-        if ("".equals(SPUtils.get(mContext, Consts.USER_ID, ""))) {
+        if (TextUtils.isEmpty(getUserId())) {
             ivUserPortrait.setImageResource(Consts.getUserDefaultPortrait());
         }
         // 登录后显示真实头像
@@ -111,8 +113,7 @@ public class DiscoverFragment extends BaseToolBarFragment
     @OnClick({R.id.iv_user_portrait, R.id.iv_search_all})
     public void onClick(View v) {
         if (v == ivUserPortrait) {
-            TransferCenter.getInstance().startUserCenter(
-                    SPUtils.get(mContext, Consts.USER_ID, "").toString(), true);
+            TransferCenter.getInstance().startUserCenter(getUserId(), true);
         } else if (v == ivSearchAll) {
             startActivity(new Intent(mContext, SearchDiscoverActivity.class));
         }

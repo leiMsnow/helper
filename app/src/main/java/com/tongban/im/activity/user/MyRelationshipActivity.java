@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.tb.api.utils.ApiConstants;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.common.Consts;
@@ -31,11 +33,11 @@ public class MyRelationshipActivity extends AppBaseActivity {
         if (getIntent().getData() != null) {
 
             Uri uri = getIntent().getData();
-            String tag = uri.getQueryParameter(Consts.KEY_TAG);
-            String userId = uri.getQueryParameter(Consts.USER_ID);
+            String tag = uri.getQueryParameter(ApiConstants.KEY_TAG);
+            String userId = uri.getQueryParameter(Constants.USER_ID);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putString(Consts.USER_ID, userId);
+            bundle.putString(Constants.USER_ID, userId);
 
             if (tag.equals(Consts.TAG_FANS)) {
                 setTitle("粉丝");

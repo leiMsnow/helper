@@ -120,7 +120,7 @@ public class TransferCenter {
 
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(TransferConstants.KEY_TOPIC_ID, topicId)
+                .appendQueryParameter(ApiConstants.KEY_TOPIC_ID, topicId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,7 +136,7 @@ public class TransferCenter {
         String pathPrefix = TransferPathPrefix.THEME_DETAILS;
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(TransferConstants.KEY_THEME_ID, themeId)
+                .appendQueryParameter(ApiConstants.KEY_THEME_ID, themeId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -152,7 +152,7 @@ public class TransferCenter {
         String pathPrefix = TransferPathPrefix.PRODUCT_BOOK;
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(TransferConstants.KEY_PRODUCT_BOOK_ID, productBookId)
+                .appendQueryParameter(ApiConstants.KEY_PRODUCT_BOOK_ID, productBookId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -168,10 +168,10 @@ public class TransferCenter {
         String pathPrefix = TransferPathPrefix.GROUP_INFO;
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(pathPrefix)
-                .appendQueryParameter(TransferConstants.KEY_GROUP_ID, groupId)
+                .appendQueryParameter(ApiConstants.KEY_GROUP_ID, groupId)
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.putExtra(TransferConstants.KEY_IS_JOIN, isJoin);
+        intent.putExtra(ApiConstants.KEY_IS_JOIN, isJoin);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
@@ -191,8 +191,8 @@ public class TransferCenter {
             Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                     .appendPath(TransferPathPrefix.LOGIN).build();
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            intent.putExtra(TransferConstants.KEY_IS_MAIN, isOpenMain);
-            intent.putExtra(TransferConstants.KEY_OTHER_CLIENT, isOtherClient);
+            intent.putExtra(ApiConstants.KEY_IS_MAIN, isOpenMain);
+            intent.putExtra(ApiConstants.KEY_OTHER_CLIENT, isOtherClient);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
             return false;
@@ -219,7 +219,7 @@ public class TransferCenter {
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         Bundle bundle = new Bundle();
-        bundle.putBoolean(TransferConstants.KEY_EDIT_USER, editUser);
+        bundle.putBoolean(ApiConstants.KEY_EDIT_USER, editUser);
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
@@ -242,8 +242,8 @@ public class TransferCenter {
                 .build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         Bundle bundle = new Bundle();
-        bundle.putString(TransferConstants.OTHER_REGISTER_INFO, otherRegister);
-        bundle.putString(TransferConstants.OTHER_REGISTER_TYPE, type);
+        bundle.putString(ApiConstants.OTHER_REGISTER_INFO, otherRegister);
+        bundle.putString(ApiConstants.OTHER_REGISTER_TYPE, type);
         intent.putExtras(bundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
@@ -252,7 +252,7 @@ public class TransferCenter {
     /**
      * 打开关注、粉丝界面
      *
-     * @param tag    标记{@link TransferConstants TAG_FANS TAG_FOLLOW}
+     * @param tag    标记{@link ApiConstants TAG_FANS TAG_FOLLOW}
      * @param userId 用户Id
      */
     public void startRelationship(String tag, String userId) {
@@ -262,7 +262,7 @@ public class TransferCenter {
 
         Uri uri = Uri.parse(APP_SCHEME + mContext.getApplicationInfo().packageName).buildUpon()
                 .appendPath(TransferPathPrefix.RELATIONSHIP)
-                .appendQueryParameter(TransferConstants.KEY_TAG, tag)
+                .appendQueryParameter(ApiConstants.KEY_TAG, tag)
                 .appendQueryParameter(Constants.USER_ID, userId).build();
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

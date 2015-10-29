@@ -6,9 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.base.api.RequestApiListener;
-import com.tongban.corelib.base.fragment.BaseApiFragment;
+import com.tongban.corelib.base.fragment.BaseToolbarFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.im.R;
@@ -21,14 +20,15 @@ import butterknife.Bind;
  * 基础fragment的api通用类
  * 目前都复用activity中的处理方式
  */
-public abstract class BaseToolBarFragment extends BaseApiFragment implements IApiCallback,
+public abstract class AppBaseFragment extends BaseToolbarFragment implements
         RequestApiListener {
+
+
+    private View mEmptyParentView;
 
     @Nullable
     @Bind(R.id.rl_toolbar)
     protected View mToolbar;
-
-    private View mEmptyParentView;
 
     /**
      * 设置用户头像信息
@@ -37,7 +37,7 @@ public abstract class BaseToolBarFragment extends BaseApiFragment implements IAp
      * @param view imageView控件
      */
     public void setUserPortrait(String uri, ImageView view) {
-        Glide.with(BaseToolBarFragment.this)
+        Glide.with(AppBaseFragment.this)
                 .load(uri)
                 .error(Consts.getUserDefaultPortrait())
                 .into(view);

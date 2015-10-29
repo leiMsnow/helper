@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.tb.api.UserCenterApi;
 import com.tb.api.model.user.AddChildInfo;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.RongCloudEvent;
@@ -28,7 +29,7 @@ public abstract class AccountBaseActivity extends CommonImageResultActivity {
      * @param isChild    是否需要上传宝宝信息
      */
     protected void connectIM(final boolean isOpenMain, final boolean isChild) {
-        RongIM.connect(SPUtils.get(mContext, Consts.IM_BIND_TOKEN, "").toString(),
+        RongIM.connect(SPUtils.get(mContext, Constants.IM_BIND_TOKEN, "").toString(),
                 new RongIMClient.ConnectCallback() {
                     @Override
                     public void onTokenIncorrect() {
@@ -73,8 +74,7 @@ public abstract class AccountBaseActivity extends CommonImageResultActivity {
             childInfo.setSex(childSex);
             List<AddChildInfo> children = new ArrayList<>();
             children.add(childInfo);
-            UserCenterApi.getInstance().setChildInfo(SPUtils.get(mContext, Consts.USER_ID, "")
-                    .toString(), children, null);
+            UserCenterApi.getInstance().setChildInfo(getUserId(), children, null);
         }
         if (isOpenMain) {
             RongCloudEvent.getInstance().setOtherListener();

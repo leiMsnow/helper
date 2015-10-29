@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tb.api.model.user.Child;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
@@ -54,7 +55,7 @@ public class UserInfoAdapter extends PagerAdapter {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_child_info, container, false);
         tvChildInfo = (TextView) view.findViewById(R.id.tv_child_info);
         //跳转到个人资料界面
-        if (SPUtils.get(mContext, Consts.USER_ID, "").equals(userId)) {
+        if (SPUtils.get(mContext, Constants.USER_ID, "").equals(userId)) {
             tvChildInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

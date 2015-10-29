@@ -1,7 +1,5 @@
 package com.tongban.im.common;
 
-import com.tb.api.utils.TransferConstants;
-import com.tongban.corelib.utils.Constants;
 import com.tongban.im.R;
 
 import java.util.Random;
@@ -10,7 +8,7 @@ import java.util.Random;
  * 常量
  * version:1.0  15/7/15
  */
-public class Consts  extends TransferConstants{
+public class Consts {
 
     //------------------------------VisitFile相关---------------------------------------------------
     //-----------VisitFile文件下的缓存标记{@link com.tongban.corelib.utils.SPUtils}-------------------

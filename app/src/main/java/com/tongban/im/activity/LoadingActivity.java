@@ -10,6 +10,7 @@ import com.tb.api.FileUploadApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.model.ApiErrorResult;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
@@ -49,7 +50,7 @@ public class LoadingActivity extends AccountBaseActivity {
             @Override
             public void run() {
 
-                if (TextUtils.isEmpty(SPUtils.get(mContext, Consts.ADDRESS, "").toString())) {
+                if (TextUtils.isEmpty(SPUtils.get(mContext, Constants.ADDRESS, "").toString())) {
                     LocationUtils.get(mContext).start();
                 }
                 //第一次启动APP，进入设置宝宝界面
@@ -59,7 +60,7 @@ public class LoadingActivity extends AccountBaseActivity {
                     startActivity(new Intent(mContext, ChildInfoActivity.class));
                     finish();
                 } else {
-                    freeAuthToken = SPUtils.get(mContext, Consts.FREEAUTH_TOKEN, "").toString();
+                    freeAuthToken = SPUtils.get(mContext, Constants.FREEAUTH_TOKEN, "").toString();
                     if (freeAuthToken.equals("")) {
                         connectIM();
                         finish();

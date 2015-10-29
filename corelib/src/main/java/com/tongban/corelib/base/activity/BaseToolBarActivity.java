@@ -5,7 +5,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.tongban.corelib.R;
+import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.DensityUtils;
+import com.tongban.corelib.utils.SPUtils;
 
 /**
  * toolbar的基础类
@@ -28,8 +30,6 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         if (mToolbar == null) {
             return;
         }
-        //弹出菜单变成白色
-        mToolbar.setPopupTheme(R.style.ThemeOverlay_AppCompat_Light);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,6 +47,10 @@ public abstract class BaseToolBarActivity extends BaseApiActivity {
         if (mToolbar == null)
             return 0;
         return DensityUtils.dp2px(mContext, 56);
+    }
+
+    protected String getUserId() {
+        return SPUtils.get(mContext, Constants.USER_ID, "").toString();
     }
 
 }
