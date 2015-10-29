@@ -6,10 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tb.api.model.user.User;
@@ -17,7 +14,6 @@ import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.user.MyInfoActivity;
-import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.BaseToolBarFragment;
 
@@ -66,7 +62,7 @@ public class UserBaseFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_personal_center2;
+        return R.layout.fragment_my_card;
     }
 
     @Override

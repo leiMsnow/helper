@@ -74,7 +74,7 @@ public class UserCardFragment extends BaseToolBarFragment implements View.OnClic
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_personal_center;
+        return R.layout.fragment_user_card;
     }
 
     @Override
