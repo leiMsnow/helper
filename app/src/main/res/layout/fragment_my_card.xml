@@ -7,14 +7,14 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:contentScrim="@drawable/bg_rainbow"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/toolbarBackground"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -64,7 +64,7 @@
         app:backgroundTint="@color/white"
         app:backgroundTintMode="src_over"
         app:borderWidth="0dp"
-        app:elevation="0dp"
+        app:elevation="1dp"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right" />
 
