@@ -194,7 +194,7 @@ public class MyInfoActivity extends CommonImageResultActivity implements
         mIcon = bytes;
         FileUploadApi.getInstance().uploadFile(mIcon
                 , null
-                , FileUploadApi.IMAGE_SIZE_300
+                , FileUploadApi.IMAGE_SIZE_100
                 , FileUploadApi.IMAGE_SIZE_500
                 , new UploadFileCallback() {
 
@@ -227,5 +227,9 @@ public class MyInfoActivity extends CommonImageResultActivity implements
     public void onEventMainThread(BaseEvent.EditUserEvent obj) {
         UserCenterApi.getInstance().fetchPersonalCenterInfo(this);
         UserCenterApi.getInstance().fetchUserDetailInfo(this);
+    }
+
+    public void onEventMainThread(BaseEvent.ChildCreateSuccessEvent obj) {
+        onEventMainThread(new BaseEvent.EditUserEvent());
     }
 }

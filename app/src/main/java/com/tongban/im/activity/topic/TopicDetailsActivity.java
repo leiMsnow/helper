@@ -15,10 +15,8 @@ import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.TopicDetailsBaseActivity;
 import com.tongban.im.adapter.TopicCommentAdapter;
-import com.tongban.im.adapter.TopicImgAdapter;
 import com.tongban.im.common.Consts;
 import com.tongban.im.impl.TopicListenerImpl;
-import com.tongban.im.widget.view.ChildGridView;
 
 /**
  * 话题评论界面
@@ -42,8 +40,9 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
     //    ChildGridView gvContent;
     //底布局 bottom
     TextView tvComment;
+    TextView tvCollect;
 
-    View imagePraent;
+    View imageParent;
 
     //    private TopicImgAdapter mTopicImgAdapter;
     private TopicCommentAdapter mAdapter;
@@ -66,9 +65,10 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
 //            gvContent = (ChildGridView) mHeader.findViewById(R.id.gv_content);
             // header - bottom
             tvComment = (TextView) mHeader.findViewById(R.id.tv_comment_count);
+            tvCollect = (TextView) mHeader.findViewById(R.id.tv_collect_count);
 //            mTopicImgAdapter = new TopicImgAdapter(mContext, R.layout.item_topic_grid_img, null);
 //            gvContent.setAdapter(mTopicImgAdapter);
-            imagePraent = mHeader.findViewById(R.id.ll_small_img_parent);
+            imageParent = mHeader.findViewById(R.id.ll_small_img_parent);
 
             mAdapter = new TopicCommentAdapter(mContext, R.layout.item_topic_comment_list, null);
             lvReplyList.setResultSize(mPage);
@@ -121,10 +121,10 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
             }
 
             tvTime.setText(mTopicInfo.getC_time(mContext));
-
             tvTopicTitle.setText(mTopicInfo.getTopic_title());
 
             tvComment.setText(mTopicInfo.getComment_amount() + "人回答");
+            tvCollect.setText("同问" + mTopicInfo.getCollect_amount() + "人");
 
             if (mTopicInfo.getTopicContent() != null) {
 
@@ -138,7 +138,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
                 tvTopicContent.setText(mTopicInfo.getTopicContent().getTopic_content_text());
 
                 if (mTopicInfo.getTopicContent().getTopic_img_url() != null) {
-                    imagePraent.setVisibility(View.VISIBLE);
+                    imageParent.setVisibility(View.VISIBLE);
                     int count = mTopicInfo.getTopicContent().getTopic_img_url().size() > 3 ? 3
                             : mTopicInfo.getTopicContent().getTopic_img_url().size();
                     for (int i = 0; i < images.length; i++) {

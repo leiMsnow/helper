@@ -72,6 +72,7 @@ public class LoginActivity extends AccountBaseActivity implements
     private UMSocializeOauthListenerImpl authListener;
     private String userInfoJson;
     private String type;
+    // 是否暂停过
     private boolean isOnPause = false;
 
     @Override
@@ -190,7 +191,6 @@ public class LoginActivity extends AccountBaseActivity implements
             } else {
                 connectIM(mIsOpenMain, obj.user.getChildInfo() == null);
             }
-            finish();
         }
     }
 

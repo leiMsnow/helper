@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tb.api.UserCenterApi;
+import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.AddChildInfo;
 import com.tb.api.model.user.EditUser;
 import com.tongban.corelib.utils.SPUtils;
@@ -105,7 +106,7 @@ public class UpdatePersonalInfoActivity extends AppBaseActivity {
                     childInfo.setSex(mChildSex);
                     List<AddChildInfo> children = new ArrayList<>();
                     children.add(childInfo);
-                    UserCenterApi.getInstance().setChildInfo(getUserId(), children, null);
+                    UserCenterApi.getInstance().setChildInfo(getUserId(), children, this);
                     finish();
                 }
             }
@@ -134,4 +135,5 @@ public class UpdatePersonalInfoActivity extends AppBaseActivity {
             mChildSex = 2;
         }
     }
+
 }
