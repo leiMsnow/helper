@@ -290,6 +290,9 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                     if (obj instanceof BaseEvent.UserCenterEvent) {
                         BaseEvent.UserCenterEvent userEvent = (BaseEvent.UserCenterEvent) obj;
 
+                        // 将用户信息保存到本地数据库
+                        UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(((BaseEvent.UserCenterEvent) obj).user));
+
                         UserTable userTable = UserDaoHelper.get(mContext).
                                 getDataById(userEvent.user.getUser_id());
 

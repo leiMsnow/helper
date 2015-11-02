@@ -183,9 +183,6 @@ public class UserCenterApi extends BaseApi {
                     ApiResult<User> apiResponse = JSON.parseObject(obj.toString(),
                             new TypeReference<ApiResult<User>>() {
                             });
-                    // TODO: 10/27/15                      // 将用户信息保存到本地数据库
-
-//                    UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(apiResponse.getData()));
                     BaseEvent.UserCenterEvent userCenterEvent = new BaseEvent.UserCenterEvent();
                     userCenterEvent.user = (apiResponse.getData());
                     if (callback != null)
