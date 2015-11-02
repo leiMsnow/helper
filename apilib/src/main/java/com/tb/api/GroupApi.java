@@ -330,8 +330,7 @@ public class GroupApi extends BaseApi {
                 ApiResult<Group> result = JSON.parseObject(obj.toString(),
                         new TypeReference<ApiResult<Group>>() {
                         });
-//                // 将圈子信息保存到本地数据库
-//                GroupDaoHelper.get(mContext).addData(ModelToTable.groupToTable(result.getData()));
+
                 BaseEvent.GroupInfoEvent groupInfoEvent = new BaseEvent.GroupInfoEvent();
                 groupInfoEvent.group = result.getData();
                 if (callback != null)

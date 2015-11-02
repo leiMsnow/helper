@@ -20,6 +20,8 @@ import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.ModelToTable;
+import com.tongban.im.db.helper.GroupDaoHelper;
 import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.Random;
@@ -111,6 +113,9 @@ public class GroupInfoActivity extends AppBaseActivity {
     public void onEventMainThread(BaseEvent.GroupInfoEvent groupInfo) {
         mGroup = groupInfo.group;
         if (mGroup != null) {
+            // 将圈子信息保存到本地数据库
+            GroupDaoHelper.get(mContext).addData(ModelToTable
+                    .groupToTable(groupInfo.group));
             GroupApi.getInstance().getGroupMembersList(mGroupId, 0, 15, this);
             mParent.setVisibility(View.VISIBLE);
             if (!mAllowAdd) {

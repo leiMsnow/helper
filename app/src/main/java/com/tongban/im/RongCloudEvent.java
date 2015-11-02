@@ -14,6 +14,7 @@ import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.LogUtil;
 import com.tongban.corelib.utils.SPUtils;
+import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.bean.GroupTable;
 import com.tongban.im.db.bean.UserTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
@@ -334,6 +335,10 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                 @Override
                 public void onComplete(Object obj) {
                     if (obj instanceof BaseEvent.GroupInfoEvent) {
+                        // 将圈子信息保存到本地数据库
+                        GroupDaoHelper.get(mContext).addData(ModelToTable
+                                .groupToTable(((BaseEvent.GroupInfoEvent) obj).group));
+
                         BaseEvent.GroupInfoEvent groupEvent = (BaseEvent.GroupInfoEvent) obj;
 
                         GroupTable groupTable = GroupDaoHelper.
