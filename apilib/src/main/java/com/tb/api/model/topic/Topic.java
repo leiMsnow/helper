@@ -102,6 +102,7 @@ public class Topic {
      * 内容类型（文字或者图片）
      */
     public int getContentType() {
+
         if (topicContent.getTopic_img_url() != null) {
             if (topicContent.getTopic_img_url().size() > 0) {
                 return IMAGE;
@@ -132,6 +133,8 @@ public class Topic {
     }
 
     public TopicContent getTopicContent() {
+        if (topicContent != null)
+            return topicContent;
         if (!TextUtils.isEmpty(topic_content)) {
             try {
                 topicContent = JSON.parseObject(topic_content,

@@ -3,24 +3,27 @@ package com.tongban.im.fragment.group;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.tb.api.utils.TransferCenter;
 import com.tb.api.utils.TransferPathPrefix;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.group.ChooseGroupTypeActivity;
-import com.tongban.im.common.Consts;
 import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -40,6 +43,8 @@ public class GroupFragment extends AppBaseFragment {
     RadioGroup rgParent;
     @Bind(R.id.iv_indicator)
     ImageView ivIndicator;
+    @Bind(R.id.rb_chat)
+    RadioButton rbChat;
 
     private ConversationListFragment chatFragment;
     private Fragment recommendFragment;
@@ -105,7 +110,7 @@ public class GroupFragment extends AppBaseFragment {
                         .show(chatFragment)
                         .hide(recommendFragment)
                         .commit();
-            }else{
+            } else {
                 getChildFragmentManager().beginTransaction()
                         .hide(chatFragment)
                         .hide(recommendFragment)

@@ -9,6 +9,6 @@
 
     <include layout="@layout/include_topic_content_details" />
 
-    <include layout="@layout/include_bottom_collect_comment" />
+    <include layout="@layout/include_topic_bottom_details" />
 
 </LinearLayout>

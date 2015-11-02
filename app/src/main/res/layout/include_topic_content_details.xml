@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
     <!-- 标题-->
     <TextView
         android:id="@+id/tv_topic_title"
         style="@style/MainTitle"
-        android:layout_marginBottom="8dp"
+        android:drawablePadding="4dp"
+        android:singleLine="true"
         android:text="标题" />
 
     <!-- 语音-->
@@ -26,25 +29,50 @@
     <TextView
         android:id="@+id/tv_topic_content"
         style="@style/MainContent"
-        android:layout_below="@+id/btn_topic_voice"
         android:layout_marginTop="8dp"
+        android:layout_below="@+id/btn_topic_voice"
         android:maxLength="2000"
         android:text="内容"
         android:textIsSelectable="true" />
 
-    <!-- 图片-->
-    <com.tongban.im.widget.view.ChildGridView
-        android:id="@+id/gv_content"
+    <!-- 预览图 - 3张 -->
+    <LinearLayout
+        android:id="@+id/ll_small_img_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_topic_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:horizontalSpacing="4dp"
-        android:numColumns="1"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="4dp"
-        android:visibility="gone" />
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_small_img_1"
+            style="@style/MainImageContent"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_small_img_2"
+            style="@style/MainImageContent"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/iv_small_img_3"
+            style="@style/MainImageContent"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+    </LinearLayout>
+
 </RelativeLayout>

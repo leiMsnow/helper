@@ -212,7 +212,7 @@ public class DateUtils {
             R.string.october, R.string.november, R.string.december};
 
 
-    public static String formatDateTime1(long fromDate, Context context) {
+    public static String formatDateTime(long fromDate, Context context) {
 
         Date date = longToDate(fromDate);
 
@@ -288,7 +288,7 @@ public class DateUtils {
      * @param context
      * @return
      */
-    public static String formatDateTime(long fromDate, Context context) {
+    public static String formatDateTime1(long fromDate, Context context) {
         Date date = longToDate(fromDate);
 
         //传递进来的时间

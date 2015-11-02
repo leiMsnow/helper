@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.tb.api.utils.ApiConstants;
 import com.tongban.corelib.base.ActivityContainer;

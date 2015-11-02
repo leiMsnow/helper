@@ -88,7 +88,7 @@ public class ProductApi extends BaseApi {
     public void fetchHomeInfo(final IApiCallback callback) {
         mParams = new HashMap<>();
         mParams.put("client_version", AppUtils.getVersionName(mContext));
-        mParams.put("paltform", "Android");
+        mParams.put("platform", "Android");
         simpleRequest(FETCH_HOME_INFO, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {

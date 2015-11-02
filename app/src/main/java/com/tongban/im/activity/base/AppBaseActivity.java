@@ -36,6 +36,10 @@ public abstract class AppBaseActivity extends BaseToolBarActivity implements Req
         Glide.with(this).load(uri).error(Consts.getUserDefaultPortrait()).into(view);
     }
 
+    public void setImagePortrait(String uri, ImageView view) {
+        Glide.with(this).load(uri).error(R.mipmap.ic_default_image).into(view);
+    }
+
     @Override
     protected void setEmptyView(ApiErrorResult result) {
         mEmptyParentView = findViewById(R.id.rl_empty_view_parent);

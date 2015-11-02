@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:minHeight="64dp">
+
+    <View style="@style/HorizontalLine" />
+
+    <com.tongban.corelib.widget.view.FlowLayout
+        android:id="@+id/fl_portrait_container"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_toLeftOf="@+id/tv_collect_count"
+        android:padding="16dp" />
+
+    <!-- 同问人数-->
+    <TextView
+        android:id="@+id/tv_collect_count"
+        style="@style/MainContent.Tips"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:text="0人同问" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/fl_portrait_container"
+        android:background="@color/weak_light_grey"
+        android:minHeight="8dp">
+
+        <!-- 同问人数-->
+        <TextView
+            android:id="@+id/tv_comment_count"
+            style="@style/MainContent.Tips"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:text="0人同问" />
+
+        <!-- 有用-->
+        <TextView
+            android:id="@+id/tv_best"
+            style="@style/MainContent.Tips"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_new"
+            android:enabled="false"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="4dp"
+            android:paddingTop="8dp"
+            android:text="按最新"
+            android:textColor="@color/selector_topic_order_text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_new"
+            android:layout_alignTop="@+id/tv_new"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/tv_new"
+            android:background="@color/normal_grey" />
+
+
+        <!-- 最新-->
+        <TextView
+            android:id="@+id/tv_new"
+            style="@style/MainContent.Tips"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:text="按最新"
+            android:textColor="@color/selector_topic_order_text" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -63,20 +63,19 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
 
         if (item.getTopicContent() != null) {
             if (item.getTopicContent().getTopic_img_url() != null
-                    && item.getTopicContent().getTopic_content_voice() != null) {
+                    && !TextUtils.isEmpty(item.getTopicContent().getTopic_content_voice())) {
                 iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_voice_pic);
 
             } else if (item.getTopicContent().getTopic_img_url() != null) {
                 iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_pic);
 
-            } else if (item.getTopicContent().getTopic_content_voice() != null) {
+            } else if (!TextUtils.isEmpty(item.getTopicContent().getTopic_content_voice())) {
                 iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_voice);
-
             }
-            iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
-            ((TextView) helper.getView(com.voice.tongban.R.id.tv_topic_title))
-                    .setCompoundDrawables(null, null, iconType, null);
         }
+        iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
+        ((TextView) helper.getView(com.voice.tongban.R.id.tv_topic_title))
+                .setCompoundDrawables(null, null, iconType, null);
 
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, item.getComment_amount() + "人回答");
@@ -105,7 +104,7 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
                             , ((FlowLayout) helper.getView(R.id.fl_portrait_container)), false);
             Glide.with(mContext)
                     .load(userPortrait[i])
-                    .placeholder(Consts.getUserDefaultPortrait())
+                    .error(Consts.getUserDefaultPortrait())
                     .into(tv);
             ((FlowLayout) helper.getView(R.id.fl_portrait_container)).addView(tv);
         }
