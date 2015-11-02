@@ -54,7 +54,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="4dp"
             android:paddingTop="8dp"
-            tools:text="按最新"
+            android:text="按最新"
             android:textColor="@color/selector_topic_order_text" />
 
         <View
@@ -78,7 +78,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="16dp"
             android:paddingTop="8dp"
-            tools:text="按最新"
+            android:text="按最新"
             android:textColor="@color/selector_topic_order_text" />
 
     </RelativeLayout>

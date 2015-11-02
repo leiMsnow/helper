@@ -170,8 +170,9 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
      */
     public void onEventMainThread(BaseEvent.CreateTopicCommentEvent obj) {
         super.onEventMainThread(obj);
-        int commentCount = Integer.parseInt(tvComment.getText().toString());
-        tvComment.setText(String.valueOf(commentCount + 1));
+        //Integer.parseInt(tvComment.getText().toString());
+        int commentCount = Integer.parseInt(mTopicInfo.getComment_amount());
+        tvComment.setText(String.valueOf(commentCount + 1)+"回答");
         mCursor = 0;
         TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
     }

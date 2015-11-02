@@ -2,6 +2,10 @@ package com.tb.api.base;
 
 import android.content.Context;
 
+import com.tb.api.GroupApi;
+import com.tb.api.ProductApi;
+import com.tb.api.TopicApi;
+import com.tb.api.UserCenterApi;
 import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.utils.SPUtils;
 
@@ -109,54 +113,54 @@ public class ApiCache {
      */
     public void setDisableCache(String cacheName) {
         int disableCacheTime = 0;
-//        if (cacheName.equals(USER_CACHE_TIME)) {
-//            disableCacheTime = 5;
-//            setDisableCacheUrls(UserCenterApi.USER_INFO);
-//            setDisableCacheUrls(UserCenterApi.FETCH_USER_CENTER_INFO);
-//            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
-//            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
-//
-//        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
-//            disableCacheTime = 10;
-//            //话题相关
-//            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
-//            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
-//            setDisableCacheUrls(TopicApi.TOPIC_INFO);
-//            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
-//            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
-//            //用户相关
-//            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
-//            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
-//            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
-//            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
-//
-//        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
-//            disableCacheTime = 30;
-//            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
-//            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
-//            setDisableCacheUrls(GroupApi.GROUP_INFO);
-//            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
-//
-//            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
-//            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
-//
-//        } else if (cacheName.equals(THEME_CACHE_TIME)) {
-//            disableCacheTime = 10;
-//            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
-//            setDisableCacheUrls(ProductApi.SEARCH_THEME);
-//            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
-//
-//            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
-//
-//        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
-//            disableCacheTime = 10;
-//            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
-//            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
-//            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
-//
-//            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
-//
-//        }
+        if (cacheName.equals(USER_CACHE_TIME)) {
+            disableCacheTime = 5;
+            setDisableCacheUrls(UserCenterApi.USER_INFO);
+            setDisableCacheUrls(UserCenterApi.FETCH_USER_CENTER_INFO);
+            setDisableCacheUrls(UserCenterApi.FETCH_FOCUS_USER_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
+
+        } else if (cacheName.equals(TOPIC_CACHE_TIME)) {
+            disableCacheTime = 10;
+            //话题相关
+            setDisableCacheUrls(TopicApi.RECOMMEND_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.SEARCH_TOPIC_LIST);
+            setDisableCacheUrls(TopicApi.TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.OFFICIAL_TOPIC_INFO);
+            setDisableCacheUrls(TopicApi.TOPIC_COMMENT_LIST);
+            //用户相关
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_REPLY_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_LAUNCH_TOPIC_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
+
+        } else if (cacheName.equals(GROUP_CACHE_TIME)) {
+            disableCacheTime = 30;
+            setDisableCacheUrls(GroupApi.RECOMMEND_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.SEARCH_GROUP_LIST);
+            setDisableCacheUrls(GroupApi.GROUP_INFO);
+            setDisableCacheUrls(GroupApi.GROUP_MEMBERS_INFO);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_MY_GROUPS_LIST);
+            setDisableCacheUrls(UserCenterApi.FETCH_PERSONAL_CENTER_INFO);
+
+        } else if (cacheName.equals(THEME_CACHE_TIME)) {
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_THEME);
+            setDisableCacheUrls(ProductApi.FETCH_THEME_COLLECTED_AMOUNT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_COLLECT_MULTIPLE_PRODUCT_LIST);
+
+        } else if (cacheName.equals(PRODUCT_CACHE_TIME)) {
+            disableCacheTime = 10;
+            setDisableCacheUrls(ProductApi.FETCH_THEME_PRODUCTS);
+            setDisableCacheUrls(ProductApi.FETCH_PRODUCT_DETAIL_INFO);
+            setDisableCacheUrls(ProductApi.SEARCH_PRODUCT);
+
+            setDisableCacheUrls(UserCenterApi.FETCH_SINGLE_PRODUCT_LIST);
+
+        }
 
         long cacheTimeMillis = System.currentTimeMillis() + 1000 * 60 * disableCacheTime;
         SPUtils.put(mContext, cacheName, cacheTimeMillis);

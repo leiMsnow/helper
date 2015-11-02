@@ -25,7 +25,7 @@ public class App extends BaseApplication {
         // Log开关
         LogUtil.isDebug = true;
         // 设置服务器地址
-        BaseApi.getInstance().setHostUrl(this, BaseApi.DEFAULT_HOST);
+        BaseApi.getInstance().setHostUrl(this, BaseApi.TEST_HOST);
         // 融云初始化
         RongIM.init(this);
         // 融云事件初始化
