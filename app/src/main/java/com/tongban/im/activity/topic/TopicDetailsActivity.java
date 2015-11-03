@@ -174,7 +174,7 @@ public class TopicDetailsActivity extends TopicDetailsBaseActivity implements
         int commentCount = Integer.parseInt(mTopicInfo.getComment_amount());
         tvComment.setText(String.valueOf(commentCount + 1)+"回答");
         mCursor = 0;
-        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mAdapter.getCount() + 1, this);
+        TopicApi.getInstance().getTopicCommentList(mTopicId, mCursor, mPage, this);
     }
 
 
