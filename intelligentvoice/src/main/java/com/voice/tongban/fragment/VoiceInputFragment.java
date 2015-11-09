@@ -4,6 +4,7 @@ package com.voice.tongban.fragment;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,8 +29,9 @@ public class VoiceInputFragment extends BaseApiFragment implements
         , View.OnClickListener {
 
 
-    ImageView ivSpeak;
     View ivVolumeChanged;
+    TextView tvWelcome;
+    FloatingActionButton ivSpeak;
 
     // 语义理解
     UnderstanderRecognitionUtils mSemanticRecognition;
@@ -54,14 +56,14 @@ public class VoiceInputFragment extends BaseApiFragment implements
 //        mSpeechSynthesizer.onSpeak("");
 
 
-        ivSpeak = (ImageView) mView.findViewById(R.id.iv_speak);
         ivVolumeChanged = mView.findViewById(R.id.v_volume);
+        tvWelcome = (TextView) mView.findViewById(R.id.tv_welcome);
+        ivSpeak = (FloatingActionButton) mView.findViewById(R.id.iv_speak);
 
         ivSpeak.setVisibility(View.VISIBLE);
-
         ivSpeak.setOnClickListener(this);
 
-        mSemanticRecognition.startUnderstanding();
+//        mSemanticRecognition.startUnderstanding();
     }
 
     @Override
@@ -82,6 +84,7 @@ public class VoiceInputFragment extends BaseApiFragment implements
 
     @Override
     public void onStartSpeech() {
+        tvWelcome.setText("倾听中...");
         ivSpeak.setEnabled(false);
         ivVolumeChanged.setVisibility(View.VISIBLE);
     }
@@ -115,6 +118,7 @@ public class VoiceInputFragment extends BaseApiFragment implements
 
     @Override
     public void onFinishSpeech(Understander understander) {
+        tvWelcome.setText("");
         ivSpeak.setEnabled(true);
         setIvVolumeChangedAnim(0.0f);
         // 结果出问题

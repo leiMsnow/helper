@@ -2,6 +2,12 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+
+        <!--<item name="android:windowBackground">@color/white</item>-->
+
         <item name="actionMenuTextColor">@color/white</item>
         <item name="navigationIcon">@mipmap/ic_menu_back</item>
         <item name="actionOverflowButtonStyle">@style/ActionButton.Overflow.Light</item>
@@ -15,27 +21,25 @@
         <item name="android:splitMotionEvents">false</item>
         <item name="android:textViewStyle">@style/Widget.TextView.Style</item>
         <item name="android:textCursorDrawable">@null</item>
-        <item name="toolbarBackground">@drawable/shape_toolbar_bg</item>
 
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/black</item>
+        <item name="colorPrimary">@color/theme_deep_purple</item>
+        <item name="colorPrimaryDark">@color/theme_deep_purple</item>
+        <item name="colorAccent">@color/theme_deep_purple_700</item>
 
     </style>
 
-    <!--<style name="AppTheme.Red">-->
-        <!--<item name="colorPrimary">@color/theme_red</item>-->
-        <!--<item name="colorPrimaryDark">@color/theme_red</item>-->
-        <!--<item name="colorAccent">@color/theme_red_700</item>-->
-    <!--</style>-->
-
-    <style name="AppTheme.Rainbow">
+    <style name="AppTheme.DeepPurple">
 
     </style>
 
     <style name="AppTheme.Translucent">
         <item name="android:windowBackground">@color/translucent_a80</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <style name="AppTheme.Translucent.Full">
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 </resources>

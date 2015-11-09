@@ -1,6 +1,5 @@
 package com.tongban.im.activity.discover;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**

@@ -11,10 +11,17 @@
     <!-- content通用样式-->
     <style name="MainContent">
         <item name="android:textColor">@color/normal_dark_grey</item>
-        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="FABBackground" parent="Widget.Design.FloatingActionButton">
+        <item name="android:src">@mipmap/ic_mic</item>
+        <item name="backgroundTint">@color/normal_mic_bg</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
     </style>
 
 </resources>

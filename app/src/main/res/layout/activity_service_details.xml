@@ -17,6 +17,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
+            app:title=" "
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -28,7 +29,7 @@
                 app:layout_collapseParallaxMultiplier="0.7" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/tb_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -40,7 +41,7 @@
         android:id="@+id/sv_user_center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/weak_grey"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -48,24 +49,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/ptz_head_view_personal_center" />
+            <include layout="@layout/include_service_details_info" />
 
-            <include layout="@layout/ptz_content_view" />
+            <View
+                style="@style/HorizontalLine"
+                android:layout_height="2dp"
+                android:layout_margin="32dp" />
+
+            <include layout="@layout/include_service_details_desc" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/iv_user_portrait"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:layout_marginRight="24dp"
-        app:backgroundTint="@color/white"
+        android:background="@drawable/shape_circle_bg"
         app:backgroundTintMode="src_over"
         app:borderWidth="0dp"
         app:elevation="1dp"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right" />
+        app:layout_anchorGravity="bottom|center">
+
+        <com.tongban.corelib.widget.view.CircleImageView
+            android:id="@+id/iv_user_portrait"
+            style="@style/MainImagePortrait"
+            android:layout_margin="4dp" />
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

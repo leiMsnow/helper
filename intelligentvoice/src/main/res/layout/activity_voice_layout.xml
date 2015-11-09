@@ -2,9 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/translucent_a90"
     android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="48dp"
+        android:scaleType="center"
+        android:src="@mipmap/ic_closed" />
 
     <FrameLayout
         android:id="@+id/fl_content"

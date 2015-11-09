@@ -1,6 +1,7 @@
 package com.voice.tongban.fragment;
 
 
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,7 +36,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
 
     ListView lvVoiceResults;
     IntelligentVoiceAdapter mAdapter;
-    ImageView ivSpeak;
+    FloatingActionButton ivSpeak;
 
     SpeechSynthesizerUtils mSpeechSynthesizer;
 
@@ -56,7 +57,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
         mSpeechSynthesizer = new SpeechSynthesizerUtils(mContext);
 
         lvVoiceResults = (ListView) mView.findViewById(R.id.lv_voice_results);
-        ivSpeak = (ImageView) mView.findViewById(R.id.iv_speak);
+        ivSpeak = (FloatingActionButton) mView.findViewById(R.id.iv_speak);
         mAdapter = new IntelligentVoiceAdapter(mContext, null, VoiceLayout);
         lvVoiceResults.setAdapter(mAdapter);
 

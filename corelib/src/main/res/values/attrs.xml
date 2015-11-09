@@ -74,7 +74,4 @@
         <attr name="android:background" />
     </declare-styleable>
 
-    <!-- toolbarBG-->
-    <attr name="toolbarBackground" format="reference|color"/>
-
 </resources>

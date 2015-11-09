@@ -31,15 +31,9 @@ import io.rong.imkit.model.Event;
  */
 public class ChatActivity extends AppBaseActivity {
 
-    @Bind(R.id.gv_members)
-    GridView gvMembers;
-    @Bind(R.id.members_parent)
-    LinearLayout membersParent;
-
     private String mTitle;
     private String mTargetId;
     private boolean isPrivateChat = true;
-    private MemberGridAdapter mMemberGridAdapter;
 
 
     @Override
@@ -57,10 +51,6 @@ public class ChatActivity extends AppBaseActivity {
             if (!TextUtils.isEmpty(mTitle)) {
                 setTitle(mTitle);
             }
-
-            mMemberGridAdapter = new MemberGridAdapter(mContext, R.layout.item_member_grid, null);
-            gvMembers.setAdapter(mMemberGridAdapter);
-            GroupApi.getInstance().getGroupMembersList(mTargetId, 0, 15, this);
         }
     }
 
@@ -87,22 +77,6 @@ public class ChatActivity extends AppBaseActivity {
     public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {
         finish();
     }
-
-
-    public void onEventMainThread(Event.LastTopicNameEvent topicNameEvent) {
-    }
-
-    public void onEventMainThread(BaseEvent.GroupMemberEvent obj) {
-        membersParent.setVisibility(View.VISIBLE);
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            users.add(obj.users.get(0));
-        }
-        mMemberGridAdapter.addAll(users);
-
-//        mMemberGridAdapter.addAll(obj.users);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();

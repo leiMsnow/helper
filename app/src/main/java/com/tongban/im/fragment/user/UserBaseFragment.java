@@ -24,7 +24,8 @@ import com.tongban.im.fragment.base.AppBaseFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class UserBaseFragment extends AppBaseFragment implements View.OnClickListener {
+public abstract class UserBaseFragment extends AppBaseFragment implements View.OnClickListener {
+
     @Bind(R.id.sv_user_center)
     NestedScrollView lvUserCenter;
     @Bind(R.id.collapsing_toolbar_layout)

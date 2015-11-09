@@ -1,6 +1,5 @@
 package com.tongban.im.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -14,8 +13,6 @@ import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AccountBaseActivity;
-import com.tongban.im.activity.user.ChildInfoActivity;
-import com.tongban.im.common.Consts;
 import com.tongban.im.utils.LocationUtils;
 
 import de.greenrobot.event.EventBus;
@@ -49,33 +46,18 @@ public class LoadingActivity extends AccountBaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 if (TextUtils.isEmpty(SPUtils.get(mContext, Constants.ADDRESS, "").toString())) {
                     LocationUtils.get(mContext).start();
                 }
-                //第一次启动APP，进入设置宝宝界面
-                if ((boolean) SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, Consts.FIRST_SET_CHILD_INFO, true)) {
-                    //为用户随机生成一个头像
-                    randomPortrait();
-                    startActivity(new Intent(mContext, ChildInfoActivity.class));
+                freeAuthToken = SPUtils.get(mContext, Constants.FREEAUTH_TOKEN, "").toString();
+                if (freeAuthToken.equals("")) {
+                    connectIM();
                     finish();
                 } else {
-                    freeAuthToken = SPUtils.get(mContext, Constants.FREEAUTH_TOKEN, "").toString();
-                    if (freeAuthToken.equals("")) {
-                        connectIM();
-                        finish();
-                    } else {
-                        AccountApi.getInstance().tokenLogin(freeAuthToken, LoadingActivity.this);
-                    }
+                    AccountApi.getInstance().tokenLogin(freeAuthToken, LoadingActivity.this);
                 }
             }
-        }, 3 * 1000);
-    }
-
-    //随机生成一个头像标记
-    private void randomPortrait() {
-        SPUtils.put(mContext, SPUtils.NO_CLEAR_FILE, Consts.KEY_DEFAULT_PORTRAIT,
-                Consts.getUserDefaultPortrait());
+        }, 2 * 1000);
     }
 
     //登录成功

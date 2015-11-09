@@ -31,7 +31,7 @@
 
     <!-- actionbar的overflow-->
     <style name="ActionButton.Overflow.Light" parent="Widget.AppCompat.ActionButton.Overflow">
-        <!--<item name="android:src">@mipmap/ic_menu_moreoverflow_mtrl_alpha</item>-->
+        <item name="android:src">@mipmap/ic_menu_overflow</item>
     </style>
     <!-- search_view-->
     <style name="SearchView.Light" parent="Base.Widget.AppCompat.SearchView">
@@ -69,6 +69,10 @@
 
     <style name="Widget.TextView.Style" parent="android:Widget.TextView">
         <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+
     </style>
 
 </resources>

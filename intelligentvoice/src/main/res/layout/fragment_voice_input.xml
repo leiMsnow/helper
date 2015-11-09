@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_rainbow">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/include_volume" />
 
     <TextView
         android:id="@+id/tv_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="168dp"
-        android:text="小伴伴：Hi，有什么能帮您？"
-        android:textColor="#b4b4b4"
+        android:layout_marginTop="48dp"
+        android:text="你可以这样问我"
+        android:textColor="@color/white"
         android:textSize="20dp" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/in_voice"
+        android:layout_below="@+id/tv_welcome"
+        android:layout_marginTop="48dp"
+        android:cacheColorHint="@null"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent"
+        android:scrollbars="none" />
+
+    <include
+        android:id="@+id/in_voice"
+        layout="@layout/include_volume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
 
 </RelativeLayout>

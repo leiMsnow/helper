@@ -109,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/selector_btn_bg_orange"
+        android:background="@drawable/selector_btn_bg"
         android:enabled="false"
         android:text="@string/submit"
         android:textColor="@color/white"

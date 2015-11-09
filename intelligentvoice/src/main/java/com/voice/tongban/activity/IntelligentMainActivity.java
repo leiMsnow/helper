@@ -13,6 +13,8 @@ public class IntelligentMainActivity extends BaseToolBarActivity {
     private VoiceInputFragment inputFragment;
     private VoiceResultFragment resultFragment;
 
+    private View mClose;
+
     private boolean isResult = false;
 
     @Override
@@ -23,6 +25,7 @@ public class IntelligentMainActivity extends BaseToolBarActivity {
     @Override
     protected void initData() {
         setTitle("语音助手");
+        mClose = findViewById(R.id.iv_close);
         if (getIntent() != null)
             isResult = getIntent().getBooleanExtra("result", false);
         inputFragment = VoiceInputFragment.getInstance();
@@ -31,13 +34,17 @@ public class IntelligentMainActivity extends BaseToolBarActivity {
                 .add(R.id.fl_content, inputFragment)
                 .add(R.id.fl_content, resultFragment)
                 .commit();
-    }
 
-    @Override
-    protected void initToolbar() {
-        super.initToolbar();
-        mToolbar.setVisibility(View.GONE);
         voiceTransfer(isResult);
+
+
+        mClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     public void onEventMainThread(VoiceTransfer obj) {
@@ -46,13 +53,11 @@ public class IntelligentMainActivity extends BaseToolBarActivity {
 
     private void voiceTransfer(boolean isResult) {
         if (!isResult) {
-            mToolbar.setVisibility(View.GONE);
             getSupportFragmentManager().beginTransaction()
                     .show(inputFragment)
                     .hide(resultFragment)
                     .commit();
         } else {
-            mToolbar.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction()
                     .hide(inputFragment)
                     .show(resultFragment)

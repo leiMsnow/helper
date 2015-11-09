@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_service_title"
+        style="@style/MainTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:text="标题在这里" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_service_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MainContent.Tips"
+            android:layout_marginRight="8dp"
+            android:text="美甲师" />
+
+        <RatingBar
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressDrawable="@drawable/ratingbar_read_only"
+            android:rating="4"
+            android:stepSize="1" />
+
+        <TextView
+            style="@style/MainContent.Tips"
+            android:textColor="@color/theme_deep_purple"
+            android:text="(4.0)" />
+
+    </LinearLayout>
+
+</RelativeLayout>

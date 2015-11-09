@@ -51,6 +51,11 @@ public class ScreenUtils {
         return outMetrics.heightPixels;
     }
 
+    public static int getScreenHeightNoStatus(Context context) {
+        return getScreenHeight(context) - getStatusHeight(context);
+    }
+
+
     /**
      * 获得状态栏的高度
      *

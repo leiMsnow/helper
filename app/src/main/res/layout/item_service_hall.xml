@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/weak_grey">
+
+    <RelativeLayout
+        android:id="@+id/rl_service_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/selector_corner_white_to_grey_2">
+
+
+        <!-- 背景-->
+        <ImageView
+            android:id="@+id/iv_service_bg"
+            style="@style/MainImageContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!-- 评分-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_ratingbar_bg"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp">
+
+            <RatingBar
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressDrawable="@drawable/ratingbar_read_only"
+                android:rating="4"
+                android:stepSize="1" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                style="@style/MainContent"
+                android:layout_gravity="center_vertical"
+                android:text="(4.0)"
+                android:textColor="@color/theme_deep_purple" />
+        </LinearLayout>
+
+        <!-- 头像-->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_service_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-24dp"
+            android:background="@drawable/shape_circle_bg">
+
+            <com.tongban.corelib.widget.view.CircleImageView
+                android:id="@+id/iv_user_portrait"
+                style="@style/MainImagePortrait"
+                android:layout_margin="4dp" />
+
+        </FrameLayout>
+        <!-- 标题-->
+        <TextView
+            android:id="@+id/tv_service_title"
+            style="@style/MainTitle"
+            android:layout_below="@+id/iv_service_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            tools:text="我是标题" />
+        <!-- 昵称-->
+        <TextView
+            android:id="@+id/tv_service_user"
+            style="@style/MainContent.Tips"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_service_title"
+            android:layout_margin="16dp"
+            tools:text="昵称在这里" />
+        <!-- 这只是一条分割线-->
+        <View
+            android:id="@+id/v_line"
+            style="@style/HorizontalLine"
+            android:layout_below="@+id/tv_service_user" />
+        <!-- 服务描述-->
+        <TextView
+            android:id="@+id/tv_service_desc"
+            style="@style/MainContent"
+            android:layout_below="@+id/v_line"
+            android:layout_margin="16dp"
+            tools:text="这里是服务描述，最大两行数据；这里是描述，最大两行数据；这里是描述，最大两行数据" />
+    </RelativeLayout>
+
+</FrameLayout>
