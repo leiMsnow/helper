@@ -276,7 +276,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/selector_btn_bg</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
 </resources>

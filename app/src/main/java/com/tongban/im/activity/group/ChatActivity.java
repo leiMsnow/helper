@@ -13,6 +13,7 @@ import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.User;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.im.R;
+import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
 
@@ -57,19 +58,21 @@ public class ChatActivity extends AppBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_chat, menu);
-        MenuItem item = menu.findItem(R.id.menu_group_info);
-        if (item != null) {
-            if (!isPrivateChat)
-                item.setVisible(true);
-        }
+//        MenuItem item = menu.findItem(R.id.menu_user_info);
+//        if (item != null) {
+//            if (!isPrivateChat)
+//                item.setVisible(true);
+//        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.menu_group_info) {
-            TransferCenter.getInstance().startGroupInfo(mTargetId, false);
+        if (itemId == R.id.menu_user_info) {
+            SecondDetailsActivity.startDetailsActivity(this
+                    , SecondDetailsActivity.TALENT_DETAILS
+                    , "达人ID");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -77,6 +80,7 @@ public class ChatActivity extends AppBaseActivity {
     public void onEventMainThread(BaseEvent.QuitGroupEvent obj) {
         finish();
     }
+
     @Override
     protected void onPause() {
         super.onPause();

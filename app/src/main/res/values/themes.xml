@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.DeepPurple.Base.WindowBG">
+    <style name="AppTheme.DeepPurple.Base.WindowBackground">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/translucent_a80</item>
     </style>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_service_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_corners_bg_purple"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_service_title"
+            style="@style/MainTitle"
+            android:text="为你做优雅的法式美甲"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_service_desc"
+            style="@style/MainContent"
+            android:layout_below="@+id/tv_service_title"
+            android:layout_marginTop="8dp"
+            android:text="我是一名专业美甲师，哈哈哈哈我是一名专业美甲师，哈哈哈哈我是一名专业美甲师，哈哈哈哈"
+            android:textColor="@color/white" />
+
+        <View
+            android:id="@+id/v_line"
+            style="@style/HorizontalLine"
+            android:layout_below="@+id/tv_service_desc"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_service_time"
+            style="@style/MainContent"
+            android:layout_below="@+id/v_line"
+            android:text="提前一天预约  9：00 - 20：00"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_service_count"
+            style="@style/MainContent"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/v_line"
+            android:text="678want"
+            android:textColor="@color/white" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>

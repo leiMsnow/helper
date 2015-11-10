@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <!-- 星星评分-->
+    <RatingBar
+        android:id="@+id/rb_score"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:progressDrawable="@drawable/ratingbar_read_only"
+        android:rating="4"
+        android:stepSize="1" />
+    <!-- 文字评分-->
+    <TextView
+        android:id="@+id/tv_score"
+        style="@style/MainContent.Tips"
+        android:text="(4.0)"
+        android:textColor="?attr/colorPrimary" />
+
+</LinearLayout>

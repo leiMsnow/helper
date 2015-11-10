@@ -8,7 +8,7 @@
         <activity
             android:name=".activity.IntelligentMainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Translucent.Full" />
+            android:theme="@style/AppTheme.Translucent" />
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.tongban.im.widget.view;
+package com.tongban.corelib.widget.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

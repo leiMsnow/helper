@@ -1,7 +1,6 @@
 package com.tongban.im.fragment;
 
 
-import android.content.Intent;
 import android.view.View;
 
 import com.tb.api.GroupApi;
@@ -11,10 +10,9 @@ import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
 import com.tongban.corelib.widget.view.listener.OnLoadMoreListener;
 import com.tongban.im.R;
-import com.tongban.im.activity.ServiceDetailsActivity;
+import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.adapter.ServiceHallListAdapter;
 import com.tongban.im.fragment.base.AppBaseFragment;
-import com.tongban.im.impl.GroupListenerImpl;
 import com.tongban.im.utils.PTRHeaderUtils;
 
 import butterknife.Bind;
@@ -72,7 +70,9 @@ public class ServiceHallFragment extends AppBaseFragment implements
             @Override
             public void onClick(View view) {
                 if (view.getId() == R.id.rl_service_parent)
-                    startActivity(new Intent(mContext, ServiceDetailsActivity.class));
+                    SecondDetailsActivity.startDetailsActivity(getActivity()
+                            , SecondDetailsActivity.SERVICE_DETAILS
+                            , "服务ID");
             }
         });
     }

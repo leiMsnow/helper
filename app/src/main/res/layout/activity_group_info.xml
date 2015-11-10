@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <!--圈子成员view-->
-            <com.tongban.im.widget.view.ChildGridView
+            <com.tongban.corelib.widget.view.ChildGridView
                 android:id="@+id/gv_members"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

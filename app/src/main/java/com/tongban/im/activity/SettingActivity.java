@@ -91,7 +91,7 @@ public class SettingActivity extends AppBaseActivity implements
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            BaseApi.getInstance().setHostUrl(mContext, BaseApi.TEST_HOST);
+                            BaseApi.getInstance().setHostUrl(mContext, BaseApi.TEST_HOST_66);
                             logout();
                         }
                     });

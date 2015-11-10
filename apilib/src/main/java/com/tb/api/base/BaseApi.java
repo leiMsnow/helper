@@ -31,7 +31,7 @@ import com.tb.api.R;
 /**
  * 输入接口：修改、创建的接口；使用完这些接口后，需要重置disableCache，使输出接口可以收到非缓存结果；
  * 输出接口：列表、详情接口；
- * <p>
+ * <p/>
  * Created by zhangleilei on 15/7/8.
  */
 public class BaseApi {
@@ -83,11 +83,11 @@ public class BaseApi {
     // 正式环境
     public static String DEFAULT_HOST = "http://101.200.83.100/ddim/";
     // 测试环境
-    public static String TEST_HOST = "http://10.255.209.66:8080/ddim/";
+    public static String TEST_HOST_66 = "http://10.255.209.66:8080/ddim/";
     // 67测试环境
     public static String TEST_HOST_67 = "http://10.255.209.67:8080/ddim/";
 
-    public static String TEST_HOST_6 = "http://192.168.81.6:8080/ddim/";
+    public static String TEST_HOST = "http://192.168.132.120:8080/ddim/";
 
     protected BaseApi(Context context) {
         this.mContext = context;
@@ -103,8 +103,10 @@ public class BaseApi {
         return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, DEFAULT_HOST).toString();
     }
 
-    protected String getUserId(){
-        return SPUtils.get(mContext, Constants.USER_ID, "android_visit").toString();
+    // TODO: 11/10/15 修改为测试用，记得改回来
+    protected String getUserId() {
+        return "0_5620b9e52284007c4a418e87";
+//   return  SPUtils.get(mContext, Constants.USER_ID, "android_visit").toString();
     }
 
     /**
@@ -163,7 +165,7 @@ public class BaseApi {
         if (!apiUrl.startsWith("http://") && !apiUrl.startsWith("https://")) {
             apiUrl = getRequestUrl(apiUrl);
         }
-        final String requestUrl = apiUrl+"?t="+System.currentTimeMillis();
+        final String requestUrl = apiUrl + "?t=" + System.currentTimeMillis();
         //是否获取缓存数据标示 true获取实时数据；false获取缓存数据 默认为false，
         final boolean disableCache = ApiCache.getInstance().isCurrentUrl(url);
         final String requestJson = JSON.toJSON(params).toString();
@@ -245,11 +247,10 @@ public class BaseApi {
                     HashMap<String, String> headers = new HashMap<>();
                     headers.put("_P", "Android");
                     headers.put("_V", AppUtils.getVersionName(mContext));
-                    boolean isLogin = !TextUtils.isEmpty(SPUtils.get(mContext,
-                            Constants.USER_ID, "").toString());
+                    boolean isLogin = !TextUtils.isEmpty(getUserId());
                     headers.put("_R_C", CheckID.encode(isLogin, disableCache));
                     if (isLogin)
-                        headers.put("_U", SPUtils.get(mContext, Constants.USER_ID, "").toString());
+                        headers.put("_U", getUserId());
                     return headers;
                 }
             }
@@ -321,8 +322,6 @@ public class BaseApi {
         errorResult.setApiName(apiName);
         return errorResult;
     }
-
-
 
 
 }

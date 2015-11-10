@@ -23,20 +23,7 @@
             android:layout_marginRight="8dp"
             android:text="美甲师" />
 
-        <RatingBar
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:progressDrawable="@drawable/ratingbar_read_only"
-            android:rating="4"
-            android:stepSize="1" />
-
-        <TextView
-            style="@style/MainContent.Tips"
-            android:textColor="@color/theme_deep_purple"
-            android:text="(4.0)" />
+        <include layout="@layout/include_rating_bar" />
 
     </LinearLayout>
 

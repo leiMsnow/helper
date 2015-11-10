@@ -3,26 +3,27 @@ package com.voice.tongban.fragment;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tb.api.AssistApi;
+import com.tb.api.model.AssistTopn;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.voice.tongban.R;
-import com.voice.tongban.model.FinalResult;
-import com.voice.tongban.model.MoreResults;
-import com.voice.tongban.model.OperationType;
+import com.voice.tongban.adapter.AssistTopnAdapter;
 import com.voice.tongban.model.Understander;
 import com.voice.tongban.model.VoiceTransfer;
 import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import com.voice.tongban.utils.UnderstanderRecognitionUtils;
 
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 提问界面
  */
 public class VoiceInputFragment extends BaseApiFragment implements
         UnderstanderRecognitionUtils.SemanticListener
@@ -32,6 +33,9 @@ public class VoiceInputFragment extends BaseApiFragment implements
     View ivVolumeChanged;
     TextView tvWelcome;
     FloatingActionButton ivSpeak;
+    ListView lvTopn;
+
+    AssistTopnAdapter assistTopnAdapter;
 
     // 语义理解
     UnderstanderRecognitionUtils mSemanticRecognition;
@@ -59,10 +63,15 @@ public class VoiceInputFragment extends BaseApiFragment implements
         ivVolumeChanged = mView.findViewById(R.id.v_volume);
         tvWelcome = (TextView) mView.findViewById(R.id.tv_welcome);
         ivSpeak = (FloatingActionButton) mView.findViewById(R.id.iv_speak);
+        lvTopn = (ListView) mView.findViewById(R.id.lv_topn_list);
 
         ivSpeak.setVisibility(View.VISIBLE);
         ivSpeak.setOnClickListener(this);
 
+        assistTopnAdapter = new AssistTopnAdapter(mContext, R.layout.item_assist_topn, null);
+        lvTopn.setAdapter(assistTopnAdapter);
+
+        AssistApi.getInstance().getIssuesTopn(this);
 //        mSemanticRecognition.startUnderstanding();
     }
 
@@ -137,5 +146,13 @@ public class VoiceInputFragment extends BaseApiFragment implements
             mSemanticRecognition.startUnderstanding();
 
     }
+
+
+    public void onEventMainThread(List<AssistTopn> assistTopn) {
+
+        assistTopnAdapter.replaceAll(assistTopn);
+
+    }
+
 
 }

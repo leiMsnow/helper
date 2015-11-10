@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- 功能分割线-->
+    <!-- 功能分割线 - i can -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_height="48dp"
             android:background="@drawable/shape_circle_bg_deep_purple"
             android:gravity="center"
-            android:text="详情"
+            android:text="I Can"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -37,22 +37,12 @@
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/ll_can_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical" />
 
-        <TextView
-            android:id="@+id/tv_service_time"
-            style="@style/MainContent"
-            android:text="时间：想几点就几点。" />
 
-        <TextView
-            android:id="@+id/tv_service_desc"
-            style="@style/MainContent"
-            android:layout_marginTop="16dp"
-            android:text="这里是我的详细描述，真的很详细，能写很多字的，不信你多写一点试试。" />
-
-    </LinearLayout>
 </LinearLayout>

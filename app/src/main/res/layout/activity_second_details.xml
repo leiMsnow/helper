@@ -15,9 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:title=" "
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -44,20 +41,10 @@
         android:background="@color/weak_grey"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/fl_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/include_service_details_info" />
-
-            <View
-                style="@style/HorizontalLine"
-                android:layout_height="2dp"
-                android:layout_margin="32dp" />
-
-            <include layout="@layout/include_service_details_desc" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -79,5 +66,17 @@
             android:layout_margin="4dp" />
 
     </FrameLayout>
+
+    <com.rey.material.widget.Button
+        android:id="@+id/btn_chat"
+        style="@style/CommonButtonStyle"
+        android:enabled="true"
+        android:text="I Want"
+        android:visibility="gone"
+        app:layout_anchor="@id/sv_user_center"
+        app:layout_anchorGravity="bottom"
+        app:rd_enable="true"
+        app:rd_maxRippleRadius="match_view"
+        app:rd_rippleColor="@color/translucent_a80" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.tb.api.AssistApi;
 import com.tb.api.TopicApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.topic.Topic;
@@ -40,6 +41,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
 
     SpeechSynthesizerUtils mSpeechSynthesizer;
 
+    String currentSession;
 
     public static VoiceResultFragment getInstance() {
         VoiceResultFragment resultFragment = new VoiceResultFragment();
@@ -137,7 +139,9 @@ public class VoiceResultFragment extends BaseApiFragment implements
         //语义无法理解提示
         if (understander.getRc() != 0) {
 
-            setErrorResult();
+//            setErrorResult();
+            AssistApi.getInstance()
+                    .createAssistQuery(currentSession, understander.getText(), this);
             return;
         }
 
@@ -150,7 +154,10 @@ public class VoiceResultFragment extends BaseApiFragment implements
             if (understander.getAnswer() != null) {
 
                 if (parseAnswerText(understander.getAnswer().getText())) {
-                    TopicApi.getInstance().searchTopicList(understander.getText(), 0, 10, this);
+                    AssistApi.getInstance()
+                            .createAssistQuery(currentSession, understander.getText(), this);
+
+//                    TopicApi.getInstance().searchTopicList(understander.getText(), 0, 10, this);
                     return;
                 } else {
 
@@ -173,7 +180,11 @@ public class VoiceResultFragment extends BaseApiFragment implements
                     if (!isSetFirst && i == 0) {
 
                         if (parseAnswerText(understander.getAnswer().getText())) {
-                            TopicApi.getInstance().searchTopicList(understander.getText(), 0, 10, this);
+
+                            AssistApi.getInstance()
+                                    .createAssistQuery(currentSession, understander.getText(), this);
+
+//                            TopicApi.getInstance().searchTopicList(understander.getText(), 0, 10, this);
                             return;
                         }
                         mSpeechSynthesizer.onSpeak(understander.getAnswer().getText());
@@ -196,11 +207,11 @@ public class VoiceResultFragment extends BaseApiFragment implements
 
     // 判断是否为本系统的语义反馈
     private boolean parseAnswerText(String answer) {
-        if (answer.equals(OperationType.TB_TOPIC)) {
-            return true;
-        }
+//        if (answer.equals(OperationType.TB_TOPIC)) {
+//            return true;
+//        }
 
-        return false;
+        return true;
     }
 
     public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {

@@ -9,6 +9,6 @@ public class OperationType {
     /**
      * 自定义语义理解
      */
-    public final static String TB_TOPIC = "TB_TOPIC";
+//    public final static String TB_TOPIC = "TB_TOPIC";
 
 }

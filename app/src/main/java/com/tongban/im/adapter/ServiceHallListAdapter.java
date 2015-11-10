@@ -36,8 +36,8 @@ public class ServiceHallListAdapter extends QuickAdapter<Group> {
     @Override
     protected void convert(BaseAdapterHelper helper, Group item) {
         helper.setText(R.id.tv_service_title, item.getGroup_name());
-        helper.setImageBitmap(R.id.iv_service_bg, "http://pic36.nipic.com/20131126/2457387_133328197000_2.jpg");
-        helper.setImageBitmap(R.id.iv_user_portrait, "http://cdn.duitang.com/uploads/item/201409/12/20140912004436_2aK2M.jpeg");
+        helper.setImageBitmap(R.id.iv_service_bg, "http://imglf2.nosdn.127.net/img/cXdOelNkY3ZjdzY0SFBydXRlMFJWRjZMVGJkSjNRS3A2aGVheUtBVmxibER4a01hcy9pRjZnPT0.jpg?imageView&thumbnail=1680x0&quality=96&stripmeta=0&type=jpg");
+        helper.setImageBitmap(R.id.iv_user_portrait, "http://imglf0.nosdn.127.net/img/SzZqcDg4Rk01VGhoOXJGTHJkUXI0NENNTHhUMnF0MzRWUmlSallqUUxNTkJUcVRHclNkNGNnPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg");
         helper.setText(R.id.tv_service_user, "美甲师");
         helper.setText(R.id.tv_service_desc, "这里是服务描述，一般不会超过两行的。我说的是真的，不信你就一直写吧" +
                 ",反正我只显示两行。");
@@ -55,7 +55,7 @@ public class ServiceHallListAdapter extends QuickAdapter<Group> {
         if (helper.getPosition() == 0) {
             FrameLayout.LayoutParams plp = (FrameLayout.LayoutParams)
                     helper.getView(R.id.rl_service_parent).getLayoutParams();
-            plp.topMargin = DensityUtils.dp2px(mContext, 8);
+            plp.topMargin = DensityUtils.dp2px(mContext, 16);
             helper.getView(R.id.rl_service_parent).setLayoutParams(plp);
         }
 

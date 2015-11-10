@@ -273,7 +273,7 @@
         <activity
             android:name=".activity.group.SearchGroupActivity"
             android:label="@string/search_group"
-            android:theme="@style/AppTheme.DeepPurple.Base.WindowBG">
+            android:theme="@style/AppTheme.DeepPurple.Base.WindowBackground">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -402,7 +402,7 @@
         <!-- ******************************** helper ******************************* -->
 
 
-        <activity android:name=".activity.ServiceDetailsActivity">
+        <activity android:name=".activity.SecondDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

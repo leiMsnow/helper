@@ -12,17 +12,15 @@ import com.tb.api.GroupApi;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.group.Group;
 import com.tb.api.utils.ApiConstants;
-import com.tongban.corelib.utils.SPUtils;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.BaseDialog;
+import com.tongban.corelib.widget.view.ChildGridView;
 import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.adapter.MemberGridAdapter;
-import com.tongban.im.common.Consts;
 import com.tongban.im.common.ModelToTable;
 import com.tongban.im.db.helper.GroupDaoHelper;
-import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.Random;
 

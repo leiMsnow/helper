@@ -39,4 +39,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:design:23.0.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7.1'
+    compile 'com.github.rey5137:material:1.2.1'
 }

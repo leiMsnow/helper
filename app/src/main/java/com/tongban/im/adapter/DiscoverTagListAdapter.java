@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.tb.api.model.Tag;
 import com.tb.api.utils.TransferCenter;
+import com.tongban.corelib.widget.view.ChildGridView;
 import com.tongban.im.R;
-import com.tongban.im.widget.view.ChildGridView;
 
 import java.util.List;
 import java.util.Map;

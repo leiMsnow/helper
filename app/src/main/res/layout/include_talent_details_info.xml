@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+    <!-- 达人关注 粉丝 赞综合-->
+    <TextView
+        android:id="@+id/tv_talent_all_count"
+        style="@style/MainTitle"
+        android:layout_marginTop="48dp"
+        android:text="关注226 / 粉丝347 / 赞670" />
+
+    <include
+        layout="@layout/include_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

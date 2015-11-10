@@ -52,7 +52,7 @@
                 android:layout_below="@+id/tv_group_name"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_corners_bg_yellow"
+                android:background="@drawable/shape_corners_stroke_yellow"
                 android:paddingBottom="2dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"

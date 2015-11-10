@@ -24,9 +24,9 @@
     </array>
 
     <integer-array name="google_colors">
-        <item>@color/theme_red</item>
-        <item>@color/theme_red</item>
-        <item>@color/theme_red</item>
-        <item>@color/theme_red</item>
+        <item>@color/weak_grey</item>
+        <item>@color/weak_grey</item>
+        <item>@color/weak_grey</item>
+        <item>@color/weak_grey</item>
     </integer-array>
 </resources>

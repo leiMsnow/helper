@@ -12,9 +12,10 @@
         android:layout_marginTop="48dp"
         android:text="你可以这样问我"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="24dp" />
 
-    <ListView
+    <com.tongban.corelib.widget.view.ChildListView
+        android:id="@+id/lv_topn_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/in_voice"

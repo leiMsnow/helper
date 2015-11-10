@@ -49,7 +49,7 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                         , item
                         , "同城圈"
                         , R.color.theme_deep_purple
-                        , R.drawable.shape_corners_bg_purple
+                        , R.drawable.shape_corners_stroke_deep_purple
                         , R.drawable.shape_group_icon_pressed_deep_purple
                         , R.mipmap.ic_group_city);
                 break;
@@ -58,7 +58,7 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                         , item
                         , "同龄圈"
                         , R.color.theme_pink
-                        , R.drawable.shape_corners_bg_pink
+                        , R.drawable.shape_corners_stroke_pink
                         , R.drawable.shape_group_icon_pressed_pink
                         , R.mipmap.ic_group_age);
                 break;
@@ -67,7 +67,7 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                         , item
                         , "同学圈"
                         , R.color.theme_light_blue
-                        , R.drawable.shape_corners_bg_blue
+                        , R.drawable.shape_corners_stroke_blue
                         , R.drawable.shape_group_icon_pressed_light_blue
                         , R.mipmap.ic_group_classmate);
                 break;
@@ -76,7 +76,7 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                         , item
                         , "生活圈"
                         , R.color.theme_light_green
-                        , R.drawable.shape_corners_bg_green
+                        , R.drawable.shape_corners_stroke_green
                         , R.drawable.shape_group_icon_pressed_light_green
                         , R.mipmap.ic_group_life);
                 break;
@@ -85,7 +85,7 @@ public class GroupListAdapter extends QuickAdapter<Group> {
                         , item
                         , "活动圈"
                         , R.color.theme_yellow
-                        , R.drawable.shape_corners_bg_yellow
+                        , R.drawable.shape_corners_stroke_yellow
                         , R.drawable.shape_group_icon_pressed_yellow
                         , R.mipmap.ic_group_activity);
                 break;
