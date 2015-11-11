@@ -4,7 +4,9 @@ package com.tongban.im.fragment;
 import android.view.View;
 
 import com.tb.api.GroupApi;
+import com.tb.api.TalentApi;
 import com.tb.api.model.BaseEvent;
+import com.tb.api.model.TalentInfo;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.ToastUtil;
 import com.tongban.corelib.widget.view.LoadMoreListView;
@@ -14,6 +16,8 @@ import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.adapter.ServiceHallListAdapter;
 import com.tongban.im.fragment.base.AppBaseFragment;
 import com.tongban.im.utils.PTRHeaderUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -82,15 +86,15 @@ public class ServiceHallFragment extends AppBaseFragment implements
      *
      * @param list
      */
-    public void onEventMainThread(BaseEvent.RecommendGroupListEvent list) {
+    public void onEventMainThread(List<TalentInfo> list) {
         if (mIsPull) {
             ptrFrameLayout.refreshComplete();
             lvServiceHallList.resetLoad();
             mIsPull = false;
             mAdapter.clear();
         }
-        lvServiceHallList.setResultSize(list.groupList.size());
-        mAdapter.addAll(list.groupList);
+        lvServiceHallList.setResultSize(list.size());
+        mAdapter.addAll(list);
         lvServiceHallList.setVisibility(View.VISIBLE);
     }
 
@@ -107,34 +111,6 @@ public class ServiceHallFragment extends AppBaseFragment implements
         hideEmptyView();
     }
 
-    /**
-     * 加入群组成功的事件回调
-     *
-     * @param joinGroupEvent
-     */
-    public void onEventMainThread(BaseEvent.JoinGroupEvent joinGroupEvent) {
-        if (joinGroupEvent.is_verify) {
-            ToastUtil.getInstance(mContext).showToast("已申请,等圈主确认后方可加入");
-        } else {
-            ToastUtil.getInstance(mContext).showToast("加入成功");
-            RongIM.getInstance().startGroupChat(mContext, joinGroupEvent.group_id,
-                    joinGroupEvent.group_name);
-            mIsPull = true;
-            GroupApi.getInstance().recommendGroupList(mCursor, mAdapter.getCount(), this);
-        }
-    }
-
-    /**
-     * 搜索圈子成功的事件
-     *
-     * @param searchGroupEvent
-     */
-    public void onEventMainThread(BaseEvent.SearchGroupListEvent searchGroupEvent) {
-        mAdapter.replaceAll(searchGroupEvent.groups);
-        lvServiceHallList.setVisibility(View.VISIBLE);
-    }
-
-
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout ptrFrameLayout, View view, View view1) {
         return PtrDefaultHandler.checkContentCanBePulledDown(ptrFrameLayout, view, view1);
@@ -149,13 +125,13 @@ public class ServiceHallFragment extends AppBaseFragment implements
     public void onRequest() {
         mIsPull = true;
         mCursor = 0;
-        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
+        TalentApi.getInstance().getTalentUserList(mCursor, mPageSize, this);
     }
 
     @Override
     public void onLoadMore() {
         mCursor++;
-        GroupApi.getInstance().recommendGroupList(mCursor, mPageSize, this);
+        TalentApi.getInstance().getTalentUserList(mCursor, mPageSize, this);
     }
 
 }

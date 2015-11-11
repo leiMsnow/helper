@@ -316,7 +316,7 @@ public class BaseApi {
 
     protected ApiErrorResult createEmptyResult(String apiName) {
         ApiErrorResult errorResult = new ApiErrorResult();
-        errorResult.setDisplayType(IApiCallback.DisplayType.ALL);
+        errorResult.setDisplayType(IApiCallback.DisplayType.View);
         errorResult.setErrorCode(API_URL_ERROR);
         errorResult.setErrorMessage("这里什么也没有");
         errorResult.setApiName(apiName);

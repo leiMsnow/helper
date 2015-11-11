@@ -63,12 +63,12 @@ public class AssistApi extends BaseApi {
         mParams = new HashMap<>();
         mParams.put("session", session);
         mParams.put("issue", issue);
-        mParams.put("user_id", "0_5620b9e52284007c4a418e87");
+        mParams.put("user_id", getUserId());
 
         simpleRequest(ASSIST_ASK, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-//                callback.onStartApi();
+
             }
 
             @Override
@@ -97,7 +97,7 @@ public class AssistApi extends BaseApi {
      *
      * @param callback
      */
-    public void getIssuesTopn(final IApiCallback callback) {
+    public void getAssistTopn(final IApiCallback callback) {
 
         mParams = new HashMap<>();
         mParams.put("cursor", 0);
@@ -107,7 +107,7 @@ public class AssistApi extends BaseApi {
         simpleRequest(ASSIST_TOPN, mParams, new IApiCallback() {
             @Override
             public void onStartApi() {
-//                callback.onStartApi();
+
             }
 
             @Override

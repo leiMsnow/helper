@@ -2,13 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_main"
-        android:icon="@mipmap/ic_menu_home"
+        android:icon="@mipmap/ic_menu_home_pressed"
         android:title="@string/discover"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_chat"
-        android:icon="@mipmap/ic_menu_message"
+        android:icon="@mipmap/ic_menu_message_normal"
         android:title="@string/chat"
         app:showAsAction="ifRoom" />
 

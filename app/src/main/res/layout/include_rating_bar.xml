@@ -18,6 +18,6 @@
         android:id="@+id/tv_score"
         style="@style/MainContent.Tips"
         android:text="(4.0)"
-        android:textColor="?attr/colorPrimary" />
+        android:textColor="#ffb401" />
 
 </LinearLayout>

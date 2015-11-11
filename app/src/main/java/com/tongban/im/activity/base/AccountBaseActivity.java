@@ -29,7 +29,7 @@ public abstract class AccountBaseActivity extends CommonImageResultActivity {
      * @param isChild    是否需要上传宝宝信息
      */
     protected void connectIM(final boolean isOpenMain, final boolean isChild) {
-        RongIM.connect(SPUtils.get(mContext, Constants.IM_BIND_TOKEN, "").toString(),
+        RongIM.connect(SPUtils.get(mContext, Constants.IM_BIND_TOKEN, "ogq34eaythOy6oZ2R5IK3z6P6IK0BQfgiphpw86bO2beDmcaKTkdGFaOuKAL+3arhw6UOS1FNioU6m4Ke23qudWgFJe9Ja9lITBCLqqRFxE3J6Ix0gmg4Q==").toString(),
                 new RongIMClient.ConnectCallback() {
                     @Override
                     public void onTokenIncorrect() {

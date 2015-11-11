@@ -4,16 +4,19 @@
 <resources>
     <!-- transparent-->
     <color name="transparent">#00000000</color>
-    <color name="translucent_a90">#ba000000</color>
-    <color name="translucent_a80">#64000000</color>
-    <color name="translucent_a50">#50000000</color>
-    <color name="translucent_a30">#4d000000</color>
-    <color name="translucent_a10">#20000000</color>
+    <color name="translucent_a90">#9f000000</color>
+    <color name="translucent_a80">#8f000000</color>
+    <color name="translucent_a60">#66000000</color>
+    <color name="translucent_a50">#55000000</color>
+    <color name="translucent_a30">#4f000000</color>
+    <color name="translucent_a20">#33000000</color>
+    <color name="translucent_a10">#22000000</color>
     <!-- black-->
     <color name="black">#000000</color>
     <!-- white-->
     <color name="white">#ffffff</color>
-    <color name="translucent_white_a30">#4dffffff</color>
+    <color name="translucent_white_a30">#4fffffff</color>
+    <color name="translucent_white_a50">#8fffffff</color>
     <!-- grey-->
     <color name="grey_alpha_10">#20fff3c2</color>
     <color name="theme_grey_300_alpha_80">#33e0e0e0</color>

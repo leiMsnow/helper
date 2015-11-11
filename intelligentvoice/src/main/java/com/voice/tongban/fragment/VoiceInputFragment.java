@@ -71,8 +71,8 @@ public class VoiceInputFragment extends BaseApiFragment implements
         assistTopnAdapter = new AssistTopnAdapter(mContext, R.layout.item_assist_topn, null);
         lvTopn.setAdapter(assistTopnAdapter);
 
-        AssistApi.getInstance().getIssuesTopn(this);
-//        mSemanticRecognition.startUnderstanding();
+        AssistApi.getInstance().getAssistTopn(this);
+        mSemanticRecognition.startUnderstanding();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class VoiceInputFragment extends BaseApiFragment implements
 
     @Override
     public void onFinishSpeech(Understander understander) {
-        tvWelcome.setText("");
+        tvWelcome.setText("你可以这样问我");
         ivSpeak.setEnabled(true);
         setIvVolumeChangedAnim(0.0f);
         // 结果出问题
