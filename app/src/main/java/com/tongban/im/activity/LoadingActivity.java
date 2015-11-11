@@ -51,7 +51,8 @@ public class LoadingActivity extends AccountBaseActivity {
                 }
                 freeAuthToken = SPUtils.get(mContext, Constants.FREEAUTH_TOKEN, "").toString();
                 if (freeAuthToken.equals("")) {
-                    connectIM();
+                    TransferCenter.getInstance().startLogin();
+//                    connectIM();
                     finish();
                 } else {
                     AccountApi.getInstance().tokenLogin(freeAuthToken, LoadingActivity.this);
