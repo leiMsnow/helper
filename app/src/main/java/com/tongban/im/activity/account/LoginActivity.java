@@ -22,6 +22,7 @@ import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.OtherRegister;
 import com.tb.api.utils.ApiConstants;
 import com.tb.api.utils.TransferCenter;
+import com.tongban.corelib.base.ActivityContainer;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.utils.Constants;
 import com.tongban.corelib.utils.SPUtils;
@@ -174,8 +175,7 @@ public class LoginActivity extends AccountBaseActivity implements
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(mContext, MainActivity.class));
-        finish();
+        ActivityContainer.getInstance().finishActivity();
     }
 
     /**

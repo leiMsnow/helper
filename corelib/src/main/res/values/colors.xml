@@ -4,7 +4,7 @@
 <resources>
     <!-- transparent-->
     <color name="transparent">#00000000</color>
-    <color name="translucent_a90">#9f000000</color>
+    <color name="translucent_a90">#bf000000</color>
     <color name="translucent_a80">#8f000000</color>
     <color name="translucent_a60">#66000000</color>
     <color name="translucent_a50">#55000000</color>

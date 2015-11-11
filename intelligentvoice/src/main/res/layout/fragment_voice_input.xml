@@ -22,6 +22,7 @@
         android:layout_below="@+id/tv_welcome"
         android:layout_marginTop="48dp"
         android:cacheColorHint="@null"
+        android:layoutAnimation="@anim/layout_anim_translate"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:listSelector="@color/transparent"
