@@ -12,7 +12,34 @@ public class TalentInfo {
     private String producer_name;
     private String producer_id;
     private String tags;
+    private float score;
+    private String producer_desc;
+    private String bg_url;
     private User user;
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    public String getProducer_desc() {
+        return producer_desc;
+    }
+
+    public void setProducer_desc(String producer_desc) {
+        this.producer_desc = producer_desc;
+    }
+
+    public String getBg_url() {
+        return bg_url;
+    }
+
+    public void setBg_url(String bg_url) {
+        this.bg_url = bg_url;
+    }
 
     public User getUser() {
         return user;

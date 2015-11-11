@@ -11,8 +11,8 @@
         android:isIndicator="true"
         android:numStars="5"
         android:progressDrawable="@drawable/ratingbar_read_only"
-        android:rating="4"
-        android:stepSize="1" />
+        android:rating="4.3"
+        android:stepSize="0.1" />
     <!-- 文字评分-->
     <TextView
         android:id="@+id/tv_score"

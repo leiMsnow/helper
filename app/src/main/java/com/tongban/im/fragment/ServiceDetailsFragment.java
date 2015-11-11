@@ -2,11 +2,21 @@ package com.tongban.im.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import com.tb.api.TalentApi;
+import com.tb.api.model.TalentInfo;
+import com.tongban.corelib.widget.view.FlowLayout;
 import com.tongban.im.R;
 import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.fragment.base.AppBaseFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 
 /**
@@ -16,6 +26,20 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
         SecondDetailsActivity.BottomOnClickListener {
 
 
+    @Bind(R.id.tv_service_title)
+    TextView tvServiceTitle;
+    @Bind(R.id.fl_tag)
+    FlowLayout flTag;
+    @Bind(R.id.rb_score)
+    RatingBar rbScore;
+    @Bind(R.id.tv_score)
+    TextView tvScore;
+    @Bind(R.id.tv_service_time)
+    TextView tvServiceTime;
+    @Bind(R.id.tv_service_desc)
+    TextView tvServiceDesc;
+    @Bind(R.id.tv_user_name)
+    TextView tvUserName;
     private String serviceId;
 
     @Override
@@ -44,11 +68,39 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
     @Override
     protected void initData() {
         serviceId = getArguments().getString("serviceId", "");
+        TalentApi.getInstance().getTalentUserDetails(serviceId, this);
     }
 
     @Override
     public void bottomOnClick(String tagId) {
         RongIM.getInstance().startGroupChat(mContext, serviceId,
-                "达人");
+                tvUserName.getText().toString());
+    }
+
+    public void onEventMainThread(TalentInfo obj) {
+
+        if (obj.getUser() != null) {
+            tvUserName.setText(obj.getUser().getNick_name());
+        }
+        String[] themeTags = obj.getTags().split(",");
+        if (themeTags.length > 0) {
+            flTag.removeAllViews();
+            for (String tag : themeTags) {
+                TextView tv = (TextView) LayoutInflater.from(mContext)
+                        .inflate(R.layout.include_service_tips_text
+                                , flTag, false);
+                tv.setText(tag);
+                flTag.addView(tv);
+            }
+        } else {
+            flTag.setVisibility(View.GONE);
+        }
+
+        rbScore.setRating(obj.getScore());
+        tvScore.setText(String.valueOf(obj.getScore()));
+        tvServiceDesc.setText(obj.getProducer_desc());
+    }
+    public interface  ServiceDetailsListener{
+        void serviceDetails(String serviceName,String userPortraitUrl);
     }
 }

@@ -73,10 +73,12 @@ public class ServiceHallFragment extends AppBaseFragment implements
         mAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.getId() == R.id.rl_service_parent)
+                if (view.getId() == R.id.rl_service_parent) {
+                    String serviceId = view.getTag().toString();
                     SecondDetailsActivity.startDetailsActivity(getActivity()
                             , SecondDetailsActivity.SERVICE_DETAILS
-                            , "服务ID");
+                            , serviceId);
+                }
             }
         });
     }

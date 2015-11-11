@@ -11,6 +11,7 @@ import com.tongban.corelib.base.BaseApplication;
 import com.tongban.corelib.base.api.IApiCallback;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.tongban.corelib.model.ApiListResult;
+import com.tongban.corelib.model.ApiResult;
 
 import java.util.HashMap;
 
@@ -26,6 +27,10 @@ public class TalentApi extends BaseApi {
      * 列出所有的达人
      */
     public final static String TALENT_USER_LIST = "/producer/query/list";
+    /**
+     * 单个达人信息
+     */
+    public final static String TALENT_USER_DETAILS = "/producer/info";
 
 
     private TalentApi(Context context) {
@@ -73,8 +78,43 @@ public class TalentApi extends BaseApi {
                         callback.onComplete(apiResponse.getData().getResult());
                 } else {
                     if (callback != null)
-                        callback.onFailure(createEmptyResult(TALENT_USER_LIST));
+                        callback.onFailure(createEmptyResult(TALENT_USER_DETAILS));
                 }
+            }
+
+            @Override
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
+            }
+
+        });
+
+    }
+
+    /**
+     * 获取单个达人信息
+     *
+     * @param userId   达人ID
+     * @param callback
+     */
+    public void getTalentUserDetails(String userId, final IApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("producer_id", userId);
+
+        simpleRequest(TALENT_USER_DETAILS, mParams, new IApiCallback() {
+            @Override
+            public void onStartApi() {
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<TalentInfo> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<TalentInfo>>(){});
+
+                if (callback != null)
+                    callback.onComplete(result.getData());
             }
 
             @Override

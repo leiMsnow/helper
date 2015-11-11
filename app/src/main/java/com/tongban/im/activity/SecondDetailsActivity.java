@@ -24,8 +24,8 @@ public class SecondDetailsActivity extends AppBaseActivity {
     public static final int SERVICE_DETAILS = 0;
     //达人详情
     public static final int TALENT_DETAILS = 1;
-    @Bind(R.id.sv_user_center)
-    NestedScrollView svUserCenter;
+
+
     @Bind(R.id.btn_chat)
     Button btnChat;
 
@@ -79,7 +79,8 @@ public class SecondDetailsActivity extends AppBaseActivity {
     /**
      * 启动二级页
      *
-     * @param tag
+     * @param tag   打开的界面标记 服务/用户详情
+     * @param tagId 服务ID或者userID
      */
     public static void startDetailsActivity(Activity activity
             , int tag
