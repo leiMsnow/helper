@@ -1,64 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <!-- 功能分割线 - about me -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+
+    <TextView
+        android:id="@+id/tv_about_me"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
-        android:orientation="horizontal">
-
-        <View
-            style="@style/HorizontalLine"
-            android:layout_width="72dp"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:background="?attr/colorPrimary" />
-
-        <TextView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/shape_circle_bg_deep_purple"
-            android:gravity="center"
-            android:text="关于我"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <View
-            style="@style/HorizontalLine"
-            android:layout_width="72dp"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:background="?attr/colorPrimary" />
-
-    </LinearLayout>
+        android:background="@drawable/shape_circle_bg_light_blue"
+        android:gravity="center"
+        android:text="关于我"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_talent_desc"
+        style="@style/MainContent"
+        android:layout_below="@+id/tv_about_me"
+        android:layout_above="@+id/btn_follow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        tools:text="大家好，我是Mia，\n 是一名专业美甲师，平时也爱好服装搭配，化妆、健身。\n\n\n这里是我的详细描述，真的很详细，能写很多字的，不信你多写一点试试。" />
 
-        <TextView
-            android:id="@+id/tv_talent_desc"
-            style="@style/MainContent"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="大家好，我是Mia，\n 是一名专业美甲师，平时也爱好服装搭配，化妆、健身。\n\n\n这里是我的详细描述，真的很详细，能写很多字的，不信你多写一点试试。" />
-
-    </LinearLayout>
 
     <com.rey.material.widget.Button
         android:id="@+id/btn_follow"
         style="@style/CommonButtonStyle"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:enabled="true"
         android:text="关注TA"
         app:layout_anchor="@id/sv_user_center"
@@ -67,4 +43,4 @@
         app:rd_maxRippleRadius="match_view"
         app:rd_rippleColor="@color/translucent_a80" />
 
-</LinearLayout>
+</RelativeLayout>

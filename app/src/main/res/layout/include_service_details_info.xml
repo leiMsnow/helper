@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -8,7 +9,7 @@
         android:id="@+id/tv_service_title"
         style="@style/MainTitle"
         android:layout_marginTop="48dp"
-        android:text="标题在这里" />
+        tools:text="标题在这里" />
 
     <!-- 标签-->
     <RelativeLayout
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:text="昵称"
+            tools:text="昵称"
             android:visibility="gone" />
 
         <include layout="@layout/include_rating_bar" />

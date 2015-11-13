@@ -1,5 +1,9 @@
 package com.tb.api.model;
 
+import android.text.TextUtils;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.tb.api.model.user.User;
 
 /**
@@ -14,6 +18,7 @@ public class TalentInfo {
     private String tags;
     private float score;
     private String producer_desc;
+    private ProducerDesc producerDesc;
     private String bg_url;
     private User user;
 
@@ -25,8 +30,15 @@ public class TalentInfo {
         this.score = score;
     }
 
-    public String getProducer_desc() {
-        return producer_desc;
+    public ProducerDesc getProducer_desc() {
+        if (producerDesc != null) {
+            return producerDesc;
+        }
+        if (!TextUtils.isEmpty(producer_desc)){
+            producerDesc = JSON.parseObject(producer_desc,new TypeReference<ProducerDesc>(){});
+        }
+
+        return producerDesc;
     }
 
     public void setProducer_desc(String producer_desc) {

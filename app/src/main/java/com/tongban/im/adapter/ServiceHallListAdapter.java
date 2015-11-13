@@ -50,7 +50,8 @@ public class ServiceHallListAdapter extends QuickAdapter<TalentInfo> {
             helper.setImageBitmap(R.id.iv_user_portrait, Consts.getUserDefaultPortrait());
         }
 
-        helper.setText(R.id.tv_service_desc, item.getProducer_desc());
+        if (item.getProducer_desc() != null)
+            helper.setText(R.id.tv_service_desc, item.getProducer_desc().getDesc());
 
         String[] themeTags = item.getTags().split(",");
         if (themeTags.length > 0) {

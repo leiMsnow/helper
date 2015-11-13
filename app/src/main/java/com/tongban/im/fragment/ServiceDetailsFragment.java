@@ -98,7 +98,7 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
         tvServiceTitle.setText(obj.getProducer_name());
         rbScore.setRating(obj.getScore());
         tvScore.setText(String.valueOf(obj.getScore()));
-        tvServiceDesc.setText(obj.getProducer_desc());
+        tvServiceDesc.setText(obj.getProducer_desc().getDesc());
     }
 
 }

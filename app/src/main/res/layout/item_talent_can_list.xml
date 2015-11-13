@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/shape_corners_bg_purple"
+        android:background="@drawable/shape_corners_bg_light_blue"
         android:padding="16dp">
 
         <TextView

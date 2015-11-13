@@ -63,7 +63,7 @@ public class AnimatorUtils {
         int startY = random.nextInt(height / 3 * 2) + height / 3;
         int endRotationX = 45;
         int endRotationY = -45;
-        view.setImageResource(R.mipmap.ic_new_msg_y);
+        view.setImageResource(R.mipmap.ic_plane);
         if (startX > 0) {
 
             view.setImageResource(R.mipmap.ic_new_msg_x);

@@ -12,28 +12,16 @@
         android:layout_marginTop="48dp"
         android:orientation="horizontal">
 
-        <View
-            style="@style/HorizontalLine"
-            android:layout_width="72dp"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:background="?attr/colorPrimary" />
 
         <TextView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/shape_circle_bg_deep_purple"
+            android:background="@drawable/shape_circle_bg_light_blue"
             android:gravity="center"
             android:text="I Can"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
-        <View
-            style="@style/HorizontalLine"
-            android:layout_width="72dp"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:background="?attr/colorPrimary" />
 
     </LinearLayout>
 

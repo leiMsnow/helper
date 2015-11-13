@@ -3,7 +3,6 @@ package com.voice.tongban.fragment;
 
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tb.api.AssistApi;
@@ -79,7 +78,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
                 case FinalResult.ANSWER_TEXT:
                     return R.layout.item_list_answer_text;
                 case FinalResult.ANSWER_TOPIC:
-                    return R.layout.item_list_answer_topic;
+                    return R.layout.item_list_answer_card;
             }
             return 0;
         }

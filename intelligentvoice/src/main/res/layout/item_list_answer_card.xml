@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/fl_topic_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/theme_grey_300_alpha_80"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <com.tongban.corelib.widget.view.CircleImageView
+                android:id="@+id/iv_user_portrait"
+                android:layout_width="56dp"
+                android:layout_height="56dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_user_portrait"
+                android:layout_alignTop="@+id/iv_user_portrait"
+                android:layout_toRightOf="@+id/iv_user_portrait"
+                android:orientation="vertical">
+                <!-- 标题-->
+                <TextView
+                    android:id="@+id/tv_topic_title"
+                    style="@style/MainTitle"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    tools:text="标题" />
+
+                <!-- 内容-->
+                <TextView
+                    android:id="@+id/tv_topic_content"
+                    style="@style/MainContent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    tools:text="内容" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>
