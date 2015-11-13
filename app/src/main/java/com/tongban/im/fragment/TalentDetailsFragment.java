@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.tb.api.TalentApi;
+import com.tb.api.model.TalentInfo;
 import com.tongban.im.R;
 import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.adapter.TalentCanDoAdapter;
@@ -68,6 +70,8 @@ public class TalentDetailsFragment extends AppBaseFragment implements
     @Override
     protected void initData() {
         talentId = getArguments().getString("talentId", "");
+
+        TalentApi.getInstance().getTalentUserDetails(talentId,this);
 
         List<String> list = new ArrayList<>();
         list.add("1");

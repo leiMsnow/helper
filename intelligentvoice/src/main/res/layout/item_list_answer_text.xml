@@ -2,15 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_answer"
-        style="@style/MainContent"
+        style="@style/MainTitle"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="48dp"
-        android:background="@drawable/ic_voice_answer"
         android:gravity="center_vertical"
-        android:text="answer" />
+        tools:text="answer"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

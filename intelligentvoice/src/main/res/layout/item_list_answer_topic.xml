@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp">
 
     <RelativeLayout
@@ -10,20 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="48dp"
-        android:background="@drawable/ic_voice_answer"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
         android:paddingBottom="8dp"
-        android:paddingRight="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp">
 
         <!-- 标题-->
         <TextView
             android:id="@+id/tv_topic_title"
             style="@style/MainTitle"
-            android:singleLine="true"
-            android:text="标题"
             android:drawablePadding="4dp"
-            android:drawableRight="@mipmap/ic_voice"/>
+            android:drawableRight="@mipmap/ic_voice"
+            android:singleLine="true"
+            tools:text="标题"
+            android:textColor="@color/white" />
 
 
         <!-- 内容-->
@@ -33,7 +34,7 @@
             android:layout_below="@+id/tv_topic_title"
             android:layout_marginTop="4dp"
             android:maxLines="2"
-            android:text="内容" />
+            tools:text="内容" />
     </RelativeLayout>
 
     <TextView
@@ -45,7 +46,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/shape_voice_result_topic_type"
         android:padding="4dp"
-        android:text="问答"
+        tools:text="问答"
         android:textColor="@color/white"
         android:textSize="10sp" />
 

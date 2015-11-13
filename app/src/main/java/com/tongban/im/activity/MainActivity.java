@@ -1,8 +1,14 @@
 package com.tongban.im.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,15 +18,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.tongban.corelib.base.ActivityContainer;
+import com.tongban.corelib.utils.AnimatorUtils;
+import com.tongban.corelib.utils.DensityUtils;
 import com.tongban.corelib.utils.LogUtil;
-import com.tongban.corelib.widget.view.transformer.DepthPageTransformer;
-import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.corelib.widget.view.transformer.ZoomInPageTransformer;
-import com.tongban.corelib.widget.view.transformer.ZoomOutPageTransformer;
+import com.tongban.im.App;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.fragment.ServiceHallFragment;
@@ -32,7 +40,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.model.Event;
 import io.rong.imlib.model.Conversation;
 
 /**
@@ -52,17 +62,28 @@ public class MainActivity extends AppBaseActivity {
     List<Fragment> mTabs = new ArrayList<>();
 
     MenuItem mHome, mMessage;
+    @Bind(R.id.fl_plane)
+    FrameLayout flPlane;
+
+    VerifyTimerCount timerCount;
+
+    int mPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSwipeBackEnable(false);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         ActivityContainer.getInstance().finishActivity(this);
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
@@ -75,6 +96,9 @@ public class MainActivity extends AppBaseActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         mHome = menu.findItem(R.id.menu_main);
         mMessage = menu.findItem(R.id.menu_chat);
+
+        timerCount = new VerifyTimerCount(mMessage);
+
         return true;
     }
 
@@ -124,6 +148,7 @@ public class MainActivity extends AppBaseActivity {
         mViewPager.setOffscreenPageLimit(mTabs.size());
         mViewPager.setPageTransformer(true, new ZoomInPageTransformer());
 
+
     }
 
     @Override
@@ -144,7 +169,7 @@ public class MainActivity extends AppBaseActivity {
     }
 
 
-    @OnPageChange(value = R.id.fl_container,callback = OnPageChange.Callback.PAGE_SELECTED)
+    @OnPageChange(value = R.id.fl_container, callback = OnPageChange.Callback.PAGE_SELECTED)
     public void onPageSelected(int position) {
         setIndicator(position);
     }
@@ -154,11 +179,12 @@ public class MainActivity extends AppBaseActivity {
     private void setIndicator(int position) {
 
         mViewPager.setCurrentItem(position, true);
-
+        mPosition = position;
         if (position == 0) {
             mHome.setIcon(R.mipmap.ic_menu_home_pressed);
             mMessage.setIcon(R.mipmap.ic_menu_message_normal);
         } else {
+            timerCount.cancel();
             mHome.setIcon(R.mipmap.ic_menu_home_normal);
             mMessage.setIcon(R.mipmap.ic_menu_message_pressed);
         }
@@ -171,4 +197,69 @@ public class MainActivity extends AppBaseActivity {
         moveTaskToBack(true);
     }
 
+    public void onEventMainThread(final Event.OnReceiveMessageEvent message) {
+        if (mPosition == 0) {
+            final ImageView iv = new ImageView(mContext);
+            int wh = DensityUtils.dp2px(mContext, 32);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(wh, wh);
+
+            flPlane.addView(iv, layoutParams);
+
+            AnimatorUtils.animatorPlane(iv, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    flPlane.removeView(iv);
+                    timerCount.start();
+                }
+            });
+        }
+    }
+
+    public class VerifyTimerCount extends CountDownTimer {
+
+        private MenuItem btnCode;
+        long millisLong = 2000;
+
+        public VerifyTimerCount(MenuItem btnCode) {
+            //参数依次为总时长,和计时的时间间隔
+            super(400, 100);
+            this.btnCode = btnCode;
+        }
+
+        @Override
+        public void onFinish() {
+            //计时完毕时触发
+            if (mPosition == 0)
+                btnCode.setIcon(R.mipmap.ic_menu_message_normal);
+            else
+                btnCode.setIcon(R.mipmap.ic_menu_message_pressed);
+            millisLong = 2000;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            LogUtil.d("onTick:" + millisUntilFinished);
+            LogUtil.d("millisLong:" + millisLong);
+            //计时过程显示
+            if (millisLong % 20 == 0) {
+                btnCode.setIcon(R.mipmap.ic_menu_message_normal);
+            } else {
+                btnCode.setIcon(R.mipmap.ic_menu_message_pressed);
+            }
+            millisLong -= 50;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timerCount.onFinish();
+        timerCount = null;
+    }
 }

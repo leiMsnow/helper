@@ -34,7 +34,6 @@ public class ChatActivity extends AppBaseActivity {
 
     private String mTitle;
     private String mTargetId;
-    private boolean isPrivateChat = true;
 
 
     @Override
@@ -48,7 +47,6 @@ public class ChatActivity extends AppBaseActivity {
             Uri uri = getIntent().getData();
             mTargetId = uri.getQueryParameter("targetId");
             mTitle = uri.getQueryParameter("title");
-            isPrivateChat = uri.toString().contains("private");
             if (!TextUtils.isEmpty(mTitle)) {
                 setTitle(mTitle);
             }
@@ -58,11 +56,6 @@ public class ChatActivity extends AppBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_chat, menu);
-//        MenuItem item = menu.findItem(R.id.menu_user_info);
-//        if (item != null) {
-//            if (!isPrivateChat)
-//                item.setVisible(true);
-//        }
         return true;
     }
 
@@ -72,7 +65,7 @@ public class ChatActivity extends AppBaseActivity {
         if (itemId == R.id.menu_user_info) {
             SecondDetailsActivity.startDetailsActivity(this
                     , SecondDetailsActivity.TALENT_DETAILS
-                    , "达人ID");
+                    , mTargetId);
         }
         return super.onOptionsItemSelected(item);
     }

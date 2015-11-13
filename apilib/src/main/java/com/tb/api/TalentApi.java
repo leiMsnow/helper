@@ -28,9 +28,13 @@ public class TalentApi extends BaseApi {
      */
     public final static String TALENT_USER_LIST = "/producer/query/list";
     /**
-     * 单个达人信息
+     * 达人服务描述
      */
-    public final static String TALENT_USER_DETAILS = "/producer/info";
+    public final static String TALENT_INFO = "/producer/info";
+    /**
+     * 达人详细信息
+     */
+    public final static String TALENT_USER_DETAILS = "/producer/detail/info";
 
 
     private TalentApi(Context context) {
@@ -78,7 +82,7 @@ public class TalentApi extends BaseApi {
                         callback.onComplete(apiResponse.getData().getResult());
                 } else {
                     if (callback != null)
-                        callback.onFailure(createEmptyResult(TALENT_USER_DETAILS));
+                        callback.onFailure(createEmptyResult(TALENT_USER_LIST));
                 }
             }
 
@@ -93,9 +97,45 @@ public class TalentApi extends BaseApi {
     }
 
     /**
-     * 获取单个达人信息
+     * 达人服务描述
      *
-     * @param userId   达人ID
+     * @param serviceId 服务ID
+     * @param callback
+     */
+    public void getTalentInfo(String serviceId, final IApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("producer_id", serviceId);
+
+        simpleRequest(TALENT_INFO, mParams, new IApiCallback() {
+            @Override
+            public void onStartApi() {
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+                ApiResult<TalentInfo> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<TalentInfo>>() {
+                        });
+
+                if (callback != null)
+                    callback.onComplete(result.getData());
+            }
+
+            @Override
+            public void onFailure(ApiErrorResult result) {
+                if (callback != null)
+                    callback.onFailure(result);
+            }
+
+        });
+
+    }
+
+    /**
+     * 获取达人详细信息
+     *
+     * @param userId
      * @param callback
      */
     public void getTalentUserDetails(String userId, final IApiCallback callback) {
@@ -111,7 +151,8 @@ public class TalentApi extends BaseApi {
             @Override
             public void onComplete(Object obj) {
                 ApiResult<TalentInfo> result = JSON.parseObject(obj.toString(),
-                        new TypeReference<ApiResult<TalentInfo>>(){});
+                        new TypeReference<ApiResult<TalentInfo>>() {
+                        });
 
                 if (callback != null)
                     callback.onComplete(result.getData());

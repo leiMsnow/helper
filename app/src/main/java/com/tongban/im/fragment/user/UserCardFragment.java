@@ -27,6 +27,8 @@ import com.tongban.corelib.widget.view.transformer.ScalePageTransformer;
 import com.tongban.im.R;
 import com.tongban.im.adapter.UserInfoAdapter;
 import com.tongban.im.common.Consts;
+import com.tongban.im.common.ModelToTable;
+import com.tongban.im.db.helper.UserDaoHelper;
 import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
@@ -170,6 +172,8 @@ public class UserCardFragment extends AppBaseFragment implements View.OnClickLis
     }
 
     protected void setDataInfo(User user) {
+        // 将用户信息保存到本地数据库
+        UserDaoHelper.get(mContext).addData(ModelToTable.userToTable(user));
         mUserInfo = user;
 
         rlFansNum.setEnabled(true);

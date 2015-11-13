@@ -124,7 +124,6 @@ public class EmojiPagerAdapter extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            Log.d("EmojiAdapter", "getView offset:" + mOffset + " index:" + position);
 
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.rc_wi_emoji_txt, null);

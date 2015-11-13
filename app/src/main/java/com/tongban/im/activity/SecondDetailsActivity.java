@@ -3,20 +3,25 @@ package com.tongban.im.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.rey.material.widget.Button;
+import com.tb.api.model.TalentInfo;
 import com.tongban.corelib.utils.LogUtil;
+import com.tongban.corelib.widget.view.CircleImageView;
 import com.tongban.im.R;
 import com.tongban.im.activity.base.AppBaseActivity;
 import com.tongban.im.fragment.ServiceDetailsFragment;
 import com.tongban.im.fragment.TalentDetailsFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class SecondDetailsActivity extends AppBaseActivity {
 
@@ -28,8 +33,18 @@ public class SecondDetailsActivity extends AppBaseActivity {
 
     @Bind(R.id.btn_chat)
     Button btnChat;
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.iv_user_portrait)
+    CircleImageView ivUserPortrait;
+    @Bind(R.id.iv_bg_url)
+    ImageView ivBgUrl;
+    @Bind(R.id.fl_portrait)
+    FrameLayout flPortrait;
+    @Bind(R.id.sv_user_center)
+    NestedScrollView svUserCenter;
 
-    private int mFragmentTag = -1;
+
     private String mTagId;
 
     private Fragment mFragment;
@@ -49,7 +64,7 @@ public class SecondDetailsActivity extends AppBaseActivity {
     @Override
     protected void initData() {
         if (getIntent() != null) {
-            mFragmentTag = getIntent().getIntExtra("fragment_tag", -1);
+            int mFragmentTag = getIntent().getIntExtra("fragment_tag", -1);
             mTagId = getIntent().getStringExtra("tag_id");
 
             switch (mFragmentTag) {
@@ -69,11 +84,34 @@ public class SecondDetailsActivity extends AppBaseActivity {
                         .commit();
             }
         }
+        svUserCenter.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY
+                    , int oldScrollX, int oldScrollY) {
+                LogUtil.d("scrollY:" + scrollY);
+//                    flPortrait.setAlpha(255 - scrollY);
+                if (scrollY > 0) {
+                    flPortrait.setVisibility(View.GONE);
+                } else {
+                    flPortrait.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -107,4 +145,12 @@ public class SecondDetailsActivity extends AppBaseActivity {
         void bottomOnClick(String tagId);
     }
 
+    public void onEventMainThread(TalentInfo talentInfo) {
+        if (talentInfo.getUser() != null
+                && talentInfo.getUser().getPortraitUrl() != null) {
+            setUserPortrait(talentInfo.getUser().getPortraitUrl().getMin(), ivUserPortrait);
+            collapsingToolbarLayout.setTitle(talentInfo.getUser().getNick_name());
+        }
+        setImagePortrait(talentInfo.getBg_url(), ivBgUrl);
+    }
 }

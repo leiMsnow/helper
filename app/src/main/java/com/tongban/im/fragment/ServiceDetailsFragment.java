@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.tongban.im.activity.SecondDetailsActivity;
 import com.tongban.im.fragment.base.AppBaseFragment;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import io.rong.imkit.RongIM;
 
 /**
@@ -40,7 +38,9 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
     TextView tvServiceDesc;
     @Bind(R.id.tv_user_name)
     TextView tvUserName;
-    private String serviceId;
+
+
+    String serviceId;
 
     @Override
     public void onAttach(Activity activity) {
@@ -68,12 +68,12 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
     @Override
     protected void initData() {
         serviceId = getArguments().getString("serviceId", "");
-        TalentApi.getInstance().getTalentUserDetails(serviceId, this);
+        TalentApi.getInstance().getTalentInfo(serviceId, this);
     }
 
     @Override
     public void bottomOnClick(String tagId) {
-        RongIM.getInstance().startGroupChat(mContext, serviceId,
+        RongIM.getInstance().startPrivateChat(mContext, serviceId,
                 tvUserName.getText().toString());
     }
 
@@ -95,12 +95,10 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
         } else {
             flTag.setVisibility(View.GONE);
         }
-
+        tvServiceTitle.setText(obj.getProducer_name());
         rbScore.setRating(obj.getScore());
         tvScore.setText(String.valueOf(obj.getScore()));
         tvServiceDesc.setText(obj.getProducer_desc());
     }
-    public interface  ServiceDetailsListener{
-        void serviceDetails(String serviceName,String userPortraitUrl);
-    }
+
 }
