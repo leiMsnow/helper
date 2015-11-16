@@ -46,47 +46,30 @@ public class IntelligentVoiceAdapter extends QuickAdapter<FinalResult> {
 //                helper.setTag(R.id.tv_answer, item.getMoreResults().getAnswer().getText());
 //                helper.setOnClickListener(R.id.tv_answer, onClickListener);
                 break;
-            case FinalResult.ANSWER_TOPIC:
+            case FinalResult.ANSWER_TALENT:
 
-                helper.setTag(R.id.fl_topic_parent, item.getTopic().getTopic_id());
-                helper.setTag(R.id.fl_topic_parent, Integer.MAX_VALUE, item.getTopic().getTopic_type());
-                helper.setOnClickListener(R.id.fl_topic_parent, onClickListener);
+                if (item.getAnswers().getUser() != null && item.getAnswers().getUser().getPortraitUrl() != null) {
 
-                helper.setText(R.id.tv_topic_title, item.getTopic().getTopic_title());
-                helper.setText(R.id.tv_topic_content
-                        , item.getTopic().getTopicContent().getTopic_content_text());
-                helper.setText(R.id.tv_topic_type, parseTopicType(item.getTopic().getTopic_type()));
-
-                Drawable iconType = mContext.getResources().getDrawable(R.color.transparent);
-
-                if (item.getTopic().getTopicContent().getTopic_img_url() != null
-                        && item.getTopic().getTopicContent().getTopic_content_voice() != null) {
-                    iconType = mContext.getResources().getDrawable(R.mipmap.ic_voice_pic);
-
-                } else if (item.getTopic().getTopicContent().getTopic_img_url() != null) {
-                    iconType = mContext.getResources().getDrawable(R.mipmap.ic_pic);
-
-                } else if (item.getTopic().getTopicContent().getTopic_content_voice() != null) {
-                    iconType = mContext.getResources().getDrawable(R.mipmap.ic_voice);
-
+                    helper.setImageBitmap(R.id.iv_user_portrait, item.getAnswers().getUser().getPortraitUrl().getMin());
+                } else {
+                    helper.setImageBitmap(R.id.iv_user_portrait, R.mipmap.ic_default_image);
                 }
-                iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
-                ((TextView) helper.getView(R.id.tv_topic_title))
-                        .setCompoundDrawables(null, null, iconType, null);
+
+                helper.setText(R.id.tv_name, item.getAnswers().getProducer_name());
+                helper.setRating(R.id.rb_score, item.getAnswers().getScore());
+                helper.setText(R.id.tv_score, String.valueOf(item.getAnswers().getScore()));
+                if (item.getAnswers().getProducer_desc() != null)
+                    helper.setText(R.id.tv_desc, item.getAnswers().getProducer_desc().getDesc());
+
+
+                    helper.setTag(R.id.fl_parent, item.getAnswers().getUser_id());
+                    helper.setTag(R.id.fl_parent, Integer.MAX_VALUE,item.getAnswers().getProducer_name());
+                    helper.setOnClickListener(R.id.fl_parent, onClickListener);
+
+
                 break;
         }
-    }
 
-
-    private String parseTopicType(String type) {
-        if (type.equals(TopicType.THEME)) {
-            return "专题";
-        } else if (type.equals(TopicType.EVALUATION)) {
-            return "问答";
-        } else if (type.equals(TopicType.PRIVATE)) {
-            return "个人";
-        }
-        return "";
     }
 
 }

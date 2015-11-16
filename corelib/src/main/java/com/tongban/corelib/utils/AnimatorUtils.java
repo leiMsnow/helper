@@ -59,7 +59,7 @@ public class AnimatorUtils {
         int width = ScreenUtils.getScreenWidth(view.getContext());
         int wh = DensityUtils.dp2px(view.getContext(), 36);
         Random random = new Random();
-        int startX = random.nextInt(2);
+        int startX = 0;//random.nextInt(2);
         int startY = random.nextInt(height / 3 * 2) + height / 3;
         int endRotationX = 45;
         int endRotationY = -45;

@@ -1,5 +1,7 @@
 package com.voice.tongban.model;
 
+import com.tb.api.model.AssistAnswer;
+import com.tb.api.model.TalentInfo;
 import com.tb.api.model.topic.Topic;
 
 /**
@@ -13,8 +15,8 @@ public class FinalResult {
     public static final int ANSWER_ERROR = 1;
     // 文本类型
     public static final int ANSWER_TEXT = 2;
-    // 话题类型
-    public static final int ANSWER_TOPIC = 3;
+
+    public static final int ANSWER_TALENT = 3;
 
     private int finalType;
 
@@ -24,7 +26,15 @@ public class FinalResult {
 
     private MoreResults moreResults;
 
-    private Topic topic;
+    private TalentInfo answers;
+
+    public TalentInfo getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(TalentInfo answers) {
+        this.answers = answers;
+    }
 
     public String getErrorInfo() {
         return errorInfo;
@@ -34,13 +44,6 @@ public class FinalResult {
         this.errorInfo = errorInfo;
     }
 
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
 
     public int getFinalType() {
         return finalType;

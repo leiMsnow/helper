@@ -14,6 +14,7 @@ import io.rong.imkit.logic.MessageCounterLogic;
 import io.rong.imkit.model.ConversationTypeFilter;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.utils.SystemUtils;
+import io.rong.imkit.widget.provider.CardMessageItemProvider;
 import io.rong.imkit.widget.provider.DiscussionNotificationMessageItemProvider;
 import io.rong.imkit.widget.provider.HandshakeMessageItemProvider;
 import io.rong.imkit.widget.provider.IContainerItemProvider;
@@ -112,6 +113,9 @@ public class RongIM {
         registerMessageTemplate(new PublicServiceRichContentMessageProvider());
         registerMessageTemplate(new HandshakeMessageItemProvider());
         registerMessageTemplate(new UnknownMessageItemProvider());
+        // 新增cardMessage
+        registerMessageTemplate(new CardMessageItemProvider());
+
     }
 
     /**
@@ -177,7 +181,7 @@ public class RongIM {
 
     /**
      * 设置接收消息的监听器。
-     * <p>
+     * <p/>
      * 所有接收到的消息、通知、状态都经由此处设置的监听器处理。包括私聊消息、讨论组消息、群组消息、聊天室消息以及各种状态。
      *
      * @param listener 接收消息的监听器。
@@ -351,25 +355,28 @@ public class RongIM {
     public static interface PublicServiceBehaviorListener {
         /**
          * 当点击关注后执行。
-         * @param context   上下文。
-         * @param info      公众号信息。
-         * @return          如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
+         *
+         * @param context 上下文。
+         * @param info    公众号信息。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
         public boolean onFollowClick(Context context, PublicServiceInfo info);
 
         /**
          * 当点击取消关注后执行。
-         * @param  context  上下文。
-         * @param info      公众号信息。
-         * @return          如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
+         *
+         * @param context 上下文。
+         * @param info    公众号信息。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
         public boolean onUnFollowClick(Context context, PublicServiceInfo info);
 
         /**
          * 当点击进入进入会话后执行。
-         * @param context   上下文。
-         * @param info      公众号信息。
-         * @return          如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
+         *
+         * @param context 上下文。
+         * @param info    公众号信息。
+         * @return 如果用户自己处理了点击后的逻辑处理，则返回 true，否则返回 false，false 走融云默认处理方式。
          */
         public boolean onEnterConversationClick(Context context, PublicServiceInfo info);
     }

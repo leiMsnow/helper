@@ -19,6 +19,14 @@ public class BaseEvent {
     //--------------------------------------话题模块-------------------------------------------------
 
 
+    public static class AssistAnswerEvent{
+        public AssistAnswer answers;
+    }
+
+    public static class AssistTopnEvent{
+        public List<AssistTopn> talentInfo;
+    }
+
     /**
      * 创建话题Event
      */

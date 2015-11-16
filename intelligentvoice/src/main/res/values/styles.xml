@@ -17,6 +17,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!-- 内容标签样式-如：时间等 -->
+    <style name="MainContent.Tips">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/normal_grey</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+    </style>
+
     <style name="FABBackground" parent="Widget.Design.FloatingActionButton">
         <item name="android:src">@mipmap/ic_mic</item>
         <item name="backgroundTint">@color/normal_mic_bg</item>

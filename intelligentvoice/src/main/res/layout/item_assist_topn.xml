@@ -12,6 +12,8 @@
         android:textColor="@color/white"
         app:rd_enable="true"
         app:rd_maxRippleRadius="match_view"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         app:rd_rippleColor="@color/translucent_a80" />
 
 </FrameLayout>

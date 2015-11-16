@@ -27,6 +27,7 @@ import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.model.UIConversation;
 import io.rong.imkit.widget.provider.CameraInputProvider;
+import io.rong.imkit.widget.provider.CardMessageItemProvider;
 import io.rong.imkit.widget.provider.ImageInputProvider;
 import io.rong.imkit.widget.provider.InputProvider;
 import io.rong.imkit.widget.provider.LocationInputProvider;
@@ -133,8 +134,10 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
                 new ContactsProvider(RongContext.getInstance()),// 语音通话
                 new TopicProvider(RongContext.getInstance())//话题
         };
-        RongIM.getInstance().resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
-        RongIM.getInstance().resetInputExtensionProvider(Conversation.ConversationType.GROUP, provider);
+
+
+        RongIM.resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
+        RongIM.resetInputExtensionProvider(Conversation.ConversationType.GROUP, provider);
     }
 
     /**

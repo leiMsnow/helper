@@ -20,7 +20,17 @@ public class TalentInfo {
     private String producer_desc;
     private ProducerDesc producerDesc;
     private String bg_url;
+    private String user_id;
+
     private User user;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public float getScore() {
         return score;

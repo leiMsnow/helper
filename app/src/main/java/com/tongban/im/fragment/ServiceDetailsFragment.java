@@ -73,7 +73,7 @@ public class ServiceDetailsFragment extends AppBaseFragment implements
 
     @Override
     public void bottomOnClick(String tagId) {
-        RongIM.getInstance().startPrivateChat(mContext, serviceId,
+        RongIM.getInstance().startPrivateChat(mContext, tagId,
                 tvUserName.getText().toString());
     }
 

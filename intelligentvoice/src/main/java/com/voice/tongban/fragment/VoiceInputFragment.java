@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.tb.api.AssistApi;
 import com.tb.api.model.AssistTopn;
+import com.tb.api.model.BaseEvent;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.voice.tongban.R;
 import com.voice.tongban.adapter.AssistTopnAdapter;
@@ -148,9 +149,9 @@ public class VoiceInputFragment extends BaseApiFragment implements
     }
 
 
-    public void onEventMainThread(List<AssistTopn> assistTopn) {
+    public void onEventMainThread(BaseEvent.AssistTopnEvent assistTopn) {
 
-        assistTopnAdapter.replaceAll(assistTopn);
+        assistTopnAdapter.replaceAll(assistTopn.talentInfo);
 
     }
 

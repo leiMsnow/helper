@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+
+    <android.support.v7.widget.CardView
         android:id="@+id/fl_topic_parent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="48dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/theme_grey_300_alpha_80"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
 
-        <!-- 标题-->
-        <TextView
-            android:id="@+id/tv_topic_title"
-            style="@style/MainTitle"
-            android:drawablePadding="4dp"
-            android:drawableRight="@mipmap/ic_voice"
-            android:singleLine="true"
-            tools:text="标题"
-            android:textColor="@color/white" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
-        <!-- 内容-->
-        <TextView
-            android:id="@+id/tv_topic_content"
-            style="@style/MainContent"
-            android:layout_below="@+id/tv_topic_title"
-            android:layout_marginTop="4dp"
-            android:maxLines="2"
-            tools:text="内容" />
-    </RelativeLayout>
+            <include layout="@layout/include_answer_top" />
 
-    <TextView
-        android:id="@+id/tv_topic_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fl_topic_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/shape_voice_result_topic_type"
-        android:padding="4dp"
-        tools:text="问答"
-        android:textColor="@color/white"
-        android:textSize="10sp" />
+            <View
+                style="@style/HorizontalLine"
+                android:background="@color/grey_alpha_10" />
+
+            <include layout="@layout/include_answer_center" />
+
+            <View
+                style="@style/HorizontalLine"
+                android:background="@color/grey_alpha_10" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                tools:text="我是条专业的测试数据，服务于item、include、activity、fragment等各种xml中。为什么这么说呢，因为我想多写几条数据，测试一下高度的问题，不知道写了这么多是否合适了，你点击Design看一下吧" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

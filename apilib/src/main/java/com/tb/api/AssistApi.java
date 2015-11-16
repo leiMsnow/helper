@@ -5,6 +5,7 @@ import android.content.Context;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.tb.api.base.BaseApi;
+import com.tb.api.model.AssistAnswer;
 import com.tb.api.model.AssistTopn;
 import com.tb.api.model.BaseEvent;
 import com.tb.api.model.user.User;
@@ -73,13 +74,15 @@ public class AssistApi extends BaseApi {
 
             @Override
             public void onComplete(Object obj) {
-//                ApiResult<BaseEvent.RegisterEvent> apiResponse = JSON.parseObject(obj.toString(),
-//                        new TypeReference<ApiResult<BaseEvent.RegisterEvent>>() {
-//                        });
-//                BaseEvent.RegisterEvent registerEvent = apiResponse.getData();
-//                registerEvent.registerEnum = (BaseEvent.RegisterEvent.RegisterEnum.SMS_CODE);
+                ApiResult<AssistAnswer> result = JSON.parseObject(obj.toString(),
+                        new TypeReference<ApiResult<AssistAnswer>>() {
+                        });
+
+                BaseEvent.AssistAnswerEvent answerEvent = new BaseEvent.AssistAnswerEvent();
+                answerEvent.answers = result.getData();
+
                 if (callback != null)
-                    callback.onComplete(obj);
+                    callback.onComplete(answerEvent);
             }
 
             @Override
@@ -116,8 +119,11 @@ public class AssistApi extends BaseApi {
                         new TypeReference<ApiListResult<AssistTopn>>() {
                         });
 
+                BaseEvent.AssistTopnEvent assistTopnEvent = new BaseEvent.AssistTopnEvent();
+                assistTopnEvent.talentInfo = apiResponse.getData().getResult();
+
                 if (callback != null)
-                    callback.onComplete(apiResponse.getData().getResult());
+                    callback.onComplete(assistTopnEvent);
             }
 
             @Override

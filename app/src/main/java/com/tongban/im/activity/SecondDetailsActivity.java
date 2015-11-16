@@ -88,8 +88,6 @@ public class SecondDetailsActivity extends AppBaseActivity {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY
                     , int oldScrollX, int oldScrollY) {
-                LogUtil.d("scrollY:" + scrollY);
-//                    flPortrait.setAlpha(255 - scrollY);
                 if (scrollY > 0) {
                     flPortrait.setVisibility(View.GONE);
                 } else {

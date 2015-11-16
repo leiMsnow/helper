@@ -7,8 +7,11 @@ import android.widget.ListView;
 
 import com.tb.api.AssistApi;
 import com.tb.api.TopicApi;
+import com.tb.api.model.AssistAnswer;
 import com.tb.api.model.BaseEvent;
+import com.tb.api.model.TalentInfo;
 import com.tb.api.model.topic.Topic;
+import com.tb.api.model.user.User;
 import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
@@ -26,6 +29,7 @@ import com.voice.tongban.utils.SpeechSynthesizerUtils;
 import java.util.Random;
 
 import de.greenrobot.event.EventBus;
+import io.rong.imkit.RongIM;
 
 
 /**
@@ -77,7 +81,7 @@ public class VoiceResultFragment extends BaseApiFragment implements
                 case FinalResult.ANSWER_ERROR:
                 case FinalResult.ANSWER_TEXT:
                     return R.layout.item_list_answer_text;
-                case FinalResult.ANSWER_TOPIC:
+                case FinalResult.ANSWER_TALENT:
                     return R.layout.item_list_answer_card;
             }
             return 0;
@@ -102,16 +106,16 @@ public class VoiceResultFragment extends BaseApiFragment implements
         } else {
             if (v.getId() == R.id.tv_answer) {
 
-            } else if (v.getId() == R.id.fl_topic_parent) {
-                String topicId = v.getTag().toString();
-                String topicType = v.getTag(Integer.MAX_VALUE).toString();
-
-                TransferCenter.getInstance().startTopicDetails(topicId, topicType);
+            } else if (v.getId() == R.id.fl_parent) {
+                String user_id = v.getTag().toString();
+                String name = v.getTag(Integer.MAX_VALUE).toString();
+                RongIM.getInstance().startPrivateChat(mContext, user_id,
+                        name);
             }
         }
     }
 
-    private void setErrorResult(){
+    private void setErrorResult() {
         Random random = new Random();
         String answerList[] = getResources().getStringArray(R.array.voice_answer_error_list);
         int count = answerList.length;
@@ -213,41 +217,25 @@ public class VoiceResultFragment extends BaseApiFragment implements
         return true;
     }
 
-    public void onEventMainThread(BaseEvent.SearchTopicListEvent obj) {
+    public void onEventMainThread(BaseEvent.AssistAnswerEvent answers) {
+        currentSession = answers.answers.getSession_id();
 
-        Random random = new Random();
-        String answerList[] = getResources().getStringArray(R.array.voice_answer_list);
-        int count = answerList.length;
-
-        String resultCount = String.format(answerList[random.nextInt(count)]
-                , obj.topicList.size());
-        mSpeechSynthesizer.onSpeak(resultCount);
-        //设置回答
         FinalResult answerItem = new FinalResult();
-        MoreResults results = new MoreResults();
-        Answer answer = new Answer();
-        answer.setText(resultCount);
-        results.setAnswer(answer);
-        answerItem.setMoreResults(results);
-        answerItem.setFinalType(FinalResult.ANSWER_TEXT);
 
-        mAdapter.add(answerItem);
+        for (TalentInfo talentInfo : answers.answers.getAnswers().getProducers()) {
 
-        for (Topic topic : obj.topicList) {
-
-            answerItem = new FinalResult();
-            answerItem.setTopic(topic);
-            answerItem.setFinalType(FinalResult.ANSWER_TOPIC);
+            answerItem.setFinalType(FinalResult.ANSWER_TALENT);
+            answerItem.setAnswers(talentInfo);
 
             mAdapter.add(answerItem);
-
         }
+
         lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }
 
     public void onEventMainThread(ApiErrorResult obj) {
         if (obj.getApiName().equals(TopicApi.SEARCH_TOPIC_LIST)) {
-           setErrorResult();
+            setErrorResult();
         }
     }
 }

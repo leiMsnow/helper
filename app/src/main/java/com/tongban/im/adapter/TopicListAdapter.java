@@ -73,9 +73,9 @@ public class TopicListAdapter extends QuickAdapter<Topic> {
                 iconType = mContext.getResources().getDrawable(com.voice.tongban.R.mipmap.ic_voice);
             }
         }
-        iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
-        ((TextView) helper.getView(com.voice.tongban.R.id.tv_topic_title))
-                .setCompoundDrawables(null, null, iconType, null);
+//        iconType.setBounds(0, 0, iconType.getMinimumWidth(), iconType.getMinimumHeight());
+//        ((TextView) helper.getView(com.voice.tongban.R.id.tv_topic_title))
+//                .setCompoundDrawables(null, null, iconType, null);
 
         //回复、收藏、地址
         helper.setText(R.id.tv_comment_count, item.getComment_amount() + "人回答");

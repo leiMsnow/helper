@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/rc_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="48dp"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/RCTheme.Message.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/theme_deep_purple"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        tools:text="详情" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            style="@style/RCTheme.Message.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical|left"
+            android:singleLine="true"
+            android:textColor="@color/theme_deep_purple"
+            tools:text="服务类型" />
+
+
+        <TextView
+            android:id="@+id/tv_serviceType"
+            style="@style/RCTheme.Message.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="@color/normal_dark_grey"
+            tools:text="专业技能" />
+
+    </LinearLayout>
+
+    <View style="@style/HorizontalLine" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <TextView
+            style="@style/RCTheme.Message.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical|left"
+            android:singleLine="true"
+            android:textColor="@color/theme_deep_purple"
+            tools:text="价格" />
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/RCTheme.Message.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:singleLine="true"
+            android:textColor="@color/normal_dark_grey"
+            tools:text="5000/26天(6.9折)" />
+
+    </LinearLayout>
+
+    <com.rey.material.widget.Button
+        android:id="@+id/btn_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/theme_deep_purple"
+        android:enabled="true"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:text="去完善"
+        android:textColor="@color/white"
+        app:rd_maxRippleRadius="match_view"
+        app:rd_rippleColor="@color/translucent_a80" />
+
+</LinearLayout>
