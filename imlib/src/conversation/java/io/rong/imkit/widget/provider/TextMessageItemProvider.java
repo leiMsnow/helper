@@ -144,9 +144,9 @@ public class TextMessageItemProvider extends IContainerItemProvider.MessageProvi
         ViewHolder holder = (ViewHolder) v.getTag();
 
         if (data.getMessageDirection() == Message.MessageDirection.SEND) {
-            holder.message.setBackgroundResource(R.drawable.rc_ic_bubble_right);
+            holder.message.setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
         } else {
-            holder.message.setBackgroundResource(R.drawable.rc_ic_bubble_left);
+            holder.message.setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
         }
         SpannableString ss = new SpannableString(content.getContent());
         setSpannable(holder.message, content.getContent(), ss);

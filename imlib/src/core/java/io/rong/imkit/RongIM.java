@@ -98,6 +98,7 @@ public class RongIM {
             registerMessageType((Class<? extends MessageContent>) Class.forName("io.rong.voipkit.message.VoIPAcceptMessage"));
             registerMessageType((Class<? extends MessageContent>) Class.forName("io.rong.voipkit.message.VoIPCallMessage"));
             registerMessageType((Class<? extends MessageContent>) Class.forName("io.rong.voipkit.message.VoIPFinishMessage"));
+            registerMessageType((Class<? extends MessageContent>) Class.forName("io.rong.imkit.message.CardMessage"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

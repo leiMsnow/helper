@@ -40,7 +40,7 @@ public class CardMessageItemProvider extends IContainerItemProvider.MessageProvi
         TextView content;
         TextView price;
         Button finish;
-        LinearLayout mLayout;
+        RelativeLayout mLayout;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CardMessageItemProvider extends IContainerItemProvider.MessageProvi
         holder.content = (TextView) view.findViewById(R.id.tv_serviceType);
         holder.price = (TextView) view.findViewById(R.id.tv_price);
         holder.finish = (Button) view.findViewById(R.id.btn_finish);
-        holder.mLayout = (LinearLayout) view.findViewById(R.id.rc_layout);
+        holder.mLayout = (RelativeLayout) view.findViewById(R.id.rc_layout);
 
         view.setTag(holder);
         return view;
@@ -96,14 +96,14 @@ public class CardMessageItemProvider extends IContainerItemProvider.MessageProvi
     @Override
     public void bindView(View v, int position, CardMessage content, Message message) {
         ViewHolder holder = (ViewHolder) v.getTag();
-        holder.title.setText(content.getTitle());
+//        holder.title.setText(content.getTitle());
         holder.content.setText(content.getServiceType());
         holder.price.setText(content.getPrice());
 
         if (message.getMessageDirection() == Message.MessageDirection.SEND) {
             holder.mLayout.setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
         } else {
-            holder.mLayout.setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
+            holder.mLayout.setBackgroundResource(R.drawable.ic_card_bg_left);
         }
     }
 

@@ -44,8 +44,15 @@ public class TalentInfo {
         if (producerDesc != null) {
             return producerDesc;
         }
-        if (!TextUtils.isEmpty(producer_desc)){
-            producerDesc = JSON.parseObject(producer_desc,new TypeReference<ProducerDesc>(){});
+        if (!TextUtils.isEmpty(producer_desc)) {
+            try {
+
+                producerDesc = JSON.parseObject(producer_desc, new TypeReference<ProducerDesc>() {
+                });
+
+            } catch (Exception e) {
+
+            }
         }
 
         return producerDesc;

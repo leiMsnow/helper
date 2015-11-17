@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/rc_layout"
-    android:layout_width="match_parent"
+    android:layout_width="240dp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="48dp"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/tv_title"
         style="@style/RCTheme.Message.TextView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/theme_deep_purple"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/white"
-        tools:text="详情" />
+        android:text="详情"
+        android:textColor="@color/white" />
 
 
     <LinearLayout
+        android:id="@+id/ll_service_type"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_below="@+id/tv_title"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
@@ -35,8 +34,8 @@
             android:layout_marginRight="8dp"
             android:gravity="center_vertical|left"
             android:singleLine="true"
-            android:textColor="@color/theme_deep_purple"
-            tools:text="服务类型" />
+            android:text="服务类型"
+            android:textColor="@color/theme_deep_purple" />
 
 
         <TextView
@@ -51,11 +50,15 @@
 
     </LinearLayout>
 
-    <View style="@style/HorizontalLine" />
+    <View
+        style="@style/HorizontalLine"
+        android:layout_below="@+id/ll_service_type" />
 
     <LinearLayout
+        android:id="@+id/ll_price"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_below="@+id/ll_service_type"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
@@ -67,8 +70,8 @@
             android:layout_marginRight="8dp"
             android:gravity="center_vertical|left"
             android:singleLine="true"
-            android:textColor="@color/theme_deep_purple"
-            tools:text="价格" />
+            android:text="价格"
+            android:textColor="@color/theme_deep_purple" />
 
 
         <TextView
@@ -87,6 +90,8 @@
         android:id="@+id/btn_finish"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_below="@+id/ll_price"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="8dp"
@@ -99,4 +104,4 @@
         app:rd_maxRippleRadius="match_view"
         app:rd_rippleColor="@color/translucent_a80" />
 
-</LinearLayout>
+</RelativeLayout>

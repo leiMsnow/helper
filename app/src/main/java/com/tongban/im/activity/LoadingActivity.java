@@ -67,7 +67,7 @@ public class LoadingActivity extends AccountBaseActivity {
             TransferCenter.getInstance().startRegister(true);
             finish();
         } else {
-            connectIM(true);
+            connectIM();
         }
     }
 

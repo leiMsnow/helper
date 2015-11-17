@@ -189,7 +189,7 @@ public class LoginActivity extends AccountBaseActivity implements
             if (TextUtils.isEmpty(obj.user.getNick_name())) {
                 TransferCenter.getInstance().startRegister(true);
             } else {
-                connectIM(mIsOpenMain, obj.user.getChildInfo() == null);
+                connectIM();
             }
         }
     }

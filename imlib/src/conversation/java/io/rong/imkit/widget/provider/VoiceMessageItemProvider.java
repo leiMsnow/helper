@@ -214,7 +214,7 @@ public class VoiceMessageItemProvider extends IContainerItemProvider.MessageProv
             drawable.start();
         }
 
-        holder.img.setBackgroundResource(R.drawable.rc_ic_bubble_left);
+        holder.img.setBackgroundResource(R.drawable.rc_ic_bubble_no_left);
 
 
     }
@@ -229,7 +229,7 @@ public class VoiceMessageItemProvider extends IContainerItemProvider.MessageProv
             drawable.start();
         }
         holder.img.setScaleType(ImageView.ScaleType.FIT_END);
-        holder.img.setBackgroundResource(R.drawable.rc_ic_bubble_right);
+        holder.img.setBackgroundResource(R.drawable.rc_ic_bubble_no_right);
 
     }
 
