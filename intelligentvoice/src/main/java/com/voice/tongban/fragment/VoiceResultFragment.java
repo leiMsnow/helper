@@ -1,24 +1,21 @@
 package com.voice.tongban.fragment;
 
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ListView;
 
 import com.tb.api.AssistApi;
 import com.tb.api.TopicApi;
-import com.tb.api.model.AssistAnswer;
 import com.tb.api.model.BaseEvent;
+import com.tb.api.model.Knowledge;
 import com.tb.api.model.TalentInfo;
-import com.tb.api.model.topic.Topic;
-import com.tb.api.model.user.User;
-import com.tb.api.utils.TransferCenter;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.fragment.BaseApiFragment;
 import com.tongban.corelib.model.ApiErrorResult;
 import com.voice.tongban.R;
 import com.voice.tongban.adapter.IntelligentVoiceAdapter;
-import com.voice.tongban.model.Answer;
 import com.voice.tongban.model.FinalResult;
 import com.voice.tongban.model.MoreResults;
 import com.voice.tongban.model.OperationType;
@@ -30,6 +27,8 @@ import java.util.Random;
 
 import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.message.CardMessage;
+import io.rong.imkit.tools.RongWebviewActivity;
 
 
 /**
@@ -83,13 +82,15 @@ public class VoiceResultFragment extends BaseApiFragment implements
                     return R.layout.item_list_answer_text;
                 case FinalResult.ANSWER_TALENT:
                     return R.layout.item_list_answer_card;
+                case FinalResult.ANSWER_KNOWLEDGES:
+                    return R.layout.item_list_answer_line;
             }
             return 0;
         }
 
         @Override
         public int getViewTypeCount() {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -113,6 +114,11 @@ public class VoiceResultFragment extends BaseApiFragment implements
                 AssistApi.getInstance().setAssistUpdate(currentSession, dealerId, this);
                 RongIM.getInstance().startPrivateChat(mContext, user_id,
                         name);
+            } else if (v.getId() == R.id.fl_parent_line) {
+                String url = v.getTag().toString();
+                Intent intent = new Intent(mContext, RongWebviewActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
             }
         }
     }
@@ -223,14 +229,24 @@ public class VoiceResultFragment extends BaseApiFragment implements
         currentSession = answers.answers.getSession_id();
 
         FinalResult answerItem = new FinalResult();
+        if (answers.answers.getAnswers().getProducers() != null) {
 
-        for (TalentInfo talentInfo : answers.answers.getAnswers().getProducers()) {
+            for (TalentInfo talentInfo : answers.answers.getAnswers().getProducers()) {
 
-            answerItem.setFinalType(FinalResult.ANSWER_TALENT);
-            answerItem.setAnswers(talentInfo);
+                answerItem.setFinalType(FinalResult.ANSWER_TALENT);
+                answerItem.setTalentInfo(talentInfo);
 
-            mAdapter.add(answerItem);
+            }
+        } else if (answers.answers.getAnswers().getKnowledges() != null) {
+            for (Knowledge answers1 : answers.answers.getAnswers().getKnowledges()) {
+
+                answerItem.setFinalType(FinalResult.ANSWER_KNOWLEDGES);
+                answerItem.setKnowledgeAnswers(answers1);
+
+            }
         }
+
+        mAdapter.add(answerItem);
 
         lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }

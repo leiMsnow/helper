@@ -1,5 +1,10 @@
 package com.tb.api.model;
 
+import android.text.TextUtils;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+
 import java.util.List;
 
 /**
@@ -28,8 +33,19 @@ public class AssistAnswer {
         this.session_id = session_id;
     }
 
+
     public class Answers {
         List<TalentInfo> producers;
+
+        List<Knowledge> knowledges;
+
+        public List<Knowledge> getKnowledges() {
+            return knowledges;
+        }
+
+        public void setKnowledges(List<Knowledge> knowledges) {
+            this.knowledges = knowledges;
+        }
 
         public List<TalentInfo> getProducers() {
             return producers;
@@ -39,4 +55,6 @@ public class AssistAnswer {
             this.producers = producers;
         }
     }
+
+
 }

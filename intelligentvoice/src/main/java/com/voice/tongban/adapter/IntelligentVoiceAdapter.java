@@ -1,11 +1,8 @@
 package com.voice.tongban.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.TextView;
 
-import com.tb.api.model.topic.TopicType;
 import com.tongban.corelib.base.adapter.BaseAdapterHelper;
 import com.tongban.corelib.base.adapter.IMultiItemTypeSupport;
 import com.tongban.corelib.base.adapter.QuickAdapter;
@@ -48,26 +45,31 @@ public class IntelligentVoiceAdapter extends QuickAdapter<FinalResult> {
                 break;
             case FinalResult.ANSWER_TALENT:
 
-                if (item.getAnswers().getUser() != null && item.getAnswers().getUser().getPortraitUrl() != null) {
+                if (item.getTalentInfo().getUser() != null && item.getTalentInfo().getUser().getPortraitUrl() != null) {
 
-                    helper.setImageBitmap(R.id.iv_user_portrait, item.getAnswers().getUser().getPortraitUrl().getMin());
+                    helper.setImageBitmap(R.id.iv_user_portrait, item.getTalentInfo().getUser().getPortraitUrl().getMin());
                 } else {
                     helper.setImageBitmap(R.id.iv_user_portrait, R.mipmap.ic_default_image);
                 }
 
-                helper.setText(R.id.tv_name, item.getAnswers().getProducer_name());
-                helper.setRating(R.id.rb_score, item.getAnswers().getScore());
-                helper.setText(R.id.tv_score, String.valueOf(item.getAnswers().getScore()));
-                if (item.getAnswers().getProducer_desc() != null)
-                    helper.setText(R.id.tv_desc, item.getAnswers().getProducer_desc().getDesc());
+                helper.setText(R.id.tv_name, item.getTalentInfo().getProducer_name());
+                helper.setRating(R.id.rb_score, item.getTalentInfo().getScore());
+                helper.setText(R.id.tv_score, String.valueOf(item.getTalentInfo().getScore()));
+                if (item.getTalentInfo().getProducer_desc() != null)
+                    helper.setText(R.id.tv_desc, item.getTalentInfo().getProducer_desc().getDesc());
 
-
-                    helper.setTag(R.id.fl_parent, item.getAnswers().getUser_id());
-                    helper.setTag(R.id.fl_parent, Integer.MAX_VALUE,item.getAnswers().getProducer_name());
-                    helper.setTag(R.id.fl_parent, Integer.MIN_VALUE,item.getAnswers().getProducer_id());
+                    helper.setTag(R.id.fl_parent, item.getTalentInfo().getUser_id());
+                    helper.setTag(R.id.fl_parent, Integer.MAX_VALUE, item.getTalentInfo().getProducer_name());
+                    helper.setTag(R.id.fl_parent, Integer.MIN_VALUE,item.getTalentInfo().getProducer_id());
                     helper.setOnClickListener(R.id.fl_parent, onClickListener);
 
 
+                break;
+            case FinalResult.ANSWER_KNOWLEDGES:
+                helper.setText(R.id.tv_desc, item.getKnowledgeAnswers().getKnowledgeAnswerses().getAnswer());
+
+                helper.setTag(R.id.fl_parent_line,item.getKnowledgeAnswers().getKnowledgeAnswerses().getUrl());
+                helper.setOnClickListener(R.id.fl_parent_line, onClickListener);
                 break;
         }
 

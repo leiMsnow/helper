@@ -144,7 +144,7 @@ public class AssistApi extends BaseApi {
 
         mParams = new HashMap<>();
         mParams.put("session_id", session_id);
-        mParams.put("deal_status", 1);
+        mParams.put("deal_status", "1");
         mParams.put("dealer_id", dealer_id);
 
         simpleRequest(ASSIST_UPDATE, mParams, new IApiCallback() {

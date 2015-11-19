@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
     <android.support.v7.widget.CardView
-        android:id="@+id/fl_topic_parent"
+        android:id="@+id/fl_parent_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -24,26 +23,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-            <include layout="@layout/include_answer_top" />
-
-            <View
-                style="@style/HorizontalLine"
-                android:background="@color/grey_alpha_10" />
-
-            <include layout="@layout/include_answer_center" />
-
-            <View
-                style="@style/HorizontalLine"
-                android:background="@color/grey_alpha_10" />
-
             <TextView
                 android:id="@+id/tv_desc"
+                style="@style/MainContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="3"
                 android:padding="8dp"
-                android:textColor="@color/white"
-                tools:text="我是条专业的测试数据，服务于item、include、activity、fragment等各种xml中。为什么这么说呢，因为我想多写几条数据，测试一下高度的问题，不知道写了这么多是否合适了，你点击Design看一下吧" />
+                android:text="我是条专业的测试数据，服务于item、include、activity、fragment等各种xml中。为什么这么说呢，因为我想多写几条数据，测试一下高度的问题，不知道写了这么多是否合适了，你点击Design看一下吧"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

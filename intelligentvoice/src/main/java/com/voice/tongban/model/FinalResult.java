@@ -1,8 +1,7 @@
 package com.voice.tongban.model;
 
-import com.tb.api.model.AssistAnswer;
+import com.tb.api.model.Knowledge;
 import com.tb.api.model.TalentInfo;
-import com.tb.api.model.topic.Topic;
 
 /**
  * Created by zhangleilei on 10/14/15.
@@ -18,6 +17,8 @@ public class FinalResult {
 
     public static final int ANSWER_TALENT = 3;
 
+    public static final int ANSWER_KNOWLEDGES = 4;
+
     private int finalType;
 
     private String question;
@@ -26,14 +27,24 @@ public class FinalResult {
 
     private MoreResults moreResults;
 
-    private TalentInfo answers;
+    private TalentInfo talentInfo;
 
-    public TalentInfo getAnswers() {
-        return answers;
+    private Knowledge knowledgeAnswers;
+
+    public Knowledge getKnowledgeAnswers() {
+        return knowledgeAnswers;
     }
 
-    public void setAnswers(TalentInfo answers) {
-        this.answers = answers;
+    public void setKnowledgeAnswers(Knowledge knowledgeAnswers) {
+        this.knowledgeAnswers = knowledgeAnswers;
+    }
+
+    public TalentInfo getTalentInfo() {
+        return talentInfo;
+    }
+
+    public void setTalentInfo(TalentInfo talentInfo) {
+        this.talentInfo = talentInfo;
     }
 
     public String getErrorInfo() {
