@@ -109,6 +109,8 @@ public class VoiceResultFragment extends BaseApiFragment implements
             } else if (v.getId() == R.id.fl_parent) {
                 String user_id = v.getTag().toString();
                 String name = v.getTag(Integer.MAX_VALUE).toString();
+                String dealerId = v.getTag(Integer.MIN_VALUE).toString();
+                AssistApi.getInstance().setAssistUpdate(currentSession, dealerId, this);
                 RongIM.getInstance().startPrivateChat(mContext, user_id,
                         name);
             }

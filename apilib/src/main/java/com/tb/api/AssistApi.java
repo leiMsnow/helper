@@ -36,6 +36,10 @@ public class AssistApi extends BaseApi {
      * 最热提问热词
      */
     public final static String ASSIST_TOPN = "/assist/issues/topn";
+    /**
+     * 切换到达人的时候，调用接口
+     */
+    public final static String ASSIST_UPDATE = "/assist/session/update";
 
     private AssistApi(Context context) {
         super(context);
@@ -129,6 +133,36 @@ public class AssistApi extends BaseApi {
             @Override
             public void onFailure(ApiErrorResult result) {
                 result.setDisplayType(DisplayType.Toast);
+                if (callback != null)
+                    callback.onFailure(result);
+            }
+
+        });
+    }
+
+    public void setAssistUpdate(String session_id, String dealer_id, final IApiCallback callback) {
+
+        mParams = new HashMap<>();
+        mParams.put("session_id", session_id);
+        mParams.put("deal_status", 1);
+        mParams.put("dealer_id", dealer_id);
+
+        simpleRequest(ASSIST_UPDATE, mParams, new IApiCallback() {
+            @Override
+            public void onStartApi() {
+
+            }
+
+            @Override
+            public void onComplete(Object obj) {
+
+                if (callback != null)
+                    callback.onComplete(obj);
+            }
+
+            @Override
+            public void onFailure(ApiErrorResult result) {
+                result.setDisplayType(DisplayType.None);
                 if (callback != null)
                     callback.onFailure(result);
             }

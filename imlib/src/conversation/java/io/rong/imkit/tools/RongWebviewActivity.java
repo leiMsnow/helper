@@ -1,26 +1,27 @@
 package io.rong.imkit.tools;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.tongban.corelib.base.activity.BaseToolBarActivity;
 
 import io.rong.imkit.R;
 
 /**
  * Created by weiqinxiao on 15/4/18.
  */
-public class RongWebviewActivity extends Activity {
+public class RongWebviewActivity extends BaseToolBarActivity {
 
     WebView mWebView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.rc_ac_webview);
+    protected int getLayoutRes() {
+        return R.layout.rc_ac_webview;
+    }
 
+    @Override
+    protected void initData() {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
 

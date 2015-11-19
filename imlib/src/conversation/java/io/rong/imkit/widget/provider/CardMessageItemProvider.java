@@ -39,7 +39,6 @@ public class CardMessageItemProvider extends IContainerItemProvider.MessageProvi
         TextView title;
         TextView content;
         TextView price;
-        Button finish;
         RelativeLayout mLayout;
     }
 
@@ -53,7 +52,6 @@ public class CardMessageItemProvider extends IContainerItemProvider.MessageProvi
         holder.title = (TextView) view.findViewById(R.id.tv_title);
         holder.content = (TextView) view.findViewById(R.id.tv_serviceType);
         holder.price = (TextView) view.findViewById(R.id.tv_price);
-        holder.finish = (Button) view.findViewById(R.id.btn_finish);
         holder.mLayout = (RelativeLayout) view.findViewById(R.id.rc_layout);
 
         view.setTag(holder);

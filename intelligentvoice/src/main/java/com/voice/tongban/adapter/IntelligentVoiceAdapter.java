@@ -64,6 +64,7 @@ public class IntelligentVoiceAdapter extends QuickAdapter<FinalResult> {
 
                     helper.setTag(R.id.fl_parent, item.getAnswers().getUser_id());
                     helper.setTag(R.id.fl_parent, Integer.MAX_VALUE,item.getAnswers().getProducer_name());
+                    helper.setTag(R.id.fl_parent, Integer.MIN_VALUE,item.getAnswers().getProducer_id());
                     helper.setOnClickListener(R.id.fl_parent, onClickListener);
 
 

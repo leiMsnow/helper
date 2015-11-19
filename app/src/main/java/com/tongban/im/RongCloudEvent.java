@@ -1,6 +1,7 @@
 package com.tongban.im;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -25,7 +26,9 @@ import com.tongban.im.widget.provider.TopicProvider;
 import io.rong.imkit.PushNotificationManager;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.message.CardMessage;
 import io.rong.imkit.model.UIConversation;
+import io.rong.imkit.tools.RongWebviewActivity;
 import io.rong.imkit.widget.provider.CameraInputProvider;
 import io.rong.imkit.widget.provider.CardMessageItemProvider;
 import io.rong.imkit.widget.provider.ImageInputProvider;
@@ -410,7 +413,11 @@ public final class RongCloudEvent implements RongIMClient.OnReceiveMessageListen
     @Override
     public boolean onMessageClick(Context context, View view, Message message) {
         LogUtil.d(TAG, "onMessageClick");
-
+        if (message.getContent() instanceof CardMessage) {
+            Intent intent = new Intent(mContext, RongWebviewActivity.class);
+            intent.putExtra("url", ((CardMessage) message.getContent()).getUrl());
+            context.startActivity(intent);
+        }
 //        /**
 //         * demo 代码  开发者需替换成自己的代码。
 //         */
