@@ -3,6 +3,7 @@ package com.voice.tongban.fragment;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 
@@ -109,11 +110,13 @@ public class VoiceResultFragment extends BaseApiFragment implements
 
             } else if (v.getId() == R.id.fl_parent) {
                 String user_id = v.getTag().toString();
-                String name = v.getTag(Integer.MAX_VALUE).toString();
-                String dealerId = v.getTag(Integer.MIN_VALUE).toString();
-                AssistApi.getInstance().setAssistUpdate(currentSession, dealerId, this);
-                RongIM.getInstance().startPrivateChat(mContext, user_id,
-                        name);
+                if (!TextUtils.isEmpty(user_id)) {
+                    String name = v.getTag(Integer.MAX_VALUE).toString();
+                    String dealerId = v.getTag(Integer.MIN_VALUE).toString();
+                    AssistApi.getInstance().setAssistUpdate(currentSession, dealerId, this);
+                    RongIM.getInstance().startPrivateChat(mContext, user_id,
+                            name);
+                }
             } else if (v.getId() == R.id.fl_parent_line) {
                 String url = v.getTag().toString();
                 Intent intent = new Intent(mContext, RongWebviewActivity.class);
@@ -228,25 +231,27 @@ public class VoiceResultFragment extends BaseApiFragment implements
     public void onEventMainThread(BaseEvent.AssistAnswerEvent answers) {
         currentSession = answers.answers.getSession_id();
 
-        FinalResult answerItem = new FinalResult();
         if (answers.answers.getAnswers().getProducers() != null) {
 
             for (TalentInfo talentInfo : answers.answers.getAnswers().getProducers()) {
 
+                FinalResult answerItem = new FinalResult();
                 answerItem.setFinalType(FinalResult.ANSWER_TALENT);
                 answerItem.setTalentInfo(talentInfo);
 
+                mAdapter.add(answerItem);
             }
         } else if (answers.answers.getAnswers().getKnowledges() != null) {
             for (Knowledge answers1 : answers.answers.getAnswers().getKnowledges()) {
 
+                FinalResult answerItem = new FinalResult();
                 answerItem.setFinalType(FinalResult.ANSWER_KNOWLEDGES);
                 answerItem.setKnowledgeAnswers(answers1);
 
+                mAdapter.add(answerItem);
             }
         }
 
-        mAdapter.add(answerItem);
 
         lvVoiceResults.smoothScrollToPosition(mAdapter.getCount() - 1);
     }
