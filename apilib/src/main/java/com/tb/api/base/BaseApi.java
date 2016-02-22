@@ -100,13 +100,13 @@ public class BaseApi {
      * @return 服务器地址
      */
     public String getHostUrl() {
-        return SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, DEFAULT_HOST).toString();
+        return TEST_HOST_67;//SPUtils.get(mContext, SPUtils.NO_CLEAR_FILE, HOST_FLAG, TEST_HOST_67).toString();
     }
 
     // TODO: 11/10/15 修改为测试用，记得改回来
     protected String getUserId() {
-        return "0_5620b9e52284007c4a418e87";
-//   return  SPUtils.get(mContext, Constants.USER_ID, "android_visit").toString();
+//        return "0_5620b9e52284007c4a418e87";
+   return  SPUtils.get(mContext, Constants.USER_ID, "android_visit").toString();
     }
 
     /**
